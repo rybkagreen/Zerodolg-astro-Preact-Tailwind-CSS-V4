@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <title>Фон — Доверие (рукопожатие, акварель)</title>
+  <desc>Тёплые оранжевые тона слева и прохладные голубые справа, центральный мотив рукопожатия, мягкие акварельные переходы и полупрозрачные силуэты людей.</desc>
+  <defs>
+    <!-- Палитра -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f2b264" />
+      <stop offset="40%" stop-color="#f6e1b2" />
+      <stop offset="60%" stop-color="#cfe7f6" />
+      <stop offset="100%" stop-color="#6eb4e5" />
+    </linearGradient>
+
+    <!-- Мягкая акварельная текстура -->
+    <filter id="watercolor" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3" result="noise"/>
+      <feGaussianBlur stdDeviation="1.6" in="noise" result="blurNoise"/>
+      <feColorMatrix in="blurNoise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.06 0" result="paper"/>
+      <feBlend in="SourceGraphic" in2="paper" mode="multiply"/>
+    </filter>
+
+    <!-- Размытие для мягких краёв фигур -->
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+    <!-- Силуэт человека -->
+    <g id="person" opacity="0.55">
+      <circle cx="0" cy="-32" r="18" />
+      <path d="M -20,0 Q 0,-8 20,0 L 20,60 Q 0,70 -20,60 Z" />
+    </g>
+
+    <!-- Левая рука (тёплая) -->
+    <path id="handLeft" d="M 520,560 C 560,520 640,520 700,550 C 730,565 760,600 780,630 C 760,640 730,650 700,650 C 650,650 600,640 560,620 C 520,600 500,580 520,560 Z" />
+
+    <!-- Правая рука (холодная) -->
+    <path id="handRight" d="M 1400,560 C 1360,520 1280,520 1220,550 C 1190,565 1160,600 1140,630 C 1160,640 1190,650 1220,650 C 1270,650 1320,640 1360,620 C 1400,600 1420,580 1400,560 Z" />
+
+    <!-- Пальцы (абстрактные штрихи) -->
+    <path id="fingersWarm" d="M 740,605 q 12,8 0,18 M 720,595 q 12,8 0,18 M 700,588 q 12,8 0,18 M 680,582 q 12,8 0,18"/>
+    <path id="fingersCool" d="M 1160,605 q -12,8 0,18 M 1180,595 q -12,8 0,18 M 1200,588 q -12,8 0,18 M 1220,582 q -12,8 0,18"/>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="1920" height="1080" fill="url(#bgGradient)" filter="url(#watercolor)"/>
+
+  <!-- Силуэты людей слева (тёплые) -->
+  <g fill="#f0b05e" filter="url(#soft)">
+    <use href="#person" transform="translate(240,600) scale(1.7)"/>
+    <use href="#person" transform="translate(160,650) scale(1.3)"/>
+    <use href="#person" transform="translate(320,660) scale(1.2)"/>
+    <use href="#person" transform="translate(80,700) scale(1.0)"/>
+  </g>
+
+  <!-- Силуэты людей справа (холодные) -->
+  <g fill="#6fb5e6" filter="url(#soft)">
+    <use href="#person" transform="translate(1680,600) scale(-1.7,1.7)"/>
+    <use href="#person" transform="translate(1760,650) scale(-1.3,1.3)"/>
+    <use href="#person" transform="translate(1600,660) scale(-1.2,1.2)"/>
+    <use href="#person" transform="translate(1840,700) scale(-1.0,1.0)"/>
+  </g>
+
+  <!-- Рукопожатие (перекрытие в центре) -->
+  <g>
+    <use href="#handLeft" fill="#f1a85a" filter="url(#soft)"/>
+    <use href="#handRight" fill="#5eaad6" filter="url(#soft)"/>
+    <use href="#fingersWarm" stroke="#e89c4f" stroke-width="10" fill="none" filter="url(#soft)"/>
+    <use href="#fingersCool" stroke="#539fcb" stroke-width="10" fill="none" filter="url(#soft)"/>
+  </g>
+
+  <!-- Мягкие мазки поверх для акварельного ощущение -->
+  <g opacity="0.35" filter="url(#soft)">
+    <ellipse cx="620" cy="520" rx="360" ry="180" fill="#f6d59a"/>
+    <ellipse cx="1300" cy="520" rx="360" ry="180" fill="#9fd0ee"/>
+  </g>
+</svg>
+

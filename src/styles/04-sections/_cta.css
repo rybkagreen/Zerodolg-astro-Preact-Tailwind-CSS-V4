@@ -1,0 +1,920 @@
+/* ==========================================================================
+   CTA (Call-to-Action) Section
+   Professional final conversion form with dark theme and enhanced styling
+   ========================================================================== */
+
+/* Block: CTA section container */
+.cta {
+  position: relative;
+  /* Улучшенный градиент от тёмного к светлому с плавными переходами */
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,      /* Очень тёмный синий */
+    #1e3a8a 25%,     /* Тёмный синий */
+    #2563eb 50%,     /* Основной синий */
+    #3b82f6 75%,     /* Светлый синий */  
+    #60a5fa 100%     /* Очень светлый синий */
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+  padding: var(--space-4xl, 5rem) 0;
+  overflow: hidden;
+  color: var(--color-white, #ffffff);
+  min-height: 100vh; /* Минимальная высота на весь экран */
+  display: flex;
+  align-items: center;
+}
+
+/* Улучшенная анимация градиента с плавным движением */
+@-webkit-keyframes gradient-shift {
+  0% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    background-position: 50% 50%;
+    filter: hue-rotate(10deg);
+  }
+  50% { 
+    background-position: 100% 100%;
+    filter: hue-rotate(20deg);
+  }
+  75% { 
+    background-position: 50% 50%;
+    filter: hue-rotate(10deg);
+  }
+  100% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Mozilla support */
+@-moz-keyframes gradient-shift {
+  0% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    background-position: 50% 50%;
+    filter: hue-rotate(10deg);
+  }
+  50% { 
+    background-position: 100% 100%;
+    filter: hue-rotate(20deg);
+  }
+  75% { 
+    background-position: 50% 50%;
+    filter: hue-rotate(10deg);
+  }
+  100% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Standard syntax */
+@keyframes gradient-shift {
+  0% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    background-position: 50% 50%;
+    filter: hue-rotate(10deg);
+  }
+  50% { 
+    background-position: 100% 100%;
+    filter: hue-rotate(20deg);
+  }
+  75% { 
+    background-position: 50% 50%;
+    filter: hue-rotate(10deg);
+  }
+  100% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Background pattern and decorations - улучшенные эффекты */
+.cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(147, 51, 234, 0.3) 0%, transparent 40%),
+    radial-gradient(ellipse at top right, rgba(59, 130, 246, 0.3) 0%, transparent 40%),
+    radial-gradient(ellipse at bottom left, rgba(34, 197, 94, 0.2) 0%, transparent 40%),
+    radial-gradient(ellipse at bottom right, rgba(251, 146, 60, 0.2) 0%, transparent 40%);
+  z-index: 0;
+  pointer-events: none;
+  animation: float-pattern 30s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+/* Анимация плавающего паттерна */
+@keyframes float-pattern {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  33% {
+    transform: scale(1.1) rotate(120deg);
+  }
+  66% {
+    transform: scale(0.95) rotate(240deg);
+  }
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Улучшенный паттерн с геометрическими фигурами */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='p' x='0' y='0' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23ffffff' fill-opacity='0.1'/%3E%3Cpath d='M10 10l20 20M70 10l20 20M10 70l20 20M70 70l20 20' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23p)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  animation: subtle-move 25s linear infinite;
+}
+
+/* Тонкая анимация движения паттерна */
+@keyframes subtle-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(30px, 30px);
+  }
+}
+
+/* Dark section modifier */
+.section--dark {
+  background: var(--color-dark, #1e293b);
+  color: var(--color-white, #ffffff);
+}
+
+/* Container - реальный размер секции */
+.cta .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container-xl, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-lg, 1.5rem);
+}
+
+/* ==========================================================================
+   CTA Header
+   ========================================================================== */
+
+.cta .section__header--white .section__title {
+  color: var(--color-white, #ffffff);
+  font-size: clamp(var(--text-2xl, 1.5rem), 5vw, var(--text-4xl, 2.25rem));
+  font-weight: var(--font-extrabold, 800);
+  margin-bottom: var(--space-lg, 1.5rem);
+  line-height: 1.2;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta .section__header--white .section__subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--text-xl, 1.25rem);
+  margin-bottom: var(--space-2xl, 3rem);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   CTA Wrapper - Two Column Layout
+   ========================================================================== */
+
+.cta__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl, 4rem);
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center; /* Центрируем содержимое по вертикали */
+  min-height: 600px; /* Минимальная высота для контента */
+}
+
+@media (max-width: 992px) {
+  .cta__wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl, 3rem);
+  }
+}
+
+/* ==========================================================================
+   CTA Form Container
+   ========================================================================== */
+
+.cta__form-container {
+  width: 100%;
+}
+
+/* ==========================================================================
+   CTA Form
+   ========================================================================== */
+
+.cta__form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-2xl, 1rem);
+  padding: var(--space-2xl, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta__form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success, #10b981));
+}
+
+/* Fieldset */
+.cta__fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--space-xl, 2rem) 0;
+}
+
+/* ==========================================================================
+   Form Fields
+   ========================================================================== */
+
+.cta__field {
+  margin-bottom: var(--space-lg, 1.5rem);
+  position: relative;
+}
+
+.cta__field:last-of-type {
+  margin-bottom: var(--space-xl, 2rem);
+}
+
+/* Labels */
+.cta__label {
+  display: block;
+  font-weight: var(--font-semibold, 600);
+  font-size: var(--text-sm, 0.875rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: var(--space-sm, 0.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Inputs */
+.cta__input {
+  width: 100%;
+  padding: var(--space-lg, 1.5rem);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg, 0.75rem);
+  font-size: var(--text-base, 1rem);
+  color: var(--color-white, #ffffff);
+  transition: all var(--transition-smooth, 0.3s ease);
+  font-family: inherit;
+}
+
+.cta__input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cta__input:focus {
+  outline: none;
+  border-color: var(--color-primary, #2563eb);
+  box-shadow: 
+    0 0 0 3px rgba(37, 99, 235, 0.3),
+    0 0 20px rgba(37, 99, 235, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.cta__input:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Input states */
+.cta__input:valid {
+  border-color: var(--color-success, #10b981);
+}
+
+.cta__input:invalid:not(:placeholder-shown) {
+  border-color: var(--color-error, #ef4444);
+}
+
+/* Error messages */
+.cta__error {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-error, #ef4444);
+  margin-top: var(--space-xs, 0.5rem);
+  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all var(--transition-fast, 0.2s ease);
+}
+
+.cta__error.is-visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Field with error state */
+.cta__field.has-error .cta__input {
+  border-color: var(--color-error, #ef4444);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ==========================================================================
+   Submit Button
+   ========================================================================== */
+
+.cta__submit {
+  width: 100%;
+  padding: var(--space-lg, 1.5rem) var(--space-xl, 2rem);
+  background: linear-gradient(135deg, var(--color-primary, #2563eb) 0%, var(--color-primary-dark, #1e40af) 100%);
+  color: var(--color-white, #ffffff);
+  border: none;
+  border-radius: var(--radius-lg, 0.75rem);
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--font-bold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all var(--transition-smooth, 0.3s ease);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 25px rgba(37, 99, 235, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin-bottom: var(--space-lg, 1.5rem);
+}
+
+.cta__submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left var(--transition-slow, 0.6s ease);
+}
+
+.cta__submit:hover::before {
+  left: 100%;
+}
+
+.cta__submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 35px rgba(37, 99, 235, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, var(--color-primary-light, #3b82f6) 0%, var(--color-primary, #2563eb) 100%);
+}
+
+.cta__submit:active {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 8px 25px rgba(37, 99, 235, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Loading state */
+.cta__submit:disabled,
+.cta__submit.is-loading {
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none;
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+}
+
+.cta__submit.is-loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid var(--color-white, #ffffff);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: var(--space-sm, 0.5rem);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Agreement Text
+   ========================================================================== */
+
+.cta__agreement {
+  font-size: var(--text-xs, 0.75rem);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cta__agreement a {
+  color: var(--color-primary-light, #60a5fa);
+  text-decoration: underline;
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.cta__agreement a:hover {
+  color: var(--color-primary, #3b82f6);
+}
+
+/* ==========================================================================
+   Success State
+   ========================================================================== */
+
+.cta__success {
+  display: none;
+  text-align: center;
+  padding: var(--space-2xl, 3rem);
+  animation: successSlideIn 0.5s ease-out;
+}
+
+.cta__success.is-visible {
+  display: block;
+}
+
+.cta__success-icon {
+  font-size: 4rem;
+  color: var(--color-success, #10b981);
+  margin-bottom: var(--space-lg, 1.5rem);
+  display: block;
+  animation: successPulse 0.6s ease-out;
+}
+
+.cta__success-title {
+  font-size: var(--text-2xl, 1.5rem);
+  font-weight: var(--font-bold, 700);
+  color: var(--color-white, #ffffff);
+  margin-bottom: var(--space-md, 1rem);
+}
+
+.cta__success-text {
+  font-size: var(--text-lg, 1.125rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl, 2rem);
+}
+
+@keyframes successSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ==========================================================================
+   Manager Info Section
+   ========================================================================== */
+
+.cta__manager-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl, 2rem);
+  padding: var(--space-2xl, 3rem);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-2xl, 1rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta__manager-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold, #fbbf24), var(--color-primary, #2563eb));
+}
+
+/* Emblem */
+.cta__emblem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--space-lg, 1.5rem);
+}
+
+.cta__emblem-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  animation: emblemGlow 3s ease-in-out infinite;
+}
+
+@keyframes emblemGlow {
+  0%, 100% {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 4px 20px rgba(251, 191, 36, 0.4));
+  }
+}
+
+/* Manager Card */
+.cta__manager-card {
+  text-align: center;
+  color: var(--color-white, #ffffff);
+}
+
+.cta__manager-title {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--font-semibold, 600);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--space-sm, 0.5rem);
+}
+
+.cta__manager-name {
+  font-size: var(--text-xl, 1.25rem);
+  font-weight: var(--font-bold, 700);
+  color: var(--color-white, #ffffff);
+  margin-bottom: var(--space-md, 1rem);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta__manager-details {
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-lg, 1.5rem);
+}
+
+/* Manager Link */
+.cta__manager-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm, 0.5rem);
+  padding: var(--space-md, 1rem) var(--space-lg, 1.5rem);
+  background: linear-gradient(135deg, var(--color-gold, #fbbf24) 0%, var(--color-amber, #f59e0b) 100%);
+  color: var(--color-dark, #1e293b);
+  font-weight: var(--font-semibold, 600);
+  font-size: var(--text-sm, 0.875rem);
+  text-decoration: none;
+  border-radius: var(--radius-lg, 0.75rem);
+  transition: all var(--transition-smooth, 0.3s ease);
+  box-shadow: 
+    0 8px 25px rgba(251, 191, 36, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  margin-bottom: var(--space-lg, 1.5rem);
+}
+
+.cta__manager-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 35px rgba(251, 191, 36, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, var(--color-amber, #f59e0b) 0%, var(--color-gold, #fbbf24) 100%);
+}
+
+.cta__manager-link-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  transition: transform var(--transition-fast, 0.2s ease);
+}
+
+.cta__manager-link:hover .cta__manager-link-icon {
+  transform: translate(2px, -2px);
+}
+
+/* Trust Text */
+.cta__manager-trust {
+  padding-top: var(--space-lg, 1.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cta__manager-trust-text {
+  font-size: var(--text-xs, 0.75rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .cta__manager-info {
+    padding: var(--space-xl, 2rem);
+  }
+  
+  .cta__emblem-img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .cta__manager-name {
+    font-size: var(--text-lg, 1.125rem);
+  }
+  
+  .cta__manager-link {
+    font-size: var(--text-xs, 0.75rem);
+    padding: var(--space-sm, 0.5rem) var(--space-md, 1rem);
+  }
+}
+
+/* ==========================================================================
+   Enhanced Visual Elements
+   ========================================================================== */
+
+/* Floating elements for visual appeal - улучшенные декоративные элементы */
+.cta__decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta__decoration {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: float 15s ease-in-out infinite;
+}
+
+.cta__decoration:nth-child(1) {
+  width: 150px;
+  height: 150px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.cta__decoration:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: 10%;
+  animation-delay: 3s;
+  animation-duration: 22s;
+}
+
+.cta__decoration:nth-child(3) {
+  width: 120px;
+  height: 120px;
+  bottom: 15%;
+  left: 15%;
+  animation-delay: 6s;
+  animation-duration: 20s;
+}
+
+.cta__decoration:nth-child(4) {
+  width: 80px;
+  height: 80px;
+  top: 30%;
+  right: 30%;
+  animation-delay: 9s;
+  animation-duration: 16s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translate(30px, -40px) rotate(90deg) scale(1.1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-20px, -60px) rotate(180deg) scale(0.95);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translate(40px, -20px) rotate(270deg) scale(1.05);
+    opacity: 0.35;
+  }
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cta {
+    padding: var(--space-3xl, 4rem) 0;
+  }
+
+  .cta__form {
+    padding: var(--space-xl, 2rem);
+    margin: 0 var(--space-lg, 1.5rem);
+  }
+
+  .cta .section__header--white .section__title {
+    font-size: var(--text-2xl, 1.5rem);
+    margin-bottom: var(--space-md, 1rem);
+  }
+
+  .cta .section__header--white .section__subtitle {
+    font-size: var(--text-lg, 1.125rem);
+    margin-bottom: var(--space-xl, 2rem);
+  }
+
+  .cta__input {
+    padding: var(--space-md, 1rem);
+    font-size: var(--text-sm, 0.875rem);
+  }
+
+  .cta__submit {
+    padding: var(--space-md, 1rem);
+    font-size: var(--text-base, 1rem);
+  }
+
+  .cta__field {
+    margin-bottom: var(--space-md, 1rem);
+  }
+
+  /* Hide decorative elements on mobile for performance */
+  .cta__decorations {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta {
+    padding: var(--space-2xl, 3rem) 0;
+  }
+
+  .cta__form {
+    padding: var(--space-lg, 1.5rem);
+    margin: 0 var(--space-md, 1rem);
+    border-radius: var(--radius-lg, 0.75rem);
+  }
+
+  .cta .section__header--white .section__title {
+    font-size: var(--text-xl, 1.25rem);
+  }
+
+  .cta .section__header--white .section__subtitle {
+    font-size: var(--text-base, 1rem);
+  }
+
+  .cta__success-icon {
+    font-size: 3rem;
+  }
+
+  .cta__success-title {
+    font-size: var(--text-xl, 1.25rem);
+  }
+
+  .cta__success-text {
+    font-size: var(--text-base, 1rem);
+  }
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* Focus styles for keyboard navigation */
+.cta__input:focus,
+.cta__submit:focus {
+  outline: 3px solid var(--color-primary, #2563eb);
+  outline-offset: 3px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .cta {
+    background: #000000;
+  }
+
+  .cta__form {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #ffffff;
+  }
+
+  .cta__input {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+  }
+
+  .cta__submit {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .cta::before,
+  .cta__decoration,
+  .cta__submit::before,
+  .cta__success {
+    animation: none;
+  }
+
+  .cta__input:focus,
+  .cta__submit:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .cta {
+    background: none;
+    color: #000000;
+    padding: var(--space-lg, 1.5rem) 0;
+  }
+
+  .cta::before,
+  .cta::after,
+  .cta__decorations {
+    display: none;
+  }
+
+  .cta__form {
+    background: none;
+    border: 1px solid #cccccc;
+    box-shadow: none;
+  }
+
+  .cta__submit {
+    display: none;
+  }
+
+  .cta .section__header--white .section__title,
+  .cta .section__header--white .section__subtitle {
+    color: #000000;
+    background: none;
+    -webkit-text-fill-color: initial;
+  }
+}

@@ -1,0 +1,401 @@
+/**
+ * CSS Variables - Design Tokens
+ * ZeroDolg.ru Design System
+ */
+
+:root {
+  /* =================================
+     COLORS
+     ================================= */
+
+  /* Primary palette */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #60a5fa;
+
+  /* Accent colors */
+  --color-accent: #ea580c;
+  --color-accent-dark: #c2410c;
+  --color-accent-light: #fb923c;
+  --color-accent-gold: #ffd700;
+  --color-accent-orange: #fb923c;
+
+  /* Success/Error/Warning */
+  --color-success: #059669;
+  --color-success-light: #10b981;
+  --color-error: #dc2626;
+  --color-error-light: #ef4444;
+  --color-warning: #d97706;
+  --color-warning-light: #f59e0b;
+
+  /* Text colors */
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+  --color-text-inverse: #ffffff;
+  
+  /* Gray scale */
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #f3f4f6;
+  --color-white: #ffffff;
+
+  /* Background colors */
+  --color-bg: #ffffff;
+  --color-bg-muted: #f8fafc;
+  --color-bg-dark: #f1f5f9;
+  --color-bg-accent: #eff6ff;
+
+  /* Border colors */
+  --color-border: #e2e8f0;
+  --color-border-dark: #cbd5e1;
+  --color-border-light: rgba(0, 0, 0, 0.05);
+  
+  /* Navigation colors */
+  --color-nav-text: #333333;
+  --color-nav-hover: #2c5aa0;
+  --color-nav-gradient-start: #667eea;
+  --color-nav-gradient-end: #764ba2;
+
+  /* =================================
+     TYPOGRAPHY
+     ================================= */
+
+  /* Font families */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Fira Code", "Courier New", monospace;
+
+  /* Font sizes */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
+
+  /* Font weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* =================================
+     SPACING
+     ================================= */
+
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 0.125rem; /* 2px */
+  --space-1: 0.25rem; /* 4px */
+  --space-1-5: 0.375rem; /* 6px */
+  --space-2: 0.5rem; /* 8px */
+  --space-2-5: 0.625rem; /* 10px */
+  --space-3: 0.75rem; /* 12px */
+  --space-3-5: 0.875rem; /* 14px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-7: 1.75rem; /* 28px */
+  --space-8: 2rem; /* 32px */
+  --space-9: 2.25rem; /* 36px */
+  --space-10: 2.5rem; /* 40px */
+  --space-11: 2.75rem; /* 44px */
+  --space-12: 3rem; /* 48px */
+  --space-14: 3.5rem; /* 56px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-28: 7rem; /* 112px */
+  --space-32: 8rem; /* 128px */
+
+  /* Aliases for convenience */
+  --space-xs: var(--space-2);
+  --space-sm: var(--space-3);
+  --space-md: var(--space-4);
+  --space-lg: var(--space-6);
+  --space-xl: var(--space-8);
+  --space-2xl: var(--space-12);
+  --space-3xl: var(--space-16);
+
+  /* =================================
+     BREAKPOINTS
+     ================================= */
+
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  --screen-2xl: 1536px;
+
+  /* =================================
+     BORDERS & RADIUS
+     ================================= */
+
+  /* Border widths */
+  --border-0: 0;
+  --border: 1px;
+  --border-2: 2px;
+  --border-4: 4px;
+  --border-8: 8px;
+
+  /* Border radius */
+  --radius-none: 0;
+  --radius-sm: 0.125rem; /* 2px */
+  --radius: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
+  --radius-3xl: 1.5rem; /* 24px */
+  --radius-full: 9999px;
+
+  /* =================================
+     SHADOWS
+     ================================= */
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --shadow-none: none;
+
+  /* =================================
+     ANIMATIONS
+     ================================= */
+
+  --transition-none: none;
+  --transition-all: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors: background-color, border-color, color, fill, stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Animation durations */
+  --duration-75: 75ms;
+  --duration-100: 100ms;
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-700: 700ms;
+  --duration-1000: 1000ms;
+  
+  /* Duration aliases for convenience */
+  --duration-fast: 300ms;
+  --duration-normal: 500ms;
+  --duration-slow: 800ms;
+
+  /* Animation easings */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* =================================
+     Z-INDEX
+     ================================= */
+
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+  --z-auto: auto;
+  
+  /* Z-index система для компонентов */
+  --z-base: 1;
+  --z-dropdown: 50;
+  --z-sticky: 100;
+  --z-fixed: 200;
+  --z-modal-backdrop: 1000;
+  --z-modal: 1100;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-notification: 1200;
+  
+  /* =================================
+     JSON DATA INTEGRATION VARIABLES
+     Variables for dynamic content support
+     ================================= */
+  
+  /* Stats and counting animations */
+  --counter-duration: 2s;
+  --counter-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --stats-highlight: var(--color-primary);
+  --stats-icon-size: 2rem;
+  
+  /* Badge system for licenses, achievements */
+  --badge-primary: var(--color-primary);
+  --badge-success: var(--color-success);
+  --badge-warning: var(--color-warning);
+  --badge-accent: var(--color-accent);
+  --badge-radius: var(--radius-full);
+  --badge-padding: var(--space-1) var(--space-3);
+  
+  /* Rating system for testimonials */
+  --rating-star-color: #fbbf24;
+  --rating-star-empty: #d1d5db;
+  --rating-star-size: 1rem;
+  --rating-text-color: var(--color-text-muted);
+  
+  /* Trust signals and verification */
+  --trust-badge-bg: var(--color-success-light);
+  --trust-badge-text: var(--color-success-dark);
+  --trust-verified-color: #22c55e;
+  --trust-platform-logo-size: 1.5rem;
+  
+  /* Social media colors */
+  --social-telegram: #0088cc;
+  --social-whatsapp: #25d366;
+  --social-vk: #4a76a8;
+  --social-youtube: #ff0000;
+  --social-zen: #fc6d26;
+  --social-hover-scale: 1.1;
+  
+  /* Team member cards */
+  --team-card-radius: var(--radius-xl);
+  --team-photo-size: 4rem;
+  --team-photo-radius: var(--radius-full);
+  --team-card-shadow: var(--shadow-lg);
+  --team-card-hover-shadow: var(--shadow-2xl);
+  
+  /* Timeline and history */
+  --timeline-line-color: var(--color-border);
+  --timeline-dot-size: 0.75rem;
+  --timeline-dot-active: var(--color-primary);
+  --timeline-spacing: var(--space-6);
+  
+  /* Certificate and document grid */
+  --cert-aspect-ratio: 4/3;
+  --cert-hover-transform: translateY(-4px);
+  --cert-overlay: rgba(0, 0, 0, 0.8);
+  
+  /* Dynamic grid systems */
+  --grid-gap: var(--space-6);
+  --grid-min-width: 250px;
+  --grid-cols-auto: repeat(auto-fit, minmax(var(--grid-min-width), 1fr));
+  
+  /* Contact and location info */
+  --contact-icon-size: 1.25rem;
+  --contact-link-hover: var(--color-primary-light);
+  --location-marker-color: var(--color-error);
+  --work-hours-accent: var(--color-success);
+  
+  /* =================================
+     ENHANCED COMPONENT VARIABLES
+     ================================= */
+  
+  /* Missing color variables */
+  --color-success-dark: #047857;
+  --color-error-dark: #b91c1c;
+  --color-warning-dark: #92400e;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* Enhanced navigation colors */
+  --color-nav-text: #374151;
+  --color-nav-hover: #667eea;
+  --color-nav-active: var(--color-primary);
+  --color-nav-gradient-start: #667eea;
+  --color-nav-gradient-end: #764ba2;
+  --nav-mobile-bg: rgba(255, 255, 255, 0.98);
+  --nav-mobile-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* Enhanced accent colors */
+  --color-accent-gold: #ffd700;
+  --color-accent-orange: #fb923c;
+  --color-accent-purple: #8b5cf6;
+  --color-accent-pink: #ec4899;
+  
+  /* Container sizes with better naming */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  --container-wide: 1600px;
+  
+  /* Enhanced gradients */
+  --gradient-hero: linear-gradient(135deg, #2563eb 0%, #ea580c 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(234, 88, 12, 0.05));
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  --gradient-success: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
+  --gradient-testimonial: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  
+  /* Advanced animation easings */
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-sharp: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Responsive multipliers */
+  --multiplier-sm: 2;
+  --multiplier-md: 2.5;
+  --multiplier-lg: 3;
+  --multiplier-xl: 4;
+  
+  /* Enhanced transition aliases */
+  --transition-base: 0.2s ease;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.4s var(--ease-bounce);
+  --transition-elastic: 0.6s var(--ease-elastic);
+  
+  /* Component-specific colors */
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #9ca3af;
+  --color-border-light: #f3f4f6;
+  --color-primary-dark: #1d4ed8;
+  --color-gray-50: #f9fafb;
+  --color-gray-500: #6b7280;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* =================================
+     PERFORMANCE & ACCESSIBILITY
+     ================================= */
+  
+  /* Reduced motion support */
+  --motion-duration-none: 0ms;
+  --motion-scale-none: 1;
+  --motion-translate-none: 0;
+  
+  /* High contrast mode support */
+  --contrast-border: 2px;
+  --contrast-outline: 3px;
+  --contrast-focus-color: #005fcc;
+  
+  /* Print styles variables */
+  --print-text: #000000;
+  --print-bg: #ffffff;
+  --print-border: #cccccc;
+}

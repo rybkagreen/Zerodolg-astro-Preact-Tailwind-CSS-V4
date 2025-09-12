@@ -1,0 +1,76 @@
+---
+import FormLogic from './FormLogic.tsx';
+
+export interface Props {
+  className?: string;
+  id?: string;
+}
+
+const { className = '', id = 'consultation-form' } = Astro.props;
+---
+
+<div class={`hero-form ${className}`} id={id}>
+  <h3>Узнайте стоимость <span class="form-time-accent">за 2 минуты</span></h3>
+  
+  <form class="quick-form" data-bitrix="true" data-form-type="hero_form">
+    <div class="form-group">
+      <input 
+        type="text" 
+        name="name" 
+        placeholder="Ваше имя" 
+        required
+        data-validation-setup="true"
+        aria-label="Ваше имя"
+      />
+    </div>
+    
+    <div class="form-group">
+      <input 
+        type="tel" 
+        name="phone" 
+        placeholder="+7 (___) ___-__-__" 
+        required
+        data-validation-setup="true"
+        data-mask="phone"
+        aria-label="Телефон"
+      />
+    </div>
+    
+    <div class="form-group">
+      <select name="debt_amount" required data-validation-setup="true" aria-label="Сумма долга">
+        <option value="">Сумма долга</option>
+        <option value="300-500">300 000 - 500 000 ₽</option>
+        <option value="500-1000">500 000 - 1 000 000 ₽</option>
+        <option value="1000-3000">1 000 000 - 3 000 000 ₽</option>
+        <option value="3000+">Более 3 000 000 ₽</option>
+      </select>
+    </div>
+    
+    <button type="submit" class="form-submit">
+      <span class="form-submit__text">Получить консультацию</span>
+      <span class="form-submit__loader" aria-hidden="true">
+        <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" aria-label="Загрузка" role="status">
+          <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+        </svg>
+      </span>
+    </button>
+    
+    <p class="form-privacy">
+      Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+    </p>
+  </form>
+  
+  <!-- Success message -->
+  <div class="form-success" style="display: none;">
+    <div class="form-success__icon">✓</div>
+    <h3>Заявка отправлена!</h3>
+    <p>Мы свяжемся с вами в течение 15 минут</p>
+  </div>
+  
+  <FormLogic 
+    client:load
+    formId={id}
+    formType="hero"
+  />
+</div>
+

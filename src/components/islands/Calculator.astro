@@ -1,0 +1,126 @@
+---
+// Calculator.astro - Calculator component with original design
+export interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { 
+  title = "Рассчитайте стоимость банкротства", 
+  subtitle = "Узнайте точную сумму за 1 минуту"
+} = Astro.props;
+---
+
+<section class="calculator section section--primary" id="calculator" aria-labelledby="calculator-title">
+  <div class="container">
+    <header class="section__header section__header--white">
+      <h2 id="calculator-title" class="section__title">{title}</h2>
+      <p class="section__subtitle">{subtitle}</p>
+    </header>
+    
+    <form class="calculator__form" role="form" aria-labelledby="calculator-title">
+      <fieldset class="calculator__fieldset">
+        <legend class="sr-only">Параметры для расчета стоимости банкротства</legend>
+        
+        <div class="calculator__field">
+          <label for="debt-amount" class="calculator__label">Сумма долга</label>
+          <select id="debt-amount" name="debtAmount" class="calculator__select" required aria-describedby="debt-help">
+            <option value="" disabled selected>Выберите сумму долга</option>
+            <option value="100-300">100 000 - 300 000 ₽</option>
+            <option value="300-500">300 000 - 500 000 ₽</option>
+            <option value="500-1000">500 000 - 1 000 000 ₽</option>
+            <option value="1000+">Более 1 000 000 ₽</option>
+          </select>
+          <small id="debt-help" class="calculator__help">Укажите общую сумму ваших долгов</small>
+        </div>
+        
+        <div class="calculator__field">
+          <label for="property" class="calculator__label">Есть ли имущество?</label>
+          <select id="property" name="hasProperty" class="calculator__select" required aria-describedby="property-help">
+            <option value="" disabled selected>Выберите статус имущества</option>
+            <option value="none">Нет имущества</option>
+            <option value="apartment">Единственное жилье</option>
+            <option value="multiple">Несколько объектов</option>
+          </select>
+          <small id="property-help" class="calculator__help">Это влияет на сложность процедуры</small>
+        </div>
+        
+        <div class="calculator__field">
+          <label for="employment" class="calculator__label">Трудоустройство</label>
+          <select id="employment" name="employmentStatus" class="calculator__select" required aria-describedby="employment-help">
+            <option value="" disabled selected>Выберите статус трудоустройства</option>
+            <option value="employed">Официально работаю</option>
+            <option value="unemployed">Без официального дохода</option>
+            <option value="pension">Пенсионер</option>
+            <option value="business">ИП или самозанятый</option>
+          </select>
+          <small id="employment-help" class="calculator__help">Влияет на возможность реструктуризации</small>
+        </div>
+      </fieldset>
+      
+      <button type="submit" class="btn btn--primary btn--block calculator__submit" aria-describedby="calculator-result">
+        Рассчитать стоимость
+      </button>
+    </form>
+    
+    <div class="calculator__result" id="calculator-result" aria-live="polite" aria-atomic="true" hidden></div>
+  </div>
+</section>
+
+<script>
+  // Calculator logic
+  const form = document.querySelector('.calculator__form') as HTMLFormElement;
+  const resultBlock = document.getElementById('calculator-result') as HTMLElement;
+  
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = {
+        debtAmount: (document.getElementById('debt-amount') as HTMLSelectElement).value,
+        property: (document.getElementById('property') as HTMLSelectElement).value,
+        employment: (document.getElementById('employment') as HTMLSelectElement).value
+      };
+      
+      // Validate
+      if (!formData.debtAmount || !formData.property || !formData.employment) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+      }
+      
+      // Calculate
+      const isExtrajudicial = formData.debtAmount === '100-300' && 
+                             formData.property === 'none' && 
+                             formData.employment === 'unemployed';
+      
+      const basePrice = 150000;
+      const procedureType = isExtrajudicial ? 'Внесудебное банкротство' : 'Судебное банкротство';
+      
+      // Display result
+      if (resultBlock) {
+        resultBlock.innerHTML = `
+          <h3 class="calculator__result-title">${procedureType}</h3>
+          <div class="calculator__result-main">
+            <div class="calculator__result-price">${basePrice.toLocaleString('ru-RU')} ₽</div>
+            <div class="calculator__result-label">Стоимость услуги «под ключ»</div>
+          </div>
+          <div class="calculator__result-installments">
+            <h4>Рассрочка без переплат:</h4>
+            <div class="calculator__installments-grid">
+              <div class="calculator__installment-item">
+                <span class="calculator__installment-months">12 месяцев</span>
+                <span class="calculator__installment-price">${Math.round(basePrice / 12).toLocaleString('ru-RU')} ₽/мес</span>
+              </div>
+            </div>
+          </div>
+          <div class="calculator__result-actions">
+            <button class="btn btn--primary btn--lg">Получить консультацию</button>
+          </div>
+        `;
+        resultBlock.removeAttribute('hidden');
+        resultBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+</script>
+

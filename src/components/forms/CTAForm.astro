@@ -1,0 +1,38 @@
+---
+import UniversalForm from './UniversalForm.astro';
+import FormLogic from './FormLogic.tsx';
+
+export interface Props {
+  formId?: string;
+  showDebtField?: boolean;
+  submitText?: string;
+  variant?: 'inline' | 'stacked';
+  className?: string;
+}
+
+const { 
+  formId = 'cta-form',
+  showDebtField = false,
+  submitText = 'Отправить заявку',
+  variant = 'inline',
+  className = ''
+} = Astro.props;
+---
+
+<div class={`cta-form ${className}`}>
+  <UniversalForm 
+    formId={formId}
+    formType="cta"
+    submitText={submitText}
+    showDebtField={showDebtField}
+    variant={variant}
+    className="cta-form__form"
+  />
+  
+  <FormLogic 
+    client:load
+    formId={formId}
+    formType="cta"
+  />
+</div>
+

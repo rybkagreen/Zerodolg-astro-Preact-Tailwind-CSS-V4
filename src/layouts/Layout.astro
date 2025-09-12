@@ -1,0 +1,54 @@
+---
+import '../styles/main.css';
+
+export interface Props {
+	title: string;
+	description?: string;
+	keywords?: string;
+}
+
+const { 
+	title = 'ZeroDolg - Банкротство физических лиц в Москве', 
+	description = '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.',
+	keywords = 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://zerodolg.ru/" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/og-image.jpg" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://zerodolg.ru/" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/og-image.jpg" />
+		
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+		
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+</head>
+<body>
+    <slot />
+  </body>
+</html>

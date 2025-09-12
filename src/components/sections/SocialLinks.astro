@@ -1,0 +1,106 @@
+---
+import siteData from '../../data/site.json';
+
+export interface Props {
+  enableTracking?: boolean;
+  openInNewTab?: boolean;
+  showLabels?: boolean;
+  size?: 'small' | 'medium' | 'large' | 'xl';
+  className?: string;
+}
+
+const { 
+  enableTracking = true,
+  openInNewTab = true,
+  showLabels = false,
+  size = 'medium',
+  className = ''
+} = Astro.props;
+
+// Platform configuration
+const platforms = {
+  telegram: {
+    name: 'Telegram',
+    icon: '📱',
+    color: '#0088cc',
+  },
+  whatsapp: {
+    name: 'WhatsApp',
+    icon: '💬',
+    color: '#25d366',
+  },
+  vk: {
+    name: 'VKontakte',
+    icon: '🔵',
+    color: '#4a76a8',
+  },
+  youtube: {
+    name: 'YouTube',
+    icon: '📺',
+    color: '#ff0000',
+  },
+  zen: {
+    name: 'Яндекс.Дзен',
+    icon: '📖',
+    color: '#fc6d26',
+  },
+  facebook: {
+    name: 'Facebook',
+    icon: '📘',
+    color: '#1877f2',
+  },
+  instagram: {
+    name: 'Instagram',
+    icon: '📷',
+    color: '#e4405f',
+  },
+};
+
+const socialData = siteData.social || {};
+const socialKeys = Object.keys(socialData).filter(key => socialData[key as keyof typeof socialData]);
+
+const sizeClass = size !== 'medium' ? `social-links--${size}` : '';
+---
+
+<div 
+  class={`social-links ${sizeClass} ${className}`}
+  data-size={size}
+  data-show-labels={showLabels}
+  data-enable-tracking={enableTracking}
+  data-open-in-new-tab={openInNewTab}
+>
+  {socialKeys.length > 0 ? (
+    socialKeys.map((platform, index) => {
+      const url = socialData[platform as keyof typeof socialData];
+      const platformConfig = platforms[platform as keyof typeof platforms];
+      
+      if (!url || !platformConfig) return null;
+      
+      const linkClass = `social-link social-link--${platform}${size !== 'medium' ? ` social-link--${size}` : ''}${showLabels ? ' social-link--with-label' : ''}`;
+      
+      return (
+        <a 
+          href={url}
+          class={linkClass}
+          data-platform={platform}
+          data-index={index}
+          aria-label={`Перейти в ${platformConfig.name}`}
+          target={openInNewTab ? '_blank' : undefined}
+          rel={openInNewTab ? 'noopener noreferrer' : undefined}
+        >
+          <span class="social-link__icon" aria-hidden="true">
+            {platformConfig.icon}
+          </span>
+          {showLabels && (
+            <span class="social-link__label">{platformConfig.name}</span>
+          )}
+        </a>
+      );
+    })
+  ) : (
+    <div class="social-links__empty">
+      <!-- Empty state handled by CSS if needed -->
+    </div>
+  )}
+</div>
+

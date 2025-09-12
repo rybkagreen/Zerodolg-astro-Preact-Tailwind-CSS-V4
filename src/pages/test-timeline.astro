@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Timeline from '../components/islands/Timeline.astro';
+---
+
+<Layout title="Тест Timeline">
+  <main style="padding: 50px 20px;">
+    <h1>Тестирование Timeline</h1>
+    
+    <Timeline />
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('=== Timeline Debug ===');
+        
+        // Проверяем наличие элементов
+        const timeline = document.querySelector('.timeline');
+        console.log('Timeline found:', !!timeline);
+        
+        if (timeline) {
+          // Проверяем шаги
+          const steps = timeline.querySelectorAll('.timeline__step');
+          console.log('Steps found:', steps.length);
+          steps.forEach((step, i) => {
+            console.log(`Step ${i}:`, {
+              display: step.style.display,
+              classes: step.className,
+              hasActive: step.classList.contains('active')
+            });
+          });
+          
+          // Проверяем кнопки
+          const buttons = timeline.querySelectorAll('[data-action]');
+          console.log('Action buttons found:', buttons.length);
+          buttons.forEach(btn => {
+            console.log('Button:', {
+              action: btn.getAttribute('data-action'),
+              text: btn.textContent.trim(),
+              parent: btn.parentElement?.className
+            });
+          });
+          
+          // Добавляем обработчик для отладки
+          timeline.addEventListener('click', (e) => {
+            const target = e.target;
+            const actionBtn = target.closest('[data-action]');
+            if (actionBtn) {
+              console.log('Button clicked:', {
+                action: actionBtn.getAttribute('data-action'),
+                element: actionBtn,
+                event: e
+              });
+            }
+          }, true); // Используем capture phase
+        }
+        
+        // Проверяем загрузку Preact компонентов
+        setTimeout(() => {
+          console.log('=== After 1 second ===');
+          const islands = document.querySelectorAll('astro-island');
+          console.log('Astro islands:', islands.length);
+          islands.forEach((island, i) => {
+            console.log(`Island ${i}:`, {
+              component: island.getAttribute('component-url'),
+              hydrate: island.getAttribute('client'),
+              props: island.getAttribute('props')
+            });
+          });
+        }, 1000);
+      });
+    </script>
+  </main>
+</Layout>

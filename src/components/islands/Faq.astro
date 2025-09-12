@@ -1,0 +1,385 @@
+---
+// Faq.astro
+export interface Props {
+  title?: string;
+  data?: any;
+  [key: string]: any;
+}
+
+const props = Astro.props;
+
+// Import interactive logic
+import FaqLogic from './FaqLogic.tsx';
+---
+
+<!-- FAQ Section - Modern Accordion Style -->
+<section class="faq" id="faq" data-section="faq">
+    <div class="container">
+        <!-- Section Header - сохраняем текущий стиль заголовка -->
+        <div class="faq__header">
+            <h2 class="faq__title">
+                <span class="faq__title-icon">❓</span>
+                Часто задаваемые вопросы
+            </h2>
+            <p class="faq__subtitle">
+                Ответы на популярные вопросы о процедуре банкротства физических лиц
+            </p>
+        </div>
+        
+        <!-- FAQ Accordion Container -->
+        <div class="faq__accordion" role="region" aria-label="Вопросы и ответы">
+            <!-- FAQ Item 1 -->
+            <div class="faq__item" data-faq-item>
+                <button class="faq__question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-answer-1"
+                        data-faq-trigger>
+                    <span class="faq__question-text">
+                        Какие долги можно списать через банкротство?
+                    </span>
+                    <svg class="faq__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="faq__answer" 
+                     id="faq-answer-1" 
+                     aria-hidden="true"
+                     data-faq-content>
+                    <div class="faq__answer-inner">
+                        <p>Через процедуру банкротства можно списать практически все виды долгов:</p>
+                        <ul class="faq__list">
+                            <li><span class="faq__checkmark">✓</span> Кредиты в банках и МФО</li>
+                            <li><span class="faq__checkmark">✓</span> Займы у физических и юридических лиц</li>
+                            <li><span class="faq__checkmark">✓</span> Долги по ЖКХ и коммунальным услугам</li>
+                            <li><span class="faq__checkmark">✓</span> Налоговые задолженности</li>
+                            <li><span class="faq__checkmark">✓</span> Долги по распискам и договорам</li>
+                            <li><span class="faq__checkmark">✓</span> Штрафы ГИБДД и административные штрафы</li>
+                        </ul>
+                        <div class="faq__note">
+                            <strong>Важно:</strong> Не списываются алименты, возмещение вреда жизни и здоровью, субсидиарная ответственность.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 2 -->
+            <div class="faq__item" data-faq-item>
+                <button class="faq__question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-answer-2"
+                        data-faq-trigger>
+                    <span class="faq__question-text">
+                        Сколько времени занимает процедура банкротства?
+                    </span>
+                    <svg class="faq__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="faq__answer" 
+                     id="faq-answer-2" 
+                     aria-hidden="true"
+                     data-faq-content>
+                    <div class="faq__answer-inner">
+                        <p>Сроки зависят от выбранной процедуры:</p>
+                        <div class="faq__timeline">
+                            <div class="faq__timeline-item">
+                                <span class="faq__timeline-icon">⚡</span>
+                                <div>
+                                    <strong>Внесудебное банкротство</strong>
+                                    <p>От 3 до 6 месяцев через МФЦ</p>
+                                </div>
+                            </div>
+                            <div class="faq__timeline-item">
+                                <span class="faq__timeline-icon">⚖️</span>
+                                <div>
+                                    <strong>Судебное банкротство</strong>
+                                    <p>От 6 до 12 месяцев через Арбитражный суд</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="faq__highlight">
+                            💡 С нашей помощью процедура проходит максимально быстро благодаря профессиональной подготовке документов.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 3 -->
+            <div class="faq__item" data-faq-item>
+                <button class="faq__question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-answer-3"
+                        data-faq-trigger>
+                    <span class="faq__question-text">
+                        Какое имущество можно сохранить при банкротстве?
+                    </span>
+                    <svg class="faq__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="faq__answer" 
+                     id="faq-answer-3" 
+                     aria-hidden="true"
+                     data-faq-content>
+                    <div class="faq__answer-inner">
+                        <p>По закону нельзя забрать:</p>
+                        <ul class="faq__list">
+                            <li><span class="faq__checkmark">✓</span> Единственное жилье (если не в ипотеке)</li>
+                            <li><span class="faq__checkmark">✓</span> Земельный участок под единственным жильем</li>
+                            <li><span class="faq__checkmark">✓</span> Предметы обычной домашней обстановки</li>
+                            <li><span class="faq__checkmark">✓</span> Личные вещи и одежда</li>
+                            <li><span class="faq__checkmark">✓</span> Профессиональные инструменты до 100 МРОТ</li>
+                            <li><span class="faq__checkmark">✓</span> Продукты питания и деньги до прожиточного минимума</li>
+                            <li><span class="faq__checkmark">✓</span> Награды, призы и государственные награды</li>
+                        </ul>
+                        <div class="faq__action-box">
+                            <p><strong>Наши юристы помогут максимально защитить ваше имущество!</strong></p>
+                            <button class="faq__cta-button" data-modal="consultation">
+                                Получить консультацию
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 4 -->
+            <div class="faq__item" data-faq-item>
+                <button class="faq__question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-answer-4"
+                        data-faq-trigger>
+                    <span class="faq__question-text">
+                        Какие последствия банкротства для должника?
+                    </span>
+                    <svg class="faq__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="faq__answer" 
+                     id="faq-answer-4" 
+                     aria-hidden="true"
+                     data-faq-content>
+                    <div class="faq__answer-inner">
+                        <p>После признания банкротом:</p>
+                        <div class="faq__consequences">
+                            <div class="faq__consequence faq__consequence--positive">
+                                <h4>✅ Положительные последствия:</h4>
+                                <ul>
+                                    <li>Полное списание долгов</li>
+                                    <li>Прекращение начисления процентов и штрафов</li>
+                                    <li>Остановка исполнительных производств</li>
+                                    <li>Защита от коллекторов</li>
+                                </ul>
+                            </div>
+                            <div class="faq__consequence faq__consequence--temporary">
+                                <h4>⏰ Временные ограничения:</h4>
+                                <ul>
+                                    <li>5 лет — запрет на повторное банкротство</li>
+                                    <li>5 лет — обязанность сообщать о банкротстве при взятии кредита</li>
+                                    <li>3 года — запрет занимать руководящие должности</li>
+                                    <li>10 лет — для банков и страховых компаний</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="faq__info">
+                            <strong>📌 Важно:</strong> Эти ограничения не мешают обычной жизни, работе по найму и ведению малого бизнеса.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 5 -->
+            <div class="faq__item" data-faq-item>
+                <button class="faq__question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-answer-5"
+                        data-faq-trigger>
+                    <span class="faq__question-text">
+                        Сколько стоит процедура банкротства?
+                    </span>
+                    <svg class="faq__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="faq__answer" 
+                     id="faq-answer-5" 
+                     aria-hidden="true"
+                     data-faq-content>
+                    <div class="faq__answer-inner">
+                        <div class="faq__pricing">
+                            <div class="faq__price-card">
+                                <h4>Внесудебное банкротство</h4>
+                                <div class="faq__price">от 10 000 ₽</div>
+                                <ul class="faq__price-includes">
+                                    <li>Подготовка документов</li>
+                                    <li>Подача заявления в МФЦ</li>
+                                    <li>Сопровождение процедуры</li>
+                                </ul>
+                            </div>
+                            <div class="faq__price-card faq__price-card--popular">
+                                <span class="faq__badge">Популярный выбор</span>
+                                <h4>Судебное банкротство</h4>
+                                <div class="faq__price">от 5 900 ₽/мес</div>
+                                <ul class="faq__price-includes">
+                                    <li>Полное юридическое сопровождение</li>
+                                    <li>Работа с финансовым управляющим</li>
+                                    <li>Представительство в суде</li>
+                                    <li>Рассрочка до 24 месяцев</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq__payment-info">
+                            <p>💳 <strong>Доступна рассрочка без процентов!</strong></p>
+                            <p>Первый платеж от 5 900 ₽. Остальное — после списания долгов.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 6 -->
+            <div class="faq__item" data-faq-item>
+                <button class="faq__question" 
+                        aria-expanded="false" 
+                        aria-controls="faq-answer-6"
+                        data-faq-trigger>
+                    <span class="faq__question-text">
+                        Можно ли пройти банкротство без юриста?
+                    </span>
+                    <svg class="faq__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="faq__answer" 
+                     id="faq-answer-6" 
+                     aria-hidden="true"
+                     data-faq-content>
+                    <div class="faq__answer-inner">
+                        <p>Теоретически — да, но на практике это очень сложно и рискованно:</p>
+                        <div class="faq__comparison">
+                            <div class="faq__compare-item faq__compare-item--negative">
+                                <h4>❌ Без юриста:</h4>
+                                <ul>
+                                    <li>Высокий риск отказа в списании долгов</li>
+                                    <li>Ошибки в документах</li>
+                                    <li>Потеря имущества из-за незнания законов</li>
+                                    <li>Затягивание процедуры</li>
+                                    <li>Дополнительные расходы на исправление ошибок</li>
+                                </ul>
+                            </div>
+                            <div class="faq__compare-item faq__compare-item--positive">
+                                <h4>✅ С нашей помощью:</h4>
+                                <ul>
+                                    <li>Гарантия результата по договору</li>
+                                    <li>Защита имущества</li>
+                                    <li>Минимальные сроки процедуры</li>
+                                    <li>Полное сопровождение</li>
+                                    <li>Более 500 успешных дел</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq__guarantee">
+                            <p>🛡️ <strong>Мы гарантируем результат или вернем деньги!</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="faq__cta">
+            <h3>Остались вопросы?</h3>
+            <p>Получите бесплатную консультацию нашего юриста по банкротству</p>
+            <div class="faq__cta-buttons">
+                <button class="btn btn--primary" data-modal="consultation">
+                    <span>Задать вопрос юристу</span>
+                </button>
+                <a href="tel:+79055773387" class="btn btn--outline">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>+7 (905) 577-33-87</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Interactive FAQ accordion logic -->
+<script>
+  // FAQ accordion functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('[data-faq-item]');
+    
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('[data-faq-trigger]');
+      const content = item.querySelector('[data-faq-content]');
+      
+      if (!trigger || !content) return;
+      
+      // Не устанавливаем инлайн стили - используем классы CSS
+      // Убеждаемся, что элемент имеет правильный начальный класс
+      item.classList.remove('faq__item--expanded');
+      
+      trigger.addEventListener('click', () => {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherTrigger = otherItem.querySelector('[data-faq-trigger]');
+            const otherContent = otherItem.querySelector('[data-faq-content]');
+            
+            if (otherTrigger && otherContent) {
+              otherTrigger.setAttribute('aria-expanded', 'false');
+              otherContent.setAttribute('aria-hidden', 'true');
+              otherItem.classList.remove('faq__item--expanded');
+              // Убираем инлайн стиль для закрытия
+              otherContent.style.maxHeight = null;
+            }
+          }
+        });
+        
+        // Toggle current item
+        if (isOpen) {
+          // Close
+          trigger.setAttribute('aria-expanded', 'false');
+          content.setAttribute('aria-hidden', 'true');
+          item.classList.remove('faq__item--expanded');
+          // Убираем инлайн стиль для закрытия
+          content.style.maxHeight = null;
+        } else {
+          // Open
+          trigger.setAttribute('aria-expanded', 'true');
+          content.setAttribute('aria-hidden', 'false');
+          item.classList.add('faq__item--expanded');
+          // Устанавливаем только максимальную высоту для анимации
+          content.style.maxHeight = content.scrollHeight + 'px';
+          
+          // Recalculate height after transition for dynamic content
+          setTimeout(() => {
+            if (trigger.getAttribute('aria-expanded') === 'true' && content) {
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          }, 300);
+        }
+      });
+    });
+    
+    // Handle window resize to adjust opened accordions
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        faqItems.forEach(item => {
+          const trigger = item.querySelector('[data-faq-trigger]');
+          const content = item.querySelector('[data-faq-content]');
+          
+          if (trigger?.getAttribute('aria-expanded') === 'true' && content) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        });
+      }, 250);
+    });
+  });
+</script>

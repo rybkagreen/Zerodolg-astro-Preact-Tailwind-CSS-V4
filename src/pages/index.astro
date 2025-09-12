@@ -1,16 +1,94 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/static/Header.astro';
+import Hero from '../components/islands/Hero.astro';
+import Stats from '../components/islands/Stats.astro';
+import Calculator from '../components/islands/Calculator.astro';
+import Benefits from '../components/sections/Benefits.astro';
+import Timeline from '../components/islands/Timeline.astro';
+import TeamInteractive from '../components/sections/TeamInteractive.astro';
+import LeadMagnets from '../components/sections/LeadMagnets.astro';
+import LeadMagnetsLogic from '../components/islands/LeadMagnetsLogic.tsx';
+import Reviews from '../components/sections/Reviews.astro';
+import Faq from '../components/islands/Faq.astro';
+import Cta from '../components/static/Cta.astro';
+import Footer from '../components/static/Footer.astro';
+import CallbackModal from '../components/dynamic/CallbackModal.astro';
+import ModalManager from '../components/dynamic/ModalManager.tsx';
+import StickyCTA from '../components/islands/StickyCTA.astro';
+import SocialLinks from '../components/sections/SocialLinks.astro';
+import OnlineSticker from '../components/islands/OnlineSticker.astro';
+import StickyPanel from '../components/sections/StickyPanel.astro';
+import ScrollAnimations from '../components/islands/ScrollAnimations.tsx';
+// import AnimatedCounter from '../components/islands/AnimatedCounter.tsx';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Банкротство физических лиц под ключ - ZeroDolg">
+  <Header />
+  
+  <main>
+    <!-- Correct order: Hero, Problems, Stats, Calculator, Benefits, Timeline, Reviews, Team, Lead Magnets, FAQ, CTA -->
+    <Hero />
+    
+    <!-- Problems section - to be migrated -->
+    <!-- <Problems /> -->
+    
+    <div data-aos="fade-up" data-aos-duration="800">
+      <Stats />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      <Calculator />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800">
+      <Benefits />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800">
+      <Timeline />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      <Reviews />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800">
+      <TeamInteractive />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      <LeadMagnets />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800">
+      <Faq />
+    </div>
+    
+    <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      <Cta />
+    </div>
+  </main>
+  
+  <Footer />
+  
+  <!-- Auxiliary Components -->
+  <StickyCTA />
+  
+  <!-- Social Links in Footer Section -->
+  <div class="social-links-wrapper">
+    <SocialLinks />
+  </div>
+  
+  <!-- Modals -->
+  <CallbackModal />
+  
+  <!-- Modal Manager for handling all modals -->
+  <ModalManager client:load />
+  
+  <!-- Lead Magnets Interactive Logic -->
+  <LeadMagnetsLogic client:load />
+  
+  <!-- Scroll Animations Handler -->
+  <ScrollAnimations client:load once={true} offset={100} duration={800} />
+</Layout>

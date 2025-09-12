@@ -1,43 +1,126 @@
-# Astro Starter Kit: Minimal
+# ZeroDolg Astro Website
+
+Корпоративный сайт юридической компании по банкротству физических лиц.
+
+## 🚀 Быстрый старт
 
 ```sh
-npm create astro@latest -- --template minimal
+# Установка зависимостей
+npm install
+
+# Запуск локального сервера разработки
+npm run dev
+
+# Сборка проекта для продакшена
+npm run build
+
+# Предварительный просмотр собранного сайта
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 📁 Структура проекта
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
+```
+zerodolg-astro/
+├── docs/                # Документация проекта
+├── public/              # Статические файлы
+│   ├── images/          # Изображения
+│   ├── js/              # Клиентский JavaScript
+│   └── fonts/           # Веб-шрифты
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/      # Компоненты
+│   │   ├── islands/     # Интерактивные Preact компоненты
+│   │   ├── sections/    # Секции страниц
+│   │   └── ui/          # UI компоненты
+│   ├── content/         # Коллекции контента
+│   ├── data/            # Статические данные
+│   ├── layouts/         # Макеты страниц
+│   ├── lib/             # Утилиты и сервисы
+│   ├── pages/           # Страницы сайта
+│   └── styles/          # Стили (ITCSS архитектура)
+├── package.json         # Зависимости и скрипты
+└── astro.config.mjs     # Конфигурация Astro
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 📚 Документация
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Подробная документация доступна в директории [`docs/`](docs/):
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Техническая документация
+- [Архитектура](docs/architecture.md) - Общая архитектура проекта
+- [Компоненты](docs/components.md) - Описание компонентов проекта
+- [Руководство по стилю](docs/style-guide.md) - Правила кодирования
+- [Git](docs/git.md) - Руководство по работе с Git
 
-## 🧞 Commands
+### Эксплуатационная документация
+- [Развертывание](docs/deployment.md) - Инструкции по развертыванию
+- [Работа с CMS](docs/cms-guide.md) - Интеграция с Alibaba CMS
+- [Безопасность](docs/security.md) - Руководство по безопасности
+- [Тестирование](docs/testing.md) - Руководство по тестированию
 
-All commands are run from the root of the project, from a terminal:
+### Пользовательская документация
+- [Интернационализация](docs/i18n.md) - Руководство по локализации
+- [SEO](docs/seo.md) - Поисковая оптимизация
+- [Доступность](docs/accessibility.md) - Руководство по доступности
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Дополнительно
+- [FAQ](docs/faq.md) - Часто задаваемые вопросы
+- [Производительность](docs/performance.md) - Оптимизация производительности
 
-## 👀 Want to learn more?
+## 🛠 Технологии
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **[Astro](https://astro.build/)** - Статический генератор сайтов
+- **[Preact](https://preactjs.com/)** - Легковесная альтернатива React
+- **[TypeScript](https://www.typescriptlang.org/)** - Строгая типизация JavaScript
+- **[CSS](https://developer.mozilla.org/ru/docs/Web/CSS)** - Современный CSS с пользовательскими свойствами
+- **[Alibaba CMS](https://www.alibabacloud.com/product/cms)** - Облачная система управления контентом
+
+## 🎨 Архитектура
+
+### Основные принципы
+
+- **Статическая генерация** - Предварительный рендеринг HTML для максимальной производительности
+- **Islands Architecture** - Интерактивные компоненты только там, где они нужны
+- **Прогрессивное улучшение** - Сайт работает без JavaScript
+- **Компонентный подход** - Модульная и переиспользуемая архитектура
+
+### Стили
+
+- **[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)** - Инвертированный треугольник CSS для организации стилей
+- **[BEM](http://getbem.com/)** - Блок, Элемент, Модификатор для именования CSS классов
+- **Mobile First** - Дизайн сначала для мобильных устройств
+
+## 📦 Команды
+
+| Команда | Описание |
+| :--- | :--- |
+| `npm run dev` | Запуск локального сервера разработки |
+| `npm run build` | Сборка проекта для продакшена |
+| `npm run preview` | Предварительный просмотр собранного сайта |
+| `npm run docs:generate` | Генерация документации по компонентам |
+| `npm run docs:build` | Сборка проекта с генерацией документации |
+| `npm run astro ...` | Запуск команд Astro CLI |
+
+## 🔧 Конфигурация
+
+### Переменные окружения
+
+Создайте файл `.env` в корне проекта:
+
+```env
+# Alibaba CMS
+CMS_API_BASE=https://your-cms-endpoint.alibabacloud.com
+CMS_API_KEY=your-api-key-here
+```
+
+## 🤝 Вклад в проект
+
+1. Форкните репозиторий
+2. Создайте ветку для вашей функции (`git checkout -b feature/AmazingFeature`)
+3. Зафиксируйте изменения (`git commit -m 'Add some AmazingFeature'`)
+4. Запушьте ветку (`git push origin feature/AmazingFeature`)
+5. Откройте Pull Request
+
+## 📞 Контакты
+
+Для вопросов и поддержки обращайтесь к команде разработки.

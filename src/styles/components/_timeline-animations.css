@@ -1,0 +1,255 @@
+/* Timeline Animation Classes */
+
+/* Fade animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Shimmer effect for progress bars */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Pulse animation for active elements */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Slide animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Timeline step animations */
+.timeline__step {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.timeline__step.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline__step.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.timeline__step.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+/* Timeline completion screen */
+.timeline__complete {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.timeline__complete.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.timeline__complete.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.timeline__complete.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+/* Progress bar animations */
+.timeline__progress-fill,
+.timeline__line-progress {
+  transition: width 0.5s ease, height 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline__progress-fill::after,
+.timeline__line-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Navigation items */
+.timeline__nav-item {
+  transition: all 0.3s ease;
+}
+
+.timeline__nav-item.active {
+  animation: pulse 2s ease infinite;
+}
+
+.timeline__nav-item.timeline-completed::before {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-success, #10b981);
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Progress dots */
+.timeline__progress-dot {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.timeline__progress-dot.active {
+  transform: scale(1.2);
+  background: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.timeline__progress-dot.timeline-completed {
+  background: var(--color-success, #10b981);
+}
+
+.timeline__progress-dot.timeline-completed::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: bold;
+}
+
+/* Button hover effects */
+.timeline__action {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline__action::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.timeline__action:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Mobile-specific animations */
+@media (max-width: 1023px) {
+  .timeline--mobile .timeline__step {
+    animation-duration: 0.4s;
+  }
+  
+  .timeline--mobile .timeline__step.fade-in {
+    animation: slideInRight 0.4s ease forwards;
+  }
+  
+  .timeline--mobile .timeline__step.fade-out {
+    animation: slideInLeft 0.4s ease forwards;
+  }
+}
+
+/* Accessibility - reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .timeline__step,
+  .timeline__complete,
+  .timeline__nav-item,
+  .timeline__progress-dot {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

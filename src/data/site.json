@@ -1,0 +1,59 @@
+{
+  "name": "ZeroDolg",
+  "fullName": "ООО \"ЮРИДИЧЕСКАЯ КОМПАНИЯ МАСХУЛИА\"",
+  "brandName": "zerodolg.ru",
+  "title": "💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4 месяца | ZeroDolg",
+  "description": "⭐ 98% успешных дел в Москве! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору. 🎯 АКЦИЯ: Консультация БЕСПЛАТНО + скидка 30%!",
+  "keywords": "банкротство физических лиц Москва, списание долгов через суд Москва, банкротство физлиц 2024 Московская область",
+  "url": "https://zerodolg.ru",
+  "phone": "+7 (905) 577-33-87",
+  "phoneAdditional": "+7 (495) 123-45-67",
+  "phoneClean": "+79055773387",
+  "email": "info@zerodolg.ru",
+  "emailMoscow": "moscow@zerodolg.ru",
+  "address": {
+    "street": "Минская ул., 2Ж, Victory Park Plaza",
+    "office": "офис 10/3-7",
+    "city": "Москва",
+    "region": "г. Москва",
+    "postal": "119192",
+    "metro": "Минская",
+    "walkTime": "3 минуты от метро",
+    "coordinates": {
+      "lat": 55.731033,
+      "lng": 37.607764
+    }
+  },
+  "workTime": {
+    "weekdays": "9:00 - 21:00",
+    "weekends": "9:00 - 21:00",
+    "text": "Ежедневно с 9:00 до 21:00",
+    "note": "Консультации по выходным и праздникам"
+  },
+  "company": {
+    "inn": "7728415386",
+    "ogrn": "1237700451193",
+    "year": "2008",
+    "legalAddress": "119192, Москва, Минская ул., 2Ж, пом. XVII, ком. 10/3-7"
+  },
+  "social": {
+    "telegram": "https://t.me/zerodolg",
+    "whatsapp": "https://wa.me/79055773387",
+    "vk": "https://vk.com/zerodolg",
+    "youtube": "https://youtube.com/@zerodolg",
+    "zen": "https://zen.yandex.ru/zerodolg"
+  },
+  "stats": {
+    "clientsCount": 847,
+    "debtsClearedSum": "2.1 млрд ₽",
+    "experienceYears": 15,
+    "successRate": "98%",
+    "averageTime": "4 месяца"
+  },
+  "analytics": {
+    "yandexMetrika": "103604926",
+    "googleAnalytics": "G-XXXXXXXXXX",
+    "facebookPixel": "123456789012345",
+    "vkPixel": "VK-RTRG-987654-abcde"
+  }
+}

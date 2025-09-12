@@ -1,0 +1,418 @@
+---
+import { getTeamMembers } from '../../lib/content-service.js';
+
+// Fetch team members from CMS
+const teamMembers = await getTeamMembers();
+
+// If no team members from CMS, use fallback data
+const fallbackTeamMembers = [
+  {
+    id: 'mashulia',
+    name: 'Масхулиа Л.З.',
+    position: 'Руководитель отдела банкротства',
+    photo: '/images/team/mashulia.webp',
+    role: 'Руководитель отдела банкротства',
+    quote: 'Наша задача - не просто списать долги, а помочь вам начать новую жизнь без финансового бремени',
+    description: 'Более 7 лет специализируется на банкротстве физических лиц. Провела более 500 успешных дел. Эксперт в области финансового права и процедур банкротства.',
+    stats: {
+      experience: '7+',
+      cases: '500+',
+      success: '96%'
+    },
+    specializations: [
+      'Банкротство физических лиц',
+      'Реструктуризация долгов',
+      'Защита имущества',
+      'Оспаривание сделок'
+    ],
+    achievements: [
+      'Списано долгов на сумму более 2 млрд рублей',
+      'Сохранено имущество в 89% случаев',
+      'Средний срок процедуры - 6 месяцев',
+      'Работа со сложными категориями дел'
+    ],
+    contacts: {
+      phone: '+7 (495) 128-80-98',
+      email: 'mashulia@zerodolg.ru'
+    }
+  },
+  {
+    id: 'strukova',
+    name: 'Струкова А.',
+    position: 'Ведущий юрист',
+    photo: '/images/team/angelika.webp',
+    role: 'Ведущий юрист по банкротству',
+    quote: 'Каждый случай уникален, и мы находим индивидуальное решение для каждого клиента',
+    description: 'Специалист по сложным делам банкротства. Опыт работы более 5 лет. Успешно провела более 300 процедур банкротства.',
+    stats: {
+      experience: '5+',
+      cases: '300+',
+      success: '94%'
+    },
+    specializations: [
+      'Судебная защита',
+      'Работа с кредиторами',
+      'Сопровождение процедур',
+      'Консультирование'
+    ],
+    achievements: [
+      'Выиграно 95% судебных дел',
+      'Специализация на ипотечных долгах',
+      'Работа с долгами перед банками',
+      'Защита от коллекторов'
+    ],
+    contacts: {
+      phone: '+7 (495) 128-80-98',
+      email: 'strukova@zerodolg.ru'
+    }
+  },
+  {
+    id: 'pashkova',
+    name: 'Пашкова Д.К.',
+    position: 'Юрист-аналитик',
+    photo: '/images/team/pashkova.webp',
+    role: 'Юрист-аналитик',
+    quote: 'Правильный анализ ситуации - это 50% успеха в деле о банкротстве',
+    description: 'Эксперт по анализу финансовой документации и подготовке дел к банкротству. Опыт работы 4 года.',
+    stats: {
+      experience: '4+',
+      cases: '250+',
+      success: '93%'
+    },
+    specializations: [
+      'Финансовый анализ',
+      'Подготовка документов',
+      'Экспертиза договоров',
+      'Оценка рисков'
+    ],
+    achievements: [
+      'Разработка стратегий защиты имущества',
+      'Экспертиза более 1000 кредитных договоров',
+      'Выявление незаконных начислений',
+      'Оптимизация процедур банкротства'
+    ],
+    contacts: {
+      phone: '+7 (495) 128-80-98',
+      email: 'pashkova@zerodolg.ru'
+    }
+  },
+  {
+    id: 'bryantsev',
+    name: 'Брянцев А.',
+    position: 'Финансовый управляющий',
+    photo: '/images/team/briancev.webp',
+    role: 'Арбитражный управляющий',
+    quote: 'Моя цель - провести процедуру максимально быстро и с минимальными потерями для клиента',
+    description: 'Арбитражный управляющий с опытом работы более 6 лет. Член СРО арбитражных управляющих.',
+    stats: {
+      experience: '6+',
+      cases: '400+',
+      success: '97%'
+    },
+    specializations: [
+      'Процедура реализации имущества',
+      'Реструктуризация долгов',
+      'Работа с судами',
+      'Взаимодействие с кредиторами'
+    ],
+    achievements: [
+      'Проведено более 400 процедур банкротства',
+      'Средний срок процедуры - 5 месяцев',
+      'Сохранение единственного жилья в 100% случаев',
+      'Минимизация судебных расходов'
+    ],
+    contacts: {
+      phone: '+7 (495) 128-80-98',
+      email: 'bryantsev@zerodolg.ru'
+    }
+  }
+];
+
+// Use CMS data if available, otherwise fallback to static data
+const activeTeamMembers = teamMembers.length > 0 ? teamMembers : fallbackTeamMembers;
+
+// Calculate team statistics
+const calculateTeamStats = (members) => {
+  let totalExperience = 0;
+  let totalCases = 0;
+  let successRates = [];
+  
+  members.forEach(member => {
+    // Extract numbers from experience string (e.g., "7+" -> 7)
+    const expMatch = member.experience?.match(/(\d+)/);
+    if (expMatch) totalExperience += parseInt(expMatch[1]);
+    
+    // Extract numbers from cases string (e.g., "500+" -> 500)
+    const casesMatch = member.stats?.cases?.match(/(\d+)/);
+    if (casesMatch) totalCases += parseInt(casesMatch[1]);
+    
+    // Extract success rate (e.g., "96%" -> 96)
+    const successMatch = member.stats?.success?.match(/(\d+)/);
+    if (successMatch) successRates.push(parseInt(successMatch[1]));
+  });
+  
+  // Calculate average success rate
+  const avgSuccessRate = successRates.length > 0 
+    ? Math.round(successRates.reduce((sum, rate) => sum + rate, 0) / successRates.length)
+    : 95;
+  
+  return {
+    totalExperience: `${totalExperience}+`,
+    totalCases: `${totalCases}+`,
+    totalSaved: '2 млрд ₽', // This is a fixed value in the original
+    successRate: `${avgSuccessRate}%`
+  };
+};
+
+const teamStats = calculateTeamStats(activeTeamMembers);
+---
+
+<section class="team-interactive" id="team">
+  <div class="container">
+    <div class="team-interactive__header">
+      <h2 class="team-interactive__title section-title">Наша команда экспертов</h2>
+      <p class="team-interactive__subtitle">
+        Профессионалы с многолетним опытом в сфере банкротства физических лиц
+      </p>
+    </div>
+
+    <div class="team-interactive__wrapper">
+      <!-- Team Tabs -->
+      <div class="team-interactive__tabs" role="tablist" aria-label="Выбор члена команды">
+        {activeTeamMembers.map((member, index) => (
+          <button
+            class={`team-tab ${index === 0 ? 'active' : ''}`}
+            data-member={member.id}
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-controls={`team-member-${member.id}`}
+            tabindex={index === 0 ? '0' : '-1'}
+          >
+            <div class="team-tab__photo">
+              <img src={member.photo} alt={member.name} loading="lazy" />
+            </div>
+            <div class="team-tab__info">
+              <div class="team-tab__name">{member.name}</div>
+              <div class="team-tab__position">{member.position}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <!-- Team Content -->
+      <div class="team-interactive__content">
+        {activeTeamMembers.map((member, index) => (
+          <div
+            class={`team-member ${index === 0 ? 'active' : ''}`}
+            data-member={member.id}
+            id={`team-member-${member.id}`}
+            role="tabpanel"
+            aria-hidden={index === 0 ? 'false' : 'true'}
+          >
+            <div class="team-member__header">
+              <h3 class="team-member__name">{member.name}</h3>
+              <div class="team-member__role">{member.role}</div>
+            </div>
+
+            <blockquote class="team-member__quote">
+              {member.quote}
+            </blockquote>
+
+            <p class="team-member__description">
+              {member.description}
+            </p>
+
+            <div class="team-member__details">
+              <!-- Stats -->
+              <div class="team-member__stats">
+                <div class="team-member__stat">
+                  <span class="team-member__stat-value">{member.stats.experience}</span>
+                  <span class="team-member__stat-label">лет опыта</span>
+                </div>
+                <div class="team-member__stat">
+                  <span class="team-member__stat-value">{member.stats.cases}</span>
+                  <span class="team-member__stat-label">успешных дел</span>
+                </div>
+                <div class="team-member__stat">
+                  <span class="team-member__stat-value">{member.stats.success}</span>
+                  <span class="team-member__stat-label">успешность</span>
+                </div>
+              </div>
+
+              <!-- Specializations -->
+              <div class="team-member__section">
+                <h4 class="team-member__subtitle">Специализация</h4>
+                <div class="team-member__tags">
+                  {member.specializations.map(spec => (
+                    <span class="team-member__tag">{spec}</span>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Achievements -->
+              <div class="team-member__section">
+                <h4 class="team-member__subtitle">Достижения</h4>
+                <ul class="team-member__list">
+                  {member.achievements.map(achievement => (
+                    <li>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="team-member__contact">
+              <a href={`tel:${member.contacts.phone.replace(/[^\d+]/g, '')}`} class="team-member__link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                Позвонить
+              </a>
+              <a href={`mailto:${member.contacts.email}`} class="team-member__link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Написать
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Overall Team Stats -->
+    <div class="team-interactive__stats">
+      <div class="team-interactive__stat">
+        <span class="team-interactive__stat-number">{teamStats.totalExperience}</span>
+        <span class="team-interactive__stat-label">лет суммарного опыта</span>
+      </div>
+      <div class="team-interactive__stat">
+        <span class="team-interactive__stat-number">{teamStats.totalCases}</span>
+        <span class="team-interactive__stat-label">проведенных дел</span>
+      </div>
+      <div class="team-interactive__stat">
+        <span class="team-interactive__stat-number">{teamStats.totalSaved}</span>
+        <span class="team-interactive__stat-label">списано долгов</span>
+      </div>
+      <div class="team-interactive__stat">
+        <span class="team-interactive__stat-number">{teamStats.successRate}</span>
+        <span class="team-interactive__stat-label">успешных дел</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Interactive Logic -->
+<script>
+  (() => {
+    console.log('[TeamInteractive] Initializing team member switching');
+    
+    // Wait for DOM to be ready
+    const init = () => {
+      const tabs = document.querySelectorAll('.team-tab');
+      const members = document.querySelectorAll('.team-member');
+      
+      console.log(`[TeamInteractive] Found ${tabs.length} tabs and ${members.length} members`);
+      
+      if (tabs.length === 0 || members.length === 0) {
+        console.warn('[TeamInteractive] No tabs or members found');
+        return;
+      }
+      
+      // Function to switch team member
+      const switchMember = (memberId) => {
+        console.log(`[TeamInteractive] Switching to member: ${memberId}`);
+        
+        // Hide all members
+        members.forEach(member => {
+          member.classList.remove('active');
+          member.style.display = 'none';
+          member.setAttribute('aria-hidden', 'true');
+        });
+        
+        // Deactivate all tabs
+        tabs.forEach(tab => {
+          tab.classList.remove('active');
+          tab.setAttribute('aria-selected', 'false');
+          tab.setAttribute('tabindex', '-1');
+        });
+        
+        // Show selected member
+        const selectedMember = document.querySelector(`.team-member[data-member="${memberId}"]`);
+        const selectedTab = document.querySelector(`.team-tab[data-member="${memberId}"]`);
+        
+        if (selectedMember && selectedTab) {
+          selectedMember.classList.add('active');
+          selectedMember.style.display = '';
+          selectedMember.setAttribute('aria-hidden', 'false');
+          
+          selectedTab.classList.add('active');
+          selectedTab.setAttribute('aria-selected', 'true');
+          selectedTab.setAttribute('tabindex', '0');
+          
+          console.log(`[TeamInteractive] Successfully switched to ${memberId}`);
+        } else {
+          console.error(`[TeamInteractive] Could not find member or tab for ${memberId}`);
+        }
+      };
+      
+      // Add click handlers to tabs
+      tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          const memberId = tab.dataset.member;
+          console.log(`[TeamInteractive] Tab clicked: ${memberId}`);
+          if (memberId) {
+            switchMember(memberId);
+          }
+        });
+      });
+      
+      // Handle keyboard navigation
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('keydown', (e) => {
+          let newIndex = index;
+          
+          if (e.key === 'ArrowRight') {
+            newIndex = (index + 1) % tabs.length;
+          } else if (e.key === 'ArrowLeft') {
+            newIndex = index === 0 ? tabs.length - 1 : index - 1;
+          } else if (e.key === 'Home') {
+            newIndex = 0;
+          } else if (e.key === 'End') {
+            newIndex = tabs.length - 1;
+          } else {
+            return;
+          }
+          
+          e.preventDefault();
+          const newTab = tabs[newIndex];
+          const memberId = newTab.dataset.member;
+          if (memberId) {
+            switchMember(memberId);
+            newTab.focus();
+          }
+        });
+      });
+      
+      // Ensure first member is shown
+      const firstTab = tabs[0];
+      if (firstTab) {
+        const firstMemberId = firstTab.dataset.member;
+        if (firstMemberId) {
+          switchMember(firstMemberId);
+        }
+      }
+      
+      console.log('[TeamInteractive] Initialization complete');
+    };
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+

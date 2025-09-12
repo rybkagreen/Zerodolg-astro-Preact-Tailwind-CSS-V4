@@ -1,0 +1,33 @@
+---
+export interface Props {
+  minUsers?: number;
+  maxUsers?: number;
+  updateInterval?: number;
+  className?: string;
+}
+
+const { 
+  minUsers = 5,
+  maxUsers = 15,
+  updateInterval = 30000,
+  className = ''
+} = Astro.props;
+
+// Initial random count for SSR
+const initialCount = Math.floor(Math.random() * (maxUsers - minUsers + 1)) + minUsers;
+---
+
+<div 
+  class={`stats__sticker ${className}`}
+  data-min-users={minUsers}
+  data-max-users={maxUsers}
+  data-update-interval={updateInterval}
+>
+  <div class="stats__sticker-pulse"></div>
+  <span class="stats__sticker-icon">🟢</span>
+  <div class="stats__sticker-content">
+    <span class="stats__sticker-text">сейчас на сайте</span>
+    <span class="stats__sticker-count">{initialCount} человек</span>
+  </div>
+</div>
+

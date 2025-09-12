@@ -1,0 +1,78 @@
+{
+  "name": "Asset Manifest",
+  "version": "1.0.0",
+  "description": "Central registry for all static assets",
+  "assets": {
+    "images": {
+      "logo": {
+        "main": "/assets/images/logo.svg",
+        "alt": "/assets/images/logo.png",
+        "sizes": {
+          "sm": "/assets/images/logo-sm.png",
+          "md": "/assets/images/logo-md.png",
+          "lg": "/assets/images/logo-lg.png"
+        }
+      },
+      "team": {
+        "path": "/assets/images/team/",
+        "format": "webp",
+        "fallback": "jpg"
+      },
+      "sections": {
+        "hero": "/assets/images/hero-bg.webp",
+        "about": "/assets/images/about-bg.webp"
+      }
+    },
+    "icons": {
+      "favicon": {
+        "ico": "src/assets/icons/favicon.ico",
+        "svg": "src/assets/icons/favicon.svg",
+        "apple": "src/assets/icons/apple-touch-icon.png",
+        "sizes": [16, 32, 48, 64, 128, 256, 512]
+      },
+      "process": {
+        "path": "src/assets/icons/process/",
+        "count": 6,
+        "format": "svg"
+      },
+      "solution": {
+        "path": "src/assets/icons/solution/",
+        "count": 6,
+        "format": "svg"
+      },
+      "social": {
+        "telegram": "/assets/icons/social/telegram.svg",
+        "whatsapp": "/assets/icons/social/whatsapp.svg",
+        "vk": "/assets/icons/social/vk.svg"
+      }
+    },
+    "patterns": {
+      "hero-dots": "/assets/patterns/hero-dots.svg",
+      "section-wave": "/assets/patterns/section-wave.svg"
+    },
+    "fonts": {
+      "Inter": {
+        "path": "/assets/fonts/inter/",
+        "weights": [400, 500, 600, 700],
+        "formats": ["woff2", "woff"]
+      }
+    }
+  },
+  "optimization": {
+    "images": {
+      "formats": ["webp", "avif"],
+      "sizes": [320, 640, 768, 1024, 1280, 1920],
+      "quality": {
+        "webp": 85,
+        "avif": 80,
+        "jpg": 85
+      }
+    },
+    "icons": {
+      "sprite": true,
+      "inline": ["process", "solution"]
+    }
+  },
+  "preload": [],
+  "critical": []
+}

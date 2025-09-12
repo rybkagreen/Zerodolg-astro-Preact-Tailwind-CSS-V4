@@ -6,9 +6,18 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "docs:generate": "node scripts/generate-component-docs.js",
+    "docs:build": "npm run docs:generate && astro build"
   },
   "dependencies": {
-    "astro": "^5.13.5"
+    "@astrojs/preact": "^4.1.0",
+    "astro": "^5.13.5",
+    "fs-extra": "^11.3.1",
+    "preact": "^10.27.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.2"
   }
 }
