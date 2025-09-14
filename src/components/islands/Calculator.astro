@@ -69,58 +69,233 @@ const {
 
 <script>
   // Calculator logic
-  const form = document.querySelector('.calculator__form') as HTMLFormElement;
-  const resultBlock = document.getElementById('calculator-result') as HTMLElement;
-  
-  if (form) {
-    form.addEventListener('submit', (e) => {
+  class BankruptcyCalculator {
+    constructor() {
+      this.form = document.querySelector('.calculator__form');
+      this.resultDiv = document.querySelector('.calculator__result');
+      this.submitBtn = document.querySelector('.calculator__submit');
+      
+      if (this.form) {
+        this.init();
+      }
+    }
+    
+    init() {
+      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+      
+      // Add change listeners to update button state
+      const selects = this.form.querySelectorAll('select');
+      selects.forEach(select => {
+        select.addEventListener('change', () => this.checkFormValidity());
+      });
+    }
+    
+    checkFormValidity() {
+      const selects = this.form.querySelectorAll('select');
+      const allSelected = Array.from(selects).every(select => select.value !== '');
+      
+      if (this.submitBtn) {
+        this.submitBtn.disabled = !allSelected;
+      }
+    }
+    
+    handleSubmit(e) {
       e.preventDefault();
       
-      const formData = {
-        debtAmount: (document.getElementById('debt-amount') as HTMLSelectElement).value,
-        property: (document.getElementById('property') as HTMLSelectElement).value,
-        employment: (document.getElementById('employment') as HTMLSelectElement).value
+      const formData = new FormData(this.form);
+      const data = {
+        debtAmount: formData.get('debtAmount'),
+        hasProperty: formData.get('hasProperty'),
+        employmentStatus: formData.get('employmentStatus')
       };
       
-      // Validate
-      if (!formData.debtAmount || !formData.property || !formData.employment) {
-        alert('Пожалуйста, заполните все поля');
-        return;
+      // Calculate the cost based on inputs
+      const result = this.calculateCost(data);
+      
+      // Display the result
+      this.displayResult(result);
+      
+      // Analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'calculator_completed', {
+          event_category: 'engagement',
+          event_label: 'bankruptcy_calculator',
+          value: result.price
+        });
+      }
+    }
+    
+    calculateCost(data) {
+      let basePrice = 40000; // Base price
+      let monthlyPayment = 5000; // Base monthly payment
+      let duration = 8; // Months
+      let complexity = 'standard';
+      
+      // Adjust based on debt amount
+      switch(data.debtAmount) {
+        case '100-300':
+          basePrice = 35000;
+          monthlyPayment = 4500;
+          break;
+        case '300-500':
+          basePrice = 40000;
+          monthlyPayment = 5000;
+          break;
+        case '500-1000':
+          basePrice = 45000;
+          monthlyPayment = 5500;
+          complexity = 'medium';
+          break;
+        case '1000+':
+          basePrice = 50000;
+          monthlyPayment = 6000;
+          complexity = 'complex';
+          duration = 10;
+          break;
       }
       
-      // Calculate
-      const isExtrajudicial = formData.debtAmount === '100-300' && 
-                             formData.property === 'none' && 
-                             formData.employment === 'unemployed';
+      // Adjust based on property
+      switch(data.hasProperty) {
+        case 'none':
+          basePrice -= 5000;
+          duration = 6;
+          complexity = 'simple';
+          break;
+        case 'apartment':
+          // No adjustment for single property
+          break;
+        case 'multiple':
+          basePrice += 10000;
+          duration = 12;
+          complexity = 'complex';
+          break;
+      }
       
-      const basePrice = 150000;
-      const procedureType = isExtrajudicial ? 'Внесудебное банкротство' : 'Судебное банкротство';
+      // Adjust based on employment
+      switch(data.employmentStatus) {
+        case 'unemployed':
+          basePrice -= 3000;
+          monthlyPayment -= 500;
+          break;
+        case 'pension':
+          basePrice -= 2000;
+          monthlyPayment -= 300;
+          break;
+        case 'business':
+          basePrice += 5000;
+          complexity = 'complex';
+          break;
+      }
       
-      // Display result
-      if (resultBlock) {
-        resultBlock.innerHTML = `
-          <h3 class="calculator__result-title">${procedureType}</h3>
-          <div class="calculator__result-main">
-            <div class="calculator__result-price">${basePrice.toLocaleString('ru-RU')} ₽</div>
-            <div class="calculator__result-label">Стоимость услуги «под ключ»</div>
+      // Calculate savings
+      const averageDebt = this.getAverageDebt(data.debtAmount);
+      const savings = averageDebt - basePrice;
+      const savingsPercent = Math.round((savings / averageDebt) * 100);
+      
+      return {
+        price: basePrice,
+        monthlyPayment: monthlyPayment,
+        duration: duration,
+        complexity: complexity,
+        savings: savings,
+        savingsPercent: savingsPercent,
+        debtAmount: averageDebt
+      };
+    }
+    
+    getAverageDebt(range) {
+      switch(range) {
+        case '100-300': return 200000;
+        case '300-500': return 400000;
+        case '500-1000': return 750000;
+        case '1000+': return 1500000;
+        default: return 500000;
+      }
+    }
+    
+    displayResult(result) {
+      const complexityText = {
+        'simple': 'Простая процедура',
+        'standard': 'Стандартная процедура',
+        'medium': 'Процедура средней сложности',
+        'complex': 'Сложная процедура'
+      };
+      
+      this.resultDiv.innerHTML = `
+        <div class="calculator__result-content">
+          <div class="calculator__result-header">
+            <h3 class="calculator__result-title">Ваш персональный расчет готов!</h3>
+            <div class="calculator__result-badge">${complexityText[result.complexity]}</div>
           </div>
-          <div class="calculator__result-installments">
-            <h4>Рассрочка без переплат:</h4>
-            <div class="calculator__installments-grid">
-              <div class="calculator__installment-item">
-                <span class="calculator__installment-months">12 месяцев</span>
-                <span class="calculator__installment-price">${Math.round(basePrice / 12).toLocaleString('ru-RU')} ₽/мес</span>
-              </div>
+          
+          <div class="calculator__result-grid">
+            <div class="calculator__result-card calculator__result-card--primary">
+              <div class="calculator__result-label">Стоимость под ключ</div>
+              <div class="calculator__result-value">${result.price.toLocaleString('ru-RU')} ₽</div>
+              <div class="calculator__result-note">или ${result.monthlyPayment.toLocaleString('ru-RU')} ₽/мес</div>
+            </div>
+            
+            <div class="calculator__result-card">
+              <div class="calculator__result-label">Срок процедуры</div>
+              <div class="calculator__result-value">${result.duration} мес</div>
+              <div class="calculator__result-note">полное списание долгов</div>
+            </div>
+            
+            <div class="calculator__result-card calculator__result-card--success">
+              <div class="calculator__result-label">Ваша экономия</div>
+              <div class="calculator__result-value">${result.savings.toLocaleString('ru-RU')} ₽</div>
+              <div class="calculator__result-note">${result.savingsPercent}% от суммы долга</div>
             </div>
           </div>
-          <div class="calculator__result-actions">
-            <button class="btn btn--primary btn--lg">Получить консультацию</button>
+          
+          <div class="calculator__result-features">
+            <h4 class="calculator__result-features-title">Что входит в стоимость:</h4>
+            <ul class="calculator__result-features-list">
+              <li>Полное юридическое сопровождение</li>
+              <li>Подготовка всех документов</li>
+              <li>Представительство в суде</li>
+              <li>Работа с кредиторами</li>
+              <li>Гарантия результата по договору</li>
+            </ul>
           </div>
-        `;
-        resultBlock.removeAttribute('hidden');
-        resultBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          
+          <div class="calculator__result-actions">
+            <button type="button" class="btn btn--primary btn--large calculator__result-btn" data-modal-trigger="callback">
+              Получить консультацию бесплатно
+            </button>
+            <p class="calculator__result-disclaimer">
+              Точная стоимость определяется после анализа вашей ситуации
+            </p>
+          </div>
+        </div>
+      `;
+      
+      // Show result with animation
+      this.resultDiv.hidden = false;
+      this.resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      // Add click handler for consultation button
+      const consultBtn = this.resultDiv.querySelector('[data-modal-trigger="callback"]');
+      if (consultBtn) {
+        consultBtn.addEventListener('click', () => {
+          // Trigger modal or scroll to form
+          const modal = document.querySelector('#callback-modal');
+          if (modal) {
+            modal.classList.add('modal--active');
+          } else {
+            // Fallback: scroll to CTA section
+            const ctaSection = document.querySelector('#cta, .cta');
+            if (ctaSection) {
+              ctaSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
       }
-    });
+    }
   }
+  
+  // Initialize calculator when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    new BankruptcyCalculator();
+  });
 </script>
-

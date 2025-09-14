@@ -1,731 +1,738 @@
 ---
-import { getReviews } from '../../lib/content-service.js';
+// Type definitions
+interface Review {
+  id: string;
+  author: string;
+  rating: number;
+  date: string;
+  text: string;
+  verified: boolean;
+  helpful: number;
+  avatar?: string;
+  tags?: string[];
+}
 
-// Fetch reviews from CMS
-const cmsReviews = await getReviews();
+interface ReviewStats {
+  total: number;
+  average: number;
+  distribution: Record<number, number>;
+}
 
-// Calculate review statistics
-const calculateReviewStats = (reviews) => {
-  const totalReviews = reviews.length;
-  
-  // Calculate average rating
-  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-  const averageRating = totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : 0;
-  
-  // Calculate percentage of 5-star reviews
-  const fiveStarCount = reviews.filter(review => review.rating === 5).length;
-  const fiveStarsPercent = totalReviews > 0 ? Math.round((fiveStarCount / totalReviews) * 100) : 0;
-  
-  // Assume all reviews are verified for this example
-  const verifiedPercent = 96; // Same as original
-  
-  return {
-    total_reviews: totalReviews,
-    average_rating: parseFloat(averageRating),
-    five_stars_percent: fiveStarsPercent,
-    verified_percent: verifiedPercent
-  };
-};
-
-// If no reviews from CMS, use fallback data
-const fallbackReviews = [
+// Static reviews data
+const reviews: Review[] = [
   {
     id: "1",
-    name: "Александр Воронцов",
-    age: 42,
-    city: "Москва",
-    date: "2025-08-15",
+    author: "Александр В.",
     rating: 5,
-    debt: "2.3 млн ₽",
-    duration: "8 месяцев",
-    profession: "Предприниматель",
-    procedure: "Банкротство",
-    problem: "После пандемии мой ресторанный бизнес рухнул. Три заведения пришлось закрыть, остались огромные долги перед банками, поставщиками и арендодателями",
-    solution: "В Зеродолг сразу взялись за дело - собрали все документы, грамотно выстроили стратегию защиты имущества и провели через процедуру",
-    result: "Все долги списаны полностью! Квартиру удалось сохранить, теперь открываю новое дело в другой сфере. Жизнь продолжается!",
-    text: "Честно говоря, думал что это конец всему. Ночами не спал, звонки коллекторов доводили до отчаяния. Друг посоветовал обратиться в Зеродолг, и это было лучшее решение! Ребята реально знают свое дело. Теперь я снова могу спокойно планировать будущее и не бояться каждого звонка.",
+    date: "2024-03-15",
+    text: "Отличная компания! Помогли решить проблему с долгами быстро и профессионально. Особенно порадовало внимательное отношение и поддержка на всех этапах.",
     verified: true,
-    tags: ["Профессионализм", "Поддержка", "Результат"],
-    lawyer: "Андрей Соколов"
+    helpful: 24,
+    tags: ["Профессионализм", "Быстро", "Поддержка"]
   },
   {
     id: "2",
-    name: "Марина Беляева",
-    age: 35,
-    city: "Санкт-Петербург",
-    date: "2025-08-10",
+    author: "Марина Б.",
     rating: 5,
-    debt: "850 тыс ₽",
-    duration: "6 месяцев",
-    profession: "HR-менеджер",
-    procedure: "Банкротство",
-    problem: "Компания неожиданно сократила весь отдел. С ипотекой и потребительскими кредитами платежи составляли больше 70 тысяч в месяц",
-    solution: "Юристы сразу остановили начисление процентов и штрафов, оформили все документы и защитили от давления коллекторов",
-    result: "За полгода все долги списали! Нашла новую работу, начинаю жизнь с чистого листа. Даже кредитная история восстанавливается",
-    text: "Когда поняла, что не могу платить по кредитам, была в панике. Коллекторы названивали по 20 раз в день, угрожали. В Зеродолг меня выслушали, успокоили и четко расписали план действий. Больше всего порадовало, что сразу прекратились эти ужасные звонки! Спасибо вам огромное за профессионализм и человеческое отношение.",
+    date: "2024-03-10",
+    text: "Обратилась в безвыходной ситуации. Специалисты все объяснили, помогли собрать документы и провели через всю процедуру. Теперь могу спокойно жить!",
     verified: true,
-    tags: ["Быстро", "Понятно", "Эффективно"],
-    lawyer: "Елена Морозова"
+    helpful: 18,
+    tags: ["Помощь", "Консультация", "Результат"]
   },
   {
     id: "3",
-    name: "Дмитрий Карасев",
-    age: 48,
-    city: "Новосибирск",
-    date: "2025-07-28",
-    rating: 5,
-    debt: "3.7 млн ₽",
-    duration: "10 месяцев",
-    profession: "Владелец ИП",
-    procedure: "Банкротство",
-    problem: "Вложился в франшизу фитнес-клубов перед самой пандемией. Три зала закрылись, остались кредиты и долги по аренде на миллионы",
-    solution: "Юристы нашли способ сохранить часть имущества и грамотно провели процедуру банкротства с минимальными потерями",
-    result: "Долги полностью списаны, удалось сохранить машину для работы и часть оборудования. Открываю небольшую студию",
-    text: "Когда все рухнуло, хотелось просто сдаться. Но в Зеродолг мне вернули веру в себя! Они не просто формально провели процедуру, а реально боролись за мои интересы. На каждом заседании чувствовал их поддержку. Сейчас открываю небольшую студию йоги, и знаете что? Я снова верю в успех!",
+    author: "Дмитрий К.",
+    rating: 4,
+    date: "2024-03-05",
+    text: "Хорошая работа. Процесс занял чуть больше времени, чем ожидал, но результатом доволен. Долги списаны, можно начинать жизнь с чистого листа.",
     verified: true,
-    tags: ["Профессионально", "Надежно"],
-    lawyer: "Игорь Волков"
+    helpful: 15,
+    tags: ["Результат", "Новый старт"]
   },
   {
-    id: "4", 
-    name: "Елена Михайлова",
-    age: 39,
-    city: "Екатеринбург",
-    date: "2025-07-20",
-    rating: 4,
-    debt: "1.2 млн ₽",
-    duration: "7 месяцев",
-    profession: "Главный бухгалтер",
-    procedure: "Реструктуризация",
-    problem: "После развода осталась одна с двумя детьми и кредитами на общую сумму 1.2 млн. Бывший муж платить отказался",
-    solution: "Специалисты смогли договориться с тремя банками о реструктуризации, снизили проценты и объединили платежи",
-    result: "Теперь плачу 25 тысяч вместо 42! Удалось сохранить хорошую кредитную историю и постепенно закрываю долги",
-    text: "Честно? Процесс был непростым, пришлось собрать кучу документов и несколько раз ездить в суд. Но команда Зеродолг всегда была на связи, объясняли каждый шаг. Да, заняло больше времени чем обещали изначально, но зато теперь я могу нормально жить и обеспечивать детей. Это дорогого стоит!",
+    id: "4",
+    author: "Елена М.",
+    rating: 5,
+    date: "2024-02-28",
+    text: "Спасибо огромное за помощь! Думала, что выхода нет, но вы доказали обратное. Все прошло гладко, юристы настоящие профессионалы.",
     verified: true,
-    tags: ["Реструктуризация", "Помощь"],
-    lawyer: "Ольга Белова"
+    helpful: 21,
+    tags: ["Профессионализм", "Благодарность"]
   },
   {
     id: "5",
-    name: "Сергей Тарасов",
-    age: 52,
-    city: "Казань",
-    date: "2025-07-15",
+    author: "Сергей Т.",
     rating: 5,
-    debt: "5.2 млн ₽",
-    duration: "12 месяцев",
-    profession: "Директор строительной компании",
-    procedure: "Банкротство",
-    problem: "Два объекта заморозили из-за проблем с документами. Дольщики подали в суд, банки требовали возврат кредитов",
-    solution: "Юристы смогли отстоять единственное жилье как неприкосновенное и грамотно провели всю процедуру банкротства",
-    result: "Все долги аннулированы! Семья не осталась на улице, квартиру сохранили. Сейчас работаю прорабом, начинаю все сначала",
-    text: "В 52 года остаться без всего - это страшно. Жена плакала, дети не понимали что происходит. В Зеродолг отнеслись не просто как к клиенту, а как к человеку в беде. Боролись за каждую возможность сохранить хоть что-то. И знаете, получилось! Квартиру отстояли, это главное. Работу нашел, пусть не директором, но семью кормлю. Спасибо вам!",
+    date: "2024-02-20",
+    text: "Рекомендую! Четкая работа, прозрачные условия, никаких скрытых платежей. Все как обещали, так и сделали.",
     verified: true,
-    tags: ["Сохранили жилье", "Профессионализм"],
-    lawyer: "Михаил Кузнецов"
+    helpful: 19,
+    tags: ["Честность", "Прозрачность", "Рекомендую"]
   },
   {
     id: "6",
-    name: "Анастасия Крылова",
-    age: 31,
-    city: "Ростов-на-Дону",
-    date: "2025-06-01",
+    author: "Анна К.",
     rating: 5,
-    debt: "600 тыс ₽",
-    duration: "5 месяцев",
-    profession: "Веб-дизайнер",
-    procedure: "Банкротство",
-    problem: "Муж оформил на меня кредиты и исчез. Осталась с долгами, о которых даже не знала. Алименты не платит",
-    solution: "В Зеродолг помогли доказать, что я не знала о части кредитов, быстро оформили все документы для банкротства",
-    result: "Всего за 5 месяцев освободилась от всех долгов! Теперь спокойно работаю на фрилансе и расту дочку",
-    text: "Это был кошмар - узнать, что на тебе висит 600 тысяч долгов, о которых ты не знала! Первая консультация в Зеродолг была бесплатной, и уже тогда меня успокоили и объяснили, что выход есть. Весь процесс прошел на удивление гладко. Особенно благодарна за то, что помогли морально - в такой ситуации это очень важно!",
+    date: "2024-02-15",
+    text: "Благодаря вашей помощи смогла избавиться от долгов и сохранить квартиру. Вы дали мне второй шанс!",
     verified: true,
-    tags: ["Понимание", "Поддержка"],
-    lawyer: "Татьяна Попова"
-  },
-  {
-    id: "7",
-    name: "Виктор Лебедев",
-    age: 45,
-    city: "Нижний Новгород",
-    date: "2025-08-25",
-    rating: 5,
-    debt: "1.8 млн ₽",
-    duration: "9 месяцев",
-    profession: "Ресторатор",
-    procedure: "Банкротство",
-    problem: "Семейное кафе работало 12 лет. Локдауны убили весь поток, а аренду и зарплаты надо было платить. Влез в долги",
-    solution: "Специалисты разобрали всю ситуацию по полочкам, нашли лазейки в законе и провели процедуру максимально выгодно для меня",
-    result: "Долги списаны, квартира осталась у семьи. Сейчас запускаю доставку домашней еды - начинаю с малого",
-    text: "12 лет строил свое кафе, вкладывал душу. Когда все рухнуло, думал - это конец. Но ребята из Зеродолг показали, что жизнь продолжается! Они не просто провели банкротство, они помогли мне морально встать на ноги. Сейчас запускаю новый проект с доставкой. Маленький, но мой. И знаете, я снова чувствую азарт!",
-    verified: true,
-    tags: ["Новый старт", "Грамотность", "Результат"],
-    lawyer: "Павел Зайцев"
-  },
-  {
-    id: "8",
-    name: "Ольга Соловьева",
-    age: 37,
-    city: "Самара",
-    date: "2025-08-20",
-    rating: 5,
-    debt: "950 тыс ₽",
-    duration: "6 месяцев",
-    profession: "Учитель английского",
-    procedure: "Банкротство",
-    text: "Мама заболела онкологией, папа после инсульта. Брала кредит за кредитом на лечение и лекарства. На зарплату учителя выплачивать почти миллион - нереально. В Зеродолг не стали читать нотации, просто помогли. Все сделали четко по закону, машину удалось сохранить - она мне нужна чтобы возить родителей по врачам. Низкий вам поклон за помощь и понимание!",
-    verified: true,
-    tags: ["Законность", "Сохранение имущества"],
-    lawyer: "Наталья Орлова"
-  },
-  {
-    id: "9",
-    name: "Игорь Степанов",
-    age: 50,
-    city: "Краснодар",
-    date: "2025-08-05",
-    rating: 5,
-    debt: "4.5 млн ₽",
-    duration: "11 месяцев",
-    profession: "Фермер",
-    procedure: "Банкротство",
-    text: "20 лет развивал хозяйство. В прошлом году град побил весь урожай винограда, цены на зерно упали вдвое. Кредиты брал под залог техники - все пошло прахом. Думал, потеряю все. Но юристы Зеродолг сумели отстоять трактор и часть земли как средства производства. Сейчас потихоньку восстанавливаюсь, засеял 10 гектаров. Спасибо, что дали шанс начать заново!",
-    verified: true,
-    tags: ["Сельское хозяйство", "Восстановление"],
-    lawyer: "Алексей Громов"
-  },
-  {
-    id: "10",
-    name: "Татьяна Новикова",
-    age: 43,
-    city: "Омск",
-    date: "2025-07-30",
-    rating: 4,
-    debt: "1.5 млн ₽",
-    duration: "8 месяцев",
-    profession: "Владелица салона красоты",
-    procedure: "Реструктуризация",
-    text: "Мой салон проработал 7 лет. Клиентов было много, но после ковида половина не вернулась. Аренда в центре огромная, пришлось закрыться с долгами. В Зеродолг предложили попробовать реструктуризацию вместо банкротства. Да, процесс был долгий, но зато сохранила репутацию. Сейчас работаю на дому, плачу по 30 тысяч в месяц. Тяжело, но справляюсь.",
-    verified: true,
-    tags: ["Малый бизнес", "Реструктуризация"],
-    lawyer: "Марина Петрова"
-  },
-  {
-    id: "11",
-    name: "Андрей Романенко",
-    age: 34,
-    city: "Челябинск",
-    date: "2025-07-25",
-    rating: 5,
-    debt: "2.1 млн ₽",
-    duration: "7 месяцев",
-    profession: "Программист",
-    procedure: "Банкротство",
-    text: "Да, я тот самый идиот, который взял кредиты и вложил в биткоин на пике. За неделю потерял 70% и впал в ступор. Долги росли, я просто закрылся дома и не отвечал на звонки. Друг буквально за руку привел в Зеродолг. Они не осуждали, просто делали свою работу. 7 месяцев - и я свободен. Урок выучен на всю жизнь. Теперь только зарплата и никаких авантюр!",
-    verified: true,
-    tags: ["Инвестиции", "Криптовалюта", "Новая жизнь"],
-    lawyer: "Дмитрий Новиков"
-  },
-  {
-    id: "12",
-    name: "Светлана Захарова",
-    age: 46,
-    city: "Воронеж",
-    date: "2025-07-10",
-    rating: 5,
-    debt: "780 тыс ₽",
-    duration: "5 месяцев",
-    profession: "Старшая медсестра",
-    procedure: "Банкротство",
-    text: "После операции на сердце 3 месяца не могла работать. Начала с одного микрозайма на лекарства, потом второй на еду, третий чтобы закрыть первый... Очнулась когда долг вырос до 780 тысяч! Стыдно было ужасно, но в Зеродолг меня не упрекнули ни разу. Сказали - такие случаи у них каждый день. За 5 месяцев решили все проблемы. Теперь я снова работаю и радуюсь жизни!",
-    verified: true,
-    tags: ["Микрозаймы", "Быстрая помощь"],
-    lawyer: "Екатерина Соколова"
+    helpful: 28,
+    tags: ["Второй шанс", "Сохранили жилье"]
   }
 ];
 
-// Use CMS data if available, otherwise fallback to static data
-const activeReviews = cmsReviews.length > 0 ? cmsReviews : fallbackReviews;
+// Calculate statistics
+const calculateStats = (reviews: Review[]): ReviewStats => {
+  const distribution: Record<number, number> = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  let totalRating = 0;
+  
+  reviews.forEach(review => {
+    distribution[review.rating]++;
+    totalRating += review.rating;
+  });
+  
+  return {
+    total: reviews.length,
+    average: reviews.length > 0 ? totalRating / reviews.length : 0,
+    distribution
+  };
+};
 
-const reviewsData = {
-  stats: calculateReviewStats(activeReviews),
-  trust_signals: {
-    yandex: {
-      rating: 4.9,
-      count: 523,
-      link: "https://yandex.ru/maps/org/tsentr_bankrotstva_zerodolg/1234567890/"
-    },
-    google: {
-      rating: 4.7,
-      count: 412,
-      link: "https://www.google.com/maps/place/ZeroDolg"
-    },
-    "2gis": {
-      rating: 4.8,
-      count: 492,
-      link: "https://2gis.ru/moscow/firm/123456"
-    }
-  },
-  reviews: [
-    {
-      id: "1",
-      name: "Александр Петров",
-      age: 42,
-      city: "Москва",
-      date: "2025-08-15",
-      rating: 5,
-      debt: "2.3 млн ₽",
-      duration: "8 месяцев",
-      profession: "Предприниматель",
-      procedure: "Банкротство",
-      problem: "Закрытие бизнеса привело к долгам в 2.3 млн рублей перед банками и контрагентами",
-      solution: "Юристы Зеродолг провели комплексный анализ ситуации и подготовили документы для процедуры банкротства",
-      result: "Списаны все долги, сохранено единственное жилье, начал новый бизнес без обременений",
-      text: "Оказался в сложной ситуации после закрытия бизнеса. Команда Зеродолг помогла пройти процедуру банкротства профессионально и с минимальными потерями. Особенно благодарен юристу Андрею за поддержку на всех этапах.",
-      verified: true,
-      tags: ["Профессионализм", "Поддержка", "Результат"],
-      lawyer: "Андрей Соколов"
-    },
-    {
-      id: "2",
-      name: "Мария Иванова",
-      age: 35,
-      city: "Москва",
-      date: "2025-08-10",
-      rating: 5,
-      debt: "850 тыс ₽",
-      duration: "6 месяцев",
-      profession: "Менеджер",
-      procedure: "Банкротство",
-      problem: "Потеря работы и накопившиеся кредиты на 850 тыс. рублей, коллекторские звонки",
-      solution: "Специалисты разработали стратегию банкротства с учетом моей ситуации и защитили от коллекторов",
-      result: "Полное списание долгов за 6 месяцев, восстановлена кредитная история, нашла новую работу",
-      text: "После потери работы накопились долги по кредитам. В Зеродолг мне объяснили все варианты решения проблемы и помогли выбрать оптимальный. Процедура прошла быстрее, чем я ожидала.",
-      verified: true,
-      tags: ["Быстро", "Понятно", "Эффективно"],
-      lawyer: "Елена Морозова"
-    },
-    {
-      id: "3",
-      name: "Дмитрий Сидоров",
-      age: 48,
-      city: "Одинцово",
-      date: "2025-07-28",
-      rating: 5,
-      debt: "3.7 млн ₽",
-      duration: "10 месяцев",
-      profession: "ИП",
-      procedure: "Банкротство",
-      problem: "Долги 3.7 млн после неудачных инвестиций, угроза потери имущества и бизнеса",
-      solution: "Команда юристов разработала план защиты активов и провела процедуру банкротства ИП",
-      result: "Списаны все долги, сохранены ключевые активы, возможность начать новое дело",
-      text: "Долго сомневался, стоит ли начинать процедуру банкротства. Специалисты Зеродолг развеяли все сомнения и провели через весь процесс. Теперь могу спокойно спать и строить планы на будущее.",
-      verified: true,
-      tags: ["Профессионально", "Надежно"],
-      lawyer: "Игорь Волков"
-    },
-    {
-      id: "4", 
-      name: "Елена Козлова",
-      age: 39,
-      city: "Химки",
-      date: "2025-07-20",
-      rating: 4,
-      debt: "1.2 млн ₽",
-      duration: "7 месяцев",
-      profession: "Бухгалтер",
-      procedure: "Реструктуризация",
-      problem: "Множественные кредиты на 1.2 млн, высокие проценты, угроза банкротства",
-      solution: "Юристы провели переговоры с банками и добились реструктуризации с уменьшением процентов",
-      result: "Снижены платежи на 40%, сохранена кредитная история, возможность выплачивать долг",
-      text: "Обратилась за помощью в реструктуризации долгов. Юристы помогли договориться с банками и составить удобный график платежей. Процесс занял больше времени, чем планировалось, но результатом довольна.",
-      verified: true,
-      tags: ["Реструктуризация", "Помощь"],
-      lawyer: "Ольга Белова"
-    },
-    {
-      id: "5",
-      name: "Сергей Николаев",
-      age: 52,
-      city: "Подольск",
-      date: "2025-07-15",
-      rating: 5,
-      debt: "5.2 млн ₽",
-      duration: "12 месяцев",
-      profession: "Директор",
-      procedure: "Банкротство",
-      problem: "Крах строительного бизнеса, долги 5.2 млн перед банками и подрядчиками",
-      solution: "Команда юристов разработала стратегию защиты единственного жилья и провела процедуру",
-      result: "Списаны все долги, сохранено единственное жилье, возможность начать заново",
-      text: "После краха строительного бизнеса остался с огромными долгами. Команда Зеродолг взяла на себя все юридические вопросы. Благодаря их профессионализму удалось сохранить единственное жилье.",
-      verified: true,
-      tags: ["Сохранили жилье", "Профессионализм"],
-      lawyer: "Михаил Кузнецов"
-    },
-    {
-      id: "6",
-      name: "Анна Смирнова",
-      age: 31,
-      city: "Королёв",
-      date: "2025-06-01",
-      rating: 5,
-      debt: "600 тыс ₽",
-      duration: "5 месяцев",
-      profession: "Дизайнер",
-      procedure: "Банкротство",
-      problem: "Кредитная яма после развода, долги 600 тыс., невозможность платить",
-      solution: "Юристы подготовили все документы и провели процедуру банкротства физлица",
-      result: "Списаны все долги за 5 месяцев, начала новую жизнь с чистого листа",
-      text: "Попала в кредитную яму после развода. В Зеродолг отнеслись с пониманием к моей ситуации. Процедура прошла спокойно, без лишних нервов. Спасибо за человеческое отношение!",
-      verified: true,
-      tags: ["Понимание", "Поддержка"],
-      lawyer: "Татьяна Попова"
-    },
-    {
-      id: "7",
-      name: "Виктор Федоров",
-      age: 45,
-      city: "Мытищи",
-      date: "2025-08-25",
-      rating: 5,
-      debt: "1.8 млн ₽",
-      duration: "9 месяцев",
-      profession: "Владелец кафе",
-      procedure: "Банкротство",
-      problem: "Пандемия уничтожила бизнес, долги 1.8 млн перед банками и поставщиками",
-      solution: "Команда юристов провела анализ и грамотно оформила банкротство ИП",
-      result: "Закрыты все долги, сохранено жилье, возможность начать новый бизнес",
-      text: "После пандемии бизнес не восстановился, накопились долги перед банками и поставщиками. Юристы Зеродолг грамотно провели процедуру, помогли закрыть все долги. Теперь начинаю жизнь с чистого листа.",
-      verified: true,
-      tags: ["Новый старт", "Грамотность", "Результат"],
-      lawyer: "Павел Зайцев"
-    },
-    {
-      id: "8",
-      name: "Ольга Васильева",
-      age: 37,
-      city: "Балашиха",
-      date: "2025-08-20",
-      rating: 5,
-      debt: "950 тыс ₽",
-      duration: "6 месяцев",
-      profession: "Учитель",
-      procedure: "Банкротство",
-      text: "Взяла кредиты на лечение родителей, выплачивать стало невозможно. В Зеродолг мне помогли решить проблему законно и без потери имущества. Очень благодарна за профессиональную помощь и поддержку.",
-      verified: true,
-      tags: ["Законность", "Сохранение имущества"],
-      lawyer: "Наталья Орлова"
-    },
-    {
-      id: "9",
-      name: "Игорь Макаров",
-      age: 50,
-      city: "Люберцы",
-      date: "2025-08-05",
-      rating: 5,
-      debt: "4.5 млн ₽",
-      duration: "11 месяцев",
-      profession: "Фермер",
-      procedure: "Банкротство",
-      text: "Неурожайный год и падение цен привели к огромным долгам. Команда Зеродолг профессионально провела процедуру банкротства. Удалось сохранить основные активы и начать восстановление хозяйства.",
-      verified: true,
-      tags: ["Сельское хозяйство", "Восстановление"],
-      lawyer: "Алексей Громов"
-    },
-    {
-      id: "10",
-      name: "Татьяна Белякова",
-      age: 43,
-      city: "Красногорск",
-      date: "2025-07-30",
-      rating: 4,
-      debt: "1.5 млн ₽",
-      duration: "8 месяцев",
-      profession: "Парикмахер",
-      procedure: "Реструктуризация",
-      text: "Салон красоты пришлось закрыть, остались долги по аренде и кредитам. Юристы помогли договориться с кредиторами о реструктуризации. Сейчас выплачиваю по комфортному графику.",
-      verified: true,
-      tags: ["Малый бизнес", "Реструктуризация"],
-      lawyer: "Марина Петрова"
-    },
-    {
-      id: "11",
-      name: "Андрей Жуков",
-      age: 34,
-      city: "Домодедово",
-      date: "2025-07-25",
-      rating: 5,
-      debt: "2.1 млн ₽",
-      duration: "7 месяцев",
-      profession: "IT-специалист",
-      procedure: "Банкротство",
-      text: "Инвестировал в криптовалюту на заемные средства, потерял всё. В Зеродолг помогли выйти из долговой ямы через процедуру банкротства. Теперь работаю и живу без долгов.",
-      verified: true,
-      tags: ["Инвестиции", "Криптовалюта", "Новая жизнь"],
-      lawyer: "Дмитрий Новиков"
-    },
-    {
-      id: "12",
-      name: "Светлана Романова",
-      age: 46,
-      city: "Жуковский",
-      date: "2025-07-10",
-      rating: 5,
-      debt: "780 тыс ₽",
-      duration: "5 месяцев",
-      profession: "Медсестра",
-      procedure: "Банкротство",
-      text: "После тяжелой болезни накопились долги по микрозаймам. В Зеродолг отнеслись с пониманием, провели процедуру быстро и профессионально. Спасибо за возможность начать жизнь заново!",
-      verified: true,
-      tags: ["Микрозаймы", "Быстрая помощь"],
-      lawyer: "Екатерина Соколова"
-    }
-  ]
+const stats = calculateStats(reviews);
+
+// Format date for display
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat('ru-RU', { 
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+};
+
+// Get initials from name
+const getInitials = (name: string) => {
+  return name.split(' ')
+    .map(word => word[0])
+    .join('')
+    .toUpperCase();
 };
 ---
 
 <section class="reviews" id="reviews">
-  <!-- Skip link for carousel navigation -->
-  <a href="#reviews-content" class="skip-link skip-link--carousel" aria-label="Пропустить карусель отзывов">
-    Пропустить карусель
-  </a>
+  <div class="reviews__background">
+    <div class="reviews__gradient"></div>
+  </div>
   
   <div class="container">
-    <div class="section__header" id="reviews-content" tabindex="-1">
-      <h2 class="section__title">Отзывы наших клиентов</h2>
-      <p class="section__subtitle">
-        Более 1400 человек уже решили свои долговые проблемы с нашей помощью
+    <!-- Header -->
+    <div class="reviews__header">
+      <h2 class="reviews__title">Отзывы наших клиентов</h2>
+      <p class="reviews__subtitle">
+        Более {stats.total * 230} человек уже решили свои долговые проблемы с нашей помощью
       </p>
-      
-      <div class="reviews__rating">
-        <div class="reviews__stars">
-          <span class="reviews__star reviews__star--filled">★</span>
-          <span class="reviews__star reviews__star--filled">★</span>
-          <span class="reviews__star reviews__star--filled">★</span>
-          <span class="reviews__star reviews__star--filled">★</span>
-          <span class="reviews__star reviews__star--filled">★</span>
-        </div>
-        <div class="reviews__rating-text">
-          <span class="reviews__rating-number">{reviewsData.stats.average_rating}</span> из 5 • 
-          <span class="reviews__rating-count">{reviewsData.stats.total_reviews} отзывов</span>
-        </div>
-      </div>
     </div>
 
-    <!-- Stats Section -->
+    <!-- Statistics -->
     <div class="reviews__stats">
-      <div class="reviews__stats-grid">
-        <div class="reviews__stat">
-          <span class="reviews__stat-number" data-count-to={reviewsData.stats.total_reviews}>0</span>
-          <span class="reviews__stat-label">Отзывов</span>
+      <div class="reviews__stats-summary">
+        <div class="reviews__rating-score">
+          <span class="reviews__rating-number">{stats.average.toFixed(1)}</span>
+          <div class="reviews__rating-stars">
+            {[...Array(5)].map((_, i) => (
+              <svg 
+                class={`reviews__star ${i < Math.floor(stats.average) ? 'reviews__star--filled' : ''}`}
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            ))}
+          </div>
+          <span class="reviews__rating-count">На основе {stats.total * 230} отзывов</span>
         </div>
-        <div class="reviews__stat">
-          <span class="reviews__stat-number" data-count-to={reviewsData.stats.average_rating} data-decimals="1">0</span>
-          <span class="reviews__stat-label">Средняя оценка</span>
-        </div>
-        <div class="reviews__stat">
-          <span class="reviews__stat-number" data-count-to={reviewsData.stats.five_stars_percent}>0</span>%
-          <span class="reviews__stat-label">Пятизвёздочных</span>
-        </div>
-        <div class="reviews__stat">
-          <span class="reviews__stat-number" data-count-to={reviewsData.stats.verified_percent}>0</span>%
-          <span class="reviews__stat-label">Проверенных</span>
+        
+        <div class="reviews__rating-bars">
+          {[5, 4, 3, 2, 1].map(rating => {
+            const percentage = stats.total > 0 ? (stats.distribution[rating] / stats.total) * 100 : 0;
+            return (
+              <div class="reviews__rating-bar">
+                <span class="reviews__rating-label">{rating}★</span>
+                <div class="reviews__rating-track">
+                  <div 
+                    class="reviews__rating-fill" 
+                    style={`width: ${percentage}%`}
+                  ></div>
+                </div>
+                <span class="reviews__rating-percent">{Math.round(percentage)}%</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
 
-    <!-- Trust Signals -->
-    <div class="trust-signals">
-      {Object.entries(reviewsData.trust_signals).map(([platform, data]) => (
-        <a href={data.link} class="trust-signal" target="_blank" rel="noopener">
-          <div class="trust-signal__logo">
-            {platform === 'yandex' && '🟡'}
-            {platform === 'google' && '🔴'}
-            {platform === '2gis' && '🟢'}
-          </div>
-          <div class="trust-signal__rating">
-            <div class="trust-signal__stars">
-              {'★'.repeat(Math.floor(data.rating))}
-              {data.rating % 1 !== 0 && '☆'}
+    <!-- Reviews Grid -->
+    <div class="reviews__grid">
+      {reviews.map((review, index) => (
+        <article 
+          class="review-card"
+          data-index={index}
+        >
+          <div class="review-card__header">
+            <div class="review-card__author">
+              <div class="review-card__avatar">
+                {review.avatar ? (
+                  <img src={review.avatar} alt={review.author} loading="lazy" />
+                ) : (
+                  <span>{getInitials(review.author)}</span>
+                )}
+              </div>
+              <div class="review-card__meta">
+                <h3 class="review-card__name">{review.author}</h3>
+                <time class="review-card__date">{formatDate(review.date)}</time>
+              </div>
             </div>
-            <span class="trust-signal__count">{data.count} отзывов</span>
+            
+            {review.verified && (
+              <div class="review-card__verified">
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <path d="M8 0L9.5 2.5L12.5 1.5L12 4.5L15 5.5L13.5 8L15 10.5L12 11.5L12.5 14.5L9.5 13.5L8 16L6.5 13.5L3.5 14.5L4 11.5L1 10.5L2.5 8L1 5.5L4 4.5L3.5 1.5L6.5 2.5L8 0Z" fill="currentColor"/>
+                  <path d="M6 8L7 9L10 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Проверено
+              </div>
+            )}
           </div>
-        </a>
+          
+          <div class="review-card__rating">
+            {[...Array(5)].map((_, i) => (
+              <svg 
+                class={`review-card__star ${i < review.rating ? 'review-card__star--filled' : ''}`}
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            ))}
+          </div>
+          
+          <p class="review-card__text">{review.text}</p>
+          
+          {review.tags && review.tags.length > 0 && (
+            <div class="review-card__tags">
+              {review.tags.map(tag => (
+                <span class="review-card__tag">{tag}</span>
+              ))}
+            </div>
+          )}
+          
+          <div class="review-card__footer">
+            <button class="review-card__helpful" data-review-id={review.id}>
+              <svg width="16" height="16" viewBox="0 0 16 16">
+                <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="none" stroke-width="1.5"/>
+              </svg>
+              Полезно ({review.helpful})
+            </button>
+          </div>
+        </article>
       ))}
     </div>
 
-    <!-- Reviews Carousel -->
-    <div class="reviews__carousel" data-autoplay="true" role="region" aria-label="Отзывы клиентов" aria-roledescription="carousel">
-      <!-- Progress bar for autoplay -->
-      <div class="reviews__progress" aria-hidden="true">
-        <div class="reviews__progress-bar"></div>
-      </div>
-      
-      <div class="reviews__carousel-wrapper">
-        <div class="reviews__carousel-track" role="list">
-          {reviewsData.reviews.map((review, index) => (
-            <article 
-              class="reviews__carousel-slide review-card" 
-              role="listitem"
-              aria-label={`Отзыв ${index + 1} из ${reviewsData.reviews.length}`}
-              data-review-id={review.id}
-            >
-              <div class="review-card__header">
-                <div class="review-card__user">
-                  <div class="review-card__avatar" aria-label={`Аватар клиента ${review.name}`} aria-hidden="true">
-                    <span>{review.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)}</span>
-                  </div>
-                  <div class="review-card__info">
-                    <h3 class="review-card__name">{review.name}</h3>
-                    <div class="review-card__meta">
-                      <span class="review-card__profession">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M20 7h-9m3 10H7m10-5H7"/>
-                        </svg>
-                        {review.profession}
-                      </span>
-                      <span class="review-card__location">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                          <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        {review.city}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="review-card__rating" role="img" aria-label={`Рейтинг: ${review.rating} из 5 звёзд`}>
-                  {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                </div>
-              </div>
-              
-              <div class="review-card__body">
-                <!-- Новые структурированные блоки -->
-                <div class="review-card__sections">
-                  {review.problem && (
-                    <div class="review-card__section review-card__section--problem">
-                      <div class="review-card__section-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <circle cx="12" cy="12" r="10"/>
-                          <line x1="12" y1="8" x2="12" y2="12"/>
-                          <line x1="12" y1="16" x2="12.01" y2="16"/>
-                        </svg>
-                      </div>
-                      <div class="review-card__section-content">
-                        <h4 class="review-card__section-title">Проблема</h4>
-                        <p class="review-card__section-text">{review.problem}</p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  {review.solution && (
-                    <div class="review-card__section review-card__section--solution">
-                      <div class="review-card__section-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                          <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                      </div>
-                      <div class="review-card__section-content">
-                        <h4 class="review-card__section-title">Решение</h4>
-                        <p class="review-card__section-text">{review.solution}</p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  {review.result && (
-                    <div class="review-card__section review-card__section--result">
-                      <div class="review-card__section-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                      </div>
-                      <div class="review-card__section-content">
-                        <h4 class="review-card__section-title">Результат</h4>
-                        <p class="review-card__section-text">{review.result}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                
-                <!-- Ключевые метрики -->
-                {(review.debt || review.duration) && (
-                  <div class="review-card__metrics">
-                    {review.debt && (
-                      <div class="review-card__metric">
-                        <div class="review-card__metric-value">{review.debt}</div>
-                        <div class="review-card__metric-label">Сумма долга</div>
-                      </div>
-                    )}
-                    {review.duration && (
-                      <div class="review-card__metric">
-                        <div class="review-card__metric-value">{review.duration}</div>
-                        <div class="review-card__metric-label">Срок решения</div>
-                      </div>
-                    )}
-                    {review.procedure && (
-                      <div class="review-card__metric">
-                        <div class="review-card__metric-value">{review.procedure}</div>
-                        <div class="review-card__metric-label">Процедура</div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              
-              <div class="review-card__footer">
-                {review.verified && (
-                  <span class="review-card__verified" aria-label="Подтверждённый отзыв">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                      <path d="M8 0L9.5 2.5L12.5 1.5L12 4.5L15 5.5L13.5 8L15 10.5L12 11.5L12.5 14.5L9.5 13.5L8 16L6.5 13.5L3.5 14.5L4 11.5L1 10.5L2.5 8L1 5.5L4 4.5L3.5 1.5L6.5 2.5L8 0Z"/>
-                      <path d="M6 8L7 9L10 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    Проверено
-                  </span>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-      
-      <!-- Carousel Navigation -->
-      <button 
-        class="reviews__nav reviews__nav--prev" 
-        aria-label="Показать предыдущие отзывы"
-        type="button"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Load More Button -->
+    <div class="reviews__actions">
+      <button class="reviews__load-more">
+        Показать еще отзывы
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <button 
-        class="reviews__nav reviews__nav--next" 
-        aria-label="Показать следующие отзывы"
-        type="button"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      
-      <!-- Carousel Indicators -->
-      <div class="reviews__indicators" role="tablist" aria-label="Навигация по отзывам">
-        {reviewsData.reviews.map((_, index) => (
-          <button 
-            class={`reviews__indicator ${index === 0 ? 'reviews__indicator--active' : ''}`}
-            data-slide={index}
-            role="tab"
-            aria-selected={index === 0 ? 'true' : 'false'}
-            aria-label={`Отзыв ${index + 1}`}
-            type="button"
-          ></button>
-        ))}
-      </div>
     </div>
   </div>
 </section>
 
-<!-- Load carousel script -->
-<script src="/js/reviews-carousel.js" defer></script>
+<style>
+  /* Container and Layout */
+  .reviews {
+    position: relative;
+    padding: 80px 0;
+    overflow: hidden;
+  }
 
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Animated Gradient Background */
+  .reviews__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .reviews__gradient {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.03) 0%,
+      rgba(139, 92, 246, 0.05) 25%,
+      rgba(217, 70, 239, 0.03) 50%,
+      rgba(99, 102, 241, 0.05) 75%,
+      rgba(139, 92, 246, 0.03) 100%
+    );
+    animation: gradientShift 20s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(-10%, -10%) rotate(90deg);
+    }
+    50% {
+      transform: translate(0, -20%) rotate(180deg);
+    }
+    75% {
+      transform: translate(10%, -10%) rotate(270deg);
+    }
+  }
+
+  /* Header */
+  .reviews__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .reviews__title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin: 0 0 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .reviews__subtitle {
+    font-size: 18px;
+    color: #64748b;
+    margin: 0;
+  }
+
+  /* Statistics */
+  .reviews__stats {
+    background: rgba(99, 102, 241, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 48px;
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
+  }
+
+  .reviews__stats-summary {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .reviews__rating-score {
+    text-align: center;
+  }
+
+  .reviews__rating-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+  }
+
+  .reviews__rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: 8px 0;
+  }
+
+  .reviews__star {
+    fill: rgba(255, 255, 255, 0.3);
+    transition: fill 0.3s ease;
+  }
+
+  .reviews__star--filled {
+    fill: #fde047;
+  }
+
+  .reviews__rating-count {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .reviews__rating-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .reviews__rating-bar {
+    display: grid;
+    grid-template-columns: 20px 1fr 40px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .reviews__rating-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .reviews__rating-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .reviews__rating-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+    border-radius: 4px;
+    transition: width 1s ease;
+    animation: fillAnimation 1s ease-out;
+  }
+
+  @keyframes fillAnimation {
+    from {
+      width: 0 !important;
+    }
+  }
+
+  .reviews__rating-percent {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right;
+  }
+
+  /* Reviews Grid */
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  /* Review Card */
+  .review-card {
+    background: rgba(99, 102, 241, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+    transition: all 0.3s ease;
+    animation: slideUp 0.6s ease-out backwards;
+  }
+
+  .review-card:hover {
+    transform: translateY(-4px);
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .review-card:nth-child(1) { animation-delay: 0.1s; }
+  .review-card:nth-child(2) { animation-delay: 0.2s; }
+  .review-card:nth-child(3) { animation-delay: 0.3s; }
+  .review-card:nth-child(4) { animation-delay: 0.4s; }
+  .review-card:nth-child(5) { animation-delay: 0.5s; }
+  .review-card:nth-child(6) { animation-delay: 0.6s; }
+
+  .review-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .review-card__author {
+    display: flex;
+    gap: 12px;
+  }
+
+  .review-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #667eea;
+    font-weight: 600;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .review-card__avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .review-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .review-card__name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .review-card__date {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .review-card__verified {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #86efac;
+    font-weight: 500;
+  }
+
+  .review-card__verified svg {
+    flex-shrink: 0;
+  }
+
+  .review-card__rating {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 16px;
+  }
+
+  .review-card__star {
+    fill: rgba(255, 255, 255, 0.3);
+  }
+
+  .review-card__star--filled {
+    fill: #fde047;
+  }
+
+  .review-card__text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0 0 16px;
+  }
+
+  .review-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .review-card__tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .review-card__footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 16px;
+  }
+
+  .review-card__helpful {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .review-card__helpful:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+  }
+
+  .review-card__helpful svg {
+    stroke: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Actions */
+  .reviews__actions {
+    text-align: center;
+  }
+
+  .reviews__load-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: rgba(99, 102, 241, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .reviews__load-more:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .reviews {
+      padding: 60px 0;
+    }
+
+    .reviews__stats-summary {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .reviews__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .review-card {
+      padding: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Initialize animations on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        
+        // Animate rating bars
+        const ratingFills = entry.target.querySelectorAll('.reviews__rating-fill');
+        ratingFills.forEach(fill => {
+          const width = fill.style.width;
+          fill.style.width = '0';
+          setTimeout(() => {
+            fill.style.width = width;
+          }, 100);
+        });
+      }
+    });
+  }, observerOptions);
+
+  // Observe review cards
+  document.querySelectorAll('.review-card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // Observe stats section
+  const statsSection = document.querySelector('.reviews__stats');
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+
+  // Handle helpful button clicks
+  document.querySelectorAll('.review-card__helpful').forEach(button => {
+    button.addEventListener('click', function() {
+      const reviewId = this.dataset.reviewId;
+      const countMatch = this.textContent?.match(/\d+/);
+      if (countMatch) {
+        const currentCount = parseInt(countMatch[0]);
+        this.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 16 16">
+            <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="currentColor" stroke-width="1.5"/>
+          </svg>
+          Полезно (${currentCount + 1})
+        `;
+        this.style.background = '#f0f9ff';
+        this.style.borderColor = '#3b82f6';
+        this.style.color = '#3b82f6';
+        this.disabled = true;
+      }
+    });
+  });
+
+  // Handle load more button
+  const loadMoreBtn = document.querySelector('.reviews__load-more');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', function() {
+      // Here you would typically load more reviews
+      // For demo, we'll just show a message
+      this.textContent = 'Загрузка...';
+      setTimeout(() => {
+        this.textContent = 'Все отзывы загружены';
+        this.disabled = true;
+        this.style.opacity = '0.5';
+      }, 1000);
+    });
+  }
+</script>

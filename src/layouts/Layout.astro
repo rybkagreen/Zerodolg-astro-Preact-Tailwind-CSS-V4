@@ -1,5 +1,6 @@
 ---
 import '../styles/main.css';
+import criticalCSS from '../styles/performance/_critical.css?raw';
 
 export interface Props {
 	title: string;
@@ -22,6 +23,24 @@ const {
 		<meta name="description" content={description} />
 		<meta name="keywords" content={keywords} />
 		
+		<!-- Critical CSS for faster initial rendering -->
+		<style>{criticalCSS}</style>
+		
+		<!-- Preconnect to important third-party origins -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		
+		<!-- Preload critical resources -->
+		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+		
+		<!-- Prefetch likely next pages -->
+		<link rel="prefetch" href="/#reviews" />
+		<link rel="prefetch" href="/#faq" />
+		
+		<!-- DNS prefetch for external domains -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		<link rel="dns-prefetch" href="//fonts.gstatic.com" />
+		
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://zerodolg.ru/" />
@@ -40,15 +59,13 @@ const {
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		
-		<!-- Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-		
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-</head>
+	</head>
 <body>
     <slot />
+    
+    <!-- Service Worker Registration -->
+    <script src="/js/service-worker-register.js"></script>
   </body>
 </html>

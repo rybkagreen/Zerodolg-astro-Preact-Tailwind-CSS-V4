@@ -34,7 +34,6 @@
 ✅ islands/Calculator.astro
 ✅ islands/Form.astro
 ✅ islands/Hero.astro
-✅ islands/OnlineSticker.astro
 ✅ islands/Stats.astro
 ✅ islands/StickyCTA.astro
 ✅ islands/Timeline.astro
@@ -42,10 +41,15 @@
 ✅ sections/LeadMagnets.astro
 ✅ sections/Reviews.astro
 ✅ sections/SocialLinks.astro
-✅ sections/StickyPanel.astro
 ✅ sections/TeamInteractive.astro
 ✅ static/Header.astro
 ✅ layouts/Layout.astro (удалены глобальные стили)
+```
+
+**Удаленные неиспользуемые компоненты:**
+```
+🗑️ islands/OnlineSticker.astro (удален как неиспользуемый)
+🗑️ sections/StickyPanel.astro (удален как неиспользуемый)
 ```
 
 **Метод:** Создан и выполнен автоматический скрипт `remove-inline-styles.sh`

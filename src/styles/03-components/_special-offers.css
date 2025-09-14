@@ -1,0 +1,565 @@
+/* ==========================================================================
+   Special Offers Component
+   ========================================================================== */
+
+/* Special Offers Container
+   ========================================================================== */
+.special-offers-container {
+  /* Container styles */
+}
+
+/* Countdown Timer
+   ========================================================================== */
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.countdown-label {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.countdown-blocks {
+  display: flex;
+  gap: 8px;
+}
+
+.countdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  min-width: 40px;
+}
+
+.countdown-number {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.countdown-unit {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.countdown-expired {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+/* Live Visitors Counter
+   ========================================================================== */
+.live-visitors {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 10px 0;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.live-count {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Savings Calculator
+   ========================================================================== */
+.savings-calculator {
+  background-color: var(--color-background-light);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.calculator-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.calculator-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 8px 0;
+}
+
+.calculator-subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.calculator-input {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-text-primary);
+}
+
+.amount-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-background-medium);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.amount-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+}
+
+.amount-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: none;
+}
+
+.amount-display {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.current-amount {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.calculator-result {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 123, 255, 0.05);
+  border-radius: 8px;
+}
+
+.result-label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-text-primary);
+}
+
+.result-amount {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 10px 0;
+}
+
+.result-savings {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-success);
+  margin-bottom: 20px;
+}
+
+.result-cta {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.result-cta:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Special Offer Banner
+   ========================================================================== */
+.special-offer-banner {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 320px;
+  animation: slideIn 0.5s ease-out;
+}
+
+.special-offer-banner.slide-out {
+  animation: slideOut 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.offer-container {
+  padding: 16px;
+  position: relative;
+}
+
+.offer-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.offer-close:hover {
+  background-color: var(--color-background-medium);
+}
+
+.offer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.offer-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.offer-badge-compact {
+  background-color: var(--color-error);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.offer-title-compact {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text-primary);
+}
+
+.offer-price-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.old-price-compact {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+.price-arrow {
+  color: var(--color-text-secondary);
+}
+
+.new-price-compact {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.discount-compact {
+  background-color: var(--color-success);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+.countdown-compact {
+  /* Inherits styles from .countdown-timer */
+}
+
+.cta-button-compact {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button-compact:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Trust Badges
+   ========================================================================== */
+.trust-badges {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.trust-badge {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-background-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+
+.badge-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-text-primary);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.badge-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--color-text-primary) transparent transparent transparent;
+}
+
+.trust-badge:hover .badge-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.badge-ssl::before {
+  content: '🔒';
+  font-size: 18px;
+}
+
+.badge-privacy::before {
+  content: '🛡️';
+  font-size: 18px;
+}
+
+.badge-cert::before {
+  content: '📜';
+  font-size: 18px;
+}
+
+/* Social Proof Notifications
+   ========================================================================== */
+.social-proof-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.social-proof-container.slide-out-right {
+  animation: slideOutRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.social-proof-notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  min-width: 280px;
+  max-width: 320px;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.notification-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.notification-subtitle {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.notification-time {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Spots Counter (CTA Urgency)
+   ========================================================================== */
+.cta-urgency {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-error);
+  margin-top: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .special-offer-banner {
+    max-width: 280px;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .offer-container {
+    padding: 12px;
+  }
+  
+  .offer-title-compact {
+    font-size: 14px;
+  }
+  
+  .new-price-compact {
+    font-size: 16px;
+  }
+  
+  .cta-button-compact {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .trust-badges {
+    gap: 8px;
+  }
+  
+  .trust-badge {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .social-proof-container {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .social-proof-notification {
+    min-width: 240px;
+    max-width: 280px;
+  }
+}

@@ -1,11 +1,12 @@
 ---
-import HeaderLogic from '../islands/HeaderLogic.tsx';
+import HeaderComponent from '../preact/header.tsx';
 
 export interface Props {
   currentPage?: string;
 }
 
-const { } = Astro.props;
+// Props are not currently used in this component
+// const { currentPage } = Astro.props;
 
 // Данные компании (можно вынести в отдельный конфиг)
 const company = {
@@ -56,12 +57,9 @@ const mobileMenuItems = [
     <nav class="nav-advanced" role="navigation" aria-label="Главная навигация">
         <div class="nav-container">
             <!-- Logo Section -->
-            <div class="nav-brand">
-                <a href="/" class="nav-logo" aria-label="ZeroDolg - Главная">
-                    <img src="/icons/logo.svg" alt="ZeroDolg" width="140" height="40" />
-                    <span class="nav-logo-text">ZeroDolg</span>
-                </a>
-            </div>
+            <div class="logo">
+        <img src="/icons/logo.svg" alt="ZeroDolg" width="140" height="40" loading="lazy" />
+      </div>
             
             <!-- Main Navigation with Dropdown Menus -->
             <div class="nav-menu" id="navMenu">
@@ -339,120 +337,6 @@ const mobileMenuItems = [
     </div>
 </header>
 
-<!-- Interactive header logic -->
-<script>
-  // Header interactive functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    // Dropdown menus
-    const dropdownToggles = document.querySelectorAll('[data-dropdown]');
-    const searchBtn = document.querySelector('[data-action="search"]');
-    const searchOverlay = document.querySelector('[data-search-overlay]');
-    const searchClose = document.querySelector('[data-search-close]');
-    const mobileToggle = document.querySelector('[data-mobile-toggle]');
-    const mobileMenu = document.querySelector('[data-mobile-menu]');
-    const mobileClose = document.querySelector('[data-mobile-menu-close]');
-    const mobileOverlay = document.querySelector('[data-mobile-menu-overlay]');
-    
-    // Handle dropdown menus
-    dropdownToggles.forEach(toggle => {
-      const dropdownId = toggle.getAttribute('data-dropdown');
-      const menu = document.querySelector(`[data-dropdown-menu="${dropdownId}"]`);
-      const parentItem = toggle.closest('.nav-dropdown');
-      
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-        
-        // Close all other dropdowns
-        dropdownToggles.forEach(otherToggle => {
-          if (otherToggle !== toggle) {
-            otherToggle.setAttribute('aria-expanded', 'false');
-            const otherId = otherToggle.getAttribute('data-dropdown');
-            const otherMenu = document.querySelector(`[data-dropdown-menu="${otherId}"]`);
-            const otherParent = otherToggle.closest('.nav-dropdown');
-            if (otherMenu) otherMenu.classList.remove('active');
-            if (otherParent) otherParent.classList.remove('active');
-          }
-        });
-        
-        // Toggle current dropdown
-        toggle.setAttribute('aria-expanded', !isOpen);
-        if (menu) {
-          menu.classList.toggle('active', !isOpen);
-        }
-        if (parentItem) {
-          parentItem.classList.toggle('active', !isOpen);
-        }
-      });
-    });
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', () => {
-      dropdownToggles.forEach(toggle => {
-        toggle.setAttribute('aria-expanded', 'false');
-        const dropdownId = toggle.getAttribute('data-dropdown');
-        const menu = document.querySelector(`[data-dropdown-menu="${dropdownId}"]`);
-        const parentItem = toggle.closest('.nav-dropdown');
-        if (menu) menu.classList.remove('active');
-        if (parentItem) parentItem.classList.remove('active');
-      });
-    });
-    
-    // Search overlay
-    if (searchBtn && searchOverlay) {
-      searchBtn.addEventListener('click', () => {
-        searchOverlay.classList.add('active');
-        const searchInput = searchOverlay.querySelector('.search-input');
-        if (searchInput) searchInput.focus();
-      });
-    }
-    
-    if (searchClose && searchOverlay) {
-      searchClose.addEventListener('click', () => {
-        searchOverlay.classList.remove('active');
-      });
-    }
-    
-    // Mobile menu
-    if (mobileToggle && mobileMenu) {
-      mobileToggle.addEventListener('click', () => {
-        const isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
-        mobileToggle.setAttribute('aria-expanded', !isOpen);
-        mobileMenu.setAttribute('aria-hidden', isOpen);
-        mobileMenu.classList.toggle('active', !isOpen);
-        document.body.classList.toggle('mobile-menu-open', !isOpen);
-      });
-    }
-    
-    if (mobileClose && mobileMenu) {
-      mobileClose.addEventListener('click', () => {
-        mobileToggle?.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        mobileMenu.classList.remove('active');
-        document.body.classList.remove('mobile-menu-open');
-      });
-    }
-    
-    if (mobileOverlay && mobileMenu) {
-      mobileOverlay.addEventListener('click', () => {
-        mobileToggle?.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        mobileMenu.classList.remove('active');
-        document.body.classList.remove('mobile-menu-open');
-      });
-    }
-    
-    // Close mobile menu on link click
-    const mobileLinks = document.querySelectorAll('.mobile-menu__link');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileToggle?.setAttribute('aria-expanded', 'false');
-        mobileMenu?.setAttribute('aria-hidden', 'true');
-        mobileMenu?.classList.remove('active');
-        document.body.classList.remove('mobile-menu-open');
-      });
-    });
-  });
-</script>
+<!-- Header interactivity is handled by Header Preact component -->
+<HeaderComponent client:load />
 

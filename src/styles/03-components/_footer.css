@@ -12,7 +12,7 @@
     #1e293b 100%
   );
   color: var(--color-white, #ffffff);
-  margin-top: var(--space-4xl, 4rem);
+  margin-top: 0;
 }
 
 /* Footer decoration line */
@@ -275,7 +275,7 @@
     var(--color-primary, #2563eb) 0%,
     var(--color-primary-dark, #1d4ed8) 100%
   );
-  color: var(--color-white, #ffffff) !important;
+  color: var(--color-white, #ffffff);
   border: 2px solid transparent;
   transition: all var(--transition-base, 0.3s ease);
 }
@@ -395,7 +395,7 @@
 }
 
 .footer__inn {
-  margin-top: var(--space-xs, 0.25rem) !important;
+  margin-top: var(--space-xs, 0.25rem);
 }
 
 .footer__inn small {

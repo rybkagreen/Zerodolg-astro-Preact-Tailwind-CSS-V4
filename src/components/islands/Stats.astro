@@ -1,5 +1,5 @@
 ---
-import StatsLogic from './StatsLogic.tsx';
+import StatsComponent from '../preact/stats.tsx';
 
 export interface Props {
   className?: string;
@@ -77,16 +77,6 @@ const company = {
             </h2>
         </header>
         
-        <!-- Live Activity Sticker -->
-        <div class="stats__sticker" aria-live="polite">
-            <div class="stats__sticker-pulse"></div>
-            <svg class="stats__sticker-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-                <circle cx="8" cy="8" r="2" fill="currentColor"/>
-            </svg>
-            <span class="stats__sticker-text">Сейчас на сайте:</span>
-            <span class="stats__sticker-count" data-live-count>18 человек</span>
-        </div>
         
         <!-- Statistics Grid -->
         <div class="stats__grid" role="list" aria-label="Статистика компании">
@@ -180,5 +170,5 @@ const company = {
 </section>
 
 <!-- Load interactive logic when component is visible -->
-<StatsLogic client:visible />
+<StatsComponent client:visible />
 

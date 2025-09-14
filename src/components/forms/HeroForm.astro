@@ -1,5 +1,5 @@
 ---
-import FormLogic from './FormLogic.tsx';
+import Form from '../preact/form-logic.tsx';
 
 export interface Props {
   className?: string;
@@ -67,7 +67,7 @@ const { className = '', id = 'consultation-form' } = Astro.props;
     <p>Мы свяжемся с вами в течение 15 минут</p>
   </div>
   
-  <FormLogic 
+  <Form 
     client:load
     formId={id}
     formType="hero"

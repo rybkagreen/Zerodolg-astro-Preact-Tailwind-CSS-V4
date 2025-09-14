@@ -123,8 +123,6 @@ function generateMarkdown(components) {
   
   // Добавляем документацию по каждому компоненту
   components.forEach((component, index) => {
-    const anchor = component.name ? component.name.toLowerCase() : component.relativePath.replace(/\//g, '-').replace('.astro', '');
-    
     markdown += `## ${index + 1}. ${component.name || component.relativePath}\n\n`;
     markdown += `**Путь:** \`${component.filePath}\`\n\n`;
     

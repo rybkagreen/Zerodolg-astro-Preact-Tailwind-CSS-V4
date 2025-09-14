@@ -6,10 +6,8 @@ export interface Props {
   [key: string]: any;
 }
 
-const props = Astro.props;
-
 // Import interactive logic
-import FaqLogic from './FaqLogic.tsx';
+import FaqComponent from '../preact/faq.tsx';
 ---
 
 <!-- FAQ Section - Modern Accordion Style -->
@@ -304,82 +302,5 @@ import FaqLogic from './FaqLogic.tsx';
     </div>
 </section>
 
-
-<!-- Interactive FAQ accordion logic -->
-<script>
-  // FAQ accordion functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const faqItems = document.querySelectorAll('[data-faq-item]');
-    
-    faqItems.forEach(item => {
-      const trigger = item.querySelector('[data-faq-trigger]');
-      const content = item.querySelector('[data-faq-content]');
-      
-      if (!trigger || !content) return;
-      
-      // Не устанавливаем инлайн стили - используем классы CSS
-      // Убеждаемся, что элемент имеет правильный начальный класс
-      item.classList.remove('faq__item--expanded');
-      
-      trigger.addEventListener('click', () => {
-        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
-        
-        // Close all other items
-        faqItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            const otherTrigger = otherItem.querySelector('[data-faq-trigger]');
-            const otherContent = otherItem.querySelector('[data-faq-content]');
-            
-            if (otherTrigger && otherContent) {
-              otherTrigger.setAttribute('aria-expanded', 'false');
-              otherContent.setAttribute('aria-hidden', 'true');
-              otherItem.classList.remove('faq__item--expanded');
-              // Убираем инлайн стиль для закрытия
-              otherContent.style.maxHeight = null;
-            }
-          }
-        });
-        
-        // Toggle current item
-        if (isOpen) {
-          // Close
-          trigger.setAttribute('aria-expanded', 'false');
-          content.setAttribute('aria-hidden', 'true');
-          item.classList.remove('faq__item--expanded');
-          // Убираем инлайн стиль для закрытия
-          content.style.maxHeight = null;
-        } else {
-          // Open
-          trigger.setAttribute('aria-expanded', 'true');
-          content.setAttribute('aria-hidden', 'false');
-          item.classList.add('faq__item--expanded');
-          // Устанавливаем только максимальную высоту для анимации
-          content.style.maxHeight = content.scrollHeight + 'px';
-          
-          // Recalculate height after transition for dynamic content
-          setTimeout(() => {
-            if (trigger.getAttribute('aria-expanded') === 'true' && content) {
-              content.style.maxHeight = content.scrollHeight + 'px';
-            }
-          }, 300);
-        }
-      });
-    });
-    
-    // Handle window resize to adjust opened accordions
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        faqItems.forEach(item => {
-          const trigger = item.querySelector('[data-faq-trigger]');
-          const content = item.querySelector('[data-faq-content]');
-          
-          if (trigger?.getAttribute('aria-expanded') === 'true' && content) {
-            content.style.maxHeight = content.scrollHeight + 'px';
-          }
-        });
-      }, 250);
-    });
-  });
-</script>
+<!-- FAQ interactivity is handled by Faq Preact component -->
+<FaqComponent client:load />

@@ -5,19 +5,59 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:prod": "astro build --config astro.config.prod.mjs",
+    "build:production": "node scripts/build-production.js",
     "preview": "astro preview",
     "astro": "astro",
+    "lint": "eslint . --ext .js,.ts,.tsx,.astro",
+    "lint:fix": "eslint . --ext .js,.ts,.tsx,.astro --fix",
     "docs:generate": "node scripts/generate-component-docs.js",
-    "docs:build": "npm run docs:generate && astro build"
+    "docs:build": "npm run docs:generate && astro build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist .astro",
+    "prebuild": "npm run clean && npm run type-check && npm run lint",
+    "postbuild": "echo 'Build completed successfully'",
+    "prepare": "husky",
+    "env:validate": "node scripts/validate-env.js",
+    "test:env": "node scripts/test-env-validation.js",
+    "deploy:checklist": "node scripts/deployment-checklist-complete.js",
+    "deploy:verify": "node scripts/post-build-verification.js",
+    "deploy:rollback": "node scripts/rollback.js",
+    "deploy:backup": "node scripts/create-backup.js",
+    "deploy": "node scripts/deploy-complete.js",
+    "env:setup": "node scripts/setup-env.js"
   },
   "dependencies": {
-    "@astrojs/preact": "^4.1.0",
-    "astro": "^5.13.5",
-    "fs-extra": "^11.3.1",
+    "@astrojs/preact": "^4.1.1",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.13.7",
+    "astro-robots-txt": "^1.0.0",
     "preact": "^10.27.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
-    "typescript": "^5.9.2"
+    "@eslint/js": "^9.35.0",
+    "@types/node": "^22.10.10",
+    "@typescript-eslint/eslint-plugin": "^8.43.0",
+    "@typescript-eslint/parser": "^8.43.0",
+    "astro-eslint-parser": "^1.2.2",
+    "eslint": "^9.35.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "globals": "^16.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "lightningcss": "^1.29.3",
+    "rimraf": "^6.0.1",
+    "terser": "^5.39.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.43.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,astro}": [
+      "eslint --fix"
+    ]
+  },
+  "engines": {
+    "node": ">=18.17.1"
   }
 }

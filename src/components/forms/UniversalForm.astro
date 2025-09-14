@@ -1,4 +1,6 @@
 ---
+import Form from '../preact/form-logic.tsx';
+
 export interface Props {
   formId: string;
   formType: 'hero' | 'cta' | 'consultation' | 'callback' | 'lead';
@@ -121,4 +123,11 @@ const formClass = `universal-form universal-form--${variant} ${className}`;
     </p>
   </div>
 </form>
+
+<!-- Form Logic Component -->
+<Form 
+  client:load
+  formId={formId}
+  formType={formType}
+/>
 

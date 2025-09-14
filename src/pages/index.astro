@@ -8,19 +8,17 @@ import Benefits from '../components/sections/Benefits.astro';
 import Timeline from '../components/islands/Timeline.astro';
 import TeamInteractive from '../components/sections/TeamInteractive.astro';
 import LeadMagnets from '../components/sections/LeadMagnets.astro';
-import LeadMagnetsLogic from '../components/islands/LeadMagnetsLogic.tsx';
 import Reviews from '../components/sections/Reviews.astro';
 import Faq from '../components/islands/Faq.astro';
 import Cta from '../components/static/Cta.astro';
 import Footer from '../components/static/Footer.astro';
 import CallbackModal from '../components/dynamic/CallbackModal.astro';
-import ModalManager from '../components/dynamic/ModalManager.tsx';
-import StickyCTA from '../components/islands/StickyCTA.astro';
+import ModalManager from '../components/preact/modal-manager.tsx';
 import SocialLinks from '../components/sections/SocialLinks.astro';
+import ScrollAnimations from '../components/preact/scroll-animations.tsx';
 import OnlineSticker from '../components/islands/OnlineSticker.astro';
-import StickyPanel from '../components/sections/StickyPanel.astro';
-import ScrollAnimations from '../components/islands/ScrollAnimations.tsx';
-// import AnimatedCounter from '../components/islands/AnimatedCounter.tsx';
+import BitrixCallback from '../components/islands/BitrixCallback.astro';
+import SpecialOffers from '../components/islands/SpecialOffers.astro';
 ---
 
 <Layout title="Банкротство физических лиц под ключ - ZeroDolg">
@@ -73,7 +71,8 @@ import ScrollAnimations from '../components/islands/ScrollAnimations.tsx';
   <Footer />
   
   <!-- Auxiliary Components -->
-  <StickyCTA />
+  <OnlineSticker />
+  <BitrixCallback />
   
   <!-- Social Links in Footer Section -->
   <div class="social-links-wrapper">
@@ -84,11 +83,11 @@ import ScrollAnimations from '../components/islands/ScrollAnimations.tsx';
   <CallbackModal />
   
   <!-- Modal Manager for handling all modals -->
-  <ModalManager client:load />
+  <ModalManager client:idle />
   
-  <!-- Lead Magnets Interactive Logic -->
-  <LeadMagnetsLogic client:load />
+  <!-- Special Offers Components -->
+  <SpecialOffers client:idle />
   
   <!-- Scroll Animations Handler -->
-  <ScrollAnimations client:load once={true} offset={100} duration={800} />
+  <ScrollAnimations client:idle once={true} offset={100} duration={800} />
 </Layout>

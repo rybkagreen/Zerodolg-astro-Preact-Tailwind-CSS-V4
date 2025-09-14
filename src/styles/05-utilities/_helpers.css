@@ -627,3 +627,31 @@
 .resize {
   resize: both;
 }
+
+/* =================================
+   TEST PAGE UTILITIES
+   ================================= */
+
+/* Test page main padding */
+.test-page-main {
+  padding-top: 100px;
+}
+
+/* Test page container */
+.test-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Test page section */
+.test-page-section {
+  margin: 40px 0;
+}
+
+/* Test page toolbar div */
+.test-toolbar-div {
+  padding: 20px;
+  background: #f0f0f0;
+  margin: 20px;
+}

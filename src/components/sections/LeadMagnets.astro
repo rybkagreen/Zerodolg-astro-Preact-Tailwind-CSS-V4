@@ -148,6 +148,7 @@ const leadMagnets = [
                 {magnet.badge}
               </span>
             )}
+            {/* eslint-disable-next-line astro/no-set-html-directive -- Safe: SVG content from static array */}
             <div class="lead-card__icon" set:html={magnet.icon} />
           </div>
           

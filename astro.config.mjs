@@ -7,7 +7,10 @@ export default defineConfig({
   integrations: [preact()],
   output: 'static',
   build: {
-    inlineStylesheets: 'auto'
+    inlineStylesheets: 'auto',
+    format: 'file',
+    assets: 'assets',
+    serverEntry: 'entry.mjs',
   },
   devToolbar: {
     enabled: false
@@ -15,6 +18,60 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       include: ['preact', 'preact/hooks']
-    }
+    },
+    build: {
+      // Enable CSS and JS minification
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          ecma: 2020,
+          module: true,
+          warnings: false,
+          passes: 2,
+          unsafe_arrows: true,
+          unsafe_methods: true,
+        },
+        format: {
+          comments: false,
+        },
+        mangle: {
+          properties: {
+            regex: /^__/,
+          }
+        },
+        keep_classnames: false,
+        keep_fnames: false,
+      },
+      // Enable CSS optimization
+      cssMinify: 'lightningcss',
+      // Enable asset compression
+      assetsInlineLimit: 4096,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['preact', 'preact/hooks'],
+          }
+        }
+      }
+    },
+  },
+  compressHTML: true,
+  // Image optimization settings
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
+  // Performance optimizations
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
+  experimental: {
+    assets: true,
+    contentCollectionCache: true,
+    contentIntellisense: true,
   }
 });

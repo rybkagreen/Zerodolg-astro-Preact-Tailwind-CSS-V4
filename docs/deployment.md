@@ -52,14 +52,72 @@ zerodolg-astro/
 
 ## Переменные окружения
 
-Создайте файл `.env` в корне проекта:
+### Файл .env.example
+
+Проект содержит файл `.env.example`, который служит шаблоном для создания файла `.env` с необходимыми переменными окружения. Скопируйте `.env.example` в `.env` и настройте значения переменных:
+
+```bash
+cp .env.example .env
+```
+
+### Обязательные переменные
+
+| Переменная | Описание | Пример значения |
+|------------|----------|-----------------|
+| `BITRIX24_WEBHOOK_URL` | URL вебхука Bitrix24 для отправки заявок | `https://your-domain.bitrix24.ru/rest/1/your-webhook-key/` |
+| `PUBLIC_SITE_URL` | URL сайта | `https://your-domain.ru` |
+| `PUBLIC_SITE_PHONE` | Контактный телефон | `+7 (905) 577-33-87` |
+| `PUBLIC_SITE_EMAIL` | Контактный email | `info@your-domain.ru` |
+
+### Опциональные переменные
+
+| Переменная | Описание | Значение по умолчанию |
+|------------|----------|------------------------|
+| `PUBLIC_GA_ID` | Google Analytics ID | Не задан |
+| `PUBLIC_YM_ID` | Yandex Metrika ID | Не задан |
+| `PUBLIC_ASTRO_TOOLBAR` | Отображение Astro Dev Toolbar | `false` |
+| `NODE_ENV` | Режим работы приложения | `production` |
+| `CMS_API_BASE` | Базовый URL Alibaba CMS | Не задан |
+| `CMS_API_KEY` | API ключ для Alibaba CMS | Не задан |
+
+### Валидация переменных окружения
+
+Для проверки корректности настройки переменных окружения используйте скрипт:
+
+```bash
+npm run env:validate
+```
+
+Этот скрипт проверяет наличие обязательных переменных и корректность форматов значений.
+
+### Пример файла .env
 
 ```env
-# Alibaba CMS
+# Bitrix24 Configuration
+BITRIX24_WEBHOOK_URL=https://your-domain.bitrix24.ru/rest/1/your-webhook-key/
+
+# Google Analytics
+PUBLIC_GA_ID=G-XXXXXXXXXX
+
+# Yandex Metrika
+PUBLIC_YM_ID=XXXXXXXXX
+
+# Site URL
+PUBLIC_SITE_URL=https://your-domain.ru
+
+# Contact Information
+PUBLIC_SITE_PHONE=+7 (905) 577-33-87
+PUBLIC_SITE_EMAIL=info@your-domain.ru
+
+# Astro Dev Toolbar (disable in production)
+PUBLIC_ASTRO_TOOLBAR=false
+
+# CMS Configuration (if using Alibaba CMS)
 CMS_API_BASE=https://your-cms-endpoint.alibabacloud.com
 CMS_API_KEY=your-api-key-here
 
-# Другие переменные при необходимости
+# Security Settings
+NODE_ENV=production
 ```
 
 ## Команды
@@ -68,8 +126,56 @@ CMS_API_KEY=your-api-key-here
 |---------|----------|
 | `npm run dev` | Запуск локального сервера разработки |
 | `npm run build` | Сборка проекта для продакшена |
+| `npm run build:prod` | Сборка проекта с production конфигурацией |
 | `npm run preview` | Предварительный просмотр собранного сайта |
 | `npm run astro ...` | Запуск команд Astro CLI |
+| `npm run env:validate` | Валидация переменных окружения |
+| `npm run env:setup` | Помощник по настройке переменных окружения |
+| `npm run deploy:checklist` | Отображение чеклиста для деплоя |
+
+## Настройка переменных окружения
+
+Для помощи в настройке переменных окружения используйте скрипт:
+
+```bash
+npm run env:setup
+```
+
+Этот скрипт:
+1. Создаст файл `.env` из шаблона `.env.example`, если он еще не существует
+2. Предоставит инструкции по настройке переменных
+3. Даст рекомендации по безопасности
+
+## Валидация конфигурации
+
+Перед развертыванием рекомендуется провести валидацию конфигурации:
+
+```bash
+npm run env:validate
+```
+
+Этот скрипт проверит:
+- Наличие всех обязательных переменных окружения
+- Корректность форматов URL, телефонных номеров и email
+- Соответствие форматам идентификаторов аналитики
+
+## Чеклист для деплоя
+
+Для отображения подробного чеклиста перед деплоем используйте команду:
+
+```bash
+npm run deploy:checklist
+```
+
+Этот чеклист включает проверку:
+- Переменных окружения
+- Зависимостей и кода
+- Процесса сборки
+- Настроек безопасности
+- Производительности
+- Аналитики и мониторинга
+- Контента и SEO
+- Процедуры деплоя
 
 ## Развертывание
 

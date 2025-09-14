@@ -71,7 +71,7 @@ const {
         <!-- Mashulia Card -->
         <div class="hero-authority">
           <div class="hero-authority-avatar">
-            <img src="/images/team/mashulia.webp" alt="Масхулиа Леван Зурабович - Арбитражный управляющий">
+            <img src="/images/team/mashulia.webp" alt="Масхулиа Леван Зурабович - Арбитражный управляющий" loading="lazy">
           </div>
           <div class="hero-authority-info">
             <div class="hero-authority-name">Масхулиа Л.З.</div>
@@ -107,16 +107,5 @@ const {
   </div>
 </section>
 
-<script>
-  // Scroll to form on button click
-  const scrollBtn = document.querySelector('[data-action="scroll-to-form"]');
-  if (scrollBtn) {
-    scrollBtn.addEventListener('click', () => {
-      const form = document.getElementById('consultation-form');
-      if (form) {
-        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  }
-</script>
+<!-- Hero interactivity is handled by Preact components -->
 

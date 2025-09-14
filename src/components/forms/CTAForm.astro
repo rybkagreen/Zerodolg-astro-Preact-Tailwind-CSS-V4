@@ -1,6 +1,5 @@
 ---
 import UniversalForm from './UniversalForm.astro';
-import FormLogic from './FormLogic.tsx';
 
 export interface Props {
   formId?: string;
@@ -27,12 +26,6 @@ const {
     showDebtField={showDebtField}
     variant={variant}
     className="cta-form__form"
-  />
-  
-  <FormLogic 
-    client:load
-    formId={formId}
-    formType="cta"
   />
 </div>
 
