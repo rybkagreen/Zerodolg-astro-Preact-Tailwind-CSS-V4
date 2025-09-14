@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0011-d2cfe8",
+  "worker_id": "29c4b4b1",
+  "worker_name": "Qwen-Alpha",
+  "status": "completed",
+  "started_at": "2025-09-14T14:27:55.121363",
+  "completed_at": "2025-09-14T14:28:25.152872",
+  "execution_time": 30.03,
+  "cli_mode": "interactive",
+  "result": {
+    "analysis": "No response from qwen",
+    "content_preview": "Customer feedback from last sprint",
+    "model": "default"
+  },
+  "error": null
+}

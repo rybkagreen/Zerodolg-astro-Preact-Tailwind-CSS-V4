@@ -1,0 +1,15 @@
+{
+  "task_id": "task-0004-484b56",
+  "worker_id": "af22d77e",
+  "worker_name": "Qwen-Enhanced-2",
+  "status": "completed",
+  "started_at": "2025-09-14T14:38:39.524542",
+  "completed_at": "2025-09-14T14:40:40.685137",
+  "execution_time": 121.16,
+  "result": {
+    "analysis": "Qwen timeout - analyzed project structure at .. with 22461 total items",
+    "content_analyzed": "Analyze code quality for zerodolg-astro source files:\n\nSource files to analyze: ['eslint.config.js',...",
+    "model": "qwen"
+  },
+  "error": null
+}

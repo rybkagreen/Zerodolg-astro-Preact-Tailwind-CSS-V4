@@ -1,0 +1,15 @@
+{
+  "task_id": "task-0002-105e7c",
+  "worker_id": "af22d77e",
+  "worker_name": "Qwen-Enhanced-2",
+  "status": "completed",
+  "started_at": "2025-09-14T14:40:49.197810",
+  "completed_at": "2025-09-14T14:42:35.914392",
+  "execution_time": 106.72,
+  "result": {
+    "analysis": "Qwen timeout - analyzed project structure at .. with 22463 total items",
+    "content_analyzed": "Analyze package.json dependencies for zerodolg-astro:\n\nDependencies: {\n  \"@astrojs/preact\": \"^4.1.1\"...",
+    "model": "qwen"
+  },
+  "error": null
+}

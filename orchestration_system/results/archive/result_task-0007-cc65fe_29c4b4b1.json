@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0007-cc65fe",
+  "worker_id": "29c4b4b1",
+  "worker_name": "Qwen-Alpha",
+  "status": "completed",
+  "started_at": "2025-09-14T14:26:44.984424",
+  "completed_at": "2025-09-14T14:27:15.023388",
+  "execution_time": 30.04,
+  "cli_mode": "interactive",
+  "result": {
+    "analysis": "No response from qwen",
+    "content_preview": "Security analysis for zerodolg-astro project:\n\nConfig files: ['.env', 'astro.config.mjs', 'package.j...",
+    "model": "default"
+  },
+  "error": null
+}

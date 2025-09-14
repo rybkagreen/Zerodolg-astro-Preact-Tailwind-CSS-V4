@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0004-e30998",
+  "worker_id": "47e7881b",
+  "worker_name": "Qwen-Beta",
+  "status": "completed",
+  "started_at": "2025-09-14T14:25:35.292249",
+  "completed_at": "2025-09-14T14:26:05.342175",
+  "execution_time": 30.05,
+  "cli_mode": "interactive",
+  "result": {
+    "analysis": "No response from qwen",
+    "content_preview": "Analyze code quality for zerodolg-astro source files:\n\nSource files to analyze: ['eslint.config.js',...",
+    "model": "default"
+  },
+  "error": null
+}

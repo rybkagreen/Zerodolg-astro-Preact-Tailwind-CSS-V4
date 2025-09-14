@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0012-8e840d",
+  "worker_id": "47e7881b",
+  "worker_name": "Qwen-Beta",
+  "status": "completed",
+  "started_at": "2025-09-14T14:27:55.613440",
+  "completed_at": "2025-09-14T14:28:25.656441",
+  "execution_time": 30.04,
+  "cli_mode": "interactive",
+  "result": {
+    "generated_text": "No response from qwen",
+    "original_prompt": "Generate test cases for authentication module",
+    "model": "default"
+  },
+  "error": null
+}

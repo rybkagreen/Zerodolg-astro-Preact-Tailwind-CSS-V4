@@ -1,0 +1,14 @@
+{
+  "task_id": "task-0004-86b691",
+  "worker_id": "5f23cfe0",
+  "worker_name": "Docs-Worker",
+  "status": "completed",
+  "started_at": "2025-09-14T15:03:46.220750",
+  "completed_at": "2025-09-14T15:09:35.358638",
+  "execution_time": 349.14,
+  "result": {
+    "generated_file": "..\\docs\\reports\\generated_task-0004-86b691_20250914_150935.md",
+    "content_preview": "Qwen timeout - analyzed project structure at .. with 22495 total items"
+  },
+  "error": null
+}

@@ -1,0 +1,17 @@
+{
+  "task_id": "task-0003-e417de",
+  "worker_id": "b75b1814",
+  "worker_name": "Qwen-Beta",
+  "status": "completed",
+  "started_at": "2025-09-14T14:14:41.787781",
+  "completed_at": "2025-09-14T14:15:11.873865",
+  "execution_time": 30.09,
+  "cli_mode": "interactive",
+  "result": {
+    "processed": true,
+    "output": "No response from qwen",
+    "input_preview": "Raw data from sensor array #42",
+    "model": "default"
+  },
+  "error": null
+}

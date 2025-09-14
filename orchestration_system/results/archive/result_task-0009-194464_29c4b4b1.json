@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0009-194464",
+  "worker_id": "29c4b4b1",
+  "worker_name": "Qwen-Alpha",
+  "status": "completed",
+  "started_at": "2025-09-14T14:27:20.058531",
+  "completed_at": "2025-09-14T14:27:50.089643",
+  "execution_time": 30.03,
+  "cli_mode": "interactive",
+  "result": {
+    "generated_text": "No response from qwen",
+    "original_prompt": "Create a summary of recent AI developments",
+    "model": "default"
+  },
+  "error": null
+}

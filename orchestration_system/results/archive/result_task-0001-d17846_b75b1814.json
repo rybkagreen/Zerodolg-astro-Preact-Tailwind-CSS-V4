@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0001-d17846",
+  "worker_id": "b75b1814",
+  "worker_name": "Qwen-Beta",
+  "status": "completed",
+  "started_at": "2025-09-14T14:17:50.980416",
+  "completed_at": "2025-09-14T14:18:21.016867",
+  "execution_time": 30.04,
+  "cli_mode": "interactive",
+  "result": {
+    "analysis": "No response from qwen",
+    "content_preview": "Analyze market trends for Q4 2024",
+    "model": "default"
+  },
+  "error": null
+}

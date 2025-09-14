@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0006-d6ade8",
+  "worker_id": "5f23cfe0",
+  "worker_name": "Docs-Worker",
+  "status": "completed",
+  "started_at": "2025-09-14T15:09:37.365130",
+  "completed_at": "2025-09-14T15:20:11.901036",
+  "execution_time": 634.54,
+  "result": {
+    "processed": true,
+    "output": "Qwen timeout - analyzed project structure at .. with 22516 total items",
+    "input_summary": "Implement performance optimizations:\n            1. Add lazy loading for images and components\n     ...",
+    "model": "qwen"
+  },
+  "error": null
+}

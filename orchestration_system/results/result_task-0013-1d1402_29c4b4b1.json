@@ -1,0 +1,16 @@
+{
+  "task_id": "task-0013-1d1402",
+  "worker_id": "29c4b4b1",
+  "worker_name": "Qwen-Alpha",
+  "status": "completed",
+  "started_at": "2025-09-14T14:28:30.180415",
+  "completed_at": "2025-09-14T14:29:00.250955",
+  "execution_time": 30.07,
+  "cli_mode": "interactive",
+  "result": {
+    "generated_text": "No response from qwen",
+    "original_prompt": "Generate content based on: No response from qwen",
+    "model": "default"
+  },
+  "error": null
+}
