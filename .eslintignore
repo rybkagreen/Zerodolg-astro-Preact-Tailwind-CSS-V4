@@ -1,0 +1,22 @@
+# Build directories
+dist/
+build/
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# Astro specific
+.astro/

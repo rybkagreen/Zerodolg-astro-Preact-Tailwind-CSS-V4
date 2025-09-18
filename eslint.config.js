@@ -7,12 +7,6 @@ import tsParser from '@typescript-eslint/parser';
 import globals from 'globals';
 
 export default [
-  // Base ESLint recommended config
-  eslint.configs.recommended,
-  
-  // TypeScript ESLint configs
-  ...tseslint.configs.recommended,
-  
   // Global ignores
   {
     ignores: [
@@ -20,9 +14,16 @@ export default [
       'node_modules/',
       '.astro/',
       '*.min.js',
-      'public/'
+      'public/',
+      'coverage/',
     ]
   },
+  
+  // Base ESLint recommended config
+  eslint.configs.recommended,
+  
+  // TypeScript ESLint configs
+  ...tseslint.configs.recommended,
   
   // JavaScript and TypeScript files configuration
   {
@@ -50,7 +51,11 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-unsafe-function-type': 'warn', // Changed from error to warning
-      '@typescript-eslint/no-require-imports': 'off' // Allow require() in .cjs files
+      '@typescript-eslint/no-require-imports': 'off', // Allow require() in .cjs files
+      // Base rules
+      'indent': ['error', 2],
+      'quotes': ['error', 'single'],
+      'semi': ['error', 'always'],
     }
   },
   

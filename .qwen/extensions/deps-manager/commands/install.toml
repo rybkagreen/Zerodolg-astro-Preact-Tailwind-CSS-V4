@@ -1,0 +1,7 @@
+name = "Установить зависимости"
+description = "Установить все зависимости проекта"
+
+[command]
+type = "shell"
+run = "npm install"
+directory = "."

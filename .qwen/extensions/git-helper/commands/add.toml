@@ -1,0 +1,7 @@
+name = "Добавить все изменения"
+description = "Добавить все изменения в индекс Git"
+
+[command]
+type = "shell"
+run = "git add ."
+directory = "."

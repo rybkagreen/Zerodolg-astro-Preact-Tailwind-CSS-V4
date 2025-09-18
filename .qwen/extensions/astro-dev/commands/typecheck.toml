@@ -1,0 +1,7 @@
+name = "Проверить типы TypeScript"
+description = "Выполнить проверку типов в проекте с помощью tsc"
+
+[command]
+type = "shell"
+run = "npx tsc --noEmit"
+directory = "."

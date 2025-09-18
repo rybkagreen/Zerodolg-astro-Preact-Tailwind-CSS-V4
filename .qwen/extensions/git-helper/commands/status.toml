@@ -1,0 +1,7 @@
+name = "Статус Git"
+description = "Показать статус репозитория Git"
+
+[command]
+type = "shell"
+run = "git status"
+directory = "."

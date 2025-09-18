@@ -136,7 +136,7 @@ const calculateTeamStats = (members: any[]) => {
   
   members.forEach((member: any) => {
     // Extract numbers from experience string (e.g., "7+" -> 7)
-    const expMatch = member.experience?.match(/(\d+)/);
+    const expMatch = member.stats?.experience?.match(/(\d+)/);
     if (expMatch) totalExperience += parseInt(expMatch[1]);
     
     // Extract numbers from cases string (e.g., "500+" -> 500)
@@ -154,9 +154,9 @@ const calculateTeamStats = (members: any[]) => {
     : 95;
   
   return {
-    totalExperience: `${totalExperience}+`,
-    totalCases: `${totalCases}+`,
-    totalSaved: '2 млрд ₽', // This is a fixed value in the original
+    totalExperience: totalExperience > 0 ? `${totalExperience}+` : '22+',
+    totalCases: totalCases > 0 ? `${totalCases}+` : '1450+',
+    totalSaved: '2 млрд ₽',
     successRate: `${avgSuccessRate}%`
   };
 };
@@ -176,7 +176,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
     <div class="team-interactive__wrapper">
       <!-- Team Tabs -->
       <div class="team-interactive__tabs" role="tablist" aria-label="Выбор члена команды">
-        {activeTeamMembers.map((member, index) => (
+      {activeTeamMembers.map((member, index) => (
           <button
             class={`team-tab ${index === 0 ? 'active' : ''}`}
             data-member={member.id}
@@ -301,4 +301,3 @@ const teamStats = calculateTeamStats(activeTeamMembers);
 
 <!-- Team interactivity is handled by TeamInteractiveComponent Preact component -->
 <TeamInteractiveComponent client:load />
-

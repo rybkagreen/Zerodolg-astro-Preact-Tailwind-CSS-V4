@@ -1,0 +1,7 @@
+name = "Запустить линтер"
+description = "Проверить код с помощью ESLint"
+
+[command]
+type = "shell"
+run = "npx eslint . --ext .js,.ts,.astro"
+directory = "."

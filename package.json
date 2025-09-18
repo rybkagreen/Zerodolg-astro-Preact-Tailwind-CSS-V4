@@ -11,8 +11,6 @@
     "astro": "astro",
     "lint": "eslint . --ext .js,.ts,.tsx,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.tsx,.astro --fix",
-    "docs:generate": "node scripts/generate-component-docs.js",
-    "docs:build": "npm run docs:generate && astro build",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist .astro",
     "prebuild": "npm run clean && npm run type-check && npm run lint",
@@ -25,7 +23,10 @@
     "deploy:rollback": "node scripts/rollback.js",
     "deploy:backup": "node scripts/create-backup.js",
     "deploy": "node scripts/deploy-complete.js",
-    "env:setup": "node scripts/setup-env.js"
+    "env:setup": "node scripts/setup-env.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.1",
@@ -37,20 +38,24 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@eslint/js": "^9.35.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.10.10",
-    "@typescript-eslint/eslint-plugin": "^8.43.0",
-    "@typescript-eslint/parser": "^8.43.0",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
     "astro-eslint-parser": "^1.2.2",
     "eslint": "^9.35.0",
     "eslint-plugin-astro": "^1.3.1",
     "globals": "^16.4.0",
     "husky": "^9.1.7",
+    "jest": "^30.1.3",
     "lint-staged": "^15.4.3",
     "lightningcss": "^1.29.3",
     "rimraf": "^6.0.1",
     "terser": "^5.39.0",
+    "ts-jest": "^29.4.3",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.43.0"
+    "typescript-eslint": "^8.44.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx,astro}": [

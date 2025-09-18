@@ -309,17 +309,18 @@ const process = {
     
     <!-- CTA Section -->
     <div class="timeline__cta">
-      <div class="timeline__cta-content">
-        <h3 class="timeline__cta-title">Готовы начать процедуру банкротства?</h3>
-        <p class="timeline__cta-text">Оставьте заявку и мы поможем на каждом этапе</p>
+      <div class="timeline__cta-wrapper">
+        <div class="timeline__cta-content">
+          <h3 class="timeline__cta-title">Готовы начать процедуру банкротства?</h3>
+          <p class="timeline__cta-text">Оставьте заявку и мы поможем на каждом этапе</p>
+        </div>
+        <button class="timeline__cta-button" data-modal="consultation">
+          Начать процедуру
+        </button>
       </div>
-      <button class="btn btn--primary btn--lg" data-modal="consultation">
-        Начать процедуру
-      </button>
     </div>
   </div>
 </section>
 
 <!-- Using Preact component for interactivity -->
 <TimelineComponent client:load />
-
