@@ -9,7 +9,6 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
     format: 'file',
-    assets: 'assets',
     serverEntry: 'entry.mjs',
   },
   devToolbar: {
@@ -28,7 +27,6 @@ export default defineConfig({
           drop_debugger: true,
           ecma: 2020,
           module: true,
-          warnings: false,
           passes: 2,
           unsafe_arrows: true,
           unsafe_methods: true,
@@ -44,8 +42,6 @@ export default defineConfig({
         keep_classnames: false,
         keep_fnames: false,
       },
-      // Enable CSS optimization
-      cssMinify: 'lightningcss',
       // Enable asset compression
       assetsInlineLimit: 4096,
       rollupOptions: {
@@ -68,10 +64,5 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport',
-  },
-  experimental: {
-    assets: true,
-    contentCollectionCache: true,
-    contentIntellisense: true,
   }
 });

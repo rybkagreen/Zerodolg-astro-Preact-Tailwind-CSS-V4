@@ -41,7 +41,6 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
     format: 'file',
-    assets: '_astro',
     serverEntry: 'entry.mjs',
   },
   devToolbar: {
@@ -60,7 +59,6 @@ export default defineConfig({
           drop_debugger: true,
           ecma: 2020,
           module: true,
-          warnings: false,
           passes: 3,
           unsafe_arrows: true,
           unsafe_methods: true,
@@ -93,8 +91,6 @@ export default defineConfig({
           assetFileNames: 'assets/[name].[hash].[ext]',
         }
       },
-      // Enable brotli compression
-      brotliSize: true,
       // Report compressed chunk sizes
       chunkSizeWarningLimit: 1000
     },
@@ -107,18 +103,10 @@ export default defineConfig({
     service: {
       entrypoint: 'astro/assets/services/sharp',
     },
-    quality: 80,
-    formats: ['webp', 'avif'],
   },
   // Performance optimizations
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport',
-  },
-  // Enhanced caching for content collections
-  experimental: {
-    assets: true,
-    contentCollectionCache: true,
-    contentIntellisense: true,
   }
 });

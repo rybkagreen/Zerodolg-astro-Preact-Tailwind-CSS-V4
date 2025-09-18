@@ -265,6 +265,11 @@ const trustSignals = {
     link: "https://2gis.ru/moscow/firm/123456"
   }
 };
+
+// State for reviews display
+let visibleReviews = 3;
+const reviewsIncrement = 3;
+
 ---
 
 <section class="reviews" id="reviews">
@@ -323,7 +328,7 @@ const trustSignals = {
 
     <!-- Reviews Grid -->
     <div class="reviews__grid">
-      {reviews.map((review, index) => (
+      {reviews.slice(0, visibleReviews).map((review, index) => (
         <article 
           class="review-card"
           data-index={index}
@@ -391,12 +396,14 @@ const trustSignals = {
 
     <!-- Load More Button -->
     <div class="reviews__actions">
-      <button class="reviews__load-more">
-        Показать еще отзывы
-        <svg width="20" height="20" viewBox="0 0 20 20">
-          <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+      {visibleReviews < reviews.length && (
+        <button class="reviews__load-more" onClick={() => visibleReviews += reviewsIncrement}>
+          Показать еще отзывы
+          <svg width="20" height="20" viewBox="0 0 20 20">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      )}
     </div>
   </div>
 </section>
@@ -586,6 +593,16 @@ const trustSignals = {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 24px;
     margin-bottom: 48px;
+  }
+
+  /* Ensure only 3 reviews are shown initially */
+  .reviews__grid .review-card:nth-child(n+4) {
+    display: none;
+  }
+
+  /* Show more reviews when loaded */
+  .reviews__grid.show-more .review-card {
+    display: block;
   }
 
   /* Review Card */
@@ -808,6 +825,11 @@ const trustSignals = {
     .review-card {
       padding: 20px;
     }
+    
+    /* Mobile: Show only 1 review initially */
+    .reviews__grid .review-card:nth-child(n+2) {
+      display: none;
+    }
   }
 </style>
 
@@ -868,18 +890,144 @@ const trustSignals = {
     });
   });
 
-  // Handle load more button
-  const loadMoreBtn = document.querySelector('.reviews__load-more');
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', function() {
-      // Here you would typically load more reviews
-      // For demo, we'll just show a message
-      this.textContent = 'Загрузка...';
-      setTimeout(() => {
-        this.textContent = 'Все отзывы загружены';
+    // Handle load more button clicks
+  const handleLoadMore = () => {
+    const loadMoreBtn = document.querySelector('.reviews__load-more');
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', function() {
+        // Get current visible reviews count
+        const currentVisible = document.querySelectorAll('.review-card').length;
+        const totalReviews = reviews.length;
+        
+        // Calculate new visible count
+        const newVisible = Math.min(currentVisible + reviewsIncrement, totalReviews);
+        
+        // Update button text and state
+        this.textContent = 'Загрузка...';
         this.disabled = true;
-        this.style.opacity = '0.5';
-      }, 1000);
+        
+        // Simulate loading delay
+        setTimeout(() => {
+          // Update visible reviews count
+          visibleReviews = newVisible;
+          
+          // Re-render reviews
+          renderReviews();
+          
+          // Update button state
+          if (visibleReviews >= totalReviews) {
+            this.textContent = 'Все отзывы загружены';
+            this.style.opacity = '0.5';
+          } else {
+            this.textContent = 'Показать еще отзывы';
+            this.disabled = false;
+          }
+        }, 500);
+      });
+    }
+  };
+
+  // Render reviews function
+  const renderReviews = () => {
+    const reviewsGrid = document.querySelector('.reviews__grid');
+    if (!reviewsGrid) return;
+    
+    // Clear current reviews
+    reviewsGrid.innerHTML = '';
+    
+    // Add visible reviews
+    const visibleReviewsSlice = reviews.slice(0, visibleReviews);
+    visibleReviewsSlice.forEach((review, index) => {
+      const article = document.createElement('article');
+      article.className = 'review-card';
+      article.dataset.index = index.toString();
+      
+      article.innerHTML = `
+        <div class="review-card__header">
+          <div class="review-card__author">
+            <div class="review-card__avatar">
+              ${review.avatar ? 
+                `<img src="${review.avatar}" alt="${review.author}" loading="lazy" />` :
+                `<span>${getInitials(review.author || review.name || '')}</span>`
+              }
+            </div>
+            <div class="review-card__meta">
+              <h3 class="review-card__name">${review.author || review.name}</h3>
+              <time class="review-card__date">${formatDate(review.date)}</time>
+            </div>
+          </div>
+          ${review.verified ? 
+            `<div class="review-card__verified">
+              <svg width="16" height="16" viewBox="0 0 16 16">
+                <path d="M8 0L9.5 2.5L12.5 1.5L12 4.5L15 5.5L13.5 8L15 10.5L12 11.5L12.5 14.5L9.5 13.5L8 16L6.5 13.5L3.5 14.5L4 11.5L1 10.5L2.5 8L1 5.5L4 4.5L3.5 1.5L6.5 2.5L8 0Z" fill="currentColor"/>
+                <path d="M6 8L7 9L10 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Проверено
+            </div>` : ''
+          }
+        </div>
+        
+        <div class="review-card__rating">
+          ${[...Array(5)].map((_, i) => 
+            `<svg 
+              class="review-card__star ${i < review.rating ? 'review-card__star--filled' : ''}"
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>`
+          ).join('')}
+        </div>
+        
+        <p class="review-card__text">${review.text}</p>
+        
+        ${review.tags && review.tags.length > 0 ? 
+          `<div class="review-card__tags">
+            ${review.tags.map(tag => `<span class="review-card__tag">${tag}</span>`).join('')}
+          </div>` : ''
+        }
+        
+        <div class="review-card__footer">
+          <button class="review-card__helpful" data-review-id="${review.id}">
+            <svg width="16" height="16" viewBox="0 0 16 16">
+              <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="none" stroke-width="1.5"/>
+            </svg>
+            Полезно (${review.helpful})
+          </button>
+        </div>
+      `;
+      
+      reviewsGrid.appendChild(article);
     });
-  }
+    
+    // Re-attach event listeners
+    document.querySelectorAll('.review-card__helpful').forEach(button => {
+      button.addEventListener('click', function() {
+        const reviewId = this.dataset.reviewId;
+        const countMatch = this.textContent?.match(/\d+/);
+        if (countMatch) {
+          const currentCount = parseInt(countMatch[0]);
+          this.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 16 16">
+              <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="currentColor" stroke-width="1.5"/>
+            </svg>
+            Полезно (${currentCount + 1})
+          `;
+          this.style.background = '#f0f9ff';
+          this.style.borderColor = '#3b82f6';
+          this.style.color = '#3b82f6';
+          this.disabled = true;
+        }
+      });
+    });
+    
+    // Re-initialize animations
+    document.querySelectorAll('.review-card').forEach(card => {
+      observer.observe(card);
+    });
+  };
+
+  // Initialize load more button
+  handleLoadMore();
 </script>
