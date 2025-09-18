@@ -1,0 +1,7 @@
+name = "Обновить зависимости"
+description = "Обновить зависимости проекта"
+
+[command]
+type = "shell"
+run = "npm update"
+directory = "."

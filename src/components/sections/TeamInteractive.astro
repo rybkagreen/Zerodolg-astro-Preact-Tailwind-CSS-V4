@@ -1,11 +1,6 @@
 ---
-import { getTeamMembers } from '../../lib/content-service.js';
-
-// Fetch team members from CMS
-const teamMembers = await getTeamMembers();
-
-// If no team members from CMS, use fallback data
-const fallbackTeamMembers = [
+// Team members data
+const teamMembers = [
   {
     id: 'mashulia',
     name: 'Масхулиа Л.З.',
@@ -128,9 +123,6 @@ const fallbackTeamMembers = [
   }
 ];
 
-// Use CMS data if available, otherwise fallback to static data
-const activeTeamMembers = teamMembers.length > 0 ? teamMembers : fallbackTeamMembers;
-
 // Calculate team statistics
 const calculateTeamStats = (members) => {
   let totalExperience = 0;
@@ -139,7 +131,7 @@ const calculateTeamStats = (members) => {
   
   members.forEach(member => {
     // Extract numbers from experience string (e.g., "7+" -> 7)
-    const expMatch = member.experience?.match(/(\d+)/);
+    const expMatch = member.stats?.experience?.match(/(\d+)/);
     if (expMatch) totalExperience += parseInt(expMatch[1]);
     
     // Extract numbers from cases string (e.g., "500+" -> 500)
@@ -157,14 +149,14 @@ const calculateTeamStats = (members) => {
     : 95;
   
   return {
-    totalExperience: `${totalExperience}+`,
-    totalCases: `${totalCases}+`,
-    totalSaved: '2 млрд ₽', // This is a fixed value in the original
+    totalExperience: totalExperience > 0 ? `${totalExperience}+` : '22+',
+    totalCases: totalCases > 0 ? `${totalCases}+` : '1450+',
+    totalSaved: '2 млрд ₽',
     successRate: `${avgSuccessRate}%`
   };
 };
 
-const teamStats = calculateTeamStats(activeTeamMembers);
+const teamStats = calculateTeamStats(teamMembers);
 ---
 
 <section class="team-interactive" id="team">
@@ -179,7 +171,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
     <div class="team-interactive__wrapper">
       <!-- Team Tabs -->
       <div class="team-interactive__tabs" role="tablist" aria-label="Выбор члена команды">
-        {activeTeamMembers.map((member, index) => (
+      {teamMembers.map((member, index) => (
           <button
             class={`team-tab ${index === 0 ? 'active' : ''}`}
             data-member={member.id}
@@ -201,7 +193,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
 
       <!-- Team Content -->
       <div class="team-interactive__content">
-        {activeTeamMembers.map((member, index) => (
+        {teamMembers.map((member, index) => (
           <div
             class={`team-member ${index === 0 ? 'active' : ''}`}
             data-member={member.id}
@@ -326,7 +318,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
         // Hide all members
         members.forEach(member => {
           member.classList.remove('active');
-          member.style.display = 'none';
+          (member as HTMLElement).style.display = 'none';
           member.setAttribute('aria-hidden', 'true');
         });
         
@@ -343,7 +335,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
         
         if (selectedMember && selectedTab) {
           selectedMember.classList.add('active');
-          selectedMember.style.display = '';
+          (selectedMember as HTMLElement).style.display = '';
           selectedMember.setAttribute('aria-hidden', 'false');
           
           selectedTab.classList.add('active');
@@ -360,7 +352,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
       tabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
           e.preventDefault();
-          const memberId = tab.dataset.member;
+          const memberId = (tab as HTMLElement).dataset.member;
           console.log(`[TeamInteractive] Tab clicked: ${memberId}`);
           if (memberId) {
             switchMember(memberId);
@@ -370,7 +362,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
       
       // Handle keyboard navigation
       tabs.forEach((tab, index) => {
-        tab.addEventListener('keydown', (e) => {
+        tab.addEventListener('keydown', (e: KeyboardEvent) => {
           let newIndex = index;
           
           if (e.key === 'ArrowRight') {
@@ -387,10 +379,10 @@ const teamStats = calculateTeamStats(activeTeamMembers);
           
           e.preventDefault();
           const newTab = tabs[newIndex];
-          const memberId = newTab.dataset.member;
+          const memberId = (newTab as HTMLElement).dataset.member;
           if (memberId) {
             switchMember(memberId);
-            newTab.focus();
+            (newTab as HTMLElement).focus();
           }
         });
       });
@@ -398,7 +390,7 @@ const teamStats = calculateTeamStats(activeTeamMembers);
       // Ensure first member is shown
       const firstTab = tabs[0];
       if (firstTab) {
-        const firstMemberId = firstTab.dataset.member;
+        const firstMemberId = (firstTab as HTMLElement).dataset.member;
         if (firstMemberId) {
           switchMember(firstMemberId);
         }

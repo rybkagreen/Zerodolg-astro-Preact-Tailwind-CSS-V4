@@ -335,7 +335,7 @@ import FaqLogic from './FaqLogic.tsx';
               otherContent.setAttribute('aria-hidden', 'true');
               otherItem.classList.remove('faq__item--expanded');
               // Убираем инлайн стиль для закрытия
-              otherContent.style.maxHeight = null;
+              (otherContent as HTMLElement).style.maxHeight = '';
             }
           }
         });
@@ -347,19 +347,19 @@ import FaqLogic from './FaqLogic.tsx';
           content.setAttribute('aria-hidden', 'true');
           item.classList.remove('faq__item--expanded');
           // Убираем инлайн стиль для закрытия
-          content.style.maxHeight = null;
+          (content as HTMLElement).style.maxHeight = '';
         } else {
           // Open
           trigger.setAttribute('aria-expanded', 'true');
           content.setAttribute('aria-hidden', 'false');
           item.classList.add('faq__item--expanded');
           // Устанавливаем только максимальную высоту для анимации
-          content.style.maxHeight = content.scrollHeight + 'px';
+          (content as HTMLElement).style.maxHeight = content.scrollHeight + 'px';
           
           // Recalculate height after transition for dynamic content
           setTimeout(() => {
             if (trigger.getAttribute('aria-expanded') === 'true' && content) {
-              content.style.maxHeight = content.scrollHeight + 'px';
+              (content as HTMLElement).style.maxHeight = content.scrollHeight + 'px';
             }
           }, 300);
         }
@@ -367,16 +367,16 @@ import FaqLogic from './FaqLogic.tsx';
     });
     
     // Handle window resize to adjust opened accordions
-    let resizeTimer;
+    let resizeTimer: number;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
+      resizeTimer = window.setTimeout(() => {
         faqItems.forEach(item => {
           const trigger = item.querySelector('[data-faq-trigger]');
           const content = item.querySelector('[data-faq-content]');
           
           if (trigger?.getAttribute('aria-expanded') === 'true' && content) {
-            content.style.maxHeight = content.scrollHeight + 'px';
+                          (content as HTMLElement).style.maxHeight = content.scrollHeight + 'px';
           }
         });
       }, 250);

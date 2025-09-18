@@ -1,0 +1,7 @@
+name = "Запустить тесты"
+description = "Запуск тестов проекта"
+
+[command]
+type = "shell"
+run = "npm run test"
+directory = "."

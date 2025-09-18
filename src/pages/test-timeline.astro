@@ -23,7 +23,7 @@ import Timeline from '../components/islands/Timeline.astro';
           console.log('Steps found:', steps.length);
           steps.forEach((step, i) => {
             console.log(`Step ${i}:`, {
-              display: step.style.display,
+              display: (step as HTMLElement).style.display,
               classes: step.className,
               hasActive: step.classList.contains('active')
             });
@@ -42,8 +42,8 @@ import Timeline from '../components/islands/Timeline.astro';
           
           // Добавляем обработчик для отладки
           timeline.addEventListener('click', (e) => {
-            const target = e.target;
-            const actionBtn = target.closest('[data-action]');
+            const target = e.target as HTMLElement;
+            const actionBtn = target.closest('[data-action]') as HTMLElement;
             if (actionBtn) {
               console.log('Button clicked:', {
                 action: actionBtn.getAttribute('data-action'),

@@ -8,7 +8,12 @@
     "preview": "astro preview",
     "astro": "astro",
     "docs:generate": "node scripts/generate-component-docs.js",
-    "docs:build": "npm run docs:generate && astro build"
+    "docs:build": "npm run docs:generate && astro build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .js,.ts,.astro",
+    "lint:fix": "eslint . --ext .js,.ts,.astro --fix"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.0",
@@ -18,6 +23,15 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^30.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "eslint": "^9.35.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.3",
     "typescript": "^5.9.2"
   }
 }
