@@ -1,0 +1,362 @@
+/* ==========================================================================
+   Hero Animations
+   Advanced animations for Hero section including gradient rotation and entrance effects
+   ========================================================================== */
+
+/* Animation timing variables */
+:root {
+  --hero-anim-duration-fast: 300ms;
+  --hero-anim-duration-normal: 500ms;
+  --hero-anim-duration-slow: 800ms;
+  --hero-anim-duration-gradient: 20s;
+  
+  --hero-anim-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --hero-anim-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --hero-anim-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ==========================================================================
+   Gradient Background Animation
+   ========================================================================== */
+
+/* Rotating gradient background - simplified for performance */
+@keyframes heroGradientRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Subtle gradient shift animation */
+@keyframes heroGradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Hero gradient is defined in _hero.css, here we just ensure animation variables */
+.hero {
+  /* Animation is already applied in _hero.css as gradient-shift */
+  /* This file provides additional animation support */
+}
+
+/* Alternative rotating background with pseudo-element */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  animation: heroRotate 30s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes heroRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Text Animations
+   ========================================================================== */
+
+/* Fade in up animation */
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title animation */
+.hero__title {
+  animation: heroFadeInUp var(--hero-anim-duration-slow) var(--hero-anim-ease-out) both;
+  animation-delay: 200ms;
+}
+
+/* Subtitle animation */
+.hero__subtitle {
+  animation: heroFadeInUp var(--hero-anim-duration-slow) var(--hero-anim-ease-out) both;
+  animation-delay: 400ms;
+}
+
+/* Badge fade in from top */
+@keyframes heroFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero__badge {
+  animation: heroFadeInDown var(--hero-anim-duration-normal) var(--hero-anim-ease-out) both;
+  animation-delay: 100ms;
+}
+
+/* ==========================================================================
+   Interactive Elements Animations
+   ========================================================================== */
+
+/* CTA Button pulse */
+@keyframes heroPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(234, 88, 12, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 30px rgba(234, 88, 12, 0.4);
+  }
+}
+
+/* Apply pulse to primary CTA */
+.hero .button--primary {
+  animation: heroPulse 2s var(--hero-anim-ease-in-out) infinite;
+  animation-delay: 1s;
+}
+
+/* Stop animation on hover */
+.hero .button--primary:hover {
+  animation: none;
+  transform: scale(1.05);
+  box-shadow: 0 8px 35px rgba(234, 88, 12, 0.5);
+}
+
+/* Urgency indicator bounce */
+@keyframes heroUrgencyBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+.hero__urgency {
+  display: inline-block;
+  animation: heroUrgencyBounce 2s var(--hero-anim-ease-bounce) infinite;
+  animation-delay: 2s;
+}
+
+/* ==========================================================================
+   Form Animations
+   ========================================================================== */
+
+/* Form fade in from right */
+@keyframes heroFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero__form {
+  animation: heroFadeInRight var(--hero-anim-duration-slow) var(--hero-anim-ease-out) both;
+  animation-delay: 600ms;
+}
+
+/* Expert card animation */
+.hero__expert {
+  animation: heroFadeInRight var(--hero-anim-duration-slow) var(--hero-anim-ease-out) both;
+  animation-delay: 500ms;
+}
+
+/* Stats animation */
+.hero__stats {
+  animation: heroFadeInRight var(--hero-anim-duration-slow) var(--hero-anim-ease-out) both;
+  animation-delay: 700ms;
+}
+
+/* Float animation for trust elements */
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Apply to trust indicators */
+.hero__stat {
+  animation: heroFloat 4s var(--hero-anim-ease-in-out) infinite;
+}
+
+.hero__stat:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.hero__stat:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.hero__stat:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* ==========================================================================
+   Features Animation
+   ========================================================================== */
+
+/* Staggered fade in for features */
+.hero__feature {
+  opacity: 0;
+  animation: heroFadeInUp var(--hero-anim-duration-normal) var(--hero-anim-ease-out) both;
+}
+
+.hero__feature:nth-child(1) {
+  animation-delay: 800ms;
+}
+
+.hero__feature:nth-child(2) {
+  animation-delay: 900ms;
+}
+
+.hero__feature:nth-child(3) {
+  animation-delay: 1000ms;
+}
+
+/* Icon rotation on hover */
+.hero__feature-icon {
+  transition: transform var(--hero-anim-duration-fast) var(--hero-anim-ease-out);
+}
+
+.hero__feature:hover .hero__feature-icon {
+  transform: rotate(360deg) scale(1.1);
+}
+
+/* ==========================================================================
+   Scroll Indicator Animation
+   ========================================================================== */
+
+@keyframes heroScrollDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.hero__scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: heroScrollDown 2s var(--hero-anim-ease-in-out) infinite;
+}
+
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+
+/* Form loading animation */
+@keyframes heroFormLoading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hero__form.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: heroFormLoading 1s linear infinite;
+}
+
+/* ==========================================================================
+   Accessibility & Performance
+   ========================================================================== */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .hero::before,
+  .hero * {
+    animation: none;
+    transition: opacity var(--hero-anim-duration-fast) ease;
+  }
+  
+  /* Keep essential opacity transitions */
+  .hero__title,
+  .hero__subtitle,
+  .hero__badge,
+  .hero__form,
+  .hero__expert,
+  .hero__stats,
+  .hero__feature {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Performance optimization for mobile */
+@media (max-width: 768px) {
+  /* Disable complex animations on mobile */
+  .hero::before {
+    animation: none;
+  }
+  
+  /* Simplify gradient animation */
+  .hero {
+    animation-duration: 30s;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero {
+    animation: none;
+    background: var(--gradient-hero, linear-gradient(135deg, #2563eb 0%, #ea580c 100%));
+  }
+}

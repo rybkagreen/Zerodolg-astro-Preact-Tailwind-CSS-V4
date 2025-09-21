@@ -103,11 +103,10 @@
 }
 
 .hero-right-column .hero-authority-avatar img {
-    width: 110% !important;
-    height: 110% !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover !important;
-    object-position: center 15% !important;
-    transform: scale(1.05) !important;
+    object-position: center top !important;
 }
 
 /* Info section in compact card */

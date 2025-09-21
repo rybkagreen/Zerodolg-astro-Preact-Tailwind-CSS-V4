@@ -10,10 +10,13 @@ class UnifiedModalManager {
   private activeModal: HTMLElement | null = null;
   private focusedElementBeforeModal: HTMLElement | null = null;
   private dynamicModals: Set<HTMLElement> = new Set();
+  private modalTypeMap: Map<string, string> = new Map(); // Map of modal IDs to their types
 
   init(): void {
+    console.log('[ModalManager] Starting initialization');
     // Setup event delegation for modal triggers
     document.addEventListener('click', this.handleTriggerClick.bind(this));
+    console.log('[ModalManager] Click event listener added to document');
     
     // Setup ESC key handling
     document.addEventListener('keydown', this.handleEscKey.bind(this));
@@ -30,22 +33,31 @@ class UnifiedModalManager {
       close: this.closeModal.bind(this),
       closeAll: this.closeAllModals.bind(this)
     };
+    console.log('[ModalManager] Global API window.modalManager set up');
+    console.log('[ModalManager] Initialization completed');
   }
 
   private handleTriggerClick(e: Event): void {
+    console.log('[ModalManager] handleTriggerClick called');
     const target = e.target as HTMLElement;
     const trigger = target.closest('[data-modal]') as HTMLElement;
+    console.log('[ModalManager] Trigger element found:', trigger);
     
     if (trigger) {
       e.preventDefault();
       const modalId = trigger.getAttribute('data-modal');
       const modalType = trigger.getAttribute('data-modal-type');
+      console.log('[ModalManager] Modal attributes - id:', modalId, 'type:', modalType);
       
       if (modalId) {
-        // For dynamic modals, we need to create them first
+        // Store the modal type for future reference
         if (modalType) {
+          this.modalTypeMap.set(modalId, modalType);
+          console.log('[ModalManager] Storing modal type mapping:', modalId, '->', modalType);
+          console.log('[ModalManager] Creating dynamic modal');
           this.createDynamicModal(modalId, modalType);
         }
+        console.log('[ModalManager] Opening modal');
         this.openModal(modalId);
       }
     }
@@ -88,9 +100,11 @@ class UnifiedModalManager {
    * Open a modal by ID
    */
   openModal(modalId: string): void {
+    console.log('[ModalManager] openModal called with modalId:', modalId);
     // First check for declarative modals
     const modal = document.querySelector(`[data-modal-container="${modalId}"]`) as HTMLElement;
     if (modal) {
+      console.log('[ModalManager] Found declarative modal, activating');
       this.activateModal(modal);
       return;
     }
@@ -98,17 +112,33 @@ class UnifiedModalManager {
     // Then check for dynamic modals
     const dynamicModal = document.querySelector(`.modal[data-dynamic-id="${modalId}"]`) as HTMLElement;
     if (dynamicModal) {
+      console.log('[ModalManager] Found dynamic modal, activating');
       this.activateModal(dynamicModal);
       return;
     }
     
-    console.warn(`Modal with id "${modalId}" not found`);
+    // If no existing modal found, check if we know what type of modal to create
+    const modalType = this.modalTypeMap.get(modalId);
+    if (modalType) {
+      console.log(`[ModalManager] Creating dynamic modal for id "${modalId}" with type "${modalType}"`);
+      this.createDynamicModal(modalId, modalType);
+      // Try to find and activate the newly created modal
+      const newDynamicModal = document.querySelector(`.modal[data-dynamic-id="${modalId}"]`) as HTMLElement;
+      if (newDynamicModal) {
+        console.log('[ModalManager] Found newly created dynamic modal, activating');
+        this.activateModal(newDynamicModal);
+        return;
+      }
+    }
+    
+    console.warn(`Modal with id "${modalId}" not found and no type mapping available`);
   }
 
   /**
    * Activate a modal (both declarative and dynamic)
    */
   private activateModal(modal: HTMLElement): void {
+    console.log('[ModalManager] activateModal called with modal:', modal);
     // Store the currently focused element
     this.focusedElementBeforeModal = document.activeElement as HTMLElement;
 
@@ -133,6 +163,7 @@ class UnifiedModalManager {
     // Fire custom event
     const modalId = modal.getAttribute('data-modal-container') || modal.getAttribute('data-dynamic-id') || '';
     modal.dispatchEvent(new CustomEvent('modal:opened', { detail: { modalId } }));
+    console.log('[ModalManager] Modal activated successfully');
   }
 
   /**
@@ -239,29 +270,45 @@ class UnifiedModalManager {
    * Create a dynamic modal based on type
    */
   private createDynamicModal(modalId: string, modalType: string): void {
+    console.log('[ModalManager] createDynamicModal called with modalId:', modalId, 'modalType:', modalType);
+    
     // Check if modal already exists
     const existingModal = document.querySelector(`.modal[data-dynamic-id="${modalId}"]`) as HTMLElement;
+    console.log('[ModalManager] Checking for existing modal:', `.modal[data-dynamic-id="${modalId}"]`, existingModal);
     if (existingModal) {
+      console.log('[ModalManager] Modal already exists, returning early');
       return;
     }
     
+    // Store the modal type mapping
+    this.modalTypeMap.set(modalId, modalType);
+    
     // Create new modal
+    console.log('[ModalManager] Creating new modal');
     const modal = document.createElement('div');
     modal.className = 'modal modal--lead-magnet';
     modal.setAttribute('data-dynamic-id', modalId);
+    console.log('[ModalManager] Modal element created with className:', modal.className, 'and data-dynamic-id:', modalId);
     
     const modalContent = this.getModalContent(modalType);
-    if (!modalContent) return;
+    console.log('[ModalManager] Modal content for type', modalType, ':', modalContent ? 'found' : 'NOT FOUND');
+    if (!modalContent) {
+      console.log('[ModalManager] No modal content found, returning early');
+      return;
+    }
     
     modal.innerHTML = modalContent;
     document.body.appendChild(modal);
     this.dynamicModals.add(modal);
+    console.log('[ModalManager] Modal added to DOM and dynamicModals set');
   }
 
   /**
    * Get modal content by type
    */
   private getModalContent(modalType: string): string {
+    console.log('[ModalManager] getModalContent called with modalType:', modalType);
+    
     const modalTemplates: { [key: string]: string } = {
       consultation: `
         <div class="modal__overlay"></div>
@@ -276,16 +323,16 @@ class UnifiedModalManager {
             </p>
             <form class="modal-form" data-form-type="consultation">
               <div class="form-group">
-                <label class="form-label">Ваше имя</label>
-                <input type="text" name="name" class="form-input" required>
+                <label for="consultation-name" class="form-label">Ваше имя</label>
+                <input type="text" id="consultation-name" name="name" class="form-input" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label">Телефон</label>
-                <input type="tel" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                <label for="consultation-phone" class="form-label">Телефон</label>
+                <input type="tel" id="consultation-phone" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__" autocomplete="tel">
               </div>
               <div class="form-group">
-                <label class="form-label">Удобное время для звонка</label>
-                <select name="preferred_time" class="form-select">
+                <label for="consultation-time" class="form-label">Удобное время для звонка</label>
+                <select id="consultation-time" name="preferred_time" class="form-select" autocomplete="off">
                   <option value="">Выберите время</option>
                   <option value="morning">Утром (9:00 - 12:00)</option>
                   <option value="afternoon">Днем (12:00 - 17:00)</option>
@@ -293,8 +340,8 @@ class UnifiedModalManager {
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">Краткое описание ситуации (необязательно)</label>
-                <textarea name="situation" class="form-textarea" rows="3" placeholder="Опишите вашу ситуацию..."></textarea>
+                <label for="consultation-situation" class="form-label">Краткое описание ситуации (необязательно)</label>
+                <textarea id="consultation-situation" name="situation" class="form-textarea" rows="3" placeholder="Опишите вашу ситуацию..." autocomplete="off"></textarea>
               </div>
               <button type="submit" class="btn btn--primary btn--block">
                 Получить консультацию
@@ -314,21 +361,23 @@ class UnifiedModalManager {
           <div class="modal__body">
             <form class="modal-form" data-form-type="calculator">
               <div class="form-group">
-                <label class="form-label">Общая сумма долгов</label>
+                <label for="calculator-debt" class="form-label">Общая сумма долгов</label>
                 <div class="range-value" id="debt-amount-display">500 000 ₽</div>
                 <input 
                   type="range" 
+                  id="calculator-debt"
                   name="debt_amount" 
                   class="form-range" 
                   min="100000" 
                   max="10000000" 
                   value="500000"
                   step="50000"
+                  autocomplete="off"
                 >
               </div>
               <div class="form-group">
-                <label class="form-label">Количество кредиторов</label>
-                <select name="creditors_count" class="form-select" required>
+                <label for="calculator-creditors" class="form-label">Количество кредиторов</label>
+                <select id="calculator-creditors" name="creditors_count" class="form-select" required autocomplete="off">
                   <option value="">Выберите количество</option>
                   <option value="1-3">1-3 кредитора</option>
                   <option value="4-7">4-7 кредиторов</option>
@@ -336,8 +385,8 @@ class UnifiedModalManager {
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">Наличие имущества</label>
-                <select name="property" class="form-select" required>
+                <label for="calculator-property" class="form-label">Наличие имущества</label>
+                <select id="calculator-property" name="property" class="form-select" required autocomplete="off">
                   <option value="">Выберите вариант</option>
                   <option value="none">Нет имущества</option>
                   <option value="apartment">Единственное жилье</option>
@@ -345,12 +394,12 @@ class UnifiedModalManager {
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">Ваше имя</label>
-                <input type="text" name="name" class="form-input" required>
+                <label for="calculator-name" class="form-label">Ваше имя</label>
+                <input type="text" id="calculator-name" name="name" class="form-input" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label">Телефон для получения результата</label>
-                <input type="tel" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                <label for="calculator-phone" class="form-label">Телефон для получения результата</label>
+                <input type="tel" id="calculator-phone" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__" autocomplete="tel">
               </div>
               <button type="submit" class="btn btn--primary btn--block">
                 Рассчитать стоимость
@@ -386,12 +435,12 @@ class UnifiedModalManager {
             </div>
             <form class="modal-form" data-form-type="guide">
               <div class="form-group">
-                <label class="form-label">Ваше имя</label>
-                <input type="text" name="name" class="form-input" required>
+                <label for="guide-name" class="form-label">Ваше имя</label>
+                <input type="text" id="guide-name" name="name" class="form-input" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label">Email для отправки гида</label>
-                <input type="email" name="email" class="form-input" required placeholder="example@mail.com">
+                <label for="guide-email" class="form-label">Email для отправки гида</label>
+                <input type="email" id="guide-email" name="email" class="form-input" required placeholder="example@mail.com" autocomplete="email">
               </div>
               <button type="submit" class="btn btn--primary btn--block">
                 Скачать гид бесплатно
@@ -414,12 +463,12 @@ class UnifiedModalManager {
             </p>
             <form class="modal-form" data-form-type="checklist">
               <div class="form-group">
-                <label class="form-label">Ваше имя</label>
-                <input type="text" name="name" class="form-input" required>
+                <label for="checklist-name" class="form-label">Ваше имя</label>
+                <input type="text" id="checklist-name" name="name" class="form-input" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-input" required>
+                <label for="checklist-email" class="form-label">Email</label>
+                <input type="email" id="checklist-email" name="email" class="form-input" required autocomplete="email">
               </div>
               <button type="submit" class="btn btn--primary btn--block">
                 Получить чек-лист
@@ -442,8 +491,8 @@ class UnifiedModalManager {
             </p>
             <form class="modal-form" data-form-type="test">
               <div class="form-group">
-                <label class="form-label">Сумма задолженности</label>
-                <select name="debt" class="form-select" required>
+                <label for="test-debt" class="form-label">Сумма задолженности</label>
+                <select id="test-debt" name="debt" class="form-select" required autocomplete="off">
                   <option value="">Выберите сумму</option>
                   <option value="less_300k">Менее 300 000 ₽</option>
                   <option value="300k_500k">300 000 - 500 000 ₽</option>
@@ -452,12 +501,12 @@ class UnifiedModalManager {
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">Ваше имя</label>
-                <input type="text" name="name" class="form-input" required>
+                <label for="test-name" class="form-label">Ваше имя</label>
+                <input type="text" id="test-name" name="name" class="form-input" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label">Телефон</label>
-                <input type="tel" name="phone" class="form-input" required>
+                <label for="test-phone" class="form-label">Телефон</label>
+                <input type="tel" id="test-phone" name="phone" class="form-input" required autocomplete="tel">
               </div>
               <button type="submit" class="btn btn--primary btn--block">
                 Получить результат теста
@@ -483,17 +532,17 @@ class UnifiedModalManager {
             </div>
             <form class="modal-form" data-form-type="emergency">
               <div class="form-group">
-                <label class="form-label">Ваше имя</label>
-                <input type="text" name="name" class="form-input" required>
+                <label for="emergency-name" class="form-label">Ваше имя</label>
+                <input type="text" id="emergency-name" name="name" class="form-input" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label">Телефон</label>
-                <input type="tel" name="phone" class="form-input" required>
+                <label for="emergency-phone" class="form-label">Телефон</label>
+                <input type="tel" id="emergency-phone" name="phone" class="form-input" required autocomplete="tel">
               </div>
               <div class="form-group">
-                <label class="form-label">Опишите срочную ситуацию</label>
-                <textarea name="emergency_situation" class="form-textarea" rows="3" required 
-                          placeholder="Коллекторы угрожают, арестованы счета, завтра суд..."></textarea>
+                <label for="emergency-situation" class="form-label">Опишите срочную ситуацию</label>
+                <textarea id="emergency-situation" name="emergency_situation" class="form-textarea" rows="3" required 
+                          placeholder="Коллекторы угрожают, арестованы счета, завтра суд..." autocomplete="off"></textarea>
               </div>
               <button type="submit" class="btn btn--danger btn--block">
                 Получить помощь сейчас
@@ -504,7 +553,9 @@ class UnifiedModalManager {
       `
     };
     
-    return modalTemplates[modalType] || '';
+    const content = modalTemplates[modalType] || '';
+    console.log('[ModalManager] getModalContent returning content for', modalType, ':', content ? 'found' : 'NOT FOUND');
+    return content;
   }
 
   /**
@@ -526,17 +577,21 @@ class UnifiedModalManager {
     document.removeEventListener('keydown', this.handleEscKey.bind(this));
     window.removeEventListener('hashchange', this.checkHashForModal.bind(this));
     delete (window as any).modalManager;
+    this.modalTypeMap.clear();
   }
 }
 
 // Component to initialize the unified modal manager
 export default function ModalManager() {
   useEffect(() => {
+    console.log('[ModalManager Component] Initializing');
     const modalManager = new UnifiedModalManager();
     modalManager.init();
+    console.log('[ModalManager Component] Initialized successfully');
     
     // Cleanup function
     return () => {
+      console.log('[ModalManager Component] Cleaning up');
       modalManager.destroy();
     };
   }, []);

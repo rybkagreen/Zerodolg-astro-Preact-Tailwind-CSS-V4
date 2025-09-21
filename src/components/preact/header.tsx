@@ -1,4 +1,4 @@
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 // Utility functions
 type DebouncedFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
@@ -16,7 +16,12 @@ const debounce = <T extends (...args: any[]) => any>(func: T, wait: number): Deb
 };
 
 const Header = () => {
+  const [isClient, setIsClient] = useState(false);
+  
   useEffect(() => {
+    // Only run on the client side
+    setIsClient(true);
+    
     const header = document.getElementById('main-header');
     const dropdowns = document.querySelectorAll('.nav-dropdown');
     const mobileToggle = document.querySelector('[data-mobile-toggle]') as HTMLButtonElement;
@@ -49,7 +54,7 @@ const Header = () => {
             // Закрываем dropdown в любом случае с небольшой задержкой
             setTimeout(() => closeDropdown(dropdown), 100);
             
-            // Обрабатываем только якорные ссылки
+            // Обрабатываем якорные ссылки
             if (href && href.startsWith('#')) {
               e.preventDefault();
               
@@ -72,8 +77,29 @@ const Header = () => {
                 
                 // Обновляем URL без перезагрузки
                 history.pushState(null, '', href);
+              } else {
+                // If element not found, try to find it by query selector
+                const targetElementBySelector = document.querySelector(href);
+                if (targetElementBySelector) {
+                  const header = document.querySelector('.header-redesign');
+                  const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
+                  const offset = 20; // Дополнительный отступ
+                  
+                  // Используем более надежный метод скролла
+                  const elementPosition = targetElementBySelector.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
+                  
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                  
+                  // Обновляем URL без перезагрузки
+                  history.pushState(null, '', href);
+                }
               }
             }
+            // Для обычных ссылок (не якорных) ничего не делаем, браузер сам перейдет по ссылке
           });
         });
 
@@ -256,7 +282,15 @@ const Header = () => {
         anchor.addEventListener('click', (e) => {
           const href = anchor.getAttribute('href');
           if (href && href !== '#') {
-            const target = document.querySelector(href);
+            // For ID links (starting with #), use getElementById for better reliability
+            let target = null;
+            if (href.startsWith('#')) {
+              const targetId = href.substring(1);
+              target = document.getElementById(targetId);
+            } else {
+              target = document.querySelector(href);
+            }
+            
             if (target) {
               e.preventDefault();
               const headerHeight = header ? header.offsetHeight : 80;
@@ -343,6 +377,11 @@ const Header = () => {
       // Remove event listeners if needed
     };
   }, []);
+
+  // Don't render anything on the server
+  if (!isClient) {
+    return null;
+  }
 
   return null; // This component only adds behavior, no visual output
 };

@@ -1,0 +1,597 @@
+/* ==========================================================================
+   Form Component
+   BEM-structured form component with various input types
+   ========================================================================== */
+
+/* Block: Form container */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg, 1.5rem);
+}
+
+/* Form modifiers */
+.form--inline {
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.form--compact {
+  gap: var(--space-md, 1rem);
+}
+
+.form--wide {
+  gap: var(--space-xl, 2rem);
+}
+
+/* ==========================================================================
+   Form Elements
+   ========================================================================== */
+
+/* Form section */
+.form__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg, 1.5rem);
+  padding: var(--space-xl, 2rem);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg, 0.75rem);
+}
+
+.form__section-title {
+  margin: 0 0 var(--space-md, 1rem);
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form__section-description {
+  margin: -var(--space-sm, 0.5rem) 0 var(--space-md, 1rem);
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-muted);
+}
+
+/* Form row for grouping fields */
+.form__row {
+  display: grid;
+  gap: var(--space-md, 1rem);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.form__row--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form__row--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ==========================================================================
+   Form Field (Group)
+   ========================================================================== */
+
+/* Field container */
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs, 0.25rem);
+}
+
+.form__field--horizontal {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-md, 1rem);
+}
+
+.form__field--required .form__label::after {
+  content: " *";
+  color: var(--color-error);
+}
+
+/* Field label */
+.form__label {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 500;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 0.25rem);
+}
+
+.form__label-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-text-muted);
+}
+
+/* Field help text */
+.form__help {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs, 0.25rem);
+}
+
+/* Field error message */
+.form__error {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-error);
+  margin-top: var(--space-xs, 0.25rem);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 0.25rem);
+}
+
+.form__error-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Field success message */
+.form__success {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-success);
+  margin-top: var(--space-xs, 0.25rem);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 0.25rem);
+}
+
+/* ==========================================================================
+   Form Inputs Base
+   ========================================================================== */
+
+/* Base input styles */
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  padding: var(--space-sm, 0.5rem) var(--space-md, 1rem);
+  font-family: inherit;
+  font-size: var(--text-base, 1rem);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg, #ffffff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius-md, 0.5rem);
+  transition: border-color var(--transition-base, 0.2s ease), box-shadow var(--transition-base, 0.2s ease), background-color var(--transition-base, 0.2s ease);
+  appearance: none;
+}
+
+/* Input hover state */
+.form__input:hover:not(:disabled),
+.form__select:hover:not(:disabled),
+.form__textarea:hover:not(:disabled) {
+  border-color: var(--color-border-dark);
+}
+
+/* Input focus state */
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Input disabled state */
+.form__input:disabled,
+.form__select:disabled,
+.form__textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-muted);
+}
+
+/* Input placeholder */
+.form__input::placeholder,
+.form__textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Input Variations
+   ========================================================================== */
+
+/* Size modifiers */
+.form__input--small,
+.form__select--small {
+  padding: var(--space-xs, 0.25rem) var(--space-sm, 0.5rem);
+  font-size: var(--text-sm, 0.875rem);
+}
+
+.form__input--large,
+.form__select--large {
+  padding: var(--space-md, 1rem) var(--space-lg, 1.5rem);
+  font-size: var(--text-lg, 1.125rem);
+}
+
+/* State modifiers */
+.form__input--error,
+.form__select--error,
+.form__textarea--error {
+  border-color: var(--color-error);
+}
+
+.form__input--error:focus,
+.form__select--error:focus,
+.form__textarea--error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px var(--color-error-light);
+}
+
+.form__input--success,
+.form__select--success,
+.form__textarea--success {
+  border-color: var(--color-success);
+}
+
+.form__input--success:focus,
+.form__select--success:focus,
+.form__textarea--success:focus {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px var(--color-success-light);
+}
+
+/* ==========================================================================
+   Textarea Specific
+   ========================================================================== */
+
+.form__textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form__textarea--fixed {
+  resize: none;
+}
+
+.form__textarea--auto {
+  min-height: 40px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Select Specific
+   ========================================================================== */
+
+.form__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L2 5h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-md, 1rem) center;
+  padding-right: calc(var(--space-md, 1rem) * var(--multiplier-md));
+  cursor: pointer;
+}
+
+.form__select--multiple {
+  background-image: none;
+  padding-right: var(--space-md, 1rem);
+}
+
+/* ==========================================================================
+   Input Group
+   ========================================================================== */
+
+.form__group {
+  display: flex;
+  position: relative;
+}
+
+.form__group > * {
+  border-radius: 0;
+}
+
+.form__group > *:first-child {
+  border-top-left-radius: var(--radius-md, 0.5rem);
+  border-bottom-left-radius: var(--radius-md, 0.5rem);
+}
+
+.form__group > *:last-child {
+  border-top-right-radius: var(--radius-md, 0.5rem);
+  border-bottom-right-radius: var(--radius-md, 0.5rem);
+}
+
+.form__group > *:not(:last-child) {
+  border-right: none;
+}
+
+/* Input addon */
+.form__addon {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm, 0.5rem) var(--space-md, 1rem);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border, #e5e7eb);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm, 0.875rem);
+  white-space: nowrap;
+}
+
+.form__addon-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Input with icon inside */
+.form__field--icon-left .form__input,
+.form__field--icon-right .form__input {
+  position: relative;
+}
+
+.form__field--icon-left .form__input {
+  padding-left: calc(var(--space-md, 1rem) * var(--multiplier-md));
+}
+
+.form__field--icon-right .form__input {
+  padding-right: calc(var(--space-md, 1rem) * var(--multiplier-md));
+}
+
+.form__input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.form__input-icon--left {
+  left: var(--space-md, 1rem);
+}
+
+.form__input-icon--right {
+  right: var(--space-md, 1rem);
+}
+
+/* ==========================================================================
+   Checkbox and Radio
+   ========================================================================== */
+
+.form__checkbox,
+.form__radio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm, 0.5rem);
+  cursor: pointer;
+}
+
+.form__checkbox-input,
+.form__radio-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+  background-color: var(--color-bg, #ffffff);
+  border: 2px solid var(--color-border, #e5e7eb);
+  transition: background-color var(--transition-base, 0.2s ease), border-color var(--transition-base, 0.2s ease);
+  cursor: pointer;
+}
+
+.form__checkbox-input {
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.form__radio-input {
+  border-radius: var(--radius-full, 9999px);
+}
+
+/* Checked state */
+.form__checkbox-input:checked,
+.form__radio-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.form__checkbox-input:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath d='M16.7 5.3a1 1 0 0 0-1.4 0L8 12.6 4.7 9.3a1 1 0 0 0-1.4 1.4l4 4a1 1 0 0 0 1.4 0l8-8a1 1 0 0 0 0-1.4z'/%3E%3C/svg%3E");
+}
+
+.form__radio-input:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Ccircle cx='10' cy='10' r='4'/%3E%3C/svg%3E");
+}
+
+/* Focus state */
+.form__checkbox-input:focus,
+.form__radio-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Disabled state */
+.form__checkbox-input:disabled,
+.form__radio-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form__checkbox-label,
+.form__radio-label {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Toggle Switch
+   ========================================================================== */
+
+.form__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm, 0.5rem);
+  cursor: pointer;
+}
+
+.form__toggle-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form__toggle-switch {
+  position: relative;
+  width: 3rem;
+  height: 1.5rem;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full, 9999px);
+  transition: background-color var(--transition-base, 0.2s ease);
+}
+
+.form__toggle-switch::after {
+  content: "";
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--color-white, #ffffff);
+  border-radius: var(--radius-full, 9999px);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base, 0.2s ease);
+}
+
+.form__toggle-input:checked + .form__toggle-switch {
+  background-color: var(--color-primary);
+}
+
+.form__toggle-input:checked + .form__toggle-switch::after {
+  transform: translateX(1.5rem);
+}
+
+.form__toggle-input:focus + .form__toggle-switch {
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.form__toggle-input:disabled + .form__toggle-switch {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form__toggle-label {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text);
+  user-select: none;
+}
+
+/* ==========================================================================
+   Range Slider
+   ========================================================================== */
+
+.form__range {
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full, 9999px);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  transition: transform var(--transition-base, 0.2s ease), box-shadow var(--transition-base, 0.2s ease);
+}
+
+.form__range::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition-base, 0.2s ease), box-shadow var(--transition-base, 0.2s ease);
+}
+
+.form__range:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.form__range:hover::-moz-range-thumb {
+  transform: scale(1.2);
+}
+
+.form__range:focus {
+  outline: none;
+}
+
+.form__range:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.form__range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* ==========================================================================
+   Form Actions
+   ========================================================================== */
+
+.form__actions {
+  display: flex;
+  gap: var(--space-md, 1rem);
+  margin-top: var(--space-xl, 2rem);
+}
+
+.form__actions--centered {
+  justify-content: center;
+}
+
+.form__actions--end {
+  justify-content: flex-end;
+}
+
+.form__actions--between {
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .form__row--2,
+  .form__row--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .form--inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form__actions {
+    flex-direction: column;
+  }
+
+  .form__actions > * {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .form__input,
+  .form__select,
+  .form__textarea {
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+}

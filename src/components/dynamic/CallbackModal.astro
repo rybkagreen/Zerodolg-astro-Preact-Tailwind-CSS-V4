@@ -20,6 +20,7 @@ import Form from '../islands/Form.astro';
         name="name"
         placeholder="Введите ваше имя"
         required
+        autocomplete="name"
       />
       <span class="form__error" data-error="name"></span>
     </div>
@@ -36,6 +37,7 @@ import Form from '../islands/Form.astro';
         placeholder="+7 (___) ___-__-__"
         data-mask="phone"
         required
+        autocomplete="tel"
       />
       <span class="form__error" data-error="phone"></span>
     </div>
@@ -44,7 +46,7 @@ import Form from '../islands/Form.astro';
       <label class="form__label" for="callback-time">
         Удобное время для звонка
       </label>
-      <select class="form__select" id="callback-time" name="time">
+      <select class="form__select" id="callback-time" name="time" autocomplete="off">
         <option value="">Любое время</option>
         <option value="9-12">С 9:00 до 12:00</option>
         <option value="12-15">С 12:00 до 15:00</option>
@@ -63,13 +65,15 @@ import Form from '../islands/Form.astro';
         name="message"
         placeholder="Кратко опишите вашу ситуацию"
         rows="3"
+        autocomplete="off"
       ></textarea>
     </div>
     
     <div class="form__group">
-      <label class="form__checkbox">
+      <label class="form__checkbox" for="callback-agreement">
         <input 
           type="checkbox" 
+          id="callback-agreement"
           name="agreement"
           required
         />

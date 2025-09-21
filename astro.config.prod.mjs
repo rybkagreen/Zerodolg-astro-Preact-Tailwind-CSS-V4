@@ -37,7 +37,7 @@ export default defineConfig({
       sitemap: true
     })
   ],
-  output: 'static',
+  output: 'static', // Static site generation mode
   build: {
     inlineStylesheets: 'auto',
     format: 'file',
@@ -47,9 +47,6 @@ export default defineConfig({
     enabled: false
   },
   vite: {
-    optimizeDeps: {
-      include: ['preact', 'preact/hooks']
-    },
     build: {
       // Enable CSS and JS minification
       minify: 'terser',
@@ -68,13 +65,6 @@ export default defineConfig({
         format: {
           comments: false,
         },
-        mangle: {
-          properties: {
-            regex: /^__/,
-          }
-        },
-        keep_classnames: false,
-        keep_fnames: false,
       },
       // Enable CSS optimization
       cssMinify: 'lightningcss',

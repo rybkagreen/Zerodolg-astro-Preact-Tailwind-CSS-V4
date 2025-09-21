@@ -45,6 +45,7 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
 
     <form class="bitrix-callback__form" id="bitrix-callback-form">
       <div class="bitrix-callback__field">
+        <label for="callback-name" class="sr-only">Ваше имя</label>
         <input 
           type="text" 
           id="callback-name"
@@ -52,11 +53,13 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
           class="bitrix-callback__input" 
           placeholder="Ваше имя"
           required
+          autocomplete="name"
         />
         <span class="bitrix-callback__error"></span>
       </div>
 
       <div class="bitrix-callback__field">
+        <label for="callback-phone" class="sr-only">Телефон</label>
         <input 
           type="tel" 
           id="callback-phone"
@@ -64,15 +67,18 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
           class="bitrix-callback__input" 
           placeholder="+7 (___) ___-__-__"
           required
+          autocomplete="tel"
         />
         <span class="bitrix-callback__error"></span>
       </div>
 
       <div class="bitrix-callback__field">
+        <label for="callback-time" class="sr-only">Удобное время для звонка</label>
         <select 
           id="callback-time"
           name="callTime"
           class="bitrix-callback__input"
+          autocomplete="off"
         >
           <option value="now">Сейчас</option>
           <option value="15min">Через 15 минут</option>

@@ -35,7 +35,9 @@ const navItems = {
   info: [
     { href: '#faq', icon: '❓', title: 'Частые вопросы', desc: 'Ответы на популярные вопросы' },
     { href: 'blog/', icon: '📚', title: 'Блог', desc: 'Полезные статьи и новости' },
-    { href: '#contact', icon: '📍', title: 'Контакты', desc: 'Как с нами связаться' }
+    { href: '#contact', icon: '📍', title: 'Контакты', desc: 'Как с нами связаться' },
+    { href: '/privacy', icon: '🔒', title: 'Конфиденциальность', desc: 'Политика обработки данных' },
+    { href: '/terms', icon: '📋', title: 'Соглашение', desc: 'Условия использования сайта' }
   ]
 };
 
@@ -48,7 +50,9 @@ const mobileMenuItems = [
   { href: '#team', title: 'Команда' },
   { href: '#faq', title: 'FAQ' },
   { href: 'blog/', title: '📚 Блог', className: 'mobile-menu__link--blog' },
-  { href: '#contacts', title: 'Контакты' }
+  { href: '#contacts', title: 'Контакты' },
+  { href: '/privacy', title: 'Конфиденциальность' },
+  { href: '/terms', title: 'Соглашение' }
 ];
 ---
 
@@ -168,7 +172,7 @@ const mobileMenuItems = [
                 </div>
                 
                 <!-- CTA Button -->
-                <button class="nav-btn nav-btn-cta" data-modal="consultation">
+                <button class="nav-btn nav-btn-cta" data-modal="callback">
                     <span>Получить консультацию</span>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

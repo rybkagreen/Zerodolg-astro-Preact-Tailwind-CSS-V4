@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Trust Badges Component
+   ========================================================================== */
+
+.trust-badges {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Individual badge styling */
+.trust-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trust-badge:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge icons */
+.trust-badge::before {
+  content: '';
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.badge-ssl::before {
+  content: '🔒';
+  font-size: 24px;
+}
+
+.badge-privacy::before {
+  content: '🛡️';
+  font-size: 24px;
+}
+
+.badge-cert::before {
+  content: '✅';
+  font-size: 24px;
+}
+
+/* Badge tooltip */
+.badge-tooltip {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.badge-tooltip::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid rgba(0, 0, 0, 0.9);
+}
+
+.trust-badge:hover .badge-tooltip {
+  opacity: 1;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .trust-badges {
+    bottom: 80px;
+    left: 10px;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .trust-badge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .badge-tooltip {
+    display: none;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .trust-badges {
+    bottom: 30px;
+    left: 30px;
+  }
+}

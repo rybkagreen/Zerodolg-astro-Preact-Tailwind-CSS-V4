@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+/**
+ * Main CSS Entry Point
+ * ZeroDolg.ru - Юридические услуги по банкротству
+ * 
+ * Architecture: ITCSS (Inverted Triangle CSS)
+ * Methodology: BEM (Block Element Modifier)
+ * 
+ * Обновлено: 2024 - Все секции переработаны под современный дизайн
+ */
+
+/* =================================
+   00 - SETTINGS
+   Design tokens and CSS variables
+   ================================= */
+@import "./00-settings/_variables.css";
+
+/* =================================
+   01 - GENERIC
+   Ground-zero styles (resets, normalize)
+   ================================= */
+@import "./01-generic/_reset.css";
+
+/* =================================
+   02 - ELEMENTS
+   Unclassed HTML elements
+   ================================= */
+@import "./02-elements/_body.css";
+@import "./02-elements/_typography.css";
+
+/* =================================
+   03 - COMPONENTS
+   Designed UI components (BEM)
+   ================================= */
+/* UI Components */
+@import "./03-components/_button.css";
+@import "./03-components/_card.css";
+@import "./03-components/_form.css";
+@import "./03-components/_universal-form.css";
+@import "./03-components/_modal.css";
+@import "./03-components/_header-redesign.css";
+@import "./03-components/_footer.css";
+@import "./03-components/_navigation.css";
+@import "./03-components/_team-interactive.css";
+@import "./03-components/_trust-badges.css";
+@import "./03-components/_social-proof.css";
+@import "./03-components/_special-offer-compact.css";
+@import "./03-components/_special-offers.css";
+
+/* =================================
+   04 - SECTIONS
+   Page sections and specific layouts
+   ================================= */
+@import "./04-sections/_sections-base.css";
+@import "./04-sections/_section-patterns.css";
+@import "./04-sections/_hero.css";
+@import "./04-sections/_hero-two-columns.css";
+@import "./04-sections/_hero-reference.css";
+@import "./04-sections/_hero-animations.css";
+@import "./04-sections/_problems.css";
+@import "./04-sections/_timeline.css";
+@import "./components/_timeline-animations.css";
+@import "./04-sections/_team.css";
+@import "./04-sections/_reviews.css";
+@import "./04-sections/_faq.css";
+@import "./04-sections/_cta.css";
+@import "./04-sections/_lead-magnets.css";
+@import "./04-sections/_stats.css";
+@import "./04-sections/_calculator.css";
+@import "./04-sections/_benefits.css";
+@import "./04-sections/_solution.css";
+@import "./04-sections/_guarantees.css";
+@import "./04-sections/_special-offer.css";
+@import "./04-sections/_contacts.css";
+
+/* =================================
+   05 - UTILITIES
+   Helpers and overrides
+   ================================= */
+@import "./05-utilities/_helpers.css";
+@import "./05-utilities/_accessibility.css";
+
+/* =================================
+   GLOBAL COMPONENTS
+   Shared styles across sections
+   ================================= */
+
+/* Container utility */
+.container {
+  max-width: var(--container-xl, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-lg, 1.5rem);
+}
+
+/* Section base styles */
+.section {
+  padding: var(--space-3xl, 4rem) 0;
+}
+
+/* Icon utility class */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon--small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.icon--medium {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.icon--large {
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon--check::before {
+  content: "✓";
+  font-weight: bold;
+}
+
+.icon--success {
+  color: var(--color-success);
+}
+
+/* Text utilities */
+.text--highlight {
+  color: var(--color-primary);
+  font-weight: var(--font-semibold, 600);
+}
+
+.text--accent {
+  color: var(--color-accent);
+}
+
+.text--success {
+  color: var(--color-success);
+}
+
+/* Temporary fixes for missing assets */
+.image--decorative {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

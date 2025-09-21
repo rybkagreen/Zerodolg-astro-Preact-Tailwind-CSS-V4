@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Button Page</title>
+</head>
+<body>
+    <h1>Тестовая страница</h1>
+    
+    <!-- Кнопки для тестирования -->
+    <button data-action="scroll-to-form">Кнопка "Записаться на консультацию" (scroll-to-form)</button>
+    <br><br>
+    
+    <a href="#reviews">Ссылка на раздел отзывов</a>
+    <br><br>
+    
+    <button onclick="alert('Эта кнопка работает!')">Простая кнопка с onclick</button>
+    <br><br>
+    
+    <!-- Тестовый раздел для якорной ссылки -->
+    <div style="height: 1500px; background: #f0f0f0;">
+        <p>Прокрутка вниз...</p>
+    </div>
+    
+    <div id="reviews">
+        <h2>Раздел отзывов</h2>
+        <p>Это тестовый раздел отзывов.</p>
+    </div>
+    
+    <!-- Простой скрипт для отладки -->
+    <script>
+        console.log('Тестовая страница загружена');
+        
+        // Проверяем загрузились ли Preact компоненты
+        setTimeout(() => {
+            const buttons = document.querySelectorAll('[data-action="scroll-to-form"]');
+            console.log('Найдено кнопок с data-action:', buttons.length);
+            
+            buttons.forEach(btn => {
+                console.log('Проверяем кнопку:', btn);
+                // Пытаемся добавить обработчик напрямую
+                btn.addEventListener('click', (e) => {
+                    console.log('Прямой обработчик: кнопка нажата!');
+                    e.preventDefault();
+                    alert('Кнопка с data-action работает через прямой обработчик!');
+                });
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

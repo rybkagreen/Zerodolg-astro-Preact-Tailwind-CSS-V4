@@ -13,10 +13,6 @@ const STATIC_ASSETS = [
   '/favicon.png',
   '/apple-touch-icon.png',
   '/manifest.json',
-  // Critical CSS
-  '/_astro/main.css',
-  // Critical JS
-  '/_astro/client.js',
   // Critical images
   '/images/logo.svg',
   '/images/logo-white.svg',
@@ -34,8 +30,12 @@ self.addEventListener('install', event => {
         console.log('[Service Worker] Caching static assets');
         return cache.addAll(STATIC_ASSETS);
       })
+      .then(() => {
+        console.log('[Service Worker] All static assets cached successfully');
+      })
       .catch(error => {
-        console.error('[Service Worker] Failed to cache static assets:', error);
+        console.warn('[Service Worker] Failed to cache some static assets:', error);
+        // Continue installation even if some assets fail to cache
       })
   );
   
@@ -105,19 +105,34 @@ self.addEventListener('fetch', event => {
                 .then(cache => {
                   console.log('[Service Worker] Caching new response for:', event.request.url);
                   cache.put(event.request, responseToCache);
+                })
+                .catch(error => {
+                  console.warn('[Service Worker] Failed to cache response:', error);
                 });
               
               return response;
             })
             .catch(error => {
-              console.error('[Service Worker] Network fetch failed:', error);
+              console.warn('[Service Worker] Network fetch failed:', error);
               // Return a fallback page for navigation requests
               if (event.request.mode === 'navigate') {
-                return caches.match('/offline.html') || 
-                       new Response('Offline', { status: 503, statusText: 'Offline' });
+                return caches.match('/offline.html')
+                  .catch(() => new Response('Offline', { status: 503, statusText: 'Offline' }));
               }
-              // For other requests, just return the error
+              // For other requests, re-throw the error
               throw error;
+            });
+        })
+        .catch(error => {
+          console.warn('[Service Worker] Cache lookup failed:', error);
+          // If cache lookup fails, try network directly
+          return fetch(event.request)
+            .catch(() => {
+              // If network also fails and it's a navigation request, return offline page
+              if (event.request.mode === 'navigate') {
+                return caches.match('/offline.html')
+                  .catch(() => new Response('Offline', { status: 503, statusText: 'Offline' }));
+              }
             });
         })
     );

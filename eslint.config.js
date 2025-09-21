@@ -10,12 +10,12 @@ export default [
   // Global ignores
   {
     ignores: [
-      'dist/',
-      'node_modules/',
-      '.astro/',
+      '/dist/',
+      '/node_modules/',
+      '/.astro/',
       '*.min.js',
-      'public/',
-      'coverage/',
+      '/public/',
+      '/coverage/',
     ]
   },
   
@@ -41,7 +41,8 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.es2021
+        ...globals.es2021,
+        ...globals.jest
       }
     },
     rules: {
@@ -88,6 +89,24 @@ export default [
       // TypeScript rules for Astro files
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'warn'
+    }
+  },
+  
+  // Test files configuration
+  {
+    files: ['**/__tests__/**/*.ts', '**/*.test.ts', '**/*.spec.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+        ...globals.node
+      }
+    },
+    rules: {
+      // Relax some rules for test files
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-console': 'off',
+      'no-unused-expressions': 'off'
     }
   }
 ];

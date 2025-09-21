@@ -1,5 +1,6 @@
 ---
 import siteData from '../../data/site.json';
+import SocialLinksComponent from '../preact/social-links.tsx';
 
 export interface Props {
   enableTracking?: boolean;
@@ -23,70 +24,50 @@ const platforms = {
     name: 'Telegram',
     icon: '📱',
     color: '#0088cc',
+    className: 'social-link--telegram'
+  },
+  vk: {
+    name: 'VK',
+    icon: '💬',
+    color: '#4a76a8',
+    className: 'social-link--vk'
   },
   whatsapp: {
     name: 'WhatsApp',
     icon: '💬',
-    color: '#25d366',
-  },
-  vk: {
-    name: 'VKontakte',
-    icon: '🔵',
-    color: '#4a76a8',
-  },
-  youtube: {
-    name: 'YouTube',
-    icon: '📺',
-    color: '#ff0000',
-  },
-  zen: {
-    name: 'Яндекс.Дзен',
-    icon: '📖',
-    color: '#fc6d26',
-  },
-  facebook: {
-    name: 'Facebook',
-    icon: '📘',
-    color: '#1877f2',
-  },
-  instagram: {
-    name: 'Instagram',
-    icon: '📷',
-    color: '#e4405f',
-  },
+    color: '#25D366',
+    className: 'social-link--whatsapp'
+  }
 };
 
-const socialData = siteData.social || {};
-const socialKeys = Object.keys(socialData).filter(key => socialData[key as keyof typeof socialData]);
+// Get social links from site data
+const socialLinks = siteData.company?.social || {};
 
-const sizeClass = size !== 'medium' ? `social-links--${size}` : '';
+// Get enabled platforms
+const enabledPlatforms = Object.keys(socialLinks).filter(platform => 
+  socialLinks[platform] && platforms[platform]
+);
 ---
 
 <div 
-  class={`social-links ${sizeClass} ${className}`}
-  data-size={size}
-  data-show-labels={showLabels}
+  class={`social-links social-links--${size} ${className}`} 
+  data-social-links
   data-enable-tracking={enableTracking}
-  data-open-in-new-tab={openInNewTab}
 >
-  {socialKeys.length > 0 ? (
-    socialKeys.map((platform, index) => {
-      const url = socialData[platform as keyof typeof socialData];
-      const platformConfig = platforms[platform as keyof typeof platforms];
-      
-      if (!url || !platformConfig) return null;
-      
-      const linkClass = `social-link social-link--${platform}${size !== 'medium' ? ` social-link--${size}` : ''}${showLabels ? ' social-link--with-label' : ''}`;
+  {enabledPlatforms.length > 0 ? (
+    enabledPlatforms.map((platform) => {
+      const platformConfig = platforms[platform];
+      const url = socialLinks[platform];
       
       return (
-        <a 
+        <a
           href={url}
-          class={linkClass}
+          class={`social-link ${platformConfig.className} ${openInNewTab ? 'social-link--new-tab' : ''}`}
+          target={openInNewTab ? "_blank" : "_self"}
+          rel={openInNewTab ? "noopener noreferrer" : ""}
           data-platform={platform}
-          data-index={index}
-          aria-label={`Перейти в ${platformConfig.name}`}
-          target={openInNewTab ? '_blank' : undefined}
-          rel={openInNewTab ? 'noopener noreferrer' : undefined}
+          aria-label={`Написать в ${platformConfig.name}`}
+          title={`Написать в ${platformConfig.name}`}
         >
           <span class="social-link__icon" aria-hidden="true">
             {platformConfig.icon}
@@ -103,4 +84,7 @@ const sizeClass = size !== 'medium' ? `social-links--${size}` : '';
     </div>
   )}
 </div>
+
+<!-- Load interactive logic -->
+<SocialLinksComponent client:load />
 

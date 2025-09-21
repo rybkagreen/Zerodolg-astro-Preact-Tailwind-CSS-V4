@@ -28,29 +28,29 @@ export default function SocialLinksLogic() {
         });
       }
 
-      // Track with Yandex.Metrica
+      // Track with Yandex Metrika
       if (window.ym && window.yaCounterId) {
         window.ym(window.yaCounterId, 'reachGoal', 'social_link_click', {
           platform: platform,
-          position: index
+          position: index,
+          url: url
         });
       }
 
-      // Custom event for other integrations
-      document.dispatchEvent(new CustomEvent('social-link-click', {
-        detail: { platform, index, url, link }
-      }));
+      // Open in new tab for social links
+      if (link.getAttribute('target') === '_blank') {
+        e.preventDefault();
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
     };
 
-    // Add event listeners to all social link containers
-    const containers = document.querySelectorAll('.social-links');
+    // Add event listeners to social link containers
+    const containers = document.querySelectorAll('[data-social-links]');
     containers.forEach(container => {
-      const enableTracking = container.getAttribute('data-enable-tracking') === 'true';
-      if (enableTracking) {
-        container.addEventListener('click', handleSocialClick as EventListener);
-      }
+      container.addEventListener('click', handleSocialClick as EventListener);
     });
 
+    // Cleanup function
     return () => {
       containers.forEach(container => {
         container.removeEventListener('click', handleSocialClick as EventListener);

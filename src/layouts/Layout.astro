@@ -1,17 +1,23 @@
 ---
-import '../styles/main.css';
-import criticalCSS from '../styles/performance/_critical.css?raw';
+import { criticalCSS } from '../lib/critical-css.js';
+import { injectAnalytics } from '../lib/analytics';
 
 export interface Props {
 	title: string;
 	description?: string;
 	keywords?: string;
+	image?: string;
+	canonical?: string;
+	type?: string;
 }
 
 const { 
 	title = 'ZeroDolg - Банкротство физических лиц в Москве', 
 	description = '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.',
-	keywords = 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов'
+	keywords = 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов',
+	image = '/og-image.jpg',
+	canonical = 'https://zerodolg.ru/',
+	type = 'website'
 } = Astro.props;
 ---
 
@@ -24,7 +30,7 @@ const {
 		<meta name="keywords" content={keywords} />
 		
 		<!-- Critical CSS for faster initial rendering -->
-		<style>{criticalCSS}</style>
+		<style is:inline>{criticalCSS}</style>
 		
 		<!-- Preconnect to important third-party origins -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,6 +38,7 @@ const {
 		
 		<!-- Preload critical resources -->
 		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+		<link rel="preload" href="/images/team/mashulia.webp" as="image" />
 		
 		<!-- Prefetch likely next pages -->
 		<link rel="prefetch" href="/#reviews" />
@@ -41,19 +48,45 @@ const {
 		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 		<link rel="dns-prefetch" href="//fonts.gstatic.com" />
 		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonical} />
+		
 		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://zerodolg.ru/" />
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={canonical} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/og-image.jpg" />
+		<meta property="og:image" content={image} />
+		<meta property="og:locale" content="ru_RU" />
+		<meta property="og:site_name" content="ZeroDolg" />
 		
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://zerodolg.ru/" />
+		<meta property="twitter:url" content={canonical} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="/og-image.jpg" />
+		<meta property="twitter:image" content={image} />
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Organization",
+				"name": "ZeroDolg",
+				"url": "https://zerodolg.ru/",
+				"logo": "https://zerodolg.ru/logo.png",
+				"sameAs": [
+					"https://vk.com/zerodolg",
+					"https://t.me/zerodolg"
+				],
+				"contactPoint": {
+					"@type": "ContactPoint",
+					"telephone": "+7 (495) 123-45-67",
+					"contactType": "customer service",
+					"availableLanguage": "Russian"
+				}
+			}
+		</script>
 		
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
@@ -65,7 +98,10 @@ const {
 <body>
     <slot />
     
-    <!-- Service Worker Registration -->
-    <script is:inline src="/js/service-worker-register.js"></script>
+    <!-- Analytics - deferred to reduce render-blocking -->
+    <script is:inline defer src="/js/analytics.js"></script>
+    
+    <!-- Service Worker Registration - deferred -->
+    <script is:inline defer src="/js/service-worker-register.js"></script>
   </body>
 </html>

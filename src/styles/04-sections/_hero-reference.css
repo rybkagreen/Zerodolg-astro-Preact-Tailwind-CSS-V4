@@ -17,26 +17,7 @@
 }
 
 /* Rotating gradient animation */
-@keyframes gradient-rotate {
-    0% { 
-        background-position: 0% 50%;
-        filter: hue-rotate(0deg);
-    }
-    25% { 
-        background-position: 50% 100%;
-    }
-    50% { 
-        background-position: 100% 50%;
-        filter: hue-rotate(10deg);
-    }
-    75% { 
-        background-position: 50% 0%;
-    }
-    100% { 
-        background-position: 0% 50%;
-        filter: hue-rotate(0deg);
-    }
-}
+
 
 /* Additional dark overlay for better contrast */
 .hero::before {

@@ -492,55 +492,58 @@ const Timeline = () => {
 
     // Event listeners for navigation buttons
     const handleClick = async (e: Event) => {
-      const target = e.target as HTMLElement;
-      
-      // Handle action buttons
-      const actionBtn = target.closest('[data-action]') as HTMLElement;
-      if (actionBtn) {
-        e.preventDefault();
-        e.stopPropagation();
-        const action = actionBtn.getAttribute('data-action');
-        if (action) {
-          await handleAction(action);
-        }
-        return;
-      }
+  console.log('[Timeline] handleClick called');
+  const target = e.target as HTMLElement;
+  
+  // Handle action buttons
+  const actionBtn = target.closest('[data-action]') as HTMLElement;
+  if (actionBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const action = actionBtn.getAttribute('data-action');
+    if (action) {
+      await handleAction(action);
+    }
+    return;
+  }
 
-      // Handle nav items
-      const navItem = target.closest('.timeline__nav-item') as HTMLElement;
-      if (navItem) {
-        e.preventDefault();
-        const stepIndex = parseInt(navItem.getAttribute('data-step') || '0');
-        if (!state.isComplete) {
-          await goToStep(stepIndex);
-        }
-        return;
-      }
+  // Handle nav items
+  const navItem = target.closest('.timeline__nav-item') as HTMLElement;
+  if (navItem) {
+    e.preventDefault();
+    const stepIndex = parseInt(navItem.getAttribute('data-step') || '0');
+    if (!state.isComplete) {
+      await goToStep(stepIndex);
+    }
+    return;
+  }
 
-      // Handle progress dots
-      const dot = target.closest('.timeline__progress-dot') as HTMLElement;
-      if (dot) {
-        e.preventDefault();
-        const stepIndex = parseInt(dot.getAttribute('data-dot') || '0');
-        if (!state.isComplete) {
-          await goToStep(stepIndex);
-        }
-        return;
-      }
-      
-      // Handle modal triggers
-      const modalBtn = target.closest('[data-modal]') as HTMLElement;
-      if (modalBtn) {
-        const modalType = modalBtn.getAttribute('data-modal');
-        trackEvent('timeline_cta_click', {
-          modal: modalType,
-          from_step: state.currentStep,
-          is_complete: state.isComplete
-        });
-      }
-    };
+  // Handle progress dots
+  const dot = target.closest('.timeline__progress-dot') as HTMLElement;
+  if (dot) {
+    e.preventDefault();
+    const stepIndex = parseInt(dot.getAttribute('data-dot') || '0');
+    if (!state.isComplete) {
+      await goToStep(stepIndex);
+    }
+    return;
+  }
+  
+  // Handle modal triggers
+  const modalBtn = target.closest('[data-modal]') as HTMLElement;
+  if (modalBtn) {
+    const modalType = modalBtn.getAttribute('data-modal');
+    console.log('[Timeline] Modal button clicked, modalType:', modalType);
+    trackEvent('timeline_cta_click', {
+      modal: modalType,
+      from_step: state.currentStep,
+      is_complete: state.isComplete
+    });
+  }
+};
     
     section.addEventListener('click', handleClick);
+console.log('[Timeline] Click event listener added to section');
 
     // Keyboard navigation
     const handleKeyboard = async (e: KeyboardEvent) => {
@@ -681,51 +684,53 @@ const Timeline = () => {
     window.addEventListener('resize', handleResize);
     
     // Initialize timeline
-    const init = async () => {
-      console.log('Timeline Init: Starting initialization');
-      console.log('Timeline Init: Total steps =', state.totalSteps);
-      console.log('Timeline Init: Current step =', state.currentStep);
-      
-      // Set initial responsive state
-      handleResize();
-      
-      // Track timeline view
-      trackEvent('timeline_view', {
-        total_steps: state.totalSteps,
-        viewport: window.innerWidth < config.mobileBreakpoint ? 'mobile' : 'desktop'
-      });
-      
-      // Reset initial visibility
-      resetStepsVisibility();
-      console.log('Timeline Init: Reset visibility completed');
-      
-      // Load saved progress
-      await loadProgress();
-      
-      // Focus management for accessibility
-      const firstActionBtn = section.querySelector('[data-action]') as HTMLElement;
-      if (firstActionBtn) {
-        firstActionBtn.setAttribute('tabindex', '0');
-      }
-      
-      // Add ARIA live region for screen readers
-      const liveRegion = document.createElement('div');
-      liveRegion.setAttribute('aria-live', 'polite');
-      liveRegion.setAttribute('aria-atomic', 'true');
-      liveRegion.className = 'sr-only';
-      section.appendChild(liveRegion);
-      
-      // Update live region on step change
-      document.addEventListener('timeline:step-change', (e: Event) => {
-        const customEvent = e as CustomEvent;
-        const { to } = customEvent.detail;
-        const currentStepElement = steps[to];
-        if (currentStepElement) {
-          const title = currentStepElement.querySelector('.timeline__step-title')?.textContent || '';
-          liveRegion.textContent = `Шаг ${to + 1} из ${state.totalSteps}: ${title}`;
-        }
-      });
-    };
+const init = async () => {
+  console.log('Timeline Init: Starting initialization');
+  console.log('Timeline Init: Total steps =', state.totalSteps);
+  console.log('Timeline Init: Current step =', state.currentStep);
+  
+  // Set initial responsive state
+  handleResize();
+  
+  // Track timeline view
+  trackEvent('timeline_view', {
+    total_steps: state.totalSteps,
+    viewport: window.innerWidth < config.mobileBreakpoint ? 'mobile' : 'desktop'
+  });
+  
+  // Reset initial visibility
+  resetStepsVisibility();
+  console.log('Timeline Init: Reset visibility completed');
+  
+  // Load saved progress
+  await loadProgress();
+  
+  // Focus management for accessibility
+  const firstActionBtn = section.querySelector('[data-action]') as HTMLElement;
+  if (firstActionBtn) {
+    firstActionBtn.setAttribute('tabindex', '0');
+  }
+  
+  // Add ARIA live region for screen readers
+  const liveRegion = document.createElement('div');
+  liveRegion.setAttribute('aria-live', 'polite');
+  liveRegion.setAttribute('aria-atomic', 'true');
+  liveRegion.className = 'sr-only';
+  section.appendChild(liveRegion);
+  
+  // Update live region on step change
+  document.addEventListener('timeline:step-change', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { to } = customEvent.detail;
+    const currentStepElement = steps[to];
+    if (currentStepElement) {
+      const title = currentStepElement.querySelector('.timeline__step-title')?.textContent || '';
+      liveRegion.textContent = `Шаг ${to + 1} из ${state.totalSteps}: ${title}`;
+    }
+  });
+  
+  console.log('Timeline Init: Completed successfully');
+};
     
     // Start initialization
     init();

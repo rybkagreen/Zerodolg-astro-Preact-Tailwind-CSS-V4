@@ -19,9 +19,14 @@ import ScrollAnimations from '../components/preact/scroll-animations.tsx';
 import OnlineSticker from '../components/islands/OnlineSticker.astro';
 import BitrixCallback from '../components/islands/BitrixCallback.astro';
 import SpecialOffers from '../components/islands/SpecialOffers.astro';
+import ClientInteractions from '../components/preact/client-interactions.tsx';
+import TestButton from '../components/preact/TestButton.tsx';
 ---
 
-<Layout title="Банкротство физических лиц под ключ - ZeroDolg">
+<Layout 
+	title="Банкротство физических лиц под ключ - ZeroDolg"
+	canonical="https://zerodolg.ru/"
+>
   <Header />
   
   <main>
@@ -32,35 +37,35 @@ import SpecialOffers from '../components/islands/SpecialOffers.astro';
     <!-- <Problems /> -->
     
     <div data-aos="fade-up" data-aos-duration="800">
-      <Stats />
+      <Stats client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-      <Calculator />
+      <Calculator client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800">
-      <Benefits />
+      <Benefits client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800">
-      <Timeline />
+      <Timeline client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-      <Reviews />
+      <Reviews client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800">
-      <TeamInteractive />
+      <TeamInteractive client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-      <LeadMagnets />
+      <LeadMagnets client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800">
-      <Faq />
+      <Faq client:idle />
     </div>
     
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
@@ -86,8 +91,14 @@ import SpecialOffers from '../components/islands/SpecialOffers.astro';
   <ModalManager client:idle />
   
   <!-- Special Offers Components -->
-  <SpecialOffers client:idle />
+  <SpecialOffers />
   
   <!-- Scroll Animations Handler -->
   <ScrollAnimations client:idle once={true} offset={100} duration={800} />
+  
+  <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
+  <ClientInteractions client:idle />
+  
+  <!-- Test Button for debugging -->
+  <TestButton client:idle />
 </Layout>

@@ -3,8 +3,24 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": ["astro/client", "@types/jest"]
+    "types": ["astro/client", "jest"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "noImplicitAny": false
   },
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "scripts"]
+  "include": [
+    ".astro/types.d.ts",
+    "**/*",
+    "src/**/*",
+    "src/__tests__/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    ".astro",
+    "coverage"
+  ]
 }

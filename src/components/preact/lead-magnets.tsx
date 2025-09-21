@@ -115,16 +115,16 @@ export default function LeadMagnetsLogic() {
               </p>
               <form class="modal-form" data-form-type="consultation">
                 <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
-                  <input type="text" name="name" class="form-input" required>
+                  <label for="lead-consultation-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-consultation-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Телефон</label>
-                  <input type="tel" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                  <label for="lead-consultation-phone" class="form-label">Телефон</label>
+                  <input type="tel" id="lead-consultation-phone" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__" autocomplete="tel">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Удобное время для звонка</label>
-                  <select name="preferred_time" class="form-select">
+                  <label for="lead-consultation-time" class="form-label">Удобное время для звонка</label>
+                  <select id="lead-consultation-time" name="preferred_time" class="form-select" autocomplete="off">
                     <option value="">Выберите время</option>
                     <option value="morning">Утром (9:00 - 12:00)</option>
                     <option value="afternoon">Днем (12:00 - 17:00)</option>
@@ -132,8 +132,8 @@ export default function LeadMagnetsLogic() {
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Краткое описание ситуации (необязательно)</label>
-                  <textarea name="situation" class="form-textarea" rows="3" placeholder="Опишите вашу ситуацию..."></textarea>
+                  <label for="lead-consultation-situation" class="form-label">Краткое описание ситуации (необязательно)</label>
+                  <textarea id="lead-consultation-situation" name="situation" class="form-textarea" rows="3" placeholder="Опишите вашу ситуацию..." autocomplete="off"></textarea>
                 </div>
                 <button type="submit" class="btn btn--primary btn--block">
                   Получить консультацию
@@ -153,21 +153,23 @@ export default function LeadMagnetsLogic() {
             <div class="modal__body">
               <form class="modal-form" data-form-type="calculator">
                 <div class="form-group">
-                  <label class="form-label">Общая сумма долгов</label>
-                  <div class="range-value" id="debt-amount-display">500 000 ₽</div>
+                  <label for="lead-calculator-debt" class="form-label">Общая сумма долгов</label>
+                  <div class="range-value" id="lead-debt-amount-display">500 000 ₽</div>
                   <input 
                     type="range" 
+                    id="lead-calculator-debt"
                     name="debt_amount" 
                     class="form-range" 
                     min="100000" 
                     max="10000000" 
                     value="500000"
                     step="50000"
+                    autocomplete="off"
                   >
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Количество кредиторов</label>
-                  <select name="creditors_count" class="form-select" required>
+                  <label for="lead-calculator-creditors" class="form-label">Количество кредиторов</label>
+                  <select id="lead-calculator-creditors" name="creditors_count" class="form-select" required autocomplete="off">
                     <option value="">Выберите количество</option>
                     <option value="1-3">1-3 кредитора</option>
                     <option value="4-7">4-7 кредиторов</option>
@@ -175,8 +177,8 @@ export default function LeadMagnetsLogic() {
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Наличие имущества</label>
-                  <select name="property" class="form-select" required>
+                  <label for="lead-calculator-property" class="form-label">Наличие имущества</label>
+                  <select id="lead-calculator-property" name="property" class="form-select" required autocomplete="off">
                     <option value="">Выберите вариант</option>
                     <option value="none">Нет имущества</option>
                     <option value="apartment">Квартира</option>
@@ -186,12 +188,12 @@ export default function LeadMagnetsLogic() {
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
-                  <input type="text" name="name" class="form-input" required>
+                  <label for="lead-calculator-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-calculator-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Телефон для получения результата</label>
-                  <input type="tel" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                  <label for="lead-calculator-phone" class="form-label">Телефон для получения результата</label>
+                  <input type="tel" id="lead-calculator-phone" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__" autocomplete="tel">
                 </div>
                 <button type="submit" class="btn btn--primary btn--block">
                   Рассчитать стоимость
@@ -227,12 +229,12 @@ export default function LeadMagnetsLogic() {
               </div>
               <form class="modal-form" data-form-type="guide">
                 <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
-                  <input type="text" name="name" class="form-input" required>
+                  <label for="lead-guide-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-guide-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Email для отправки гида</label>
-                  <input type="email" name="email" class="form-input" required placeholder="example@mail.com">
+                  <label for="lead-guide-email" class="form-label">Email для отправки гида</label>
+                  <input type="email" id="lead-guide-email" name="email" class="form-input" required placeholder="example@mail.com" autocomplete="email">
                 </div>
                 <button type="submit" class="btn btn--primary btn--block">
                   Скачать гид бесплатно
@@ -255,12 +257,12 @@ export default function LeadMagnetsLogic() {
               </p>
               <form class="modal-form" data-form-type="checklist">
                 <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
-                  <input type="text" name="name" class="form-input" required>
+                  <label for="lead-checklist-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-checklist-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Email</label>
-                  <input type="email" name="email" class="form-input" required>
+                  <label for="lead-checklist-email" class="form-label">Email</label>
+                  <input type="email" id="lead-checklist-email" name="email" class="form-input" required autocomplete="email">
                 </div>
                 <button type="submit" class="btn btn--primary btn--block">
                   Получить чек-лист
@@ -283,8 +285,8 @@ export default function LeadMagnetsLogic() {
               </p>
               <form class="modal-form" data-form-type="test">
                 <div class="form-group">
-                  <label class="form-label">Сумма задолженности</label>
-                  <select name="debt" class="form-select" required>
+                  <label for="lead-test-debt" class="form-label">Сумма задолженности</label>
+                  <select id="lead-test-debt" name="debt" class="form-select" required autocomplete="off">
                     <option value="">Выберите сумму</option>
                     <option value="less_300k">Менее 300 000 ₽</option>
                     <option value="300k_500k">300 000 - 500 000 ₽</option>
@@ -293,12 +295,12 @@ export default function LeadMagnetsLogic() {
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
-                  <input type="text" name="name" class="form-input" required>
+                  <label for="lead-test-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-test-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Телефон</label>
-                  <input type="tel" name="phone" class="form-input" required>
+                  <label for="lead-test-phone" class="form-label">Телефон</label>
+                  <input type="tel" id="lead-test-phone" name="phone" class="form-input" required autocomplete="tel">
                 </div>
                 <button type="submit" class="btn btn--primary btn--block">
                   Получить результат теста
@@ -324,17 +326,17 @@ export default function LeadMagnetsLogic() {
               </div>
               <form class="modal-form" data-form-type="emergency">
                 <div class="form-group">
-                  <label class="form-label">Ваше имя</label>
-                  <input type="text" name="name" class="form-input" required>
+                  <label for="lead-emergency-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-emergency-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Телефон</label>
-                  <input type="tel" name="phone" class="form-input" required>
+                  <label for="lead-emergency-phone" class="form-label">Телефон</label>
+                  <input type="tel" id="lead-emergency-phone" name="phone" class="form-input" required autocomplete="tel">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Опишите срочную ситуацию</label>
-                  <textarea name="emergency_situation" class="form-textarea" rows="3" required 
-                            placeholder="Коллекторы угрожают, арестованы счета, завтра суд..."></textarea>
+                  <label for="lead-emergency-situation" class="form-label">Опишите срочную ситуацию</label>
+                  <textarea id="lead-emergency-situation" name="emergency_situation" class="form-textarea" rows="3" required 
+                            placeholder="Коллекторы угрожают, арестованы счета, завтра суд..." autocomplete="off"></textarea>
                 </div>
                 <button type="submit" class="btn btn--danger btn--block">
                   Получить помощь сейчас
