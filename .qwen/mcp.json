@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "astro-mcp": {
+      "command": "npx",
+      "args": ["astro", "mcp"],
+      "env": {}
+    },
+    "astro-docs": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.docs.astro.build/mcp"],
+      "env": {}
+    }
+  }
+}

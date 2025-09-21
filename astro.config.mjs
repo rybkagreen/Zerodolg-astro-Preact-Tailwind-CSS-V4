@@ -1,11 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
+import mcp from 'astro-mcp';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact()],
-  output: 'static',
+  integrations: [preact(), mcp()],
+  output: 'static', // Static site generation mode
   build: {
     inlineStylesheets: 'auto',
     format: 'file',
@@ -15,9 +16,6 @@ export default defineConfig({
     enabled: false
   },
   vite: {
-    optimizeDeps: {
-      include: ['preact', 'preact/hooks']
-    },
     build: {
       // Enable CSS and JS minification
       minify: 'terser',
@@ -34,13 +32,6 @@ export default defineConfig({
         format: {
           comments: false,
         },
-        mangle: {
-          properties: {
-            regex: /^__/,
-          }
-        },
-        keep_classnames: false,
-        keep_fnames: false,
       },
       // Enable asset compression
       assetsInlineLimit: 4096,
