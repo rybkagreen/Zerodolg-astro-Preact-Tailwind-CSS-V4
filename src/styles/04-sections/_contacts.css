@@ -125,7 +125,7 @@
 
 /* Map loading state */
 .contacts__map::before {
-  content: "Загрузка карты...";
+  content: 'Загрузка карты...';
   position: absolute;
   top: 50%;
   left: 50%;

@@ -3,6 +3,7 @@
 This file contains comprehensive settings, preferences, and guidelines for Qwen Code to work effectively with the zerodolg-astro project.
 
 ## Project Information
+
 - **Project Name**: ZeroDolg Astro Website
 - **Framework**: Astro v5.13.5
 - **Primary Language**: Russian (content and UI) with English (code and comments)
@@ -13,6 +14,7 @@ This file contains comprehensive settings, preferences, and guidelines for Qwen 
 ## Technology Stack
 
 ### Core Technologies
+
 - **Astro**: v5.13.5 - Static Site Generator
 - **Preact**: v10.27.1 - For interactive components (islands architecture)
 - **TypeScript**: v5.9.2 - Type safety for complex components
@@ -20,6 +22,7 @@ This file contains comprehensive settings, preferences, and guidelines for Qwen 
 - **Node.js**: Runtime environment
 
 ### Architecture
+
 - **Islands Architecture**: Interactive components only where needed
 - **Static Generation**: Pre-rendered HTML for performance
 - **Progressive Enhancement**: Works without JavaScript
@@ -58,12 +61,14 @@ zerodolg-astro/
 ## Code Style Guidelines
 
 ### General Principles
+
 - **Consistency**: Follow existing patterns in the codebase
 - **Readability**: Code should be self-documenting
 - **Simplicity**: Prefer simple solutions over complex ones
 - **Performance**: Consider performance implications
 
 ### Formatting
+
 - **Indentation**: 2 spaces (no tabs)
 - **Line Length**: Max 100 characters for code, 80 for comments
 - **Semicolons**: Required in JavaScript/TypeScript
@@ -73,6 +78,7 @@ zerodolg-astro/
 ### Naming Conventions
 
 #### Files and Folders
+
 - **Components**: PascalCase (e.g., `ReviewCard.astro`)
 - **Sections**: PascalCase (e.g., `HeroSection.astro`)
 - **Pages**: kebab-case (e.g., `test-reviews.astro`)
@@ -81,30 +87,38 @@ zerodolg-astro/
 - **Utils/Lib**: kebab-case (e.g., `content-service.js`)
 
 #### Code
+
 - **Components**: PascalCase
 - **Functions**: camelCase
 - **Variables**: camelCase
 - **Constants**: UPPER_SNAKE_CASE
-- **CSS Classes**: BEM methodology (block__element--modifier)
+- **CSS Classes**: BEM methodology (block\_\_element--modifier)
 - **CSS Variables**: kebab-case with prefix (e.g., `--color-primary`)
 
 ### CSS/Styling Rules
 
 #### BEM Methodology
+
 ```css
 /* Block */
-.review-card { }
+.review-card {
+}
 
 /* Element */
-.review-card__header { }
-.review-card__body { }
+.review-card__header {
+}
+.review-card__body {
+}
 
 /* Modifier */
-.review-card--featured { }
-.review-card__header--large { }
+.review-card--featured {
+}
+.review-card__header--large {
+}
 ```
 
 #### ITCSS Layers
+
 1. **Settings**: Variables, configurations
 2. **Generic**: Reset, normalize
 3. **Elements**: HTML elements
@@ -117,6 +131,7 @@ zerodolg-astro/
 ### Creating New Components
 
 #### 1. Component Structure
+
 ```astro
 ---
 // TypeScript/JavaScript logic
@@ -139,11 +154,13 @@ const { title } = Astro.props;
 ```
 
 #### 2. Component Location
+
 - **Static Components**: `/src/components/ui/` or `/src/components/sections/`
 - **Interactive Components**: `/src/components/islands/`
 - **Layout Components**: `/src/layouts/`
 
 #### 3. Component Checklist
+
 - [ ] TypeScript interface for props
 - [ ] Semantic HTML structure
 - [ ] BEM CSS classes
@@ -154,6 +171,7 @@ const { title } = Astro.props;
 ### Modifying Existing Components
 
 #### Pre-modification Checklist
+
 1. **Understand Current Implementation**
    - Read the existing code thoroughly
    - Check for CSS dependencies
@@ -176,13 +194,14 @@ const { title } = Astro.props;
 ## Documentation Standards
 
 ### Component Documentation
+
 ```astro
 ---
 /**
  * @component ReviewCard
  * @description Displays a single customer review with rating and details
  * @example
- * <ReviewCard 
+ * <ReviewCard
  *   name="John Doe"
  *   rating={5}
  *   text="Great service!"
@@ -192,6 +211,7 @@ const { title } = Astro.props;
 ```
 
 ### Function Documentation
+
 ```javascript
 /**
  * Calculates review statistics from an array of reviews
@@ -206,6 +226,7 @@ function calculateReviewStats(reviews) {
 ```
 
 ### CSS Documentation
+
 ```css
 /* ==========================================================================
    Component Name - Brief Description
@@ -222,6 +243,7 @@ function calculateReviewStats(reviews) {
 ## Workflow Preferences
 
 ### Development Process
+
 1. **Before Making Changes**
    - Check existing implementations
    - Review similar components
@@ -243,6 +265,7 @@ function calculateReviewStats(reviews) {
    - Commit with descriptive message
 
 ### Git Commit Messages
+
 ```
 type(scope): brief description
 
@@ -261,6 +284,7 @@ Types:
 ## Communication Guidelines
 
 ### Language Usage
+
 - **Code & Comments**: English
 - **Content & UI Text**: Russian
 - **Documentation**: English with Russian examples where needed
@@ -268,6 +292,7 @@ Types:
 - **Error Messages**: Russian for user-facing, English for dev
 
 ### Response Style
+
 - Be concise but thorough
 - Explain technical decisions
 - Provide code examples
@@ -275,6 +300,7 @@ Types:
 - Suggest alternatives when appropriate
 
 ## Project Specifics
+
 - This is a migration project from an older website
 - Pay attention to SEO requirements
 - Maintain existing URL structures where possible
@@ -284,6 +310,7 @@ Types:
 ## ⚠️ CRITICAL REQUIREMENTS - MUST FOLLOW
 
 ### Absolute Prohibitions
+
 - **NO INLINE STYLES**: NEVER use `style="..."` or `style={...}` attributes
 - **NO !important**: NEVER use `!important` in CSS
 - **NO Global Styles**: Except in designated global files
@@ -291,6 +318,7 @@ Types:
 - **NO Blocking Scripts**: All scripts must be async or deferred
 
 ### Mandatory Practices
+
 - **CSS Classes Only**: All styling through CSS classes
 - **BEM Methodology**: Strict BEM naming for CSS
 - **Progressive Enhancement**: Must work without JavaScript
@@ -300,6 +328,7 @@ Types:
 - **Mobile First**: Design for mobile, enhance for desktop
 
 ## Tools and Commands
+
 - Use npm as the package manager
 - Astro-specific commands when needed
 - Shell scripts already present in the project can be referenced
@@ -307,6 +336,7 @@ Types:
 ## Performance Guidelines
 
 ### Image Optimization
+
 - Use WebP format with fallbacks
 - Implement lazy loading
 - Provide multiple sizes (srcset)
@@ -314,6 +344,7 @@ Types:
 - Optimize file sizes (< 200KB ideally)
 
 ### CSS Optimization
+
 - Minimize specificity
 - Use CSS custom properties
 - Avoid deep nesting (max 3 levels)
@@ -321,6 +352,7 @@ Types:
 - Use shorthand where appropriate
 
 ### JavaScript Optimization
+
 - Use Preact islands only where needed
 - Lazy load non-critical scripts
 - Minimize bundle size
@@ -330,6 +362,7 @@ Types:
 ## Testing Checklist
 
 ### Before Committing
+
 - [ ] Build passes: `npm run build`
 - [ ] No console errors
 - [ ] Mobile responsive (320px - 2560px)
@@ -343,27 +376,35 @@ Types:
 ## Common Patterns
 
 ### Responsive Breakpoints
+
 ```css
 /* Mobile First */
-@media (min-width: 768px) { /* Tablet */ }
-@media (min-width: 1024px) { /* Desktop */ }
-@media (min-width: 1440px) { /* Large Desktop */ }
+@media (min-width: 768px) {
+  /* Tablet */
+}
+@media (min-width: 1024px) {
+  /* Desktop */
+}
+@media (min-width: 1440px) {
+  /* Large Desktop */
+}
 ```
 
 ### CSS Variables
+
 ```css
 :root {
   /* Colors */
   --color-primary: #007bff;
   --color-secondary: #6c757d;
-  
+
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;
-  
+
   /* Typography */
   --font-base: 16px;
   --line-height: 1.6;
@@ -371,11 +412,16 @@ Types:
 ```
 
 ### Component State Classes
+
 ```css
-.component.is-active { }
-.component.is-disabled { }
-.component.is-loading { }
-.component.has-error { }
+.component.is-active {
+}
+.component.is-disabled {
+}
+.component.is-loading {
+}
+.component.has-error {
+}
 ```
 
 ## Troubleshooting Guide
@@ -403,6 +449,7 @@ Types:
 ## Resources
 
 ### Documentation
+
 - [Astro Docs](https://docs.astro.build)
 - [Preact Docs](https://preactjs.com)
 - [TypeScript Docs](https://www.typescriptlang.org)
@@ -410,6 +457,7 @@ Types:
 - [ITCSS Architecture](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)
 
 ### Project Files
+
 - Main styles: `/src/styles/main.css`
 - Global styles: `/src/styles/global.css`
 - Variables: `/src/styles/00-settings/_variables.css`
@@ -417,7 +465,9 @@ Types:
 - Pages: `/src/pages/`
 
 ### Project Documentation
+
 All project documentation is located in the `/docs/` directory:
+
 - [Architecture](docs/architecture.md) - Project architecture overview
 - [Components](docs/components.md) - Component documentation
 - [Style Guide](docs/style-guide.md) - Code style guidelines
@@ -435,11 +485,13 @@ All project documentation is located in the `/docs/` directory:
 ## Change Log
 
 ### 12.09.2025 - Claude Review
+
 - Fixed inline styles in TeamInteractive.astro
 - Added comprehensive documentation
 - Updated requirements and guidelines
 
 ### 12.09.2025 - Qwen Updates
+
 - Added CMS integration
 - Created content service files
 - Updated Reviews and Team sections

@@ -382,7 +382,9 @@
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
   margin-bottom: 8px;
 }
 
@@ -526,38 +528,38 @@
     bottom: 10px;
     right: 10px;
   }
-  
+
   .offer-container {
     padding: 12px;
   }
-  
+
   .offer-title-compact {
     font-size: 14px;
   }
-  
+
   .new-price-compact {
     font-size: 16px;
   }
-  
+
   .cta-button-compact {
     padding: 10px;
     font-size: 14px;
   }
-  
+
   .trust-badges {
     gap: 8px;
   }
-  
+
   .trust-badge {
     width: 32px;
     height: 32px;
   }
-  
+
   .social-proof-container {
     top: 10px;
     right: 10px;
   }
-  
+
   .social-proof-notification {
     min-width: 240px;
     max-width: 280px;

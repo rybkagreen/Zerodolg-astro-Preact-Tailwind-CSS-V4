@@ -6,14 +6,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node"
   },
-  "include": [
-    "src/**/*",
-    "src/__tests__/**/*",
-    "__tests__/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    ".astro"
-  ]
+  "include": ["src/**/*", "src/__tests__/**/*", "__tests__/**/*"],
+  "exclude": ["node_modules", "dist", ".astro"]
 }

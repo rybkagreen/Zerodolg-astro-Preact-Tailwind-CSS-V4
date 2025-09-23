@@ -13,8 +13,9 @@
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   z-index: 1000;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease;
 }
 
 .header-redesign.is-sticky {
@@ -258,12 +259,15 @@
   margin-top: 0;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.06);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0.2s;
+  transition:
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.2s;
   z-index: 1100;
   min-width: 200px;
   max-width: 240px;
@@ -456,31 +460,31 @@ body.search-open {
     padding: 0 1.5rem;
     min-height: 70px;
   }
-  
+
   .nav-logo img {
     height: 48px;
     max-width: 180px;
   }
-  
+
   .nav-btn-search {
     display: inline-flex;
   }
-  
+
   .nav-quick-actions {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-  
+
   .nav-phone-text {
     display: inline;
     font-size: 0.875rem;
   }
-  
+
   .nav-btn-cta {
     display: inline-flex;
   }
-  
+
   .nav-btn-cta span {
     display: inline;
   }
@@ -494,22 +498,22 @@ body.search-open {
     padding: 0 2rem;
     min-height: 72px;
   }
-  
+
   .nav-brand {
     margin-right: 3rem;
   }
-  
+
   .nav-logo img {
     height: 52px;
     max-width: 200px;
   }
-  
+
   /* Show desktop navigation */
   .nav-menu {
     display: block;
     flex: 1;
   }
-  
+
   .nav-list {
     display: flex;
     align-items: center;
@@ -518,11 +522,11 @@ body.search-open {
     margin: 0;
     padding: 0;
   }
-  
+
   .nav-item {
     position: relative;
   }
-  
+
   .nav-link {
     display: inline-flex;
     align-items: center;
@@ -535,7 +539,7 @@ body.search-open {
     transition: color 0.2s ease;
     position: relative;
   }
-  
+
   .nav-link::after {
     content: '';
     position: absolute;
@@ -547,28 +551,28 @@ body.search-open {
     transform: scaleX(0);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .nav-link:hover::after {
     transform: scaleX(1);
   }
-  
+
   .nav-dropdown-toggle::after {
     display: none;
   }
-  
+
   /* Hide mobile toggle on desktop */
   .nav-mobile-toggle {
     display: none;
   }
-  
+
   .nav-actions {
     gap: 1rem;
   }
-  
+
   .nav-btn-phone {
     padding: 0.625rem 1rem;
   }
-  
+
   .nav-btn-cta {
     padding: 0.75rem 1.5rem;
     font-size: 0.9375rem;
@@ -582,29 +586,29 @@ body.search-open {
   .nav-container {
     max-width: 1280px;
   }
-  
+
   .nav-list {
     gap: 1rem;
   }
-  
+
   .nav-link {
     padding: 0.625rem 1rem;
     font-size: 1rem;
   }
-  
+
   .nav-dropdown-menu {
     min-width: 220px;
     max-width: 260px;
   }
-  
+
   .dropdown-item {
     padding: 0.75rem;
   }
-  
+
   .dropdown-title {
     font-size: 0.875rem;
   }
-  
+
   .dropdown-desc {
     font-size: 0.75rem;
   }
@@ -618,11 +622,11 @@ body.search-open {
     max-width: 1536px;
     padding: 0 3rem;
   }
-  
+
   .nav-list {
     gap: 1.5rem;
   }
-  
+
   .nav-btn-cta {
     padding: 0.875rem 2rem;
     font-size: 1rem;
@@ -720,7 +724,7 @@ body.search-open {
   pointer-events: none;
 }
 
-.mobile-menu[data-open="true"],
+.mobile-menu[data-open='true'],
 .mobile-menu.active {
   display: block;
   pointer-events: auto;
@@ -755,7 +759,7 @@ body.search-open {
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
 }
 
-.mobile-menu[data-open="true"] .mobile-menu__content,
+.mobile-menu[data-open='true'] .mobile-menu__content,
 .mobile-menu.active .mobile-menu__content {
   transform: translateX(0);
 }
@@ -895,7 +899,7 @@ body.search-open {
     position: fixed;
     top: 68px; /* header height + gap */
   }
-  
+
   /* Better mobile dropdown positioning */
   .nav-dropdown-menu {
     left: auto;
@@ -903,9 +907,8 @@ body.search-open {
     transform: translateY(-8px) scale(0.95);
     max-width: calc(100vw - 2rem);
   }
-  
+
   .nav-dropdown.active .nav-dropdown-menu {
     transform: translateY(0) scale(1);
   }
 }
-

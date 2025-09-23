@@ -323,7 +323,7 @@
 }
 
 .team-member__list li::before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
   color: #28a745;
@@ -467,7 +467,7 @@
     min-height: 400px;
     touch-action: pan-y;
   }
-  
+
   .team-member {
     position: relative;
   }

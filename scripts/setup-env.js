@@ -2,7 +2,7 @@
 
 /**
  * Environment Setup Helper Script
- * 
+ *
  * This script helps set up the environment by copying .env.example to .env
  * and providing guidance on configuration.
  */
@@ -26,7 +26,9 @@ if (!fs.existsSync(envExamplePath)) {
 // Check if .env already exists
 if (fs.existsSync(envPath)) {
   console.log('⚠️  .env file already exists.');
-  console.log('   If you want to regenerate it from .env.example, please delete the existing .env file first.\n');
+  console.log(
+    '   If you want to regenerate it from .env.example, please delete the existing .env file first.\n'
+  );
 } else {
   // Copy .env.example to .env
   try {

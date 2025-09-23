@@ -5,7 +5,7 @@ describe('Responsive Component Tests', () => {
   const mockMatchMedia = (matches: boolean) => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: vi.fn().mockImplementation(query => ({
+      value: vi.fn().mockImplementation((query) => ({
         matches,
         media: query,
         onchange: null,
@@ -21,19 +21,19 @@ describe('Responsive Component Tests', () => {
   // Mock window resize event
   const mockWindowResize = () => {
     const resizeListeners: Function[] = [];
-    
+
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
-      value: 1024
+      value: 1024,
     });
-    
+
     window.addEventListener = vi.fn((event, listener) => {
       if (event === 'resize') {
         resizeListeners.push(listener as Function);
       }
     }) as any;
-    
+
     window.removeEventListener = vi.fn((event, listener) => {
       if (event === 'resize') {
         const index = resizeListeners.indexOf(listener as Function);
@@ -42,16 +42,16 @@ describe('Responsive Component Tests', () => {
         }
       }
     }) as any;
-    
+
     return {
       triggerResize: (width: number) => {
         Object.defineProperty(window, 'innerWidth', {
           writable: true,
           configurable: true,
-          value: width
+          value: width,
         });
-        resizeListeners.forEach(listener => listener());
-      }
+        resizeListeners.forEach((listener) => listener());
+      },
     };
   };
 
@@ -60,7 +60,7 @@ describe('Responsive Component Tests', () => {
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
-      value: 1024
+      value: 1024,
     });
   });
 
@@ -75,24 +75,24 @@ describe('Responsive Component Tests', () => {
         mobile: 480,
         tablet: 768,
         desktop: 1024,
-        largeDesktop: 1280
+        largeDesktop: 1280,
       },
-      getCurrentBreakpoint: function(width: number) {
+      getCurrentBreakpoint: function (width: number) {
         if (width < this.breakpoints.mobile) return 'mobile';
         if (width < this.breakpoints.tablet) return 'phablet';
         if (width < this.breakpoints.desktop) return 'tablet';
         if (width < this.breakpoints.largeDesktop) return 'desktop';
         return 'largeDesktop';
       },
-      isMobile: function(width: number) {
+      isMobile: function (width: number) {
         return width < this.breakpoints.tablet;
       },
-      isTablet: function(width: number) {
+      isTablet: function (width: number) {
         return width >= this.breakpoints.tablet && width < this.breakpoints.desktop;
       },
-      isDesktop: function(width: number) {
+      isDesktop: function (width: number) {
         return width >= this.breakpoints.desktop;
-      }
+      },
     };
 
     // Test mobile breakpoint
@@ -130,24 +130,24 @@ describe('Responsive Component Tests', () => {
   // Responsive grid tests
   it('should calculate responsive grid columns correctly', () => {
     const gridCalculator = {
-      getColumnCount: function(containerWidth: number, itemMinWidth: number, gap: number = 20) {
+      getColumnCount: function (containerWidth: number, itemMinWidth: number, gap: number = 20) {
         // Calculate available width for items
         const availableWidth = containerWidth - gap;
         // Calculate how many items can fit
         return Math.max(1, Math.floor(availableWidth / (itemMinWidth + gap)));
       },
-      getColumnWidth: function(containerWidth: number, columns: number, gap: number = 20) {
+      getColumnWidth: function (containerWidth: number, columns: number, gap: number = 20) {
         // Calculate width minus gaps
         const totalGapWidth = gap * (columns - 1);
         const availableWidth = containerWidth - totalGapWidth;
         return Math.max(0, availableWidth / columns);
       },
-      getResponsiveColumns: function(width: number) {
+      getResponsiveColumns: function (width: number) {
         if (width < 480) return 1; // Mobile: 1 column
-        if (width < 768) return 2;  // Phablet/Tablet: 2 columns
-        if (width < 1024) return 3;  // Tablet: 3 columns
-        return 4;                   // Desktop: 4 columns
-      }
+        if (width < 768) return 2; // Phablet/Tablet: 2 columns
+        if (width < 1024) return 3; // Tablet: 3 columns
+        return 4; // Desktop: 4 columns
+      },
     };
 
     // Test column count calculation
@@ -162,9 +162,9 @@ describe('Responsive Component Tests', () => {
     expect(gridCalculator.getColumnWidth(600, 1, 10)).toBe(590);
 
     // Test responsive columns
-    expect(gridCalculator.getResponsiveColumns(320)).toBe(1);  // Mobile
-    expect(gridCalculator.getResponsiveColumns(600)).toBe(2);  // Phablet
-    expect(gridCalculator.getResponsiveColumns(800)).toBe(3);   // Tablet
+    expect(gridCalculator.getResponsiveColumns(320)).toBe(1); // Mobile
+    expect(gridCalculator.getResponsiveColumns(600)).toBe(2); // Phablet
+    expect(gridCalculator.getResponsiveColumns(800)).toBe(3); // Tablet
     expect(gridCalculator.getResponsiveColumns(1200)).toBe(4); // Desktop
     expect(gridCalculator.getResponsiveColumns(1600)).toBe(4); // Large Desktop
   });
@@ -172,30 +172,35 @@ describe('Responsive Component Tests', () => {
   // Responsive typography tests
   it('should calculate responsive font sizes correctly', () => {
     const typographyScaler = {
-      clamp: function(min: number, preferred: string, max: number) {
+      clamp: function (min: number, preferred: string, max: number) {
         // Simple clamp implementation for testing
         return `clamp(${min}px, ${preferred}, ${max}px)`;
       },
-      getResponsiveFontSize: function(viewportWidth: number, minSize: number, maxSize: number) {
+      getResponsiveFontSize: function (viewportWidth: number, minSize: number, maxSize: number) {
         // Linear scaling based on viewport width
         const minWidth = 320;
         const maxWidth = 1920;
-        
+
         if (viewportWidth <= minWidth) return minSize;
         if (viewportWidth >= maxWidth) return maxSize;
-        
+
         const scale = (viewportWidth - minWidth) / (maxWidth - minWidth);
         return minSize + (maxSize - minSize) * scale;
       },
-      generateClampValue: function(minSize: number, maxSize: number, minWidth: number, maxWidth: number) {
+      generateClampValue: function (
+        minSize: number,
+        maxSize: number,
+        minWidth: number,
+        maxWidth: number
+      ) {
         // Generate CSS clamp() value
         const preferred = `${minSize + (maxSize - minSize) / 2}px`;
         return `clamp(${minSize}px, ${preferred}, ${maxSize}px)`;
-      }
+      },
     };
 
     // Test responsive font size calculation
-    expect(typographyScaler.getResponsiveFontSize(320, 16, 24)).toBe(16);  // Min size
+    expect(typographyScaler.getResponsiveFontSize(320, 16, 24)).toBe(16); // Min size
     expect(typographyScaler.getResponsiveFontSize(1920, 16, 24)).toBe(24); // Max size
     expect(typographyScaler.getResponsiveFontSize(1120, 16, 24)).toBe(20); // Mid range
 
@@ -211,9 +216,9 @@ describe('Responsive Component Tests', () => {
       queries: {
         mobile: '(max-width: 479px)',
         tablet: '(min-width: 480px) and (max-width: 1023px)',
-        desktop: '(min-width: 1024px)'
+        desktop: '(min-width: 1024px)',
       },
-      matches: function(query: string, viewportWidth: number) {
+      matches: function (query: string, viewportWidth: number) {
         if (query === this.queries.mobile) {
           return viewportWidth < 480;
         }
@@ -224,7 +229,7 @@ describe('Responsive Component Tests', () => {
           return viewportWidth >= 1024;
         }
         return false;
-      }
+      },
     };
 
     // Test mobile media query
@@ -244,19 +249,19 @@ describe('Responsive Component Tests', () => {
   // Responsive image handling tests
   it('should handle responsive images correctly', () => {
     const imageHandler = {
-      getSrcSet: function(basePath: string, widths: number[]) {
-        return widths.map(width => `${basePath}-${width}.jpg ${width}w`).join(', ');
+      getSrcSet: function (basePath: string, widths: number[]) {
+        return widths.map((width) => `${basePath}-${width}.jpg ${width}w`).join(', ');
       },
-      getSizes: function(breakpoints: Record<string, string>) {
+      getSizes: function (breakpoints: Record<string, string>) {
         return Object.entries(breakpoints)
           .map(([breakpoint, size]) => `(max-width: ${breakpoint}) ${size}`)
           .join(', ');
       },
-      getOptimalWidth: function(viewportWidth: number, devicePixelRatio: number = 1) {
+      getOptimalWidth: function (viewportWidth: number, devicePixelRatio: number = 1) {
         // Round up to nearest 100px for performance
         const effectiveWidth = viewportWidth * devicePixelRatio;
         return Math.ceil(effectiveWidth / 100) * 100;
-      }
+      },
     };
 
     // Test srcset generation
@@ -269,14 +274,14 @@ describe('Responsive Component Tests', () => {
     const sizes = imageHandler.getSizes({
       '480px': '100vw',
       '768px': '50vw',
-      '1024px': '33vw'
+      '1024px': '33vw',
     });
     expect(sizes).toContain('(max-width: 480px) 100vw');
     expect(sizes).toContain('(max-width: 768px) 50vw');
     expect(sizes).toContain('(max-width: 1024px) 33vw');
 
     // Test optimal width calculation
-    expect(imageHandler.getOptimalWidth(320)).toBe(400);   // 320px → 400px
+    expect(imageHandler.getOptimalWidth(320)).toBe(400); // 320px → 400px
     expect(imageHandler.getOptimalWidth(800, 2)).toBe(1600); // 800px × 2 DPR → 1600px
     expect(imageHandler.getOptimalWidth(1200)).toBe(1200); // 1200px → 1200px (already rounded)
   });
@@ -286,23 +291,23 @@ describe('Responsive Component Tests', () => {
     const navigationHandler = {
       isMobileMenuActive: false,
       breakpoints: {
-        mobile: 768
+        mobile: 768,
       },
-      shouldShowMobileMenu: function(viewportWidth: number) {
+      shouldShowMobileMenu: function (viewportWidth: number) {
         return viewportWidth < this.breakpoints.mobile;
       },
-      toggleMobileMenu: function() {
+      toggleMobileMenu: function () {
         this.isMobileMenuActive = !this.isMobileMenuActive;
         return this.isMobileMenuActive;
       },
-      closeMobileMenu: function() {
+      closeMobileMenu: function () {
         this.isMobileMenuActive = false;
         return false;
       },
-      openMobileMenu: function() {
+      openMobileMenu: function () {
         this.isMobileMenuActive = true;
         return true;
-      }
+      },
     };
 
     // Test mobile menu activation
@@ -326,40 +331,40 @@ describe('Responsive Component Tests', () => {
   // Responsive layout tests
   it('should calculate responsive layouts correctly', () => {
     const layoutCalculator = {
-      getContainerPadding: function(viewportWidth: number) {
-        if (viewportWidth < 480) return 16;   // Mobile: 16px padding
-        if (viewportWidth < 768) return 24;   // Tablet: 24px padding
-        if (viewportWidth < 1024) return 32;  // Desktop: 32px padding
-        return 40;                            // Large desktop: 40px padding
+      getContainerPadding: function (viewportWidth: number) {
+        if (viewportWidth < 480) return 16; // Mobile: 16px padding
+        if (viewportWidth < 768) return 24; // Tablet: 24px padding
+        if (viewportWidth < 1024) return 32; // Desktop: 32px padding
+        return 40; // Large desktop: 40px padding
       },
-      getMaxWidth: function(viewportWidth: number) {
-        if (viewportWidth < 768) return viewportWidth - 32;  // Full width minus padding
-        if (viewportWidth < 1200) return 768;                // Fixed max width
-        return 1140;                                        // Larger fixed max width
+      getMaxWidth: function (viewportWidth: number) {
+        if (viewportWidth < 768) return viewportWidth - 32; // Full width minus padding
+        if (viewportWidth < 1200) return 768; // Fixed max width
+        return 1140; // Larger fixed max width
       },
-      getGridGap: function(viewportWidth: number) {
-        if (viewportWidth < 480) return 16;   // Mobile: 16px gap
-        if (viewportWidth < 768) return 20;   // Tablet: 20px gap
-        if (viewportWidth < 1024) return 24;   // Desktop: 24px gap
-        return 32;                           // Large desktop: 32px gap
-      }
+      getGridGap: function (viewportWidth: number) {
+        if (viewportWidth < 480) return 16; // Mobile: 16px gap
+        if (viewportWidth < 768) return 20; // Tablet: 20px gap
+        if (viewportWidth < 1024) return 24; // Desktop: 24px gap
+        return 32; // Large desktop: 32px gap
+      },
     };
 
     // Test container padding
-    expect(layoutCalculator.getContainerPadding(320)).toBe(16);  // Mobile
-    expect(layoutCalculator.getContainerPadding(600)).toBe(24);  // Tablet
-    expect(layoutCalculator.getContainerPadding(900)).toBe(32);  // Desktop
+    expect(layoutCalculator.getContainerPadding(320)).toBe(16); // Mobile
+    expect(layoutCalculator.getContainerPadding(600)).toBe(24); // Tablet
+    expect(layoutCalculator.getContainerPadding(900)).toBe(32); // Desktop
     expect(layoutCalculator.getContainerPadding(1400)).toBe(40); // Large desktop
 
     // Test max width
-    expect(layoutCalculator.getMaxWidth(400)).toBe(368);  // 400 - 32 (padding)
+    expect(layoutCalculator.getMaxWidth(400)).toBe(368); // 400 - 32 (padding)
     expect(layoutCalculator.getMaxWidth(800)).toBe(768); // Fixed
     expect(layoutCalculator.getMaxWidth(1400)).toBe(1140); // Fixed
 
     // Test grid gap
-    expect(layoutCalculator.getGridGap(320)).toBe(16);  // Mobile
-    expect(layoutCalculator.getGridGap(600)).toBe(20);  // Tablet
-    expect(layoutCalculator.getGridGap(900)).toBe(24);  // Desktop
+    expect(layoutCalculator.getGridGap(320)).toBe(16); // Mobile
+    expect(layoutCalculator.getGridGap(600)).toBe(20); // Tablet
+    expect(layoutCalculator.getGridGap(900)).toBe(24); // Desktop
     expect(layoutCalculator.getGridGap(1400)).toBe(32); // Large desktop
   });
 });

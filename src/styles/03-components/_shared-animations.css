@@ -5,40 +5,58 @@
 
 /* Gradient shift animation - used in hero, cta, and other gradient sections */
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @-webkit-keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @-moz-keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Gradient rotate animation - used in hero, reviews, calculator sections */
 @keyframes gradient-rotate {
-  0% { 
+  0% {
     background-position: 0% 50%;
     filter: hue-rotate(0deg);
   }
-  25% { 
+  25% {
     background-position: 50% 100%;
   }
-  50% { 
+  50% {
     background-position: 100% 50%;
     filter: hue-rotate(10deg);
   }
-  75% { 
+  75% {
     background-position: 50% 0%;
   }
-  100% { 
+  100% {
     background-position: 0% 50%;
     filter: hue-rotate(0deg);
   }
@@ -70,7 +88,8 @@
 
 /* Pulse animation */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -82,7 +101,8 @@
 
 /* Bounce animation */
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {

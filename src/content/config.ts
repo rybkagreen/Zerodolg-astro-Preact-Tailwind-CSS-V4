@@ -21,11 +21,13 @@ const reviews = defineCollection({
     rating: z.number().min(1).max(5),
     date: z.string(),
     text: z.string(),
-    caseDetails: z.object({
-      debt: z.string(),
-      duration: z.string(),
-      result: z.string(),
-    }).optional(),
+    caseDetails: z
+      .object({
+        debt: z.string(),
+        duration: z.string(),
+        result: z.string(),
+      })
+      .optional(),
   }),
 });
 

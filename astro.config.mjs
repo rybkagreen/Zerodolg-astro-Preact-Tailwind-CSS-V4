@@ -2,10 +2,30 @@
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
 import mcp from 'astro-mcp';
+import sitemap from '@astrojs/sitemap';
+import robotsTxt from 'astro-robots-txt';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact(), mcp()],
+  site: 'https://zerodolg.ru',
+  integrations: [
+    preact(), 
+    mcp(),
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date()
+    }),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: ['/admin', '/api']
+        }
+      ]
+    })
+  ],
   output: 'static', // Static site generation mode
   build: {
     inlineStylesheets: 'auto',
@@ -13,9 +33,19 @@ export default defineConfig({
     serverEntry: 'entry.mjs',
   },
   devToolbar: {
-    enabled: false
+    enabled: false,
   },
   vite: {
+    css: {
+      postcss: {
+        plugins: [
+          require('autoprefixer'),
+          require('cssnano')({
+            preset: 'default',
+          }),
+        ],
+      },
+    },
     build: {
       // Enable CSS and JS minification
       minify: 'terser',
@@ -39,9 +69,17 @@ export default defineConfig({
         output: {
           manualChunks: {
             vendor: ['preact', 'preact/hooks'],
-          }
+            utils: ['@shared/utils/analytics', '@shared/utils/form-utils'],
+            forms: ['@features/forms'],
+            modals: ['@features/modals'],
+          },
+          assetFileNames: 'assets/[name]-[hash][extname]',
+          chunkFileNames: 'chunks/[name]-[hash].js',
+          entryFileNames: 'entries/[name]-[hash].js'
         }
-      }
+      },
+      cssCodeSplit: true,
+      sourcemap: false,
     },
   },
   compressHTML: true,
@@ -55,5 +93,5 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport',
-  }
+  },
 });

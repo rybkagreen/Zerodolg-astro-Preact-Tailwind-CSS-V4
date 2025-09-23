@@ -3,7 +3,10 @@ import { useEffect, useState } from 'preact/hooks';
 // Utility functions
 type DebouncedFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
 
-const debounce = <T extends (...args: any[]) => any>(func: T, wait: number): DebouncedFunction<T> => {
+const debounce = <T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): DebouncedFunction<T> => {
   let timeout: NodeJS.Timeout;
   return function executedFunction(...args: Parameters<T>) {
     const later = () => {
@@ -17,11 +20,11 @@ const debounce = <T extends (...args: any[]) => any>(func: T, wait: number): Deb
 
 const Header = () => {
   const [isClient, setIsClient] = useState(false);
-  
+
   useEffect(() => {
     // Only run on the client side
     setIsClient(true);
-    
+
     const header = document.getElementById('main-header');
     const dropdowns = document.querySelectorAll('.nav-dropdown');
     const mobileToggle = document.querySelector('[data-mobile-toggle]') as HTMLButtonElement;
@@ -29,14 +32,14 @@ const Header = () => {
     const searchBtn = document.querySelector('[data-action="search"]') as HTMLButtonElement;
     const searchOverlay = document.querySelector('[data-search-overlay]') as HTMLElement;
     const searchClose = document.querySelector('[data-search-close]') as HTMLButtonElement;
-    
+
     let activeDropdown: Element | null = null;
     let lastScrollTop = 0;
     const scrollThreshold = 100;
 
     // Setup Dropdowns
     const setupDropdowns = () => {
-      dropdowns.forEach(dropdown => {
+      dropdowns.forEach((dropdown) => {
         const toggle = dropdown.querySelector('.nav-dropdown-toggle') as HTMLButtonElement;
         if (toggle) {
           toggle.addEventListener('click', (e) => {
@@ -47,34 +50,34 @@ const Header = () => {
 
         // Handle clicks on dropdown menu links
         const dropdownLinks = dropdown.querySelectorAll('.nav-dropdown-menu a');
-        dropdownLinks.forEach(link => {
+        dropdownLinks.forEach((link) => {
           link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-            
+
             // Закрываем dropdown в любом случае с небольшой задержкой
             setTimeout(() => closeDropdown(dropdown), 100);
-            
+
             // Обрабатываем якорные ссылки
             if (href && href.startsWith('#')) {
               e.preventDefault();
-              
+
               const targetId = href.substring(1);
               const targetElement = document.getElementById(targetId);
-              
+
               if (targetElement) {
                 const header = document.querySelector('.header-redesign');
                 const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
                 const offset = 20; // Дополнительный отступ
-                
+
                 // Используем более надежный метод скролла
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-                
+
                 window.scrollTo({
                   top: offsetPosition,
-                  behavior: 'smooth'
+                  behavior: 'smooth',
                 });
-                
+
                 // Обновляем URL без перезагрузки
                 history.pushState(null, '', href);
               } else {
@@ -84,16 +87,17 @@ const Header = () => {
                   const header = document.querySelector('.header-redesign');
                   const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
                   const offset = 20; // Дополнительный отступ
-                  
+
                   // Используем более надежный метод скролла
                   const elementPosition = targetElementBySelector.getBoundingClientRect().top;
-                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-                  
+                  const offsetPosition =
+                    elementPosition + window.pageYOffset - headerHeight - offset;
+
                   window.scrollTo({
                     top: offsetPosition,
-                    behavior: 'smooth'
+                    behavior: 'smooth',
                   });
-                  
+
                   // Обновляем URL без перезагрузки
                   history.pushState(null, '', href);
                 }
@@ -159,7 +163,7 @@ const Header = () => {
     };
 
     const closeAllDropdowns = () => {
-      dropdowns.forEach(d => closeDropdown(d));
+      dropdowns.forEach((d) => closeDropdown(d));
     };
 
     // Setup Mobile Menu
@@ -179,7 +183,7 @@ const Header = () => {
 
       // Close mobile menu on link click
       const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu__link');
-      mobileLinks.forEach(link => {
+      mobileLinks.forEach((link) => {
         link.addEventListener('click', () => {
           closeMobileMenu();
         });
@@ -278,7 +282,7 @@ const Header = () => {
     // Setup Smooth Scroll
     const setupSmoothScroll = () => {
       const anchors = document.querySelectorAll('a[href^="#"]');
-      anchors.forEach(anchor => {
+      anchors.forEach((anchor) => {
         anchor.addEventListener('click', (e) => {
           const href = anchor.getAttribute('href');
           if (href && href !== '#') {
@@ -290,15 +294,16 @@ const Header = () => {
             } else {
               target = document.querySelector(href);
             }
-            
+
             if (target) {
               e.preventDefault();
               const headerHeight = header ? header.offsetHeight : 80;
-              const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-              
+              const targetPosition =
+                target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+
               window.scrollTo({
                 top: targetPosition,
-                behavior: 'smooth'
+                behavior: 'smooth',
               });
             }
           }
@@ -364,8 +369,10 @@ const Header = () => {
     setupClickOutside();
 
     // Handle consultation button
-    const consultationBtns = document.querySelectorAll('[data-modal="consultation"], [data-modal="callback"]');
-    consultationBtns.forEach(btn => {
+    const consultationBtns = document.querySelectorAll(
+      '[data-modal="consultation"], [data-modal="callback"]'
+    );
+    consultationBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         // This will be handled by modal component
         console.log('Opening consultation modal');

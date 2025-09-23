@@ -7,7 +7,6 @@ const CountdownTimer = ({ endTime }: { endTime?: Date }) => {
 
   useEffect(() => {
     const getTodayEndTime = () => {
-      const now = new Date();
       const end = new Date();
       end.setHours(23, 59, 59, 999);
       return end;
@@ -86,14 +85,22 @@ const SpecialOfferBanner = () => {
     }
   };
 
-  if (!isVisible || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('offerBannerClosed'))) {
+  if (
+    !isVisible ||
+    (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('offerBannerClosed'))
+  ) {
     return null;
   }
 
   return (
-    <div class={`special-offer-banner compact ${isExiting ? 'slide-out' : ''}`} id="special-offer-banner">
+    <div
+      class={`special-offer-banner compact ${isExiting ? 'slide-out' : ''}`}
+      id="special-offer-banner"
+    >
       <div class="offer-container compact">
-        <button class="offer-close" aria-label="Закрыть" onClick={handleClose}>×</button>
+        <button class="offer-close" aria-label="Закрыть" onClick={handleClose}>
+          ×
+        </button>
         <div class="offer-content compact">
           <div class="offer-header-row">
             <span class="offer-badge-compact">🔥 АКЦИЯ</span>

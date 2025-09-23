@@ -21,56 +21,56 @@ interface ReviewStats {
 describe('Reviews Component', () => {
   const mockReviews: Review[] = [
     {
-      id: "1",
-      author: "Александр В.",
+      id: '1',
+      author: 'Александр В.',
       rating: 5,
-      date: "2024-03-15",
-      text: "Отличная компания! Помогли решить проблему с долгами быстро и профессионально.",
+      date: '2024-03-15',
+      text: 'Отличная компания! Помогли решить проблему с долгами быстро и профессионально.',
       verified: true,
       helpful: 24,
-      tags: ["Профессионализм", "Быстро", "Поддержка"]
+      tags: ['Профессионализм', 'Быстро', 'Поддержка'],
     },
     {
-      id: "2",
-      author: "Марина Б.",
+      id: '2',
+      author: 'Марина Б.',
       rating: 4,
-      date: "2024-03-10",
-      text: "Хорошие специалисты, помогли в сложной ситуации.",
+      date: '2024-03-10',
+      text: 'Хорошие специалисты, помогли в сложной ситуации.',
       verified: true,
       helpful: 18,
-      tags: ["Помощь", "Консультация"]
+      tags: ['Помощь', 'Консультация'],
     },
     {
-      id: "3",
-      author: "Дмитрий К.",
+      id: '3',
+      author: 'Дмитрий К.',
       rating: 5,
-      date: "2024-03-05",
-      text: "Полностью доволен результатом. Рекомендую!",
+      date: '2024-03-05',
+      text: 'Полностью доволен результатом. Рекомендую!',
       verified: true,
       helpful: 15,
-      tags: ["Результат", "Рекомендую"]
-    }
+      tags: ['Результат', 'Рекомендую'],
+    },
   ];
 
   const calculateStats = (reviews: Review[]): ReviewStats => {
     const distribution: Record<number, number> = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
     let totalRating = 0;
-    
-    reviews.forEach(review => {
+
+    reviews.forEach((review) => {
       distribution[review.rating]++;
       totalRating += review.rating;
     });
-    
+
     return {
       total: reviews.length,
       average: reviews.length > 0 ? totalRating / reviews.length : 0,
-      distribution
+      distribution,
     };
   };
 
   it('should calculate review statistics correctly', () => {
     const stats = calculateStats(mockReviews);
-    
+
     expect(stats.total).toBe(3);
     expect(stats.average).toBeCloseTo(4.67, 2);
     expect(stats.distribution[5]).toBe(2);
@@ -83,7 +83,7 @@ describe('Reviews Component', () => {
   it('should handle empty reviews array', () => {
     const emptyReviews: Review[] = [];
     const stats = calculateStats(emptyReviews);
-    
+
     expect(stats.total).toBe(0);
     expect(stats.average).toBe(0);
     expect(stats.distribution[5]).toBe(0);
@@ -96,10 +96,10 @@ describe('Reviews Component', () => {
   it('should format dates correctly', () => {
     const formatDate = (dateStr: string) => {
       const date = new Date(dateStr);
-      return new Intl.DateTimeFormat('ru-RU', { 
+      return new Intl.DateTimeFormat('ru-RU', {
         day: 'numeric',
         month: 'long',
-        year: 'numeric'
+        year: 'numeric',
       }).format(date);
     };
 
@@ -111,8 +111,9 @@ describe('Reviews Component', () => {
 
   it('should get initials from names correctly', () => {
     const getInitials = (name: string) => {
-      return name.split(' ')
-        .map(word => word[0])
+      return name
+        .split(' ')
+        .map((word) => word[0])
         .join('')
         .toUpperCase();
     };

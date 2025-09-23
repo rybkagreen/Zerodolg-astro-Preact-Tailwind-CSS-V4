@@ -46,17 +46,26 @@ export default [
       }
     },
     rules: {
-      // TypeScript specific rules - can be customized
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-explicit-any': 'off', // Disabled - allow any types
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-unsafe-function-type': 'warn', // Changed from error to warning
-      '@typescript-eslint/no-require-imports': 'off', // Allow require() in .cjs files
+      // TypeScript specific rules - stricter rules
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-module-boundary-types': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'error',
+      '@typescript-eslint/no-unsafe-function-type': 'error',
+      '@typescript-eslint/no-require-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-unused-expressions': 'error',
       // Base rules
       'indent': ['error', 2],
       'quotes': ['error', 'single'],
       'semi': ['error', 'always'],
+      'no-console': 'warn',
+      'no-debugger': 'error',
+      'no-alert': 'error',
+      'no-var': 'error',
+      'prefer-const': 'error',
+      'prefer-arrow-callback': 'error',
+      'no-unused-vars': 'off' // Use TypeScript version instead
     }
   },
   
@@ -85,10 +94,10 @@ export default [
       ...astroPlugin.configs['jsx-a11y-recommended'].rules,
       // Astro-specific rule overrides
       'astro/no-set-html-directive': 'warn',
-      'astro/no-unused-css-selector': 'off',
+      'astro/no-unused-css-selector': 'warn',
       // TypeScript rules for Astro files
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn'
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': 'error'
     }
   },
   

@@ -1,0 +1,31 @@
+---
+import Form from './Form.astro';
+
+export interface Props {
+  formId?: string;
+  showDebtField?: boolean;
+  submitText?: string;
+  variant?: 'inline' | 'stacked';
+  className?: string;
+}
+
+const { 
+  formId = 'cta-form',
+  showDebtField = false,
+  submitText = 'Отправить заявку',
+  variant = 'inline',
+  className = ''
+} = Astro.props;
+---
+
+<div class={`cta-form ${className}`}>
+  <Form 
+    formId={formId}
+    formType="cta"
+    submitText={submitText}
+    showDebtField={showDebtField}
+    variant={variant}
+    className="cta-form__form"
+  />
+</div>
+

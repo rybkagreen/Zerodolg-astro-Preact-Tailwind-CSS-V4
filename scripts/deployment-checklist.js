@@ -2,7 +2,7 @@
 
 /**
  * Production Deployment Checklist
- * 
+ *
  * This script provides a checklist for production deployment
  */
 
@@ -16,8 +16,8 @@ const checklist = [
       '✅ .env file created and configured',
       '✅ Required variables set (BITRIX24_WEBHOOK_URL, PUBLIC_SITE_URL, etc.)',
       '✅ Environment validation passed (npm run env:validate)',
-      '✅ Sensitive data not committed to repository'
-    ]
+      '✅ Sensitive data not committed to repository',
+    ],
   },
   {
     category: 'Code & Dependencies',
@@ -25,8 +25,8 @@ const checklist = [
       '✅ All dependencies installed (npm install)',
       '✅ Code passes linting (npm run lint)',
       '✅ TypeScript compilation successful (npm run type-check)',
-      '✅ All tests passing (if applicable)'
-    ]
+      '✅ All tests passing (if applicable)',
+    ],
   },
   {
     category: 'Build Process',
@@ -34,8 +34,8 @@ const checklist = [
       '✅ Production build successful (npm run build:prod)',
       '✅ Build output in dist/ directory',
       '✅ No console errors during build',
-      '✅ Asset optimization completed'
-    ]
+      '✅ Asset optimization completed',
+    ],
   },
   {
     category: 'Security',
@@ -43,8 +43,8 @@ const checklist = [
       '✅ Astro dev toolbar disabled (PUBLIC_ASTRO_TOOLBAR=false)',
       '✅ NODE_ENV set to "production"',
       '✅ No debug information exposed',
-      '✅ Security headers configured (if applicable)'
-    ]
+      '✅ Security headers configured (if applicable)',
+    ],
   },
   {
     category: 'Performance',
@@ -52,8 +52,8 @@ const checklist = [
       '✅ Images optimized',
       '✅ CSS/JS minification enabled',
       '✅ Static assets compressed',
-      '✅ Caching headers configured'
-    ]
+      '✅ Caching headers configured',
+    ],
   },
   {
     category: 'Analytics & Monitoring',
@@ -61,8 +61,8 @@ const checklist = [
       '✅ Google Analytics configured',
       '✅ Yandex Metrika configured',
       '✅ Error tracking configured (if applicable)',
-      '✅ Performance monitoring configured (if applicable)'
-    ]
+      '✅ Performance monitoring configured (if applicable)',
+    ],
   },
   {
     category: 'Content & SEO',
@@ -70,8 +70,8 @@ const checklist = [
       '✅ All pages accessible',
       '✅ Meta tags properly set',
       '✅ Sitemap generated',
-      '✅ robots.txt configured'
-    ]
+      '✅ robots.txt configured',
+    ],
   },
   {
     category: 'Deployment',
@@ -79,14 +79,14 @@ const checklist = [
       '✅ Deployment target configured',
       '✅ CI/CD pipeline tested (if applicable)',
       '✅ Backup of current production (if applicable)',
-      '✅ Rollback plan prepared'
-    ]
-  }
+      '✅ Rollback plan prepared',
+    ],
+  },
 ];
 
 checklist.forEach((section, index) => {
   console.log(`${index + 1}. ${section.category}`);
-  section.items.forEach(item => {
+  section.items.forEach((item) => {
     console.log(`   ${item}`);
   });
   console.log('');

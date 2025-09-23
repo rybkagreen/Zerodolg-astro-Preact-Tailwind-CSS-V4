@@ -15,19 +15,19 @@ describe('Component Isolation Tests', () => {
           add: vi.fn(),
           remove: vi.fn(),
           contains: vi.fn().mockReturnValue(false),
-          toggle: vi.fn()
+          toggle: vi.fn(),
         },
         addEventListener: vi.fn(),
         removeEventListener: vi.fn(),
         setAttribute: vi.fn(),
         getAttribute: vi.fn(),
         querySelector: vi.fn().mockReturnValue(null),
-        querySelectorAll: vi.fn().mockReturnValue([])
+        querySelectorAll: vi.fn().mockReturnValue([]),
       })),
       querySelector: vi.fn().mockReturnValue(null),
       querySelectorAll: vi.fn().mockReturnValue([]),
       addEventListener: vi.fn(),
-      removeEventListener: vi.fn()
+      removeEventListener: vi.fn(),
     };
 
     mockWindow = {
@@ -38,7 +38,7 @@ describe('Component Isolation Tests', () => {
         cb();
         return 1;
       }),
-      cancelAnimationFrame: vi.fn()
+      cancelAnimationFrame: vi.fn(),
     };
 
     // Set global mocks
@@ -59,19 +59,19 @@ describe('Component Isolation Tests', () => {
   it('should mount components correctly', () => {
     const componentMounter = {
       mountedComponents: new Set<string>(),
-      mount: function(componentId: string) {
+      mount: function (componentId: string) {
         if (this.mountedComponents.has(componentId)) {
           throw new Error(`Component ${componentId} already mounted`);
         }
         this.mountedComponents.add(componentId);
         return true;
       },
-      unmount: function(componentId: string) {
+      unmount: function (componentId: string) {
         return this.mountedComponents.delete(componentId);
       },
-      isMounted: function(componentId: string) {
+      isMounted: function (componentId: string) {
         return this.mountedComponents.has(componentId);
-      }
+      },
     };
 
     // Test mounting new component
@@ -99,9 +99,9 @@ describe('Component Isolation Tests', () => {
       mounted: [] as string[],
       updated: [] as string[],
       destroyed: [] as string[],
-      track: function(event: string, componentId: string) {
+      track: function (event: string, componentId: string) {
         this[event].push(componentId);
-      }
+      },
     };
 
     // Simulate component creation
@@ -117,7 +117,7 @@ describe('Component Isolation Tests', () => {
     lifecycleTracker.track('updated', 'header');
     lifecycleTracker.track('updated', 'header');
     expect(lifecycleTracker.updated.length).toBe(2);
-    expect(lifecycleTracker.updated.every(id => id === 'header')).toBe(true);
+    expect(lifecycleTracker.updated.every((id) => id === 'header')).toBe(true);
 
     // Simulate component destruction
     lifecycleTracker.track('destroyed', 'header');
@@ -133,23 +133,23 @@ describe('Component Isolation Tests', () => {
   it('should handle component communication correctly', () => {
     const eventBus = {
       listeners: new Map<string, Function[]>(),
-      on: function(event: string, callback: Function) {
+      on: function (event: string, callback: Function) {
         if (!this.listeners.has(event)) {
           this.listeners.set(event, []);
         }
         this.listeners.get(event)?.push(callback);
       },
-      emit: function(event: string, data?: any) {
+      emit: function (event: string, data?: any) {
         const callbacks = this.listeners.get(event) || [];
-        callbacks.forEach(callback => callback(data));
+        callbacks.forEach((callback) => callback(data));
       },
-      off: function(event: string, callback: Function) {
+      off: function (event: string, callback: Function) {
         const callbacks = this.listeners.get(event) || [];
         const index = callbacks.indexOf(callback);
         if (index > -1) {
           callbacks.splice(index, 1);
         }
-      }
+      },
     };
 
     // Test event subscription
@@ -182,23 +182,23 @@ describe('Component Isolation Tests', () => {
     const stateManager = {
       state: {} as Record<string, any>,
       subscriptions: new Map<string, Function[]>(),
-      setState: function(key: string, value: any) {
+      setState: function (key: string, value: any) {
         this.state[key] = value;
         this.notifySubscribers(key, value);
       },
-      getState: function(key: string) {
+      getState: function (key: string) {
         return this.state[key];
       },
-      subscribe: function(key: string, callback: Function) {
+      subscribe: function (key: string, callback: Function) {
         if (!this.subscriptions.has(key)) {
           this.subscriptions.set(key, []);
         }
         this.subscriptions.get(key)?.push(callback);
       },
-      notifySubscribers: function(key: string, value: any) {
+      notifySubscribers: function (key: string, value: any) {
         const subscribers = this.subscriptions.get(key) || [];
-        subscribers.forEach(subscriber => subscriber(value));
-      }
+        subscribers.forEach((subscriber) => subscriber(value));
+      },
     };
 
     // Test state setting and getting
@@ -218,7 +218,7 @@ describe('Component Isolation Tests', () => {
     };
 
     stateManager.subscribe('userName', userNameCallback);
-    
+
     // Trigger state updates
     stateManager.setState('userName', 'Мария');
     stateManager.setState('userName', 'Дмитрий');
@@ -238,26 +238,26 @@ describe('Component Isolation Tests', () => {
   it('should handle component performance correctly', () => {
     const performanceMonitor = {
       measurements: new Map<string, number[]>(),
-      start: function(operation: string) {
+      start: function (operation: string) {
         if (!this.measurements.has(operation)) {
           this.measurements.set(operation, []);
         }
         return performance.now();
       },
-      end: function(operation: string, startTime: number) {
+      end: function (operation: string, startTime: number) {
         const endTime = performance.now();
         const duration = endTime - startTime;
         this.measurements.get(operation)?.push(duration);
         return duration;
       },
-      getAverage: function(operation: string) {
+      getAverage: function (operation: string) {
         const durations = this.measurements.get(operation) || [];
         if (durations.length === 0) return 0;
         return durations.reduce((sum, dur) => sum + dur, 0) / durations.length;
       },
-      getCount: function(operation: string) {
+      getCount: function (operation: string) {
         return (this.measurements.get(operation) || []).length;
-      }
+      },
     };
 
     // Simulate performance measurements
@@ -289,33 +289,33 @@ describe('Component Isolation Tests', () => {
   // Component error handling tests
   it('should handle component errors gracefully', () => {
     const errorHandler = {
-      errors: [] as Array<{component: string, error: Error, timestamp: number}>,
-      handleError: function(component: string, error: Error) {
+      errors: [] as Array<{ component: string; error: Error; timestamp: number }>,
+      handleError: function (component: string, error: Error) {
         this.errors.push({
           component,
           error,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         });
       },
-      getErrors: function(component?: string) {
+      getErrors: function (component?: string) {
         if (component) {
-          return this.errors.filter(e => e.component === component);
+          return this.errors.filter((e) => e.component === component);
         }
         return this.errors;
       },
-      clearErrors: function(component?: string) {
+      clearErrors: function (component?: string) {
         if (component) {
-          this.errors = this.errors.filter(e => e.component !== component);
+          this.errors = this.errors.filter((e) => e.component !== component);
         } else {
           this.errors = [];
         }
-      }
+      },
     };
 
     // Test error handling
     const testError = new Error('Test component error');
     errorHandler.handleError('timeline', testError);
-    
+
     const errors = errorHandler.getErrors('timeline');
     expect(errors.length).toBe(1);
     expect(errors[0].component).toBe('timeline');
@@ -325,10 +325,10 @@ describe('Component Isolation Tests', () => {
     // Test multiple errors
     errorHandler.handleError('reviews', new Error('Reviews error 1'));
     errorHandler.handleError('reviews', new Error('Reviews error 2'));
-    
+
     const allErrors = errorHandler.getErrors();
     expect(allErrors.length).toBe(3);
-    
+
     const reviewsErrors = errorHandler.getErrors('reviews');
     expect(reviewsErrors.length).toBe(2);
 

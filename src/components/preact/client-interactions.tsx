@@ -2,22 +2,22 @@ import { useEffect, useState } from 'preact/hooks';
 
 /**
  * Unified Client Interactions Handler
- * Handles all client-side interactions that need to work with both 
+ * Handles all client-side interactions that need to work with both
  * Astro's static generation and Preact's client-side hydration
  */
 export default function ClientInteractions() {
   const [isClient, setIsClient] = useState(false);
-  
+
   useEffect(() => {
     // Only run on the client side
     setIsClient(true);
-    
+
     // Setup all client interactions
     setupScrollToActions();
     setupAnchorNavigation();
     setupDynamicElementHandling();
     setupFormInteractions();
-    
+
     // Re-run when DOM content changes
     const observer = new MutationObserver(() => {
       setupScrollToActions();
@@ -25,12 +25,12 @@ export default function ClientInteractions() {
       setupDynamicElementHandling();
       setupFormInteractions();
     });
-    
+
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
-    
+
     // Handle initial page load hash navigation
     if (typeof window !== 'undefined' && window.location.hash) {
       // Small delay to ensure elements are rendered
@@ -38,7 +38,7 @@ export default function ClientInteractions() {
         handleHashNavigation(window.location.hash);
       }, 100);
     }
-    
+
     // Cleanup
     return () => {
       observer.disconnect();
@@ -58,22 +58,22 @@ export default function ClientInteractions() {
  */
 function handleHashNavigation(hash: string) {
   if (typeof window === 'undefined') return;
-  
+
   if (hash && hash !== '#' && !hash.startsWith('#modal-')) {
     const targetId = hash.substring(1);
     const targetElement = document.getElementById(targetId);
-    
+
     if (targetElement) {
       const header = document.querySelector('.header-redesign, .header');
       const headerHeight = header ? (header as HTMLElement).offsetHeight : 80;
       const offset = 20;
-      
+
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-      
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
@@ -84,63 +84,65 @@ function handleHashNavigation(hash: string) {
  */
 function setupScrollToActions() {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   // Handle scroll-to-form buttons
   const scrollButtons = document.querySelectorAll('[data-action="scroll-to-form"]');
-  scrollButtons.forEach(button => {
+  scrollButtons.forEach((button) => {
     // Check if we've already added the handler
     if (!(button as any)._scrollHandler) {
-      (button as any)._scrollHandler = function(e: Event) {
+      (button as any)._scrollHandler = function (e: Event) {
         e.preventDefault();
-        const targetForm = document.getElementById('consultation-form') || 
-                          document.querySelector('[data-form-type="hero_form"]') ||
-                          document.querySelector('.hero-form');
-        
+        const targetForm =
+          document.getElementById('consultation-form') ||
+          document.querySelector('[data-form-type="hero_form"]') ||
+          document.querySelector('.hero-form');
+
         if (targetForm) {
           const header = document.querySelector('.header-redesign, .header');
           const headerHeight = header ? (header as HTMLElement).offsetHeight : 80;
           const offset = 20;
-          
+
           const elementPosition = targetForm.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-          
+
           window.scrollTo({
             top: offsetPosition,
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         }
       };
-      
+
       button.addEventListener('click', (button as any)._scrollHandler);
     }
   });
-  
+
   // Handle other scroll actions
   const otherScrollButtons = document.querySelectorAll('[data-scroll-target]');
-  otherScrollButtons.forEach(button => {
+  otherScrollButtons.forEach((button) => {
     if (!(button as any)._scrollHandler) {
-      (button as any)._scrollHandler = function(e: Event) {
+      (button as any)._scrollHandler = function (e: Event) {
         e.preventDefault();
         const targetSelector = button.getAttribute('data-scroll-target');
         if (targetSelector) {
-          const targetElement = document.querySelector(targetSelector) || document.getElementById(targetSelector);
-          
+          const targetElement =
+            document.querySelector(targetSelector) || document.getElementById(targetSelector);
+
           if (targetElement) {
             const header = document.querySelector('.header-redesign, .header');
             const headerHeight = header ? (header as HTMLElement).offsetHeight : 80;
             const offset = 20;
-            
+
             const elementPosition = targetElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-            
+
             window.scrollTo({
               top: offsetPosition,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           }
         }
       };
-      
+
       button.addEventListener('click', (button as any)._scrollHandler);
     }
   });
@@ -152,32 +154,33 @@ function setupScrollToActions() {
  */
 function setupAnchorNavigation() {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   const anchors = document.querySelectorAll('a[href^="#"]');
-  anchors.forEach(anchor => {
+  anchors.forEach((anchor) => {
     // Skip anchor links inside dropdown menus as they're handled by the header component
     if (anchor.closest('.nav-dropdown-menu')) {
       return;
     }
-    
+
     if (!(anchor as any)._anchorHandler) {
-      (anchor as any)._anchorHandler = function(e: Event) {
+      (anchor as any)._anchorHandler = function (e: Event) {
         const href = anchor.getAttribute('href');
-        if (href && href !== '#' && !href.startsWith('#modal-')) { // Don't interfere with modal links
+        if (href && href !== '#' && !href.startsWith('#modal-')) {
+          // Don't interfere with modal links
           e.preventDefault();
           handleHashNavigation(href);
-          
+
           // Update URL without page reload
           if (history.pushState) {
             history.pushState(null, '', href);
           }
         }
       };
-      
+
       anchor.addEventListener('click', (anchor as any)._anchorHandler);
     }
   });
-  
+
   // Handle hash changes for SPA-like navigation
   window.addEventListener('hashchange', () => {
     handleHashNavigation(window.location.hash);
@@ -189,7 +192,7 @@ function setupAnchorNavigation() {
  */
 function setupDynamicElementHandling() {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   // Handle dynamically created buttons and links with event delegation
   document.removeEventListener('click', handleDynamicClick); // Remove previous listener if exists
   document.addEventListener('click', handleDynamicClick);
@@ -200,56 +203,58 @@ function setupDynamicElementHandling() {
  */
 function handleDynamicClick(e: Event) {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   const target = e.target as HTMLElement;
-  
+
   // Handle data-action buttons that might be created dynamically
   const actionButton = target.closest('[data-action]') as HTMLElement;
   if (actionButton && actionButton.getAttribute('data-action') === 'scroll-to-form') {
     e.preventDefault();
-    const targetForm = document.getElementById('consultation-form') || 
-                      document.querySelector('[data-form-type="hero_form"]') ||
-                      document.querySelector('.hero-form');
-    
+    const targetForm =
+      document.getElementById('consultation-form') ||
+      document.querySelector('[data-form-type="hero_form"]') ||
+      document.querySelector('.hero-form');
+
     if (targetForm) {
       const header = document.querySelector('.header-redesign, .header');
       const headerHeight = header ? (header as HTMLElement).offsetHeight : 80;
       const offset = 20;
-      
+
       const elementPosition = targetForm.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-      
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
-  
+
   // Handle data-scroll-target elements
   const scrollTargetButton = target.closest('[data-scroll-target]') as HTMLElement;
   if (scrollTargetButton) {
     e.preventDefault();
     const targetSelector = scrollTargetButton.getAttribute('data-scroll-target');
     if (targetSelector) {
-      const targetElement = document.querySelector(targetSelector) || document.getElementById(targetSelector);
-      
+      const targetElement =
+        document.querySelector(targetSelector) || document.getElementById(targetSelector);
+
       if (targetElement) {
         const header = document.querySelector('.header-redesign, .header');
         const headerHeight = header ? (header as HTMLElement).offsetHeight : 80;
         const offset = 20;
-        
+
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
-        
+
         window.scrollTo({
           top: offsetPosition,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
     }
   }
-  
+
   // Handle dynamically created anchor links (but skip dropdown menu links)
   const anchorLink = target.closest('a[href^="#"]') as HTMLAnchorElement;
   if (anchorLink && !anchorLink.closest('.nav-dropdown-menu')) {
@@ -257,7 +262,7 @@ function handleDynamicClick(e: Event) {
     if (href && href !== '#' && !href.startsWith('#modal-')) {
       e.preventDefault();
       handleHashNavigation(href);
-      
+
       // Update URL without page reload
       if (history.pushState) {
         history.pushState(null, '', href);
@@ -271,7 +276,7 @@ function handleDynamicClick(e: Event) {
  */
 function setupFormInteractions() {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   // Handle form submissions for forms that might be added dynamically
   document.removeEventListener('submit', handleFormSubmit); // Remove previous listener if exists
   document.addEventListener('submit', handleFormSubmit);
@@ -282,7 +287,7 @@ function setupFormInteractions() {
  */
 function handleFormSubmit(e: Event) {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   const form = e.target as HTMLFormElement;
   if (form && form.tagName === 'FORM') {
     // Add any form-specific handling here if needed

@@ -12,7 +12,7 @@
 
 /* Background pattern */
 .team::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -152,7 +152,9 @@
   border-radius: var(--radius-xl, 1rem);
   padding: var(--space-xl, 2rem);
   border: 1px solid var(--color-border-light, #e2e8f0);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   transition: all var(--transition-smooth, 0.3s ease);
   position: relative;
   text-align: center;
@@ -212,7 +214,9 @@
 
 .team__member:hover .team__member-photo {
   transform: scale(1.05);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2), 0 0 0 6px rgba(37, 99, 235, 0.1);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.2),
+    0 0 0 6px rgba(37, 99, 235, 0.1);
   border-color: var(--color-primary-light, #93c5fd);
 }
 

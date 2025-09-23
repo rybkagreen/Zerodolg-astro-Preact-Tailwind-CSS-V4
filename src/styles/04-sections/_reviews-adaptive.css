@@ -79,12 +79,12 @@
   max-width: 400px;
   width: calc(100vw - 3rem);
   flex: 0 0 auto;
-  
+
   /* Improved padding */
   padding: clamp(1.25rem, 3vw, 1.75rem);
-  
+
   /* Better shadows for depth */
-  box-shadow: 
+  box-shadow:
     0 4px 6px rgba(0, 0, 0, 0.1),
     0 2px 4px rgba(0, 0, 0, 0.06),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
@@ -265,7 +265,7 @@
   min-height: 44px;
   width: clamp(44px, 5vw, 56px);
   height: clamp(44px, 5vw, 56px);
-  
+
   /* Better positioning on mobile */
   display: flex;
   align-items: center;
@@ -277,7 +277,7 @@
   .reviews__nav {
     display: none;
   }
-  
+
   /* Show indicators instead */
   .reviews__indicators {
     display: flex;
@@ -359,13 +359,13 @@
 /* Optimize shadow rendering */
 @media (max-width: 768px) {
   .review-card {
-    box-shadow: 
+    box-shadow:
       0 2px 4px rgba(0, 0, 0, 0.1),
       0 0 0 1px rgba(255, 255, 255, 0.05) inset;
   }
-  
+
   .review-card:hover {
-    box-shadow: 
+    box-shadow:
       0 4px 8px rgba(0, 0, 0, 0.15),
       0 0 0 1px rgba(255, 215, 0, 0.2) inset;
   }
@@ -380,13 +380,13 @@
     background: white;
     color: black;
   }
-  
+
   .review-card {
     page-break-inside: avoid;
     border: 1px solid #ddd;
     box-shadow: none;
   }
-  
+
   .reviews__nav,
   .reviews__indicators,
   .reviews__progress {

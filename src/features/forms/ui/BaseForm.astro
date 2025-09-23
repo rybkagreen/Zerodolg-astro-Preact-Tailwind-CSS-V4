@@ -1,0 +1,176 @@
+---
+import Form from '../preact/form-logic.tsx';
+
+export interface Props {
+  formId: string;
+  formType: 'hero' | 'cta' | 'consultation' | 'callback' | 'lead' | 'footer' | 'section';
+  submitText?: string;
+  showDebtField?: boolean;
+  showNameField?: boolean;
+  showPhoneField?: boolean;
+  showEmailField?: boolean;
+  showPrivacyCheckbox?: boolean;
+  variant?: 'inline' | 'stacked' | 'compact';
+  className?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const { 
+  formId, 
+  formType, 
+  submitText = 'Получить консультацию',
+  showDebtField = false,
+  showNameField = true,
+  showPhoneField = true,
+  showEmailField = false,
+  showPrivacyCheckbox = true,
+  variant = 'stacked',
+  className = '',
+  title = '',
+  subtitle = ''
+} = Astro.props;
+
+const formClass = `unified-form unified-form--${variant} ${className}`;
+---
+
+<div class={formClass}>
+  {title && <h3 class="unified-form__title">{title}</h3>}
+  {subtitle && <p class="unified-form__subtitle">{subtitle}</p>}
+  
+  <form
+    id={formId}
+    class="unified-form__form"
+    data-form={formType}
+    novalidate
+  >
+    <div class="unified-form__fields">
+      <!-- Name Field -->
+      {showNameField && (
+        <div class="unified-form__field">
+          <label for={`${formId}-name`} class="unified-form__label">
+            Ваше имя <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id={`${formId}-name`}
+            name="name"
+            class="unified-form__input"
+            placeholder="Введите ваше имя"
+            required
+            data-validate="name"
+            aria-required="true"
+            aria-describedby={`${formId}-name-error`}
+          />
+          <span id={`${formId}-name-error`} class="unified-form__error" role="alert"></span>
+        </div>
+      )}
+
+      <!-- Phone Field -->
+      {showPhoneField && (
+        <div class="unified-form__field">
+          <label for={`${formId}-phone`} class="unified-form__label">
+            Телефон <span class="required">*</span>
+          </label>
+          <input
+            type="tel"
+            id={`${formId}-phone`}
+            name="phone"
+            class="unified-form__input"
+            placeholder="+7 (___) ___-__-__"
+            required
+            data-mask="phone"
+            aria-required="true"
+            aria-describedby={`${formId}-phone-error`}
+          />
+          <span id={`${formId}-phone-error`} class="unified-form__error" role="alert"></span>
+        </div>
+      )}
+
+      <!-- Email Field -->
+      {showEmailField && (
+        <div class="unified-form__field">
+          <label for={`${formId}-email`} class="unified-form__label">
+            Email {showEmailField && showPhoneField ? '' : '<span class="required">*</span>'}
+          </label>
+          <input
+            type="email"
+            id={`${formId}-email`}
+            name="email"
+            class="unified-form__input"
+            placeholder="example@mail.com"
+            {showEmailField && showPhoneField ? '' : 'required'}
+            data-validate="email"
+            aria-required={showEmailField && showPhoneField ? 'false' : 'true'}
+            aria-describedby={`${formId}-email-error`}
+          />
+          <span id={`${formId}-email-error`} class="unified-form__error" role="alert"></span>
+        </div>
+      )}
+
+      <!-- Debt Field (optional) -->
+      {showDebtField && (
+        <div class="unified-form__field">
+          <label for={`${formId}-debt`} class="unified-form__label">
+            Сумма долга
+          </label>
+          <input
+            type="text"
+            id={`${formId}-debt`}
+            name="debtAmount"
+            class="unified-form__input"
+            placeholder="Например: 500 000 руб"
+            data-mask="currency"
+            aria-describedby={`${formId}-debt-error`}
+          />
+          <span id={`${formId}-debt-error`} class="unified-form__error" role="alert"></span>
+        </div>
+      )}
+    </div>
+
+    <!-- Privacy Agreement -->
+    {showPrivacyCheckbox && (
+      <div class="unified-form__privacy">
+        <label class="unified-form__checkbox">
+          <input
+            type="checkbox"
+            name="privacy"
+            required
+            aria-required="true"
+          />
+          <span class="unified-form__checkbox-mark"></span>
+          <span class="unified-form__checkbox-label">
+            Я согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a>
+          </span>
+        </label>
+        <span class="unified-form__error" role="alert"></span>
+      </div>
+    )}
+
+    <!-- Submit Button -->
+    <button type="submit" class="unified-form__submit btn btn--primary">
+      <span class="btn__text">{submitText}</span>
+      <span class="btn__loader" aria-hidden="true">
+        <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" aria-label="Загрузка" role="status">
+          <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+        </svg>
+      </span>
+    </button>
+
+    <!-- Success Message (hidden by default) -->
+    <div class="unified-form__success" aria-live="polite" aria-atomic="true">
+      <div class="unified-form__success-icon">✓</div>
+      <h3 class="unified-form__success-title">Заявка отправлена!</h3>
+      <p class="unified-form__success-text">
+        Мы свяжемся с вами в течение 15 минут для бесплатной консультации
+      </p>
+    </div>
+  </form>
+
+  <!-- Form Logic Component -->
+  <Form 
+    client:idle
+    formId={formId}
+    formType={formType}
+  />
+</div>

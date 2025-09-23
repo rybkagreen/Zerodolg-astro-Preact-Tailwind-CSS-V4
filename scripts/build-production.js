@@ -2,7 +2,7 @@
 
 /**
  * Production Build Script with All Optimizations
- * 
+ *
  * This script performs a complete production build with all optimizations enabled:
  * - Environment validation
  * - Code linting and type checking
@@ -24,7 +24,7 @@ const COLORS = {
   BLUE: '\x1b[34m',
   MAGENTA: '\x1b[35m',
   CYAN: '\x1b[36m',
-  WHITE: '\x1b[37m'
+  WHITE: '\x1b[37m',
 };
 
 // Log functions
@@ -33,20 +33,20 @@ const log = {
   success: (msg) => console.log(`${COLORS.GREEN}✅ ${msg}${COLORS.RESET}`),
   warn: (msg) => console.log(`${COLORS.YELLOW}⚠ ${msg}${COLORS.RESET}`),
   error: (msg) => console.log(`${COLORS.RED}❌ ${msg}${COLORS.RESET}`),
-  header: (msg) => console.log(`${COLORS.MAGENTA}${msg}${COLORS.RESET}`)
+  header: (msg) => console.log(`${COLORS.MAGENTA}${msg}${COLORS.RESET}`),
 };
 
 // Execute a command and return a promise
 function execCommand(command, args = [], options = {}) {
   return new Promise((resolve, reject) => {
     log.info(`Executing: ${command} ${args.join(' ')}`);
-    
+
     const child = spawn(command, args, {
       stdio: 'inherit',
       shell: true,
-      ...options
+      ...options,
     });
-    
+
     child.on('close', (code) => {
       if (code === 0) {
         resolve();
@@ -54,7 +54,7 @@ function execCommand(command, args = [], options = {}) {
         reject(new Error(`Command failed with exit code ${code}`));
       }
     });
-    
+
     child.on('error', (error) => {
       reject(error);
     });
@@ -69,7 +69,7 @@ function fileExists(filePath) {
 // Pre-build validation checks
 async function preBuildValidation() {
   log.header('🔍 Pre-Build Validation Checks');
-  
+
   // Check environment variables
   log.info('Validating environment variables...');
   try {
@@ -79,7 +79,7 @@ async function preBuildValidation() {
     log.error('Environment variables validation failed');
     throw error;
   }
-  
+
   // Check for required files
   const requiredFiles = ['.env', 'package.json'];
   for (const file of requiredFiles) {
@@ -89,7 +89,7 @@ async function preBuildValidation() {
     }
   }
   log.success('Required files check passed');
-  
+
   // Type checking
   log.info('Running TypeScript type checking...');
   try {
@@ -99,7 +99,7 @@ async function preBuildValidation() {
     log.error('Type checking failed');
     throw error;
   }
-  
+
   // Code linting
   log.info('Running code linting...');
   try {
@@ -120,13 +120,10 @@ async function preBuildValidation() {
 // Asset optimization
 async function optimizeAssets() {
   log.header('🖼️ Asset Optimization');
-  
+
   // Check if we have any image optimization scripts
-  const optimizationScripts = [
-    'scripts/optimize-images.js',
-    'scripts/optimize-images.cjs'
-  ];
-  
+  const optimizationScripts = ['scripts/optimize-images.js', 'scripts/optimize-images.cjs'];
+
   for (const script of optimizationScripts) {
     if (fileExists(path.resolve(script))) {
       log.info(`Running ${script}...`);
@@ -139,14 +136,14 @@ async function optimizeAssets() {
       }
     }
   }
-  
+
   log.info('No image optimization scripts found, skipping...');
 }
 
 // Security checks
 async function securityChecks() {
   log.header('🔒 Security Checks');
-  
+
   // Check for .env in .gitignore
   const gitignorePath = path.resolve('.gitignore');
   if (fileExists(gitignorePath)) {
@@ -157,7 +154,7 @@ async function securityChecks() {
       log.success('.env file is properly ignored');
     }
   }
-  
+
   // Check for sensitive data in environment variables
   const sensitiveKeys = ['KEY', 'SECRET', 'PASSWORD', 'TOKEN'];
   for (const key of Object.keys(process.env)) {
@@ -172,10 +169,10 @@ async function securityChecks() {
 // Performance optimizations
 async function performanceOptimizations() {
   log.header('⚡ Performance Optimizations');
-  
+
   // Check if we're using the production config
   const useProdConfig = process.argv.includes('--prod-config');
-  
+
   // Clean previous builds
   log.info('Cleaning previous build artifacts...');
   try {
@@ -189,11 +186,11 @@ async function performanceOptimizations() {
 // Main build process
 async function buildProcess() {
   log.header('🚀 Production Build Process');
-  
+
   // Use production configuration
   const buildCommand = 'npm';
   const buildArgs = ['run', 'build:prod'];
-  
+
   log.info('Starting production build...');
   try {
     await execCommand(buildCommand, buildArgs);
@@ -207,22 +204,19 @@ async function buildProcess() {
 // Post-build verification
 async function postBuildVerification() {
   log.header('✅ Post-Build Verification');
-  
+
   // Check if dist directory exists
   const distPath = path.resolve('dist');
   if (!fileExists(distPath)) {
     log.error('Build output directory (dist/) not found');
     throw new Error('Build output directory not found');
   }
-  
+
   log.success('Build output directory exists');
-  
+
   // Check for essential files
-  const essentialFiles = [
-    'index.html',
-    '_astro'
-  ];
-  
+  const essentialFiles = ['index.html', '_astro'];
+
   for (const file of essentialFiles) {
     const filePath = path.join(distPath, file);
     if (!fileExists(filePath)) {
@@ -231,14 +225,14 @@ async function postBuildVerification() {
       log.success(`Essential file/directory found: ${file}`);
     }
   }
-  
+
   // Update robots.txt with additional directives
   const robotsTxtPath = path.join(distPath, 'robots.txt');
   if (fileExists(robotsTxtPath)) {
     log.info('Updating robots.txt with additional directives...');
     try {
       let robotsContent = fs.readFileSync(robotsTxtPath, 'utf-8');
-      
+
       // Add additional directives for better SEO
       robotsContent += `
 # Performance optimizations
@@ -261,14 +255,14 @@ Disallow: /*.log$
 Disallow: /*.inc$
 Disallow: /*.sql$
 `;
-      
+
       fs.writeFileSync(robotsTxtPath, robotsContent);
       log.success('robots.txt updated with additional directives');
     } catch (error) {
       log.warn(`Failed to update robots.txt: ${error.message}`);
     }
   }
-  
+
   // Verify critical assets
   log.info('Verifying critical assets...');
   const criticalAssets = [
@@ -277,16 +271,16 @@ Disallow: /*.sql$
     'apple-touch-icon.png',
     'manifest.json',
     '_astro/client.js',
-    '_astro/main.css'
+    '_astro/main.css',
   ];
-  
+
   for (const asset of criticalAssets) {
     const assetPath = path.join(distPath, asset);
     if (!fileExists(assetPath)) {
       log.warn(`Critical asset not found: ${asset}`);
     }
   }
-  
+
   // Run post-build verification script if it exists
   const verificationScript = 'scripts/post-build-verification.js';
   if (fileExists(path.resolve(verificationScript))) {
@@ -305,11 +299,11 @@ Disallow: /*.sql$
 async function main() {
   log.header('🏭 ZeroDolg Astro - Production Build System');
   log.info('Starting comprehensive production build process...\n');
-  
+
   try {
     // Record start time
     const startTime = Date.now();
-    
+
     // Run all steps
     await preBuildValidation();
     await optimizeAssets();
@@ -317,17 +311,18 @@ async function main() {
     await performanceOptimizations();
     await buildProcess();
     await postBuildVerification();
-    
+
     // Calculate duration
     const duration = Date.now() - startTime;
     const minutes = Math.floor(duration / 60000);
     const seconds = ((duration % 60000) / 1000).toFixed(2);
-    
+
     log.header('🎉 Production Build Completed Successfully!');
-    log.success(`Build finished in ${minutes > 0 ? `${minutes} minute(s) and ` : ''}${seconds} second(s)`);
+    log.success(
+      `Build finished in ${minutes > 0 ? `${minutes} minute(s) and ` : ''}${seconds} second(s)`
+    );
     log.info('Build output is available in the dist/ directory');
     log.info('To preview the build, run: npm run preview');
-    
   } catch (error) {
     log.error('Production build process failed!');
     log.error(error.message);

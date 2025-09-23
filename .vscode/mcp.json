@@ -2,10 +2,7 @@
   "mcpServers": {
     "astro-mcp": {
       "command": "npx",
-      "args": [
-        "astro",
-        "mcp"
-      ],
+      "args": ["astro", "mcp"],
       "env": {}
     }
   },

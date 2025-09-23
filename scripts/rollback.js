@@ -2,7 +2,7 @@
 
 /**
  * Rollback Script
- * 
+ *
  * This script handles rollback procedures in case of deployment failures:
  * - Reverts to the previous deployment
  * - Restores database backups (if applicable)
@@ -22,7 +22,7 @@ const COLORS = {
   BLUE: '\x1b[34m',
   MAGENTA: '\x1b[35m',
   CYAN: '\x1b[36m',
-  WHITE: '\x1b[37m'
+  WHITE: '\x1b[37m',
 };
 
 // Log functions
@@ -31,7 +31,7 @@ const log = {
   success: (msg) => console.log(`${COLORS.GREEN}✅ ${msg}${COLORS.RESET}`),
   warn: (msg) => console.log(`${COLORS.YELLOW}⚠ ${msg}${COLORS.RESET}`),
   error: (msg) => console.log(`${COLORS.RED}❌ ${msg}${COLORS.RESET}`),
-  header: (msg) => console.log(`${COLORS.MAGENTA}${msg}${COLORS.RESET}`)
+  header: (msg) => console.log(`${COLORS.MAGENTA}${msg}${COLORS.RESET}`),
 };
 
 // Check if a file exists
@@ -54,13 +54,13 @@ function copyDirectory(src, dest) {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
   }
-  
+
   const entries = fs.readdirSync(src, { withFileTypes: true });
-  
+
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
-    
+
     if (entry.isDirectory()) {
       copyDirectory(srcPath, destPath);
     } else {
@@ -72,41 +72,42 @@ function copyDirectory(src, dest) {
 // Rollback procedures
 async function rollbackProcedures() {
   log.header('🔄 ZeroDolg Astro - Rollback Procedures');
-  
+
   // Check if we have a previous deployment backup
   const backupDir = path.resolve('backups');
   const distDir = path.resolve('dist');
-  
+
   if (!fileExists(backupDir)) {
     log.error('No backups directory found. Cannot perform rollback.');
     log.info('To prepare for future rollbacks, create a backup before deploying:');
     log.info('  cp -r dist backups/dist-$(date +%Y%m%d-%H%M%S)');
     process.exit(1);
   }
-  
+
   // Find the most recent backup
-  const backupEntries = fs.readdirSync(backupDir)
-    .filter(entry => entry.startsWith('dist-'))
+  const backupEntries = fs
+    .readdirSync(backupDir)
+    .filter((entry) => entry.startsWith('dist-'))
     .sort()
     .reverse();
-  
+
   if (backupEntries.length === 0) {
     log.error('No previous deployments found in backups directory.');
     process.exit(1);
   }
-  
+
   const latestBackup = backupEntries[0];
   const backupPath = path.join(backupDir, latestBackup);
-  
+
   log.info(`Found backup: ${latestBackup}`);
-  
+
   // Confirm rollback
   log.warn('This will replace the current deployment with the backup.');
   log.warn('Are you sure you want to proceed with the rollback?');
-  
+
   // In a real implementation, we would prompt for confirmation
   // For now, we'll simulate the rollback
-  
+
   try {
     // Create a backup of the current deployment (if it exists)
     if (fileExists(distDir)) {
@@ -116,33 +117,32 @@ async function rollbackProcedures() {
       copyDirectory(distDir, currentBackupPath);
       log.success('Current deployment backed up');
     }
-    
+
     // Remove current dist directory
     if (fileExists(distDir)) {
       log.info('Removing current deployment...');
       fs.rmSync(distDir, { recursive: true, force: true });
       log.success('Current deployment removed');
     }
-    
+
     // Restore from backup
     log.info(`Restoring from backup: ${latestBackup}`);
     copyDirectory(backupPath, distDir);
     log.success('Deployment restored from backup');
-    
+
     // Log rollback action
     const rollbackLog = path.join(backupDir, 'rollback.log');
     const logEntry = `[${new Date().toISOString()}] Rollback to ${latestBackup}
 `;
-    
+
     if (fileExists(rollbackLog)) {
       fs.appendFileSync(rollbackLog, logEntry);
     } else {
       fs.writeFileSync(rollbackLog, logEntry);
     }
-    
+
     log.success('Rollback completed successfully');
     log.info('Please verify the restored deployment and restart your web server if necessary.');
-    
   } catch (error) {
     log.error('Rollback failed!');
     log.error(error.message);
@@ -154,7 +154,7 @@ async function rollbackProcedures() {
 async function main() {
   // Check if rollback is requested
   const args = process.argv.slice(2);
-  
+
   if (args.includes('--help') || args.includes('-h')) {
     console.log(`
 ZeroDolg Astro Rollback System
@@ -181,19 +181,20 @@ Examples:
     `);
     process.exit(0);
   }
-  
+
   if (args.includes('--list')) {
     const backupDir = path.resolve('backups');
     if (!fileExists(backupDir)) {
       log.error('No backups directory found.');
       process.exit(1);
     }
-    
-    const backupEntries = fs.readdirSync(backupDir)
-      .filter(entry => entry.startsWith('dist-'))
+
+    const backupEntries = fs
+      .readdirSync(backupDir)
+      .filter((entry) => entry.startsWith('dist-'))
       .sort()
       .reverse();
-    
+
     if (backupEntries.length === 0) {
       log.info('No backups found.');
     } else {
@@ -203,10 +204,10 @@ Examples:
         log.info(`${index + 1}. ${entry} (${date})`);
       });
     }
-    
+
     process.exit(0);
   }
-  
+
   await rollbackProcedures();
 }
 

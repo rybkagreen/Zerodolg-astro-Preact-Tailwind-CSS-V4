@@ -19,7 +19,7 @@ const metrics = {
       performance: 85,
       accessibility: 92,
       bestPractices: 88,
-      seo: 95
+      seo: 95,
     },
     buildTime: '45s',
     devTime: '2-3 часа на компонент',
@@ -27,10 +27,10 @@ const metrics = {
       codeStructure: 'Handlebars + JS модули',
       bundling: 'Vite',
       optimization: 'Минификация, tree-shaking',
-      hydration: 'Полная загрузка JS'
-    }
+      hydration: 'Полная загрузка JS',
+    },
   },
-  
+
   astro: {
     name: 'Astro миграция',
     bundleSize: '45KB',
@@ -40,7 +40,7 @@ const metrics = {
       performance: 97,
       accessibility: 95,
       bestPractices: 92,
-      seo: 98
+      seo: 98,
     },
     buildTime: '0.8s',
     devTime: '30 минут на компонент',
@@ -48,9 +48,9 @@ const metrics = {
       codeStructure: 'Astro компоненты',
       bundling: 'Astro (Vite под капотом)',
       optimization: 'Partial hydration, Islands',
-      hydration: 'Только интерактивные части'
-    }
-  }
+      hydration: 'Только интерактивные части',
+    },
+  },
 };
 
 // Функция для отображения сравнения
@@ -58,7 +58,7 @@ function displayComparison() {
   console.log('\n' + '='.repeat(60));
   console.log('📊 СРАВНЕНИЕ МЕТРИК ПРОИЗВОДИТЕЛЬНОСТИ');
   console.log('='.repeat(60) + '\n');
-  
+
   // Размеры бандлов
   console.log('📦 РАЗМЕРЫ БАНДЛОВ:');
   console.log('-'.repeat(40));
@@ -70,7 +70,7 @@ function displayComparison() {
   console.log(`  • JS Bundle: ${metrics.astro.jsSize} ✅ (-93%)`);
   console.log(`  • CSS: ${metrics.astro.cssSize} ✅ (-56%)`);
   console.log(`  • Общий размер: ${metrics.astro.bundleSize} ✅ (-75%)`);
-  
+
   // Lighthouse
   console.log('\n🏆 LIGHTHOUSE SCORES:');
   console.log('-'.repeat(40));
@@ -84,7 +84,7 @@ function displayComparison() {
   console.log(`  • Accessibility: ${metrics.astro.lighthouse.accessibility} ✅ (+3 points)`);
   console.log(`  • Best Practices: ${metrics.astro.lighthouse.bestPractices} ✅ (+4 points)`);
   console.log(`  • SEO: ${metrics.astro.lighthouse.seo} ✅ (+3 points)`);
-  
+
   // Время сборки
   console.log('\n⚡ СКОРОСТЬ РАЗРАБОТКИ:');
   console.log('-'.repeat(40));
@@ -94,7 +94,7 @@ function displayComparison() {
   console.log(`\nAstro:`);
   console.log(`  • Build time: ${metrics.astro.buildTime} ✅ (в 56 раз быстрее!)`);
   console.log(`  • Dev time: ${metrics.astro.devTime} ✅ (в 4-6 раз быстрее)`);
-  
+
   // Технические особенности
   console.log('\n🔧 ТЕХНИЧЕСКИЕ ОСОБЕННОСТИ:');
   console.log('-'.repeat(40));
@@ -106,7 +106,7 @@ function displayComparison() {
   Object.entries(metrics.astro.features).forEach(([key, value]) => {
     console.log(`  • ${key}: ${value}`);
   });
-  
+
   // Итоговая оценка
   console.log('\n' + '='.repeat(60));
   console.log('✨ ИТОГОВАЯ ОЦЕНКА:');
@@ -117,13 +117,13 @@ function displayComparison() {
   console.log('  3. Время сборки ускорено в 56 раз');
   console.log('  4. Разработка компонентов ускорена в 4-6 раз');
   console.log('  5. Partial hydration - загружаем JS только где нужно');
-  
+
   console.log('\n📈 ROI (Return on Investment):');
   console.log('  • Время миграции: ~2 недели');
   console.log('  • Ускорение разработки: 4-6x');
   console.log('  • Улучшение конверсии: +15-20% (за счет скорости)');
   console.log('  • Экономия на хостинге: -75% трафика');
-  
+
   console.log('\n🎯 РЕКОМЕНДАЦИЯ: Миграция на Astro оправдана!');
   console.log('='.repeat(60) + '\n');
 }
@@ -131,28 +131,28 @@ function displayComparison() {
 // Анализ текущей сборки Astro
 function analyzeAstroBuild() {
   const distPath = path.join(__dirname, '..', 'dist');
-  
+
   if (fs.existsSync(distPath)) {
     console.log('\n📂 Анализ текущей сборки Astro:');
     console.log('-'.repeat(40));
-    
+
     // Подсчет размеров файлов
     let totalJS = 0;
     let totalCSS = 0;
     let fileCount = 0;
-    
+
     function walkDir(dir) {
       const files = fs.readdirSync(dir);
-      files.forEach(file => {
+      files.forEach((file) => {
         const filePath = path.join(dir, file);
         const stat = fs.statSync(filePath);
-        
+
         if (stat.isDirectory()) {
           walkDir(filePath);
         } else {
           fileCount++;
           const size = stat.size;
-          
+
           if (file.endsWith('.js')) {
             totalJS += size;
             console.log(`  • JS: ${file} - ${(size / 1024).toFixed(2)}KB`);
@@ -163,9 +163,9 @@ function analyzeAstroBuild() {
         }
       });
     }
-    
+
     walkDir(distPath);
-    
+
     console.log(`\n📊 Итого:`);
     console.log(`  • Файлов: ${fileCount}`);
     console.log(`  • JS: ${(totalJS / 1024).toFixed(2)}KB`);

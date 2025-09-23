@@ -20,8 +20,9 @@
   right: 0;
   bottom: 0;
   /* Pattern removed - file not found */
-  background: linear-gradient(45deg, rgba(37, 99, 235, 0.02) 25%, transparent 25%),
-              linear-gradient(-45deg, rgba(37, 99, 235, 0.02) 25%, transparent 25%);
+  background:
+    linear-gradient(45deg, rgba(37, 99, 235, 0.02) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(37, 99, 235, 0.02) 25%, transparent 25%);
   background-size: 60px 60px;
   opacity: 0.5;
   pointer-events: none;
@@ -55,7 +56,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(37, 99, 235, 0.15);
   z-index: 900; /* Lower z-index to avoid conflicts */
   opacity: 0;
@@ -70,11 +73,13 @@
 }
 
 @keyframes fadeInOut {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
     transform: translateY(10px) scale(0.95);
   }
-  5%, 95% {
+  5%,
+  95% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
@@ -90,7 +95,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
   }
@@ -159,7 +165,9 @@
 
 .stats__item:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px -4px rgba(0, 0, 0, 0.1), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 20px 40px -4px rgba(0, 0, 0, 0.1),
+    0 8px 16px -4px rgba(0, 0, 0, 0.06);
   border-color: var(--color-primary-light, #93c5fd);
 }
 
@@ -182,7 +190,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -210,32 +219,32 @@
 }
 
 /* Simple color coding for each stat type */
-.stats__item[data-stat="clients"] .stats__icon {
+.stats__item[data-stat='clients'] .stats__icon {
   color: #6366f1;
   background: rgba(99, 102, 241, 0.08);
 }
 
-.stats__item[data-stat="debt"] .stats__icon {
+.stats__item[data-stat='debt'] .stats__icon {
   color: #10b981;
   background: rgba(16, 185, 129, 0.08);
 }
 
-.stats__item[data-stat="experience"] .stats__icon {
+.stats__item[data-stat='experience'] .stats__icon {
   color: #f59e0b;
   background: rgba(245, 158, 11, 0.08);
 }
 
-.stats__item[data-stat="success"] .stats__icon {
+.stats__item[data-stat='success'] .stats__icon {
   color: #3b82f6;
   background: rgba(59, 130, 246, 0.08);
 }
 
-.stats__item[data-stat="time"] .stats__icon {
+.stats__item[data-stat='time'] .stats__icon {
   color: #ec4899;
   background: rgba(236, 72, 153, 0.08);
 }
 
-.stats__item[data-stat="activity"] .stats__icon {
+.stats__item[data-stat='activity'] .stats__icon {
   color: #06b6d4;
   background: rgba(6, 182, 212, 0.08);
 }
@@ -251,7 +260,7 @@
   position: absolute;
   inset: -1px;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -279,7 +288,8 @@
 }
 
 @keyframes iconPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -301,33 +311,37 @@
   color: #1e293b;
   line-height: 1;
   margin-bottom: 8px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   display: block;
   position: relative;
 }
 
 /* Different number styles for each stat */
-.stats__item[data-stat="clients"] .stats__number {
+.stats__item[data-stat='clients'] .stats__number {
   color: #6366f1;
 }
 
-.stats__item[data-stat="debt"] .stats__number {
+.stats__item[data-stat='debt'] .stats__number {
   color: #10b981;
 }
 
-.stats__item[data-stat="experience"] .stats__number {
+.stats__item[data-stat='experience'] .stats__number {
   color: #f59e0b;
 }
 
-.stats__item[data-stat="success"] .stats__number {
+.stats__item[data-stat='success'] .stats__number {
   color: #3b82f6;
 }
 
-.stats__item[data-stat="time"] .stats__number {
+.stats__item[data-stat='time'] .stats__number {
   color: #ec4899;
 }
 
-.stats__item[data-stat="activity"] .stats__number {
+.stats__item[data-stat='activity'] .stats__number {
   color: #06b6d4;
 }
 
@@ -374,7 +388,7 @@
   margin: 0 auto 48px;
   max-width: 1200px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 
+  box-shadow:
     0 10px 40px rgba(102, 126, 234, 0.1),
     0 2px 10px rgba(0, 0, 0, 0.05);
 }
@@ -572,7 +586,7 @@
   .stats.section {
     padding: 60px 0;
   }
-  
+
   .stats__sticker {
     bottom: 70px; /* Raised to avoid conflicts with mobile UI */
     right: 20px;
@@ -581,60 +595,60 @@
     font-size: 10px;
     max-width: 140px;
   }
-  
+
   .stats__sticker-text {
     font-size: 10px;
   }
-  
+
   .stats__sticker-count {
     font-size: 11px;
   }
-  
+
   .stats__grid {
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 0 16px;
   }
-  
+
   .stats__item {
     padding: var(--space-lg, 1.5rem);
   }
-  
+
   .stats__icon {
     width: 3rem;
     height: 3rem;
   }
-  
+
   .stats__icon .icon {
     width: 1.5rem;
     height: 1.5rem;
   }
-  
+
   .stats__number {
     font-size: var(--text-2xl, 1.5rem);
   }
-  
+
   .stats__label {
     font-size: var(--text-sm, 0.875rem);
   }
-  
+
   .stats__ticker-item {
     padding: 0 var(--space-md, 1rem);
     font-size: var(--text-sm, 0.875rem);
   }
-  
+
   /* Guarantee section mobile */
   .stats__legal-item--guarantee {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .stats__guarantee-image {
     margin-left: 0;
     padding-left: 0;
     margin-top: 20px;
   }
-  
+
   .stats__guarantee-image img {
     max-height: 80px;
   }
@@ -645,7 +659,7 @@
   .stats__grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .stats__sticker {
     top: 100px;
     right: 20px;
@@ -658,28 +672,28 @@
     background: none !important;
     padding: var(--space-lg, 1.5rem) 0;
   }
-  
+
   .stats__item {
     border: 1px solid #ccc;
     break-inside: avoid;
     margin-bottom: var(--space-md, 1rem);
   }
-  
+
   .stats__item:hover {
     transform: none;
     box-shadow: none;
   }
-  
+
   .stats__ticker {
     background: none;
     color: var(--color-text, #1e293b);
     border: 1px solid #ccc;
   }
-  
+
   .stats__ticker-track {
     animation: none;
   }
-  
+
   .stats__pulse {
     display: none;
   }
@@ -690,7 +704,7 @@
   .stats__item {
     border: 2px solid var(--color-text, #1e293b);
   }
-  
+
   .stats__badge {
     border: 2px solid var(--color-primary, #2563eb);
   }
@@ -706,11 +720,11 @@
     animation: none;
     transition: none;
   }
-  
+
   .stats__item:hover {
     transform: none;
   }
-  
+
   .stats__ticker-track {
     animation: none;
   }

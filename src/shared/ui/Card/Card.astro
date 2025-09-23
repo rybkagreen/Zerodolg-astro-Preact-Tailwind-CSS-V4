@@ -1,0 +1,26 @@
+---
+interface Props {
+  /** Card title */
+  title?: string;
+  /** Card content */
+  children: any;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const { title, children, class: className = '' } = Astro.props;
+
+const baseClasses = 'bg-white rounded-lg shadow-md overflow-hidden';
+const classes = [baseClasses, className].join(' ');
+---
+
+<div class={classes}>
+  {title && (
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h3 class="text-lg font-medium text-gray-900">{title}</h3>
+    </div>
+  )}
+  <div class="p-6">
+    <slot />
+  </div>
+</div>

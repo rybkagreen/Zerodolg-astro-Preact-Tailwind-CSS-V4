@@ -4,7 +4,7 @@ describe('Utility Functions', () => {
   // Debounce utility test
   it('should debounce function calls correctly', () => {
     vi.useFakeTimers();
-    
+
     let callCount = 0;
     const func = () => {
       callCount++;
@@ -48,7 +48,7 @@ describe('Utility Functions', () => {
         style: 'currency',
         currency: currency,
         minimumFractionDigits: 0,
-        maximumFractionDigits: 0
+        maximumFractionDigits: 0,
       }).format(amount);
     };
 
@@ -93,7 +93,9 @@ describe('Utility Functions', () => {
     };
 
     expect(truncateText('Short text', 20)).toBe('Short text');
-    expect(truncateText('This is a very long text that needs to be truncated', 20)).toBe('This is a very long...');
+    expect(truncateText('This is a very long text that needs to be truncated', 20)).toBe(
+      'This is a very long...'
+    );
   });
 
   // Generate unique ID test

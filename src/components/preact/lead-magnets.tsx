@@ -3,44 +3,46 @@ import { useEffect } from 'preact/hooks';
 export default function LeadMagnetsLogic() {
   useEffect(() => {
     // Button click handlers
-    const buttons = document.querySelectorAll('.lead-card__button[data-modal], .lead-magnets__cta-button[data-modal]');
-    
+    const buttons = document.querySelectorAll(
+      '.lead-card__button[data-modal], .lead-magnets__cta-button[data-modal]'
+    );
+
     const handleButtonClick = (e: Event) => {
       e.preventDefault();
       const button = e.currentTarget as HTMLElement;
       const modalType = button.getAttribute('data-modal');
       const trackEvent = button.getAttribute('data-track');
-      
+
       if (modalType) {
         openModal(modalType);
       }
-      
+
       if (trackEvent) {
         trackAnalytics(trackEvent, { modal_type: modalType });
       }
     };
-    
-    buttons.forEach(button => {
+
+    buttons.forEach((button) => {
       button.addEventListener('click', handleButtonClick);
     });
-    
+
     // Modal functionality
     function openModal(modalType: string) {
       const modal = createModal(modalType);
       if (!modal) return;
-      
+
       document.body.appendChild(modal);
       document.body.style.overflow = 'hidden';
-      
+
       // Animate in
       requestAnimationFrame(() => {
         modal.classList.add('modal--visible');
       });
-      
+
       // Setup close handlers
       const closeBtn = modal.querySelector('[data-modal-close]');
       const overlay = modal.querySelector('.modal__overlay');
-      
+
       const closeModal = () => {
         modal.classList.remove('modal--visible');
         document.body.style.overflow = '';
@@ -48,15 +50,15 @@ export default function LeadMagnetsLogic() {
           modal.remove();
         }, 300);
       };
-      
+
       if (closeBtn) {
         closeBtn.addEventListener('click', closeModal);
       }
-      
+
       if (overlay) {
         overlay.addEventListener('click', closeModal);
       }
-      
+
       // Escape key handler
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -64,9 +66,9 @@ export default function LeadMagnetsLogic() {
           document.removeEventListener('keydown', handleEscape);
         }
       };
-      
+
       document.addEventListener('keydown', handleEscape);
-      
+
       // Form handler
       const form = modal.querySelector('form');
       if (form) {
@@ -75,7 +77,7 @@ export default function LeadMagnetsLogic() {
           await handleFormSubmit(form, modalType);
         });
       }
-      
+
       // Range input handler for calculator
       const rangeInput = modal.querySelector('input[type="range"]');
       if (rangeInput) {
@@ -88,18 +90,18 @@ export default function LeadMagnetsLogic() {
         });
       }
     }
-    
+
     function createModal(modalType: string): HTMLElement | null {
       const modal = document.createElement('div');
       modal.className = 'modal modal--lead-magnet';
-      
+
       const modalContent = getModalContent(modalType);
       if (!modalContent) return null;
-      
+
       modal.innerHTML = modalContent;
       return modal;
     }
-    
+
     function getModalContent(modalType: string): string {
       const modalTemplates: { [key: string]: string } = {
         consultation: `
@@ -142,7 +144,7 @@ export default function LeadMagnetsLogic() {
             </div>
           </div>
         `,
-        
+
         calculator: `
           <div class="modal__overlay"></div>
           <div class="modal__container">
@@ -202,7 +204,7 @@ export default function LeadMagnetsLogic() {
             </div>
           </div>
         `,
-        
+
         'guide-download': `
           <div class="modal__overlay"></div>
           <div class="modal__container">
@@ -243,7 +245,7 @@ export default function LeadMagnetsLogic() {
             </div>
           </div>
         `,
-        
+
         'checklist-download': `
           <div class="modal__overlay"></div>
           <div class="modal__container">
@@ -271,7 +273,7 @@ export default function LeadMagnetsLogic() {
             </div>
           </div>
         `,
-        
+
         test: `
           <div class="modal__overlay"></div>
           <div class="modal__container">
@@ -309,7 +311,7 @@ export default function LeadMagnetsLogic() {
             </div>
           </div>
         `,
-        
+
         emergency: `
           <div class="modal__overlay"></div>
           <div class="modal__container">
@@ -344,56 +346,54 @@ export default function LeadMagnetsLogic() {
               </form>
             </div>
           </div>
-        `
+        `,
       };
-      
+
       return modalTemplates[modalType] || '';
     }
-    
+
     async function handleFormSubmit(form: HTMLFormElement, modalType: string) {
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
       if (!submitBtn) return;
-      
+
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Отправляем...';
-      
+
       try {
         // Collect form data - will be sent to API when implemented
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const formData = new FormData(form);
+        // const formData = new FormData(form);
         // const data = Object.fromEntries(formData.entries());
-        // await fetch('/api/form', { method: 'POST', body: formData });
-        
+        // await fetch('/api/form', { method: 'POST', body: JSON.stringify(data) });
+
         // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         // Show success message
         showSuccessMessage(form, modalType);
-        
+
         // Track event
         trackAnalytics('form_submitted', { form_type: modalType });
-        
       } catch (error) {
         console.error('Form submission error:', error);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }
     }
-    
+
     function showSuccessMessage(form: HTMLFormElement, formType: string) {
       const modalBody = form.closest('.modal__body');
       if (!modalBody) return;
-      
+
       const messages: { [key: string]: string } = {
         consultation: 'Наш специалист свяжется с вами в течение 15 минут',
         calculator: 'Расчет отправлен на указанный номер телефона',
         guide: 'Гид отправлен на вашу электронную почту',
         checklist: 'Чек-лист отправлен на вашу почту',
         test: 'Результаты теста отправлены',
-        emergency: 'Экстренная заявка принята. Перезвоним в течение 2 часов!'
+        emergency: 'Экстренная заявка принята. Перезвоним в течение 2 часов!',
       };
-      
+
       modalBody.innerHTML = `
         <div class="success-message">
           <div class="success-message__icon">✅</div>
@@ -406,7 +406,7 @@ export default function LeadMagnetsLogic() {
           </button>
         </div>
       `;
-      
+
       const closeBtn = modalBody.querySelector('[data-modal-close]');
       if (closeBtn) {
         closeBtn.addEventListener('click', () => {
@@ -421,30 +421,30 @@ export default function LeadMagnetsLogic() {
         });
       }
     }
-    
+
     function formatCurrency(amount: number): string {
       return new Intl.NumberFormat('ru-RU', {
         style: 'currency',
         currency: 'RUB',
-        maximumFractionDigits: 0
+        maximumFractionDigits: 0,
       }).format(amount);
     }
-    
+
     function trackAnalytics(eventName: string, data: any) {
       // Google Analytics
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', eventName, {
           event_category: 'Lead Magnets',
-          ...data
+          ...data,
         });
       }
-      
+
       // Yandex Metrica
       if (typeof window !== 'undefined' && (window as any).ym) {
         (window as any).ym(88005553535, 'reachGoal', eventName, data);
       }
     }
-    
+
     // Add modal styles
     const style = document.createElement('style');
     style.textContent = `
@@ -698,14 +698,14 @@ export default function LeadMagnetsLogic() {
       }
     `;
     document.head.appendChild(style);
-    
+
     // Cleanup function
     return () => {
-      buttons.forEach(button => {
+      buttons.forEach((button) => {
         button.removeEventListener('click', handleButtonClick);
       });
     };
   }, []);
-  
+
   return null;
 }

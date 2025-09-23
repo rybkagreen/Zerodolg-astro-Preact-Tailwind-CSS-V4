@@ -1,5 +1,30 @@
 import { useEffect } from 'preact/hooks';
 
+interface TeamMember {
+  id: string;
+  name: string;
+  position: string;
+  photo: string;
+  role: string;
+  quote: string;
+  description: string;
+  stats: {
+    experience: string;
+    cases: string;
+    success: string;
+  };
+  specializations: string[];
+  achievements: string[];
+  contacts: {
+    phone: string;
+    email: string;
+  };
+}
+
+interface TeamInteractiveProps {
+  members?: TeamMember[];
+}
+
 /**
  * Team Interactive Component Logic
  * Handles tab switching for team members
@@ -8,8 +33,12 @@ class TeamInteractive {
   private section: HTMLElement | null = null;
   private tabs: HTMLElement[] = [];
   private members: HTMLElement[] = [];
-  private currentMember: string = 'mashulia';
+  private currentMember: string = '';
   private initialized: boolean = false;
+
+  constructor(members: TeamMember[]) {
+    this.currentMember = members.length > 0 ? members[0].id : '';
+  }
 
   init(): void {
     this.section = document.querySelector('.team-interactive');
@@ -51,10 +80,10 @@ class TeamInteractive {
     // Keyboard navigation between tabs
     if (this.section) {
       this.section.addEventListener('keydown', (e) => {
-      const keyEvent = e as KeyboardEvent;
-      if (keyEvent.key === 'ArrowDown' || keyEvent.key === 'ArrowUp') {
-        this.handleArrowNavigation(keyEvent);
-      }
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'ArrowDown' || keyEvent.key === 'ArrowUp') {
+          this.handleArrowNavigation(keyEvent);
+        }
       });
     }
 
@@ -150,38 +179,50 @@ class TeamInteractive {
 
     if (!touchTarget) return;
 
-    touchTarget.addEventListener('touchstart', (e) => {
-      const touchEvent = e as TouchEvent;
-      touchStartX = touchEvent.changedTouches[0].screenX;
-      touchStartY = touchEvent.changedTouches[0].screenY;
-      isSwiping = true;
-    }, { passive: true });
+    touchTarget.addEventListener(
+      'touchstart',
+      (e) => {
+        const touchEvent = e as TouchEvent;
+        touchStartX = touchEvent.changedTouches[0].screenX;
+        touchStartY = touchEvent.changedTouches[0].screenY;
+        isSwiping = true;
+      },
+      { passive: true }
+    );
 
-    touchTarget.addEventListener('touchmove', (e) => {
-      if (!isSwiping) return;
-      
-      const touchEvent = e as TouchEvent;
-      // Calculate the swipe angle to determine if it's horizontal
-      const currentX = touchEvent.changedTouches[0].screenX;
-      const currentY = touchEvent.changedTouches[0].screenY;
-      const diffX = Math.abs(currentX - touchStartX);
-      const diffY = Math.abs(currentY - touchStartY);
-      
-      // If vertical swipe is dominant, don't handle as team switch
-      if (diffY > diffX) {
+    touchTarget.addEventListener(
+      'touchmove',
+      (e) => {
+        if (!isSwiping) return;
+
+        const touchEvent = e as TouchEvent;
+        // Calculate the swipe angle to determine if it's horizontal
+        const currentX = touchEvent.changedTouches[0].screenX;
+        const currentY = touchEvent.changedTouches[0].screenY;
+        const diffX = Math.abs(currentX - touchStartX);
+        const diffY = Math.abs(currentY - touchStartY);
+
+        // If vertical swipe is dominant, don't handle as team switch
+        if (diffY > diffX) {
+          isSwiping = false;
+        }
+      },
+      { passive: true }
+    );
+
+    touchTarget.addEventListener(
+      'touchend',
+      (e) => {
+        if (!isSwiping) return;
+
+        const touchEvent = e as TouchEvent;
+        touchEndX = touchEvent.changedTouches[0].screenX;
+        touchEndY = touchEvent.changedTouches[0].screenY;
+        this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
         isSwiping = false;
-      }
-    }, { passive: true });
-
-    touchTarget.addEventListener('touchend', (e) => {
-      if (!isSwiping) return;
-      
-      const touchEvent = e as TouchEvent;
-      touchEndX = touchEvent.changedTouches[0].screenX;
-      touchEndY = touchEvent.changedTouches[0].screenY;
-      this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
-      isSwiping = false;
-    }, { passive: true });
+      },
+      { passive: true }
+    );
   }
 
   private handleSwipe(startX: number, startY: number, endX: number, endY: number): void {
@@ -194,7 +235,7 @@ class TeamInteractive {
       const currentIndex = this.tabs.findIndex(
         (tab) => (tab as HTMLElement).dataset.member === this.currentMember
       );
-      
+
       if (diffX > 0 && currentIndex < this.tabs.length - 1) {
         // Swipe left - next member
         const nextMemberId = (this.tabs[currentIndex + 1] as HTMLElement).dataset.member;
@@ -220,7 +261,7 @@ class TeamInteractive {
     const indicator = document.createElement('div');
     indicator.className = `swipe-indicator swipe-indicator--${direction}`;
     this.section?.appendChild(indicator);
-    
+
     setTimeout(() => {
       indicator.remove();
     }, 500);
@@ -228,10 +269,10 @@ class TeamInteractive {
 
   private getMemberName(memberId: string): string {
     const names: Record<string, string> = {
-      'mashulia': 'Масхулиа Л.З.',
-      'strukova': 'Струкова А.',
-      'pashkova': 'Пашкова Д.К.',
-      'bryantsev': 'Брянцев А.',
+      mashulia: 'Масхулиа Л.З.',
+      strukova: 'Струкова А.',
+      pashkova: 'Пашкова Д.К.',
+      bryantsev: 'Брянцев А.',
     };
     return names[memberId] || memberId;
   }
@@ -253,10 +294,10 @@ class TeamInteractive {
 }
 
 // Component to initialize the team interactive functionality
-export default function TeamInteractiveComponent() {
+export default function TeamInteractiveComponent({ members = [] }: TeamInteractiveProps) {
   useEffect(() => {
     // Initialize the team interactive functionality
-    const teamInteractive = new TeamInteractive();
+    const teamInteractive = new TeamInteractive(members);
     teamInteractive.init();
 
     // Store instance for potential cleanup or debugging
@@ -266,7 +307,7 @@ export default function TeamInteractiveComponent() {
     return () => {
       // Remove event listeners if needed (though the component handles this internally)
     };
-  }, []);
+  }, [members]);
 
   return null; // This component doesn't render anything
 }

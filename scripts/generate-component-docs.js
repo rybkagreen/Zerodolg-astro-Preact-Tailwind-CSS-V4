@@ -2,7 +2,7 @@
 
 /**
  * Скрипт для генерации документации по компонентам
- * 
+ *
  * Этот скрипт сканирует директорию src/components и создает
  * документацию по каждому компоненту на основе JSDoc комментариев.
  */
@@ -24,22 +24,22 @@ const componentsDocFile = path.join(docsDir, 'components-auto.md');
 function extractJSDoc(content) {
   const jsDocRegex = /\/\*\*\s*\n([\s\S]*?)\s*\*\//;
   const match = content.match(jsDocRegex);
-  
+
   if (!match) return null;
-  
+
   const jsDocContent = match[1];
-  const lines = jsDocContent.split('\n').map(line => line.trim().replace(/^\*\s?/, ''));
-  
+  const lines = jsDocContent.split('\n').map((line) => line.trim().replace(/^\*\s?/, ''));
+
   const componentInfo = {
     name: '',
     description: '',
     example: '',
-    props: []
+    props: [],
   };
-  
+
   let currentSection = '';
   let currentProp = null;
-  
+
   for (const line of lines) {
     if (line.startsWith('@component')) {
       componentInfo.name = line.replace('@component ', '').trim();
@@ -56,7 +56,7 @@ function extractJSDoc(content) {
         currentProp = {
           type: propMatch[1],
           name: propMatch[2],
-          description: propMatch[3]
+          description: propMatch[3],
         };
         componentInfo.props.push(currentProp);
       }
@@ -71,7 +71,7 @@ function extractJSDoc(content) {
       }
     }
   }
-  
+
   return componentInfo;
 }
 
@@ -79,28 +79,28 @@ function extractJSDoc(content) {
 async function scanComponents(dir, prefix = '') {
   const components = [];
   const items = await fs.readdir(dir);
-  
+
   for (const item of items) {
     const itemPath = path.join(dir, item);
     const stat = await fs.stat(itemPath);
-    
+
     if (stat.isDirectory()) {
       const subComponents = await scanComponents(itemPath, `${prefix}${item}/`);
       components.push(...subComponents);
     } else if (item.endsWith('.astro')) {
       const content = await fs.readFile(itemPath, 'utf8');
       const jsDocInfo = extractJSDoc(content);
-      
+
       if (jsDocInfo) {
         components.push({
           ...jsDocInfo,
           filePath: itemPath.replace(srcComponentsDir, '').substring(1),
-          relativePath: `${prefix}${item}`
+          relativePath: `${prefix}${item}`,
         });
       }
     }
   }
-  
+
   return components;
 }
 
@@ -113,45 +113,45 @@ function generateMarkdown(components) {
 ## Содержание
 
 `;
-  
+
   // Добавляем содержание
   components.forEach((component, index) => {
     markdown += `${index + 1}. [${component.name || component.relativePath}](#${component.name ? component.name.toLowerCase() : component.relativePath.replace(/\//g, '-').replace('.astro', '')})\n`;
   });
-  
+
   markdown += '\n';
-  
+
   // Добавляем документацию по каждому компоненту
   components.forEach((component, index) => {
     markdown += `## ${index + 1}. ${component.name || component.relativePath}\n\n`;
     markdown += `**Путь:** \`${component.filePath}\`\n\n`;
-    
+
     if (component.description) {
       markdown += `**Описание:** ${component.description}\n\n`;
     }
-    
+
     if (component.props && component.props.length > 0) {
       markdown += `**Props:**\n\n`;
       markdown += `| Название | Тип | Описание |\n`;
       markdown += `|----------|-----|----------|\n`;
-      
-      component.props.forEach(prop => {
+
+      component.props.forEach((prop) => {
         markdown += `| \`${prop.name}\` | \`${prop.type}\` | ${prop.description} |\n`;
       });
-      
+
       markdown += '\n';
     }
-    
+
     if (component.example) {
       markdown += `**Пример использования:**\n\n`;
       markdown += '```astro\n';
       markdown += component.example;
       markdown += '\n```\n\n';
     }
-    
+
     markdown += '---\n\n';
   });
-  
+
   return markdown;
 }
 
@@ -160,20 +160,20 @@ async function main() {
   try {
     console.log('Сканирование компонентов...');
     const components = await scanComponents(srcComponentsDir);
-    
+
     console.log(`Найдено ${components.length} компонентов с JSDoc комментариями`);
-    
+
     if (components.length === 0) {
       console.log('Компоненты с JSDoc комментариями не найдены');
       return;
     }
-    
+
     console.log('Генерация Markdown документации...');
     const markdown = generateMarkdown(components);
-    
+
     console.log(`Сохранение документации в ${componentsDocFile}...`);
     await fs.writeFile(componentsDocFile, markdown);
-    
+
     console.log('Документация успешно сгенерирована!');
   } catch (error) {
     console.error('Ошибка при генерации документации:', error);

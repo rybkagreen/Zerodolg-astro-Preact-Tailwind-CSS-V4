@@ -19,7 +19,11 @@
 
 /* Special offer card - main container */
 .special-offer__card {
-  background: linear-gradient(135deg, var(--color-bg, #ffffff) 0%, var(--color-bg-accent, #eff6ff) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-bg, #ffffff) 0%,
+    var(--color-bg-accent, #eff6ff) 100%
+  );
   border-radius: var(--radius-xl, 1rem);
   overflow: hidden;
   position: relative;
@@ -74,8 +78,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 /* Badges section */
@@ -129,7 +138,7 @@
 }
 
 .special-offer__list li::before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
   color: var(--color-success);
@@ -185,7 +194,7 @@
 }
 
 .special-offer--limited::before {
-  content: "Ограниченное предложение";
+  content: 'Ограниченное предложение';
   position: absolute;
   top: var(--space-md, 1rem);
   right: var(--space-md, 1rem);

@@ -24,7 +24,7 @@ export default function SocialLinksLogic() {
         window.gtag('event', 'social_link_click', {
           social_platform: platform,
           link_position: index,
-          link_url: url
+          link_url: url,
         });
       }
 
@@ -33,7 +33,7 @@ export default function SocialLinksLogic() {
         window.ym(window.yaCounterId, 'reachGoal', 'social_link_click', {
           platform: platform,
           position: index,
-          url: url
+          url: url,
         });
       }
 
@@ -46,13 +46,13 @@ export default function SocialLinksLogic() {
 
     // Add event listeners to social link containers
     const containers = document.querySelectorAll('[data-social-links]');
-    containers.forEach(container => {
+    containers.forEach((container) => {
       container.addEventListener('click', handleSocialClick as EventListener);
     });
 
     // Cleanup function
     return () => {
-      containers.forEach(container => {
+      containers.forEach((container) => {
         container.removeEventListener('click', handleSocialClick as EventListener);
       });
     };

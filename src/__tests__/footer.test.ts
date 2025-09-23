@@ -10,8 +10,8 @@ describe('Footer Component', () => {
           { label: 'Банкротство физических лиц', href: '/services/bankruptcy' },
           { label: 'Реструктуризация долгов', href: '/services/restructuring' },
           { label: 'Защита от коллекторов', href: '/services/protection' },
-          { label: 'Юридическое сопровождение', href: '/services/legal-support' }
-        ]
+          { label: 'Юридическое сопровождение', href: '/services/legal-support' },
+        ],
       },
       company: {
         title: 'Компания',
@@ -19,8 +19,8 @@ describe('Footer Component', () => {
           { label: 'О нас', href: '/about' },
           { label: 'Команда', href: '/team' },
           { label: 'Отзывы', href: '/reviews' },
-          { label: 'Блог', href: '/blog' }
-        ]
+          { label: 'Блог', href: '/blog' },
+        ],
       },
       legal: {
         title: 'Правовая информация',
@@ -28,24 +28,24 @@ describe('Footer Component', () => {
           { label: 'Политика конфиденциальности', href: '/privacy-policy' },
           { label: 'Пользовательское соглашение', href: '/terms-of-use' },
           { label: 'Договор оферты', href: '/offer-agreement' },
-          { label: 'Реквизиты', href: '/requisites' }
-        ]
-      }
+          { label: 'Реквизиты', href: '/requisites' },
+        ],
+      },
     };
 
     // Validate navigation structure
     expect(footerNavigation.services.title).toBe('Услуги');
     expect(footerNavigation.services.items.length).toBe(4);
-    
+
     expect(footerNavigation.company.title).toBe('Компания');
     expect(footerNavigation.company.items.length).toBe(4);
-    
+
     expect(footerNavigation.legal.title).toBe('Правовая информация');
     expect(footerNavigation.legal.items.length).toBe(4);
 
     // Validate all items have required properties
-    Object.values(footerNavigation).forEach(section => {
-      section.items.forEach(item => {
+    Object.values(footerNavigation).forEach((section) => {
+      section.items.forEach((item) => {
         expect(item.label).toBeDefined();
         expect(item.href).toBeDefined();
         expect(typeof item.label).toBe('string');
@@ -62,11 +62,12 @@ describe('Footer Component', () => {
       phone: '+7 (905) 577-33-87',
       email: 'info@zerodolg.ru',
       address: 'г. Москва, ул. Примерная, д. 1',
-      workingHours: 'Пн-Пт: 9:00-18:00'
+      workingHours: 'Пн-Пт: 9:00-18:00',
     };
 
     // Validate phone number format
-    const phoneRegex = /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+    const phoneRegex =
+      /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
     expect(phoneRegex.test(contactInfo.phone.replace(/\s/g, ''))).toBe(true);
 
     // Validate email format
@@ -88,7 +89,7 @@ describe('Footer Component', () => {
       { platform: 'vk', url: 'https://vk.com/zerodolg', icon: 'vk' },
       { platform: 'telegram', url: 'https://t.me/zerodolg', icon: 'telegram' },
       { platform: 'whatsapp', url: 'https://wa.me/79055773387', icon: 'whatsapp' },
-      { platform: 'youtube', url: 'https://youtube.com/zerodolg', icon: 'youtube' }
+      { platform: 'youtube', url: 'https://youtube.com/zerodolg', icon: 'youtube' },
     ];
 
     const isValidUrl = (urlString: string) => {
@@ -100,7 +101,7 @@ describe('Footer Component', () => {
       }
     };
 
-    socialLinks.forEach(link => {
+    socialLinks.forEach((link) => {
       expect(isValidUrl(link.url)).toBe(true);
       expect(typeof link.platform).toBe('string');
       expect(typeof link.icon).toBe('string');
@@ -109,11 +110,11 @@ describe('Footer Component', () => {
     });
 
     // Test specific platforms
-    const vkLink = socialLinks.find(l => l.platform === 'vk');
+    const vkLink = socialLinks.find((l) => l.platform === 'vk');
     expect(vkLink).toBeDefined();
     expect(vkLink?.url).toBe('https://vk.com/zerodolg');
 
-    const telegramLink = socialLinks.find(l => l.platform === 'telegram');
+    const telegramLink = socialLinks.find((l) => l.platform === 'telegram');
     expect(telegramLink).toBeDefined();
     expect(telegramLink?.url).toBe('https://t.me/zerodolg');
   });
@@ -124,10 +125,10 @@ describe('Footer Component', () => {
       { title: 'Политика конфиденциальности', href: '/privacy-policy' },
       { title: 'Пользовательское соглашение', href: '/terms-of-use' },
       { title: 'Договор оферты', href: '/offer-agreement' },
-      { title: 'Реквизиты компании', href: '/requisites' }
+      { title: 'Реквизиты компании', href: '/requisites' },
     ];
 
-    legalDocuments.forEach(doc => {
+    legalDocuments.forEach((doc) => {
       expect(typeof doc.title).toBe('string');
       expect(typeof doc.href).toBe('string');
       expect(doc.title.length).toBeGreaterThan(5);
@@ -136,11 +137,11 @@ describe('Footer Component', () => {
     });
 
     // Test specific documents
-    const privacyPolicy = legalDocuments.find(d => d.title.includes('Политика'));
+    const privacyPolicy = legalDocuments.find((d) => d.title.includes('Политика'));
     expect(privacyPolicy).toBeDefined();
     expect(privacyPolicy?.href).toBe('/privacy-policy');
 
-    const termsOfUse = legalDocuments.find(d => d.title.includes('Пользовательское'));
+    const termsOfUse = legalDocuments.find((d) => d.title.includes('Пользовательское'));
     expect(termsOfUse).toBeDefined();
     expect(termsOfUse?.href).toBe('/terms-of-use');
   });
@@ -149,15 +150,15 @@ describe('Footer Component', () => {
   it('should validate newsletter subscription correctly', () => {
     const subscribeToNewsletter = (email: string) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      
+
       if (!email) {
         return { success: false, error: 'Email обязателен' };
       }
-      
+
       if (!emailRegex.test(email)) {
         return { success: false, error: 'Неверный формат email' };
       }
-      
+
       // Simulate successful subscription
       return { success: true, message: 'Вы успешно подписались на рассылку!' };
     };
@@ -206,7 +207,7 @@ describe('Footer Component', () => {
       social: 'Ссылки на социальные сети',
       contact: 'Контактная информация',
       legal: 'Правовая информация',
-      newsletter: 'Подписка на рассылку'
+      newsletter: 'Подписка на рассылку',
     };
 
     Object.entries(footerAriaLabels).forEach(([key, label]) => {
@@ -217,7 +218,7 @@ describe('Footer Component', () => {
 
     // Test navigation aria-label
     expect(footerAriaLabels.navigation).toBe('Навигация по сайту в подвале');
-    
+
     // Test social links aria-label
     expect(footerAriaLabels.social).toBe('Ссылки на социальные сети');
   });

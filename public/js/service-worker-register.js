@@ -4,13 +4,14 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     // Register the service worker
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then((registration) => {
         console.log('[Service Worker] Registration successful with scope:', registration.scope);
-        
+
         // Check for updates
         registration.update();
-        
+
         // Listen for updates
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
@@ -27,11 +28,11 @@ if ('serviceWorker' in navigator) {
           }
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('[Service Worker] Registration failed:', error);
       });
   });
-  
+
   // Listen for controlling service worker changes
   let refreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -60,7 +61,7 @@ function showUpdateNotification() {
     font-size: 14px;
     max-width: 300px;
   `;
-  
+
   notification.innerHTML = `
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
       <span>Доступно обновление контента</span>
@@ -76,9 +77,9 @@ function showUpdateNotification() {
       ">Обновить</button>
     </div>
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   // Add click event to refresh button
   const refreshBtn = notification.querySelector('#refresh-btn');
   refreshBtn.addEventListener('click', () => {
@@ -89,7 +90,7 @@ function showUpdateNotification() {
       window.location.reload();
     }
   });
-  
+
   // Auto-hide after 10 seconds
   setTimeout(() => {
     if (notification.parentNode) {

@@ -11,10 +11,10 @@ interface StickyPanelProps {
   cookieDays?: number;
 }
 
-export default function StickyPanel({ 
+export default function StickyPanel({
   delay = 5000,
   scrollThreshold = 300,
-  cookieDays = 1
+  cookieDays = 1,
 }: StickyPanelProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenShown, setHasBeenShown] = useState(false);
@@ -34,7 +34,7 @@ export default function StickyPanel({
 
   const setCookie = (name: string, value: string, days: number) => {
     const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
   };
 
@@ -86,7 +86,7 @@ export default function StickyPanel({
 
     panel.removeAttribute('hidden');
     panel.classList.add('sticky-panel--visible');
-    
+
     requestAnimationFrame(() => {
       panel.classList.add('sticky-panel--animate');
     });
@@ -154,7 +154,7 @@ export default function StickyPanel({
 
     // Setup CTA buttons
     const ctaButtons = panel.querySelectorAll('[data-modal]');
-    ctaButtons.forEach(btn => {
+    ctaButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
         const modalName = target.getAttribute('data-modal');
@@ -170,9 +170,11 @@ export default function StickyPanel({
 
         // Trigger modal
         if (modalName) {
-          window.dispatchEvent(new CustomEvent('open-modal', {
-            detail: { modal: modalName },
-          }));
+          window.dispatchEvent(
+            new CustomEvent('open-modal', {
+              detail: { modal: modalName },
+            })
+          );
         }
 
         // Hide panel
@@ -209,7 +211,7 @@ export default function StickyPanel({
         clearInterval(countdownRef.current);
       }
       window.removeEventListener('scroll', handleScroll);
-      
+
       if (closeBtn) {
         closeBtn.removeEventListener('click', hide);
       }

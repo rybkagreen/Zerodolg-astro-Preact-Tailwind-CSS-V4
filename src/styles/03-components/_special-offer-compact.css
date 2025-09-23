@@ -11,14 +11,13 @@
   z-index: 1000;
   width: 320px;
   max-width: calc(100vw - 40px);
-  background: linear-gradient(135deg, 
-    rgba(30, 41, 59, 0.7) 0%,
-    rgba(51, 65, 85, 0.7) 100%);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(51, 65, 85, 0.7) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
-              0 0 40px rgba(59, 130, 246, 0.08);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    0 0 40px rgba(59, 130, 246, 0.08);
   border: 1px solid rgba(59, 130, 246, 0.2);
   animation: slideInCompact 0.5s ease-out;
   transition: all 0.3s ease;
@@ -199,9 +198,7 @@
 .cta-button-compact {
   width: 100%;
   padding: 10px 16px;
-  background: linear-gradient(135deg, 
-    rgba(251, 146, 60, 0.9),
-    rgba(249, 115, 22, 0.9));
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.9), rgba(249, 115, 22, 0.9));
   backdrop-filter: blur(8px);
   border: 1px solid rgba(251, 146, 60, 0.3);
   border-radius: 8px;
@@ -212,17 +209,17 @@
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 4px 12px rgba(249, 115, 22, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .cta-button-compact:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35),
-              inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  background: linear-gradient(135deg, 
-    rgba(249, 115, 22, 0.95),
-    rgba(234, 88, 12, 0.95));
+  box-shadow:
+    0 6px 20px rgba(249, 115, 22, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.95), rgba(234, 88, 12, 0.95));
 }
 
 .cta-button-compact:active {
@@ -243,16 +240,15 @@
 
 .social-proof-notification {
   min-width: 260px;
-  background: linear-gradient(135deg, 
-    rgba(30, 41, 59, 0.7) 0%,
-    rgba(51, 65, 85, 0.7) 100%);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(51, 65, 85, 0.7) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 10px;
   padding: 10px 14px;
   margin-bottom: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
-              0 0 30px rgba(59, 130, 246, 0.06);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(59, 130, 246, 0.06);
   border: 1px solid rgba(59, 130, 246, 0.2);
   animation: slideInLeft 0.4s ease-out;
   pointer-events: auto;
@@ -262,8 +258,9 @@
 
 .social-proof-notification:hover {
   transform: translateX(5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25),
-              0 0 40px rgba(59, 130, 246, 0.12);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(59, 130, 246, 0.12);
 }
 
 @keyframes slideInLeft {
@@ -333,48 +330,48 @@
     left: 10px;
     bottom: 10px;
   }
-  
+
   .offer-content.compact {
     gap: 8px;
   }
-  
+
   .offer-title-compact {
     font-size: 11px;
   }
-  
+
   .new-price-compact {
     font-size: 13px;
   }
-  
+
   .cta-button-compact {
     font-size: 10px;
     padding: 7px 10px;
   }
-  
+
   .social-proof-container {
     left: 10px;
     right: 10px;
     bottom: auto;
     top: 60px;
   }
-  
+
   .social-proof-notification {
     min-width: auto;
     width: 100%;
     margin-bottom: 8px;
     padding: 8px 12px;
   }
-  
+
   .notification-avatar {
     width: 28px;
     height: 28px;
     font-size: 11px;
   }
-  
+
   .notification-title {
     font-size: 10px;
   }
-  
+
   .notification-subtitle {
     font-size: 9px;
   }
@@ -386,7 +383,7 @@
   .social-proof-notification {
     animation: none;
   }
-  
+
   * {
     transition-duration: 0.01ms !important;
   }

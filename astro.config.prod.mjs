@@ -16,14 +16,14 @@ export default defineConfig({
       customPages: [
         'https://zerodolg.ru/',
         'https://zerodolg.ru/#reviews',
-        'https://zerodolg.ru/#faq'
+        'https://zerodolg.ru/#faq',
       ],
       i18n: {
         defaultLocale: 'ru',
         locales: {
           ru: 'ru',
-        }
-      }
+        },
+      },
     }),
     // Robots.txt generation
     robotsTxt({
@@ -31,11 +31,11 @@ export default defineConfig({
         {
           userAgent: '*',
           allow: '/',
-          disallow: ['/admin', '/private/']
-        }
+          disallow: ['/admin', '/private/'],
+        },
       ],
-      sitemap: true
-    })
+      sitemap: true,
+    }),
   ],
   output: 'static', // Static site generation mode
   build: {
@@ -44,7 +44,7 @@ export default defineConfig({
     serverEntry: 'entry.mjs',
   },
   devToolbar: {
-    enabled: false
+    enabled: false,
   },
   vite: {
     build: {
@@ -79,10 +79,10 @@ export default defineConfig({
           // Better chunk naming
           chunkFileNames: 'chunks/[name].[hash].js',
           assetFileNames: 'assets/[name].[hash].[ext]',
-        }
+        },
       },
       // Report compressed chunk sizes
-      chunkSizeWarningLimit: 1000
+      chunkSizeWarningLimit: 1000,
     },
     // Production-specific Vite settings
     appType: 'custom',
@@ -98,5 +98,5 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport',
-  }
+  },
 });

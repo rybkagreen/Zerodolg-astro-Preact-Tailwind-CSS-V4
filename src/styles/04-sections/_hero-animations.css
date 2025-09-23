@@ -9,7 +9,7 @@
   --hero-anim-duration-normal: 500ms;
   --hero-anim-duration-slow: 800ms;
   --hero-anim-duration-gradient: 20s;
-  
+
   --hero-anim-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --hero-anim-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --hero-anim-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -34,7 +34,8 @@
 
 /* Subtle gradient shift animation */
 @keyframes heroGradientShift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -56,12 +57,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
   animation: heroRotate 30s linear infinite;
   pointer-events: none;
 }
@@ -126,7 +122,8 @@
 
 /* CTA Button pulse */
 @keyframes heroPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 4px 20px rgba(234, 88, 12, 0.3);
   }
@@ -151,7 +148,11 @@
 
 /* Urgency indicator bounce */
 @keyframes heroUrgencyBounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -203,7 +204,8 @@
 
 /* Float animation for trust elements */
 @keyframes heroFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -326,7 +328,7 @@
     animation: none;
     transition: opacity var(--hero-anim-duration-fast) ease;
   }
-  
+
   /* Keep essential opacity transitions */
   .hero__title,
   .hero__subtitle,
@@ -346,7 +348,7 @@
   .hero::before {
     animation: none;
   }
-  
+
   /* Simplify gradient animation */
   .hero {
     animation-duration: 30s;

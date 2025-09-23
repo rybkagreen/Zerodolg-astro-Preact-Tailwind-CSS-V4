@@ -3,24 +3,40 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": ["astro/client", "jest"],
+    "types": ["astro/client"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
     "allowJs": true,
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@widgets/*": ["src/widgets/*"],
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/core/types/*"],
+      "@utils/*": ["src/shared/utils/*"]
+    }
   },
-  "include": [
-    ".astro/types.d.ts",
-    "**/*",
-    "src/**/*",
-    "src/__tests__/**/*"
-  ],
+  "include": [".astro/types.d.ts", "src/**/*"],
   "exclude": [
     "dist",
     "node_modules",
     ".astro",
-    "coverage"
+    "coverage",
+    "scripts",
+    "src/__tests__/**/*",
+    "astro.config.mjs",
+    "astro.config.prod.mjs",
+    "eslint.config.js"
   ]
 }

@@ -1,80 +1,11 @@
-# Robots.txt для zerodolg.ru
-# Сайт юридических услуг по банкротству физических лиц
-# Последнее обновление: 2025-09-04
+# robots.txt for ZeroDolg.ru
 
-# Основной доступ для всех поисковых роботов
 User-agent: *
 Allow: /
-Allow: /blog/
-Allow: /assets/
-Allow: /images/
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.png$
-Allow: /*.gif$
-Allow: /*.svg$
-Allow: /*.webp$
-Allow: /*.woff$
-Allow: /*.woff2$
-Disallow: /cgi-bin/
-Disallow: /.env.php
-Disallow: /data/
-Disallow: /process_killer.php
-Disallow: /process_monitor.php
+
 Disallow: /admin/
-Disallow: /temp/
-Disallow: /cache/
-Disallow: /includes/
-Disallow: /test-utc.html
-Disallow: /*?utm_*
-Disallow: /*?yclid=*
-Disallow: /*?gclid=*
-Disallow: /*?fbclid=*
-Disallow: /*&utm_*
-Disallow: /*&yclid=*
-Disallow: /*&gclid=*
-Disallow: /*&fbclid=*
+Disallow: /api/
 
-# Специальные правила для Яндекса
-User-agent: Yandex
-Allow: /
-Disallow: /cgi-bin/
-Disallow: /.env.php
-Disallow: /data/logs/
-Disallow: /admin/
-Disallow: /temp/
-Crawl-delay: 1
-Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid
-
-# Специальные правила для Google
-User-agent: Googlebot
-Allow: /
-Disallow: /cgi-bin/
-Disallow: /.env.php
-Disallow: /data/logs/
-Disallow: /admin/
-Disallow: /temp/
-Crawl-delay: 1
-
-# Правила для изображений Google
-User-agent: Googlebot-Image
-Allow: /images/
-Allow: /assets/images/
-Disallow: /temp/
-Disallow: /cache/
-
-# Правила для Яндекс.Картинок
-User-agent: YandexImages
-Allow: /images/
-Allow: /assets/images/
-Disallow: /temp/
-Disallow: /cache/
-
-# Карта сайта
 Sitemap: https://zerodolg.ru/sitemap.xml
 
-# Host directive для Яндекса
-Host: https://zerodolg.ru
-
+Host: zerodolg.ru

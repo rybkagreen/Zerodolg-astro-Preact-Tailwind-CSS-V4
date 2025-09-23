@@ -17,20 +17,20 @@ export default function ScrollAnimations({
   offset = 120,
   duration = 800,
   once = false,
-  mirror = false
+  mirror = false,
 }: ScrollAnimationsProps) {
   // anchorPlacement parameter available but unused in current implementation
   useEffect(() => {
     // Get all elements with data-aos attribute
     const animatedElements = document.querySelectorAll('[data-aos]');
-    
+
     if (animatedElements.length === 0) return;
 
     // IntersectionObserver options
     const observerOptions = {
       root: null,
       rootMargin: `-${offset}px 0px`,
-      threshold: 0.1
+      threshold: 0.1,
     };
 
     // Track which elements have been animated
@@ -40,12 +40,12 @@ export default function ScrollAnimations({
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         const element = entry.target as HTMLElement;
-        
+
         if (entry.isIntersecting) {
           // Element is visible - add animation
           element.classList.add('aos-animated');
           animatedSet.add(element);
-          
+
           // If once is true, stop observing this element
           if (once) {
             observer.unobserve(element);

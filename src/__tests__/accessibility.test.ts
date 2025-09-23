@@ -5,54 +5,54 @@ describe('Accessibility Tests', () => {
   it('should generate correct accessibility attributes', () => {
     const accessibilityHelper = {
       roles: {
-        'button': 'button',
-        'navigation': 'navigation',
-        'main': 'main',
-        'complementary': 'complementary',
-        'contentinfo': 'contentinfo',
-        'banner': 'banner',
-        'dialog': 'dialog',
-        'alertdialog': 'alertdialog'
+        button: 'button',
+        navigation: 'navigation',
+        main: 'main',
+        complementary: 'complementary',
+        contentinfo: 'contentinfo',
+        banner: 'banner',
+        dialog: 'dialog',
+        alertdialog: 'alertdialog',
       },
       ariaStates: {
-        'expanded': 'aria-expanded',
-        'pressed': 'aria-pressed',
-        'selected': 'aria-selected',
-        'checked': 'aria-checked',
-        'hidden': 'aria-hidden',
-        'busy': 'aria-busy',
-        'current': 'aria-current'
+        expanded: 'aria-expanded',
+        pressed: 'aria-pressed',
+        selected: 'aria-selected',
+        checked: 'aria-checked',
+        hidden: 'aria-hidden',
+        busy: 'aria-busy',
+        current: 'aria-current',
       },
       landmarks: {
-        'main': 'main',
-        'navigation': 'navigation',
-        'complementary': 'complementary',
-        'contentinfo': 'contentinfo',
-        'banner': 'banner',
-        'search': 'search',
-        'form': 'form'
+        main: 'main',
+        navigation: 'navigation',
+        complementary: 'complementary',
+        contentinfo: 'contentinfo',
+        banner: 'banner',
+        search: 'search',
+        form: 'form',
       },
-      generateLabel: function(element: string, text: string) {
+      generateLabel: function (element: string, text: string) {
         return {
           'aria-label': text,
-          'data-element': element
+          'data-element': element,
         };
       },
-      generateDescribedBy: function(descriptionId: string) {
+      generateDescribedBy: function (descriptionId: string) {
         return {
-          'aria-describedby': descriptionId
+          'aria-describedby': descriptionId,
         };
       },
-      generateControls: function(controlledId: string) {
+      generateControls: function (controlledId: string) {
         return {
-          'aria-controls': controlledId
+          'aria-controls': controlledId,
         };
       },
-      generateOwns: function(ownedId: string) {
+      generateOwns: function (ownedId: string) {
         return {
-          'aria-owns': ownedId
+          'aria-owns': ownedId,
         };
-      }
+      },
     };
 
     // Test role generation
@@ -92,55 +92,55 @@ describe('Accessibility Tests', () => {
     const semanticChecker = {
       semanticTags: {
         // Content sectioning
-        'header': 'banner',
-        'nav': 'navigation',
-        'main': 'main',
-        'section': 'region',
-        'article': 'article',
-        'aside': 'complementary',
-        'footer': 'contentinfo',
-        
+        header: 'banner',
+        nav: 'navigation',
+        main: 'main',
+        section: 'region',
+        article: 'article',
+        aside: 'complementary',
+        footer: 'contentinfo',
+
         // Text content
-        'h1': 'heading',
-        'h2': 'heading',
-        'h3': 'heading',
-        'h4': 'heading',
-        'h5': 'heading',
-        'h6': 'heading',
-        'p': 'paragraph',
-        'blockquote': 'blockquote',
-        'pre': 'code',
-        
+        h1: 'heading',
+        h2: 'heading',
+        h3: 'heading',
+        h4: 'heading',
+        h5: 'heading',
+        h6: 'heading',
+        p: 'paragraph',
+        blockquote: 'blockquote',
+        pre: 'code',
+
         // Embedded content
-        'img': 'img',
-        'video': 'video',
-        'audio': 'audio',
-        'canvas': 'canvas',
-        
+        img: 'img',
+        video: 'video',
+        audio: 'audio',
+        canvas: 'canvas',
+
         // Table content
-        'table': 'table',
-        'caption': 'caption',
-        'thead': 'rowgroup',
-        'tbody': 'rowgroup',
-        'tfoot': 'rowgroup',
-        'tr': 'row',
-        'td': 'cell',
-        'th': 'columnheader',
-        
+        table: 'table',
+        caption: 'caption',
+        thead: 'rowgroup',
+        tbody: 'rowgroup',
+        tfoot: 'rowgroup',
+        tr: 'row',
+        td: 'cell',
+        th: 'columnheader',
+
         // Form content
-        'form': 'form',
-        'fieldset': 'group',
-        'legend': 'legend',
-        'label': 'label',
-        'input': 'textbox',
-        'select': 'combobox',
-        'textarea': 'textbox',
-        'button': 'button'
+        form: 'form',
+        fieldset: 'group',
+        legend: 'legend',
+        label: 'label',
+        input: 'textbox',
+        select: 'combobox',
+        textarea: 'textbox',
+        button: 'button',
       },
-      validateSemantics: function(html: string) {
+      validateSemantics: function (html: string) {
         const issues = [];
         const semanticTags = Object.keys(this.semanticTags);
-        
+
         // Check for proper heading hierarchy
         const headingMatches = html.match(/<h[1-6][^>]*>.*?<\/h[1-6]>/gi) || [];
         if (headingMatches.length > 0) {
@@ -153,27 +153,26 @@ describe('Accessibility Tests', () => {
             lastLevel = level;
           }
         }
-        
+
         // Check for semantic tags
-        const missingSemantics = semanticTags.filter(tag => 
-          !html.includes(`<${tag}`) && 
-          !html.includes(`<${tag}>`) &&
-          !html.includes(`</${tag}>`)
+        const missingSemantics = semanticTags.filter(
+          (tag) =>
+            !html.includes(`<${tag}`) && !html.includes(`<${tag}>`) && !html.includes(`</${tag}>`)
         );
-        
+
         if (missingSemantics.length > 0) {
           issues.push(`Missing semantic tags: ${missingSemantics.join(', ')}`);
         }
-        
+
         return {
           valid: issues.length === 0,
           issues,
-          semanticScore: semanticTags.length - missingSemantics.length
+          semanticScore: semanticTags.length - missingSemantics.length,
         };
       },
-      suggestImprovements: function(html: string) {
+      suggestImprovements: function (html: string) {
         const suggestions = [];
-        
+
         // Suggest heading structure improvements
         const headingMatches = html.match(/<h[1-6][^>]*>.*?<\/h[1-6]>/gi) || [];
         if (headingMatches.length > 0) {
@@ -184,24 +183,24 @@ describe('Accessibility Tests', () => {
         } else {
           suggestions.push('Add at least one heading for accessibility');
         }
-        
+
         // Suggest landmark improvements
         if (!html.includes('<main')) {
           suggestions.push('Add <main> element to identify main content');
         }
-        
+
         if (!html.includes('<nav')) {
           suggestions.push('Add <nav> element for navigation areas');
         }
-        
+
         if (!html.includes('<header')) {
           suggestions.push('Add <header> element for site header');
         }
-        
+
         if (!html.includes('<footer')) {
           suggestions.push('Add <footer> element for site footer');
         }
-        
+
         // Suggest form accessibility
         const formMatches = html.match(/<form/gi) || [];
         if (formMatches.length > 0) {
@@ -210,9 +209,9 @@ describe('Accessibility Tests', () => {
             suggestions.push('Add <label> elements for form inputs');
           }
         }
-        
+
         return suggestions;
-      }
+      },
     };
 
     // Test semantic validation
@@ -254,9 +253,9 @@ describe('Accessibility Tests', () => {
 
     const invalidValidation = semanticChecker.validateSemantics(invalidHtml);
     expect(invalidValidation.valid).toBe(false);
-    expect(invalidValidation.issues.some(issue => 
-      issue.includes('Improper heading hierarchy')
-    )).toBe(true);
+    expect(
+      invalidValidation.issues.some((issue) => issue.includes('Improper heading hierarchy'))
+    ).toBe(true);
 
     // Test missing semantic elements
     const minimalHtml = '<div>Minimal content</div>';
@@ -265,9 +264,9 @@ describe('Accessibility Tests', () => {
 
     const minimalSuggestions = semanticChecker.suggestImprovements(minimalHtml);
     expect(minimalSuggestions.length).toBeGreaterThan(0);
-    expect(minimalSuggestions.some(suggestion => 
-      suggestion.includes('Add at least one heading')
-    )).toBe(true);
+    expect(
+      minimalSuggestions.some((suggestion) => suggestion.includes('Add at least one heading'))
+    ).toBe(true);
   });
 
   // Keyboard navigation tests
@@ -282,47 +281,49 @@ describe('Accessibility Tests', () => {
         'button:not([disabled])',
         'iframe',
         '[tabindex]:not([tabindex="-1"])',
-        '[contentEditable=true]'
+        '[contentEditable=true]',
       ],
-      getFocusableElements: function(container: HTMLElement) {
+      getFocusableElements: function (container: HTMLElement) {
         const selectors = this.focusableSelectors;
         const elements = [];
-        
+
         for (const selector of selectors) {
           const found = container.querySelectorAll(selector);
           elements.push(...Array.from(found));
         }
-        
+
         return elements;
       },
-      hasKeyboardAccess: function(element: HTMLElement) {
+      hasKeyboardAccess: function (element: HTMLElement) {
         // Check if element is keyboard accessible
         const tabIndex = element.getAttribute('tabindex');
-        const isNativeFocusable = this.focusableSelectors.some(selector => 
+        const isNativeFocusable = this.focusableSelectors.some((selector) =>
           element.matches(selector)
         );
-        
+
         return isNativeFocusable || (tabIndex && parseInt(tabIndex) >= 0);
       },
-      getTabIndex: function(element: HTMLElement) {
+      getTabIndex: function (element: HTMLElement) {
         const tabIndex = element.getAttribute('tabindex');
         return tabIndex ? parseInt(tabIndex) : null;
       },
-      isFocusable: function(element: HTMLElement) {
+      isFocusable: function (element: HTMLElement) {
         const computedStyle = window.getComputedStyle(element);
-        return computedStyle.visibility !== 'hidden' && 
-               computedStyle.display !== 'none' &&
-               this.hasKeyboardAccess(element);
+        return (
+          computedStyle.visibility !== 'hidden' &&
+          computedStyle.display !== 'none' &&
+          this.hasKeyboardAccess(element)
+        );
       },
-      getKeyboardShortcuts: function() {
+      getKeyboardShortcuts: function () {
         return {
-          'Tab': 'Navigate to next focusable element',
+          Tab: 'Navigate to next focusable element',
           'Shift+Tab': 'Navigate to previous focusable element',
-          'Enter': 'Activate buttons and links',
-          'Space': 'Activate checkboxes and buttons',
-          'Escape': 'Close modals and dialogs'
+          Enter: 'Activate buttons and links',
+          Space: 'Activate checkboxes and buttons',
+          Escape: 'Close modals and dialogs',
         };
-      }
+      },
     };
 
     // Test focusable elements detection
@@ -377,46 +378,46 @@ describe('Accessibility Tests', () => {
   it('should provide screen reader support correctly', () => {
     const screenReaderSupport = {
       liveRegions: {
-        'polite': 'aria-live="polite"',
-        'assertive': 'aria-live="assertive"',
-        'off': 'aria-live="off"'
+        polite: 'aria-live="polite"',
+        assertive: 'aria-live="assertive"',
+        off: 'aria-live="off"',
       },
       alerts: {
-        'info': 'role="alert" aria-live="polite"',
-        'warning': 'role="alert" aria-live="assertive"',
-        'error': 'role="alert" aria-live="assertive"'
+        info: 'role="alert" aria-live="polite"',
+        warning: 'role="alert" aria-live="assertive"',
+        error: 'role="alert" aria-live="assertive"',
       },
       statuses: {
-        'loading': 'aria-busy="true"',
-        'loaded': 'aria-busy="false"',
-        'expanded': 'aria-expanded="true"',
-        'collapsed': 'aria-expanded="false"'
+        loading: 'aria-busy="true"',
+        loaded: 'aria-busy="false"',
+        expanded: 'aria-expanded="true"',
+        collapsed: 'aria-expanded="false"',
       },
       announcements: new Map<string, string>(),
-      announce: function(message: string, priority: 'polite' | 'assertive' = 'polite') {
+      announce: function (message: string, priority: 'polite' | 'assertive' = 'polite') {
         // Create announcement
         const announcement = {
           id: `announcement-${Date.now()}`,
           message,
           priority,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
-        
+
         this.announcements.set(announcement.id, message);
         return announcement;
       },
-      getAnnouncement: function(id: string) {
+      getAnnouncement: function (id: string) {
         return this.announcements.get(id) || null;
       },
-      clearAnnouncements: function() {
+      clearAnnouncements: function () {
         this.announcements.clear();
       },
-      generateStatusMessage: function(status: string, message: string) {
+      generateStatusMessage: function (status: string, message: string) {
         return {
           'aria-label': `${status}: ${message}`,
-          'data-status': status
+          'data-status': status,
         };
-      }
+      },
     };
 
     // Test live regions
@@ -438,25 +439,28 @@ describe('Accessibility Tests', () => {
     // Test announcements
     const announcement1 = screenReaderSupport.announce('Loading data...', 'polite');
     const announcement2 = screenReaderSupport.announce('Error occurred', 'assertive');
-    
+
     expect(typeof announcement1.id).toBe('string');
     expect(announcement1.message).toBe('Loading data...');
     expect(announcement1.priority).toBe('polite');
-    
+
     expect(typeof announcement2.id).toBe('string');
     expect(announcement2.message).toBe('Error occurred');
     expect(announcement2.priority).toBe('assertive');
-    
+
     expect(screenReaderSupport.getAnnouncement(announcement1.id)).toBe('Loading data...');
     expect(screenReaderSupport.getAnnouncement(announcement2.id)).toBe('Error occurred');
-    
+
     // Test announcement clearance
     screenReaderSupport.clearAnnouncements();
     expect(screenReaderSupport.announcements.size).toBe(0);
     expect(screenReaderSupport.getAnnouncement(announcement1.id)).toBeNull();
 
     // Test status messages
-    const statusMessage = screenReaderSupport.generateStatusMessage('loading', 'Processing request');
+    const statusMessage = screenReaderSupport.generateStatusMessage(
+      'loading',
+      'Processing request'
+    );
     expect(statusMessage['aria-label']).toBe('loading: Processing request');
     expect(statusMessage['data-status']).toBe('loading');
 
@@ -479,44 +483,50 @@ describe('Accessibility Tests', () => {
         dark: '#1e293b',
         light: '#f8fafc',
         gray: '#64748b',
-        muted: '#94a3b8'
+        muted: '#94a3b8',
       },
-      calculateContrastRatio: function(foreground: string, background: string) {
+      calculateContrastRatio: function (foreground: string, background: string) {
         // Convert hex to RGB
         const fgRgb = this.hexToRgb(foreground);
         const bgRgb = this.hexToRgb(background);
-        
+
         if (!fgRgb || !bgRgb) return 0;
-        
+
         // Calculate relative luminance
         const fgLuminance = this.getRelativeLuminance(fgRgb);
         const bgLuminance = this.getRelativeLuminance(bgRgb);
-        
+
         // Calculate contrast ratio
         const lighter = Math.max(fgLuminance, bgLuminance);
         const darker = Math.min(fgLuminance, bgLuminance);
-        
+
         return (lighter + 0.05) / (darker + 0.05);
       },
-      hexToRgb: function(hex: string) {
+      hexToRgb: function (hex: string) {
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16)
-        } : null;
+        return result
+          ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
+            }
+          : null;
       },
-      getRelativeLuminance: function(rgb: {r: number, g: number, b: number}) {
+      getRelativeLuminance: function (rgb: { r: number; g: number; b: number }) {
         const r = this.gamma(rgb.r / 255);
         const g = this.gamma(rgb.g / 255);
         const b = this.gamma(rgb.b / 255);
-        
+
         return 0.2126 * r + 0.7152 * g + 0.0722 * b;
       },
-      gamma: function(value: number) {
+      gamma: function (value: number) {
         return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
       },
-      meetsWCAG: function(ratio: number, level: 'AA' | 'AAA' = 'AA', size: 'normal' | 'large' = 'normal') {
+      meetsWCAG: function (
+        ratio: number,
+        level: 'AA' | 'AAA' = 'AA',
+        size: 'normal' | 'large' = 'normal'
+      ) {
         if (level === 'AAA') {
           if (size === 'large') return ratio >= 4.5;
           return ratio >= 7.0;
@@ -524,18 +534,22 @@ describe('Accessibility Tests', () => {
         if (size === 'large') return ratio >= 3.0;
         return ratio >= 4.5;
       },
-      testColorCombination: function(foreground: string, background: string, level: 'AA' | 'AAA' = 'AA', size: 'normal' | 'large' = 'normal') {
+      testColorCombination: function (
+        foreground: string,
+        background: string,
+        level: 'AA' | 'AAA' = 'AA',
+        size: 'normal' | 'large' = 'normal'
+      ) {
         const ratio = this.calculateContrastRatio(foreground, background);
         const meets = this.meetsWCAG(ratio, level, size);
-        
+
         return {
           ratio: Math.round(ratio * 100) / 100,
           meets,
-          minRequired: level === 'AAA' ? 
-            (size === 'large' ? 4.5 : 7.0) : 
-            (size === 'large' ? 3.0 : 4.5)
+          minRequired:
+            level === 'AAA' ? (size === 'large' ? 4.5 : 7.0) : size === 'large' ? 3.0 : 4.5,
         };
-      }
+      },
     };
 
     // Test color conversions
@@ -590,10 +604,10 @@ describe('Accessibility Tests', () => {
       ['#ffffff', '#764ba2'], // White on secondary
       ['#1e293b', '#f093fb'], // Dark on accent
       ['#1e293b', '#10b981'], // Dark on success
-      ['#ffffff', '#ef4444']   // White on error
+      ['#ffffff', '#ef4444'], // White on error
     ];
 
-    colorPairs.forEach(pair => {
+    colorPairs.forEach((pair) => {
       const contrast = colorContrast.testColorCombination(pair[0], pair[1], 'AA', 'normal');
       expect(contrast.ratio).toBeGreaterThan(3.0); // At least minimal contrast
     });
@@ -602,18 +616,21 @@ describe('Accessibility Tests', () => {
   // Focus management tests
   it('should manage focus correctly', () => {
     const focusManager = {
-      trappedElements: new WeakMap<HTMLElement, {firstFocusable: HTMLElement, lastFocusable: HTMLElement}>(),
-      trapFocus: function(container: HTMLElement) {
+      trappedElements: new WeakMap<
+        HTMLElement,
+        { firstFocusable: HTMLElement; lastFocusable: HTMLElement }
+      >(),
+      trapFocus: function (container: HTMLElement) {
         // Get all focusable elements within the container
         const focusable = this.getFocusableElements(container);
         if (focusable.length === 0) return;
-        
+
         const firstFocusable = focusable[0];
         const lastFocusable = focusable[focusable.length - 1];
-        
+
         // Store trap information
         this.trappedElements.set(container, { firstFocusable, lastFocusable });
-        
+
         // Trap focus within the container
         container.addEventListener('keydown', (e: KeyboardEvent) => {
           if (e.key === 'Tab') {
@@ -632,11 +649,11 @@ describe('Accessibility Tests', () => {
             }
           }
         });
-        
+
         // Focus the first element
         firstFocusable.focus();
       },
-      getFocusableElements: function(container: HTMLElement) {
+      getFocusableElements: function (container: HTMLElement) {
         const focusableSelectors = [
           'a[href]',
           'area[href]',
@@ -646,28 +663,28 @@ describe('Accessibility Tests', () => {
           'button:not([disabled])',
           'iframe',
           '[tabindex]:not([tabindex="-1"])',
-          '[contentEditable=true]'
+          '[contentEditable=true]',
         ];
-        
+
         const elements: HTMLElement[] = [];
         for (const selector of focusableSelectors) {
           const found = container.querySelectorAll<HTMLElement>(selector);
           elements.push(...Array.from(found));
         }
-        
+
         return elements;
       },
-      trapWithin: function(container: HTMLElement) {
+      trapWithin: function (container: HTMLElement) {
         const focusableElements = this.getFocusableElements(container);
         if (focusableElements.length === 0) return;
-        
+
         const first = focusableElements[0];
         const last = focusableElements[focusableElements.length - 1];
-        
+
         // Listen for focus events
         container.addEventListener('focusout', (e: FocusEvent) => {
           const relatedTarget = e.relatedTarget as HTMLElement;
-          
+
           // If focus leaves the container, redirect it appropriately
           if (!container.contains(relatedTarget)) {
             if (e.target === last) {
@@ -677,10 +694,10 @@ describe('Accessibility Tests', () => {
             }
           }
         });
-        
+
         return focusableElements;
       },
-      restoreFocus: function(container: HTMLElement) {
+      restoreFocus: function (container: HTMLElement) {
         // Restore focus when component is closed
         const trap = this.trappedElements.get(container);
         if (trap) {
@@ -688,7 +705,7 @@ describe('Accessibility Tests', () => {
           trap.firstFocusable.focus();
           this.trappedElements.delete(container);
         }
-      }
+      },
     };
 
     // Test focusable elements detection
@@ -709,7 +726,7 @@ describe('Accessibility Tests', () => {
     // Test focus trapping
     focusManager.trapFocus(container);
     expect(focusManager.trappedElements.has(container)).toBe(true);
-    
+
     const trap = focusManager.trappedElements.get(container);
     expect(trap).toBeDefined();
     expect(trap?.firstFocusable).toBe(focusableElements[0]);
@@ -728,33 +745,33 @@ describe('Accessibility Tests', () => {
   // Skip link tests
   it('should implement skip links correctly', () => {
     const skipLinks = {
-      skipLinks: [] as Array<{href: string, text: string, target: string}>,
-      addSkipLink: function(href: string, text: string, target: string) {
+      skipLinks: [] as Array<{ href: string; text: string; target: string }>,
+      addSkipLink: function (href: string, text: string, target: string) {
         const skipLink = { href, text, target };
         this.skipLinks.push(skipLink);
         return skipLink;
       },
-      generateSkipLinkMarkup: function(href: string, text: string, target: string) {
+      generateSkipLinkMarkup: function (href: string, text: string, target: string) {
         return `
           <a href="${href}" class="skip-link" data-skip-target="${target}">
             ${text}
           </a>
         `.trim();
       },
-      validateSkipLink: function(href: string, text: string, target: string) {
+      validateSkipLink: function (href: string, text: string, target: string) {
         return {
           validHref: href.startsWith('#'),
           hasText: text.length > 0,
           validTarget: target.length > 0,
-          accessible: href.startsWith('#') && text.length > 0
+          accessible: href.startsWith('#') && text.length > 0,
         };
       },
-      getSkipLinks: function() {
+      getSkipLinks: function () {
         return this.skipLinks;
       },
-      clearSkipLinks: function() {
+      clearSkipLinks: function () {
         this.skipLinks = [];
-      }
+      },
     };
 
     // Test adding skip links
@@ -804,49 +821,56 @@ describe('Accessibility Tests', () => {
         'aria-label': 'Defines a string value that labels an interactive element',
         'aria-labelledby': 'Identifies the element (or elements) that labels the current element',
         'aria-describedby': 'Identifies the element (or elements) that describes the object',
-        'aria-expanded': 'Indicates whether an element, or another grouping element it controls, is currently expanded or collapsed',
-        'aria-controls': 'Identifies the element (or elements) whose contents or presence are controlled by the current element',
+        'aria-expanded':
+          'Indicates whether an element, or another grouping element it controls, is currently expanded or collapsed',
+        'aria-controls':
+          'Identifies the element (or elements) whose contents or presence are controlled by the current element',
         'aria-haspopup': 'Indicates the availability and type of interactive popup element',
         'aria-hidden': 'Indicates whether the element is exposed to an accessibility API',
-        'aria-live': 'Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region',
-        'aria-atomic': 'Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute',
-        'aria-relevant': 'Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified'
+        'aria-live':
+          'Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region',
+        'aria-atomic':
+          'Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute',
+        'aria-relevant':
+          'Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified',
       },
-      createAriaAttributes: function(attrs: Record<string, string>) {
+      createAriaAttributes: function (attrs: Record<string, string>) {
         const result: Record<string, string> = {};
-        
-        Object.keys(attrs).forEach(key => {
+
+        Object.keys(attrs).forEach((key) => {
           if (this.attributes[key as keyof typeof this.attributes]) {
             result[key] = attrs[key];
           }
         });
-        
+
         return result;
       },
-      validateAriaAttributes: function(attrs: Record<string, string>) {
+      validateAriaAttributes: function (attrs: Record<string, string>) {
         const issues = [];
-        
-        Object.keys(attrs).forEach(key => {
+
+        Object.keys(attrs).forEach((key) => {
           if (!this.attributes[key as keyof typeof this.attributes]) {
             issues.push(`Unknown ARIA attribute: ${key}`);
           }
         });
-        
+
         return {
           valid: issues.length === 0,
-          issues
+          issues,
         };
       },
-      getAriaDescription: function(attribute: string) {
-        return this.attributes[attribute as keyof typeof this.attributes] || 'Unknown ARIA attribute';
-      }
+      getAriaDescription: function (attribute: string) {
+        return (
+          this.attributes[attribute as keyof typeof this.attributes] || 'Unknown ARIA attribute'
+        );
+      },
     };
 
     // Test ARIA attribute creation
     const validAttrs = ariaHelper.createAriaAttributes({
       'aria-label': 'Main navigation',
       'aria-expanded': 'false',
-      'aria-controls': 'submenu'
+      'aria-controls': 'submenu',
     });
 
     expect(validAttrs['aria-label']).toBe('Main navigation');
@@ -858,7 +882,7 @@ describe('Accessibility Tests', () => {
     const validation = ariaHelper.validateAriaAttributes({
       'aria-label': 'Some label',
       'aria-invalid-attr': 'Some value',
-      'aria-expanded': 'true'
+      'aria-expanded': 'true',
     });
 
     expect(validation.valid).toBe(false);
@@ -868,7 +892,7 @@ describe('Accessibility Tests', () => {
     const validValidation = ariaHelper.validateAriaAttributes({
       'aria-label': 'Some label',
       'aria-expanded': 'true',
-      'aria-controls': 'target'
+      'aria-controls': 'target',
     });
 
     expect(validValidation.valid).toBe(true);
@@ -879,7 +903,9 @@ describe('Accessibility Tests', () => {
     expect(labelDesc).toBe('Defines a string value that labels an interactive element');
 
     const expandedDesc = ariaHelper.getAriaDescription('aria-expanded');
-    expect(expandedDesc).toBe('Indicates whether an element, or another grouping element it controls, is currently expanded or collapsed');
+    expect(expandedDesc).toBe(
+      'Indicates whether an element, or another grouping element it controls, is currently expanded or collapsed'
+    );
 
     const unknownDesc = ariaHelper.getAriaDescription('aria-unknown');
     expect(unknownDesc).toBe('Unknown ARIA attribute');
@@ -889,7 +915,7 @@ describe('Accessibility Tests', () => {
       'aria-label': 'Confirmation Dialog',
       'aria-modal': 'true',
       'aria-live': 'polite',
-      'role': 'dialog'
+      role: 'dialog',
     });
 
     expect(dialogAttrs['aria-label']).toBe('Confirmation Dialog');
@@ -902,42 +928,42 @@ describe('Accessibility Tests', () => {
   it('should handle language attributes correctly', () => {
     const languageHelper = {
       languages: {
-        'ru': 'Русский',
-        'en': 'English',
-        'uk': 'Українська',
-        'by': 'Беларуская'
+        ru: 'Русский',
+        en: 'English',
+        uk: 'Українська',
+        by: 'Беларуская',
       },
       rtlLanguages: ['ar', 'he', 'fa', 'ur'],
       defaultLanguage: 'ru',
-      setLanguage: function(lang: string) {
+      setLanguage: function (lang: string) {
         const html = document.documentElement;
         html.setAttribute('lang', lang);
-        
+
         // Set direction if RTL language
         if (this.rtlLanguages.includes(lang)) {
           html.setAttribute('dir', 'rtl');
         } else {
           html.setAttribute('dir', 'ltr');
         }
-        
+
         return lang;
       },
-      getCurrentLanguage: function() {
+      getCurrentLanguage: function () {
         return document.documentElement.lang || this.defaultLanguage;
       },
-      isRTLLanguage: function(lang: string) {
+      isRTLLanguage: function (lang: string) {
         return this.rtlLanguages.includes(lang);
       },
-      getLanguageName: function(lang: string) {
+      getLanguageName: function (lang: string) {
         return this.languages[lang as keyof typeof this.languages] || 'Unknown Language';
       },
-      validateLanguageCode: function(lang: string) {
+      validateLanguageCode: function (lang: string) {
         // ISO 639-1 codes are 2 characters
         return /^[a-z]{2}$/i.test(lang);
       },
-      getSupportedLanguages: function() {
+      getSupportedLanguages: function () {
         return Object.keys(this.languages);
-      }
+      },
     };
 
     // Test language setting
@@ -980,45 +1006,50 @@ describe('Accessibility Tests', () => {
   it('should support alternative navigation methods', () => {
     const altNavigation = {
       navigationMethods: {
-        'keyboard': 'Navigation using Tab, Arrow keys, Enter, Space',
-        'voice': 'Voice commands for navigation',
-        'switch': 'Single switch scanning navigation',
-        'headpointer': 'Head pointer navigation',
-        'eyeTracking': 'Eye tracking navigation'
+        keyboard: 'Navigation using Tab, Arrow keys, Enter, Space',
+        voice: 'Voice commands for navigation',
+        switch: 'Single switch scanning navigation',
+        headpointer: 'Head pointer navigation',
+        eyeTracking: 'Eye tracking navigation',
       },
       landmarks: {
-        'banner': 'Site header containing site identity',
-        'navigation': 'Collection of navigational links',
-        'main': 'Primary content of the page',
-        'complementary': 'Supporting section of the document',
-        'contentinfo': 'Information about the document',
-        'search': 'Search functionality',
-        'form': 'Form associated with the document'
+        banner: 'Site header containing site identity',
+        navigation: 'Collection of navigational links',
+        main: 'Primary content of the page',
+        complementary: 'Supporting section of the document',
+        contentinfo: 'Information about the document',
+        search: 'Search functionality',
+        form: 'Form associated with the document',
       },
-      createLandmark: function(role: string, label: string) {
+      createLandmark: function (role: string, label: string) {
         return {
           role: role,
           'aria-label': label,
-          'tabindex': -1 // Not focusable by default
+          tabindex: -1, // Not focusable by default
         };
       },
-      addKeyboardShortcut: function(key: string, description: string) {
+      addKeyboardShortcut: function (key: string, description: string) {
         return {
           key,
           description,
-          'aria-keyshortcuts': key
+          'aria-keyshortcuts': key,
         };
       },
-      getNavigationMethod: function(method: string) {
-        return this.navigationMethods[method as keyof typeof this.navigationMethods] || 'Unsupported method';
+      getNavigationMethod: function (method: string) {
+        return (
+          this.navigationMethods[method as keyof typeof this.navigationMethods] ||
+          'Unsupported method'
+        );
       },
-      getLandmarkDescription: function(landmark: string) {
+      getLandmarkDescription: function (landmark: string) {
         return this.landmarks[landmark as keyof typeof this.landmarks] || 'Unknown landmark';
-      }
+      },
     };
 
     // Test navigation method support
-    expect(altNavigation.getNavigationMethod('keyboard')).toBe('Navigation using Tab, Arrow keys, Enter, Space');
+    expect(altNavigation.getNavigationMethod('keyboard')).toBe(
+      'Navigation using Tab, Arrow keys, Enter, Space'
+    );
     expect(altNavigation.getNavigationMethod('voice')).toBe('Voice commands for navigation');
     expect(altNavigation.getNavigationMethod('switch')).toBe('Single switch scanning navigation');
     expect(altNavigation.getNavigationMethod('headpointer')).toBe('Head pointer navigation');
@@ -1026,9 +1057,13 @@ describe('Accessibility Tests', () => {
     expect(altNavigation.getNavigationMethod('invalid')).toBe('Unsupported method');
 
     // Test landmark descriptions
-    expect(altNavigation.getLandmarkDescription('banner')).toBe('Site header containing site identity');
+    expect(altNavigation.getLandmarkDescription('banner')).toBe(
+      'Site header containing site identity'
+    );
     expect(altNavigation.getLandmarkDescription('main')).toBe('Primary content of the page');
-    expect(altNavigation.getLandmarkDescription('navigation')).toBe('Collection of navigational links');
+    expect(altNavigation.getLandmarkDescription('navigation')).toBe(
+      'Collection of navigational links'
+    );
     expect(altNavigation.getLandmarkDescription('invalid')).toBe('Unknown landmark');
 
     // Test landmark creation

@@ -19,36 +19,36 @@ class ComponentMigrator {
 
   async migrate(componentName) {
     console.log(`\n📦 Миграция компонента: ${componentName}`);
-    
+
     // Пути к файлам
     const hbsPath = path.join(this.sourceDir, `src/templates/partials/${componentName}.hbs`);
     const jsPath = path.join(this.sourceDir, `src/js/components/${componentName}.js`);
     const cssPath = path.join(this.sourceDir, `src/styles/04-sections/_${componentName}.css`);
-    
+
     // Проверяем существование файлов
     const hasHbs = await fs.pathExists(hbsPath);
     const hasJs = await fs.pathExists(jsPath);
     const hasCss = await fs.pathExists(cssPath);
-    
+
     console.log(`  • HBS шаблон: ${hasHbs ? '✅' : '❌'}`);
     console.log(`  • JS логика: ${hasJs ? '✅' : '❌'}`);
     console.log(`  • CSS стили: ${hasCss ? '✅' : '❌'}`);
-    
+
     if (!hasHbs) {
       console.log(`  ⚠️ Шаблон ${componentName}.hbs не найден, пропускаем...`);
       return;
     }
-    
+
     // Читаем содержимое
     const hbsContent = await fs.readFile(hbsPath, 'utf-8');
-    
+
     // Определяем тип компонента
     const componentType = this.detectComponentType(componentName, hasJs);
     console.log(`  • Тип компонента: ${componentType}`);
-    
+
     // Конвертируем в Astro
     const astroContent = this.convertToAstro(hbsContent, componentName, hasJs);
-    
+
     // Определяем путь для сохранения
     const targetPath = path.join(
       this.targetDir,
@@ -56,19 +56,19 @@ class ComponentMigrator {
       componentType,
       `${this.capitalize(componentName)}.astro`
     );
-    
+
     // Создаем директорию если нужно
     await fs.ensureDir(path.dirname(targetPath));
-    
+
     // Сохраняем Astro компонент
     await fs.writeFile(targetPath, astroContent);
     console.log(`  ✅ Создан: ${targetPath}`);
-    
+
     // Если есть JS логика, создаем интерактивный компонент
     if (hasJs && componentType === 'islands') {
       await this.createIslandLogic(componentName, jsPath);
     }
-    
+
     // Копируем CSS если есть
     if (hasCss) {
       const targetCssPath = path.join(this.targetDir, 'src/styles', `${componentName}.css`);
@@ -76,13 +76,13 @@ class ComponentMigrator {
       console.log(`  ✅ Скопированы стили: ${targetCssPath}`);
     }
   }
-  
+
   detectComponentType(componentName, hasJs) {
     // Статические компоненты (без JS)
     const staticComponents = ['footer', 'header', 'benefits', 'contacts'];
     // Динамические компоненты (полностью клиентские)
     const dynamicComponents = ['sticky-cta', 'exit-intent', 'modal'];
-    
+
     if (staticComponents.includes(componentName.toLowerCase())) {
       return 'static';
     }
@@ -92,12 +92,12 @@ class ComponentMigrator {
     // По умолчанию - island (частично интерактивные)
     return hasJs ? 'islands' : 'static';
   }
-  
+
   convertToAstro(hbsContent, componentName, hasJs) {
     let astroContent = hbsContent;
-    
+
     // Базовые замены Handlebars -> Astro
-    
+
     // {{variable}} -> {variable}
     astroContent = astroContent.replace(/\{\{([^}]+)\}\}/g, (match, variable) => {
       // Пропускаем специальные хелперы
@@ -106,25 +106,25 @@ class ComponentMigrator {
       }
       return `{${variable.trim()}}`;
     });
-    
+
     // {{#if condition}} -> {condition && (
     astroContent = astroContent.replace(/\{\{#if\s+([^}]+)\}\}/g, '{$1 && (');
     astroContent = astroContent.replace(/\{\{\/if\}\}/g, ')}');
-    
+
     // {{#unless condition}} -> {!condition && (
     astroContent = astroContent.replace(/\{\{#unless\s+([^}]+)\}\}/g, '{!$1 && (');
     astroContent = astroContent.replace(/\{\{\/unless\}\}/g, ')}');
-    
+
     // {{#each items}} -> {items.map(item => (
     astroContent = astroContent.replace(/\{\{#each\s+([^}]+)\}\}/g, '{$1.map((item, index) => (');
     astroContent = astroContent.replace(/\{\{\/each\}\}/g, '))}');
-    
+
     // {{@index}} -> {index}
     astroContent = astroContent.replace(/\{\{@index\}\}/g, '{index}');
-    
+
     // {{this}} -> {item}
     astroContent = astroContent.replace(/\{\{this\}\}/g, '{item}');
-    
+
     // Создаем frontmatter
     const frontmatter = `---
 // ${this.capitalize(componentName)}.astro
@@ -139,16 +139,18 @@ ${hasJs ? `\n// Import interactive logic\nimport ${this.capitalize(componentName
 ---
 
 `;
-    
+
     // Добавляем интерактивную логику если нужно
-    const interactiveLogic = hasJs ? `\n<!-- Load interactive logic when visible -->\n<${this.capitalize(componentName)}Logic client:visible {...props} />` : '';
-    
+    const interactiveLogic = hasJs
+      ? `\n<!-- Load interactive logic when visible -->\n<${this.capitalize(componentName)}Logic client:visible {...props} />`
+      : '';
+
     return frontmatter + astroContent + interactiveLogic;
   }
-  
+
   async createIslandLogic(componentName, jsPath) {
     const jsContent = await fs.readFile(jsPath, 'utf-8');
-    
+
     // Простая конвертация JS в TSX компонент
     const tsxContent = `// ${this.capitalize(componentName)}Logic.tsx
 import { useEffect } from 'preact/hooks';
@@ -168,17 +170,17 @@ ${this.extractJsLogic(jsContent)}
   
   return null;
 }`;
-    
+
     const targetPath = path.join(
       this.targetDir,
       'src/components/islands',
       `${this.capitalize(componentName)}Logic.tsx`
     );
-    
+
     await fs.writeFile(targetPath, tsxContent);
     console.log(`  ✅ Создана логика: ${targetPath}`);
   }
-  
+
   extractJsLogic(jsContent) {
     // Извлекаем основную логику из JS файла
     // Убираем определения классов и экспорты
@@ -186,32 +188,37 @@ ${this.extractJsLogic(jsContent)}
       .replace(/class\s+\w+\s*{[\s\S]*?^}/gm, '')
       .replace(/export\s+(default\s+)?/g, '')
       .replace(/import\s+.*?;/g, '');
-    
+
     // Добавляем отступы
-    logic = logic.split('\n').map(line => '    ' + line).join('\n');
-    
+    logic = logic
+      .split('\n')
+      .map((line) => '    ' + line)
+      .join('\n');
+
     return logic;
   }
-  
+
   capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    return (
+      str.charAt(0).toUpperCase() + str.slice(1).replace(/-([a-z])/g, (g) => g[1].toUpperCase())
+    );
   }
-  
+
   async listAvailableComponents() {
     const partialsDir = path.join(this.sourceDir, 'src/templates/partials');
-    
+
     console.log(`Проверяем путь: ${partialsDir}`);
-    
-    if (!await fs.pathExists(partialsDir)) {
+
+    if (!(await fs.pathExists(partialsDir))) {
       console.log('❌ Директория partials не найдена');
       return [];
     }
-    
+
     const files = await fs.readdir(partialsDir);
     const components = files
-      .filter(file => file.endsWith('.hbs'))
-      .map(file => file.replace('.hbs', ''));
-    
+      .filter((file) => file.endsWith('.hbs'))
+      .map((file) => file.replace('.hbs', ''));
+
     return components;
   }
 }
@@ -219,20 +226,20 @@ ${this.extractJsLogic(jsContent)}
 // Запуск миграции
 async function main() {
   const migrator = new ComponentMigrator();
-  
+
   console.log('🚀 Начинаем миграцию компонентов из Handlebars в Astro\n');
-  
+
   // Получаем список доступных компонентов
   const availableComponents = await migrator.listAvailableComponents();
-  
+
   if (availableComponents.length === 0) {
     console.log('❌ Компоненты не найдены');
     return;
   }
-  
+
   console.log(`📋 Найдено компонентов: ${availableComponents.length}`);
-  console.log(availableComponents.map(c => `  • ${c}`).join('\n'));
-  
+  console.log(availableComponents.map((c) => `  • ${c}`).join('\n'));
+
   // Мигрируем все компоненты
   for (const component of availableComponents) {
     try {
@@ -241,7 +248,7 @@ async function main() {
       console.error(`❌ Ошибка при миграции ${component}:`, error.message);
     }
   }
-  
+
   console.log('\n✅ Миграция завершена!');
   console.log('\n📝 Не забудьте:');
   console.log('  1. Проверить и адаптировать TSX логику в islands компонентах');
@@ -250,7 +257,7 @@ async function main() {
 }
 
 // Обработка ошибок
-main().catch(error => {
+main().catch((error) => {
   console.error('❌ Ошибка при миграции:', error);
   process.exit(1);
 });

@@ -6,32 +6,34 @@ describe('Project Data Integrity', () => {
     const siteConfig = {
       name: 'ZeroDolg',
       title: 'ZeroDolg - Банкротство физических лиц в Москве',
-      description: '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.',
-      keywords: 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов',
+      description:
+        '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.',
+      keywords:
+        'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов',
       url: 'https://zerodolg.ru',
       phone: '+7 (905) 577-33-87',
-      email: 'info@zerodolg.ru'
+      email: 'info@zerodolg.ru',
     };
 
     // Validate required fields
     expect(typeof siteConfig.name).toBe('string');
     expect(siteConfig.name.length).toBeGreaterThan(0);
-    
+
     expect(typeof siteConfig.title).toBe('string');
     expect(siteConfig.title.length).toBeGreaterThan(10);
-    
+
     expect(typeof siteConfig.description).toBe('string');
     expect(siteConfig.description.length).toBeGreaterThan(50);
-    
+
     expect(typeof siteConfig.keywords).toBe('string');
     expect(siteConfig.keywords.length).toBeGreaterThan(20);
-    
+
     expect(typeof siteConfig.url).toBe('string');
     expect(siteConfig.url.startsWith('http')).toBe(true);
-    
+
     expect(typeof siteConfig.phone).toBe('string');
     expect(siteConfig.phone.length).toBeGreaterThan(10);
-    
+
     expect(typeof siteConfig.email).toBe('string');
     expect(siteConfig.email.includes('@')).toBe(true);
 
@@ -46,30 +48,31 @@ describe('Project Data Integrity', () => {
   it('should validate SEO metadata correctly', () => {
     const seoMetadata = {
       ogTitle: 'ZeroDolg - Банкротство физических лиц в Москве',
-      ogDescription: '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц.',
+      ogDescription:
+        '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц.',
       ogImage: '/og-image.jpg',
       ogUrl: 'https://zerodolg.ru/',
       twitterCard: 'summary_large_image',
-      canonical: 'https://zerodolg.ru/'
+      canonical: 'https://zerodolg.ru/',
     };
 
     // Validate Open Graph tags
     expect(typeof seoMetadata.ogTitle).toBe('string');
     expect(seoMetadata.ogTitle.length).toBeGreaterThan(10);
-    
+
     expect(typeof seoMetadata.ogDescription).toBe('string');
     expect(seoMetadata.ogDescription.length).toBeGreaterThan(30);
-    
+
     expect(typeof seoMetadata.ogImage).toBe('string');
     expect(seoMetadata.ogImage.startsWith('/')).toBe(true);
     expect(seoMetadata.ogImage.endsWith('.jpg')).toBe(true);
-    
+
     expect(typeof seoMetadata.ogUrl).toBe('string');
     expect(seoMetadata.ogUrl.startsWith('http')).toBe(true);
-    
+
     // Validate Twitter card
     expect(seoMetadata.twitterCard).toBe('summary_large_image');
-    
+
     // Validate canonical URL
     expect(typeof seoMetadata.canonical).toBe('string');
     expect(seoMetadata.canonical).toBe('https://zerodolg.ru/');
@@ -82,17 +85,17 @@ describe('Project Data Integrity', () => {
         display: '+7 (905) 577-33-87',
         raw: '+79055773387',
         whatsapp: 'https://wa.me/79055773387',
-        telegram: 'https://t.me/zerodolg'
+        telegram: 'https://t.me/zerodolg',
       },
       email: {
         display: 'info@zerodolg.ru',
-        mailto: 'mailto:info@zerodolg.ru'
+        mailto: 'mailto:info@zerodolg.ru',
       },
       address: {
         display: 'г. Москва, ул. Примерная, д. 1',
-        map: 'https://yandex.ru/maps/?text=Москва,+ул.+Примерная,+д.+1'
+        map: 'https://yandex.ru/maps/?text=Москва,+ул.+Примерная,+д.+1',
       },
-      workingHours: 'Пн-Пт: 9:00-18:00'
+      workingHours: 'Пн-Пт: 9:00-18:00',
     };
 
     // Validate phone formats
@@ -125,7 +128,7 @@ describe('Project Data Integrity', () => {
       bik: '044525974',
       rs: '40702810410000003271',
       ks: '30101810200000000974',
-      legalAddress: '123456, г. Москва, ул. Банковская, д. 10'
+      legalAddress: '123456, г. Москва, ул. Банковская, д. 10',
     };
 
     // Validate OGRN format (13 digits)
@@ -167,18 +170,18 @@ describe('Project Data Integrity', () => {
       { platform: 'vk', url: 'https://vk.com/zerodolg', followers: '15K' },
       { platform: 'telegram', url: 'https://t.me/zerodolg', followers: '8.5K' },
       { platform: 'whatsapp', url: 'https://wa.me/79055773387', followers: '5.2K' },
-      { platform: 'youtube', url: 'https://youtube.com/zerodolg', followers: '12K' }
+      { platform: 'youtube', url: 'https://youtube.com/zerodolg', followers: '12K' },
     ];
 
     // Validate all social links
-    socialLinks.forEach(link => {
+    socialLinks.forEach((link) => {
       expect(typeof link.platform).toBe('string');
       expect(typeof link.url).toBe('string');
       expect(typeof link.followers).toBe('string');
       expect(link.platform.length).toBeGreaterThan(2);
       expect(link.url.length).toBeGreaterThan(10);
       expect(link.followers.length).toBeGreaterThan(2);
-      
+
       // Validate URL format
       try {
         new URL(link.url);
@@ -189,12 +192,12 @@ describe('Project Data Integrity', () => {
     });
 
     // Test specific platforms
-    const vkLink = socialLinks.find(l => l.platform === 'vk');
+    const vkLink = socialLinks.find((l) => l.platform === 'vk');
     expect(vkLink).toBeDefined();
     expect(vkLink?.url).toBe('https://vk.com/zerodolg');
     expect(vkLink?.followers).toBe('15K');
 
-    const telegramLink = socialLinks.find(l => l.platform === 'telegram');
+    const telegramLink = socialLinks.find((l) => l.platform === 'telegram');
     expect(telegramLink).toBeDefined();
     expect(telegramLink?.url).toBe('https://t.me/zerodolg');
     expect(telegramLink?.followers).toBe('8.5K');
@@ -213,8 +216,8 @@ describe('Project Data Integrity', () => {
           'Полное списание долгов',
           'Защита имущества',
           'Остановка начисления процентов',
-          'Прекращение звонков коллекторов'
-        ]
+          'Прекращение звонков коллекторов',
+        ],
       },
       {
         id: 'restructuring',
@@ -226,41 +229,41 @@ describe('Project Data Integrity', () => {
           'Снижение ежемесячных платежей',
           'Уменьшение процентных ставок',
           'Пролонгация срока кредита',
-          'Сохранение кредитной истории'
-        ]
-      }
+          'Сохранение кредитной истории',
+        ],
+      },
     ];
 
     // Validate all services
-    services.forEach(service => {
+    services.forEach((service) => {
       expect(typeof service.id).toBe('string');
       expect(typeof service.title).toBe('string');
       expect(typeof service.price).toBe('string');
       expect(typeof service.duration).toBe('string');
       expect(typeof service.successRate).toBe('string');
       expect(Array.isArray(service.features)).toBe(true);
-      
+
       expect(service.id.length).toBeGreaterThan(3);
       expect(service.title.length).toBeGreaterThan(10);
       expect(service.price.length).toBeGreaterThan(5);
       expect(service.duration.length).toBeGreaterThan(5);
       expect(service.successRate.length).toBeGreaterThan(2);
       expect(service.features.length).toBeGreaterThanOrEqual(3);
-      
+
       // Validate price format
       expect(service.price).toMatch(/от \d[\d\s]* ₽\/мес/);
-      
+
       // Validate success rate format
       expect(service.successRate).toMatch(/\d+%/);
     });
 
     // Test specific services
-    const bankruptcyService = services.find(s => s.id === 'bankruptcy');
+    const bankruptcyService = services.find((s) => s.id === 'bankruptcy');
     expect(bankruptcyService).toBeDefined();
     expect(bankruptcyService?.title).toBe('Банкротство физических лиц');
     expect(bankruptcyService?.features).toContain('Полное списание долгов');
-    
-    const restructuringService = services.find(s => s.id === 'restructuring');
+
+    const restructuringService = services.find((s) => s.id === 'restructuring');
     expect(restructuringService).toBeDefined();
     expect(restructuringService?.title).toBe('Реструктуризация долгов');
     expect(restructuringService?.features).toContain('Снижение ежемесячных платежей');

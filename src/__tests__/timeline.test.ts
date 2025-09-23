@@ -52,7 +52,7 @@ describe('Timeline Component', () => {
 
   it('should correctly calculate progress percentage', () => {
     const calculateProgress = (current: number, total: number) => {
-      return total > 1 ? ((current) / (total - 1)) * 100 : 0;
+      return total > 1 ? (current / (total - 1)) * 100 : 0;
     };
 
     expect(calculateProgress(0, 5)).toBe(0);
@@ -92,7 +92,7 @@ describe('Timeline Component', () => {
   it('should debounce function calls correctly', () => {
     // Mock setTimeout and clearTimeout
     vi.useFakeTimers();
-    
+
     let callCount = 0;
     const func = () => {
       callCount++;

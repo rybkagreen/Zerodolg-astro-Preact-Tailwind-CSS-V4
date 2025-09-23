@@ -15,7 +15,8 @@ describe('Form Component', () => {
 
   it('should validate phone numbers correctly', () => {
     const validatePhone = (phone: string) => {
-      const phoneRegex = /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+      const phoneRegex =
+        /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
       return phoneRegex.test(phone);
     };
 
@@ -62,7 +63,7 @@ describe('Form Component', () => {
       message: '',
       consent: false,
       errors: {} as Record<string, string>,
-      isSubmitting: false
+      isSubmitting: false,
     };
 
     const formState = { ...initialState };
@@ -83,7 +84,7 @@ describe('Form Component', () => {
     const formState = {
       isSubmitting: false,
       submitSuccess: false,
-      submitError: null as string | null
+      submitError: null as string | null,
     };
 
     // Start submission
@@ -114,7 +115,7 @@ describe('Form Component', () => {
       message: 'Тестовое сообщение',
       consent: true,
       errors: { name: 'Ошибка' },
-      isSubmitting: false
+      isSubmitting: false,
     };
 
     // Reset form
@@ -126,7 +127,7 @@ describe('Form Component', () => {
         message: '',
         consent: false,
         errors: {},
-        isSubmitting: false
+        isSubmitting: false,
       };
     };
 

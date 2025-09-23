@@ -4,28 +4,28 @@ describe('Security Tests', () => {
   // XSS prevention tests
   it('should prevent XSS attacks correctly', () => {
     const sanitizer = {
-      sanitize: function(dirty: string) {
+      sanitize: function (dirty: string) {
         // Remove dangerous tags and attributes
         let clean = dirty;
-        
+
         // Remove script tags and their content
         clean = clean.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-        
+
         // Remove event handler attributes
         clean = clean.replace(/\bon\w+="[^"]*"/gi, '');
         clean = clean.replace(/\bon\w+='[^']*'/gi, '');
         clean = clean.replace(/\bon\w+=[^>\s]*/gi, '');
-        
+
         // Remove javascript: URLs
         clean = clean.replace(/href="javascript:[^"]*"/gi, 'href="#"');
         clean = clean.replace(/src="javascript:[^"]*"/gi, 'src="#"');
-        
+
         // Remove data URLs that could contain scripts
         clean = clean.replace(/src="data:[^"]*"/gi, 'src="#"');
-        
+
         return clean;
       },
-      isDangerousContent: function(content: string) {
+      isDangerousContent: function (content: string) {
         const dangerousPatterns = [
           /<script/i,
           /javascript:/i,
@@ -33,51 +33,51 @@ describe('Security Tests', () => {
           /\bon\w+=/i,
           /<iframe/i,
           /<object/i,
-          /<embed/i
+          /<embed/i,
         ];
-        
-        return dangerousPatterns.some(pattern => pattern.test(content));
-      }
+
+        return dangerousPatterns.some((pattern) => pattern.test(content));
+      },
     };
 
     // Test clean content passes through
     const cleanContent = '<p>Hello world</p>';
     expect(sanitizer.sanitize(cleanContent)).toBe(cleanContent);
-    
+
     // Test script tags are removed
     const scriptContent = '<p>Hello</p><script>alert("XSS")</script>';
     const sanitizedScript = sanitizer.sanitize(scriptContent);
     expect(sanitizedScript).toBe('<p>Hello</p>');
     expect(sanitizer.isDangerousContent(scriptContent)).toBe(true);
-    
+
     // Test event handlers are removed
     const eventContent = '<div onclick="alert(\'XSS\')">Click me</div>';
     const sanitizedEvent = sanitizer.sanitize(eventContent);
     expect(sanitizedEvent).toBe('<div>Click me</div>');
     expect(sanitizer.isDangerousContent(eventContent)).toBe(true);
-    
+
     // Test javascript URLs are removed
     const jsUrlContent = '<a href="javascript:alert(\'XSS\')">Malicious Link</a>';
     const sanitizedJsUrl = sanitizer.sanitize(jsUrlContent);
     expect(sanitizedJsUrl).toBe('<a href="#">Malicious Link</a>');
     expect(sanitizer.isDangerousContent(jsUrlContent)).toBe(true);
-    
+
     // Test data URLs are removed
     const dataUrlContent = '<img src="data:text/html,<script>alert(\'XSS\')</script>">';
     const sanitizedDataUrl = sanitizer.sanitize(dataUrlContent);
     expect(sanitizedDataUrl).toBe('<img src="#">');
     expect(sanitizer.isDangerousContent(dataUrlContent)).toBe(true);
-    
+
     // Test iframe tags are detected as dangerous
     const iframeContent = '<iframe src="malicious.html"></iframe>';
     expect(sanitizer.isDangerousContent(iframeContent)).toBe(true);
-    
+
     // Test object and embed tags are detected as dangerous
     const objectContent = '<object data="malicious.swf"></object>';
     const embedContent = '<embed src="malicious.swf">';
     expect(sanitizer.isDangerousContent(objectContent)).toBe(true);
     expect(sanitizer.isDangerousContent(embedContent)).toBe(true);
-    
+
     // Test clean content is not detected as dangerous
     const cleanExample = '<div class="safe">Safe content with <strong>markup</strong>.</div>';
     expect(sanitizer.isDangerousContent(cleanExample)).toBe(false);
@@ -87,57 +87,57 @@ describe('Security Tests', () => {
   it('should implement CSRF protection correctly', () => {
     const csrfProtection = {
       tokens: new Map<string, string>(),
-      generateToken: function(userId: string) {
+      generateToken: function (userId: string) {
         // Generate secure random token
-        const token = Math.random().toString(36).substring(2) + 
-                      Math.random().toString(36).substring(2);
+        const token =
+          Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
         this.tokens.set(userId, token);
         return token;
       },
-      validateToken: function(userId: string, token: string) {
+      validateToken: function (userId: string, token: string) {
         const storedToken = this.tokens.get(userId);
         return storedToken === token;
       },
-      regenerateToken: function(userId: string) {
+      regenerateToken: function (userId: string) {
         this.tokens.delete(userId);
         return this.generateToken(userId);
       },
-      expireOldTokens: function(maxAgeMinutes: number = 60) {
+      expireOldTokens: function (maxAgeMinutes: number = 60) {
         // In a real implementation, we'd store timestamps with tokens
         // For this test, we'll just return the count of expired tokens (0)
         return 0;
-      }
+      },
     };
 
     // Test token generation
     const token1 = csrfProtection.generateToken('user123');
     const token2 = csrfProtection.generateToken('user456');
-    
+
     expect(typeof token1).toBe('string');
     expect(token1.length).toBeGreaterThan(20); // Should be reasonably long
     expect(typeof token2).toBe('string');
     expect(token2.length).toBeGreaterThan(20);
     expect(token1).not.toBe(token2); // Tokens should be unique
-    
+
     // Test token validation
     expect(csrfProtection.validateToken('user123', token1)).toBe(true);
     expect(csrfProtection.validateToken('user456', token2)).toBe(true);
     expect(csrfProtection.validateToken('user123', token2)).toBe(false); // Wrong token
     expect(csrfProtection.validateToken('user456', token1)).toBe(false); // Wrong user
-    
+
     // Test token regeneration
     const oldToken = csrfProtection.tokens.get('user123');
     const newToken = csrfProtection.regenerateToken('user123');
-    
+
     expect(newToken).not.toBe(oldToken);
     expect(csrfProtection.validateToken('user123', newToken)).toBe(true);
     expect(csrfProtection.validateToken('user123', oldToken as string)).toBe(false);
-    
+
     // Test invalid tokens
     expect(csrfProtection.validateToken('nonexistent', 'fake-token')).toBe(false);
     expect(csrfProtection.validateToken('user123', '')).toBe(false);
     expect(csrfProtection.validateToken('', 'some-token')).toBe(false);
-    
+
     // Test expiration of old tokens (conceptual test)
     const expiredCount = csrfProtection.expireOldTokens(30);
     expect(typeof expiredCount).toBe('number');
@@ -146,34 +146,34 @@ describe('Security Tests', () => {
   // Input validation tests
   it('should validate inputs correctly', () => {
     const inputValidator = {
-      validateEmail: function(email: string) {
+      validateEmail: function (email: string) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       },
-      validatePhone: function(phone: string) {
-        const phoneRegex = /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+      validatePhone: function (phone: string) {
+        const phoneRegex =
+          /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
         return phoneRegex.test(phone);
       },
-      validateName: function(name: string) {
+      validateName: function (name: string) {
         const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-']+$/;
         return nameRegex.test(name) && name.trim().length >= 2 && name.trim().length <= 50;
       },
-      validateMessage: function(message: string) {
-        return typeof message === 'string' && 
-               message.length >= 10 && 
-               message.length <= 1000;
+      validateMessage: function (message: string) {
+        return typeof message === 'string' && message.length >= 10 && message.length <= 1000;
       },
-      validateId: function(id: string) {
+      validateId: function (id: string) {
         const idRegex = /^[a-zA-Z0-9_-]+$/;
         return idRegex.test(id) && id.length >= 1 && id.length <= 100;
       },
-      sanitizeString: function(str: string) {
+      sanitizeString: function (str: string) {
         // Basic sanitization - remove potentially dangerous characters
-        return str.replace(/[<>"]/g, '')
-                  .replace(/javascript:/gi, '')
-                  .replace(/data:/gi, '')
-                  .trim();
-      }
+        return str
+          .replace(/[<>"]/g, '')
+          .replace(/javascript:/gi, '')
+          .replace(/data:/gi, '')
+          .trim();
+      },
     };
 
     // Test email validation
@@ -205,7 +205,7 @@ describe('Security Tests', () => {
     const validMessage = 'This is a valid message with more than 10 characters.';
     const shortMessage = 'Too short';
     const longMessage = 'A'.repeat(1500);
-    
+
     expect(inputValidator.validateMessage(validMessage)).toBe(true);
     expect(inputValidator.validateMessage(shortMessage)).toBe(false);
     expect(inputValidator.validateMessage(longMessage)).toBe(false);
@@ -220,7 +220,9 @@ describe('Security Tests', () => {
 
     // Test string sanitization
     expect(inputValidator.sanitizeString('Normal text')).toBe('Normal text');
-    expect(inputValidator.sanitizeString('<script>alert("XSS")</script>')).toBe('scriptalert(XSS)/script');
+    expect(inputValidator.sanitizeString('<script>alert("XSS")</script>')).toBe(
+      'scriptalert(XSS)/script'
+    );
     expect(inputValidator.sanitizeString('"quoted" text')).toBe('quoted text');
     expect(inputValidator.sanitizeString('javascript:alert("bad")')).toBe(':alert(bad)');
   });
@@ -228,79 +230,81 @@ describe('Security Tests', () => {
   // Authentication security tests
   it('should handle authentication security correctly', () => {
     const authSecurity = {
-      sessions: new Map<string, {userId: string, expiresAt: number, ip: string}>(),
-      rateLimits: new Map<string, {count: number, lastReset: number}>(),
+      sessions: new Map<string, { userId: string; expiresAt: number; ip: string }>(),
+      rateLimits: new Map<string, { count: number; lastReset: number }>(),
       maxLoginAttempts: 5,
       lockoutDuration: 15 * 60 * 1000, // 15 minutes
-      generateSessionId: function() {
-        return Math.random().toString(36).substring(2) + 
-               Math.random().toString(36).substring(2) +
-               Date.now().toString(36);
+      generateSessionId: function () {
+        return (
+          Math.random().toString(36).substring(2) +
+          Math.random().toString(36).substring(2) +
+          Date.now().toString(36)
+        );
       },
-      createSession: function(userId: string, ip: string) {
+      createSession: function (userId: string, ip: string) {
         const sessionId = this.generateSessionId();
-        const expiresAt = Date.now() + (24 * 60 * 60 * 1000); // 24 hours
-        
+        const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+
         this.sessions.set(sessionId, {
           userId,
           expiresAt,
-          ip
+          ip,
         });
-        
+
         return { sessionId, expiresAt };
       },
-      validateSession: function(sessionId: string, ip: string) {
+      validateSession: function (sessionId: string, ip: string) {
         const session = this.sessions.get(sessionId);
-        
+
         if (!session) {
           return { valid: false, reason: 'Session not found' };
         }
-        
+
         if (session.expiresAt < Date.now()) {
           this.sessions.delete(sessionId);
           return { valid: false, reason: 'Session expired' };
         }
-        
+
         if (session.ip !== ip) {
           return { valid: false, reason: 'IP mismatch' };
         }
-        
+
         return { valid: true, userId: session.userId };
       },
-      incrementLoginAttempts: function(ip: string) {
+      incrementLoginAttempts: function (ip: string) {
         const now = Date.now();
         let attempts = this.rateLimits.get(ip);
-        
-        if (!attempts || (now - attempts.lastReset) > (15 * 60 * 1000)) {
+
+        if (!attempts || now - attempts.lastReset > 15 * 60 * 1000) {
           attempts = { count: 0, lastReset: now };
         }
-        
+
         attempts.count++;
         this.rateLimits.set(ip, attempts);
-        
+
         return attempts.count;
       },
-      isRateLimited: function(ip: string) {
+      isRateLimited: function (ip: string) {
         const attempts = this.rateLimits.get(ip);
         if (!attempts) return false;
-        
+
         const now = Date.now();
-        if ((now - attempts.lastReset) > (15 * 60 * 1000)) {
+        if (now - attempts.lastReset > 15 * 60 * 1000) {
           this.rateLimits.delete(ip);
           return false;
         }
-        
+
         return attempts.count >= this.maxLoginAttempts;
       },
-      resetRateLimit: function(ip: string) {
+      resetRateLimit: function (ip: string) {
         this.rateLimits.delete(ip);
-      }
+      },
     };
 
     // Test session creation
     const session1 = authSecurity.createSession('user123', '192.168.1.1');
     const session2 = authSecurity.createSession('user456', '192.168.1.2');
-    
+
     expect(authSecurity.sessions.size).toBe(2);
     expect(typeof session1.sessionId).toBe('string');
     expect(session1.expiresAt).toBeGreaterThan(Date.now());
@@ -324,20 +328,20 @@ describe('Security Tests', () => {
 
     // Test rate limiting
     const ip = '192.168.1.100';
-    
+
     // Increment attempts up to limit
     for (let i = 0; i < authSecurity.maxLoginAttempts; i++) {
       const count = authSecurity.incrementLoginAttempts(ip);
       expect(count).toBe(i + 1);
     }
-    
+
     // Should be rate limited now
     expect(authSecurity.isRateLimited(ip)).toBe(true);
-    
+
     // Test reset of rate limit
     authSecurity.resetRateLimit(ip);
     expect(authSecurity.isRateLimited(ip)).toBe(false);
-    
+
     // Test rate limit expiration (conceptual test)
     const pastAttempts = authSecurity.incrementLoginAttempts(ip);
     expect(pastAttempts).toBe(1);
@@ -347,7 +351,7 @@ describe('Security Tests', () => {
   it('should handle data encryption correctly', () => {
     const encryptor = {
       // Mock encryption functions (for testing purposes)
-      encrypt: function(text: string, key: string) {
+      encrypt: function (text: string, key: string) {
         // Simple XOR cipher for testing (NOT for production!)
         let result = '';
         for (let i = 0; i < text.length; i++) {
@@ -356,7 +360,7 @@ describe('Security Tests', () => {
         }
         return Buffer.from(result, 'binary').toString('base64');
       },
-      decrypt: function(encryptedText: string, key: string) {
+      decrypt: function (encryptedText: string, key: string) {
         // Reverse of encrypt
         const binary = Buffer.from(encryptedText, 'base64').toString('binary');
         let result = '';
@@ -366,41 +370,43 @@ describe('Security Tests', () => {
         }
         return result;
       },
-      hash: function(text: string) {
+      hash: function (text: string) {
         // Simple hash for testing
         let hash = 0;
         for (let i = 0; i < text.length; i++) {
           const char = text.charCodeAt(i);
-          hash = ((hash << 5) - hash) + char;
+          hash = (hash << 5) - hash + char;
           hash = hash & hash; // Convert to 32bit integer
         }
         return hash.toString(36);
       },
-      salt: function(length: number = 16) {
+      salt: function (length: number = 16) {
         // Generate random salt
-        return Math.random().toString(36).substring(2, length + 2);
-      }
+        return Math.random()
+          .toString(36)
+          .substring(2, length + 2);
+      },
     };
 
     // Test encryption and decryption
     const originalText = 'Sensitive information for testing';
     const key = 'test-key-123';
-    
+
     const encrypted = encryptor.encrypt(originalText, key);
     const decrypted = encryptor.decrypt(encrypted, key);
-    
+
     expect(typeof encrypted).toBe('string');
     expect(encrypted.length).toBeGreaterThan(0);
     expect(decrypted).toBe(originalText);
 
     // Test that encrypted text is different from original
     expect(encrypted).not.toBe(originalText);
-    
+
     // Test hashing
     const hash1 = encryptor.hash('password123');
     const hash2 = encryptor.hash('password123');
     const hash3 = encryptor.hash('different-password');
-    
+
     expect(typeof hash1).toBe('string');
     expect(hash1.length).toBeGreaterThan(0);
     expect(hash1).toBe(hash2); // Same input should produce same hash
@@ -410,7 +416,7 @@ describe('Security Tests', () => {
     const salt1 = encryptor.salt();
     const salt2 = encryptor.salt();
     const salt3 = encryptor.salt(32); // Longer salt
-    
+
     expect(typeof salt1).toBe('string');
     expect(salt1.length).toBe(16); // Default length
     expect(salt2.length).toBe(16); // Default length
@@ -421,77 +427,82 @@ describe('Security Tests', () => {
   // Secure cookie tests
   it('should handle cookies securely', () => {
     const cookieManager = {
-      cookies: new Map<string, {value: string, options: Record<string, any>}>(),
-      setCookie: function(name: string, value: string, options: Record<string, any> = {}) {
+      cookies: new Map<string, { value: string; options: Record<string, any> }>(),
+      setCookie: function (name: string, value: string, options: Record<string, any> = {}) {
         // Set secure defaults
         const defaultOptions = {
           httpOnly: true,
           secure: true,
           sameSite: 'Strict',
           path: '/',
-          ...options
+          ...options,
         };
-        
+
         this.cookies.set(name, {
           value,
-          options: defaultOptions
+          options: defaultOptions,
         });
-        
+
         return defaultOptions;
       },
-      getCookie: function(name: string) {
+      getCookie: function (name: string) {
         const cookie = this.cookies.get(name);
         return cookie ? cookie.value : null;
       },
-      deleteCookie: function(name: string) {
+      deleteCookie: function (name: string) {
         this.cookies.delete(name);
       },
-      isSecureCookie: function(options: Record<string, any>) {
-        return options.httpOnly === true && 
-               options.secure === true && 
-               options.sameSite === 'Strict';
+      isSecureCookie: function (options: Record<string, any>) {
+        return (
+          options.httpOnly === true && options.secure === true && options.sameSite === 'Strict'
+        );
       },
-      setSignedCookie: function(name: string, value: string, secret: string, options: Record<string, any> = {}) {
+      setSignedCookie: function (
+        name: string,
+        value: string,
+        secret: string,
+        options: Record<string, any> = {}
+      ) {
         // Sign the cookie value
         const signature = this.signValue(value, secret);
         const signedValue = `${value}.${signature}`;
-        
+
         return this.setCookie(name, signedValue, options);
       },
-      verifySignedCookie: function(name: string, secret: string) {
+      verifySignedCookie: function (name: string, secret: string) {
         const cookie = this.cookies.get(name);
         if (!cookie) return null;
-        
+
         const [value, signature] = cookie.value.split('.');
         const expectedSignature = this.signValue(value, secret);
-        
+
         if (signature === expectedSignature) {
           return value;
         }
-        
+
         return null; // Invalid signature
       },
-      signValue: function(value: string, secret: string) {
+      signValue: function (value: string, secret: string) {
         // Simple signing for testing
         return this.simpleHash(value + secret);
       },
-      simpleHash: function(str: string) {
+      simpleHash: function (str: string) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
           const char = str.charCodeAt(i);
-          hash = ((hash << 5) - hash) + char;
+          hash = (hash << 5) - hash + char;
           hash = hash & hash;
         }
         return Math.abs(hash).toString(36);
-      }
+      },
     };
 
     // Test setting secure cookies
     const sessionOptions = cookieManager.setCookie('sessionId', 'abc123', {
       maxAge: 3600000, // 1 hour
-      domain: '.zerodolg.ru'
+      domain: '.zerodolg.ru',
     });
-    
+
     expect(cookieManager.cookies.size).toBe(1);
     expect(sessionOptions.httpOnly).toBe(true);
     expect(sessionOptions.secure).toBe(true);
@@ -511,10 +522,15 @@ describe('Security Tests', () => {
     expect(cookieManager.getCookie('sessionId')).toBeNull();
 
     // Test signed cookies
-    const signedOptions = cookieManager.setSignedCookie('authToken', 'secret-token', 'super-secret', {
-      maxAge: 7200000 // 2 hours
-    });
-    
+    const signedOptions = cookieManager.setSignedCookie(
+      'authToken',
+      'secret-token',
+      'super-secret',
+      {
+        maxAge: 7200000, // 2 hours
+      }
+    );
+
     expect(cookieManager.isSecureCookie(signedOptions)).toBe(true);
     expect(signedOptions.maxAge).toBe(7200000);
 
@@ -536,35 +552,45 @@ describe('Security Tests', () => {
     const cspGenerator = {
       policies: {
         'default-src': ["'self'"],
-        'script-src': ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
+        'script-src': [
+          "'self'",
+          "'unsafe-inline'",
+          'https://www.googletagmanager.com',
+          'https://www.google-analytics.com',
+        ],
         'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
-        'img-src': ["'self'", 'data:', 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
+        'img-src': [
+          "'self'",
+          'data:',
+          'https://www.googletagmanager.com',
+          'https://www.google-analytics.com',
+        ],
         'font-src': ["'self'", 'https://fonts.gstatic.com'],
         'connect-src': ["'self'", 'https://www.google-analytics.com'],
         'frame-src': ["'self'", 'https://www.google.com'],
         'object-src': ["'none'"],
         'base-uri': ["'self'"],
         'form-action': ["'self'"],
-        'upgrade-insecure-requests': []
+        'upgrade-insecure-requests': [],
       },
-      addPolicy: function(directive: string, sources: string[]) {
+      addPolicy: function (directive: string, sources: string[]) {
         if (!this.policies[directive]) {
           this.policies[directive] = [];
         }
-        sources.forEach(source => {
+        sources.forEach((source) => {
           if (!this.policies[directive].includes(source)) {
             this.policies[directive].push(source);
           }
         });
       },
-      removePolicy: function(directive: string, sources: string[]) {
+      removePolicy: function (directive: string, sources: string[]) {
         if (this.policies[directive]) {
           this.policies[directive] = this.policies[directive].filter(
-            source => !sources.includes(source)
+            (source) => !sources.includes(source)
           );
         }
       },
-      generateHeader: function() {
+      generateHeader: function () {
         return Object.entries(this.policies)
           .map(([directive, sources]) => {
             if (sources.length === 0) {
@@ -574,13 +600,13 @@ describe('Security Tests', () => {
           })
           .join('; ');
       },
-      isRestrictivePolicy: function(directive: string) {
+      isRestrictivePolicy: function (directive: string) {
         const policy = this.policies[directive];
-        return policy && (
-          policy.includes("'none'") || 
-          (policy.includes("'self'") && policy.length === 1)
+        return (
+          policy &&
+          (policy.includes("'none'") || (policy.includes("'self'") && policy.length === 1))
         );
-      }
+      },
     };
 
     // Test CSP header generation
@@ -625,64 +651,64 @@ describe('Security Tests', () => {
   // Rate limiting tests
   it('should implement rate limiting correctly', () => {
     const rateLimiter = {
-      limits: new Map<string, {count: number, resetTime: number}>(),
+      limits: new Map<string, { count: number; resetTime: number }>(),
       maxRequests: 100,
       windowMs: 15 * 60 * 1000, // 15 minutes
-      checkLimit: function(key: string) {
+      checkLimit: function (key: string) {
         const now = Date.now();
         let limit = this.limits.get(key);
-        
+
         if (!limit || limit.resetTime < now) {
           limit = {
             count: 0,
-            resetTime: now + this.windowMs
+            resetTime: now + this.windowMs,
           };
           this.limits.set(key, limit);
         }
-        
+
         limit.count++;
-        
+
         if (limit.count > this.maxRequests) {
           return {
             allowed: false,
             limit: this.maxRequests,
             remaining: 0,
             resetTime: limit.resetTime,
-            retryIn: Math.ceil((limit.resetTime - now) / 1000) // Seconds
+            retryIn: Math.ceil((limit.resetTime - now) / 1000), // Seconds
           };
         }
-        
+
         return {
           allowed: true,
           limit: this.maxRequests,
           remaining: this.maxRequests - limit.count,
           resetTime: limit.resetTime,
-          retryIn: 0
+          retryIn: 0,
         };
       },
-      resetLimit: function(key: string) {
+      resetLimit: function (key: string) {
         this.limits.delete(key);
       },
-      getRateLimitInfo: function(key: string) {
+      getRateLimitInfo: function (key: string) {
         const limit = this.limits.get(key);
         if (!limit) {
           return null;
         }
-        
+
         const now = Date.now();
         return {
           count: limit.count,
           limit: this.maxRequests,
           resetTime: limit.resetTime,
           remaining: Math.max(0, this.maxRequests - limit.count),
-          resetIn: Math.ceil((limit.resetTime - now) / 1000)
+          resetIn: Math.ceil((limit.resetTime - now) / 1000),
         };
-      }
+      },
     };
 
     // Test rate limiting
     const apiKey = 'api-key-123';
-    
+
     // Make requests below the limit
     for (let i = 0; i < 50; i++) {
       const result = rateLimiter.checkLimit(apiKey);
@@ -690,7 +716,7 @@ describe('Security Tests', () => {
       expect(result.remaining).toBe(rateLimiter.maxRequests - (i + 1));
       expect(result.limit).toBe(rateLimiter.maxRequests);
     }
-    
+
     // Test approaching limit
     const接近Limit = rateLimiter.checkLimit(apiKey);
     expect(接近Limit.allowed).toBe(true);
@@ -700,7 +726,7 @@ describe('Security Tests', () => {
     for (let i = 0; i < 50; i++) {
       rateLimiter.checkLimit(apiKey);
     }
-    
+
     const exceeded = rateLimiter.checkLimit(apiKey);
     expect(exceeded.allowed).toBe(false);
     expect(exceeded.remaining).toBe(0);
