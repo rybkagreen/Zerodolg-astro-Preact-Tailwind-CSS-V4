@@ -1,7 +1,7 @@
 // Shared analytics utilities
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    gtag?: (command: string, ...args: any[]) => void;
     ym?: (id: number, command: string, ...args: any[]) => void;
   }
 }

@@ -21,7 +21,7 @@ export function validateEmail(email: string): boolean {
 }
 
 export function validatePhone(phone: string): boolean {
-  const phoneRegex = /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+  const phoneRegex = /^(\+7|8)[\s-]?\(?[0-9]{3}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/;
   return phoneRegex.test(phone);
 }
 
@@ -72,7 +72,7 @@ export function validateField(field: HTMLInputElement): ValidationResult {
 
   // Email validation
   else if (field.type === 'email' && field.value) {
-    const emailRegex = /^[^\s@]+@[^\\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(field.value)) {
       isValid = false;
       errorMessage = 'Введите корректный email';

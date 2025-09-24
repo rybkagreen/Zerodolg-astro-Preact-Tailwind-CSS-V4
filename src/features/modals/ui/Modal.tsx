@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'preact/hooks';
-import { useModal } from './model/modal-context';
+import { useModal } from '../model/modal-context';
 
 interface ModalProps {
   id: string;

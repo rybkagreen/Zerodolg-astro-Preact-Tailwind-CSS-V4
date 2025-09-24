@@ -1,9 +1,11 @@
+import type { APIContext } from 'astro';
+
 // Middleware for caching, security headers and performance
-export async function onRequest({ request }, next) {
+export async function onRequest(context: APIContext, next: () => Promise<Response>): Promise<Response> {
   const response = await next();
   
   // Set cache control headers for static assets
-  if (request.url.includes('/assets/')) {
+  if (context.request.url.includes('/assets/')) {
     response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
   } else if (response.headers.get('content-type')?.includes('text/html')) {
     // Short cache for HTML pages

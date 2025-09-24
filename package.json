@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/validate-env.cjs && astro build",
-    "build:prod": "node scripts/validate-env.cjs && astro build --config astro.config.prod.mjs",
+    "build": "node scripts/validate-env.js && astro build",
+    "build:prod": "node scripts/validate-env.js && astro build --config astro.config.prod.mjs",
     "build:production": "node scripts/build-production.js",
     "preview": "astro preview",
     "astro": "astro",
@@ -16,7 +16,7 @@
     "prebuild": "npm run clean && npm run type-check",
     "postbuild": "echo 'Build completed successfully'",
     "prepare": "husky",
-    "env:validate": "node scripts/validate-env.cjs",
+    "env:validate": "node scripts/validate-env.js",
     "test:env": "node scripts/test-env-validation.js",
     "deploy:checklist": "node scripts/deployment-checklist-complete.js",
     "deploy:verify": "node scripts/post-build-verification.js",
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@eslint/js": "^9.36.0",
+    "@lhci/cli": "^0.15.1",
     "@testing-library/jest-dom": "^6.8.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.10",

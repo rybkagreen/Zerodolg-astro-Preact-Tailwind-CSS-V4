@@ -1,9 +1,9 @@
 // Performance monitoring utilities
-export function measurePageLoad() {
+export function measurePageLoad(): void {
   if ('performance' in window) {
     window.addEventListener('load', () => {
       setTimeout(() => {
-        const perfData = performance.getEntriesByType('navigation')[0];
+        const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
         if (perfData) {
           const metrics = {
             dnsLookup: perfData.domainLookupEnd - perfData.domainLookupStart,
@@ -30,7 +30,7 @@ export function measurePageLoad() {
   }
 }
 
-export function trackFirstContentfulPaint(callback: (fcp: number) => void) {
+export function trackFirstContentfulPaint(callback: (fcp: number) => void): void {
   if ('PerformanceObserver' in window && 'PerformancePaintTiming' in window) {
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
@@ -46,7 +46,7 @@ export function trackFirstContentfulPaint(callback: (fcp: number) => void) {
   }
 }
 
-export function trackLargestContentfulPaint(callback: (lcp: number) => void) {
+export function trackLargestContentfulPaint(callback: (lcp: number) => void): void {
   if ('PerformanceObserver' in window && 'LargestContentfulPaint' in window) {
     const observer = new PerformanceObserver((list) => {
       const entries = list.getEntries();

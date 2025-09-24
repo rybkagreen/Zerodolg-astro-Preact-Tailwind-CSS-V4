@@ -1,5 +1,5 @@
 // Structured data helpers
-export const organizationSchema = {
+export const organizationSchema: Record<string, any> = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "ZeroDolg",
@@ -18,7 +18,7 @@ export const organizationSchema = {
   }
 };
 
-export const websiteSchema = {
+export const websiteSchema: Record<string, any> = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "ZeroDolg",
@@ -30,7 +30,7 @@ export const websiteSchema = {
   }
 };
 
-export const breadcrumbSchema = (items: Array<{name: string, url: string}>) => {
+export const breadcrumbSchema = (items: Array<{name: string, url: string}>): Record<string, any> => {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -50,7 +50,7 @@ export const articleSchema = (article: {
   dateModified: string,
   author: string,
   image: string
-}) => {
+}): Record<string, any> => {
   return {
     "@context": "https://schema.org",
     "@type": "Article",

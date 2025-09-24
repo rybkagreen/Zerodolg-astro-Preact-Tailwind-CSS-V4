@@ -36,16 +36,6 @@ export default defineConfig({
     enabled: false,
   },
   vite: {
-    css: {
-      postcss: {
-        plugins: [
-          require('autoprefixer'),
-          require('cssnano')({
-            preset: 'default',
-          }),
-        ],
-      },
-    },
     build: {
       // Enable CSS and JS minification
       minify: 'terser',

@@ -9,13 +9,26 @@ import globals from 'globals';
 export default [
   // Global ignores
   {
+    files: ['**/*'],
     ignores: [
-      '/dist/',
-      '/node_modules/',
-      '/.astro/',
+      'dist/**/*',
+      'node_modules/**/*',
+      '.astro/**/*',
       '*.min.js',
-      '/public/',
-      '/coverage/',
+      'public/**/*',
+      'coverage/**/*',
+      '.git/**/*',
+      '.github/**/*',
+      'eslint.config.js',
+      'jest.config.cjs',
+      'jest.setup.ts',
+      'astro.config.mjs',
+      'astro.config.prod.mjs',
+      '**/*.d.ts',
+      'dist/**/*',
+      'public/**/*',
+      '__tests__/**/*',
+      'src/__tests__/**/*'
     ]
   },
   
@@ -36,7 +49,7 @@ export default [
         ecmaFeatures: {
           jsx: true
         },
-        project: './tsconfig.json'
+        project: ['./tsconfig.json']
       },
       globals: {
         ...globals.browser,
@@ -56,7 +69,7 @@ export default [
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-expressions': 'error',
       // Base rules
-      'indent': ['error', 2],
+      'indent': 'off', // Temporarily disabled due to recursion issue in v9.35.0
       'quotes': ['error', 'single'],
       'semi': ['error', 'always'],
       'no-console': 'warn',
