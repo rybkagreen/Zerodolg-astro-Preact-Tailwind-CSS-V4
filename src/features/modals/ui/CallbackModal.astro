@@ -9,9 +9,9 @@ interface Props {
 const { modalId = 'callback-modal' } = Astro.props;
 ---
 
-<Modal 
-  id="callback" 
-  title="Заказать обратный звонок" 
+<Modal
+  id="callback"
+  title="Заказать обратный звонок"
   subtitle="Оставьте свой номер телефона, и наш специалист свяжется с вами в течение 15 минут"
 >
   <BaseForm formId="callback" formType="callback">
@@ -19,9 +19,9 @@ const { modalId = 'callback-modal' } = Astro.props;
       <label class="form__label" for="callback-name">
         Ваше имя <span class="form__required">*</span>
       </label>
-      <input 
-        type="text" 
-        class="form__input" 
+      <input
+        type="text"
+        class="form__input"
         id="callback-name"
         name="name"
         placeholder="Введите ваше имя"
@@ -30,14 +30,14 @@ const { modalId = 'callback-modal' } = Astro.props;
       />
       <span class="form__error" data-error="name"></span>
     </div>
-    
+
     <div class="form__group">
       <label class="form__label" for="callback-phone">
         Телефон <span class="form__required">*</span>
       </label>
-      <input 
-        type="tel" 
-        class="form__input" 
+      <input
+        type="tel"
+        class="form__input"
         id="callback-phone"
         name="phone"
         placeholder="+7 (___) ___-__-__"
@@ -47,11 +47,9 @@ const { modalId = 'callback-modal' } = Astro.props;
       />
       <span class="form__error" data-error="phone"></span>
     </div>
-    
+
     <div class="form__group">
-      <label class="form__label" for="callback-time">
-        Удобное время для звонка
-      </label>
+      <label class="form__label" for="callback-time"> Удобное время для звонка </label>
       <select class="form__select" id="callback-time" name="time" autocomplete="off">
         <option value="">Любое время</option>
         <option value="9-12">С 9:00 до 12:00</option>
@@ -60,37 +58,29 @@ const { modalId = 'callback-modal' } = Astro.props;
         <option value="18-21">С 18:00 до 21:00</option>
       </select>
     </div>
-    
+
     <div class="form__group">
-      <label class="form__label" for="callback-message">
-        Комментарий
-      </label>
-      <textarea 
-        class="form__textarea" 
+      <label class="form__label" for="callback-message"> Комментарий </label>
+      <textarea
+        class="form__textarea"
         id="callback-message"
         name="message"
         placeholder="Кратко опишите вашу ситуацию"
         rows="3"
-        autocomplete="off"
-      ></textarea>
+        autocomplete="off"></textarea>
     </div>
-    
+
     <div class="form__group">
       <label class="form__checkbox" for="callback-agreement">
-        <input 
-          type="checkbox" 
-          id="callback-agreement"
-          name="agreement"
-          required
-        />
+        <input type="checkbox" id="callback-agreement" name="agreement" required />
         <span class="form__checkbox-text">
-          Я согласен на обработку 
+          Я согласен на обработку
           <a href="/privacy" target="_blank">персональных данных</a>
         </span>
       </label>
       <span class="form__error" data-error="agreement"></span>
     </div>
-    
+
     <button type="submit" class="btn btn--primary btn--block form__submit">
       <span class="btn__text">Заказать звонок</span>
       <span class="btn__loader">
@@ -99,11 +89,10 @@ const { modalId = 'callback-modal' } = Astro.props;
         </svg>
       </span>
     </button>
-    
+
     <p class="form__note">
-      Нажимая кнопку, вы соглашаетесь с 
+      Нажимая кнопку, вы соглашаетесь с
       <a href="/terms" target="_blank">условиями обработки данных</a>
     </p>
   </BaseForm>
 </Modal>
-

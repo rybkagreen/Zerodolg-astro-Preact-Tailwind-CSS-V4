@@ -1,7 +1,10 @@
 name = "Запустить линтер"
-description = "Проверить код с помощью ESLint"
+description = "Проверка кода с помощью ESLint"
+
+[prompt]
+text = "Запуск линтера проекта"
 
 [command]
 type = "shell"
-run = "npx eslint . --ext .js,.ts,.astro"
+run = "npm run lint"
 directory = "."

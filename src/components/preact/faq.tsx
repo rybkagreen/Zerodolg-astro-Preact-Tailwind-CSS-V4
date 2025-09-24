@@ -7,7 +7,6 @@ export interface FaqProps {
 }
 
 export default function Faq(_props: FaqProps) {
-  // eslint-disable-line @typescript-eslint/no-unused-vars
   useEffect(() => {
     // FAQ accordion functionality
     const initializeFAQ = () => {

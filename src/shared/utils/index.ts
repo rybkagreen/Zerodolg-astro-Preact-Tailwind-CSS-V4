@@ -3,5 +3,5 @@ export {
   organizationSchema,
   websiteSchema,
   breadcrumbSchema,
-  articleSchema
+  articleSchema,
 } from './structured-data';

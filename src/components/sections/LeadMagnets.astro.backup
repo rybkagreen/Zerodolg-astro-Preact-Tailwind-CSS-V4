@@ -1,0 +1,162 @@
+---
+import LeadMagnetsComponent from '../preact/lead-magnets.tsx';
+
+const leadMagnets = [
+  {
+    type: 'consultation',
+    badge: 'Рекомендуем',
+    badgeType: 'primary',
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          </svg>`,
+    title: 'Персональная консультация',
+    description:
+      '30-минутный разбор вашей ситуации с юристом по банкротству. Получите экспертную оценку и план действий.',
+    features: ['Анализ документов', 'Оценка перспектив', 'Стратегия решения'],
+    buttonText: 'Записаться на консультацию',
+    note: 'Бесплатно • Без обязательств',
+    modalType: 'consultation',
+    trackEvent: 'lead_consultation',
+  },
+  {
+    type: 'calculator',
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="2" width="16" height="20" rx="2"/>
+            <path d="M8 6h8M8 10h8M8 14h4"/>
+          </svg>`,
+    title: 'Калькулятор банкротства',
+    description:
+      'Узнайте точную стоимость процедуры банкротства. Получите персональный расчет без регистрации.',
+    features: ['Расчет всех расходов', 'Сроки процедуры', 'Нюансы вашего дела'],
+    buttonText: 'Рассчитать стоимость',
+    note: 'Быстро • Точно • Бесплатно',
+    modalType: 'calculator',
+    trackEvent: 'lead_calculator',
+  },
+  {
+    type: 'guide',
+    badge: 'Популярно',
+    badgeType: 'secondary',
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>`,
+    title: 'Гид по банкротству 2025',
+    description:
+      'Скачайте бесплатный гид с 47 страницами полезной информации. Актуальные изменения в законах.',
+    features: ['Алгоритм действий', 'Шаблоны документов', 'Чек-листы'],
+    buttonText: 'Скачать гид',
+    note: 'PDF • 47 страниц • Актуально',
+    modalType: 'guide-download',
+    trackEvent: 'lead_guide',
+  },
+];
+
+const ctaData = {
+  title: 'Начните путь к финансовой свободе',
+  subtitle: 'Выберите удобный способ получения помощи',
+  buttonText: 'Начать банкротство',
+  buttonIcon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>`,
+  modalType: 'consultation',
+};
+---
+
+<!-- Lead Magnets Section -->
+<section class="lead-magnets section" aria-labelledby="lead-magnets-title">
+  <!-- Decorative Elements -->
+  <div class="lead-magnets__decorations" aria-hidden="true">
+    <div class="lead-magnets__decoration lead-magnets__decoration--1"></div>
+    <div class="lead-magnets__decoration lead-magnets__decoration--2"></div>
+    <div class="lead-magnets__decoration lead-magnets__decoration--3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Section Header -->
+    <header class="section__header">
+      <h2 id="lead-magnets-title" class="section__title">Полезные материалы</h2>
+      <p class="section__subtitle">Получите бесплатные ресурсы для начала процедуры банкротства</p>
+    </header>
+
+    <!-- Lead Magnets Grid -->
+    <div class="lead-magnets__grid">
+      {
+        leadMagnets.map((magnet) => (
+          <div class="lead-card lead-card--{magnet.type}">
+            {/* Badge */}
+            {magnet.badge && (
+              <div class={`lead-card__badge lead-card__badge--${magnet.badgeType || 'primary'}`}>
+                {magnet.badge}
+              </div>
+            )}
+
+            {/* Content */}
+            <div class="lead-card__content">
+              {/* Icon */}
+              <div class="lead-card__icon" set:html={magnet.icon} aria-hidden="true" />
+
+              {/* Title */}
+              <h3 class="lead-card__title">{magnet.title}</h3>
+
+              {/* Description */}
+              <p class="lead-card__description">{magnet.description}</p>
+
+              {/* Features List */}
+              <ul class="lead-card__features">
+                {magnet.features.map((feature) => (
+                  <li class="lead-card__feature">
+                    <svg
+                      class="lead-card__feature-icon"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Button */}
+              <button
+                class="btn btn--primary lead-card__button"
+                data-modal={magnet.modalType}
+                data-track={magnet.trackEvent}
+              >
+                <span class="btn__text">{magnet.buttonText}</span>
+                <span class="btn__loader">
+                  <svg class="spinner" viewBox="0 0 50 50" aria-label="Загрузка" role="status">
+                    <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" />
+                  </svg>
+                </span>
+              </button>
+
+              {/* Note */}
+              <p class="lead-card__note">{magnet.note}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* CTA Section */}
+    <div class="lead-magnets__cta">
+      <div class="lead-magnets__cta-content">
+        <h3 class="lead-magnets__cta-title">{ctaData.title}</h3>
+        <p class="lead-magnets__cta-subtitle">{ctaData.subtitle}</p>
+        <button class="btn btn--primary lead-magnets__cta-button" data-modal={ctaData.modalType}>
+          <span class="btn__text">{ctaData.buttonText}</span>
+          <span class="btn__icon" set:html={ctaData.buttonIcon} aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Load interactive logic -->
+<LeadMagnetsComponent client:load />

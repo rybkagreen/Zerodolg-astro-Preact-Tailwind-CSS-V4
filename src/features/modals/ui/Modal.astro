@@ -9,21 +9,38 @@ export interface Props {
 const { id, title, subtitle, size = 'medium' } = Astro.props;
 ---
 
-<div class="modal" data-modal-container={id} aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby={`modal-title-${id}`}>
-    <div class="modal__overlay" data-modal-close tabindex="-1"></div>
-    <div class={`modal__content modal__content--${size}`}>
-        <button class="modal__close" data-modal-close type="button" aria-label="Закрыть">
-            <svg class="icon icon-close" width="24" height="24" aria-hidden="true">
-                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-        
-        <div class="modal__body">
-            {title && <h2 class="modal__title" id={`modal-title-${id}`}>{title}</h2>}
-            {subtitle && <p class="modal__subtitle">{subtitle}</p>}
-            
-            <slot />
-        </div>
-    </div>
-</div>
+<div
+  class="modal"
+  data-modal-container={id}
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={`modal-title-${id}`}
+>
+  <div class="modal__overlay" data-modal-close tabindex="-1"></div>
+  <div class={`modal__content modal__content--${size}`}>
+    <button class="modal__close" data-modal-close type="button" aria-label="Закрыть">
+      <svg class="icon icon-close" width="24" height="24" aria-hidden="true">
+        <path
+          d="M18 6L6 18M6 6l12 12"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
 
+    <div class="modal__body">
+      {
+        title && (
+          <h2 class="modal__title" id={`modal-title-${id}`}>
+            {title}
+          </h2>
+        )
+      }
+      {subtitle && <p class="modal__subtitle">{subtitle}</p>}
+
+      <slot />
+    </div>
+  </div>
+</div>

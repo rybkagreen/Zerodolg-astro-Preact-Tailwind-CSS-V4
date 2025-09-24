@@ -1,7 +1,10 @@
 name = "Аудит производительности"
-description = "Запустить аудит производительности с помощью Lighthouse"
+description = "Запуск аудита производительности с помощью Lighthouse"
+
+[prompt]
+text = "Запуск аудита производительности"
 
 [command]
 type = "shell"
-run = "npx lighthouse http://localhost:4321 --output html --output json --output-path ./perf-report"
+run = "npm run audit"
 directory = "."

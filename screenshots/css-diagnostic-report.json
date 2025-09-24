@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-09-24T08:36:03.449Z",
+  "url": "http://localhost:4321",
+  "cssAnalysis": {
+    "stylesheets": [
+      {
+        "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
+        "loaded": true,
+        "disabled": false,
+        "media": "",
+        "crossOrigin": null,
+        "integrity": ""
+      }
+    ],
+    "computedStyles": {
+      "hasCustomFont": true,
+      "hasCustomColors": true,
+      "hasLayout": true
+    },
+    "loadErrors": [],
+    "cssRules": 1207,
+    "hasInlineStyles": true,
+    "bodyStyles": {
+      "backgroundColor": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "fontSize": "16px",
+      "margin": "0px",
+      "padding": "0px",
+      "display": "flex",
+      "width": "1280px",
+      "height": "720px"
+    },
+    "networkResources": []
+  },
+  "headContent": "<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><!-- SEO Component --><title>💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4 месяца | ZeroDolg</title><meta name=\"description\" content=\"⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.\"><link rel=\"canonical\" href=\"https://zerodolg.ru/\"><!-- Open Graph / Facebook --><meta property=\"og:type\" content=\"website\"><meta property=\"og:title\" content=\"💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4 месяца | ZeroDolg\"><meta property=\"og:description\" content=\"⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.\"><meta property=\"og:image\" content=\"/images/og-image.jpg\"><meta property=\"og:url\" content=\"https://zerodolg.ru/\"><meta property=\"og:site_name\" content=\"ZeroDolg\"><!-- ...",
+  "cssLinks": [
+    "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\">"
+  ],
+  "styleBlocks": [
+    "<style>/* Critical CSS for ZeroDolg.ru - Inline for faster initial rendering */\n\n/* Root variables needed for critical components */\n:root {\n  /* Colors */\n  --color-primary: #2563eb;\n  --color-primar",
+    "<style data-vite-dev-id=\"D:/develop/zerodolg.ru/zerodolg-astro/src/styles/main.css\">:root{--color-accent-dark:#c2410c;--color-accent-light:#fb923c;--color-success:#059669;--color-success-light:#10b981",
+    "<style>\n      .modal--lead-magnet {\n        position: fixed;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        display: flex;\n        align-items: center;\n        jus"
+  ],
+  "networkLogs": []
+}

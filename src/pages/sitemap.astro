@@ -2,304 +2,309 @@
 import Layout from '../layouts/Layout.astro';
 import ClientInteractions from '../components/preact/client-interactions.tsx';
 
-const title = "Карта сайта - ZeroDolg";
-const description = "Полная карта сайта ZeroDolg. Все страницы и разделы сайта в удобной навигации.";
+const title = 'Карта сайта - ZeroDolg';
+const description =
+  'Полная карта сайта ZeroDolg. Все страницы и разделы сайта в удобной навигации.';
 
 // Define the site structure
 const siteMap = [
-	{
-		title: "Главная страница",
-		url: "/",
-		description: "Основная страница сайта с информацией о банкротстве физических лиц"
-	},
-	{
-		title: "Блог",
-		url: "/blog/",
-		description: "Полезные статьи и новости о банкротстве физических лиц",
-		children: [
-			{
-				title: "Все статьи",
-				url: "/blog/"
-			}
-		]
-	},
-	{
-		title: "Правовая информация",
-		children: [
-			{
-				title: "Политика конфиденциальности",
-				url: "/privacy",
-				description: "Как мы собираем, используем и защищаем вашу информацию"
-			},
-			{
-				title: "Пользовательское соглашение",
-				url: "/terms",
-				description: "Права и обязанности пользователей и владельца сайта"
-			},
-			{
-				title: "Карта сайта",
-				url: "/sitemap",
-				description: "Полная карта сайта со всеми страницами"
-			}
-		]
-	},
-	{
-		title: "Разделы главной страницы",
-		children: [
-			{
-				title: "Преимущества",
-				url: "/#benefits",
-				description: "Наши преимущества в банкротстве физических лиц"
-			},
-			{
-				title: "Процесс банкротства",
-				url: "/#process",
-				description: "Пошаговое описание процедуры банкротства"
-			},
-			{
-				title: "Калькулятор стоимости",
-				url: "/#calculator",
-				description: "Рассчитайте стоимость банкротства онлайн"
-			},
-			{
-				title: "Команда",
-				url: "/#team",
-				description: "Наши юристы и специалисты"
-			},
-			{
-				title: "Отзывы клиентов",
-				url: "/#reviews",
-				description: "Истории успеха наших клиентов"
-			},
-			{
-				title: "Часто задаваемые вопросы",
-				url: "/#faq",
-				description: "Ответы на популярные вопросы о банкротстве"
-			}
-		]
-	}
+  {
+    title: 'Главная страница',
+    url: '/',
+    description: 'Основная страница сайта с информацией о банкротстве физических лиц',
+  },
+  {
+    title: 'Блог',
+    url: '/blog/',
+    description: 'Полезные статьи и новости о банкротстве физических лиц',
+    children: [
+      {
+        title: 'Все статьи',
+        url: '/blog/',
+      },
+    ],
+  },
+  {
+    title: 'Правовая информация',
+    children: [
+      {
+        title: 'Политика конфиденциальности',
+        url: '/privacy',
+        description: 'Как мы собираем, используем и защищаем вашу информацию',
+      },
+      {
+        title: 'Пользовательское соглашение',
+        url: '/terms',
+        description: 'Права и обязанности пользователей и владельца сайта',
+      },
+      {
+        title: 'Карта сайта',
+        url: '/sitemap',
+        description: 'Полная карта сайта со всеми страницами',
+      },
+    ],
+  },
+  {
+    title: 'Разделы главной страницы',
+    children: [
+      {
+        title: 'Преимущества',
+        url: '/#benefits',
+        description: 'Наши преимущества в банкротстве физических лиц',
+      },
+      {
+        title: 'Процесс банкротства',
+        url: '/#process',
+        description: 'Пошаговое описание процедуры банкротства',
+      },
+      {
+        title: 'Калькулятор стоимости',
+        url: '/#calculator',
+        description: 'Рассчитайте стоимость банкротства онлайн',
+      },
+      {
+        title: 'Команда',
+        url: '/#team',
+        description: 'Наши юристы и специалисты',
+      },
+      {
+        title: 'Отзывы клиентов',
+        url: '/#reviews',
+        description: 'Истории успеха наших клиентов',
+      },
+      {
+        title: 'Часто задаваемые вопросы',
+        url: '/#faq',
+        description: 'Ответы на популярные вопросы о банкротстве',
+      },
+    ],
+  },
 ];
 ---
 
-<Layout 
-	title={title}
-	description={description}
-	canonical="https://zerodolg.ru/sitemap"
->
-	<article class="sitemap-page">
-		<div class="container">
-			<h1>Карта сайта</h1>
-			
-			<div class="sitemap-content">
-				<p class="sitemap-intro">
-					Добро пожаловать на полную карту сайта ZeroDolg. Здесь вы найдете все разделы и страницы нашего сайта, 
-					посвященного банкротству физических лиц. Вы можете использовать эту карту для быстрой навигации 
-					по всему содержимому сайта.
-				</p>
-				
-				<nav class="sitemap-navigation" role="navigation" aria-label="Карта сайта">
-					<ul class="sitemap-list">
-						{siteMap.map((section) => (
-							<li class="sitemap-section">
-								{section.title && (
-									<h2 class="sitemap-section-title">
-										{section.url ? (
-											<a href={section.url} title={section.description || section.title}>
-												{section.title}
-											</a>
-										) : (
-											section.title
-										)}
-									</h2>
-								)}
-								
-								{section.children && (
-									<ul class="sitemap-sublist">
-										{section.children.map((item) => (
-											<li class="sitemap-item">
-												<a href={item.url} title={item.description || item.title}>
-													{item.title}
-												</a>
-												{item.description && (
-													<p class="sitemap-item-description">{item.description}</p>
-												)}
-											</li>
-										))}
-									</ul>
-								)}
-								
-								{!section.children && section.description && (
-									<p class="sitemap-section-description">{section.description}</p>
-								)}
-							</li>
-						))}
-					</ul>
-				</nav>
-				
-				<div class="sitemap-additional">
-					<h2>Дополнительная информация</h2>
-					<ul>
-						<li><a href="/#contacts">Контакты</a> - Наши контактные данные и адрес офиса</li>
-						<li><a href="tel:+79055773387">Позвонить нам</a> - Бесплатная консультация по телефону</li>
-						<li><a href="https://wa.me/79055773387">WhatsApp</a> - Консультация в мессенджере WhatsApp</li>
-						<li><a href="https://t.me/zerodolg">Telegram</a> - Консультация в мессенджере Telegram</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</article>
-	
-	<!-- Client Interactions Handler for anchor links -->
-	<ClientInteractions client:load />
+<Layout title={title} description={description} canonical="https://zerodolg.ru/sitemap">
+  <article class="sitemap-page">
+    <div class="container">
+      <h1>Карта сайта</h1>
+
+      <div class="sitemap-content">
+        <p class="sitemap-intro">
+          Добро пожаловать на полную карту сайта ZeroDolg. Здесь вы найдете все разделы и страницы
+          нашего сайта, посвященного банкротству физических лиц. Вы можете использовать эту карту
+          для быстрой навигации по всему содержимому сайта.
+        </p>
+
+        <nav class="sitemap-navigation" role="navigation" aria-label="Карта сайта">
+          <ul class="sitemap-list">
+            {
+              siteMap.map((section) => (
+                <li class="sitemap-section">
+                  {section.title && (
+                    <h2 class="sitemap-section-title">
+                      {section.url ? (
+                        <a href={section.url} title={section.description || section.title}>
+                          {section.title}
+                        </a>
+                      ) : (
+                        section.title
+                      )}
+                    </h2>
+                  )}
+
+                  {section.children && (
+                    <ul class="sitemap-sublist">
+                      {section.children.map((item) => (
+                        <li class="sitemap-item">
+                          <a href={item.url} title={item.description || item.title}>
+                            {item.title}
+                          </a>
+                          {item.description && (
+                            <p class="sitemap-item-description">{item.description}</p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {!section.children && section.description && (
+                    <p class="sitemap-section-description">{section.description}</p>
+                  )}
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div class="sitemap-additional">
+          <h2>Дополнительная информация</h2>
+          <ul>
+            <li><a href="/#contacts">Контакты</a> - Наши контактные данные и адрес офиса</li>
+            <li>
+              <a href="tel:+79055773387">Позвонить нам</a> - Бесплатная консультация по телефону
+            </li>
+            <li>
+              <a href="https://wa.me/79055773387">WhatsApp</a> - Консультация в мессенджере WhatsApp
+            </li>
+            <li>
+              <a href="https://t.me/zerodolg">Telegram</a> - Консультация в мессенджере Telegram
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Client Interactions Handler for anchor links -->
+  <ClientInteractions client:load />
 </Layout>
 
 <style>
-	.sitemap-page {
-		padding: 40px 0;
-		line-height: 1.6;
-	}
-	
-	.sitemap-page h1 {
-		font-size: 2.5rem;
-		margin-bottom: 30px;
-		text-align: center;
-	}
-	
-	.sitemap-intro {
-		max-width: 800px;
-		margin: 0 auto 30px;
-		text-align: center;
-		font-size: 1.1rem;
-		color: #555;
-	}
-	
-	.sitemap-content {
-		max-width: 1000px;
-		margin: 0 auto;
-		background: #fff;
-		padding: 30px;
-		border-radius: 8px;
-		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-	}
-	
-	.sitemap-section {
-		margin-bottom: 30px;
-		padding-bottom: 20px;
-		border-bottom: 1px solid #eee;
-	}
-	
-	.sitemap-section:last-child {
-		border-bottom: none;
-	}
-	
-	.sitemap-section-title {
-		font-size: 1.4rem;
-		margin: 0 0 15px;
-		color: #333;
-	}
-	
-	.sitemap-section-title a {
-		color: #007bff;
-		text-decoration: none;
-		transition: color 0.3s;
-	}
-	
-	.sitemap-section-title a:hover {
-		color: #0056b3;
-		text-decoration: underline;
-	}
-	
-	.sitemap-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-	
-	.sitemap-sublist {
-		list-style: none;
-		padding: 0 0 0 20px;
-		margin: 10px 0;
-	}
-	
-	.sitemap-item {
-		margin-bottom: 15px;
-		padding-bottom: 10px;
-		border-bottom: 1px solid #f5f5f5;
-	}
-	
-	.sitemap-item:last-child {
-		border-bottom: none;
-		margin-bottom: 0;
-		padding-bottom: 0;
-	}
-	
-	.sitemap-item a {
-		font-size: 1.1rem;
-		color: #007bff;
-		text-decoration: none;
-		font-weight: 500;
-		transition: color 0.3s;
-	}
-	
-	.sitemap-item a:hover {
-		color: #0056b3;
-		text-decoration: underline;
-	}
-	
-	.sitemap-item-description,
-	.sitemap-section-description {
-		margin: 5px 0 0;
-		font-size: 0.9rem;
-		color: #666;
-	}
-	
-	.sitemap-additional h2 {
-		font-size: 1.3rem;
-		margin: 30px 0 15px;
-		color: #333;
-	}
-	
-	.sitemap-additional ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-	
-	.sitemap-additional li {
-		margin-bottom: 10px;
-	}
-	
-	.sitemap-additional a {
-		color: #007bff;
-		text-decoration: none;
-		transition: color 0.3s;
-	}
-	
-	.sitemap-additional a:hover {
-		color: #0056b3;
-		text-decoration: underline;
-	}
-	
-	@media (max-width: 768px) {
-		.sitemap-page {
-			padding: 20px 0;
-		}
-		
-		.sitemap-page h1 {
-			font-size: 2rem;
-		}
-		
-		.sitemap-content {
-			padding: 20px;
-			margin: 0 15px;
-		}
-		
-		.sitemap-section-title {
-			font-size: 1.2rem;
-		}
-		
-		.sitemap-item a {
-			font-size: 1rem;
-		}
-	}
+  .sitemap-page {
+    padding: 40px 0;
+    line-height: 1.6;
+  }
+
+  .sitemap-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .sitemap-intro {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .sitemap-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .sitemap-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .sitemap-section:last-child {
+    border-bottom: none;
+  }
+
+  .sitemap-section-title {
+    font-size: 1.4rem;
+    margin: 0 0 15px;
+    color: #333;
+  }
+
+  .sitemap-section-title a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .sitemap-section-title a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  .sitemap-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sitemap-sublist {
+    list-style: none;
+    padding: 0 0 0 20px;
+    margin: 10px 0;
+  }
+
+  .sitemap-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .sitemap-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .sitemap-item a {
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .sitemap-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  .sitemap-item-description,
+  .sitemap-section-description {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .sitemap-additional h2 {
+    font-size: 1.3rem;
+    margin: 30px 0 15px;
+    color: #333;
+  }
+
+  .sitemap-additional ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sitemap-additional li {
+    margin-bottom: 10px;
+  }
+
+  .sitemap-additional a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .sitemap-additional a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .sitemap-page {
+      padding: 20px 0;
+    }
+
+    .sitemap-page h1 {
+      font-size: 2rem;
+    }
+
+    .sitemap-content {
+      padding: 20px;
+      margin: 0 15px;
+    }
+
+    .sitemap-section-title {
+      font-size: 1.2rem;
+    }
+
+    .sitemap-item a {
+      font-size: 1rem;
+    }
+  }
 </style>

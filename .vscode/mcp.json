@@ -2,7 +2,17 @@
   "mcpServers": {
     "astro-mcp": {
       "command": "npx",
-      "args": ["astro", "mcp"],
+      "args": [
+        "astro",
+        "mcp"
+      ],
+      "env": {}
+    },
+    "puppeteer-browser": {
+      "command": "node",
+      "args": [
+        "mcp-puppeteer-server.js"
+      ],
       "env": {}
     }
   },
@@ -10,6 +20,13 @@
     "astro": {
       "type": "sse",
       "url": "http://localhost:4321/__mcp/sse"
+    },
+    "puppeteer": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "mcp-puppeteer-server.js"
+      ]
     }
   }
 }

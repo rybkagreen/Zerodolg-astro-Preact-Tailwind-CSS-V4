@@ -1,8 +1,10 @@
-name = "Создать коммит"
-description = "Создать коммит с сообщением"
+name = "Создать коммит в Git"
+description = "Создание коммита с сообщением"
+
+[prompt]
+text = "Создать коммит в Git"
 
 [command]
 type = "shell"
-run = "git commit -m \""
+run = "git commit"
 directory = "."
-prompt = "Введите сообщение коммита"

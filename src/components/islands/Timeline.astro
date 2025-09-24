@@ -9,86 +9,86 @@ const { className = '' } = Astro.props;
 
 // Данные о процессе банкротства из index.json
 const process = {
-  title: "Как проходит банкротство",
-  subtitle: "Пошаговый процесс освобождения от долгов через суд",
+  title: 'Как проходит банкротство',
+  subtitle: 'Пошаговый процесс освобождения от долгов через суд',
   steps: [
     {
       number: 1,
-      title: "Консультация",
-      description: "Анализируем вашу ситуацию и определяем возможность банкротства",
-      duration: "1 день",
-      difficulty: "easy",
-      icon: "/icons/process/01-analysis.svg",
+      title: 'Консультация',
+      description: 'Анализируем вашу ситуацию и определяем возможность банкротства',
+      duration: '1 день',
+      difficulty: 'easy',
+      icon: '/icons/process/01-analysis.svg',
       details: [
-        "Бесплатная оценка перспектив",
-        "Анализ всех долгов и кредиторов",
-        "Определение оптимальной стратегии",
-        "Расчет стоимости процедуры"
-      ]
+        'Бесплатная оценка перспектив',
+        'Анализ всех долгов и кредиторов',
+        'Определение оптимальной стратегии',
+        'Расчет стоимости процедуры',
+      ],
     },
     {
       number: 2,
-      title: "Подготовка документов",
-      description: "Собираем и готовим все необходимые документы",
-      duration: "5-7 дней",
-      difficulty: "medium",
-      icon: "/icons/process/02-docs.svg",
+      title: 'Подготовка документов',
+      description: 'Собираем и готовим все необходимые документы',
+      duration: '5-7 дней',
+      difficulty: 'medium',
+      icon: '/icons/process/02-docs.svg',
       details: [
-        "Помощь в сборе документов",
-        "Подготовка списка кредиторов",
-        "Оформление заявления в суд"
+        'Помощь в сборе документов',
+        'Подготовка списка кредиторов',
+        'Оформление заявления в суд',
       ],
       documents: [
-        "Паспорт и СНИЛС",
-        "ИНН и свидетельство о рождении",
-        "Справки о доходах за 3 года",
-        "Кредитные договоры и решения судов"
-      ]
+        'Паспорт и СНИЛС',
+        'ИНН и свидетельство о рождении',
+        'Справки о доходах за 3 года',
+        'Кредитные договоры и решения судов',
+      ],
     },
     {
       number: 3,
-      title: "Подача заявления",
-      description: "Подаем заявление в Арбитражный суд",
-      duration: "1 день",
-      difficulty: "easy",
-      icon: "/icons/process/03-court.svg",
+      title: 'Подача заявления',
+      description: 'Подаем заявление в Арбитражный суд',
+      duration: '1 день',
+      difficulty: 'easy',
+      icon: '/icons/process/03-court.svg',
       details: [
-        "Подача через электронную систему суда",
-        "Оплата госпошлины 300 рублей",
-        "Получение входящего номера дела"
+        'Подача через электронную систему суда',
+        'Оплата госпошлины 300 рублей',
+        'Получение входящего номера дела',
       ],
-      warning: "С момента подачи заявления коллекторы не могут вам звонить"
+      warning: 'С момента подачи заявления коллекторы не могут вам звонить',
     },
     {
       number: 4,
-      title: "Судебная процедура",
-      description: "Представляем ваши интересы на всех заседаниях",
-      duration: "4-6 месяцев",
-      difficulty: "hard",
-      icon: "/icons/process/04-restruct.svg",
+      title: 'Судебная процедура',
+      description: 'Представляем ваши интересы на всех заседаниях',
+      duration: '4-6 месяцев',
+      difficulty: 'hard',
+      icon: '/icons/process/04-restruct.svg',
       details: [
-        "Первое судебное заседание",
-        "Назначение финансового управляющего",
-        "Реализация имущества (если есть)",
-        "Собрание кредиторов"
+        'Первое судебное заседание',
+        'Назначение финансового управляющего',
+        'Реализация имущества (если есть)',
+        'Собрание кредиторов',
       ],
-      warning: "Единственное жилье и предметы обычного обихода остаются у вас"
+      warning: 'Единственное жилье и предметы обычного обихода остаются у вас',
     },
     {
       number: 5,
-      title: "Списание долгов",
-      description: "Получаем решение суда о списании всех долгов",
-      duration: "1 день",
-      difficulty: "easy",
-      icon: "/icons/process/06-discharge.svg",
+      title: 'Списание долгов',
+      description: 'Получаем решение суда о списании всех долгов',
+      duration: '1 день',
+      difficulty: 'easy',
+      icon: '/icons/process/06-discharge.svg',
       details: [
-        "Окончательное судебное заседание",
-        "Получение решения суда",
-        "Списание всех долгов",
-        "Начало новой жизни без долгов"
-      ]
-    }
-  ]
+        'Окончательное судебное заседание',
+        'Получение решения суда',
+        'Списание всех долгов',
+        'Начало новой жизни без долгов',
+      ],
+    },
+  ],
 };
 ---
 
@@ -108,195 +108,278 @@ const process = {
           <div class="timeline__line-progress" data-progress-line></div>
         </div>
         <ol class="timeline__nav-list" role="list">
-          {process.steps.map((step, index) => (
-            <li class="timeline__nav-item-wrapper" role="listitem">
-              <button 
-                class={`timeline__nav-item ${index === 0 ? 'active' : ''}`}
-                data-step={index}
-                aria-label={`Этап ${step.number}: ${step.title}`}
-                aria-current={index === 0 ? 'step' : undefined}
-                type="button"
-              >
-                <span class="timeline__nav-number" aria-hidden="true">{step.number}</span>
-                <div class="timeline__nav-content">
-                  <span class="timeline__nav-title">{step.title}</span>
-                  <span class="timeline__nav-duration">{step.duration}</span>
-                </div>
-              </button>
-            </li>
-          ))}
+          {
+            process.steps.map((step, index) => (
+              <li class="timeline__nav-item-wrapper" role="listitem">
+                <button
+                  class={`timeline__nav-item ${index === 0 ? 'active' : ''}`}
+                  data-step={index}
+                  aria-label={`Этап ${step.number}: ${step.title}`}
+                  aria-current={index === 0 ? 'step' : undefined}
+                  type="button"
+                >
+                  <span class="timeline__nav-number" aria-hidden="true">
+                    {step.number}
+                  </span>
+                  <div class="timeline__nav-content">
+                    <span class="timeline__nav-title">{step.title}</span>
+                    <span class="timeline__nav-duration">{step.duration}</span>
+                  </div>
+                </button>
+              </li>
+            ))
+          }
         </ol>
       </nav>
 
       <!-- Mobile Progress -->
       <div class="timeline__progress" role="navigation" aria-label="Прогресс процедуры">
-        <div class="timeline__progress-bar" role="progressbar" 
-             aria-valuemin="0" 
-             aria-valuemax="100" 
-             aria-valuenow="20"
-             aria-label="Прогресс выполнения">
+        <div
+          class="timeline__progress-bar"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="20"
+          aria-label="Прогресс выполнения"
+        >
           <div class="timeline__progress-fill" data-progress-fill></div>
         </div>
         <div class="timeline__progress-dots" role="tablist">
-          {process.steps.map((step, index) => (
-            <button 
-              class={`timeline__progress-dot ${index === 0 ? 'active' : ''}`}
-              data-dot={index}
-              role="tab"
-              aria-selected={index === 0 ? 'true' : 'false'}
-              aria-label={`${step.title} (${step.duration})`}
-              tabindex={index === 0 ? '0' : '-1'}
-              type="button"
-            >
-              <span class="sr-only">Шаг {index + 1}</span>
-            </button>
-          ))}
+          {
+            process.steps.map((step, index) => (
+              <button
+                class={`timeline__progress-dot ${index === 0 ? 'active' : ''}`}
+                data-dot={index}
+                role="tab"
+                aria-selected={index === 0 ? 'true' : 'false'}
+                aria-label={`${step.title} (${step.duration})`}
+                tabindex={index === 0 ? '0' : '-1'}
+                type="button"
+              >
+                <span class="sr-only">Шаг {index + 1}</span>
+              </button>
+            ))
+          }
         </div>
       </div>
 
       <!-- Steps Content -->
       <div class="timeline__content">
-        {process.steps.map((step, index) => (
-          <article 
-            class={`timeline__step ${index === 0 ? 'active' : ''}`}
-            data-step-content={index}
-            role="tabpanel"
-            aria-labelledby={`step-${index}-tab`}
-            tabindex="0"
-          >
-            <header class="timeline__step-header">
-              <div class="timeline__step-icon" aria-hidden="true">
-                <img src={step.icon} alt="" width="48" height="48" loading="lazy" />
-              </div>
-              <div class="timeline__step-info">
-                <h3 class="timeline__step-title" id={`step-${index}-heading`}>
-                  <span class="timeline__step-number">Этап {step.number}</span>
-                  <span class="timeline__step-name">{step.title}</span>
-                </h3>
-                <p class="timeline__step-description">{step.description}</p>
-                <dl class="timeline__step-meta">
-                  <div class="timeline__meta-item">
-                    <dt class="sr-only">Длительность:</dt>
-                    <dd class="timeline__step-duration">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 4V8L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                      </svg>
-                      <span>{step.duration}</span>
-                    </dd>
-                  </div>
-                  <div class="timeline__meta-item">
-                    <dt class="sr-only">Сложность:</dt>
-                    <dd class={`timeline__step-difficulty timeline__step-difficulty--${step.difficulty}`}>
-                      <span aria-hidden="true">●</span>
-                      <span>
-                        {step.difficulty === 'easy' && 'Легко'}
-                        {step.difficulty === 'medium' && 'Средне'}
-                        {step.difficulty === 'hard' && 'Важно'}
-                      </span>
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-            </header>
-
-            <div class="timeline__step-body">
-              <div class="timeline__step-details">
-                <h4 class="timeline__step-subtitle">Что включает этот этап:</h4>
-                <div class="timeline__details-list">
-                  {step.details.map(detail => (
-                    <div class="timeline__detail-item">
-                      <svg class="timeline__detail-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
-                      </svg>
-                      <span>{detail}</span>
-                    </div>
-                  ))}
+        {
+          process.steps.map((step, index) => (
+            <article
+              class={`timeline__step ${index === 0 ? 'active' : ''}`}
+              data-step-content={index}
+              role="tabpanel"
+              aria-labelledby={`step-${index}-tab`}
+              tabindex="0"
+            >
+              <header class="timeline__step-header">
+                <div class="timeline__step-icon" aria-hidden="true">
+                  <img src={step.icon} alt="" width="48" height="48" loading="lazy" />
                 </div>
-              </div>
-
-              {step.documents && (
-                <div class="timeline__step-documents">
-                  <h4 class="timeline__step-subtitle">Необходимые документы:</h4>
-                  <ul class="timeline__documents-list">
-                    {step.documents.map(doc => (
-                      <li class="timeline__document-item">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                          <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <div class="timeline__step-info">
+                  <h3 class="timeline__step-title" id={`step-${index}-heading`}>
+                    <span class="timeline__step-number">Этап {step.number}</span>
+                    <span class="timeline__step-name">{step.title}</span>
+                  </h3>
+                  <p class="timeline__step-description">{step.description}</p>
+                  <dl class="timeline__step-meta">
+                    <div class="timeline__meta-item">
+                      <dt class="sr-only">Длительность:</dt>
+                      <dd class="timeline__step-duration">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
+                          <path
+                            d="M8 4V8L10.5 10.5"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
                         </svg>
-                        {doc}
-                      </li>
+                        <span>{step.duration}</span>
+                      </dd>
+                    </div>
+                    <div class="timeline__meta-item">
+                      <dt class="sr-only">Сложность:</dt>
+                      <dd
+                        class={`timeline__step-difficulty timeline__step-difficulty--${step.difficulty}`}
+                      >
+                        <span aria-hidden="true">●</span>
+                        <span>
+                          {step.difficulty === 'easy' && 'Легко'}
+                          {step.difficulty === 'medium' && 'Средне'}
+                          {step.difficulty === 'hard' && 'Важно'}
+                        </span>
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </header>
+
+              <div class="timeline__step-body">
+                <div class="timeline__step-details">
+                  <h4 class="timeline__step-subtitle">Что включает этот этап:</h4>
+                  <div class="timeline__details-list">
+                    {step.details.map((detail) => (
+                      <div class="timeline__detail-item">
+                        <svg
+                          class="timeline__detail-icon"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M7 10L9 12L13 8"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>{detail}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
-              )}
 
-              {step.warning && (
-                <div class="timeline__step-warning">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 6V10M10 14H10.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8.86 2.58L2.29 13.12C1.4 14.55 2.42 16.35 4.05 16.35H15.95C17.58 16.35 18.6 14.55 17.71 13.12L11.14 2.58C10.31 1.26 8.69 1.26 7.86 2.58Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                  </svg>
-                  <p>{step.warning}</p>
-                </div>
-              )}
-            </div>
+                {step.documents && (
+                  <div class="timeline__step-documents">
+                    <h4 class="timeline__step-subtitle">Необходимые документы:</h4>
+                    <ul class="timeline__documents-list">
+                      {step.documents.map((doc) => (
+                        <li class="timeline__document-item">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M9 1V6H14"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                          {doc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-            <div class="timeline__step-actions">
-              {index > 0 && (
-                <button 
-                  class="timeline__action timeline__action--prev"
-                  data-action="prev"
-                  aria-label="Предыдущий этап"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Назад
-                </button>
-              )}
-              {index < process.steps.length - 1 ? (
-                <button 
-                  class="timeline__action timeline__action--next"
-                  data-action="next"
-                  aria-label="Следующий этап"
-                >
-                  Далее
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-              ) : (
-                <button 
-                  class="timeline__action timeline__action--complete"
-                  data-action="complete"
-                  aria-label="Завершить просмотр"
-                >
-                  Готово!
-                </button>
-              )}
-            </div>
-          </article>
-        ))}
+                {step.warning && (
+                  <div class="timeline__step-warning">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path
+                        d="M10 6V10M10 14H10.01"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M8.86 2.58L2.29 13.12C1.4 14.55 2.42 16.35 4.05 16.35H15.95C17.58 16.35 18.6 14.55 17.71 13.12L11.14 2.58C10.31 1.26 8.69 1.26 7.86 2.58Z"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <p>{step.warning}</p>
+                  </div>
+                )}
+              </div>
+
+              <div class="timeline__step-actions">
+                {index > 0 && (
+                  <button
+                    class="timeline__action timeline__action--prev"
+                    data-action="prev"
+                    aria-label="Предыдущий этап"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M10 12L6 8L10 4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    Назад
+                  </button>
+                )}
+                {index < process.steps.length - 1 ? (
+                  <button
+                    class="timeline__action timeline__action--next"
+                    data-action="next"
+                    aria-label="Следующий этап"
+                  >
+                    Далее
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M6 4L10 8L6 12"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    class="timeline__action timeline__action--complete"
+                    data-action="complete"
+                    aria-label="Завершить просмотр"
+                  >
+                    Готово!
+                  </button>
+                )}
+              </div>
+            </article>
+          ))
+        }
 
         <!-- Completion Screen -->
         <div class="timeline__complete">
           <div class="timeline__complete-icon">
             <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-              <circle cx="36" cy="36" r="35" stroke="var(--color-primary)" stroke-width="2" opacity="0.2"/>
-              <circle cx="36" cy="36" r="28" fill="var(--color-primary)" opacity="0.1"/>
-              <path d="M28 36L33 41L44 30" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle
+                cx="36"
+                cy="36"
+                r="35"
+                stroke="var(--color-primary)"
+                stroke-width="2"
+                opacity="0.2"></circle>
+              <circle cx="36" cy="36" r="28" fill="var(--color-primary)" opacity="0.1"></circle>
+              <path
+                d="M28 36L33 41L44 30"
+                stroke="var(--color-primary)"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
             </svg>
           </div>
           <h3 class="timeline__complete-title">Поздравляем!</h3>
           <p class="timeline__complete-text">
-            Вы ознакомились со всеми этапами процедуры банкротства.
-            Готовы начать новую жизнь без долгов?
+            Вы ознакомились со всеми этапами процедуры банкротства. Готовы начать новую жизнь без
+            долгов?
           </p>
           <div class="timeline__complete-actions">
-            <button class="timeline__action timeline__action--complete" data-modal="consultation" data-modal-type="consultation">
+            <button
+              class="timeline__action timeline__action--complete"
+              data-modal="consultation"
+              data-modal-type="consultation"
+            >
               Получить консультацию
             </button>
             <button class="timeline__action timeline__action--prev" data-action="restart">
@@ -306,7 +389,7 @@ const process = {
         </div>
       </div>
     </div>
-    
+
     <!-- CTA Section -->
     <div class="timeline__cta">
       <div class="timeline__cta-wrapper">
@@ -314,7 +397,11 @@ const process = {
           <h3 class="timeline__cta-title">Готовы начать процедуру банкротства?</h3>
           <p class="timeline__cta-text">Оставьте заявку и мы поможем на каждом этапе</p>
         </div>
-        <button class="timeline__cta-button" data-modal="consultation" data-modal-type="consultation">
+        <button
+          class="timeline__cta-button"
+          data-modal="consultation"
+          data-modal-type="consultation"
+        >
           Начать процедуру
         </button>
       </div>

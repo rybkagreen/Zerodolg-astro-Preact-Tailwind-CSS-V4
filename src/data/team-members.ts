@@ -152,7 +152,7 @@ export const teamMembers: TeamMember[] = [
 export const calculateTeamStats = (members: TeamMember[]) => {
   let totalExperience = 0;
   let totalCases = 0;
-  let successRates: number[] = [];
+  const successRates: number[] = [];
 
   members.forEach((member) => {
     // Extract numbers from experience string (e.g., "7+" -> 7)

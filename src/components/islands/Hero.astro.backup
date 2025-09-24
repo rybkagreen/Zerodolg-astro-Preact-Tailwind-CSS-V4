@@ -1,0 +1,116 @@
+---
+// Hero.astro - Hero section with two-column layout
+import HeroForm from '../../features/forms/ui/HeroForm.astro';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = 'Коллекторы больше не позвонят.',
+  subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой юристов проведут вашу процедуру банкротства.',
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-container">
+      <!-- Left Column - Main Content -->
+      <div class="hero-content">
+        <div class="hero-trust-badge">Федеральный закон №127-ФЗ «О несостоятельности»</div>
+
+        <h1 class="hero-title">
+          {title}
+          <span class="highlight">Спишем долги от 300 тыс. до 10 млн ₽ через суд</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          {subtitle}
+          <span class="success-metric">89% клиентов</span> полностью освобождаются от долгов за 6-8 месяцев.
+          Офис в 5 минутах от метро Минская.
+        </p>
+
+        <div class="hero-cta">
+          <p class="cta-note">
+            ✅ Единственное жилье защищено законом<br />
+            ✅ Полное списание долгов через суд<br />
+            ✅ Защита от взысканий с первого дня
+          </p>
+
+          <p class="cta-note cta-note-emphasis">
+            🔥 Консультация БЕСПЛАТНО — акция до 31 августа 2025 для первых 10 человек!
+          </p>
+
+          <button class="cta-primary" data-action="scroll-to-form">
+            <span>Получить бесплатную консультацию</span>
+            <span class="cta-urgency">Осталось 7 мест</span>
+          </button>
+        </div>
+
+        <div class="hero-trust-indicators">
+          <div class="trust-indicator">
+            <span class="trust-indicator-icon">🏢</span>
+            <span>Офис: Минская ул., 2Ж</span>
+          </div>
+          <div class="trust-indicator">
+            <span class="trust-indicator-icon">🔒</span>
+            <span>Защита данных по 152-ФЗ</span>
+          </div>
+          <div class="trust-indicator">
+            <span class="trust-indicator-icon">📞</span>
+            <span>Ежедневно 9:00-21:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Expert Card, Form and Stats -->
+      <div class="hero-right-column">
+        <!-- Mashulia Card -->
+        <div class="hero-authority">
+          <div class="hero-authority-avatar">
+            <img
+              src="/images/team/mashulia.webp"
+              alt="Масхулиа Леван Зурабович - Арбитражный управляющий"
+              width="80"
+              height="80"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
+          <div class="hero-authority-info">
+            <div class="hero-authority-name">Масхулиа Л.З.</div>
+            <div class="hero-authority-title">Арбитражный управляющий №14320</div>
+            <div class="hero-authority-credentials">
+              ✓ 7+ лет опыта<br />
+              ✓ 1200+ успешных дел<br />
+              ✓ Член СРО арбитражных управляющих
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <HeroForm id="consultation-form" />
+
+        <!-- Stats -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">847</span>
+            <span class="stat-label">Клиентов</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">98%</span>
+            <span class="stat-label">Успех</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1.2M+</span>
+            <span class="stat-label">Списано</span>
+          </div>
+        </div>
+      </div>
+      <!-- End of hero-right-column -->
+    </div>
+  </div>
+</section>
+
+<!-- Hero interactivity is handled by Preact components -->

@@ -10,12 +10,12 @@ export interface Props {
   className?: string;
 }
 
-const { 
+const {
   enableTracking = true,
   openInNewTab = true,
   showLabels = false,
   size = 'medium',
-  className = ''
+  className = '',
 } = Astro.props;
 
 // Platform configuration
@@ -24,67 +24,64 @@ const platforms = {
     name: 'Telegram',
     icon: '📱',
     color: '#0088cc',
-    className: 'social-link--telegram'
+    className: 'social-link--telegram',
   },
   vk: {
     name: 'VK',
     icon: '💬',
     color: '#4a76a8',
-    className: 'social-link--vk'
+    className: 'social-link--vk',
   },
   whatsapp: {
     name: 'WhatsApp',
     icon: '💬',
     color: '#25D366',
-    className: 'social-link--whatsapp'
-  }
+    className: 'social-link--whatsapp',
+  },
 };
 
 // Get social links from site data
 const socialLinks = siteData.company?.social || {};
 
 // Get enabled platforms
-const enabledPlatforms = Object.keys(socialLinks).filter(platform => 
-  socialLinks[platform] && platforms[platform]
+const enabledPlatforms = Object.keys(socialLinks).filter(
+  (platform) => socialLinks[platform] && platforms[platform]
 );
 ---
 
-<div 
-  class={`social-links social-links--${size} ${className}`} 
+<div
+  class={`social-links social-links--${size} ${className}`}
   data-social-links
   data-enable-tracking={enableTracking}
 >
-  {enabledPlatforms.length > 0 ? (
-    enabledPlatforms.map((platform) => {
-      const platformConfig = platforms[platform];
-      const url = socialLinks[platform];
-      
-      return (
-        <a
-          href={url}
-          class={`social-link ${platformConfig.className} ${openInNewTab ? 'social-link--new-tab' : ''}`}
-          target={openInNewTab ? "_blank" : "_self"}
-          rel={openInNewTab ? "noopener noreferrer" : ""}
-          data-platform={platform}
-          aria-label={`Написать в ${platformConfig.name}`}
-          title={`Написать в ${platformConfig.name}`}
-        >
-          <span class="social-link__icon" aria-hidden="true">
-            {platformConfig.icon}
-          </span>
-          {showLabels && (
-            <span class="social-link__label">{platformConfig.name}</span>
-          )}
-        </a>
-      );
-    })
-  ) : (
-    <div class="social-links__empty">
-      <!-- Empty state handled by CSS if needed -->
-    </div>
-  )}
+  {
+    enabledPlatforms.length > 0 ? (
+      enabledPlatforms.map((platform) => {
+        const platformConfig = platforms[platform];
+        const url = socialLinks[platform];
+
+        return (
+          <a
+            href={url}
+            class={`social-link ${platformConfig.className} ${openInNewTab ? 'social-link--new-tab' : ''}`}
+            target={openInNewTab ? '_blank' : '_self'}
+            rel={openInNewTab ? 'noopener noreferrer' : ''}
+            data-platform={platform}
+            aria-label={`Написать в ${platformConfig.name}`}
+            title={`Написать в ${platformConfig.name}`}
+          >
+            <span class="social-link__icon" aria-hidden="true">
+              {platformConfig.icon}
+            </span>
+            {showLabels && <span class="social-link__label">{platformConfig.name}</span>}
+          </a>
+        );
+      })
+    ) : (
+      <div class="social-links__empty">{/* Empty state handled by CSS if needed */}</div>
+    )
+  }
 </div>
 
 <!-- Load interactive logic -->
 <SocialLinksComponent client:load />
-

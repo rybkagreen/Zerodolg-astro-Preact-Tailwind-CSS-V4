@@ -16,13 +16,13 @@ interface Props {
   type?: string;
 }
 
-const { 
-  title, 
-  description, 
+const {
+  title,
+  description,
   image = '/images/og-image.jpg',
   canonical,
   noindex = false,
-  type = 'website'
+  type = 'website',
 } = Astro.props;
 
 const siteConfig = {
@@ -53,7 +53,9 @@ const siteConfig = {
 <!-- No index -->
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Structured data -->
-<script type="application/ld+json">
-  {JSON.stringify(organizationSchema)}
-</script>
+{/* Structured data */}
+{
+  organizationSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema, null, 2)} />
+  )
+}

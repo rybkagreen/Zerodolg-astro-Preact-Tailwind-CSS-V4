@@ -3,22 +3,25 @@ export function measurePageLoad(): void {
   if ('performance' in window) {
     window.addEventListener('load', () => {
       setTimeout(() => {
-        const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+        const perfData = performance.getEntriesByType(
+          'navigation'
+        )[0] as PerformanceNavigationTiming;
         if (perfData) {
           const metrics = {
             dnsLookup: perfData.domainLookupEnd - perfData.domainLookupStart,
             tcpConnection: perfData.connectEnd - perfData.connectStart,
             requestTime: perfData.responseEnd - perfData.requestStart,
-            domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+            domContentLoaded:
+              perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
             pageLoadTime: perfData.loadEventEnd - perfData.loadEventStart,
-            ttfb: perfData.responseStart - perfData.requestStart
+            ttfb: perfData.responseStart - perfData.requestStart,
           };
-          
+
           // Log to console in development
           if (import.meta.env.DEV) {
             console.log('Page Performance Metrics:', metrics);
           }
-          
+
           // Send to analytics in production
           if (import.meta.env.PROD) {
             // This would typically send to your analytics service
@@ -41,7 +44,7 @@ export function trackFirstContentfulPaint(callback: (fcp: number) => void): void
         }
       }
     });
-    
+
     observer.observe({ entryTypes: ['paint'] });
   }
 }
@@ -53,7 +56,7 @@ export function trackLargestContentfulPaint(callback: (lcp: number) => void): vo
       const lastEntry = entries[entries.length - 1];
       callback(lastEntry.startTime);
     });
-    
+
     observer.observe({ entryTypes: ['largest-contentful-paint'] });
   }
 }

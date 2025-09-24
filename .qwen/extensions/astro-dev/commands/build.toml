@@ -1,6 +1,9 @@
 name = "Собрать проект Astro"
 description = "Сборка проекта Astro для продакшена"
 
+[prompt]
+text = "Сборка проекта Astro для продакшена"
+
 [command]
 type = "shell"
 run = "npm run build"

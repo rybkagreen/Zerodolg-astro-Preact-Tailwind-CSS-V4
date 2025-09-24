@@ -1,5 +1,8 @@
-name = "Добавить все изменения"
+name = "Добавить изменения в Git"
 description = "Добавить все изменения в индекс Git"
+
+[prompt]
+text = "Добавить изменения в Git"
 
 [command]
 type = "shell"

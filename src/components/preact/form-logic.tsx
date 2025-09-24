@@ -1,5 +1,12 @@
 import { useEffect, useRef } from 'preact/hooks';
-import { initPhoneMask, initCurrencyMask, validateForm, validateField, showFieldError, clearFieldError } from '../../features/forms/model/form-utils';
+import {
+  initPhoneMask,
+  initCurrencyMask,
+  validateForm,
+  validateField,
+  showFieldError,
+  clearFieldError,
+} from '../../features/forms/model/form-utils';
 
 interface FormProps {
   formId: string;

@@ -6,8 +6,8 @@
 <div class="online-sticker" aria-live="polite" aria-atomic="true">
   <div class="online-sticker__pulse"></div>
   <svg class="online-sticker__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
-    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.7"></circle>
+    <circle cx="8" cy="8" r="2" fill="currentColor"></circle>
   </svg>
   <span class="online-sticker__text">Сейчас на сайте:</span>
   <span class="online-sticker__count">5</span>
@@ -24,7 +24,7 @@
       this.showDuration = 3000; // 3 seconds
       this.hideDuration = 45000; // 45 seconds
       this.isVisible = false;
-      
+
       this.init();
     }
 
@@ -37,22 +37,24 @@
     }
 
     getRandomCount() {
-      return Math.floor(Math.random() * (this.maxVisitors - this.minVisitors + 1)) + this.minVisitors;
+      return (
+        Math.floor(Math.random() * (this.maxVisitors - this.minVisitors + 1)) + this.minVisitors
+      );
     }
 
     updateCount() {
       const newCount = this.getRandomCount();
-      
+
       // Add animation class
       this.countElement?.classList.add('online-sticker__count--updating');
-      
+
       // Update count
       setTimeout(() => {
         if (this.countElement) {
           this.countElement.textContent = newCount.toString();
         }
       }, 150);
-      
+
       // Remove animation class
       setTimeout(() => {
         this.countElement?.classList.remove('online-sticker__count--updating');
@@ -61,11 +63,11 @@
 
     show() {
       if (!this.element || this.isVisible) return;
-      
+
       this.updateCount();
       this.element.classList.add('online-sticker--visible');
       this.isVisible = true;
-      
+
       // Hide after duration
       setTimeout(() => {
         this.hide();
@@ -74,7 +76,7 @@
 
     hide() {
       if (!this.element || !this.isVisible) return;
-      
+
       this.element.classList.remove('online-sticker--visible');
       this.isVisible = false;
     }
@@ -91,7 +93,7 @@
     handleScroll() {
       const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      
+
       // Hide if user is near footer
       if (documentHeight - scrollPosition < 200) {
         this.hide();
@@ -102,7 +104,7 @@
   // Initialize when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
     const sticker = new OnlineSticker();
-    
+
     // Optional: Hide when scrolling near footer
     let scrollTimeout;
     window.addEventListener('scroll', () => {
@@ -116,14 +118,17 @@
   // Analytics tracking (optional)
   document.addEventListener('DOMContentLoaded', () => {
     const stickerElement = document.querySelector('.online-sticker');
-    
+
     stickerElement?.addEventListener('transitionend', (e) => {
-      if (e.propertyName === 'opacity' && stickerElement.classList.contains('online-sticker--visible')) {
+      if (
+        e.propertyName === 'opacity' &&
+        stickerElement.classList.contains('online-sticker--visible')
+      ) {
         // Track sticker display
         if (typeof gtag !== 'undefined') {
           gtag('event', 'online_sticker_shown', {
             event_category: 'engagement',
-            event_label: 'sticker_display'
+            event_label: 'sticker_display',
           });
         }
       }

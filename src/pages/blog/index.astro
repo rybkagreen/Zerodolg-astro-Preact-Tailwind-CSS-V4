@@ -10,22 +10,31 @@ blogPosts.sort((a, b) => {
 });
 ---
 
-<Layout 
-	title="Блог - ZeroDolg" 
-	description="Полезные статьи о банкротстве физических лиц, списании долгов и юридических аспектах процедуры банкротства в России."
-	canonical="https://zerodolg.ru/blog/"
-	type="blog"
+<Layout
+  title="Блог - ZeroDolg"
+  description="Полезные статьи о банкротстве физических лиц, списании долгов и юридических аспектах процедуры банкротства в России."
+  canonical="https://zerodolg.ru/blog/"
+  type="blog"
 >
   <div class="blog-index">
     <h1>Блог ZeroDolg</h1>
-    <p>Полезные статьи о банкротстве физических лиц, списании долгов и юридических аспектах процедуры банкротства в России.</p>
-    
+    <p>
+      Полезные статьи о банкротстве физических лиц, списании долгов и юридических аспектах процедуры
+      банкротства в России.
+    </p>
+
     <div class="blog-posts">
       {
         blogPosts.map((post) => (
           <article class="blog-post-preview">
-            <h2><a href={`/blog/${post.slug}`}>{post.data.title}</a></h2>
-            {post.data.pubDate && <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('ru-RU')}</time>}
+            <h2>
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </h2>
+            {post.data.pubDate && (
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('ru-RU')}
+              </time>
+            )}
             {post.data.description && <p>{post.data.description}</p>}
           </article>
         ))

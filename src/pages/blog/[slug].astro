@@ -14,47 +14,57 @@ const { post } = Astro.props;
 const { title, description, pubDate } = post.data;
 ---
 
-<Layout 
-	title={title} 
-	description={description}
-	canonical={`https://zerodolg.ru/blog/${post.slug}/`}
-	type="article"
+<Layout
+  title={title}
+  description={description}
+  canonical={`https://zerodolg.ru/blog/${post.slug}/`}
+  type="article"
 >
   <article>
     <header>
       <h1>{title}</h1>
-      {pubDate && <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString('ru-RU')}</time>}
+      {
+        pubDate && (
+          <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString('ru-RU')}</time>
+        )
+      }
     </header>
     <section>
       <slot />
     </section>
   </article>
-  
-  <!-- Structured Data for Blog Posts -->
-  <script is:inline type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": {JSON.stringify(title)},
-      "description": {JSON.stringify(description)},
-      "datePublished": {JSON.stringify(pubDate?.toISOString())},
-      "dateModified": {JSON.stringify(pubDate?.toISOString())},
-      "author": {
-        "@type": "Organization",
-        "name": "ZeroDolg"
+
+  {/* Structured Data for Blog Posts */}
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description: description,
+        datePublished: pubDate?.toISOString(),
+        dateModified: pubDate?.toISOString(),
+        author: {
+          '@type': 'Organization',
+          name: 'ZeroDolg',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'ZeroDolg',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://zerodolg.ru/logo.png',
+          },
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': `https://zerodolg.ru/blog/${post.slug}/`,
+        },
       },
-      "publisher": {
-        "@type": "Organization",
-        "name": "ZeroDolg",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://zerodolg.ru/logo.png"
-        }
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": {JSON.stringify(`https://zerodolg.ru/blog/${post.slug}/`)}
-      }
-    }
-  </script>
+      null,
+      2
+    )}
+  />
 </Layout>

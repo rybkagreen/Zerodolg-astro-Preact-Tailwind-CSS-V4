@@ -1,5 +1,8 @@
 name = "Запустить тесты"
-description = "Запуск тестов проекта"
+description = "Выполнение тестов проекта с помощью Jest"
+
+[prompt]
+text = "Запуск тестов проекта"
 
 [command]
 type = "shell"

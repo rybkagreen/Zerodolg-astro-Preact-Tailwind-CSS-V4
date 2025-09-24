@@ -4,16 +4,16 @@ export function validateEnvironment(): boolean {
     'BITRIX24_WEBHOOK_URL',
     'PUBLIC_SITE_URL',
     'PUBLIC_SITE_PHONE',
-    'PUBLIC_SITE_EMAIL'
+    'PUBLIC_SITE_EMAIL',
   ];
-  
-  const missingVars: string[] = requiredVars.filter(varName => !process.env[varName]);
-  
+
+  const missingVars: string[] = requiredVars.filter((varName) => !process.env[varName]);
+
   if (missingVars.length > 0) {
     console.warn('Missing required environment variables:', missingVars);
     return false;
   }
-  
+
   // Validate URL format
   try {
     if (process.env.PUBLIC_SITE_URL) {
@@ -26,7 +26,7 @@ export function validateEnvironment(): boolean {
     console.warn('Invalid URL in environment variables');
     return false;
   }
-  
+
   // Validate email format
   if (process.env.PUBLIC_SITE_EMAIL) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +35,7 @@ export function validateEnvironment(): boolean {
       return false;
     }
   }
-  
+
   // Validate phone format
   if (process.env.PUBLIC_SITE_PHONE) {
     const phoneRegex = /^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
@@ -44,7 +44,7 @@ export function validateEnvironment(): boolean {
       return false;
     }
   }
-  
+
   console.log('Environment validation passed');
   return true;
 }

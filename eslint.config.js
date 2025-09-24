@@ -28,16 +28,16 @@ export default [
       'dist/**/*',
       'public/**/*',
       '__tests__/**/*',
-      'src/__tests__/**/*'
-    ]
+      'src/__tests__/**/*',
+    ],
   },
-  
+
   // Base ESLint recommended config
   eslint.configs.recommended,
-  
+
   // TypeScript ESLint configs
   ...tseslint.configs.recommended,
-  
+
   // JavaScript and TypeScript files configuration
   {
     files: ['**/*.js', '**/*.mjs', '**/*.cjs', '**/*.ts', '**/*.tsx'],
@@ -47,16 +47,16 @@ export default [
       parser: tsParser,
       parserOptions: {
         ecmaFeatures: {
-          jsx: true
+          jsx: true,
         },
-        project: ['./tsconfig.json']
+        project: ['./tsconfig.json'],
       },
       globals: {
         ...globals.browser,
         ...globals.node,
         ...globals.es2021,
-        ...globals.jest
-      }
+        ...globals.jest,
+      },
     },
     rules: {
       // TypeScript specific rules - stricter rules
@@ -69,24 +69,24 @@ export default [
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-expressions': 'error',
       // Base rules
-      'indent': 'off', // Temporarily disabled due to recursion issue in v9.35.0
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'always'],
+      indent: 'off', // Temporarily disabled due to recursion issue in v9.35.0
+      quotes: ['error', 'single'],
+      semi: ['error', 'always'],
       'no-console': 'warn',
       'no-debugger': 'error',
       'no-alert': 'error',
       'no-var': 'error',
       'prefer-const': 'error',
       'prefer-arrow-callback': 'error',
-      'no-unused-vars': 'off' // Use TypeScript version instead
-    }
+      'no-unused-vars': 'off', // Use TypeScript version instead
+    },
   },
-  
+
   // Astro files configuration
   {
     files: ['**/*.astro'],
     plugins: {
-      astro: astroPlugin
+      astro: astroPlugin,
     },
     languageOptions: {
       parser: astroParser,
@@ -94,12 +94,12 @@ export default [
         parser: tsParser,
         extraFileExtensions: ['.astro'],
         ecmaVersion: 'latest',
-        sourceType: 'module'
+        sourceType: 'module',
       },
       globals: {
         ...globals.browser,
-        ...globals.node
-      }
+        ...globals.node,
+      },
     },
     processor: astroPlugin.processors['.astro'],
     rules: {
@@ -110,25 +110,25 @@ export default [
       'astro/no-unused-css-selector': 'warn',
       // TypeScript rules for Astro files
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unused-vars': 'error'
-    }
+      '@typescript-eslint/no-unused-vars': 'error',
+    },
   },
-  
+
   // Test files configuration
   {
     files: ['**/__tests__/**/*.ts', '**/*.test.ts', '**/*.spec.ts'],
     languageOptions: {
       globals: {
         ...globals.jest,
-        ...globals.node
-      }
+        ...globals.node,
+      },
     },
     rules: {
       // Relax some rules for test files
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       'no-console': 'off',
-      'no-unused-expressions': 'off'
-    }
-  }
+      'no-unused-expressions': 'off',
+    },
+  },
 ];

@@ -1,13 +1,5 @@
 import { useEffect } from 'preact/hooks';
 
-declare global {
-  interface Window {
-    gtag?: (command: string, ...args: any[]) => void;
-    ym?: (id: number, method: string, ...args: any[]) => void;
-    yaCounterId?: number;
-  }
-}
-
 export default function SocialLinksLogic() {
   useEffect(() => {
     const handleSocialClick = (e: Event) => {

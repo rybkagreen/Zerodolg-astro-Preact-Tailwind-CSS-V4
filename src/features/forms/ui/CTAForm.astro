@@ -9,17 +9,17 @@ export interface Props {
   className?: string;
 }
 
-const { 
+const {
   formId = 'cta-form',
   showDebtField = false,
   submitText = 'Отправить заявку',
   variant = 'inline',
-  className = ''
+  className = '',
 } = Astro.props;
 ---
 
 <div class={`cta-form ${className}`}>
-  <Form 
+  <Form
     formId={formId}
     formType="cta"
     submitText={submitText}
@@ -28,4 +28,3 @@ const {
     className="cta-form__form"
   />
 </div>
-

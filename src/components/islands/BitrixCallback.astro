@@ -8,18 +8,15 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
 <!-- Bitrix24 Callback Widget -->
 <div class="bitrix-callback" aria-label="Виджет обратного звонка">
   <!-- Main Button -->
-  <button 
-    class="bitrix-callback__button" 
-    aria-label="Заказать обратный звонок"
-    type="button"
-  >
+  <button class="bitrix-callback__button" aria-label="Заказать обратный звонок" type="button">
     <div class="bitrix-callback__pulse"></div>
     <svg class="bitrix-callback__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" 
-        stroke="currentColor" 
-        stroke-width="2" 
-        stroke-linecap="round" 
-        stroke-linejoin="round"/>
+      <path
+        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
     </svg>
     <span class="bitrix-callback__text">Обратный звонок</span>
   </button>
@@ -28,29 +25,27 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
   <div class="bitrix-callback__popup" aria-hidden="true">
     <div class="bitrix-callback__popup-header">
       <h3 class="bitrix-callback__popup-title">Заказать звонок</h3>
-      <button 
-        class="bitrix-callback__close" 
-        aria-label="Закрыть"
-        type="button"
-      >
+      <button class="bitrix-callback__close" aria-label="Закрыть" type="button">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path
+            d="M15 5L5 15M5 5l10 10"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></path>
         </svg>
       </button>
     </div>
 
-    <p class="bitrix-callback__popup-subtitle">
-      Оставьте номер, и мы перезвоним в течение 5 минут
-    </p>
+    <p class="bitrix-callback__popup-subtitle">Оставьте номер, и мы перезвоним в течение 5 минут</p>
 
     <form class="bitrix-callback__form" id="bitrix-callback-form">
       <div class="bitrix-callback__field">
         <label for="callback-name" class="sr-only">Ваше имя</label>
-        <input 
-          type="text" 
+        <input
+          type="text"
           id="callback-name"
           name="name"
-          class="bitrix-callback__input" 
+          class="bitrix-callback__input"
           placeholder="Ваше имя"
           required
           autocomplete="name"
@@ -60,11 +55,11 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
 
       <div class="bitrix-callback__field">
         <label for="callback-phone" class="sr-only">Телефон</label>
-        <input 
-          type="tel" 
+        <input
+          type="tel"
           id="callback-phone"
           name="phone"
-          class="bitrix-callback__input" 
+          class="bitrix-callback__input"
           placeholder="+7 (___) ___-__-__"
           required
           autocomplete="tel"
@@ -74,7 +69,7 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
 
       <div class="bitrix-callback__field">
         <label for="callback-time" class="sr-only">Удобное время для звонка</label>
-        <select 
+        <select
           id="callback-time"
           name="callTime"
           class="bitrix-callback__input"
@@ -90,29 +85,58 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
         </select>
       </div>
 
-      <button 
-        type="submit" 
-        class="bitrix-callback__submit"
-      >
+      <button type="submit" class="bitrix-callback__submit">
         <span class="bitrix-callback__submit-text">Жду звонка</span>
-        <svg class="bitrix-callback__submit-loader" width="20" height="20" viewBox="0 0 20 20" style="display: none;">
-          <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="40" stroke-dashoffset="10">
-            <animateTransform attributeName="transform" type="rotate" from="0 10 10" to="360 10 10" dur="1s" repeatCount="indefinite"/>
+        <svg
+          class="bitrix-callback__submit-loader"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          style="display: none;"
+        >
+          <circle
+            cx="10"
+            cy="10"
+            r="8"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-dasharray="40"
+            stroke-dashoffset="10"
+          >
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 10 10"
+              to="360 10 10"
+              dur="1s"
+              repeatCount="indefinite"></animateTransform>
           </circle>
         </svg>
       </button>
 
       <p class="bitrix-callback__privacy">
-        Нажимая кнопку, вы соглашаетесь с 
+        Нажимая кнопку, вы соглашаетесь с
         <a href="/privacy" target="_blank">политикой конфиденциальности</a>
       </p>
     </form>
 
     <!-- Success State -->
     <div class="bitrix-callback__success" style="display: none;">
-      <svg class="bitrix-callback__success-icon" width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <circle cx="30" cy="30" r="30" fill="#10b981" opacity="0.1"/>
-        <path d="M20 30L26 36L40 22" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg
+        class="bitrix-callback__success-icon"
+        width="60"
+        height="60"
+        viewBox="0 0 60 60"
+        fill="none"
+      >
+        <circle cx="30" cy="30" r="30" fill="#10b981" opacity="0.1"></circle>
+        <path
+          d="M20 30L26 36L40 22"
+          stroke="#10b981"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
       </svg>
       <h4 class="bitrix-callback__success-title">Спасибо!</h4>
       <p class="bitrix-callback__success-text">Мы перезвоним вам в течение 5 минут</p>
@@ -122,7 +146,7 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
 
 <script define:vars={{ bitrixWebhookUrl, sitePhone }}>
   import { initBitrixCallback } from './bitrix-callback.js';
-  
+
   // Only initialize if we have a webhook URL
   if (bitrixWebhookUrl) {
     initBitrixCallback(bitrixWebhookUrl, sitePhone);

@@ -5,26 +5,36 @@ export interface Props {
   subtitle?: string;
 }
 
-const { 
-  title = "Рассчитайте стоимость банкротства", 
-  subtitle = "Узнайте точную сумму за 1 минуту"
+const {
+  title = 'Рассчитайте стоимость банкротства',
+  subtitle = 'Узнайте точную сумму за 1 минуту',
 } = Astro.props;
 ---
 
-<section class="calculator section section--primary" id="calculator" aria-labelledby="calculator-title">
+<section
+  class="calculator section section--primary"
+  id="calculator"
+  aria-labelledby="calculator-title"
+>
   <div class="container">
     <header class="section__header section__header--white">
       <h2 id="calculator-title" class="section__title">{title}</h2>
       <p class="section__subtitle">{subtitle}</p>
     </header>
-    
+
     <form class="calculator__form" role="form" aria-labelledby="calculator-title">
       <fieldset class="calculator__fieldset">
         <legend class="sr-only">Параметры для расчета стоимости банкротства</legend>
-        
+
         <div class="calculator__field">
           <label for="debt-amount" class="calculator__label">Сумма долга</label>
-          <select id="debt-amount" name="debtAmount" class="calculator__select" required aria-describedby="debt-help">
+          <select
+            id="debt-amount"
+            name="debtAmount"
+            class="calculator__select"
+            required
+            aria-describedby="debt-help"
+          >
             <option value="" disabled selected>Выберите сумму долга</option>
             <option value="100-300">100 000 - 300 000 ₽</option>
             <option value="300-500">300 000 - 500 000 ₽</option>
@@ -33,37 +43,64 @@ const {
           </select>
           <small id="debt-help" class="calculator__help">Укажите общую сумму ваших долгов</small>
         </div>
-        
+
         <div class="calculator__field">
           <label for="property" class="calculator__label">Есть ли имущество?</label>
-          <select id="property" name="hasProperty" class="calculator__select" required aria-describedby="property-help">
+          <select
+            id="property"
+            name="hasProperty"
+            class="calculator__select"
+            required
+            aria-describedby="property-help"
+          >
             <option value="" disabled selected>Выберите статус имущества</option>
             <option value="none">Нет имущества</option>
             <option value="apartment">Единственное жилье</option>
             <option value="multiple">Несколько объектов</option>
           </select>
-          <small id="property-help" class="calculator__help">Это влияет на сложность процедуры</small>
+          <small id="property-help" class="calculator__help"
+            >Это влияет на сложность процедуры</small
+          >
         </div>
-        
+
         <div class="calculator__field">
           <label for="employment" class="calculator__label">Трудоустройство</label>
-          <select id="employment" name="employmentStatus" class="calculator__select" required aria-describedby="employment-help">
+          <select
+            id="employment"
+            name="employmentStatus"
+            class="calculator__select"
+            required
+            aria-describedby="employment-help"
+          >
             <option value="" disabled selected>Выберите статус трудоустройства</option>
             <option value="employed">Официально работаю</option>
             <option value="unemployed">Без официального дохода</option>
             <option value="pension">Пенсионер</option>
             <option value="business">ИП или самозанятый</option>
           </select>
-          <small id="employment-help" class="calculator__help">Влияет на возможность реструктуризации</small>
+          <small id="employment-help" class="calculator__help"
+            >Влияет на возможность реструктуризации</small
+          >
         </div>
       </fieldset>
-      
-      <button type="submit" class="btn btn--primary btn--block calculator__submit" aria-describedby="calculator-result">
+
+      <button
+        type="submit"
+        class="btn btn--primary btn--block calculator__submit"
+        aria-describedby="calculator-result"
+      >
         Рассчитать стоимость
       </button>
     </form>
-    
-    <div class="calculator__result" id="calculator-result" aria-live="polite" aria-atomic="true" hidden></div>
+
+    <div
+      class="calculator__result"
+      id="calculator-result"
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    >
+    </div>
   </div>
 </section>
 
@@ -74,65 +111,65 @@ const {
       this.form = document.querySelector('.calculator__form');
       this.resultDiv = document.querySelector('.calculator__result');
       this.submitBtn = document.querySelector('.calculator__submit');
-      
+
       if (this.form) {
         this.init();
       }
     }
-    
+
     init() {
       this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-      
+
       // Add change listeners to update button state
       const selects = this.form.querySelectorAll('select');
-      selects.forEach(select => {
+      selects.forEach((select) => {
         select.addEventListener('change', () => this.checkFormValidity());
       });
     }
-    
+
     checkFormValidity() {
       const selects = this.form.querySelectorAll('select');
-      const allSelected = Array.from(selects).every(select => select.value !== '');
-      
+      const allSelected = Array.from(selects).every((select) => select.value !== '');
+
       if (this.submitBtn) {
         this.submitBtn.disabled = !allSelected;
       }
     }
-    
+
     handleSubmit(e) {
       e.preventDefault();
-      
+
       const formData = new FormData(this.form);
       const data = {
         debtAmount: formData.get('debtAmount'),
         hasProperty: formData.get('hasProperty'),
-        employmentStatus: formData.get('employmentStatus')
+        employmentStatus: formData.get('employmentStatus'),
       };
-      
+
       // Calculate the cost based on inputs
       const result = this.calculateCost(data);
-      
+
       // Display the result
       this.displayResult(result);
-      
+
       // Analytics
       if (typeof gtag !== 'undefined') {
         gtag('event', 'calculator_completed', {
           event_category: 'engagement',
           event_label: 'bankruptcy_calculator',
-          value: result.price
+          value: result.price,
         });
       }
     }
-    
+
     calculateCost(data) {
       let basePrice = 40000; // Base price
       let monthlyPayment = 5000; // Base monthly payment
       let duration = 8; // Months
       let complexity = 'standard';
-      
+
       // Adjust based on debt amount
-      switch(data.debtAmount) {
+      switch (data.debtAmount) {
         case '100-300':
           basePrice = 35000;
           monthlyPayment = 4500;
@@ -153,9 +190,9 @@ const {
           duration = 10;
           break;
       }
-      
+
       // Adjust based on property
-      switch(data.hasProperty) {
+      switch (data.hasProperty) {
         case 'none':
           basePrice -= 5000;
           duration = 6;
@@ -170,9 +207,9 @@ const {
           complexity = 'complex';
           break;
       }
-      
+
       // Adjust based on employment
-      switch(data.employmentStatus) {
+      switch (data.employmentStatus) {
         case 'unemployed':
           basePrice -= 3000;
           monthlyPayment -= 500;
@@ -186,12 +223,12 @@ const {
           complexity = 'complex';
           break;
       }
-      
+
       // Calculate savings
       const averageDebt = this.getAverageDebt(data.debtAmount);
       const savings = averageDebt - basePrice;
       const savingsPercent = Math.round((savings / averageDebt) * 100);
-      
+
       return {
         price: basePrice,
         monthlyPayment: monthlyPayment,
@@ -199,28 +236,33 @@ const {
         complexity: complexity,
         savings: savings,
         savingsPercent: savingsPercent,
-        debtAmount: averageDebt
+        debtAmount: averageDebt,
       };
     }
-    
+
     getAverageDebt(range) {
-      switch(range) {
-        case '100-300': return 200000;
-        case '300-500': return 400000;
-        case '500-1000': return 750000;
-        case '1000+': return 1500000;
-        default: return 500000;
+      switch (range) {
+        case '100-300':
+          return 200000;
+        case '300-500':
+          return 400000;
+        case '500-1000':
+          return 750000;
+        case '1000+':
+          return 1500000;
+        default:
+          return 500000;
       }
     }
-    
+
     displayResult(result) {
       const complexityText = {
-        'simple': 'Простая процедура',
-        'standard': 'Стандартная процедура',
-        'medium': 'Процедура средней сложности',
-        'complex': 'Сложная процедура'
+        simple: 'Простая процедура',
+        standard: 'Стандартная процедура',
+        medium: 'Процедура средней сложности',
+        complex: 'Сложная процедура',
       };
-      
+
       this.resultDiv.innerHTML = `
         <div class="calculator__result-content">
           <div class="calculator__result-header">
@@ -269,11 +311,11 @@ const {
           </div>
         </div>
       `;
-      
+
       // Show result with animation
       this.resultDiv.hidden = false;
       this.resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      
+
       // Add click handler for consultation button
       const consultBtn = this.resultDiv.querySelector('[data-modal-trigger="callback"]');
       if (consultBtn) {
@@ -293,7 +335,7 @@ const {
       }
     }
   }
-  
+
   // Initialize calculator when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
     new BankruptcyCalculator();

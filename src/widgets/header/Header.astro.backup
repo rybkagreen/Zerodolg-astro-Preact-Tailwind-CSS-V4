@@ -1,0 +1,456 @@
+---
+import HeaderComponent from '../../components/preact/header.tsx';
+
+export interface Props {
+  currentPage?: string;
+}
+
+// Props are not currently used in this component
+// const { currentPage } = Astro.props;
+
+// Данные компании (можно вынести в отдельный конфиг)
+const company = {
+  name: 'ZeroDolg',
+  phone: '+7 (905) 577-33-87',
+  workHours: 'Пн-Пт: 9:00-18:00',
+  social: {
+    whatsapp: 'https://wa.me/79055773387',
+    telegram: 'https://t.me/zerodolg',
+    vk: 'https://vk.com/zerodolg',
+  },
+};
+
+// Навигационные элементы
+const navItems = {
+  services: [
+    {
+      href: '#problems',
+      icon: '⚡',
+      title: 'Решаемые проблемы',
+      desc: 'Какие долговые проблемы мы решаем',
+    },
+    {
+      href: '#process',
+      icon: '📋',
+      title: 'Процесс банкротства',
+      desc: 'Пошаговое описание процедуры',
+    },
+    {
+      href: '#calculator',
+      icon: '💰',
+      title: 'Калькулятор стоимости',
+      desc: 'Рассчитайте стоимость услуг',
+      highlight: true,
+    },
+  ],
+  about: [
+    { href: '#benefits', icon: '🏆', title: 'Наши преимущества', desc: 'Почему выбирают нас' },
+    { href: '#team', icon: '👥', title: 'Команда', desc: 'Наши юристы и специалисты' },
+    { href: '#reviews', icon: '⭐', title: 'Отзывы клиентов', desc: 'Истории успеха' },
+  ],
+  info: [
+    { href: '#faq', icon: '❓', title: 'Частые вопросы', desc: 'Ответы на популярные вопросы' },
+    { href: 'blog/', icon: '📚', title: 'Блог', desc: 'Полезные статьи и новости' },
+    { href: '#contact', icon: '📍', title: 'Контакты', desc: 'Как с нами связаться' },
+    {
+      href: '/privacy',
+      icon: '🔒',
+      title: 'Конфиденциальность',
+      desc: 'Политика обработки данных',
+    },
+    { href: '/terms', icon: '📋', title: 'Соглашение', desc: 'Условия использования сайта' },
+  ],
+};
+
+const mobileMenuItems = [
+  { href: '#problems', title: 'Проблемы' },
+  { href: '#process', title: 'Процесс' },
+  { href: '#calculator', title: 'Калькулятор' },
+  { href: '#benefits', title: 'Преимущества' },
+  { href: '#reviews', title: 'Отзывы' },
+  { href: '#team', title: 'Команда' },
+  { href: '#faq', title: 'FAQ' },
+  { href: 'blog/', title: '📚 Блог', className: 'mobile-menu__link--blog' },
+  { href: '#contacts', title: 'Контакты' },
+  { href: '/privacy', title: 'Конфиденциальность' },
+  { href: '/terms', title: 'Соглашение' },
+];
+---
+
+<!-- Advanced Interactive Navigation -->
+<header class="header-redesign" id="main-header">
+  <nav class="nav-advanced" role="navigation" aria-label="Главная навигация">
+    <div class="nav-container">
+      <!-- Logo Section -->
+      <div class="logo">
+        <img src="/icons/logo.svg" alt="ZeroDolg" width="140" height="40" loading="lazy" />
+      </div>
+
+      <!-- Main Navigation with Dropdown Menus -->
+      <div class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+          <!-- Services Dropdown -->
+          <li class="nav-item nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-dropdown="services"
+            >
+              <span>Услуги</span>
+              <svg class="nav-icon-chevron" width="12" height="12" viewBox="0 0 12 12">
+                <path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill="none"></path>
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu" data-dropdown-menu="services">
+              <div class="dropdown-content">
+                {
+                  navItems.services.map((item) => (
+                    <a
+                      href={item.href}
+                      class={`dropdown-item ${item.highlight ? 'dropdown-highlight' : ''}`}
+                    >
+                      <span class="dropdown-icon">{item.icon}</span>
+                      <div class="dropdown-text">
+                        <span class="dropdown-title">{item.title}</span>
+                        <span class="dropdown-desc">{item.desc}</span>
+                      </div>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </li>
+
+          <!-- About Dropdown -->
+          <li class="nav-item nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-dropdown="about"
+            >
+              <span>О компании</span>
+              <svg class="nav-icon-chevron" width="12" height="12" viewBox="0 0 12 12">
+                <path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill="none"></path>
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu" data-dropdown-menu="about">
+              <div class="dropdown-content">
+                {
+                  navItems.about.map((item) => (
+                    <a href={item.href} class="dropdown-item">
+                      <span class="dropdown-icon">{item.icon}</span>
+                      <div class="dropdown-text">
+                        <span class="dropdown-title">{item.title}</span>
+                        <span class="dropdown-desc">{item.desc}</span>
+                      </div>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </li>
+
+          <!-- Info Dropdown -->
+          <li class="nav-item nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-dropdown="info"
+            >
+              <span>Информация</span>
+              <svg class="nav-icon-chevron" width="12" height="12" viewBox="0 0 12 12">
+                <path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill="none"></path>
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu" data-dropdown-menu="info">
+              <div class="dropdown-content">
+                {
+                  navItems.info.map((item) => (
+                    <a href={item.href} class="dropdown-item">
+                      <span class="dropdown-icon">{item.icon}</span>
+                      <div class="dropdown-text">
+                        <span class="dropdown-title">{item.title}</span>
+                        <span class="dropdown-desc">{item.desc}</span>
+                      </div>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Quick Actions for Desktop -->
+        <div class="nav-quick-actions">
+          <button class="nav-btn nav-btn-search" aria-label="Поиск" data-action="search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+              <path
+                d="M19 19L14.65 14.65"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
+
+          <a
+            href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
+            class="nav-btn nav-btn-phone"
+            aria-label="Позвонить"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M18.3 15.2C18.3 15.5 18.24 15.81 18.11 16.11C17.98 16.41 17.81 16.69 17.58 16.95C17.19 17.38 16.76 17.68 16.27 17.86C15.79 18.04 15.27 18.13 14.71 18.13C13.86 18.13 12.96 17.92 12.02 17.49C11.08 17.06 10.14 16.49 9.21 15.78C8.27 15.06 7.38 14.27 6.53 13.4C5.69 12.54 4.91 11.64 4.2 10.7C3.5 9.76 2.93 8.82 2.51 7.89C2.09 6.95 1.88 6.05 1.88 5.19C1.88 4.65 1.97 4.13 2.14 3.64C2.31 3.14 2.6 2.69 3.02 2.3C3.53 1.8 4.09 1.55 4.68 1.55C4.91 1.55 5.14 1.6 5.35 1.7C5.57 1.8 5.77 1.95 5.93 2.17L7.72 4.71C7.88 4.92 8 5.11 8.08 5.29C8.16 5.46 8.2 5.63 8.2 5.78C8.2 5.97 8.14 6.16 8.02 6.34C7.91 6.52 7.75 6.71 7.55 6.9L6.96 7.51C6.87 7.6 6.83 7.71 6.83 7.84C6.83 7.9 6.84 7.95 6.86 8.01C6.89 8.07 6.92 8.11 6.94 8.15C7.1 8.43 7.37 8.8 7.75 9.24C8.14 9.68 8.55 10.13 9 10.58C9.46 11.03 9.9 11.44 10.35 11.83C10.79 12.21 11.16 12.47 11.45 12.63C11.48 12.65 11.52 12.68 11.57 12.71C11.63 12.74 11.69 12.75 11.76 12.75C11.9 12.75 12.01 12.7 12.1 12.61L12.69 12.03C12.89 11.83 13.08 11.68 13.26 11.57C13.44 11.45 13.62 11.39 13.82 11.39C13.97 11.39 14.13 11.42 14.31 11.5C14.49 11.58 14.68 11.69 14.89 11.84L17.46 13.66C17.68 13.82 17.83 14.01 17.92 14.23C18 14.45 18.05 14.67 18.05 14.91"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-miterlimit="10"></path>
+            </svg>
+            <span class="nav-phone-text">{company.phone}</span>
+          </a>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="nav-btn nav-btn-cta" data-modal="callback">
+          <span>Получить консультацию</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M3 8H13M13 8L8 3M13 8L8 13"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          class="nav-mobile-toggle"
+          aria-label="Меню"
+          aria-expanded="false"
+          data-mobile-toggle
+        >
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Overlay -->
+  <div class="nav-search-overlay" data-search-overlay>
+    <div class="search-container">
+      <form class="search-form" action="/search" method="GET">
+        <input
+          type="search"
+          class="search-input"
+          placeholder="Поиск по сайту..."
+          name="q"
+          aria-label="Поиск"
+        />
+        <button type="submit" class="search-submit" aria-label="Искать">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <path
+              d="M19 19L14.65 14.65"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </form>
+      <button class="search-close" data-search-close aria-label="Закрыть поиск">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M18 6L6 18M6 6L18 18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    class="header__mobile mobile-menu"
+    id="mobile-menu"
+    data-mobile-menu
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-menu-title"
+    aria-hidden="true"
+  >
+    <div class="mobile-menu__overlay" data-mobile-menu-overlay aria-label="Закрыть мобильное меню">
+    </div>
+
+    <div class="mobile-menu__content">
+      <!-- Mobile Menu Header -->
+      <div class="mobile-menu__header">
+        <a
+          href="/"
+          class="mobile-menu__logo"
+          title={`${company.name} - Главная`}
+          aria-label="Перейти на главную страницу"
+        >
+          <img src="/images/logo.svg" alt={company.name} width="140" height="40" loading="lazy" />
+        </a>
+        <button
+          class="mobile-menu__close"
+          type="button"
+          aria-label="Закрыть мобильное меню"
+          data-mobile-menu-close
+        >
+          <svg class="icon icon-close" width="24" height="24" aria-hidden="true">
+            <use xlink:href="#icon-close"></use>
+          </svg>
+          <span class="sr-only">Закрыть меню</span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav class="mobile-menu__nav" role="navigation" aria-label="Мобильная навигация">
+        <h2 id="mobile-menu-title" class="sr-only">Навигация по сайту</h2>
+        <ul class="mobile-menu__list" role="menubar">
+          {
+            mobileMenuItems.map((item) => (
+              <li class="mobile-menu__item" role="none">
+                <a
+                  href={item.href}
+                  class={`mobile-menu__link ${item.className || ''}`}
+                  role="menuitem"
+                  title={item.title}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Mobile Contact Information -->
+      <div class="mobile-menu__contacts">
+        <a
+          href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
+          class="mobile-menu__phone"
+          title="Позвонить для консультации"
+          aria-label={`Телефон: ${company.phone}`}
+        >
+          {company.phone}
+        </a>
+        <time class="mobile-menu__work-hours" datetime="Mo-Fr 09:00-18:00">
+          {company.workHours}
+        </time>
+        <button
+          class="btn btn--secondary btn--block mobile-menu__install"
+          data-modal="install-app"
+          type="button"
+          aria-label="Установить приложение"
+        >
+          <span>📱 Установить приложение</span>
+        </button>
+        <button
+          class="btn btn--primary btn--block mobile-menu__callback"
+          data-modal="callback"
+          type="button"
+          aria-label="Заказать обратный звонок для консультации"
+        >
+          <span>Заказать звонок</span>
+        </button>
+      </div>
+
+      <!-- Mobile Social Links -->
+      <div class="mobile-menu__social" role="navigation" aria-label="Социальные сети">
+        {
+          company.social.whatsapp && (
+            <a
+              href={company.social.whatsapp}
+              class="mobile-menu__social-link"
+              target="_blank"
+              rel="noopener nofollow"
+              aria-label="Написать в WhatsApp"
+              title="WhatsApp консультация"
+            >
+              <svg class="icon icon-whatsapp" width="24" height="24" aria-hidden="true">
+                <use xlink:href="#icon-whatsapp" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          company.social.telegram && (
+            <a
+              href={company.social.telegram}
+              class="mobile-menu__social-link"
+              target="_blank"
+              rel="noopener nofollow"
+              aria-label="Написать в Telegram"
+              title="Telegram консультация"
+            >
+              <svg class="icon icon-telegram" width="24" height="24" aria-hidden="true">
+                <use xlink:href="#icon-telegram" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          company.social.vk && (
+            <a
+              href={company.social.vk}
+              class="mobile-menu__social-link"
+              target="_blank"
+              rel="noopener nofollow"
+              aria-label="Наша группа ВКонтакте"
+              title="Группа ВКонтакте"
+            >
+              <svg class="icon icon-vk" width="24" height="24" aria-hidden="true">
+                <use xlink:href="#icon-vk" />
+              </svg>
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Header interactivity is handled by Header Preact component -->
+<HeaderComponent client:load />

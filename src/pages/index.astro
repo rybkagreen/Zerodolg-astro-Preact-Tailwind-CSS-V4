@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../widgets/header/Header.astro';
 import Hero from '../components/islands/Hero.astro';
+import Problems from '../components/sections/Problems.astro';
 import Stats from '../components/islands/Stats.astro';
 import Calculator from '../features/calculator/ui/Calculator.astro';
 import Benefits from '../components/sections/Benefits.astro';
@@ -23,82 +24,83 @@ import ClientInteractions from '../components/preact/client-interactions.tsx';
 import TestButton from '../components/preact/TestButton.tsx';
 ---
 
-<Layout 
-	title="Банкротство физических лиц под ключ - ZeroDolg"
-	canonical="https://zerodolg.ru/"
+<Layout
+  title="💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4 месяца | ZeroDolg"
+  canonical="https://zerodolg.ru/"
 >
   <Header />
-  
+
   <main>
     <!-- Correct order: Hero, Problems, Stats, Calculator, Benefits, Timeline, Reviews, Team, Lead Magnets, FAQ, CTA -->
     <Hero />
-    
-    <!-- Problems section - to be migrated -->
-    <!-- <Problems /> -->
-    
+
     <div data-aos="fade-up" data-aos-duration="800">
-      <Stats client:idle />
+      <Problems />
     </div>
-    
+
+    <div data-aos="fade-up" data-aos-duration="800">
+      <Stats />
+    </div>
+
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-      <Calculator client:idle />
+      <Calculator />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800">
-      <Benefits client:idle />
+      <Benefits />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800">
-      <Timeline client:idle />
+      <Timeline />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-      <Reviews client:idle />
+      <Reviews />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800">
-      <TeamInteractive client:idle />
+      <TeamInteractive />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-      <LeadMagnets client:idle />
+      <LeadMagnets />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800">
-      <Faq client:idle />
+      <Faq />
     </div>
-    
+
     <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
       <Cta />
     </div>
   </main>
-  
+
   <Footer />
-  
+
   <!-- Auxiliary Components -->
   <OnlineSticker />
   <BitrixCallback />
-  
+
   <!-- Social Links in Footer Section -->
   <div class="social-links-wrapper">
     <SocialLinks />
   </div>
-  
+
   <!-- Modals -->
   <CallbackModal />
-  
+
   <!-- Modal Manager for handling all modals -->
   <ModalManager client:idle />
-  
+
   <!-- Special Offers Components -->
   <SpecialOffers />
-  
+
   <!-- Scroll Animations Handler -->
   <ScrollAnimations client:idle once={true} offset={100} duration={800} />
-  
+
   <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
   <ClientInteractions client:idle />
-  
+
   <!-- Test Button for debugging -->
   <TestButton client:idle />
 </Layout>

@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/* Слой темы для настройки значений по умолчанию */
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #60a5fa;
+  --color-accent: #ea580c;
+  --color-accent-dark: #c2410c;
+  --color-accent-light: #fb923c;
+  --color-success: #059669;
+  --color-success-light: #10b981;
+  --color-error: #dc2626;
+  --color-error-light: #ef4444;
+  --color-warning: #d97706;
+  --color-warning-light: #f59e0b;
+  --color-nav-text: #333333;
+  --color-nav-hover: #2c5aa0;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+  --color-text-inverse: #ffffff;
+  --color-bg: #ffffff;
+  --color-bg-muted: #f8fafc;
+  --color-bg-dark: #f1f5f9;
+  --color-bg-accent: #eff6ff;
+  --color-border: #e2e8f0;
+  --color-border-dark: #cbd5e1;
+  --color-border-light: rgba(0, 0, 0, 0.05);
+  
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  
+  --size-18: 4.5rem;
+  --size-88: 22rem;
+  --size-128: 32rem;
+  
+  --radius-xl: 0.75rem;
+  
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Слой базовых стилей */
+@layer base {
+  /* Базовая типографика */
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply antialiased text-text bg-bg;
+  }
+
+  h1 {
+    @apply text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl lg:text-4xl font-semibold leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl font-semibold;
+  }
+
+  h4 {
+    @apply text-xl lg:text-2xl font-medium;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* Слой компонентов - для сложных повторяющихся паттернов */
+@layer components {
+  /* Кнопки */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white focus:ring-primary;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-white hover:bg-accent-dark focus:ring-accent;
+  }
+
+  /* Карточки */
+  .card {
+    @apply bg-white rounded-xl shadow-card p-6 transition-shadow hover:shadow-lg;
+  }
+
+  .card-bordered {
+    @apply card border border-border;
+  }
+
+  /* Формы */
+  .form-input {
+    @apply w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-text mb-1;
+  }
+
+  .form-error {
+    @apply text-sm text-error mt-1;
+  }
+
+  /* Контейнеры */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-12 sm:py-16 lg:py-24;
+  }
+}
+
+/* Утилиты - кастомные однократные стили */
+@layer utilities {
+  /* Скрытие для скринридеров */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
+
+  /* Градиенты */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary-light;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-accent to-accent-light;
+  }
+
+  /* Анимации */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+/* Критические стили, которые должны загружаться первыми */
+@layer critical {
+  /* Здесь размести стили для above-the-fold контента */
+}

@@ -16,283 +16,330 @@ const company = {
   address: {
     city: 'Москва',
     street: 'Минская ул., 2Ж, Victory Park Plaza',
-    region: 'г. Москва'
+    region: 'г. Москва',
   },
   social: {
     whatsapp: 'https://wa.me/79055773387',
     telegram: 'https://t.me/zerodolg',
-    vk: 'https://vk.com/zerodolg'
-  }
+    vk: 'https://vk.com/zerodolg',
+  },
 };
 ---
 
-<footer class="footer" role="contentinfo" data-component="Footer" itemscope itemtype="https://schema.org/Organization">
-    <div class="footer__top">
-        <div class="container">
-            <div class="footer__grid">
-                <!-- Company Information -->
-                <div class="footer__column footer__column--company">
-                    <a href="/" 
-                       class="footer__logo" 
-                       title="{company.name} - Главная страница"
-                       aria-label="Логотип {company.name}, перейти на главную страницу">
-                        <img src="/images/logo-white.svg"
-                             alt="{company.name} - Банкротство физических лиц" 
-                             width="180" 
-                             height="50"
-                             loading="lazy">
-                    </a>
-                    
-                    <p class="footer__description" itemprop="description">
-                        Профессиональная юридическая помощь в банкротстве физических лиц. 
-                        Работаем с <time datetime="2008" itemprop="foundingDate">2008 года</time>, более <strong>500 успешных дел</strong>.
-                    </p>
-                    
-                    <!-- Social Media Links -->
-                    <div class="footer__social" role="navigation" aria-label="Социальные сети компании">
-                        {company.social.whatsapp && (
-                        <a href="{company.social.whatsapp}" 
-                           class="footer__social-link" 
-                           target="_blank" 
-                           rel="noopener nofollow" 
-                           itemprop="sameAs"
-                           aria-label="Консультация в WhatsApp по банкротству физических лиц"
-                           title="Написать в WhatsApp">
-                            <svg class="icon icon-whatsapp" width="24" height="24" aria-hidden="true">
-                                <use xlink:href="#icon-whatsapp"></use>
-                            </svg>
-                        </a>
-                        )}
-                        {company.social.telegram && (
-                        <a href="{company.social.telegram}" 
-                           class="footer__social-link" 
-                           target="_blank" 
-                           rel="noopener nofollow" 
-                           itemprop="sameAs"
-                           aria-label="Консультация в Telegram по банкротству физических лиц"
-                           title="Написать в Telegram">
-                            <svg class="icon icon-telegram" width="24" height="24" aria-hidden="true">
-                                <use xlink:href="#icon-telegram"></use>
-                            </svg>
-                        </a>
-                        )}
-                        {company.social.vk && (
-                        <a href="{company.social.vk}" 
-                           class="footer__social-link" 
-                           target="_blank" 
-                           rel="noopener nofollow" 
-                           itemprop="sameAs"
-                           aria-label="Группа ВКонтакте о банкротстве физических лиц"
-                           title="Наша группа ВКонтакте">
-                            <svg class="icon icon-vk" width="24" height="24" aria-hidden="true">
-                                <use xlink:href="#icon-vk"></use>
-                            </svg>
-                        </a>
-                        )}
-                    </div>
-                </div>
-                
-                <!-- Services Section -->
-                <div class="footer__column">
-                    <h3 class="footer__title">Услуги по банкротству</h3>
-                    <nav role="navigation" aria-label="Услуги компании">
-                        <ul class="footer__list">
-                            <li class="footer__item">
-                                <a href="#benefits" 
-                                   class="footer__link"
-                                   title="Судебное банкротство физических лиц через Арбитражный суд">
-                                    Судебное банкротство
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#process" 
-                                   class="footer__link"
-                                   title="Внесудебное банкротство через МФЦ">
-                                    Внесудебное банкротство
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#calculator" 
-                                   class="footer__link"
-                                   title="Реструктуризация долгов физических лиц">
-                                    Реструктуризация долгов
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#problems" 
-                                   class="footer__link"
-                                   title="Защита от коллекторских агентств">
-                                    Защита от коллекторов
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#calculator" 
-                                   class="footer__link"
-                                   title="Рассчитать стоимость банкротства онлайн">
-                                    Калькулятор стоимости
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                
-                <!-- Information Section -->
-                <div class="footer__column">
-                    <h3 class="footer__title">О компании</h3>
-                    <nav role="navigation" aria-label="Информация о компании">
-                        <ul class="footer__list">
-                            <li class="footer__item">
-                                <a href="#hero" 
-                                   class="footer__link"
-                                   title="О юридической компании МАСХУЛИА">
-                                    О компании
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#testimonials" 
-                                   class="footer__link"
-                                   title="Наша команда юристов и специалистов">
-                                    Наша команда
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#testimonials" 
-                                   class="footer__link"
-                                   title="Отзывы клиентов о банкротстве физических лиц">
-                                    Отзывы клиентов
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#faq" 
-                                   class="footer__link"
-                                   title="Полезные статьи о банкротстве и списании долгов">
-                                    Полезные статьи
-                                </a>
-                            </li>
-                            <li class="footer__item">
-                                <a href="#faq" 
-                                   class="footer__link"
-                                   title="Часто задаваемые вопросы о банкротстве">
-                                    Вопросы и ответы
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                
-                <!-- Contact Information -->
-                <div class="footer__column footer__column--contacts" 
-                     itemscope 
-                     itemtype="https://schema.org/LocalBusiness">
-                    <h3 class="footer__title">Контактная информация</h3>
-                    
-                    <div class="footer__contacts">
-                        <!-- Phone Contact -->
-                        <div class="footer__contact">
-                            <svg class="icon icon-phone" width="20" height="20" aria-hidden="true">
-                                <use xlink:href="#icon-phone"></use>
-                            </svg>
-                            <div>
-                                <a href="tel:{phone company.phone}" 
-                                   class="footer__phone" 
-                                   itemprop="telephone"
-                                   title="Позвонить для бесплатной консультации по банкротству"
-                                   aria-label="Телефон для консультации: {company.phone}">
-                                    {company.phone}
-                                </a>
-                                <time class="footer__work-hours" 
-                                      datetime="Mo-Fr 09:00-18:00"
-                                      itemprop="openingHours"
-                                      title="Часы работы офиса">
-                                    {company.workHours}
-                                </time>
-                            </div>
-                        </div>
-                        
-                        <!-- Email Contact -->
-                        <div class="footer__contact">
-                            <svg class="icon icon-email" width="20" height="20" aria-hidden="true">
-                                <use xlink:href="#icon-email"></use>
-                            </svg>
-                            <a href="mailto:{company.email}" 
-                               class="footer__email" 
-                               itemprop="email"
-                               title="Написать письмо для консультации по банкротству"
-                               aria-label="Email: {company.email}">
-                                {company.email}
-                            </a>
-                        </div>
-                        
-                        <!-- Address -->
-                        <div class="footer__contact" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                            <svg class="icon icon-location" width="20" height="20" aria-hidden="true">
-                                <use xlink:href="#icon-location"></use>
-                            </svg>
-                            <address class="footer__address">
-                                <span itemprop="addressLocality">{company.address.city}</span>,<br>
-                                <span itemprop="streetAddress">{company.address.street}</span>
-                                <meta itemprop="addressRegion" content="{company.address.region}">
-                                <meta itemprop="postalCode" content="{company.address.postal}">
-                                <meta itemprop="addressCountry" content="RU">
-                            </address>
-                        </div>
-                    </div>
-                    
-                    <!-- CTA Button -->
-                    <button 
-                        class="btn btn--secondary btn--block footer__callback"
-                        data-modal="callback"
-                        type="button"
-                        aria-label="Заказать бесплатную консультацию по банкротству физических лиц"
-                        title="Бесплатная юридическая консультация">
-                        <span>Заказать консультацию</span>
-                    </button>
-                </div>
-            </div>
+<footer
+  class="footer"
+  role="contentinfo"
+  data-component="Footer"
+  itemscope
+  itemtype="https://schema.org/Organization"
+>
+  <div class="footer__top">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Company Information -->
+        <div class="footer__column footer__column--company">
+          <a
+            href="/"
+            class="footer__logo"
+            title="{company.name} - Главная страница"
+            aria-label="Логотип {company.name}, перейти на главную страницу"
+          >
+            <img
+              src="/images/logo-white.svg"
+              alt="{company.name} - Банкротство физических лиц"
+              width="180"
+              height="50"
+              loading="lazy"
+            />
+          </a>
+
+          <p class="footer__description" itemprop="description">
+            Профессиональная юридическая помощь в банкротстве физических лиц. Работаем с <time
+              datetime="2008"
+              itemprop="foundingDate">2008 года</time
+            >, более <strong>500 успешных дел</strong>.
+          </p>
+
+          <!-- Social Media Links -->
+          <div class="footer__social" role="navigation" aria-label="Социальные сети компании">
+            {
+              company.social.whatsapp && (
+                <a
+                  href="{company.social.whatsapp}"
+                  class="footer__social-link"
+                  target="_blank"
+                  rel="noopener nofollow"
+                  itemprop="sameAs"
+                  aria-label="Консультация в WhatsApp по банкротству физических лиц"
+                  title="Написать в WhatsApp"
+                >
+                  <svg class="icon icon-whatsapp" width="24" height="24" aria-hidden="true">
+                    <use xlink:href="#icon-whatsapp" />
+                  </svg>
+                </a>
+              )
+            }
+            {
+              company.social.telegram && (
+                <a
+                  href="{company.social.telegram}"
+                  class="footer__social-link"
+                  target="_blank"
+                  rel="noopener nofollow"
+                  itemprop="sameAs"
+                  aria-label="Консультация в Telegram по банкротству физических лиц"
+                  title="Написать в Telegram"
+                >
+                  <svg class="icon icon-telegram" width="24" height="24" aria-hidden="true">
+                    <use xlink:href="#icon-telegram" />
+                  </svg>
+                </a>
+              )
+            }
+            {
+              company.social.vk && (
+                <a
+                  href="{company.social.vk}"
+                  class="footer__social-link"
+                  target="_blank"
+                  rel="noopener nofollow"
+                  itemprop="sameAs"
+                  aria-label="Группа ВКонтакте о банкротстве физических лиц"
+                  title="Наша группа ВКонтакте"
+                >
+                  <svg class="icon icon-vk" width="24" height="24" aria-hidden="true">
+                    <use xlink:href="#icon-vk" />
+                  </svg>
+                </a>
+              )
+            }
+          </div>
         </div>
-    </div>
-    
-    <!-- Footer Bottom -->
-    <div class="footer__bottom">
-        <div class="container">
-            <div class="footer__bottom-inner">
-                <!-- Copyright Information -->
-                <div class="footer__copyright" itemscope itemtype="https://schema.org/Organization">
-                    <p>
-                        <span>&copy; 2008-<time datetime="2024">2024</time></span>
-                        <span itemprop="legalName">{company.name}</span>.
-                        <span>Все права защищены.</span>
-                    </p>
-                    <p class="footer__inn">
-                        <small>
-                            ИНН: <span itemprop="taxID">9729317468</span> |
-                            ОГРН: <span>1217700631697</span>
-                        </small>
-                    </p>
-                </div>
-                
-                <!-- Legal Links -->
-                <nav class="footer__legal" role="navigation" aria-label="Правовая информация">
-                    <a href="/privacy" 
-                       class="footer__legal-link"
-                       title="Политика конфиденциальности и обработки персональных данных"
-                       rel="nofollow">
-                        Политика конфиденциальности
-                    </a>
-                    <a href="/terms" 
-                       class="footer__legal-link"
-                       title="Пользовательское соглашение и условия предоставления услуг"
-                       rel="nofollow">
-                        Пользовательское соглашение
-                    </a>
-                    <a href="/sitemap" 
-                       class="footer__legal-link"
-                       title="Карта сайта со всеми страницами"
-                       rel="nofollow">
-                        Карта сайта
-                    </a>
-                </nav>
-            </div>
+
+        <!-- Services Section -->
+        <div class="footer__column">
+          <h3 class="footer__title">Услуги по банкротству</h3>
+          <nav role="navigation" aria-label="Услуги компании">
+            <ul class="footer__list">
+              <li class="footer__item">
+                <a
+                  href="#benefits"
+                  class="footer__link"
+                  title="Судебное банкротство физических лиц через Арбитражный суд"
+                >
+                  Судебное банкротство
+                </a>
+              </li>
+              <li class="footer__item">
+                <a href="#process" class="footer__link" title="Внесудебное банкротство через МФЦ">
+                  Внесудебное банкротство
+                </a>
+              </li>
+              <li class="footer__item">
+                <a
+                  href="#calculator"
+                  class="footer__link"
+                  title="Реструктуризация долгов физических лиц"
+                >
+                  Реструктуризация долгов
+                </a>
+              </li>
+              <li class="footer__item">
+                <a href="#problems" class="footer__link" title="Защита от коллекторских агентств">
+                  Защита от коллекторов
+                </a>
+              </li>
+              <li class="footer__item">
+                <a
+                  href="#calculator"
+                  class="footer__link"
+                  title="Рассчитать стоимость банкротства онлайн"
+                >
+                  Калькулятор стоимости
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
+
+        <!-- Information Section -->
+        <div class="footer__column">
+          <h3 class="footer__title">О компании</h3>
+          <nav role="navigation" aria-label="Информация о компании">
+            <ul class="footer__list">
+              <li class="footer__item">
+                <a href="#hero" class="footer__link" title="О юридической компании МАСХУЛИА">
+                  О компании
+                </a>
+              </li>
+              <li class="footer__item">
+                <a
+                  href="#testimonials"
+                  class="footer__link"
+                  title="Наша команда юристов и специалистов"
+                >
+                  Наша команда
+                </a>
+              </li>
+              <li class="footer__item">
+                <a
+                  href="#testimonials"
+                  class="footer__link"
+                  title="Отзывы клиентов о банкротстве физических лиц"
+                >
+                  Отзывы клиентов
+                </a>
+              </li>
+              <li class="footer__item">
+                <a
+                  href="#faq"
+                  class="footer__link"
+                  title="Полезные статьи о банкротстве и списании долгов"
+                >
+                  Полезные статьи
+                </a>
+              </li>
+              <li class="footer__item">
+                <a href="#faq" class="footer__link" title="Часто задаваемые вопросы о банкротстве">
+                  Вопросы и ответы
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Contact Information -->
+        <div
+          class="footer__column footer__column--contacts"
+          itemscope
+          itemtype="https://schema.org/LocalBusiness"
+        >
+          <h3 class="footer__title">Контактная информация</h3>
+
+          <div class="footer__contacts">
+            <!-- Phone Contact -->
+            <div class="footer__contact">
+              <svg class="icon icon-phone" width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-phone"></use>
+              </svg>
+              <div>
+                <a
+                  href="tel:{phone company.phone}"
+                  class="footer__phone"
+                  itemprop="telephone"
+                  title="Позвонить для бесплатной консультации по банкротству"
+                  aria-label="Телефон для консультации: {company.phone}"
+                >
+                  {company.phone}
+                </a>
+                <time
+                  class="footer__work-hours"
+                  datetime="Mo-Fr 09:00-18:00"
+                  itemprop="openingHours"
+                  title="Часы работы офиса"
+                >
+                  {company.workHours}
+                </time>
+              </div>
+            </div>
+
+            <!-- Email Contact -->
+            <div class="footer__contact">
+              <svg class="icon icon-email" width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-email"></use>
+              </svg>
+              <a
+                href="mailto:{company.email}"
+                class="footer__email"
+                itemprop="email"
+                title="Написать письмо для консультации по банкротству"
+                aria-label="Email: {company.email}"
+              >
+                {company.email}
+              </a>
+            </div>
+
+            <!-- Address -->
+            <div
+              class="footer__contact"
+              itemprop="address"
+              itemscope
+              itemtype="https://schema.org/PostalAddress"
+            >
+              <svg class="icon icon-location" width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              <address class="footer__address">
+                <span itemprop="addressLocality">{company.address.city}</span>,<br />
+                <span itemprop="streetAddress">{company.address.street}</span>
+                <meta itemprop="addressRegion" content="{company.address.region}" />
+                <meta itemprop="postalCode" content="{company.address.postal}" />
+                <meta itemprop="addressCountry" content="RU" />
+              </address>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <button
+            class="btn btn--secondary btn--block footer__callback"
+            data-modal="callback"
+            type="button"
+            aria-label="Заказать бесплатную консультацию по банкротству физических лиц"
+            title="Бесплатная юридическая консультация"
+          >
+            <span>Заказать консультацию</span>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="footer__bottom-inner">
+        <!-- Copyright Information -->
+        <div class="footer__copyright" itemscope itemtype="https://schema.org/Organization">
+          <p>
+            <span>&copy; 2008-<time datetime="2024">2024</time></span>
+            <span itemprop="legalName">{company.name}</span>.
+            <span>Все права защищены.</span>
+          </p>
+          <p class="footer__inn">
+            <small>
+              ИНН: <span itemprop="taxID">9729317468</span> | ОГРН: <span>1217700631697</span>
+            </small>
+          </p>
+        </div>
+
+        <!-- Legal Links -->
+        <nav class="footer__legal" role="navigation" aria-label="Правовая информация">
+          <a
+            href="/privacy"
+            class="footer__legal-link"
+            title="Политика конфиденциальности и обработки персональных данных"
+            rel="nofollow"
+          >
+            Политика конфиденциальности
+          </a>
+          <a
+            href="/terms"
+            class="footer__legal-link"
+            title="Пользовательское соглашение и условия предоставления услуг"
+            rel="nofollow"
+          >
+            Пользовательское соглашение
+          </a>
+          <a
+            href="/sitemap"
+            class="footer__legal-link"
+            title="Карта сайта со всеми страницами"
+            rel="nofollow"
+          >
+            Карта сайта
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
 </footer>

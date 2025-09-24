@@ -9,6 +9,11 @@
       "command": "npx",
       "args": ["-y", "mcp-remote", "https://mcp.docs.astro.build/mcp"],
       "env": {}
+    },
+    "puppeteer-browser": {
+      "command": "node",
+      "args": ["mcp-puppeteer-server.js"],
+      "env": {}
     }
   }
 }

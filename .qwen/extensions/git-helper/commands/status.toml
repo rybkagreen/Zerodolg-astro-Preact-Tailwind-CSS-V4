@@ -1,6 +1,9 @@
 name = "Статус Git"
 description = "Показать статус репозитория Git"
 
+[prompt]
+text = "Показать статус Git"
+
 [command]
 type = "shell"
 run = "git status"
