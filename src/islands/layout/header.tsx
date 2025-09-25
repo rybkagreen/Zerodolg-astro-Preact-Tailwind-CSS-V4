@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'preact/hooks';
 
 // Utility functions
-type DebouncedFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
+type DebouncedFunction<T extends (...args: unknown[]) => unknown> = (...args: Parameters<T>) => void;
 
-const debounce = <T extends (...args: any[]) => any>(
+const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): DebouncedFunction<T> => {
@@ -18,7 +18,7 @@ const debounce = <T extends (...args: any[]) => any>(
   };
 };
 
-const Header = () => {
+const Header = (): null => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -375,6 +375,7 @@ const Header = () => {
     consultationBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         // This will be handled by modal component
+        // eslint-disable-next-line no-console
         console.log('Opening consultation modal');
       });
     });
