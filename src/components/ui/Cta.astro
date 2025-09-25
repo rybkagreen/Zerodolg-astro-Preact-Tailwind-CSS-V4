@@ -40,42 +40,42 @@ const cta = {
 ---
 
 <!-- Final CTA Section -->
-<section class="cta section" id="contact" aria-labelledby="cta-title">
+<section class="relative py-20 bg-gradient-to-br from-blue-900 to-indigo-900 overflow-hidden" id="contact" aria-labelledby="cta-title">
   <!-- Декоративные плавающие элементы -->
-  <div class="cta__decorations" aria-hidden="true">
-    <div class="cta__decoration"></div>
-    <div class="cta__decoration"></div>
-    <div class="cta__decoration"></div>
-    <div class="cta__decoration"></div>
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-10 left-10 w-20 h-20 bg-blue-400 rounded-full opacity-20 animate-float"></div>
+    <div class="absolute top-32 right-20 w-16 h-16 bg-indigo-400 rounded-full opacity-15 animate-float-delayed"></div>
+    <div class="absolute bottom-20 left-20 w-12 h-12 bg-purple-400 rounded-full opacity-25 animate-float"></div>
+    <div class="absolute bottom-32 right-10 w-24 h-24 bg-blue-300 rounded-full opacity-10 animate-float-delayed"></div>
   </div>
 
-  <div class="container">
-    <header class="section__header section__header--white">
-      <h2 id="cta-title" class="section__title">{cta.title}</h2>
-      <p class="section__subtitle">{cta.subtitle}</p>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="text-center mb-12">
+      <h2 id="cta-title" class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">{cta.title}</h2>
+      <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">{cta.subtitle}</p>
     </header>
 
     <!-- CTA Content Wrapper with Form and Manager Info -->
-    <div class="cta__wrapper">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
       <!-- Left Column: Form -->
-      <div class="cta__form-container">
+      <div class="bg-white rounded-xl shadow-2xl p-8">
         <CTAForm
           formId="cta-consultation-form"
           showDebtField={true}
           submitText="Получить консультацию бесплатно"
           variant="stacked"
-          className="cta__form"
+          className="space-y-4"
         />
       </div>
 
       <!-- Right Column: Manager Info with Emblem -->
-      <div class="cta__manager-info">
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
         <!-- Emblem -->
-        <div class="cta__emblem">
+        <div class="flex justify-center mb-6">
           <img
             src="/icons/ui/emblem.webp"
             alt="Герб Российской Федерации"
-            class="cta__emblem-img"
+            class="w-20 h-20 object-contain"
             loading="lazy"
             width="100"
             height="100"
@@ -83,10 +83,10 @@ const cta = {
         </div>
 
         <!-- Manager Card Link -->
-        <div class="cta__manager-card">
-          <h3 class="cta__manager-title">Арбитражный финансовый управляющий</h3>
-          <p class="cta__manager-name">Масхулиа Леван Зурабович</p>
-          <p class="cta__manager-details">
+        <div class="text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">Арбитражный финансовый управляющий</h3>
+          <p class="text-xl font-bold text-blue-200 mb-4">Масхулиа Леван Зурабович</p>
+          <p class="text-sm text-blue-100 mb-6 leading-relaxed">
             ИНН: 505014806562<br />
             Ассоциация арбитражных управляющих саморегулируемая организация "Центральное агентство арбитражных управляющих"<br />
             Стаж работы: более 11 лет
@@ -94,13 +94,13 @@ const cta = {
 
           <a
             href="https://old.bankrot.fedresurs.ru/ArbitrManagerCard.aspx?ID=0fe01101-9000-45a5-9a14-31d86002b6ba"
-            class="cta__manager-link"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white/20 hover:bg-white/30 text-white font-medium rounded-lg transition-colors duration-200 backdrop-blur-sm border border-white/30"
             target="_blank"
             rel="noopener nofollow"
             title="Карточка арбитражного управляющего в Едином федеральном реестре сведений о банкротстве"
           >
             <svg
-              class="cta__manager-link-icon"
+              class="w-5 h-5 mr-2"
               width="20"
               height="20"
               viewBox="0 0 24 24"
@@ -114,11 +114,11 @@ const cta = {
             Посмотреть карточку в реестре Федресурс
           </a>
 
-          <div class="cta__manager-trust">
-            <p class="cta__manager-trust-text">
-              ✓ Официальный реестр арбитражных управляющих<br />
-              ✓ Проверенные данные Федресурс<br />
-              ✓ Более 1000 успешных дел
+          <div class="mt-6">
+            <p class="text-sm text-blue-100 space-y-1">
+              <span class="block">✓ Официальный реестр арбитражных управляющих</span>
+              <span class="block">✓ Проверенные данные Федресурс</span>
+              <span class="block">✓ Более 1000 успешных дел</span>
             </p>
           </div>
         </div>

@@ -182,7 +182,7 @@ const Header = () => {
       }
 
       // Close mobile menu on link click
-      const mobileLinks = mobileMenu.querySelectorAll('.mobile-menu__link');
+      const mobileLinks = mobileMenu.querySelectorAll('[data-mobile-link]');
       mobileLinks.forEach((link) => {
         link.addEventListener('click', () => {
           closeMobileMenu();

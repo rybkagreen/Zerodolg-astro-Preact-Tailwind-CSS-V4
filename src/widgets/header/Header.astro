@@ -70,7 +70,7 @@ const mobileMenuItems = [
   { href: '#reviews', title: 'Отзывы' },
   { href: '#team', title: 'Команда' },
   { href: '#faq', title: 'FAQ' },
-  { href: 'blog/', title: '📚 Блог', className: 'mobile-menu__link--blog' },
+  { href: 'blog/', title: '📚 Блог', className: 'text-blue-600 hover:bg-blue-50 font-medium' },
   { href: '#contacts', title: 'Контакты' },
   { href: '/privacy', title: 'Конфиденциальность' },
   { href: '/terms', title: 'Соглашение' },
@@ -324,7 +324,7 @@ const mobileMenuItems = [
     aria-labelledby="mobile-menu-title"
     aria-hidden="true"
   >
-    <div class="mobile-menu__overlay fixed inset-0 bg-black bg-opacity-75" data-mobile-menu-overlay aria-label="Закрыть мобильное меню">
+    <div class="fixed inset-0 bg-black bg-opacity-75" data-mobile-menu-overlay aria-label="Закрыть мобильное меню">
     </div>
 
     <div class="relative transform overflow-hidden max-w-xs w-full ml-auto h-full">
@@ -340,7 +340,7 @@ const mobileMenuItems = [
             <img src="/images/logo.svg" alt={company.name} width="140" height="40" loading="lazy" />
           </a>
           <button
-            class="mobile-menu__close -mr-2 p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+            class="-mr-2 p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100"
             type="button"
             aria-label="Закрыть мобильное меню"
             data-mobile-menu-close
@@ -358,12 +358,13 @@ const mobileMenuItems = [
           <ul class="space-y-2">
             {
               mobileMenuItems.map((item) => (
-                <li class="mobile-menu__item" role="none">
+                <li role="none">
                   <a
                     href={item.href}
-                    class={`mobile-menu__link block px-4 py-3 rounded-md ${item.className || 'text-gray-700 hover:bg-gray-50'} text-base font-medium`}
+                    class={`block px-4 py-3 rounded-md ${item.className || 'text-gray-700 hover:bg-gray-50'} text-base font-medium`}
                     role="menuitem"
                     title={item.title}
+                    data-mobile-link
                   >
                     {item.title}
                   </a>
@@ -377,13 +378,13 @@ const mobileMenuItems = [
         <div class="border-t p-4 space-y-4">
           <a
             href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
-            class="mobile-menu__phone block text-center text-lg font-semibold text-primary hover:text-primary-dark"
+            class="block text-center text-lg font-semibold text-primary hover:text-primary-dark"
             title="Позвонить для консультации"
             aria-label={`Телефон: ${company.phone}`}
           >
             {company.phone}
           </a>
-          <time class="mobile-menu__work-hours block text-center text-base text-gray-500" datetime="Mo-Fr 09:00-18:00">
+          <time class="block text-center text-base text-gray-500" datetime="Mo-Fr 09:00-18:00">
             {company.workHours}
           </time>
           <button
@@ -410,7 +411,7 @@ const mobileMenuItems = [
             company.social.whatsapp && (
               <a
                 href={company.social.whatsapp}
-                class="mobile-menu__social-link text-gray-500 hover:text-gray-700"
+                class="text-gray-500 hover:text-gray-700 transition-colors"
                 target="_blank"
                 rel="noopener nofollow"
                 aria-label="Написать в WhatsApp"
@@ -424,7 +425,7 @@ const mobileMenuItems = [
             company.social.telegram && (
               <a
                 href={company.social.telegram}
-                class="mobile-menu__social-link text-gray-500 hover:text-gray-700"
+                class="text-gray-500 hover:text-gray-700 transition-colors"
                 target="_blank"
                 rel="noopener nofollow"
                 aria-label="Написать в Telegram"
@@ -438,7 +439,7 @@ const mobileMenuItems = [
             company.social.vk && (
               <a
                 href={company.social.vk}
-                class="mobile-menu__social-link text-gray-500 hover:text-gray-700"
+                class="text-gray-500 hover:text-gray-700 transition-colors"
                 target="_blank"
                 rel="noopener nofollow"
                 aria-label="Наша группа ВКонтакте"

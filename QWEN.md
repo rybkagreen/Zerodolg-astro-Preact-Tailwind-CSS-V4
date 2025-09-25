@@ -218,14 +218,26 @@ const { title } = Astro.props;
 
 ## Documentation Standards
 
+<!-- NOTE: When documenting components, functions, etc., use HTML-style comments -->
+<!-- to avoid import errors in the Qwen environment -->
+<!-- For example, use <!-- @component Name --> instead of @component Name -->
+
+### General Documentation Guidelines
+
+To prevent import errors in the Qwen environment:
+- When documenting with JSDoc-style comments, use HTML-style comments to wrap tags
+- Example: Use <!-- @component Name --> instead of @component Name
+- This prevents the Qwen processor from trying to import these as modules
+- Follow consistent formatting across all documentation
+
 ### Component Documentation
 
 ```astro
 ---
 /**
- * @component ReviewCard
- * @description Displays a single customer review with rating and details
- * @example
+ * <!-- @component ReviewCard -->
+ * <!-- @description Displays a single customer review with rating and details -->
+ * <!-- @example -->
  * <ReviewCard
  *   name="John Doe"
  *   rating={5}
@@ -240,9 +252,9 @@ const { title } = Astro.props;
 ```javascript
 /**
  * Calculates review statistics from an array of reviews
- * @param {Review[]} reviews - Array of review objects
- * @returns {ReviewStats} Statistics object with averages and counts
- * @example
+ * <!-- @param {Review[]} reviews - Array of review objects -->
+ * <!-- @returns {ReviewStats} Statistics object with averages and counts -->
+ * <!-- @example -->
  * const stats = calculateReviewStats(reviews);
  */
 function calculateReviewStats(reviews) {
@@ -264,6 +276,10 @@ function calculateReviewStats(reviews) {
    - .is-disabled: Disabled state styling
    ========================================================================== */
 ```
+
+<!-- Additional notes about documentation formatting to prevent import errors -->
+<!-- When documenting, avoid using @component, @description, @example, @param, @returns directly -->
+<!-- Instead, use HTML-style comments inside documentation blocks to prevent import errors -->
 
 ## Workflow Preferences
 
@@ -418,12 +434,15 @@ Types:
 
 ```css
 /* Mobile First */
+/* <!-- @media (min-width: 768px) --> */
 @media (min-width: 768px) {
   /* Tablet */
 }
+/* <!-- @media (min-width: 1024px) --> */
 @media (min-width: 1024px) {
   /* Desktop */
 }
+/* <!-- @media (min-width: 1440px) --> */
 @media (min-width: 1440px) {
   /* Large Desktop */
 }
@@ -464,6 +483,13 @@ Types:
 ```
 
 ## Troubleshooting Guide
+
+### Documentation-Related Issues
+
+If you encounter import errors related to documentation tags (component, description, example, param, returns, media):
+- Check if JSDoc-style tags are being processed as imports
+- Use HTML-style comments to wrap documentation tags in examples
+- Example: Use <!-- @component Name --> instead of @component Name in documentation
 
 ### Common Issues
 

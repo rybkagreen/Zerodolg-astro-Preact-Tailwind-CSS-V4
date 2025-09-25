@@ -22,54 +22,71 @@ npm run preview
 
 ```
 zerodolg-astro/
-├── docs/                # Документация проекта
-├── public/              # Статические файлы
-│   ├── images/          # Изображения
-│   ├── js/              # Клиентский JavaScript
-│   └── fonts/           # Веб-шрифты
-├── src/
-│   ├── components/      # Компоненты
-│   │   ├── islands/     # Интерактивные Preact компоненты
-│   │   ├── sections/    # Секции страниц
-│   │   └── ui/          # UI компоненты
-│   ├── content/         # Коллекции контента
-│   ├── data/            # Статические данные
-│   ├── layouts/         # Макеты страниц
-│   ├── lib/             # Утилиты и сервисы
-│   ├── pages/           # Страницы сайта
-│   └── styles/          # Стили (ITCSS архитектура)
-├── package.json         # Зависимости и скрипты
-└── astro.config.mjs     # Конфигурация Astro
+├── .github/                    # GitHub-specific files
+│   └── workflows/              # GitHub Actions workflows
+│       └── ci.yml              # CI/CD pipeline
+├── .husky/                     # Git hooks configuration
+├── .qwen/                      # Qwen AI assistant configuration
+├── .vscode/                    # VS Code configuration
+├── docs/                       # Documentation files
+│   ├── analysis/               # Analysis reports
+│   ├── blog/                   # Blog content
+│   ├── migrations/             # Migration guides
+│   ├── optimization/           # Optimization guides and checklists
+│   └── setup/                  # Setup and configuration docs
+├── public/                     # Static assets
+├── screenshots/                # Screenshots and comparison reports
+├── scripts/                    # Organized development scripts
+│   ├── build/                  # Build-related scripts
+│   ├── deploy/                 # Deployment scripts
+│   ├── dev/                    # Development utilities
+│   ├── maintenance/            # Maintenance and optimization
+│   └── test/                   # Testing scripts
+├── src/                        # Source code
+│   ├── components/             # Reusable UI components
+│   │   ├── ui/                 # Base UI components (Button, Card, etc.)
+│   │   ├── forms/              # Form components
+│   │   ├── layout/             # Layout components (Header, Footer, etc.)
+│   │   └── sections/           # Page sections (Hero, Benefits, etc.)
+│   ├── islands/                # Interactive Preact components only
+│   │   ├── forms/              # Interactive form components
+│   │   ├── interactive/        # Interactive components (TeamInteractive, etc.)
+│   │   ├── layout/             # Interactive layout components
+│   │   ├── shared/             # Shared interactive components
+│   │   └── utils/              # Interactive utilities
+│   ├── features/               # Business-feature specific logic
+│   │   ├── analytics/          # Analytics feature
+│   │   ├── calculator/         # Calculator feature
+│   │   ├── forms/              # Form handling feature
+│   │   └── modals/             # Modal dialogs feature
+│   ├── layouts/                # Page layouts
+│   ├── pages/                  # Page routes
+│   ├── widgets/                # Complex UI components
+│   ├── content/                # Content collections
+│   ├── lib/                    # Utilities and helper functions
+│   ├── shared/                 # Shared utilities and APIs
+│   ├── core/                   # Core application logic
+│   └── styles/                 # ITCSS styled architecture
+├── tools/                      # Standalone utility tools
+└── Configuration Files         # Root-level config files
 ```
 
 ## 📚 Документация
 
 Подробная документация доступна в директории [`docs/`](docs/):
 
-### Техническая документация
+### Основные документы
 
-- [Архитектура](docs/architecture.md) - Общая архитектура проекта
-- [Компоненты](docs/components.md) - Описание компонентов проекта
-- [Руководство по стилю](docs/style-guide.md) - Правила кодирования
-- [Git](docs/git.md) - Руководство по работе с Git
+- [Архитектура](docs/architecture.md) - Проектная архитектура с Feature-Sliced Design
+- [Qwen.md](QWEN.md) - Конфигурация и руководство для Qwen Code
 
-### Эксплуатационная документация
+### Документация в подкаталогах
 
-- [Развертывание](docs/deployment.md) - Инструкции по развертыванию
-- [Работа с CMS](docs/cms-guide.md) - Интеграция с Alibaba CMS
-- [Безопасность](docs/security.md) - Руководство по безопасности
-- [Тестирование](docs/testing.md) - Руководство по тестированию
-
-### Пользовательская документация
-
-- [Интернационализация](docs/i18n.md) - Руководство по локализации
-- [SEO](docs/seo.md) - Поисковая оптимизация
-- [Доступность](docs/accessibility.md) - Руководство по доступности
-
-### Дополнительно
-
-- [FAQ](docs/faq.md) - Часто задаваемые вопросы
-- [Производительность](docs/performance.md) - Оптимизация производительности
+- [Оптимизация](docs/optimization/) - Руководства и чек-листы по оптимизации
+- [Настройка](docs/setup/) - Документация по настройке и установке
+- [Миграции](docs/migrations/) - Гайды по миграции технологий
+- [Анализ](docs/analysis/) - Отчеты и результаты анализа проекта
+- [Блог](docs/blog/) - Документы, связанные с контентом блога
 
 ## 🛠 Технологии
 
@@ -78,11 +95,13 @@ zerodolg-astro/
 - **[TypeScript](https://www.typescriptlang.org/)** - Строгая типизация JavaScript (v5.9.2)
 - **[CSS](https://developer.mozilla.org/ru/docs/Web/CSS)** - Современный CSS с пользовательскими свойствами
 - **[Alibaba CMS](https://www.alibabacloud.com/product/cms)** - Облачная система управления контентом
+- **[Tailwind CSS](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк v4
 
 ## 🎨 Архитектура
 
 ### Основные принципы
 
+- **Feature-Sliced Design** - Организация кода по бизнес-функциям и слоям
 - **Статическая генерация** - Предварительный рендеринг HTML для максимальной производительности
 - **Islands Architecture** - Интерактивные компоненты только там, где они нужны
 - **Прогрессивное улучшение** - Сайт работает без JavaScript
@@ -92,6 +111,7 @@ zerodolg-astro/
 
 - **[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)** - Инвертированный треугольник CSS для организации стилей
 - **[BEM](http://getbem.com/)** - Блок, Элемент, Модификатор для именования CSS классов
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк для быстрой разработки
 - **Mobile First** - Дизайн сначала для мобильных устройств
 
 ## ✅ Статус проекта
@@ -106,6 +126,7 @@ zerodolg-astro/
 - ✅ Аналитика интегрирована и работает
 - ✅ Производительность оптимизирована
 - ✅ Дизайн адаптирован для всех устройств
+- ✅ Миграция на Tailwind CSS v4 завершена (оценка качества: 83.3%)
 
 ## 📦 Команды
 
@@ -115,9 +136,12 @@ zerodolg-astro/
 | `npm run build`         | Сборка проекта для продакшена                 |
 | `npm run build:prod`    | Сборка проекта с оптимизациями для продакшена |
 | `npm run preview`       | Предварительный просмотр собранного сайта     |
-| `npm run docs:generate` | Генерация документации по компонентам         |
-| `npm run docs:build`    | Сборка проекта с генерацией документации      |
-| `npm run astro ...`     | Запуск команд Astro CLI                       |
+| `npm run lint`          | Проверка кода с помощью ESLint                |
+| `npm run lint:fix`      | Автоматическое исправление ошибок в коде      |
+| `npm run type-check`    | Проверка типов TypeScript                     |
+| `npm run test`          | Запуск тестов с помощью Jest                  |
+| `npm run test:coverage` | Запуск тестов с отчетом о покрытии            |
+| `npm run clean`         | Очистка скомпилированных файлов               |
 
 ## 🔧 Конфигурация
 

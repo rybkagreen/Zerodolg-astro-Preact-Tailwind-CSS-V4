@@ -92,38 +92,38 @@ const process = {
 };
 ---
 
-<section class={`timeline py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white ${className}`} id="process">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 timeline__container">
+<section class={`py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white ${className}`} id="process">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
-    <header class="text-center mb-12 md:mb-16 section__header">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section__title">{process.title}</h2>
-      <p class="text-lg text-gray-600 max-w-2xl mx-auto section__subtitle">{process.subtitle}</p>
+    <header class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{process.title}</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">{process.subtitle}</p>
     </header>
 
     <!-- Timeline Content -->
-    <div class="timeline__wrapper flex flex-col md:flex-row gap-8">
+    <div class="flex flex-col md:flex-row gap-8">
       <!-- Desktop Navigation -->
-      <nav class="timeline__nav hidden md:block w-64 flex-shrink-0" aria-label="Этапы процесса банкротства" role="navigation">
-        <div class="timeline__line relative h-full w-1 bg-gray-200 mx-auto" aria-hidden="true">
-          <div class="timeline__line-progress absolute top-0 left-0 w-1 bg-blue-500 h-0 transition-all duration-500"></div>
+      <nav class="hidden md:block w-64 flex-shrink-0" aria-label="Этапы процесса банкротства" role="navigation">
+        <div class="relative h-full w-1 bg-gray-200 mx-auto" aria-hidden="true">
+          <div class="progress-line absolute top-0 left-0 w-1 bg-blue-500 h-0 transition-all duration-500"></div>
         </div>
-        <ol class="timeline__nav-list space-y-4 relative" role="list">
+        <ol class="space-y-4 relative" role="list">
           {
             process.steps.map((step, index) => (
-              <li class="timeline__nav-item-wrapper relative" role="listitem">
+              <li class="relative" role="listitem">
                 <button
-                  class={`timeline__nav-item w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${index === 0 ? 'active bg-blue-50 text-blue-700 font-medium' : 'hover:bg-gray-50'}`}
+                  class={`step-nav-btn w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${index === 0 ? 'active bg-blue-50 text-blue-700 font-medium' : 'hover:bg-gray-50'}`}
                   data-step={index}
                   aria-label={`Этап ${step.number}: ${step.title}`}
                   aria-current={index === 0 ? 'step' : undefined}
                   type="button"
                 >
-                  <span class="timeline__nav-number flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-sm font-bold">
+                  <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-sm font-bold">
                     {step.number}
                   </span>
-                  <div class="timeline__nav-content text-left">
-                    <span class="timeline__nav-title block font-medium">{step.title}</span>
-                    <span class="timeline__nav-duration text-sm text-gray-500">{step.duration}</span>
+                  <div class="text-left">
+                    <span class="block font-medium">{step.title}</span>
+                    <span class="text-sm text-gray-500">{step.duration}</span>
                   </div>
                 </button>
               </li>
@@ -133,22 +133,22 @@ const process = {
       </nav>
 
       <!-- Mobile Progress -->
-      <div class="timeline__progress md:hidden mb-8" role="navigation" aria-label="Прогресс процедуры">
+      <div class="md:hidden mb-8" role="navigation" aria-label="Прогресс процедуры">
         <div
-          class="timeline__progress-bar h-2 bg-gray-200 rounded-full mb-4"
+          class="progress-bar h-2 bg-gray-200 rounded-full mb-4"
           role="progressbar"
           aria-valuemin="0"
           aria-valuemax="100"
           aria-valuenow="20"
           aria-label="Прогресс выполнения"
         >
-          <div class="timeline__progress-fill h-2 bg-blue-500 rounded-full w-1/5 transition-all duration-500"></div>
+          <div class="progress-fill h-2 bg-blue-500 rounded-full w-1/5 transition-all duration-500"></div>
         </div>
-        <div class="timeline__progress-dots flex justify-center gap-2" role="tablist">
+        <div class="flex justify-center gap-2" role="tablist">
           {
             process.steps.map((step, index) => (
               <button
-                class={`timeline__progress-dot w-3 h-3 rounded-full ${index === 0 ? 'active bg-blue-500' : 'bg-gray-300'}`}
+                class={`progress-dot w-3 h-3 rounded-full ${index === 0 ? 'active bg-blue-500' : 'bg-gray-300'}`}
                 data-dot={index}
                 role="tab"
                 aria-selected={index === 0 ? 'true' : 'false'}
@@ -164,27 +164,27 @@ const process = {
       </div>
 
       <!-- Steps Content -->
-      <div class="timeline__content flex-1">
+      <div class="flex-1">
         {
           process.steps.map((step, index) => (
             <article
-              class={`timeline__step pb-12 ${index === 0 ? 'active' : 'hidden'}`}
+              class={`step-content pb-12 ${index === 0 ? 'active' : 'hidden'}`}
               data-step-content={index}
               role="tabpanel"
               aria-labelledby={`step-${index}-tab`}
               tabindex="0"
             >
-              <header class="timeline__step-header">
-                <div class="timeline__step-icon w-12 h-12 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 mb-4" aria-hidden="true">
+              <header>
+                <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 mb-4" aria-hidden="true">
                   <img src={step.icon} alt="" width="48" height="48" loading="lazy" class="w-6 h-6" />
                 </div>
-                <div class="timeline__step-info">
-                  <h3 class="timeline__step-title text-2xl font-bold text-gray-900 mb-3">
-                    <span class="timeline__step-number block text-sm font-medium text-blue-600 mb-1">Этап {step.number}</span>
-                    <span class="timeline__step-name">{step.title}</span>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                    <span class="block text-sm font-medium text-blue-600 mb-1">Этап {step.number}</span>
+                    <span>{step.title}</span>
                   </h3>
-                  <p class="timeline__step-description text-gray-600 mb-4">{step.description}</p>
-                  <dl class="timeline__step-meta flex gap-6">
+                  <p class="text-gray-600 mb-4">{step.description}</p>
+                  <dl class="flex gap-6">
                     <div class="timeline__meta-item">
                       <dt class="sr-only">Длительность:</dt>
                       <dd class="timeline__step-duration inline-flex items-center gap-2 text-gray-600">

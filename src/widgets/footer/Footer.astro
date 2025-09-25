@@ -27,20 +27,20 @@ const company = {
 ---
 
 <footer
-  class="footer"
+  class="bg-gray-900 text-white"
   role="contentinfo"
   data-component="Footer"
   itemscope
   itemtype="https://schema.org/Organization"
 >
-  <div class="footer__top">
-    <div class="container">
-      <div class="footer__grid">
+  <div class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Company Information -->
-        <div class="footer__column footer__column--company">
+        <div class="md:col-span-2 lg:col-span-1">
           <a
             href="/"
-            class="footer__logo"
+            class="inline-block mb-4"
             title="{company.name} - Главная страница"
             aria-label="Логотип {company.name}, перейти на главную страницу"
           >
@@ -53,27 +53,27 @@ const company = {
             />
           </a>
 
-          <p class="footer__description" itemprop="description">
+          <p class="text-gray-300 mb-6" itemprop="description">
             Профессиональная юридическая помощь в банкротстве физических лиц. Работаем с <time
               datetime="2008"
               itemprop="foundingDate">2008 года</time
-            >, более <strong>500 успешных дел</strong>.
+            >, более <strong class="text-white">500 успешных дел</strong>.
           </p>
 
           <!-- Social Media Links -->
-          <div class="footer__social" role="navigation" aria-label="Социальные сети компании">
+          <div class="flex space-x-4" role="navigation" aria-label="Социальные сети компании">
             {
               company.social.whatsapp && (
                 <a
                   href="{company.social.whatsapp}"
-                  class="footer__social-link"
+                  class="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
                   target="_blank"
                   rel="noopener nofollow"
                   itemprop="sameAs"
                   aria-label="Консультация в WhatsApp по банкротству физических лиц"
                   title="Написать в WhatsApp"
                 >
-                  <svg class="icon icon-whatsapp" width="24" height="24" aria-hidden="true">
+                  <svg class="w-6 h-6 text-white" width="24" height="24" aria-hidden="true">
                     <use xlink:href="#icon-whatsapp" />
                   </svg>
                 </a>
@@ -83,14 +83,14 @@ const company = {
               company.social.telegram && (
                 <a
                   href="{company.social.telegram}"
-                  class="footer__social-link"
+                  class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
                   target="_blank"
                   rel="noopener nofollow"
                   itemprop="sameAs"
                   aria-label="Консультация в Telegram по банкротству физических лиц"
                   title="Написать в Telegram"
                 >
-                  <svg class="icon icon-telegram" width="24" height="24" aria-hidden="true">
+                  <svg class="w-6 h-6 text-white" width="24" height="24" aria-hidden="true">
                     <use xlink:href="#icon-telegram" />
                   </svg>
                 </a>
@@ -100,14 +100,14 @@ const company = {
               company.social.vk && (
                 <a
                   href="{company.social.vk}"
-                  class="footer__social-link"
+                  class="w-10 h-10 bg-gray-800 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors duration-200"
                   target="_blank"
                   rel="noopener nofollow"
                   itemprop="sameAs"
                   aria-label="Группа ВКонтакте о банкротстве физических лиц"
                   title="Наша группа ВКонтакте"
                 >
-                  <svg class="icon icon-vk" width="24" height="24" aria-hidden="true">
+                  <svg class="w-6 h-6 text-white" width="24" height="24" aria-hidden="true">
                     <use xlink:href="#icon-vk" />
                   </svg>
                 </a>
@@ -117,42 +117,42 @@ const company = {
         </div>
 
         <!-- Services Section -->
-        <div class="footer__column">
-          <h3 class="footer__title">Услуги по банкротству</h3>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Услуги по банкротству</h3>
           <nav role="navigation" aria-label="Услуги компании">
-            <ul class="footer__list">
-              <li class="footer__item">
+            <ul class="space-y-2">
+              <li>
                 <a
                   href="#benefits"
-                  class="footer__link"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
                   title="Судебное банкротство физических лиц через Арбитражный суд"
                 >
                   Судебное банкротство
                 </a>
               </li>
-              <li class="footer__item">
-                <a href="#process" class="footer__link" title="Внесудебное банкротство через МФЦ">
+              <li>
+                <a href="#process" class="text-gray-300 hover:text-white transition-colors duration-200" title="Внесудебное банкротство через МФЦ">
                   Внесудебное банкротство
                 </a>
               </li>
-              <li class="footer__item">
+              <li>
                 <a
                   href="#calculator"
-                  class="footer__link"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
                   title="Реструктуризация долгов физических лиц"
                 >
                   Реструктуризация долгов
                 </a>
               </li>
-              <li class="footer__item">
-                <a href="#problems" class="footer__link" title="Защита от коллекторских агентств">
+              <li>
+                <a href="#problems" class="text-gray-300 hover:text-white transition-colors duration-200" title="Защита от коллекторских агентств">
                   Защита от коллекторов
                 </a>
               </li>
-              <li class="footer__item">
+              <li>
                 <a
                   href="#calculator"
-                  class="footer__link"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
                   title="Рассчитать стоимость банкротства онлайн"
                 >
                   Калькулятор стоимости
@@ -163,44 +163,44 @@ const company = {
         </div>
 
         <!-- Information Section -->
-        <div class="footer__column">
-          <h3 class="footer__title">О компании</h3>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">О компании</h3>
           <nav role="navigation" aria-label="Информация о компании">
-            <ul class="footer__list">
-              <li class="footer__item">
-                <a href="#hero" class="footer__link" title="О юридической компании МАСХУЛИА">
+            <ul class="space-y-2">
+              <li>
+                <a href="#hero" class="text-gray-300 hover:text-white transition-colors duration-200" title="О юридической компании МАСХУЛИА">
                   О компании
                 </a>
               </li>
-              <li class="footer__item">
+              <li>
                 <a
                   href="#testimonials"
-                  class="footer__link"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
                   title="Наша команда юристов и специалистов"
                 >
                   Наша команда
                 </a>
               </li>
-              <li class="footer__item">
+              <li>
                 <a
                   href="#testimonials"
-                  class="footer__link"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
                   title="Отзывы клиентов о банкротстве физических лиц"
                 >
                   Отзывы клиентов
                 </a>
               </li>
-              <li class="footer__item">
+              <li>
                 <a
                   href="#faq"
-                  class="footer__link"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
                   title="Полезные статьи о банкротстве и списании долгов"
                 >
                   Полезные статьи
                 </a>
               </li>
-              <li class="footer__item">
-                <a href="#faq" class="footer__link" title="Часто задаваемые вопросы о банкротстве">
+              <li>
+                <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-200" title="Часто задаваемые вопросы о банкротстве">
                   Вопросы и ответы
                 </a>
               </li>
@@ -210,22 +210,22 @@ const company = {
 
         <!-- Contact Information -->
         <div
-          class="footer__column footer__column--contacts"
+          class="md:col-span-2 lg:col-span-1"
           itemscope
           itemtype="https://schema.org/LocalBusiness"
         >
-          <h3 class="footer__title">Контактная информация</h3>
+          <h3 class="text-lg font-semibold mb-4">Контактная информация</h3>
 
-          <div class="footer__contacts">
+          <div class="space-y-4">
             <!-- Phone Contact -->
-            <div class="footer__contact">
-              <svg class="icon icon-phone" width="20" height="20" aria-hidden="true">
+            <div class="flex items-start space-x-3">
+              <svg class="w-5 h-5 text-gray-400 mt-1" width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-phone"></use>
               </svg>
               <div>
                 <a
                   href="tel:{phone company.phone}"
-                  class="footer__phone"
+                  class="text-white hover:text-blue-400 transition-colors duration-200 font-semibold"
                   itemprop="telephone"
                   title="Позвонить для бесплатной консультации по банкротству"
                   aria-label="Телефон для консультации: {company.phone}"
@@ -233,7 +233,7 @@ const company = {
                   {company.phone}
                 </a>
                 <time
-                  class="footer__work-hours"
+                  class="block text-sm text-gray-400"
                   datetime="Mo-Fr 09:00-18:00"
                   itemprop="openingHours"
                   title="Часы работы офиса"
@@ -244,13 +244,13 @@ const company = {
             </div>
 
             <!-- Email Contact -->
-            <div class="footer__contact">
-              <svg class="icon icon-email" width="20" height="20" aria-hidden="true">
+            <div class="flex items-center space-x-3">
+              <svg class="w-5 h-5 text-gray-400" width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-email"></use>
               </svg>
               <a
                 href="mailto:{company.email}"
-                class="footer__email"
+                class="text-white hover:text-blue-400 transition-colors duration-200"
                 itemprop="email"
                 title="Написать письмо для консультации по банкротству"
                 aria-label="Email: {company.email}"
@@ -261,15 +261,15 @@ const company = {
 
             <!-- Address -->
             <div
-              class="footer__contact"
+              class="flex items-start space-x-3"
               itemprop="address"
               itemscope
               itemtype="https://schema.org/PostalAddress"
             >
-              <svg class="icon icon-location" width="20" height="20" aria-hidden="true">
+              <svg class="w-5 h-5 text-gray-400 mt-1" width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-location"></use>
               </svg>
-              <address class="footer__address">
+              <address class="text-gray-300 not-italic leading-relaxed">
                 <span itemprop="addressLocality">{company.address.city}</span>,<br />
                 <span itemprop="streetAddress">{company.address.street}</span>
                 <meta itemprop="addressRegion" content="{company.address.region}" />
@@ -281,7 +281,7 @@ const company = {
 
           <!-- CTA Button -->
           <button
-            class="btn btn--secondary btn--block footer__callback"
+            class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
             data-modal="callback"
             type="button"
             aria-label="Заказать бесплатную консультацию по банкротству физических лиц"
@@ -295,28 +295,26 @@ const company = {
   </div>
 
   <!-- Footer Bottom -->
-  <div class="footer__bottom">
-    <div class="container">
-      <div class="footer__bottom-inner">
+  <div class="border-t border-gray-800 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <!-- Copyright Information -->
-        <div class="footer__copyright" itemscope itemtype="https://schema.org/Organization">
-          <p>
+        <div class="text-sm text-gray-400" itemscope itemtype="https://schema.org/Organization">
+          <p class="mb-1">
             <span>&copy; 2008-<time datetime="2024">2024</time></span>
             <span itemprop="legalName">{company.name}</span>.
             <span>Все права защищены.</span>
           </p>
-          <p class="footer__inn">
-            <small>
-              ИНН: <span itemprop="taxID">9729317468</span> | ОГРН: <span>1217700631697</span>
-            </small>
+          <p class="text-xs">
+            ИНН: <span itemprop="taxID">9729317468</span> | ОГРН: <span>1217700631697</span>
           </p>
         </div>
 
         <!-- Legal Links -->
-        <nav class="footer__legal" role="navigation" aria-label="Правовая информация">
+        <nav class="flex flex-wrap gap-4 text-sm" role="navigation" aria-label="Правовая информация">
           <a
             href="/privacy"
-            class="footer__legal-link"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
             title="Политика конфиденциальности и обработки персональных данных"
             rel="nofollow"
           >
@@ -324,7 +322,7 @@ const company = {
           </a>
           <a
             href="/terms"
-            class="footer__legal-link"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
             title="Пользовательское соглашение и условия предоставления услуг"
             rel="nofollow"
           >
@@ -332,7 +330,7 @@ const company = {
           </a>
           <a
             href="/sitemap"
-            class="footer__legal-link"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
             title="Карта сайта со всеми страницами"
             rel="nofollow"
           >
