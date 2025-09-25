@@ -23,6 +23,7 @@ This file contains comprehensive settings, preferences, and guidelines for Qwen 
 
 ### Architecture
 
+- **Feature-Sliced Design**: Organized by business features and layers
 - **Islands Architecture**: Interactive components only where needed
 - **Static Generation**: Pre-rendered HTML for performance
 - **Progressive Enhancement**: Works without JavaScript
@@ -50,6 +51,30 @@ zerodolg-astro/
 │   ├── maintenance/            # Maintenance and optimization
 │   └── test/                   # Testing scripts
 ├── src/                        # Source code
+│   ├── components/             # Reusable UI components
+│   │   ├── ui/                 # Base UI components (Button, Card, etc.)
+│   │   ├── forms/              # Form components
+│   │   ├── layout/             # Layout components (Header, Footer, etc.)
+│   │   └── sections/           # Page sections (Hero, Benefits, etc.)
+│   ├── islands/                # Interactive Preact components only
+│   │   ├── forms/              # Interactive form components
+│   │   ├── interactive/        # Interactive components (TeamInteractive, etc.)
+│   │   ├── layout/             # Interactive layout components
+│   │   ├── shared/             # Shared interactive components
+│   │   └── utils/              # Interactive utilities
+│   ├── features/               # Business-feature specific logic
+│   │   ├── analytics/          # Analytics feature
+│   │   ├── calculator/         # Calculator feature
+│   │   ├── forms/              # Form handling feature
+│   │   └── modals/             # Modal dialogs feature
+│   ├── layouts/                # Page layouts
+│   ├── pages/                  # Page routes
+│   ├── widgets/                # Complex UI components
+│   ├── content/                # Content collections
+│   ├── lib/                    # Utilities and helper functions
+│   ├── shared/                 # Shared utilities and APIs
+│   ├── core/                   # Core application logic
+│   └── styles/                 # ITCSS styled architecture
 ├── tools/                      # Standalone utility tools
 └── Configuration Files         # Root-level config files
 ```
@@ -151,9 +176,13 @@ const { title } = Astro.props;
 
 #### 2. Component Location
 
-- **Static Components**: `/src/components/ui/` or `/src/components/sections/`
-- **Interactive Components**: `/src/components/islands/`
-- **Layout Components**: `/src/layouts/`
+- **UI Components**: `/src/components/ui/` (buttons, cards, modals, etc.)
+- **Form Components**: `/src/components/forms/` (form elements and layouts)
+- **Section Components**: `/src/components/sections/` (Hero, Benefits, etc.)
+- **Layout Components**: `/src/components/layout/` or `/src/layouts/`
+- **Interactive Components**: `/src/islands/` (Preact components only)
+- **Feature Components**: `/src/features/[feature-name]/ui/` (feature-specific UI)
+- **Complex Widgets**: `/src/widgets/` (complex reusable sections)
 
 #### 3. Component Checklist
 
@@ -484,7 +513,7 @@ Types:
 
 All project documentation is located in the `/docs/` directory:
 
-- [Architecture](docs/architecture.md) - Project architecture overview
+- [Architecture](docs/architecture.md) - Project architecture overview with Feature-Sliced Design
 - [Components](docs/components.md) - Component documentation
 - [Style Guide](docs/style-guide.md) - Code style guidelines
 - [Deployment](docs/deployment.md) - Deployment instructions
@@ -499,6 +528,14 @@ All project documentation is located in the `/docs/` directory:
 - [Git](docs/git.md) - Git workflow and conventions
 
 ## Change Log
+
+### 25.09.2025 - Feature-Sliced Design Implementation
+
+- Reorganized project structure according to Feature-Sliced Design principles
+- Moved interactive components to src/islands/ directory
+- Relocated UI components to appropriate directories (ui, forms, sections)
+- Updated import paths in all affected files
+- Updated documentation to reflect new structure
 
 ### 12.09.2025 - Claude Review
 

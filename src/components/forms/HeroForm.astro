@@ -1,0 +1,22 @@
+---
+import BaseForm from './BaseForm.astro';
+
+export interface Props {
+  className?: string;
+  id?: string;
+}
+
+const { className = '', id = 'consultation-form' } = Astro.props;
+---
+
+<div class={`hero-form ${className}`} id={id}>
+  <h3>Узнайте стоимость <span class="form-time-accent">за 2 минуты</span></h3>
+
+  <BaseForm
+    formId={id}
+    formType="hero"
+    showDebtField={true}
+    submitText="Получить консультацию"
+    variant="stacked"
+  />
+</div>

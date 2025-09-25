@@ -277,162 +277,153 @@ let visibleReviews = 3;
 const reviewsIncrement = 3;
 ---
 
-<section class="reviews" id="reviews">
-  <div class="reviews__background">
-    <div class="reviews__gradient"></div>
+<section class="reviews py-16 md:py-24 bg-gradient-to-b from-blue-900 to-indigo-900 text-white" id="reviews">
+  <div class="reviews__background absolute inset-0 overflow-hidden">
+    <div class="reviews__gradient absolute inset-0 bg-gradient-to-b from-blue-900/80 to-indigo-900/90"></div>
   </div>
-
-  <div class="container">
-    <!-- Header -->
-    <div class="reviews__header">
-      <h2 class="reviews__title">Отзывы наших клиентов</h2>
-      <p class="reviews__subtitle">
-        Более {stats.total * 230} человек уже решили свои долговые проблемы с нашей помощью
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="reviews__header text-center mb-12 md:mb-16">
+      <h2 class="reviews__title text-3xl md:text-4xl font-bold text-white mb-4">Отзывы наших клиентов</h2>
+      <p class="reviews__subtitle text-xl text-blue-100 max-w-3xl mx-auto">
+        Более 847+ довольных клиентов, которые полностью освободились от долгов
       </p>
     </div>
 
-    <!-- Statistics -->
-    <div class="reviews__stats">
-      <div class="reviews__stats-summary">
-        <div class="reviews__rating-score">
-          <span class="reviews__rating-number">{stats.average.toFixed(1)}</span>
-          <div class="reviews__rating-stars">
-            {
-              [...Array(5)].map((_, i) => (
-                <svg
-                  class={`reviews__star ${i < Math.floor(stats.average) ? 'reviews__star--filled' : ''}`}
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              ))
-            }
+    <div class="reviews__stats bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-12">
+      <div class="reviews__stats-summary flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="reviews__rating-score text-center">
+          <span class="reviews__rating-number text-5xl md:text-6xl font-bold text-white">{stats.average.toFixed(1)}</span>
+          <div class="reviews__rating-stars flex justify-center gap-1 my-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span
+                class={`reviews__star text-2xl ${i < Math.floor(stats.average) ? 'reviews__star--filled text-yellow-400' : 'text-gray-400'}`}
+              >
+                ★
+              </span>
+            ))}
           </div>
-          <span class="reviews__rating-count">На основе {stats.total * 230} отзывов</span>
+          <span class="reviews__rating-count text-blue-200">На основе {stats.total * 230} отзывов</span>
         </div>
-
-        <div class="reviews__rating-bars">
-          {
-            [5, 4, 3, 2, 1].map((rating) => {
-              const percentage =
-                stats.total > 0 ? (stats.distribution[rating] / stats.total) * 100 : 0;
+        <div class="reviews__rating-bars w-full md:w-2/3">
+          {Object.entries(stats.distribution)
+            .sort(([a], [b]) => parseInt(b) - parseInt(a))
+            .map(([rating, count]) => {
+              const percentage = (count / stats.total) * 100;
               return (
-                <div class="reviews__rating-bar">
-                  <span class="reviews__rating-label">{rating}★</span>
-                  <div class="reviews__rating-track">
-                    <div class="reviews__rating-fill" style={`width: ${percentage}%`} />
+                <div class="reviews__rating-bar flex items-center gap-3 mb-2 last:mb-0" key={rating}>
+                  <span class="reviews__rating-label w-8 text-right text-blue-200">{rating}★</span>
+                  <div class="reviews__rating-track flex-1 h-2 bg-blue-800 rounded-full overflow-hidden">
+                    <div
+                      class="reviews__rating-fill h-full bg-yellow-400 rounded-full"
+                      style={`width: ${percentage}%`}
+                    />
                   </div>
-                  <span class="reviews__rating-percent">{Math.round(percentage)}%</span>
+                  <span class="reviews__rating-percent w-12 text-right text-blue-200">
+                    {Math.round(percentage)}%
+                  </span>
                 </div>
               );
-            })
-          }
+            })}
         </div>
       </div>
     </div>
 
-    <!-- Reviews Grid -->
-    <div class="reviews__grid">
-      {
-        reviews.slice(0, visibleReviews).map((review, index) => (
-          <article class="review-card" data-index={index}>
-            <div class="review-card__header">
-              <div class="review-card__author">
-                <div class="review-card__avatar">
-                  {review.avatar ? (
-                    <img src={review.avatar} alt={review.author} loading="lazy" />
-                  ) : (
-                    <span>{getInitials(review.author || review.name || '')}</span>
-                  )}
-                </div>
-                <div class="review-card__meta">
-                  <h3 class="review-card__name">{review.author || review.name}</h3>
-                  <time class="review-card__date">{formatDate(review.date)}</time>
-                </div>
+    <div class="reviews__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {reviews.slice(0, visibleReviews).map((review, index) => (
+        <article class="review-card bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300" data-index={index} key={review.id}>
+          <div class="review-card__header mb-4">
+            <div class="review-card__author flex items-start gap-3">
+              <div class="review-card__avatar w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold">
+                {review.author.charAt(0)}
               </div>
-
+              <div class="review-card__meta">
+                <h3 class="review-card__name text-lg font-bold text-white mb-1">{review.author || review.name}</h3>
+                <time class="review-card__date text-sm text-blue-200 block">
+                  {formatDate(review.date)}
+                </time>
+              </div>
               {review.verified && (
-                <div class="review-card__verified">
-                  <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path
-                      d="M8 0L9.5 2.5L12.5 1.5L12 4.5L15 5.5L13.5 8L15 10.5L12 11.5L12.5 14.5L9.5 13.5L8 16L6.5 13.5L3.5 14.5L4 11.5L1 10.5L2.5 8L1 5.5L4 4.5L3.5 1.5L6.5 2.5L8 0Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M6 8L7 9L10 6"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  Проверено
+                <div class="review-card__verified ml-auto">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    Проверено
+                  </span>
                 </div>
               )}
             </div>
-
-            <div class="review-card__rating">
-              {[...Array(5)].map((_, i) => (
-                <svg
-                  class={`review-card__star ${i < review.rating ? 'review-card__star--filled' : ''}`}
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
+          </div>
+          <div class="review-card__rating flex gap-1 mb-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span
+                class={`review-card__star text-lg ${i < review.rating ? 'review-card__star--filled text-yellow-400' : 'text-gray-400'}`}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+          <p class="review-card__text text-blue-100 mb-4">{review.text}</p>
+          {review.tags && review.tags.length > 0 && (
+            <div class="review-card__tags flex flex-wrap gap-2 mb-4">
+              {review.tags.map((tag) => (
+                <span class="review-card__tag px-2 py-1 bg-blue-700/50 text-blue-200 text-xs rounded-full">
+                  {tag}
+                </span>
               ))}
             </div>
-
-            <p class="review-card__text">{review.text}</p>
-
-            {review.tags && review.tags.length > 0 && (
-              <div class="review-card__tags">
-                {review.tags.map((tag) => (
-                  <span class="review-card__tag">{tag}</span>
-                ))}
-              </div>
-            )}
-
-            <div class="review-card__footer">
-              <button class="review-card__helpful" data-review-id={review.id}>
-                <svg width="16" height="16" viewBox="0 0 16 16">
-                  <path
-                    d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-width="1.5"
-                  />
-                </svg>
-                Полезно ({review.helpful})
-              </button>
-            </div>
-          </article>
-        ))
-      }
+          )}
+          <div class="review-card__footer flex justify-between items-center">
+            <button class="review-card__helpful inline-flex items-center gap-1 text-blue-200 hover:text-white transition-colors" data-review-id={review.id}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Полезно ({review.helpful})
+            </button>
+            <button class="text-blue-200 hover:text-white transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </article>
+      ))}
     </div>
 
-    <!-- Load More Button -->
-    <div class="reviews__actions">
-      {
-        visibleReviews < reviews.length && (
-          <button class="reviews__load-more" onClick={() => (visibleReviews += reviewsIncrement)}>
-            Показать еще отзывы
-            <svg width="20" height="20" viewBox="0 0 20 20">
-              <path
-                d="M5 7.5L10 12.5L15 7.5"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-        )
-      }
-    </div>
+    {visibleReviews < reviews.length && (
+      <div class="reviews__actions text-center mt-12">
+        <button class="reviews__load-more inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-900 font-bold rounded-lg hover:bg-blue-100 transition-colors" onClick={() => (visibleReviews += reviewsIncrement)}>
+          <span>Загрузить ещё отзывы</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M6 9l6 6 6-6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    )}
   </div>
 </section>
 

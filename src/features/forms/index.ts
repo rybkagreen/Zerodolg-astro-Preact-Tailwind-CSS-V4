@@ -1,4 +1,3 @@
 // Forms feature public API
-export { default as CTAForm } from './ui/CTAForm.astro';
-export { default as HeroForm } from './ui/HeroForm.astro';
-export { default as BaseForm } from './ui/BaseForm.astro';
+// Forms components are now in components/forms/ directory
+// Import directly from there: ../../components/forms/CTAForm.astro

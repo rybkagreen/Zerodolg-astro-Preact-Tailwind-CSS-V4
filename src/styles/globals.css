@@ -1,7 +1,7 @@
 /* 
  * Главный CSS файл проекта
- * Использует Tailwind CSS v4 с новым синтаксисом
+ * Полностью на Tailwind CSS v4
  */
 
-/* Импортируем Tailwind CSS v4 с полной конфигурацией */
-@import './tailwind.css';
+@import 'tailwindcss';
+@import 'tailwindcss/utilities';

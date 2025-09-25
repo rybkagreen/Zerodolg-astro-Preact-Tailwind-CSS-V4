@@ -1,0 +1,111 @@
+---
+import { useState } from 'preact/hooks';
+import Form from '../../islands/forms/Form.tsx';
+import type { FormConfig, FormField } from '../../../types/form';
+
+export interface Props {
+  formId: string;
+  formType: 'hero' | 'cta' | 'consultation' | 'callback' | 'lead' | 'footer' | 'section';
+  submitText?: string;
+  showDebtField?: boolean;
+  showNameField?: boolean;
+  showPhoneField?: boolean;
+  showEmailField?: boolean;
+  showPrivacyCheckbox?: boolean;
+  variant?: 'inline' | 'stacked' | 'compact';
+  className?: string;
+  title?: string;
+  subtitle?: string;
+  endpoint?: string;
+}
+
+const {
+  formId,
+  formType,
+  submitText = 'Получить консультацию',
+  showDebtField = false,
+  showNameField = true,
+  showPhoneField = true,
+  showEmailField = false,
+  showPrivacyCheckbox = true,
+  variant = 'stacked',
+  className = '',
+  title = '',
+  subtitle = '',
+  endpoint = '/api/form',
+} = Astro.props;
+
+// Build form configuration based on props
+const fields: FormField[] = [];
+
+if (showNameField) {
+  fields.push({
+    name: 'name',
+    type: 'text',
+    label: 'Ваше имя',
+    placeholder: 'Введите ваше имя',
+    required: true,
+    validation: { message: 'Пожалуйста, введите ваше имя' }
+  });
+}
+
+if (showPhoneField) {
+  fields.push({
+    name: 'phone',
+    type: 'tel',
+    label: 'Телефон',
+    placeholder: '+7 (___) ___-__-__',
+    required: true,
+    validation: { message: 'Пожалуйста, введите ваш телефон' }
+  });
+}
+
+if (showEmailField) {
+  fields.push({
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'example@mail.com',
+    required: !showPhoneField,  // Required if phone is not shown
+    validation: { message: 'Пожалуйста, введите корректный email' }
+  });
+}
+
+if (showDebtField) {
+  fields.push({
+    name: 'debtAmount',
+    type: 'text',
+    label: 'Сумма долга',
+    placeholder: 'Например: 500 000 руб',
+    required: false,
+    validation: { message: 'Пожалуйста, введите корректную сумму' }
+  });
+}
+
+const config: FormConfig = {
+  formId,
+  formType,
+  fields,
+  submitText,
+  endpoint,
+  variant
+};
+
+const variantClasses = {
+  inline: 'flex flex-wrap gap-4',
+  stacked: 'space-y-4',
+  compact: 'space-y-3'
+};
+
+const baseClasses = `max-w-md mx-auto ${className}`;
+---
+
+<div class={baseClasses}>
+  {title && <h3 class="text-xl font-semibold text-gray-900 mb-2">{title}</h3>}
+  {subtitle && <p class="text-gray-600 mb-4">{subtitle}</p>}
+  
+  <Form 
+    config={config} 
+    client:load 
+  />
+</div>

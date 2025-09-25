@@ -1,0 +1,253 @@
+---
+import StatsComponent from '../../islands/shared/interactive/stats.tsx';
+
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+// Данные статистики
+const stats = [
+  {
+    id: 'clients',
+    icon: 'users',
+    number: '847',
+    suffix: '+',
+    label: 'Счастливых клиентов',
+    animateFrom: 0,
+  },
+  {
+    id: 'debt',
+    icon: 'dollar',
+    number: '327',
+    suffix: ' млн ₽',
+    label: 'Списанных долгов',
+    animateFrom: 0,
+  },
+  {
+    id: 'experience',
+    icon: 'chart',
+    number: '12',
+    suffix: ' лет',
+    label: 'На рынке юруслуг',
+    animateFrom: 0,
+  },
+  {
+    id: 'success',
+    icon: 'check',
+    number: '98',
+    suffix: '%',
+    label: 'Побед в суде',
+    animateFrom: 0,
+  },
+  {
+    id: 'time',
+    icon: 'clock',
+    number: '4-6',
+    suffix: ' мес.',
+    label: 'Срок процедуры',
+    animate: false,
+  },
+];
+
+const ticker = [
+  '✅ Анна К. списала 750 тыс. ₽ — 3 месяца',
+  '✅ Дмитрий П. освободился от 1.2 млн ₽ — 4 месяца',
+  '✅ Елена С. избавилась от долгов на 580 тыс. ₽ — 3 месяца',
+  '✅ Максим В. списал 2.1 млн ₽ — 5 месяцев',
+  '✅ Ольга Р. закрыла долги на 920 тыс. ₽ — 4 месяца',
+];
+
+const company = {
+  fullName: 'ООО «ЮрПомощь»',
+  legal: {
+    inn: '7707123456',
+    ogrn: '1187746123456',
+  },
+};
+---
+
+<section
+  class={`stats section section--stats ${className}`}
+  id="stats"
+  aria-labelledby="stats-title"
+  itemscope
+  itemtype="https://schema.org/LegalService"
+>
+  <div class="container">
+    <!-- Section Header -->
+    <header class="section__header">
+      <h2 id="stats-title" class="section__title">Нам доверяют уже 847+ клиентов</h2>
+    </header>
+
+    <!-- Statistics Grid -->
+    <div class="stats__grid" role="list" aria-label="Статистика компании">
+      {
+        stats.map((stat) => (
+          <div class="stats__item" role="listitem" data-stat={stat.id}>
+            <div class="stats__icon" aria-hidden="true">
+              {stat.icon === 'users' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    cx="9"
+                    cy="7"
+                    r="4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M23 21v-2a4 4 0 0 0-3-3.87"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 3.13a4 4 0 0 1 0 7.75"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {stat.icon === 'dollar' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {stat.icon === 'chart' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <polyline
+                    points="22 12 18 12 15 21 9 3 6 12 2 12"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {stat.icon === 'check' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <polyline
+                    points="22 4 12 14.01 9 11.01"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {stat.icon === 'clock' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <polyline
+                    points="12 6 12 12 16 14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+            </div>
+            <div class="stats__content">
+              <div
+                class="stats__number"
+                data-animate={stat.animate !== false ? 'true' : 'false'}
+                data-value={stat.number}
+                data-suffix={stat.suffix}
+              >
+                {stat.number}
+                {stat.suffix}
+              </div>
+              <div class="stats__label">{stat.label}</div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Guarantees & Legal Info -->
+    <div class="stats__legal" itemscope itemtype="https://schema.org/Organization">
+      <div class="stats__legal-item stats__legal-item--guarantee">
+        <div class="stats__guarantee-icon">
+          <svg class="icon icon-shield" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 2L4 7V12C4 16.5 6.84 20.74 11 21.96C11.33 22.01 11.67 22.01 12 21.96C16.16 20.74 20 16.5 20 12V7L12 2Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <path
+              d="M9 12L11 14L15 10"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="stats__guarantee-content">
+          <strong>Гарантия возврата:</strong>
+          <span class="stats__guarantee-text"
+            >100% возврат средств при отказе суда в признании банкротом по вине юриста</span
+          >
+          <span class="stats__guarantee-period">(действует весь период ведения дела)</span>
+        </div>
+        <div class="stats__guarantee-image">
+          <img src="/images/Judge.png" alt="Судья" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="stats__legal-item">
+        <strong>Юридические реквизиты:</strong>
+        {company.fullName}, ИНН <span itemprop="taxID">{company.legal.inn}</span>, ОГРН <span
+          >{company.legal.ogrn}</span
+        >
+      </div>
+    </div>
+
+    <!-- Social Proof Ticker -->
+    <div class="stats__ticker" role="marquee" aria-label="Последние успешные дела">
+      <div class="stats__ticker-track" data-ticker>
+        {ticker.map((item) => <div class="stats__ticker-item">{item}</div>)}
+        {/* Duplicate for seamless loop */}
+        {ticker.map((item) => <div class="stats__ticker-item">{item}</div>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Load interactive logic when component is visible -->
+<StatsComponent client:visible />

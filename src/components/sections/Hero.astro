@@ -1,0 +1,127 @@
+---
+// Hero.astro - Hero section with two-column layout
+import HeroForm from '../../components/forms/HeroForm.astro';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = 'Коллекторы больше не позвонят.',
+  subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой юристов проведут вашу процедуру банкротства.',
+} = Astro.props;
+---
+
+<section class="relative py-12 bg-gradient-to-br from-blue-50 to-indigo-50 sm:py-16 lg:py-20">
+  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+      <!-- Left Column - Main Content -->
+      <div class="space-y-8">
+        <div class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">
+          Федеральный закон №127-ФЗ «О несостоятельности»
+        </div>
+
+        <h1 class="text-4xl font-bold leading-tight text-gray-900 md:text-5xl lg:text-6xl">
+          {title}
+          <span class="block mt-4 text-2xl md:text-3xl text-primary">Спишем долги от 300 тыс. до 10 млн ₽ через суд</span>
+        </h1>
+
+        <p class="text-xl leading-relaxed text-gray-600">
+          {subtitle}
+          <span class="font-semibold text-success">89% клиентов</span> полностью освобождаются от долгов за 6-8 месяцев.
+          Офис в 5 минутах от метро Минская.
+        </p>
+
+        <div class="space-y-6">
+          <div class="space-y-3">
+            <p class="text-gray-700">
+              ✅ Единственное жилье защищено законом<br />
+              ✅ Полное списание долгов через суд<br />
+              ✅ Защита от взысканий с первого дня
+            </p>
+
+            <p class="inline-block px-4 py-2 font-semibold text-red-800 bg-red-100 rounded-lg">
+              🔥 Консультация БЕСПЛАТНО — акция до 31 августа 2025 для первых 10 человек!
+            </p>
+          </div>
+
+          <button class="flex flex-col items-center justify-center w-full px-8 py-4 text-lg font-bold text-white transition-colors duration-200 sm:w-auto bg-primary rounded-xl hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:flex-row" data-action="scroll-to-form">
+            <span>Получить бесплатную консультацию</span>
+            <span class="inline-flex items-center px-3 py-1 mt-2 text-sm font-semibold text-white bg-yellow-500 rounded-full sm:mt-0 sm:ml-3">
+              Осталось 7 мест
+            </span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3">
+          <div class="flex items-center">
+            <span class="mr-2 text-2xl">🏢</span>
+            <span class="text-gray-700">Офис: Минская ул., 2Ж</span>
+          </div>
+          <div class="flex items-center">
+            <span class="mr-2 text-2xl">🔒</span>
+            <span class="text-gray-700">Защита данных по 152-ФЗ</span>
+          </div>
+          <div class="flex items-center">
+            <span class="mr-2 text-2xl">📞</span>
+            <span class="text-gray-700">Ежедневно 9:00-21:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Expert Card, Form and Stats -->
+      <div class="space-y-8">
+        <!-- Mashulia Card -->
+        <div class="p-6 bg-white shadow-lg rounded-2xl">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <img
+                class="object-cover w-20 h-20 border-4 border-blue-100 rounded-full"
+                src="/images/team/mashulia.webp"
+                alt="Масхулиа Леван Зурабович - Арбитражный управляющий"
+                width="80"
+                height="80"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </div>
+            <div class="ml-4">
+              <div class="text-xl font-bold text-gray-900">Масхулиа Л.З.</div>
+              <div class="text-sm text-gray-600">Арбитражный управляющий №14320</div>
+              <div class="mt-2 text-sm text-gray-700">
+                ✓ 11+ лет опыта<br />
+                ✓ 1200+ успешных дел<br />
+                ✓ Член СРО арбитражных управляющих
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="p-6 bg-white shadow-lg rounded-2xl">
+          <HeroForm id="consultation-form" />
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="p-4 text-center text-white bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl">
+            <div class="text-3xl font-bold">1000+</div>
+            <div class="text-sm opacity-90">Клиентов</div>
+          </div>
+          <div class="p-4 text-center text-white bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl">
+            <div class="text-3xl font-bold">100%</div>
+            <div class="text-sm opacity-90">Успех</div>
+          </div>
+          <div class="p-4 text-center text-white bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl">
+            <div class="text-3xl font-bold">1.2M+</div>
+            <div class="text-sm opacity-90">Списано</div>
+          </div>
+        </div>
+      </div>
+      <!-- End of right column -->
+    </div>
+  </div>
+</section>
+
+<!-- Hero interactivity is handled by Preact components -->

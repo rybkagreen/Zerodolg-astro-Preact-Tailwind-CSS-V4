@@ -1,33 +1,5 @@
 /* ==========================================================================
-   Main Stylesheet - Optimized ITCSS Structure
+   Main Stylesheet - Tailwind CSS v4 Only
    ========================================================================== */
 
-/* 00 - Settings */
-@import './00-settings/variables.css';
-@import './00-settings/critical.css';
-
-/* 01 - Generic */
-@import './01-generic/reset.css';
-
-/* 02 - Elements */
-@import './02-elements/body.css';
-@import './02-elements/typography.css';
-
-/* 03 - Components */
-@import './03-components/button.css';
-@import './03-components/card.css';
-@import './03-components/form.css';
-@import './03-components/modal.css';
-@import './03-components/navigation.css';
-
-/* 04 - Sections */
-@import './04-sections/sections-base.css';
-@import './04-sections/hero.css';
-@import './04-sections/benefits.css';
-@import './04-sections/cta.css';
-@import './04-sections/reviews.css';
-@import './04-sections/faq.css';
-
-/* 05 - Utilities */
-@import './05-utilities/helpers.css';
-@import './05-utilities/accessibility.css';
+/* All styles will now come from Tailwind CSS v4 and globals */

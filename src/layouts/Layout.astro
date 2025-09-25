@@ -1,7 +1,5 @@
 ---
-import '../styles/globals.css'; // Новый импорт
-// import '../styles/main.css'; // Закомментировали старый импорт временно
-import criticalCSS from '../styles/00-settings/critical.css?raw';
+import '../styles/globals.css'; // Импорт Tailwind CSS
 import { initAnalytics } from '../lib/analytics';
 import { SEO } from '@shared/ui/SEO';
 import { measurePageLoad } from '@shared/utils/performance';
@@ -43,8 +41,28 @@ const {
       noindex={noindex}
     />
 
-    <!-- Critical CSS for faster initial rendering -->
-    <style is:inline set:html={criticalCSS}></style>
+    <!-- Critical inline styles for faster initial rendering -->
+    <style is:inline>
+      /* Basic reset and critical styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+      }
+      
+      body {
+        font-size: 1rem;
+        color: #1e293b;
+        background-color: #ffffff;
+        min-height: 100vh;
+      }
+    </style>
 
     <!-- Main CSS will be imported through Astro's build process -->
 
@@ -84,10 +102,17 @@ const {
     <script is:inline defer src="/js/service-worker-register.js"></script>
 
     <!-- Initialize analytics after DOM is ready -->
-    <script is:inline>
+    <script is:inline type="module">
+      import { initAnalytics } from '../lib/analytics';
+      import { measurePageLoad } from '@shared/utils/performance';
+      
       document.addEventListener('DOMContentLoaded', () => {
-        initAnalytics();
-        measurePageLoad();
+        if (typeof initAnalytics === 'function') {
+          initAnalytics();
+        }
+        if (typeof measurePageLoad === 'function') {
+          measurePageLoad();
+        }
       });
     </script>
   </body>

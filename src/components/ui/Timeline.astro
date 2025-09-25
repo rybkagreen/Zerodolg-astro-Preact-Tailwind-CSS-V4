@@ -1,0 +1,418 @@
+---
+import TimelineComponent from '../../islands/shared/interactive/timeline.tsx';
+
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+// Данные о процессе банкротства из index.json
+const process = {
+  title: 'Как проходит банкротство',
+  subtitle: 'Пошаговый процесс освобождения от долгов через суд',
+  steps: [
+    {
+      number: 1,
+      title: 'Консультация',
+      description: 'Анализируем вашу ситуацию и определяем возможность банкротства',
+      duration: '1 день',
+      difficulty: 'easy',
+      icon: '/icons/process/01-analysis.svg',
+      details: [
+        'Бесплатная оценка перспектив',
+        'Анализ всех долгов и кредиторов',
+        'Определение оптимальной стратегии',
+        'Расчет стоимости процедуры',
+      ],
+    },
+    {
+      number: 2,
+      title: 'Подготовка документов',
+      description: 'Собираем и готовим все необходимые документы',
+      duration: '5-7 дней',
+      difficulty: 'medium',
+      icon: '/icons/process/02-docs.svg',
+      details: [
+        'Помощь в сборе документов',
+        'Подготовка списка кредиторов',
+        'Оформление заявления в суд',
+      ],
+      documents: [
+        'Паспорт и СНИЛС',
+        'ИНН и свидетельство о рождении',
+        'Справки о доходах за 3 года',
+        'Кредитные договоры и решения судов',
+      ],
+    },
+    {
+      number: 3,
+      title: 'Подача заявления',
+      description: 'Подаем заявление в Арбитражный суд',
+      duration: '1 день',
+      difficulty: 'easy',
+      icon: '/icons/process/03-court.svg',
+      details: [
+        'Подача через электронную систему суда',
+        'Оплата госпошлины 300 рублей',
+        'Получение входящего номера дела',
+      ],
+      warning: 'С момента подачи заявления коллекторы не могут вам звонить',
+    },
+    {
+      number: 4,
+      title: 'Судебная процедура',
+      description: 'Представляем ваши интересы на всех заседаниях',
+      duration: '4-6 месяцев',
+      difficulty: 'hard',
+      icon: '/icons/process/04-restruct.svg',
+      details: [
+        'Первое судебное заседание',
+        'Назначение финансового управляющего',
+        'Реализация имущества (если есть)',
+        'Собрание кредиторов',
+      ],
+      warning: 'Единственное жилье и предметы обычного обихода остаются у вас',
+    },
+    {
+      number: 5,
+      title: 'Списание долгов',
+      description: 'Получаем решение суда о списании всех долгов',
+      duration: '1 день',
+      difficulty: 'easy',
+      icon: '/icons/process/06-discharge.svg',
+      details: [
+        'Окончательное судебное заседание',
+        'Получение решения суда',
+        'Списание всех долгов',
+        'Начало новой жизни без долгов',
+      ],
+    },
+  ],
+};
+---
+
+<section class={`timeline py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white ${className}`} id="process">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 timeline__container">
+    <!-- Header -->
+    <header class="text-center mb-12 md:mb-16 section__header">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section__title">{process.title}</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto section__subtitle">{process.subtitle}</p>
+    </header>
+
+    <!-- Timeline Content -->
+    <div class="timeline__wrapper flex flex-col md:flex-row gap-8">
+      <!-- Desktop Navigation -->
+      <nav class="timeline__nav hidden md:block w-64 flex-shrink-0" aria-label="Этапы процесса банкротства" role="navigation">
+        <div class="timeline__line relative h-full w-1 bg-gray-200 mx-auto" aria-hidden="true">
+          <div class="timeline__line-progress absolute top-0 left-0 w-1 bg-blue-500 h-0 transition-all duration-500"></div>
+        </div>
+        <ol class="timeline__nav-list space-y-4 relative" role="list">
+          {
+            process.steps.map((step, index) => (
+              <li class="timeline__nav-item-wrapper relative" role="listitem">
+                <button
+                  class={`timeline__nav-item w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${index === 0 ? 'active bg-blue-50 text-blue-700 font-medium' : 'hover:bg-gray-50'}`}
+                  data-step={index}
+                  aria-label={`Этап ${step.number}: ${step.title}`}
+                  aria-current={index === 0 ? 'step' : undefined}
+                  type="button"
+                >
+                  <span class="timeline__nav-number flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-sm font-bold">
+                    {step.number}
+                  </span>
+                  <div class="timeline__nav-content text-left">
+                    <span class="timeline__nav-title block font-medium">{step.title}</span>
+                    <span class="timeline__nav-duration text-sm text-gray-500">{step.duration}</span>
+                  </div>
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <!-- Mobile Progress -->
+      <div class="timeline__progress md:hidden mb-8" role="navigation" aria-label="Прогресс процедуры">
+        <div
+          class="timeline__progress-bar h-2 bg-gray-200 rounded-full mb-4"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="20"
+          aria-label="Прогресс выполнения"
+        >
+          <div class="timeline__progress-fill h-2 bg-blue-500 rounded-full w-1/5 transition-all duration-500"></div>
+        </div>
+        <div class="timeline__progress-dots flex justify-center gap-2" role="tablist">
+          {
+            process.steps.map((step, index) => (
+              <button
+                class={`timeline__progress-dot w-3 h-3 rounded-full ${index === 0 ? 'active bg-blue-500' : 'bg-gray-300'}`}
+                data-dot={index}
+                role="tab"
+                aria-selected={index === 0 ? 'true' : 'false'}
+                aria-label={`${step.title} (${step.duration})`}
+                tabindex={index === 0 ? '0' : '-1'}
+                type="button"
+              >
+                <span class="sr-only">Шаг {index + 1}</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Steps Content -->
+      <div class="timeline__content flex-1">
+        {
+          process.steps.map((step, index) => (
+            <article
+              class={`timeline__step pb-12 ${index === 0 ? 'active' : 'hidden'}`}
+              data-step-content={index}
+              role="tabpanel"
+              aria-labelledby={`step-${index}-tab`}
+              tabindex="0"
+            >
+              <header class="timeline__step-header">
+                <div class="timeline__step-icon w-12 h-12 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 mb-4" aria-hidden="true">
+                  <img src={step.icon} alt="" width="48" height="48" loading="lazy" class="w-6 h-6" />
+                </div>
+                <div class="timeline__step-info">
+                  <h3 class="timeline__step-title text-2xl font-bold text-gray-900 mb-3">
+                    <span class="timeline__step-number block text-sm font-medium text-blue-600 mb-1">Этап {step.number}</span>
+                    <span class="timeline__step-name">{step.title}</span>
+                  </h3>
+                  <p class="timeline__step-description text-gray-600 mb-4">{step.description}</p>
+                  <dl class="timeline__step-meta flex gap-6">
+                    <div class="timeline__meta-item">
+                      <dt class="sr-only">Длительность:</dt>
+                      <dd class="timeline__step-duration inline-flex items-center gap-2 text-gray-600">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          aria-hidden="true"
+                          class="flex-shrink-0"
+                        >
+                          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
+                          <path
+                            d="M8 4V8L10.5 10.5"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                        <span>{step.duration}</span>
+                      </dd>
+                    </div>
+                    <div class="timeline__meta-item">
+                      <dt class="sr-only">Сложность:</dt>
+                      <dd
+                        class={`timeline__step-difficulty inline-flex items-center gap-1 ${step.difficulty === 'easy' ? 'text-green-600' : step.difficulty === 'medium' ? 'text-yellow-600' : 'text-red-600'}`}
+                      >
+                        <span aria-hidden="true">●</span>
+                        <span>
+                          {step.difficulty === 'easy' && 'Легко'}
+                          {step.difficulty === 'medium' && 'Средне'}
+                          {step.difficulty === 'hard' && 'Важно'}
+                        </span>
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </header>
+
+              <div class="timeline__step-body">
+                <div class="timeline__step-details mb-6">
+                  <h4 class="timeline__step-subtitle text-lg font-semibold text-gray-900 mb-3">Что включает этот этап:</h4>
+                  <div class="timeline__details-list space-y-2">
+                    {step.details.map((detail, idx) => (
+                      <div class="timeline__detail-item flex items-start gap-2" key={idx}>
+                        <svg
+                          class="timeline__detail-icon flex-shrink-0 w-5 h-5 text-green-500 mt-0.5"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M7 10L9 12L13 8"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>{detail}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {step.documents && (
+                  <div class="timeline__step-documents mb-6">
+                    <h4 class="timeline__step-subtitle text-lg font-semibold text-gray-900 mb-3">Необходимые документы:</h4>
+                    <ul class="timeline__documents-list space-y-2">
+                      {step.documents.map((doc, idx) => (
+                        <li class="timeline__document-item flex items-start gap-2" key={idx}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 mt-1">
+                            <path
+                              d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M9 1V6H14"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                          {doc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {step.warning && (
+                  <div class="timeline__step-warning bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-start gap-3">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0 mt-0.5 text-yellow-600">
+                        <path
+                          d="M10 6V10M10 14H10.01"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M8.86 2.58L2.29 13.12C1.4 14.55 2.42 16.35 4.05 16.35H15.95C17.58 16.35 18.6 14.55 17.71 13.12L11.14 2.58C10.31 1.26 8.69 1.26 7.86 2.58Z"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <p class="text-yellow-800">{step.warning}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div class="timeline__step-actions flex gap-3 mt-6">
+                {index > 0 && (
+                  <button
+                    class="timeline__action timeline__action--prev inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                    data-action="prev"
+                    aria-label="Предыдущий этап"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M10 12L6 8L10 4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    Назад
+                  </button>
+                )}
+                {index < process.steps.length - 1 ? (
+                  <button
+                    class="timeline__action timeline__action--next ml-auto inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    data-action="next"
+                    aria-label="Следующий этап"
+                  >
+                    Далее
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M6 4L10 8L6 12"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    class="timeline__action timeline__action--complete ml-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    data-action="complete"
+                    aria-label="Завершить просмотр"
+                  >
+                    Готово!
+                  </button>
+                )}
+              </div>
+            </article>
+          ))
+        }
+
+        <!-- Completion Screen -->
+        <div class="timeline__complete text-center hidden py-12">
+          <div class="timeline__complete-icon mx-auto mb-6">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" class="mx-auto">
+              <circle
+                cx="36"
+                cy="36"
+                r="35"
+                stroke="var(--color-primary)"
+                stroke-width="2"
+                opacity="0.2"></circle>
+              <circle cx="36" cy="36" r="28" fill="var(--color-primary)" opacity="0.1"></circle>
+              <path
+                d="M28 36L33 41L44 30"
+                stroke="var(--color-primary)"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <h3 class="timeline__complete-title text-2xl font-bold text-gray-900 mb-3">Поздравляем!</h3>
+          <p class="timeline__complete-text text-gray-600 max-w-md mx-auto mb-6">
+            Вы ознакомились со всеми этапами процедуры банкротства. Готовы начать новую жизнь без
+            долгов?
+          </p>
+          <div class="timeline__complete-actions flex flex-col sm:flex-row gap-3 justify-center">
+            <button
+              class="timeline__action timeline__action--complete inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              data-modal="consultation"
+              data-modal-type="consultation"
+            >
+              Получить консультацию
+            </button>
+            <button class="timeline__action timeline__action--prev inline-block px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" data-action="restart">
+              Посмотреть еще раз
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="timeline__cta mt-12 pt-8 border-t border-gray-200">
+      <div class="timeline__cta-wrapper bg-gray-50 rounded-xl p-6 md:p-8">
+        <div class="timeline__cta-content text-center mb-6">
+          <h3 class="timeline__cta-title text-xl md:text-2xl font-bold text-gray-900 mb-2">Готовы начать процедуру банкротства?</h3>
+          <p class="timeline__cta-text text-gray-600">Оставьте заявку и мы поможем на каждом этапе</p>
+        </div>
+        <div class="flex justify-center">
+          <button
+            class="timeline__cta-button px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+            data-modal="consultation"
+            data-modal-type="consultation"
+          >
+            Начать процедуру
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Using Preact component for interactivity -->
+<TimelineComponent client:load />
