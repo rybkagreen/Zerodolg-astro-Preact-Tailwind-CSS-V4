@@ -1,3 +1,4 @@
+import { type VNode } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { useModal } from '../model/modal-context';
 
@@ -5,10 +6,10 @@ interface ModalProps {
   id: string;
   title: string;
   onClose?: () => void;
-  children: any;
+  children: import('preact').ComponentChildren;
 }
 
-export default function Modal({ id, title, onClose, children }: ModalProps) {
+export default function Modal({ id, title, onClose, children }: ModalProps): VNode | null {
   const { activeModal, closeModal } = useModal();
   const modalRef = useRef<HTMLDivElement>(null);
   const isOpen = activeModal === id;

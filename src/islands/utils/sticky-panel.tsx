@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
+import type { JSX } from 'preact';
 
 // Declare gtag global function
-declare global {
-  function gtag(command: string, ...args: any[]): void;
-}
 
 interface StickyPanelProps {
   delay?: number;
@@ -11,11 +9,11 @@ interface StickyPanelProps {
   cookieDays?: number;
 }
 
-export default function StickyPanel({
+export default function StickyPanel({ 
   delay = 5000,
   scrollThreshold = 300,
   cookieDays = 1,
-}: StickyPanelProps) {
+}: StickyPanelProps): JSX.Element {
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenShown, setHasBeenShown] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -98,8 +96,8 @@ export default function StickyPanel({
     startCountdown();
 
     // Track analytics event
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'view', {
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'view', {
         event_category: 'StickyPanel',
         event_label: 'panel_shown',
       });
@@ -129,8 +127,8 @@ export default function StickyPanel({
     }
 
     // Track analytics event
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'close', {
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'close', {
         event_category: 'StickyPanel',
         event_label: 'panel_closed',
       });
@@ -161,8 +159,8 @@ export default function StickyPanel({
         const trackEvent = target.getAttribute('data-track');
 
         // Track event
-        if (trackEvent && typeof gtag !== 'undefined') {
-          gtag('event', 'click', {
+        if (trackEvent && typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'click', {
             event_category: 'StickyPanel',
             event_label: trackEvent,
           });
@@ -218,5 +216,5 @@ export default function StickyPanel({
     };
   }, [delay, scrollThreshold, cookieDays, hasBeenShown]);
 
-  return null; // This component only handles logic, no UI
+  return null as any; // This component only handles logic, no UI
 }

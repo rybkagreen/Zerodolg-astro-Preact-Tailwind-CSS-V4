@@ -1,6 +1,7 @@
 import { useEffect } from 'preact/hooks';
+import { type VNode } from 'preact';
 
-const Stats = () => {
+const Stats = (): VNode | null => {
   useEffect(() => {
     // Animate numbers when they come into view
     const animateValue = (element: HTMLElement, start: number, end: number, duration: number) => {

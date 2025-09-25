@@ -1,35 +1,35 @@
+import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-export default function TestButton() {
+interface TestButtonProps {
+  // This component doesn't accept any props
+}
+
+export default function TestButton({}: TestButtonProps): VNode {
   const [count, setCount] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     // Подтверждаем, что мы на клиенте
     setIsClient(true);
-    console.log('TestButton component mounted');
 
     // Находим все кнопки с data-test-button
     const buttons = document.querySelectorAll('[data-test-button]');
-    console.log('Found test buttons:', buttons.length);
 
     const handlers: Array<{ element: Element; handler: EventListener }> = [];
 
-    buttons.forEach((button, index) => {
+    buttons.forEach((button) => {
       const handler = (e: Event) => {
         e.preventDefault();
-        console.log(`Test button ${index + 1} clicked!`);
         setCount((c) => c + 1);
       };
 
       button.addEventListener('click', handler);
       handlers.push({ element: button, handler });
-      console.log(`Added handler to button ${index + 1}`);
     });
 
     // Cleanup
     return () => {
-      console.log('TestButton cleanup');
       handlers.forEach(({ element, handler }) => {
         element.removeEventListener('click', handler);
       });

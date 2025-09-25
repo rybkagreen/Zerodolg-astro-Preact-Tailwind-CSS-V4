@@ -27,7 +27,7 @@ class UnifiedModalManager {
     this.checkHashForModal();
 
     // Setup public API
-    (window as any).modalManager = {
+    window.modalManager = {
       open: this.openModal.bind(this),
       close: this.closeModal.bind(this),
       closeAll: this.closeAllModals.bind(this),
@@ -611,7 +611,7 @@ class UnifiedModalManager {
     document.removeEventListener('click', this.handleTriggerClick.bind(this));
     document.removeEventListener('keydown', this.handleEscKey.bind(this));
     window.removeEventListener('hashchange', this.checkHashForModal.bind(this));
-    delete (window as any).modalManager;
+    delete window.modalManager;
     this.modalTypeMap.clear();
   }
 }

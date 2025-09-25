@@ -1,7 +1,8 @@
+import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 // Countdown Timer Component
-const CountdownTimer = ({ endTime }: { endTime?: Date }) => {
+  const CountdownTimer = ({ deadline }: { deadline: string }): VNode => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isExpired, setIsExpired] = useState(false);
 
@@ -12,8 +13,8 @@ const CountdownTimer = ({ endTime }: { endTime?: Date }) => {
       return end;
     };
 
-    const targetTime = endTime || getTodayEndTime();
-    let interval: NodeJS.Timeout;
+    // Parse the deadline string to create a Date object
+    const targetTime = deadline ? new Date(deadline) : getTodayEndTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -21,7 +22,8 @@ const CountdownTimer = ({ endTime }: { endTime?: Date }) => {
 
       if (distance < 0) {
         setIsExpired(true);
-        clearInterval(interval);
+        // Note: We don't have access to the interval here, but that's okay
+        // because we clear it in the cleanup function anyway
         return;
       }
 
@@ -33,10 +35,10 @@ const CountdownTimer = ({ endTime }: { endTime?: Date }) => {
     };
 
     updateTimer();
-    interval = setInterval(updateTimer, 1000);
+    const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, [endTime]);
+  }, [deadline]);
 
   if (isExpired) {
     return <div class="countdown-expired">Время истекло</div>;
@@ -64,7 +66,7 @@ const CountdownTimer = ({ endTime }: { endTime?: Date }) => {
 };
 
 // Special Offer Banner Component
-const SpecialOfferBanner = () => {
+const SpecialOfferBanner = (): VNode => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 

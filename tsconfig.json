@@ -49,14 +49,20 @@
       "@utils/*": ["src/shared/utils/*"]
     }
   },
-  "include": [".astro/types.d.ts", "src/**/*", "src/astro-env.d.ts"],
+  "include": [
+    ".astro/types.d.ts",
+    "src/**/*",
+    "src/astro-env.d.ts",
+    "__tests__/**/*",
+    "vitest.config.ts",
+    "vitest.setup.ts"
+  ],
   "exclude": [
     "dist",
     "node_modules",
     ".astro",
     "coverage",
     "scripts",
-    "src/__tests__/**/*",
     "astro.config.mjs",
     "astro.config.prod.mjs",
     "eslint.config.js",

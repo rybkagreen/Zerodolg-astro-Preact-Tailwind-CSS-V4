@@ -1,8 +1,7 @@
 name = "Запустить сервер разработки Astro"
 description = "Запуск сервера разработки Astro с горячей перезагрузкой"
 
-[prompt]
-text = "Запуск сервера разработки Astro"
+prompt = "Запуск сервера разработки Astro"
 
 [command]
 type = "shell"

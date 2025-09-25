@@ -1,6 +1,10 @@
-import { useEffect } from 'preact/hooks';
+import { type VNode } from 'preact';
+// useState and LeadMagnet are imported but not currently used
+// They are kept for potential future use
+import { useState } from 'preact/hooks';
+import type { LeadMagnet } from '@features/lead-magnets/types';
 
-export default function LeadMagnetsLogic() {
+export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNode {
   useEffect(() => {
     // Button click handlers
     const buttons = document.querySelectorAll(
@@ -430,18 +434,23 @@ export default function LeadMagnetsLogic() {
       }).format(amount);
     }
 
-    function trackAnalytics(eventName: string, data: any) {
+    function trackAnalytics(eventName: string, data: Record<string, unknown>) {
+      const win = window as typeof window & {
+        gtag?: (command: string, ...args: unknown[]) => void;
+        ym?: (id: number, command: string, ...args: unknown[]) => void;
+      };
+      
       // Google Analytics
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', eventName, {
+      if (typeof window !== 'undefined' && win.gtag) {
+        win.gtag('event', eventName, {
           event_category: 'Lead Magnets',
           ...data,
         });
       }
 
       // Yandex Metrica
-      if (typeof window !== 'undefined' && (window as any).ym) {
-        (window as any).ym(88005553535, 'reachGoal', eventName, data);
+      if (typeof window !== 'undefined' && win.ym) {
+        win.ym(88005553535, 'reachGoal', eventName, data);
       }
     }
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'preact/hooks';
 
 // Utility functions
-type DebouncedFunction<T extends (...args: unknown[]) => unknown> = (...args: Parameters<T>) => void;
+type DebouncedFunction<T extends (...args: unknown[]) => unknown> = (
+  ...args: Parameters<T>
+) => void;
 
 const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,

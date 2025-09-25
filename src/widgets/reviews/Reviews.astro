@@ -244,7 +244,7 @@ const formatDate = (dateStr: string) => {
   }).format(date);
 };
 
-// Get initials from name
+// Get initials from name - used in script section
 const getInitials = (name: string) => {
   return name
     .split(' ')
@@ -253,177 +253,217 @@ const getInitials = (name: string) => {
     .toUpperCase();
 };
 
-// Trust signals data
-const trustSignals = {
-  yandex: {
-    rating: 4.9,
-    count: 523,
-    link: 'https://yandex.ru/maps/org/tsentr_bankrotstva_zerodolg/1234567890/',
-  },
-  google: {
-    rating: 4.7,
-    count: 412,
-    link: 'https://www.google.com/maps/place/ZeroDolg',
-  },
-  '2gis': {
-    rating: 4.8,
-    count: 492,
-    link: 'https://2gis.ru/moscow/firm/123456',
-  },
-};
+// Declare global interface for window extensions
+declare global {
+  interface Window {
+    getInitials: (name: string) => string;
+    formatDate: (dateStr: string) => string;
+    reviews: DetailedReview[];
+    reviewsIncrement: number;
+    visibleReviews: number;
+  }
+}
+
+// Make functions available globally for script usage
+if (typeof window !== 'undefined') {
+  window.getInitials = getInitials;
+  window.formatDate = formatDate;
+  window.reviews = reviews;
+  window.reviewsIncrement = reviewsIncrement;
+  window.visibleReviews = visibleReviews;
+}
 
 // State for reviews display
 let visibleReviews = 3;
 const reviewsIncrement = 3;
 ---
 
-<section class="reviews py-16 md:py-24 bg-gradient-to-b from-blue-900 to-indigo-900 text-white" id="reviews">
-  <div class="reviews__background absolute inset-0 overflow-hidden">
-    <div class="reviews__gradient absolute inset-0 bg-gradient-to-b from-blue-900/80 to-indigo-900/90"></div>
+<section
+  class="py-16 md:py-24 bg-gradient-to-b from-blue-900 to-indigo-900 text-white"
+  id="reviews"
+>
+  <div class="absolute inset-0 overflow-hidden">
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-blue-900/80 to-indigo-900/90"
+    >
+    </div>
   </div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <div class="reviews__header text-center mb-12 md:mb-16">
-      <h2 class="reviews__title text-3xl md:text-4xl font-bold text-white mb-4">Отзывы наших клиентов</h2>
-      <p class="reviews__subtitle text-xl text-blue-100 max-w-3xl mx-auto">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        Отзывы наших клиентов
+      </h2>
+      <p class="text-xl text-blue-100 max-w-3xl mx-auto">
         Более 847+ довольных клиентов, которые полностью освободились от долгов
       </p>
     </div>
 
-    <div class="reviews__stats bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-12">
-      <div class="reviews__stats-summary flex flex-col md:flex-row items-center justify-between gap-8">
-        <div class="reviews__rating-score text-center">
-          <span class="reviews__rating-number text-5xl md:text-6xl font-bold text-white">{stats.average.toFixed(1)}</span>
-          <div class="reviews__rating-stars flex justify-center gap-1 my-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <span
-                class={`reviews__star text-2xl ${i < Math.floor(stats.average) ? 'reviews__star--filled text-yellow-400' : 'text-gray-400'}`}
-              >
-                ★
-              </span>
-            ))}
+    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-12">
+      <div
+        class="flex flex-col md:flex-row items-center justify-between gap-8"
+      >
+        <div class="text-center">
+          <span class="text-5xl md:text-6xl font-bold text-white"
+            >{stats.average.toFixed(1)}</span
+          >
+          <div class="flex justify-center gap-1 my-2">
+            {
+              Array.from({ length: 5 }).map((_, i) => (
+                <span
+                  class={`text-2xl ${i < Math.floor(stats.average) ? 'text-yellow-400' : 'text-gray-400'}`}
+                >
+                  ★
+                </span>
+              ))
+            }
           </div>
-          <span class="reviews__rating-count text-blue-200">На основе {stats.total * 230} отзывов</span>
+          <span class="text-blue-200"
+            >На основе {stats.total * 230} отзывов</span
+          >
         </div>
-        <div class="reviews__rating-bars w-full md:w-2/3">
-          {Object.entries(stats.distribution)
-            .sort(([a], [b]) => parseInt(b) - parseInt(a))
-            .map(([rating, count]) => {
-              const percentage = (count / stats.total) * 100;
-              return (
-                <div class="reviews__rating-bar flex items-center gap-3 mb-2 last:mb-0" key={rating}>
-                  <span class="reviews__rating-label w-8 text-right text-blue-200">{rating}★</span>
-                  <div class="reviews__rating-track flex-1 h-2 bg-blue-800 rounded-full overflow-hidden">
-                    <div
-                      class="reviews__rating-fill h-full bg-yellow-400 rounded-full"
-                      style={`width: ${percentage}%`}
-                    />
+        <div class="w-full md:w-2/3">
+          {
+            Object.entries(stats.distribution)
+              .sort(([a], [b]) => parseInt(b) - parseInt(a))
+              .map(([rating, count]) => {
+                const percentage = (count / stats.total) * 100;
+                return (
+                  <div
+                    class="flex items-center gap-3 mb-2 last:mb-0"
+                    key={rating}
+                  >
+                    <span class="w-8 text-right text-blue-200">
+                      {rating}★
+                    </span>
+                    <div class="flex-1 h-2 bg-blue-800 rounded-full overflow-hidden">
+                      <div
+                        class="h-full bg-yellow-400 rounded-full"
+                        style={`width: ${percentage}%`}
+                      />
+                    </div>
+                    <span class="w-12 text-right text-blue-200">
+                      {Math.round(percentage)}%
+                    </span>
                   </div>
-                  <span class="reviews__rating-percent w-12 text-right text-blue-200">
-                    {Math.round(percentage)}%
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })
+          }
         </div>
       </div>
     </div>
 
-    <div class="reviews__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {reviews.slice(0, visibleReviews).map((review, index) => (
-        <article class="review-card bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300" data-index={index} key={review.id}>
-          <div class="review-card__header mb-4">
-            <div class="review-card__author flex items-start gap-3">
-              <div class="review-card__avatar w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold">
-                {review.author.charAt(0)}
-              </div>
-              <div class="review-card__meta">
-                <h3 class="review-card__name text-lg font-bold text-white mb-1">{review.author || review.name}</h3>
-                <time class="review-card__date text-sm text-blue-200 block">
-                  {formatDate(review.date)}
-                </time>
-              </div>
-              {review.verified && (
-                <div class="review-card__verified ml-auto">
-                  <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    Проверено
-                  </span>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        reviews.slice(0, visibleReviews).map((review, index) => (
+          <article
+            class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300"
+            data-index={index}
+            key={review.id}
+          >
+            <div class="mb-4">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold">
+                  {review.author.charAt(0)}
                 </div>
-              )}
+                <div>
+                  <h3 class="text-lg font-bold text-white mb-1">
+                    {review.author || review.name}
+                  </h3>
+                  <time class="text-sm text-blue-200 block">
+                    {formatDate(review.date)}
+                  </time>
+                </div>
+                {review.verified && (
+                  <div class="ml-auto">
+                    <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Проверено
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div class="review-card__rating flex gap-1 mb-3">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <span
-                class={`review-card__star text-lg ${i < review.rating ? 'review-card__star--filled text-yellow-400' : 'text-gray-400'}`}
-              >
-                ★
-              </span>
-            ))}
-          </div>
-          <p class="review-card__text text-blue-100 mb-4">{review.text}</p>
-          {review.tags && review.tags.length > 0 && (
-            <div class="review-card__tags flex flex-wrap gap-2 mb-4">
-              {review.tags.map((tag) => (
-                <span class="review-card__tag px-2 py-1 bg-blue-700/50 text-blue-200 text-xs rounded-full">
-                  {tag}
+            <div class="review-card__rating flex gap-1 mb-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <span
+                  class={`review-card__star text-lg ${i < review.rating ? 'review-card__star--filled text-yellow-400' : 'text-gray-400'}`}
+                >
+                  ★
                 </span>
               ))}
             </div>
-          )}
-          <div class="review-card__footer flex justify-between items-center">
-            <button class="review-card__helpful inline-flex items-center gap-1 text-blue-200 hover:text-white transition-colors" data-review-id={review.id}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              Полезно ({review.helpful})
-            </button>
-            <button class="text-blue-200 hover:text-white transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </article>
-      ))}
+            <p class="review-card__text text-blue-100 mb-4">{review.text}</p>
+            {review.tags && review.tags.length > 0 && (
+              <div class="review-card__tags flex flex-wrap gap-2 mb-4">
+                {review.tags.map((tag) => (
+                  <span class="review-card__tag px-2 py-1 bg-blue-700/50 text-blue-200 text-xs rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            <div class="review-card__footer flex justify-between items-center">
+              <button
+                class="review-card__helpful inline-flex items-center gap-1 text-blue-200 hover:text-white transition-colors"
+                data-review-id={review.id}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Полезно ({review.helpful})
+              </button>
+              <button class="text-blue-200 hover:text-white transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </article>
+        ))
+      }
     </div>
 
-    {visibleReviews < reviews.length && (
-      <div class="reviews__actions text-center mt-12">
-        <button class="reviews__load-more inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-900 font-bold rounded-lg hover:bg-blue-100 transition-colors" onClick={() => (visibleReviews += reviewsIncrement)}>
-          <span>Загрузить ещё отзывы</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
-    )}
+    {
+      visibleReviews < reviews.length && (
+        <div class="reviews__actions text-center mt-12">
+          <button
+            class="reviews__load-more inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-900 font-bold rounded-lg hover:bg-blue-100 transition-colors"
+            onClick={() => (visibleReviews += reviewsIncrement)}
+          >
+            <span>Загрузить ещё отзывы</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 9l6 6 6-6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -466,7 +506,7 @@ const reviewsIncrement = 3;
   // Handle helpful button clicks
   document.querySelectorAll('.review-card__helpful').forEach((button) => {
     button.addEventListener('click', function () {
-      const reviewId = this.dataset.reviewId;
+      // const reviewId = this.dataset.reviewId; // Reserved for future analytics
       const countMatch = this.textContent?.match(/\d+/);
       if (countMatch) {
         const currentCount = parseInt(countMatch[0]);
@@ -491,10 +531,11 @@ const reviewsIncrement = 3;
       loadMoreBtn.addEventListener('click', function () {
         // Get current visible reviews count
         const currentVisible = document.querySelectorAll('.review-card').length;
-        const totalReviews = reviews.length;
+        const totalReviews = window.reviews?.length || 0;
 
         // Calculate new visible count
-        const newVisible = Math.min(currentVisible + reviewsIncrement, totalReviews);
+        const increment = window.reviewsIncrement || 3;
+        const newVisible = Math.min(currentVisible + increment, totalReviews);
 
         // Update button text and state
         this.textContent = 'Загрузка...';
@@ -503,13 +544,13 @@ const reviewsIncrement = 3;
         // Simulate loading delay
         setTimeout(() => {
           // Update visible reviews count
-          visibleReviews = newVisible;
+          window.visibleReviews = newVisible;
 
           // Re-render reviews
           renderReviews();
 
           // Update button state
-          if (visibleReviews >= totalReviews) {
+          if (newVisible >= totalReviews) {
             this.textContent = 'Все отзывы загружены';
             this.style.opacity = '0.5';
           } else {
@@ -529,8 +570,14 @@ const reviewsIncrement = 3;
     // Clear current reviews
     reviewsGrid.innerHTML = '';
 
+    // Get global variables
+    const reviewsList = window.reviews || [];
+    const visibleCount = window.visibleReviews || 3;
+    const getInitialsFn = window.getInitials;
+    const formatDateFn = window.formatDate;
+
     // Add visible reviews
-    const visibleReviewsSlice = reviews.slice(0, visibleReviews);
+    const visibleReviewsSlice = reviewsList.slice(0, visibleCount);
     visibleReviewsSlice.forEach((review, index) => {
       const article = document.createElement('article');
       article.className = 'review-card';
@@ -543,12 +590,12 @@ const reviewsIncrement = 3;
               ${
                 review.avatar
                   ? `<img src="${review.avatar}" alt="${review.author}" loading="lazy" />`
-                  : `<span>${getInitials(review.author || review.name || '')}</span>`
+                  : `<span>${getInitialsFn ? getInitialsFn(review.author || review.name || '') : (review.author || review.name || '').charAt(0)}</span>`
               }
             </div>
             <div class="review-card__meta">
               <h3 class="review-card__name">${review.author || review.name}</h3>
-              <time class="review-card__date">${formatDate(review.date)}</time>
+              <time class="review-card__date">${formatDateFn ? formatDateFn(review.date) : review.date}</time>
             </div>
           </div>
           ${
@@ -606,7 +653,7 @@ const reviewsIncrement = 3;
     // Re-attach event listeners
     document.querySelectorAll('.review-card__helpful').forEach((button) => {
       button.addEventListener('click', function () {
-        const reviewId = this.dataset.reviewId;
+        // const reviewId = this.dataset.reviewId; // Reserved for future analytics
         const countMatch = this.textContent?.match(/\d+/);
         if (countMatch) {
           const currentCount = parseInt(countMatch[0]);

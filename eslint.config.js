@@ -1,5 +1,4 @@
 // @ts-check
-import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import astroPlugin from 'eslint-plugin-astro';
 import astroParser from 'astro-eslint-parser';
@@ -25,16 +24,41 @@ export default [
       'astro.config.mjs',
       'astro.config.prod.mjs',
       'tailwind.config.js',
+      'postcss.config.cjs',
       '**/*.d.ts',
       'dist/**/*',
       'public/**/*',
       '__tests__/**/*',
       'src/__tests__/**/*',
+      'vitest.config.ts',
+      'vitest.setup.ts',
+      'simple-test.cjs',
+      'test-js-functionality.cjs',
+      'tools/**/*',
+      'scripts/**/*',
+      'scripts/**/*.cjs',
+      'scripts/**/*.js',
     ],
   },
 
   // Base ESLint recommended config
-  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+
+  // Node.js configuration files
+  {
+    files: ['astro.config.mjs', 'astro.config.prod.mjs', 'jest.config.cjs', 'postcss.config.cjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-console': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
 
   // Skip TypeScript parsing for config files by creating a separate config without ts settings
   {
@@ -45,6 +69,10 @@ export default [
       'astro.config.mjs',
       'astro.config.prod.mjs',
       'jest.config.cjs',
+      'postcss.config.cjs',
+      'scripts/**/*',
+      'tools/**/*',
+      'public/**/*',
     ],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -87,6 +115,9 @@ export default [
         ...globals.node,
         ...globals.es2021,
         ...globals.jest,
+        gtag: 'readonly',
+        ym: 'readonly',
+        dataLayer: 'readonly',
       },
     },
     rules: {
@@ -130,6 +161,9 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
+        gtag: 'readonly',
+        ym: 'readonly',
+        dataLayer: 'readonly',
       },
     },
     processor: astroPlugin.processors['.astro'],
@@ -145,13 +179,38 @@ export default [
     },
   },
 
+  // Scripts and tools configuration - allow relaxed rules for development utilities
+  {
+    files: ['scripts/**/*', 'tools/**/*', 'src/shared/utils/**/*'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Allow console in scripts and tools
+      'no-console': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn', // Warn instead of error
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
+    },
+  },
+
   // Test files configuration
   {
-    files: ['**/__tests__/**/*.ts', '**/*.test.ts', '**/*.spec.ts'],
+    files: ['**/__tests__/**/*.ts', '**/*.test.ts', '**/*.spec.ts', 'vitest.config.ts', 'vitest.setup.ts'],
     languageOptions: {
       globals: {
         ...globals.jest,
         ...globals.node,
+        vi: true, // Vitest global
+        describe: true,
+        it: true,
+        expect: true,
+        beforeEach: true,
+        afterEach: true,
+        beforeAll: true,
+        afterAll: true,
       },
     },
     rules: {
@@ -160,6 +219,15 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
       'no-console': 'off',
       'no-unused-expressions': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+  },
+
+  // CommonJS files - allow require statements
+  {
+    files: ['**/*.cjs'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 ];

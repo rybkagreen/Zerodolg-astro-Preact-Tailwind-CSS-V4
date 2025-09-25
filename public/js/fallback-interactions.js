@@ -25,7 +25,7 @@
     setupModalButtons();
 
     // Периодически проверяем новые элементы
-    setInterval(function () {
+    setInterval(() => {
       setupScrollToFormButtons();
       setupAnchorLinks();
       setupModalButtons();
@@ -35,7 +35,7 @@
   function setupScrollToFormButtons() {
     const buttons = document.querySelectorAll('[data-action="scroll-to-form"]');
 
-    buttons.forEach(function (button) {
+    buttons.forEach((button) => {
       // Проверяем, не добавлен ли уже обработчик
       if (button.dataset.fallbackHandlerAdded) {
         return;
@@ -43,7 +43,7 @@
 
       button.dataset.fallbackHandlerAdded = 'true';
 
-      button.addEventListener('click', function (e) {
+      button.addEventListener('click', (e) => {
         e.preventDefault();
         console.log('[Fallback] Клик по кнопке scroll-to-form');
 
@@ -76,7 +76,7 @@
   function setupAnchorLinks() {
     const anchors = document.querySelectorAll('a[href^="#"]');
 
-    anchors.forEach(function (anchor) {
+    anchors.forEach((anchor) => {
       // Пропускаем ссылки внутри выпадающих меню (они обрабатываются отдельно)
       if (anchor.closest('.nav-dropdown-menu')) {
         return;
@@ -89,7 +89,7 @@
 
       anchor.dataset.fallbackHandlerAdded = 'true';
 
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', (e) => {
         const href = anchor.getAttribute('href');
 
         if (!href || href === '#' || href.startsWith('#modal-')) {
@@ -124,7 +124,7 @@
   function setupModalButtons() {
     const modalButtons = document.querySelectorAll('[data-modal]');
 
-    modalButtons.forEach(function (button) {
+    modalButtons.forEach((button) => {
       // Проверяем, не добавлен ли уже обработчик
       if (button.dataset.fallbackHandlerAdded) {
         return;
@@ -132,7 +132,7 @@
 
       button.dataset.fallbackHandlerAdded = 'true';
 
-      button.addEventListener('click', function (e) {
+      button.addEventListener('click', (e) => {
         e.preventDefault();
         const modalId = button.getAttribute('data-modal');
         console.log('[Fallback] Клик по кнопке модального окна:', modalId);
@@ -187,7 +187,7 @@
 
   // Обработка хэша в URL при загрузке страницы
   if (window.location.hash) {
-    setTimeout(function () {
+    setTimeout(() => {
       const hash = window.location.hash;
       if (hash && hash !== '#' && !hash.startsWith('#modal-')) {
         const targetId = hash.substring(1);
@@ -202,7 +202,7 @@
   }
 
   // Слушаем изменения хэша
-  window.addEventListener('hashchange', function () {
+  window.addEventListener('hashchange', () => {
     const hash = window.location.hash;
     if (hash && hash !== '#' && !hash.startsWith('#modal-')) {
       const targetId = hash.substring(1);

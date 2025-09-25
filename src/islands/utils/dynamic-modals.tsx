@@ -1,11 +1,12 @@
+import { type VNode } from 'preact';
 import { useDynamicModals } from '@features/modals/model/use-dynamic-modals';
 import Modal from '@features/modals/ui/Modal';
 
-export default function DynamicModals() {
+export default function DynamicModals(): VNode {
   const { modals } = useDynamicModals();
 
   const getModalContent = (type: string) => {
-    const modalTemplates: { [key: string]: any } = {
+    const modalTemplates: { [key: string]: VNode | string } = {
       consultation: (
         <form class="modal-form" data-form-type="consultation">
           <div class="form-group">

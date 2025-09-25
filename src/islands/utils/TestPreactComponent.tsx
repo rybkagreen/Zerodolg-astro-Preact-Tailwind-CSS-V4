@@ -1,6 +1,11 @@
+import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-export default function TestPreactComponent() {
+interface TestPreactComponentProps {
+  // Define your props here
+}
+
+export default function TestPreactComponent({}: TestPreactComponentProps): VNode {
   const [count, setCount] = useState(0);
   const [isClient, setIsClient] = useState(false);
 

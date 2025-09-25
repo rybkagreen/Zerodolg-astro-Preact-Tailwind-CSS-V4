@@ -113,7 +113,7 @@ describe('Hero Component', () => {
     });
 
     // Test button click handling
-    let clickCounts = [0, 0];
+    const clickCounts = [0, 0];
 
     buttonElements.forEach((btn, index) => {
       btn.addEventListener('click', () => {

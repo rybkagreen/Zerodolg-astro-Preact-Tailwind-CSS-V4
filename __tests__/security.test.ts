@@ -551,26 +551,26 @@ describe('Security Tests', () => {
   it('should generate CSP headers correctly', () => {
     const cspGenerator = {
       policies: {
-        'default-src': ["'self'"],
+        'default-src': ['\'self\''],
         'script-src': [
-          "'self'",
-          "'unsafe-inline'",
+          '\'self\'',
+          '\'unsafe-inline\'',
           'https://www.googletagmanager.com',
           'https://www.google-analytics.com',
         ],
-        'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        'style-src': ['\'self\'', '\'unsafe-inline\'', 'https://fonts.googleapis.com'],
         'img-src': [
-          "'self'",
+          '\'self\'',
           'data:',
           'https://www.googletagmanager.com',
           'https://www.google-analytics.com',
         ],
-        'font-src': ["'self'", 'https://fonts.gstatic.com'],
-        'connect-src': ["'self'", 'https://www.google-analytics.com'],
-        'frame-src': ["'self'", 'https://www.google.com'],
-        'object-src': ["'none'"],
-        'base-uri': ["'self'"],
-        'form-action': ["'self'"],
+        'font-src': ['\'self\'', 'https://fonts.gstatic.com'],
+        'connect-src': ['\'self\'', 'https://www.google-analytics.com'],
+        'frame-src': ['\'self\'', 'https://www.google.com'],
+        'object-src': ['\'none\''],
+        'base-uri': ['\'self\''],
+        'form-action': ['\'self\''],
         'upgrade-insecure-requests': [],
       },
       addPolicy: function (directive: string, sources: string[]) {
@@ -598,13 +598,13 @@ describe('Security Tests', () => {
             }
             return `${directive} ${sources.join(' ')}`;
           })
-          .join('; ');
+        .join('-');
       },
       isRestrictivePolicy: function (directive: string) {
         const policy = this.policies[directive];
         return (
           policy &&
-          (policy.includes("'none'") || (policy.includes("'self'") && policy.length === 1))
+          (policy.includes('\'none\'') || (policy.includes('\'self\'') && policy.length === 1))
         );
       },
     };
@@ -613,10 +613,10 @@ describe('Security Tests', () => {
     const cspHeader = cspGenerator.generateHeader();
     expect(typeof cspHeader).toBe('string');
     expect(cspHeader.length).toBeGreaterThan(100);
-    expect(cspHeader).toContain("default-src 'self'");
-    expect(cspHeader).toContain("script-src 'self'");
-    expect(cspHeader).toContain("img-src 'self'");
-    expect(cspHeader).toContain("object-src 'none'");
+    expect(cspHeader).toContain('default-src \'self\'');
+    expect(cspHeader).toContain('script-src \'self\'');
+    expect(cspHeader).toContain('img-src \'self\'');
+    expect(cspHeader).toContain('object-src \'none\'');
 
     // Test adding policies
     cspGenerator.addPolicy('script-src', ['https://cdn.example.com']);
@@ -624,9 +624,9 @@ describe('Security Tests', () => {
     expect(updatedCSP).toContain('https://cdn.example.com');
 
     // Test removing policies
-    cspGenerator.removePolicy('script-src', ["'unsafe-inline'"]);
+    cspGenerator.removePolicy('script-src', ['\'unsafe-inline\'']);
     const restrictedCSP = cspGenerator.generateHeader();
-    expect(restrictedCSP).not.toContain("'unsafe-inline'");
+    expect(restrictedCSP).not.toContain('\'unsafe-inline\'');
 
     // Test restrictive policies
     expect(cspGenerator.isRestrictivePolicy('object-src')).toBe(true);
@@ -637,10 +637,10 @@ describe('Security Tests', () => {
 
     // Test specific directive policies
     const scriptSources = cspGenerator.policies['script-src'];
-    expect(scriptSources).toContain("'self'");
+    expect(scriptSources).toContain('\'self\'');
     expect(scriptSources).toContain('https://www.googletagmanager.com');
     expect(scriptSources).toContain('https://cdn.example.com');
-    expect(scriptSources).not.toContain("'unsafe-inline'"); // Should have been removed
+    expect(scriptSources).not.toContain('\'unsafe-inline\''); // Should have been removed
 
     // Test empty policy directive
     cspGenerator.addPolicy('report-uri', []);
@@ -718,9 +718,9 @@ describe('Security Tests', () => {
     }
 
     // Test approaching limit
-    const接近Limit = rateLimiter.checkLimit(apiKey);
-    expect(接近Limit.allowed).toBe(true);
-    expect(接近Limit.remaining).toBe(rateLimiter.maxRequests - 51);
+    const approachingLimit = rateLimiter.checkLimit(apiKey);
+    expect(approachingLimit.allowed).toBe(true);
+    expect(approachingLimit.remaining).toBe(rateLimiter.maxRequests - 51);
 
     // Test exceeding limit
     for (let i = 0; i < 50; i++) {

@@ -2,13 +2,16 @@
 // Bitrix24 Callback Widget Component
 const bitrixWebhookUrl = import.meta.env.BITRIX24_WEBHOOK_URL;
 const sitePhone = import.meta.env.PUBLIC_SITE_PHONE || '+7 (905) 577-33-87';
-const phoneDigits = sitePhone.replace(/\D/g, '');
 ---
 
 <!-- Bitrix24 Callback Widget -->
 <div class="fixed bottom-4 right-4 z-50" aria-label="Виджет обратного звонка">
   <!-- Main Button -->
-  <button class="relative flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 focus:ring-4 focus:ring-blue-300" aria-label="Заказать обратный звонок" type="button">
+  <button
+    class="relative flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 focus:ring-4 focus:ring-blue-300"
+    aria-label="Заказать обратный звонок"
+    type="button"
+  >
     <div class="absolute inset-0 rounded-full bg-blue-600 animate-ping"></div>
     <svg class="relative z-10 w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path
@@ -22,18 +25,27 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
   </button>
 
   <!-- Popup Form -->
-  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 z-40" aria-hidden="true">
-    <div class="absolute bottom-20 right-4 bg-white rounded-lg shadow-xl p-6 w-80 max-w-[calc(100vw-2rem)] transform translate-y-4 transition-transform duration-300">
+  <div
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 z-40"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute bottom-20 right-4 bg-white rounded-lg shadow-xl p-6 w-80 max-w-[calc(100vw-2rem)] transform translate-y-4 transition-transform duration-300"
+    >
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900">Заказать звонок</h3>
-        <button class="p-1 hover:bg-gray-100 rounded-full transition-colors" aria-label="Закрыть" type="button">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path
-            d="M15 5L5 15M5 5l10 10"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"></path>
-        </svg>
+        <button
+          class="p-1 hover:bg-gray-100 rounded-full transition-colors"
+          aria-label="Закрыть"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M15 5L5 15M5 5l10 10"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"></path>
+          </svg>
         </button>
       </div>
 
@@ -76,34 +88,32 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
             autocomplete="off"
           >
-          <option value="now">Сейчас</option>
-          <option value="15min">Через 15 минут</option>
-          <option value="30min">Через 30 минут</option>
-          <option value="1hour">Через час</option>
-          <option value="morning">Утром (9:00-12:00)</option>
-          <option value="afternoon">Днем (12:00-18:00)</option>
-          <option value="evening">Вечером (18:00-21:00)</option>
+            <option value="now">Сейчас</option>
+            <option value="15min">Через 15 минут</option>
+            <option value="30min">Через 30 минут</option>
+            <option value="1hour">Через час</option>
+            <option value="morning">Утром (9:00-12:00)</option>
+            <option value="afternoon">Днем (12:00-18:00)</option>
+            <option value="evening">Вечером (18:00-21:00)</option>
           </select>
         </div>
 
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 flex items-center justify-center">
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 flex items-center justify-center"
+        >
           <span class="submit-text">Жду звонка</span>
-          <svg
-            class="submit-loader hidden w-5 h-5 ml-2"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-          >
-          <circle
-            cx="10"
-            cy="10"
-            r="8"
-            stroke="currentColor"
-            stroke-width="2"
-            fill="none"
-            stroke-dasharray="40"
-            stroke-dashoffset="10"
-          >
+          <svg class="submit-loader hidden w-5 h-5 ml-2" width="20" height="20" viewBox="0 0 20 20">
+            <circle
+              cx="10"
+              cy="10"
+              r="8"
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-dasharray="40"
+              stroke-dashoffset="10"
+            >
               <animateTransform
                 attributeName="transform"
                 type="rotate"
@@ -117,19 +127,15 @@ const phoneDigits = sitePhone.replace(/\D/g, '');
 
         <p class="text-xs text-gray-500 text-center">
           Нажимая кнопку, вы соглашаетесь с
-          <a href="/privacy" target="_blank" class="text-blue-600 hover:text-blue-700">политикой конфиденциальности</a>
+          <a href="/privacy" target="_blank" class="text-blue-600 hover:text-blue-700"
+            >политикой конфиденциальности</a
+          >
         </p>
       </form>
 
       <!-- Success State -->
       <div class="success-state hidden text-center">
-        <svg
-          class="mx-auto mb-4 w-15 h-15"
-          width="60"
-          height="60"
-          viewBox="0 0 60 60"
-          fill="none"
-        >
+        <svg class="mx-auto mb-4 w-15 h-15" width="60" height="60" viewBox="0 0 60 60" fill="none">
           <circle cx="30" cy="30" r="30" fill="#10b981" opacity="0.1"></circle>
           <path
             d="M20 30L26 36L40 22"

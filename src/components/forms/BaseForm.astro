@@ -1,5 +1,4 @@
 ---
-import { useState } from 'preact/hooks';
 import Form from '../../islands/forms/Form.tsx';
 import type { FormConfig, FormField } from '../../../types/form';
 
@@ -27,7 +26,7 @@ const {
   showNameField = true,
   showPhoneField = true,
   showEmailField = false,
-  showPrivacyCheckbox = true,
+  // showPrivacyCheckbox = true, // TODO: Implement privacy checkbox
   variant = 'stacked',
   className = '',
   title = '',
@@ -45,7 +44,7 @@ if (showNameField) {
     label: 'Ваше имя',
     placeholder: 'Введите ваше имя',
     required: true,
-    validation: { message: 'Пожалуйста, введите ваше имя' }
+    validation: { message: 'Пожалуйста, введите ваше имя' },
   });
 }
 
@@ -56,7 +55,7 @@ if (showPhoneField) {
     label: 'Телефон',
     placeholder: '+7 (___) ___-__-__',
     required: true,
-    validation: { message: 'Пожалуйста, введите ваш телефон' }
+    validation: { message: 'Пожалуйста, введите ваш телефон' },
   });
 }
 
@@ -66,8 +65,8 @@ if (showEmailField) {
     type: 'email',
     label: 'Email',
     placeholder: 'example@mail.com',
-    required: !showPhoneField,  // Required if phone is not shown
-    validation: { message: 'Пожалуйста, введите корректный email' }
+    required: !showPhoneField, // Required if phone is not shown
+    validation: { message: 'Пожалуйста, введите корректный email' },
   });
 }
 
@@ -78,7 +77,7 @@ if (showDebtField) {
     label: 'Сумма долга',
     placeholder: 'Например: 500 000 руб',
     required: false,
-    validation: { message: 'Пожалуйста, введите корректную сумму' }
+    validation: { message: 'Пожалуйста, введите корректную сумму' },
   });
 }
 
@@ -88,13 +87,7 @@ const config: FormConfig = {
   fields,
   submitText,
   endpoint,
-  variant
-};
-
-const variantClasses = {
-  inline: 'flex flex-wrap gap-4',
-  stacked: 'space-y-4',
-  compact: 'space-y-3'
+  variant,
 };
 
 const baseClasses = `max-w-md mx-auto ${className}`;
@@ -103,9 +96,6 @@ const baseClasses = `max-w-md mx-auto ${className}`;
 <div class={baseClasses}>
   {title && <h3 class="text-xl font-semibold text-gray-900 mb-2">{title}</h3>}
   {subtitle && <p class="text-gray-600 mb-4">{subtitle}</p>}
-  
-  <Form 
-    config={config} 
-    client:load 
-  />
+
+  <Form config={config} client:load />
 </div>

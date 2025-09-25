@@ -3,12 +3,12 @@ const path = require('path');
 
 function analyzeStaticFiles() {
   console.log('🔍 Анализ статических файлов после миграции на Tailwind CSS...\n');
-  
+
   const results = {
     errors: [],
     warnings: [],
     tests: [],
-    summary: {}
+    summary: {},
   };
 
   try {
@@ -26,22 +26,33 @@ function analyzeStaticFiles() {
     const indexPath = path.join(distPath, 'index.html');
     if (fs.existsSync(indexPath)) {
       const htmlContent = fs.readFileSync(indexPath, 'utf-8');
-      
+
       console.log('📄 Анализируем index.html...');
-      
+
       // Проверяем наличие Tailwind классов
       const tailwindClasses = [
-        'bg-', 'text-', 'p-', 'm-', 'flex', 'grid', 'w-', 'h-', 
-        'rounded', 'shadow', 'border', 'hover:', 'focus:'
+        'bg-',
+        'text-',
+        'p-',
+        'm-',
+        'flex',
+        'grid',
+        'w-',
+        'h-',
+        'rounded',
+        'shadow',
+        'border',
+        'hover:',
+        'focus:',
       ];
-      
+
       let tailwindFound = false;
-      tailwindClasses.forEach(cls => {
+      tailwindClasses.forEach((cls) => {
         if (htmlContent.includes(cls)) {
           tailwindFound = true;
         }
       });
-      
+
       if (tailwindFound) {
         console.log('✅ Tailwind CSS классы найдены в HTML');
         results.tests.push({ name: 'Tailwind classes in HTML', status: 'success' });
@@ -54,11 +65,17 @@ function analyzeStaticFiles() {
       // Проверяем на остатки BEM классов
       const bemPattern = /class="[^"]*(?:__|\-\-)[^"]*"/g;
       const bemMatches = htmlContent.match(bemPattern);
-      
+
       if (bemMatches && bemMatches.length > 0) {
-        console.log(`⚠️  Найдены возможные остатки BEM классов: ${bemMatches.slice(0, 5).join(', ')}${bemMatches.length > 5 ? '...' : ''}`);
+        console.log(
+          `⚠️  Найдены возможные остатки BEM классов: ${bemMatches.slice(0, 5).join(', ')}${bemMatches.length > 5 ? '...' : ''}`
+        );
         results.warnings.push(`Найдены BEM классы: ${bemMatches.length} штук`);
-        results.tests.push({ name: 'BEM classes removal', status: 'warning', details: `${bemMatches.length} BEM classes found` });
+        results.tests.push({
+          name: 'BEM classes removal',
+          status: 'warning',
+          details: `${bemMatches.length} BEM classes found`,
+        });
       } else {
         console.log('✅ BEM классы успешно удалены');
         results.tests.push({ name: 'BEM classes removal', status: 'success' });
@@ -71,35 +88,43 @@ function analyzeStaticFiles() {
       while ((match = cssLinkPattern.exec(htmlContent)) !== null) {
         cssLinks.push(match[1]);
       }
-      
+
       console.log(`📋 Найдено CSS файлов: ${cssLinks.length}`);
       cssLinks.forEach((link, i) => {
         console.log(`  ${i + 1}. ${link}`);
-        
+
         // Проверяем существование CSS файла
         const cssPath = path.join(distPath, link.replace(/^\//, ''));
         if (fs.existsSync(cssPath)) {
           console.log(`    ✅ Файл существует`);
-          
+
           // Читаем содержимое CSS файла
           const cssContent = fs.readFileSync(cssPath, 'utf-8');
-          
+
           // Проверяем наличие Tailwind утилит
-          const tailwindUtilities = ['.bg-', '.text-', '.flex', '.grid', '.p-', '.m-', '.w-', '.h-'];
+          const tailwindUtilities = [
+            '.bg-',
+            '.text-',
+            '.flex',
+            '.grid',
+            '.p-',
+            '.m-',
+            '.w-',
+            '.h-',
+          ];
           let tailwindUtilitiesFound = 0;
-          
-          tailwindUtilities.forEach(utility => {
+
+          tailwindUtilities.forEach((utility) => {
             if (cssContent.includes(utility)) {
               tailwindUtilitiesFound++;
             }
           });
-          
+
           if (tailwindUtilitiesFound > 0) {
             console.log(`    ✅ Найдено Tailwind утилит: ${tailwindUtilitiesFound}`);
           } else {
             console.log(`    ⚠️  Tailwind утилиты не найдены`);
           }
-          
         } else {
           console.log(`    ❌ Файл не найден: ${cssPath}`);
           results.errors.push(`CSS файл не найден: ${link}`);
@@ -114,10 +139,10 @@ function analyzeStaticFiles() {
       while ((match = jsScriptPattern.exec(htmlContent)) !== null) {
         jsLinks.push(match[1]);
       }
-      
+
       console.log(`📋 Найдено JS файлов: ${jsLinks.length}`);
       let jsFilesExist = 0;
-      
+
       jsLinks.forEach((link, i) => {
         const jsPath = path.join(distPath, link.replace(/^\//, ''));
         if (fs.existsSync(jsPath)) {
@@ -129,7 +154,12 @@ function analyzeStaticFiles() {
         }
       });
 
-      results.tests.push({ name: 'JS files', status: jsFilesExist === jsLinks.length ? 'success' : 'partial', found: jsFilesExist, total: jsLinks.length });
+      results.tests.push({
+        name: 'JS files',
+        status: jsFilesExist === jsLinks.length ? 'success' : 'partial',
+        found: jsFilesExist,
+        total: jsLinks.length,
+      });
 
       // Проверяем структуру HTML
       const htmlStructure = {
@@ -138,7 +168,7 @@ function analyzeStaticFiles() {
         hasHead: htmlContent.includes('<head>'),
         hasBody: htmlContent.includes('<body>'),
         hasTitle: htmlContent.includes('<title>'),
-        hasViewport: htmlContent.includes('viewport')
+        hasViewport: htmlContent.includes('viewport'),
       };
 
       Object.entries(htmlStructure).forEach(([key, value]) => {
@@ -151,26 +181,25 @@ function analyzeStaticFiles() {
           results.warnings.push(`HTML структура: ${key} не найден`);
         }
       });
-
     } else {
       console.log('❌ index.html не найден');
       results.errors.push('index.html файл не найден');
     }
 
     // Проверяем другие HTML страницы
-    const htmlFiles = fs.readdirSync(distPath).filter(file => 
-      file.endsWith('.html') && file !== 'index.html'
-    );
+    const htmlFiles = fs
+      .readdirSync(distPath)
+      .filter((file) => file.endsWith('.html') && file !== 'index.html');
 
     if (htmlFiles.length > 0) {
       console.log(`\n📄 Найдены дополнительные HTML файлы: ${htmlFiles.length}`);
-      htmlFiles.forEach(file => {
+      htmlFiles.forEach((file) => {
         console.log(`  📄 ${file}`);
         const filePath = path.join(distPath, file);
         const content = fs.readFileSync(filePath, 'utf-8');
-        
+
         // Быстрая проверка на Tailwind классы
-        const hasTailwind = ['bg-', 'text-', 'flex', 'grid'].some(cls => content.includes(cls));
+        const hasTailwind = ['bg-', 'text-', 'flex', 'grid'].some((cls) => content.includes(cls));
         if (hasTailwind) {
           console.log(`    ✅ Содержит Tailwind классы`);
         } else {
@@ -178,19 +207,22 @@ function analyzeStaticFiles() {
           results.warnings.push(`${file} не содержит Tailwind классы`);
         }
       });
-      results.tests.push({ name: 'Additional HTML files', status: 'found', count: htmlFiles.length });
+      results.tests.push({
+        name: 'Additional HTML files',
+        status: 'found',
+        count: htmlFiles.length,
+      });
     }
 
     // Суммарная статистика
     results.summary = {
       totalTests: results.tests.length,
-      successfulTests: results.tests.filter(t => t.status === 'success').length,
-      warningTests: results.tests.filter(t => t.status === 'warning').length,
-      failedTests: results.tests.filter(t => t.status === 'failed').length,
+      successfulTests: results.tests.filter((t) => t.status === 'success').length,
+      warningTests: results.tests.filter((t) => t.status === 'warning').length,
+      failedTests: results.tests.filter((t) => t.status === 'failed').length,
       totalErrors: results.errors.length,
-      totalWarnings: results.warnings.length
+      totalWarnings: results.warnings.length,
     };
-
   } catch (error) {
     console.error('❌ Ошибка при анализе:', error.message);
     results.errors.push(`Ошибка анализа: ${error.message}`);
@@ -204,7 +236,7 @@ const results = analyzeStaticFiles();
 
 // Выводим итоговый отчет
 console.log('\n📊 ИТОГОВЫЙ ОТЧЕТ АНАЛИЗА:');
-console.log('=' .repeat(50));
+console.log('='.repeat(50));
 
 if (results.errors.length === 0) {
   console.log('✅ Критических ошибок не найдено');
@@ -231,7 +263,8 @@ console.log(`Предупреждений: ${results.summary.warningTests} ⚠�
 console.log(`Провальных: ${results.summary.failedTests} ❌`);
 
 // Оценка качества миграции
-const migrationScore = (results.summary.successfulTests / Math.max(results.summary.totalTests, 1)) * 100;
+const migrationScore =
+  (results.summary.successfulTests / Math.max(results.summary.totalTests, 1)) * 100;
 console.log(`\n🎯 ОЦЕНКА КАЧЕСТВА МИГРАЦИИ: ${migrationScore.toFixed(1)}%`);
 
 if (migrationScore >= 90) {

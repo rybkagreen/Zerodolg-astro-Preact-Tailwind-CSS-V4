@@ -719,7 +719,7 @@ describe('Stats Component', () => {
         value: `${(i + 1) * 100}+`,
         label: `Статистика ${i + 1}`,
         description: `Описание статистики ${i + 1}`,
-        icon: `📊`,
+        icon: '📊',
         category:
           i % 4 === 0 ? 'cases' : i % 4 === 1 ? 'savings' : i % 4 === 2 ? 'time' : 'success',
       });

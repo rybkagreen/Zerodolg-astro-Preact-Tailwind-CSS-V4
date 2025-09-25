@@ -2,8 +2,8 @@
 // Footer.astro
 export interface Props {
   title?: string;
-  data?: any;
-  [key: string]: any;
+  data?: unknown;
+  [key: string]: unknown;
 }
 
 // Company data from site.json
@@ -131,7 +131,11 @@ const company = {
                 </a>
               </li>
               <li>
-                <a href="#process" class="text-gray-300 hover:text-white transition-colors duration-200" title="Внесудебное банкротство через МФЦ">
+                <a
+                  href="#process"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  title="Внесудебное банкротство через МФЦ"
+                >
                   Внесудебное банкротство
                 </a>
               </li>
@@ -145,7 +149,11 @@ const company = {
                 </a>
               </li>
               <li>
-                <a href="#problems" class="text-gray-300 hover:text-white transition-colors duration-200" title="Защита от коллекторских агентств">
+                <a
+                  href="#problems"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  title="Защита от коллекторских агентств"
+                >
                   Защита от коллекторов
                 </a>
               </li>
@@ -168,7 +176,11 @@ const company = {
           <nav role="navigation" aria-label="Информация о компании">
             <ul class="space-y-2">
               <li>
-                <a href="#hero" class="text-gray-300 hover:text-white transition-colors duration-200" title="О юридической компании МАСХУЛИА">
+                <a
+                  href="#hero"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  title="О юридической компании МАСХУЛИА"
+                >
                   О компании
                 </a>
               </li>
@@ -200,7 +212,11 @@ const company = {
                 </a>
               </li>
               <li>
-                <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-200" title="Часто задаваемые вопросы о банкротстве">
+                <a
+                  href="#faq"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  title="Часто задаваемые вопросы о банкротстве"
+                >
                   Вопросы и ответы
                 </a>
               </li>
@@ -311,7 +327,11 @@ const company = {
         </div>
 
         <!-- Legal Links -->
-        <nav class="flex flex-wrap gap-4 text-sm" role="navigation" aria-label="Правовая информация">
+        <nav
+          class="flex flex-wrap gap-4 text-sm"
+          role="navigation"
+          aria-label="Правовая информация"
+        >
           <a
             href="/privacy"
             class="text-gray-400 hover:text-white transition-colors duration-200"

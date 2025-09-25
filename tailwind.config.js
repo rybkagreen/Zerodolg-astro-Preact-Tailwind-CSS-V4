@@ -3,7 +3,7 @@
 export default {
   content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-    './node_modules/astro/components/**/*.{js,ts,jsx,tsx}'
+    './node_modules/astro/components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -54,15 +54,27 @@ export default {
           DEFAULT: '#e2e8f0',
           dark: '#cbd5e1',
           light: 'rgba(0, 0, 0, 0.05)',
-        }
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+        sans: [
+          'Inter',
+          'ui-sans-serif',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif',
+        ],
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
+        18: '4.5rem',
+        88: '22rem',
+        128: '32rem',
       },
       borderRadius: {
         xl: '0.75rem',

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'preact/hooks';
+import { type VNode } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 
-/**
- * Unified Client Interactions Handler
- * Handles all client-side interactions that need to work with both
- * Astro's static generation and Preact's client-side hydration
- */
-export default function ClientInteractions() {
+interface ClientInteractionsProps {
+  // This component doesn't accept any props
+}
+
+export default function ClientInteractions({}: ClientInteractionsProps): VNode {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

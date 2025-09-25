@@ -79,7 +79,11 @@ const mobileMenuItems = [
 
 <!-- Advanced Interactive Navigation -->
 <header class="bg-white shadow-md sticky top-0 z-50" id="main-header">
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Главная навигация">
+  <nav
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    role="navigation"
+    aria-label="Главная навигация"
+  >
     <div class="flex items-center justify-between h-16">
       <!-- Logo Section -->
       <div class="flex-shrink-0 flex items-center">
@@ -107,7 +111,10 @@ const mobileMenuItems = [
                   stroke-linejoin="round"></path>
               </svg>
             </button>
-            <div class="absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block" data-dropdown-menu="services">
+            <div
+              class="absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block"
+              data-dropdown-menu="services"
+            >
               <div class="py-1">
                 {
                   navItems.services.map((item) => (
@@ -147,7 +154,10 @@ const mobileMenuItems = [
                   stroke-linejoin="round"></path>
               </svg>
             </button>
-            <div class="absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block" data-dropdown-menu="about">
+            <div
+              class="absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block"
+              data-dropdown-menu="about"
+            >
               <div class="py-1">
                 {
                   navItems.about.map((item) => (
@@ -184,7 +194,10 @@ const mobileMenuItems = [
                   stroke-linejoin="round"></path>
               </svg>
             </button>
-            <div class="absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block" data-dropdown-menu="info">
+            <div
+              class="absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block"
+              data-dropdown-menu="info"
+            >
               <div class="py-1">
                 {
                   navItems.info.map((item) => (
@@ -209,7 +222,11 @@ const mobileMenuItems = [
       <div class="flex items-center">
         <!-- Quick Actions for Desktop -->
         <div class="hidden md:flex items-center space-x-4">
-          <button class="p-2 text-gray-700 hover:text-primary rounded-md" aria-label="Поиск" data-action="search">
+          <button
+            class="p-2 text-gray-700 hover:text-primary rounded-md"
+            aria-label="Поиск"
+            data-action="search"
+          >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path
                 d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
@@ -243,7 +260,10 @@ const mobileMenuItems = [
         </div>
 
         <!-- CTA Button -->
-        <button class="hidden md:inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ml-4" data-modal="callback">
+        <button
+          class="hidden md:inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ml-4"
+          data-modal="callback"
+        >
           <span>Получить консультацию</span>
           <svg class="ml-2 -mr-1 h-5 w-5" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
@@ -283,7 +303,11 @@ const mobileMenuItems = [
             name="q"
             aria-label="Поиск"
           />
-          <button type="submit" class="search-submit px-6 py-3 bg-primary text-white hover:bg-primary-dark" aria-label="Искать">
+          <button
+            type="submit"
+            class="search-submit px-6 py-3 bg-primary text-white hover:bg-primary-dark"
+            aria-label="Искать"
+          >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path
                 d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
@@ -300,7 +324,11 @@ const mobileMenuItems = [
             </svg>
           </button>
         </form>
-        <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" data-search-close aria-label="Закрыть поиск">
+        <button
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          data-search-close
+          aria-label="Закрыть поиск"
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
               d="M18 6L6 18M6 6L18 18"
@@ -324,7 +352,11 @@ const mobileMenuItems = [
     aria-labelledby="mobile-menu-title"
     aria-hidden="true"
   >
-    <div class="fixed inset-0 bg-black bg-opacity-75" data-mobile-menu-overlay aria-label="Закрыть мобильное меню">
+    <div
+      class="fixed inset-0 bg-black bg-opacity-75"
+      data-mobile-menu-overlay
+      aria-label="Закрыть мобильное меню"
+    >
     </div>
 
     <div class="relative transform overflow-hidden max-w-xs w-full ml-auto h-full">
@@ -347,7 +379,11 @@ const mobileMenuItems = [
           >
             <span class="sr-only">Закрыть меню</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
@@ -406,7 +442,11 @@ const mobileMenuItems = [
         </div>
 
         <!-- Mobile Social Links -->
-        <div class="border-t p-4 flex justify-center space-x-6" role="navigation" aria-label="Социальные сети">
+        <div
+          class="border-t p-4 flex justify-center space-x-6"
+          role="navigation"
+          aria-label="Социальные сети"
+        >
           {
             company.social.whatsapp && (
               <a

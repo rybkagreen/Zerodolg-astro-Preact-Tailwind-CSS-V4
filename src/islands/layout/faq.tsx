@@ -2,11 +2,11 @@
 import { useEffect } from 'preact/hooks';
 
 export interface FaqProps {
-  data?: any;
-  [key: string]: any;
+  data?: unknown;
+  [key: string]: unknown;
 }
 
-export default function Faq(_props: FaqProps) {
+export default function Faq(_props: FaqProps): null {
   useEffect(() => {
     // FAQ accordion functionality
     const initializeFAQ = () => {

@@ -40,17 +40,33 @@ const benefits = [
 ];
 ---
 
-<section class="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white" id="benefits" aria-labelledby="benefits-title">
+<section
+  class="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white"
+  id="benefits"
+  aria-labelledby="benefits-title"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <header class="text-center mb-12 md:mb-16">
-      <h2 id="benefits-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Преимущества работы с нами</h2>
+      <h2 id="benefits-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Преимущества работы с нами
+      </h2>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" role="list" aria-label="Преимущества работы с нами">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+      role="list"
+      aria-label="Преимущества работы с нами"
+    >
       {
         benefits.map((benefit) => (
-          <article class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300" role="listitem">
-            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 mb-4" aria-hidden="true">
+          <article
+            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
+            role="listitem"
+          >
+            <div
+              class="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 mb-4"
+              aria-hidden="true"
+            >
               {/* Using inline SVG for icons - you can replace with actual icon component */}
               {benefit.icon === 'experience' && (
                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">

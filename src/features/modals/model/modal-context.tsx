@@ -1,4 +1,4 @@
-import { createContext } from 'preact';
+import { createContext, type VNode } from 'preact';
 import { useContext, useState, useCallback } from 'preact/hooks';
 
 interface ModalContextType {
@@ -10,7 +10,7 @@ interface ModalContextType {
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalProvider = ({ children }: { children: any }) => {
+export const ModalProvider = ({ children }: { children: import('preact').ComponentChildren }): VNode => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const openModal = useCallback((modalId: string) => {
@@ -32,7 +32,7 @@ export const ModalProvider = ({ children }: { children: any }) => {
   );
 };
 
-export const useModal = () => {
+export const useModal = (): ModalContextType => {
   const context = useContext(ModalContext);
   if (context === undefined) {
     throw new Error('useModal must be used within a ModalProvider');

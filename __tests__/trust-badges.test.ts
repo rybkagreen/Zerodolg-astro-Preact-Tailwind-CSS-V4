@@ -386,7 +386,7 @@ describe('TrustBadges Component', () => {
     expect(document.activeElement).not.toBe(badgeCards[1]);
 
     // Test click interactions
-    let clickCounts = [0, 0, 0, 0];
+    const clickCounts = [0, 0, 0, 0];
     badgeCards.forEach((card, index) => {
       card.addEventListener('click', () => {
         clickCounts[index]++;
@@ -404,7 +404,7 @@ describe('TrustBadges Component', () => {
     expect(clickCounts[3]).toBe(0);
 
     // Test keyboard interactions
-    let keyPressCounts = [0, 0, 0, 0];
+    const keyPressCounts = [0, 0, 0, 0];
     badgeCards.forEach((card, index) => {
       card.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {

@@ -7,16 +7,16 @@ import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
   site: 'https://zerodolg.ru',
-  
+
   // Современная настройка выходных файлов
   output: 'static',
-  
+
   // Оптимизация сборки
   build: {
     // Встроенная минификация активна по умолчанию
     inlineStylesheets: 'auto',
   },
-  
+
   integrations: [
     preact({
       // Включаем React DevTools для разработки
@@ -41,7 +41,7 @@ export default defineConfig({
       sitemap: 'https://zerodolg.ru/sitemap-index.xml',
     }),
   ],
-  
+
   // Оптимизация Vite
   vite: {
     css: {
@@ -61,12 +61,10 @@ export default defineConfig({
       },
     },
   },
-  
-  
+
   // Настройки сервера разработки
   server: {
     port: 4321,
     host: true,
   },
-  
 });

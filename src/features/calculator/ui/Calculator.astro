@@ -14,16 +14,24 @@ const {
 <section class="py-16 md:py-24 bg-gradient-to-b from-blue-50 to-indigo-50" id="calculator">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <header class="text-center mb-12 md:mb-16">
-      <h2 id="calculator-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h2>
+      <h2 id="calculator-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        {title}
+      </h2>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">{subtitle}</p>
     </header>
 
-    <form class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto" role="form" aria-labelledby="calculator-title">
+    <form
+      class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto"
+      role="form"
+      aria-labelledby="calculator-title"
+    >
       <fieldset class="space-y-6">
         <legend class="sr-only">Параметры для расчета стоимости банкротства</legend>
-        
+
         <div class="space-y-2">
-          <label for="debt-amount" class="block text-lg font-medium text-gray-900">Сумма долга</label>
+          <label for="debt-amount" class="block text-lg font-medium text-gray-900"
+            >Сумма долга</label
+          >
           <select
             id="debt-amount"
             class="calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white"
@@ -37,11 +45,15 @@ const {
             <option value="5m-10m">От 5 млн ₽ до 10 млн ₽</option>
             <option value="over-10m">Свыше 10 млн ₽</option>
           </select>
-          <small id="debt-help" class="block text-sm text-gray-500">Укажите общую сумму ваших долгов</small>
+          <small id="debt-help" class="block text-sm text-gray-500"
+            >Укажите общую сумму ваших долгов</small
+          >
         </div>
 
         <div class="space-y-2">
-          <label for="property" class="block text-lg font-medium text-gray-900">Есть ли имущество?</label>
+          <label for="property" class="block text-lg font-medium text-gray-900"
+            >Есть ли имущество?</label
+          >
           <select
             id="property"
             class="calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white"
@@ -58,7 +70,9 @@ const {
         </div>
 
         <div class="space-y-2">
-          <label for="employment" class="block text-lg font-medium text-gray-900">Трудоустройство</label>
+          <label for="employment" class="block text-lg font-medium text-gray-900"
+            >Трудоустройство</label
+          >
           <select
             id="employment"
             class="calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white"
@@ -83,8 +97,13 @@ const {
         >
           <span>Рассчитать стоимость</span>
           <span class="ml-2 loader hidden">
-            <svg class="animate-spin h-5 w-5 text-white" viewBox="0 0 50 50" aria-label="Загрузка" role="status">
-              <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" />
+            <svg
+              class="animate-spin h-5 w-5 text-white"
+              viewBox="0 0 50 50"
+              aria-label="Загрузка"
+              role="status"
+            >
+              <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
             </svg>
           </span>
         </button>
@@ -92,15 +111,22 @@ const {
 
       <div class="calc-result hidden mt-8" aria-live="polite">
         <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"
+          >
             <div>
               <h3 class="text-2xl font-bold text-gray-900 mb-2">Ваш персональный расчет готов!</h3>
-              <div class="calc-badge inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full"></div>
+              <div
+                class="calc-badge inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full"
+              >
+              </div>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="result-card primary bg-white rounded-lg p-4 text-center border border-gray-200">
+            <div
+              class="result-card primary bg-white rounded-lg p-4 text-center border border-gray-200"
+            >
               <div class="text-gray-600 mb-1">Стоимость под ключ</div>
               <div class="result-value text-2xl font-bold text-gray-900 mb-1">0 ₽</div>
               <div class="text-sm text-gray-500">или 0 ₽/мес</div>
@@ -110,7 +136,9 @@ const {
               <div class="result-value text-2xl font-bold text-gray-900 mb-1">0 мес</div>
               <div class="text-sm text-gray-500">полное списание долгов</div>
             </div>
-            <div class="result-card success bg-white rounded-lg p-4 text-center border border-gray-200">
+            <div
+              class="result-card success bg-white rounded-lg p-4 text-center border border-gray-200"
+            >
               <div class="text-gray-600 mb-1">Ваша экономия</div>
               <div class="result-value text-2xl font-bold text-gray-900 mb-1">0 ₽</div>
               <div class="text-sm text-gray-500">0% от суммы долга</div>
@@ -121,32 +149,62 @@ const {
             <h4 class="text-lg font-semibold text-gray-900 mb-3">Что входит в стоимость:</h4>
             <ul class="space-y-2">
               <li class="flex items-start">
-                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 6L9 17l-5-5" />
+                <svg
+                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 6L9 17l-5-5"></path>
                 </svg>
                 <span>Полная подготовка документов</span>
               </li>
               <li class="flex items-start">
-                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 6L9 17l-5-5" />
+                <svg
+                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 6L9 17l-5-5"></path>
                 </svg>
                 <span>Подача заявления в суд</span>
               </li>
               <li class="flex items-start">
-                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 6L9 17l-5-5" />
+                <svg
+                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 6L9 17l-5-5"></path>
                 </svg>
                 <span>Представительство на всех заседаниях</span>
               </li>
               <li class="flex items-start">
-                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 6L9 17l-5-5" />
+                <svg
+                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 6L9 17l-5-5"></path>
                 </svg>
                 <span>Работа с финансовым управляющим</span>
               </li>
               <li class="flex items-start">
-                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 6L9 17l-5-5" />
+                <svg
+                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 6L9 17l-5-5"></path>
                 </svg>
                 <span>Полное сопровождение до списания</span>
               </li>
@@ -154,13 +212,18 @@ const {
           </div>
 
           <div class="result-actions mb-4">
-            <button type="button" class="result-btn w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium flex items-center justify-center" data-modal-trigger="callback">
+            <button
+              type="button"
+              class="result-btn w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium flex items-center justify-center"
+              data-modal-trigger="callback"
+            >
               Получить консультацию
             </button>
           </div>
 
           <p class="text-xs text-gray-500 text-center">
-            Расчет является ориентировочным. Точную стоимость определит юрист после анализа вашей ситуации.
+            Расчет является ориентировочным. Точную стоимость определит юрист после анализа вашей
+            ситуации.
           </p>
         </div>
       </div>
@@ -169,6 +232,13 @@ const {
 </section>
 
 <script>
+  // Global analytics types
+  declare global {
+    interface Window {
+      gtag: (command: string, action: string, parameters?: Record<string, unknown>) => void;
+    }
+  }
+
   // Calculator logic
   class BankruptcyCalculator {
     constructor() {
@@ -217,8 +287,8 @@ const {
       this.displayResult(result);
 
       // Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'calculator_completed', {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'calculator_completed', {
           event_category: 'engagement',
           event_label: 'bankruptcy_calculator',
           value: result.price,

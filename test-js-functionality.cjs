@@ -7,7 +7,7 @@ async function testJavaScriptFunctionality() {
   const results = {
     errors: [],
     warnings: [],
-    tests: []
+    tests: [],
   };
 
   try {
@@ -16,49 +16,49 @@ async function testJavaScriptFunctionality() {
     // Запускаем браузер
     browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
     const page = await browser.newPage();
 
     // Включаем логирование консоли
-    page.on('console', msg => {
+    page.on('console', (msg) => {
       const type = msg.type();
       const text = msg.text();
-      
+
       if (type === 'error') {
         results.errors.push({
           type: 'console_error',
           message: text,
-          url: page.url()
+          url: page.url(),
         });
         console.log(`❌ Ошибка JavaScript: ${text}`);
       } else if (type === 'warning') {
         results.warnings.push({
           type: 'console_warning',
           message: text,
-          url: page.url()
+          url: page.url(),
         });
         console.log(`⚠️  Предупреждение: ${text}`);
       }
     });
 
     // Слушаем ошибки страницы
-    page.on('pageerror', error => {
+    page.on('pageerror', (error) => {
       results.errors.push({
         type: 'page_error',
         message: error.message,
         stack: error.stack,
-        url: page.url()
+        url: page.url(),
       });
       console.log(`💥 Ошибка страницы: ${error.message}`);
     });
 
     // Проверяем главную страницу
     console.log('🔍 Проверка главной страницы...');
-    await page.goto('file://' + path.resolve('./dist/index.html'), { 
+    await page.goto('file://' + path.resolve('./dist/index.html'), {
       waitUntil: 'networkidle2',
-      timeout: 30000 
+      timeout: 30000,
     });
 
     // Ждем загрузки всех скриптов
@@ -70,10 +70,11 @@ async function testJavaScriptFunctionality() {
       testEl.className = 'bg-red-500';
       document.body.appendChild(testEl);
       const computedStyle = window.getComputedStyle(testEl);
-      const hasRed = computedStyle.backgroundColor.includes('rgb(239, 68, 68)') || 
-                     computedStyle.backgroundColor.includes('rgb(220, 38, 38)') ||
-                     computedStyle.backgroundColor.includes('#ef4444') ||
-                     computedStyle.backgroundColor.includes('#dc2626');
+      const hasRed =
+        computedStyle.backgroundColor.includes('rgb(239, 68, 68)') ||
+        computedStyle.backgroundColor.includes('rgb(220, 38, 38)') ||
+        computedStyle.backgroundColor.includes('#ef4444') ||
+        computedStyle.backgroundColor.includes('#dc2626');
       document.body.removeChild(testEl);
       return hasRed;
     });
@@ -104,7 +105,7 @@ async function testJavaScriptFunctionality() {
     // Проверяем Astro islands (элементы с astro-island атрибутом)
     const astroIslands = await page.$$('[astro-island]');
     console.log(`Найдено Astro islands: ${astroIslands.length}`);
-    
+
     if (astroIslands.length > 0) {
       results.tests.push({ name: 'Astro Islands', status: 'found', count: astroIslands.length });
     }
@@ -117,7 +118,7 @@ async function testJavaScriptFunctionality() {
         hasFooter: !!document.querySelector('footer'),
         hasMainContent: !!document.querySelector('main') || !!document.querySelector('.main'),
         hasLinks: document.querySelectorAll('a').length > 0,
-        hasImages: document.querySelectorAll('img').length > 0
+        hasImages: document.querySelectorAll('img').length > 0,
       };
       return checks;
     });
@@ -135,9 +136,9 @@ async function testJavaScriptFunctionality() {
     // Проверяем CSS файлы
     const cssLinks = await page.$$('link[rel="stylesheet"]');
     console.log(`Найдено CSS файлов: ${cssLinks.length}`);
-    
+
     for (let i = 0; i < cssLinks.length; i++) {
-      const href = await cssLinks[i].evaluate(el => el.href);
+      const href = await cssLinks[i].evaluate((el) => el.href);
       console.log(`CSS файл ${i + 1}: ${href}`);
     }
 
@@ -145,16 +146,16 @@ async function testJavaScriptFunctionality() {
     const bemClasses = await page.evaluate(() => {
       const elements = document.querySelectorAll('*');
       const bemPatterns = [];
-      
-      elements.forEach(el => {
+
+      elements.forEach((el) => {
         const classes = Array.from(el.classList);
-        classes.forEach(cls => {
+        classes.forEach((cls) => {
           if (cls.includes('__') || cls.includes('--')) {
             bemPatterns.push(cls);
           }
         });
       });
-      
+
       return [...new Set(bemPatterns)]; // убираем дубликаты
     });
 
@@ -163,19 +164,18 @@ async function testJavaScriptFunctionality() {
       results.warnings.push({
         type: 'bem_classes_found',
         message: `Найдены BEM классы: ${bemClasses.join(', ')}`,
-        classes: bemClasses
+        classes: bemClasses,
       });
     } else {
       console.log('✅ BEM классы успешно удалены');
       results.tests.push({ name: 'BEM Classes Removal', status: 'success' });
     }
-
   } catch (error) {
     console.error('❌ Ошибка при тестировании:', error.message);
     results.errors.push({
       type: 'test_error',
       message: error.message,
-      stack: error.stack
+      stack: error.stack,
     });
   } finally {
     if (browser) {
@@ -186,7 +186,7 @@ async function testJavaScriptFunctionality() {
   // Выводим итоговый отчет
   console.log('\n📊 ИТОГОВЫЙ ОТЧЕТ:');
   console.log('==================');
-  
+
   if (results.errors.length === 0) {
     console.log('✅ Критических ошибок не найдено');
   } else {
@@ -206,7 +206,7 @@ async function testJavaScriptFunctionality() {
   }
 
   console.log(`\nВыполнено тестов: ${results.tests.length}`);
-  results.tests.forEach(test => {
+  results.tests.forEach((test) => {
     const icon = test.status === 'success' ? '✅' : test.status === 'failed' ? '❌' : '⚠️';
     console.log(`${icon} ${test.name}${test.count ? ` (${test.count})` : ''}`);
   });
@@ -219,21 +219,23 @@ async function testJavaScriptFunctionality() {
 }
 
 // Запускаем тестирование
-testJavaScriptFunctionality().then(results => {
-  const hasErrors = results.errors.length > 0;
-  const hasWarnings = results.warnings.length > 0;
-  
-  if (!hasErrors && !hasWarnings) {
-    console.log('\n🎉 Все тесты пройдены успешно! Миграция на Tailwind CSS завершена.');
-    process.exit(0);
-  } else if (!hasErrors) {
-    console.log('\n⚠️  Тесты завершены с предупреждениями. Проверьте детали выше.');
-    process.exit(0);
-  } else {
-    console.log('\n❌ Найдены критические ошибки. Необходимо исправление.');
+testJavaScriptFunctionality()
+  .then((results) => {
+    const hasErrors = results.errors.length > 0;
+    const hasWarnings = results.warnings.length > 0;
+
+    if (!hasErrors && !hasWarnings) {
+      console.log('\n🎉 Все тесты пройдены успешно! Миграция на Tailwind CSS завершена.');
+      process.exit(0);
+    } else if (!hasErrors) {
+      console.log('\n⚠️  Тесты завершены с предупреждениями. Проверьте детали выше.');
+      process.exit(0);
+    } else {
+      console.log('\n❌ Найдены критические ошибки. Необходимо исправление.');
+      process.exit(1);
+    }
+  })
+  .catch((error) => {
+    console.error('💥 Критическая ошибка при выполнении тестов:', error);
     process.exit(1);
-  }
-}).catch(error => {
-  console.error('💥 Критическая ошибка при выполнении тестов:', error);
-  process.exit(1);
-});
+  });

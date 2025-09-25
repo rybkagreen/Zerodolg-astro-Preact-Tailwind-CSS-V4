@@ -1,33 +1,23 @@
-import { useState, useCallback } from 'preact/hooks';
-import { useModal } from './modal-context';
+import { useState } from 'preact/hooks';
 
-interface DynamicModal {
+interface Modal {
   id: string;
   type: string;
-  data?: any;
 }
 
-export const useDynamicModals = () => {
-  const { openModal } = useModal();
-  const [modals, setModals] = useState<DynamicModal[]>([]);
+interface DynamicModalsContextType {
+  loadModal: (modalId: string) => Promise<void>;
+  modals: Modal[];
+}
 
-  const createModal = useCallback(
-    (id: string, type: string, data?: any) => {
-      setModals((prev) => {
-        // Check if modal already exists
-        if (prev.some((modal) => modal.id === id)) {
-          return prev;
-        }
-        return [...prev, { id, type, data }];
-      });
-      openModal(id);
-    },
-    [openModal]
-  );
+export const useDynamicModals = (): DynamicModalsContextType => {
+  const [modals, setModals] = useState<Modal[]>([]);
 
-  const removeModal = useCallback((id: string) => {
-    setModals((prev) => prev.filter((modal) => modal.id !== id));
-  }, []);
+  const loadModal = async (modalId: string) => {
+    // Implementation for loading dynamic modals
+    // Add modal to state
+    setModals(prev => [...prev, { id: modalId, type: 'dynamic' }]);
+  };
 
-  return { modals, createModal, removeModal };
+  return { loadModal, modals };
 };

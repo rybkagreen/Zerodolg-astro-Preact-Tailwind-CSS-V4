@@ -97,8 +97,8 @@ export class BitrixCallback {
     this.popup?.classList.add('bitrix-callback__popup--active');
 
     // Analytics
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'callback_widget_opened', {
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'callback_widget_opened', {
         event_category: 'engagement',
         event_label: 'bitrix_callback',
       });
@@ -231,8 +231,8 @@ export class BitrixCallback {
       this.showSuccess();
 
       // Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'callback_form_submitted', {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'callback_form_submitted', {
           event_category: 'lead',
           event_label: 'bitrix_callback',
         });
@@ -246,7 +246,18 @@ export class BitrixCallback {
       }, 3000);
     } catch (error) {
       console.error('Error submitting callback form:', error);
-      alert(`Произошла ошибка. Пожалуйста, позвоните нам: ${this.sitePhone}`);
+      // Show user-friendly error message instead of alert
+      console.error(`Произошла ошибка. Пожалуйста, позвоните нам: ${this.sitePhone}`);
+      
+      // Show error in UI instead of alert
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'bitrix-callback__error bitrix-callback__error--visible';
+      errorDiv.textContent = 'Произошла ошибка отправки. Попробуйте еще раз или позвоните нам.';
+      this.form.appendChild(errorDiv);
+      
+      setTimeout(() => {
+        errorDiv.remove();
+      }, 5000);
     } finally {
       if (submitBtn) submitBtn.disabled = false;
       if (submitText) submitText.style.display = 'block';

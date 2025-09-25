@@ -1,12 +1,39 @@
+import { type VNode } from 'preact';
 import { useState } from 'preact/hooks';
-import type { TeamMember } from '../../types/team';
 
-interface Props {
-  members: TeamMember[];
+// Define TypeScript interfaces
+interface TeamMember {
+  id: string;
+  name: string;
+  position: string;
+  bio: string;
+  experience: number;
+  verified: boolean;
+  photo?: string;
+  role?: string;
+  quote?: string;
+  description?: string;
+  stats?: {
+    experience: number;
+    cases: number;
+    success: number;
+  };
+  specializations?: string[];
+  achievements?: string[];
+  contacts?: {
+    phone: string;
+    email: string;
+  };
 }
 
-export default function TeamInteractive({ members }: Props) {
-  const [activeMemberId, setActiveMemberId] = useState<string>(members[0]?.id || '');
+interface Props {
+  initialMembers: TeamMember[];
+}
+
+export default function TeamInteractive({ initialMembers }: Props): VNode {
+  const [members] = useState<TeamMember[]>(initialMembers);
+
+  const [activeMemberId, setActiveMemberId] = useState<string | null>(initialMembers[0]?.id || null);
 
   const handleTabChange = (memberId: string): void => {
     setActiveMemberId(memberId);
@@ -30,28 +57,24 @@ export default function TeamInteractive({ members }: Props) {
     }
   };
 
-  const activeMember = members.find(member => member.id === activeMemberId);
+  const activeMember = members.find((member) => member.id === activeMemberId);
 
   return (
-    <section class="team-interactive" id="team">
-      <div class="container">
-        <div class="team-interactive__header">
-          <h2 class="team-interactive__title section-title">Наша команда экспертов</h2>
-          <p class="team-interactive__subtitle">
+    <section class="py-16 md:py-24" id="team">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Наша команда экспертов</h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
             Профессионалы с многолетним опытом в сфере банкротства физических лиц
           </p>
         </div>
 
-        <div class="team-interactive__wrapper">
+        <div class="flex flex-col md:flex-row gap-8">
           {/* Team Tabs */}
-          <div 
-            class="team-interactive__tabs" 
-            role="tablist" 
-            aria-label="Выбор члена команды"
-          >
+          <div class="md:w-1/3 space-y-4" role="tablist" aria-label="Выбор члена команды">
             {members.map((member, index) => (
               <button
-                class={`team-tab ${activeMemberId === member.id ? 'active' : ''}`}
+                class={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 text-left ${activeMemberId === member.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}
                 role="tab"
                 aria-selected={activeMemberId === member.id ? 'true' : 'false'}
                 aria-controls={`team-member-${member.id}`}
@@ -65,81 +88,89 @@ export default function TeamInteractive({ members }: Props) {
                   }
                 }}
               >
-                <div class="team-tab__photo">
-                  <img src={member.photo} alt={member.name} loading="lazy" />
+                <div class="w-16 h-16 flex-shrink-0 rounded-full overflow-hidden">
+                  <img class="w-full h-full object-cover" src={member.photo} alt={member.name} loading="lazy" />
                 </div>
-                <div class="team-tab__info">
-                  <div class="team-tab__name">{member.name}</div>
-                  <div class="team-tab__position">{member.position}</div>
+                <div>
+                  <div class="font-semibold text-gray-900">{member.name}</div>
+                  <div class="text-gray-600">{member.position}</div>
                 </div>
               </button>
             ))}
           </div>
 
           {/* Team Content */}
-          <div class="team-interactive__content">
+          <div class="md:w-2/3">
             {activeMember && (
               <div
-                class={`team-member active`}
+                class={'p-6 md:p-8 rounded-xl border border-gray-200 bg-white'}
                 id={`team-member-${activeMember.id}`}
                 role="tabpanel"
                 aria-hidden="false"
               >
-                <div class="team-member__header">
-                  <h3 class="team-member__name">{activeMember.name}</h3>
-                  <div class="team-member__role">{activeMember.role}</div>
+                <div class="mb-6">
+                  <h3 class="text-2xl font-bold text-gray-900 mb-2">{activeMember.name}</h3>
+                  <div class="text-lg text-blue-600 font-medium">{activeMember.role}</div>
                 </div>
 
-                <blockquote class="team-member__quote">{activeMember.quote}</blockquote>
+                <blockquote class="text-lg italic text-gray-700 border-l-4 border-blue-500 pl-4 mb-6">
+                  {activeMember.quote}
+                </blockquote>
 
-                <p class="team-member__description">{activeMember.description}</p>
+                <p class="text-gray-600 mb-8">{activeMember.description}</p>
 
-                <div class="team-member__details">
+                <div class="space-y-8">
                   {/* Stats */}
-                  <div class="team-member__stats">
-                    <div class="team-member__stat">
-                      <span class="team-member__stat-value">{activeMember.stats.experience}</span>
-                      <span class="team-member__stat-label">лет опыта</span>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                      <div class="text-2xl font-bold text-blue-600">{activeMember.stats.experience}</div>
+                      <div class="text-sm text-gray-600">лет опыта</div>
                     </div>
-                    <div class="team-member__stat">
-                      <span class="team-member__stat-value">{activeMember.stats.cases}</span>
-                      <span class="team-member__stat-label">успешных дел</span>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                      <div class="text-2xl font-bold text-blue-600">{activeMember.stats.cases}</div>
+                      <div class="text-sm text-gray-600">успешных дел</div>
                     </div>
-                    <div class="team-member__stat">
-                      <span class="team-member__stat-value">{activeMember.stats.success}</span>
-                      <span class="team-member__stat-label">успешность</span>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                      <div class="text-2xl font-bold text-blue-600">{activeMember.stats.success}</div>
+                      <div class="text-sm text-gray-600">успешность</div>
                     </div>
                   </div>
 
                   {/* Specializations */}
-                  <div class="team-member__section">
-                    <h4 class="team-member__subtitle">Специализация</h4>
-                    <div class="team-member__tags">
+                  <div class="space-y-4">
+                    <h4 class="text-xl font-semibold text-gray-900">Специализация</h4>
+                    <div class="flex flex-wrap gap-2">
                       {activeMember.specializations.map((spec: string) => (
-                        <span class="team-member__tag">{spec}</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                          {spec}
+                        </span>
                       ))}
                     </div>
                   </div>
 
                   {/* Achievements */}
-                  <div class="team-member__section">
-                    <h4 class="team-member__subtitle">Достижения</h4>
-                    <ul class="team-member__list">
+                  <div class="space-y-4">
+                    <h4 class="text-xl font-semibold text-gray-900">Достижения</h4>
+                    <ul class="space-y-2">
                       {activeMember.achievements.map((achievement: string) => (
-                        <li>{achievement}</li>
+                        <li class="flex items-start gap-2">
+                          <span class="text-green-500 mt-1">✓</span>
+                          <span>{achievement}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
                 {/* Contact */}
-                <div class="team-member__contact">
+                <div class="flex gap-4 mt-8 pt-6 border-t border-gray-200">
                   <a
                     href={`tel:${activeMember.contacts.phone.replace(/[^\d+]/g, '')}`}
-                    class="team-member__link"
+                    class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -153,9 +184,10 @@ export default function TeamInteractive({ members }: Props) {
                     </svg>
                     Позвонить
                   </a>
-                  <a href={`mailto:${activeMember.contacts.email}`} class="team-member__link">
+                  <a href={`mailto:${activeMember.contacts.email}`} class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

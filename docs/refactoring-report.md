@@ -7,6 +7,7 @@ This report outlines a comprehensive refactoring plan for the Astro and Preact c
 ## Current State Analysis
 
 ### Project Overview
+
 - **Framework**: Astro v5.13.7 with Preact v10.27.1
 - **Primary Language**: TypeScript (Russian content/UI, English code/comments)
 - **Architecture**: Islands architecture with static rendering and targeted hydration
@@ -35,6 +36,7 @@ This report outlines a comprehensive refactoring plan for the Astro and Preact c
 ### 1. Component Architecture Redesign
 
 #### New Directory Structure
+
 ```
 src/
 ├── components/
@@ -52,6 +54,7 @@ src/
 ```
 
 #### Key Changes
+
 - **Clear Separation**: Static Astro components vs. interactive Preact components
 - **Standardized Hydration**: Consistent use of appropriate hydration strategies
 - **Functional Components**: Replace class-based Preact components with hooks-based functional components
@@ -61,11 +64,13 @@ src/
 #### A. Refactored TeamInteractive Component
 
 **Before**: Class-based component with manual DOM manipulation
+
 - Complex state management
 - Direct DOM manipulation
 - Inefficient event handling
 
 **After**: Functional component with React/Preact hooks
+
 - Use of useState, useEffect hooks for state management
 - Declarative rendering instead of manual DOM manipulation
 - Proper keyboard navigation and accessibility
@@ -91,7 +96,7 @@ export default function TeamInteractive({ members }: Props) {
 
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile);
-    
+
     return () => {
       window.removeEventListener('resize', checkIsMobile);
     };
@@ -101,7 +106,7 @@ export default function TeamInteractive({ members }: Props) {
     setActiveMemberId(memberId);
   };
 
-  const activeMember = members.find(member => member.id === activeMemberId);
+  const activeMember = members.find((member) => member.id === activeMemberId);
 
   return (
     <section class="team-interactive" id="team">
@@ -114,10 +119,12 @@ export default function TeamInteractive({ members }: Props) {
 #### B. Improved Form Component Architecture
 
 **Before**: Complex Astro/Preact separation with manual DOM manipulation
+
 - Inconsistent validation approach
 - Mixed hydration strategies
 
 **After**: Clean separation with standardized form handling
+
 - Centralized validation logic
 - Consistent TypeScript interfaces
 - Proper error and success state management
@@ -125,6 +132,7 @@ export default function TeamInteractive({ members }: Props) {
 ### 3. Modern Hydration Strategies
 
 #### Strategic Hydration Implementation
+
 - `client:load`: For critical interactive components that must load immediately
 - `client:idle`: For non-critical components that can load after page idle time
 - `client:visible`: For components that should hydrate only when visible in viewport
@@ -135,6 +143,7 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 ### 4. Enhanced Type Safety
 
 #### Standardized TypeScript Interfaces
+
 - TeamMember interface for consistent team data handling
 - FormConfig interface for standardized form configurations
 - Centralized type definitions for better maintainability
@@ -143,35 +152,38 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 
 ### Performance Improvements
 
-| Metric | Current State | Expected After Refactoring | Improvement |
-|--------|---------------|-----------------------------|-------------|
-| Bundle Size | ~300KB | ~210KB (estimated) | 30% reduction |
-| Rendering Performance | Moderate | Improved | 20-25% faster |
-| Hydration Efficiency | Inconsistent | Optimized | 35% improvement |
-| Page Load Time | Varies | More consistent | 15-20% faster |
+| Metric                | Current State | Expected After Refactoring | Improvement     |
+| --------------------- | ------------- | -------------------------- | --------------- |
+| Bundle Size           | ~300KB        | ~210KB (estimated)         | 30% reduction   |
+| Rendering Performance | Moderate      | Improved                   | 20-25% faster   |
+| Hydration Efficiency  | Inconsistent  | Optimized                  | 35% improvement |
+| Page Load Time        | Varies        | More consistent            | 15-20% faster   |
 
 ### Maintainability Gains
 
-| Aspect | Current | After Refactoring | Improvement |
-|--------|---------|------------------|-------------|
-| Code Comprehension | Difficult due to inconsistencies | Clear patterns | 40-50% better |
-| Debugging Time | High due to complex architecture | Reduced with clear separation | 30-35% faster |
-| Onboarding Time | 2-3 weeks | 1-1.5 weeks | 33% faster |
-| Component Reusability | Limited by inconsistencies | High with standardization | 50-60% increase |
+| Aspect                | Current                          | After Refactoring             | Improvement     |
+| --------------------- | -------------------------------- | ----------------------------- | --------------- |
+| Code Comprehension    | Difficult due to inconsistencies | Clear patterns                | 40-50% better   |
+| Debugging Time        | High due to complex architecture | Reduced with clear separation | 30-35% faster   |
+| Onboarding Time       | 2-3 weeks                        | 1-1.5 weeks                   | 33% faster      |
+| Component Reusability | Limited by inconsistencies       | High with standardization     | 50-60% increase |
 
 ### Business Value
 
 #### Development Efficiency
+
 - **Feature Implementation**: 25-30% faster due to standardized, reusable components
 - **Bug Resolution**: 35-45% faster with consistent architecture patterns
 - **Scalability**: Modular, well-organized components enable easier expansion
 
 #### Cost Benefits
+
 - **Maintenance**: 20-25% reduction in ongoing maintenance time
 - **Deployment**: Potentially smaller bundle sizes reducing bandwidth costs
 - **Developer Productivity**: Standardized patterns improve overall efficiency
 
 #### ROI Analysis
+
 - **Initial Investment**: 3-4 weeks for refactoring + 1-2 weeks for training
 - **Break-even Point**: 4-6 months after implementation
 - **Full ROI**: Achieved within 8-12 months with continued benefits
@@ -179,24 +191,28 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 ## Implementation Timeline
 
 ### Phase 1: Planning and Setup (Week 1)
+
 - Finalize component architecture
 - Create TypeScript interfaces
 - Set up new directory structure
 - Prepare development team
 
 ### Phase 2: Core Component Refactoring (Weeks 2-3)
+
 - Refactor TeamInteractive component
 - Standardize form components
 - Update TypeScript types
 - Implement proper hydration strategies
 
 ### Phase 3: Testing and Validation (Week 4)
+
 - Comprehensive testing of refactored components
 - Performance benchmarking
 - Cross-browser compatibility verification
 - User experience validation
 
 ### Phase 4: Deployment and Documentation (Week 5)
+
 - Deploy refactored components
 - Update documentation
 - Team training on new patterns
@@ -205,11 +221,13 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 ## Risk Mitigation
 
 ### Technical Risks
+
 - **Compatibility**: Thorough testing to ensure all existing functionality remains intact
 - **Performance**: Continuous monitoring during and after refactoring
 - **Breaking Changes**: Careful migration plan with fallback mechanisms
 
 ### Process Risks
+
 - **Learning Curve**: Comprehensive documentation and training
 - **Timeline**: Phased approach to minimize disruption
 - **Team Adoption**: Clear communication of benefits and support during transition

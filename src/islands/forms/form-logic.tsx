@@ -15,9 +15,9 @@ interface FormProps {
   onError?: (error: string) => void;
 }
 
-export default function Form({ formId, formType, onSuccess, onError }: FormProps) {
+export default function Form({ formId, formType, onSuccess, onError }: FormProps): null {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const maskInstances = useRef<Map<string, any>>(new Map());
+  const maskInstances = useRef<Map<string, unknown>>(new Map());
 
   useEffect(() => {
     const form = document.getElementById(formId) as HTMLFormElement;
@@ -102,17 +102,22 @@ export default function Form({ formId, formType, onSuccess, onError }: FormProps
 
         // Track event in analytics
         if (typeof window !== 'undefined') {
+          const win = window as typeof window & {
+            gtag?: (command: string, ...args: unknown[]) => void;
+            ym?: (id: number, command: string, ...args: unknown[]) => void;
+          };
+          
           // Google Analytics
-          if ((window as any).gtag) {
-            (window as any).gtag('event', 'form_submit', {
+          if (win.gtag) {
+            win.gtag('event', 'form_submit', {
               form_type: formType,
               form_id: formId,
             });
           }
 
           // Yandex Metrika
-          if ((window as any).ym) {
-            (window as any).ym(94567890, 'reachGoal', 'form_submit', {
+          if (win.ym) {
+            win.ym(94567890, 'reachGoal', 'form_submit', {
               form_type: formType,
               form_id: formId,
             });

@@ -22,8 +22,8 @@ export function validateEnvironment(): boolean {
     if (process.env.BITRIX24_WEBHOOK_URL) {
       new URL(process.env.BITRIX24_WEBHOOK_URL);
     }
-  } catch (error) {
-    console.warn('Invalid URL in environment variables');
+  } catch (error: unknown) {
+    console.warn('Invalid URL in environment variables', error);
     return false;
   }
 
@@ -38,7 +38,7 @@ export function validateEnvironment(): boolean {
 
   // Validate phone format
   if (process.env.PUBLIC_SITE_PHONE) {
-    const phoneRegex = /^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
+    const phoneRegex = /^(\+7|8)[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}$/;
     if (!phoneRegex.test(process.env.PUBLIC_SITE_PHONE)) {
       console.warn('Invalid phone format in PUBLIC_SITE_PHONE');
       return false;

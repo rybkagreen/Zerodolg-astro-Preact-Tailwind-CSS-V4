@@ -1,8 +1,6 @@
 ---
 import '../styles/globals.css'; // Импорт Tailwind CSS
-import { initAnalytics } from '../lib/analytics';
 import { SEO } from '@shared/ui/SEO';
-import { measurePageLoad } from '@shared/utils/performance';
 
 export interface Props {
   title: string;
@@ -17,7 +15,7 @@ export interface Props {
 const {
   title = 'ZeroDolg - Банкротство физических лиц в Москве',
   description = '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.',
-  keywords = 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов',
+  // keywords = 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов', // TODO: Implement keywords
   image = '/images/og-image.jpg',
   canonical = 'https://zerodolg.ru/',
   type = 'website',
@@ -49,13 +47,19 @@ const {
         padding: 0;
         box-sizing: border-box;
       }
-      
+
       html {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
         line-height: 1.5;
         -webkit-text-size-adjust: 100%;
       }
-      
+
       body {
         font-size: 1rem;
         color: #1e293b;
@@ -105,7 +109,7 @@ const {
     <script is:inline type="module">
       import { initAnalytics } from '../lib/analytics';
       import { measurePageLoad } from '@shared/utils/performance';
-      
+
       document.addEventListener('DOMContentLoaded', () => {
         if (typeof initAnalytics === 'function') {
           initAnalytics();

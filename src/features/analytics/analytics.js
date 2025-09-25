@@ -44,8 +44,9 @@ function initYandexMetrika() {
   })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
   // Initialize with configuration
-  ym(CONFIG.YANDEX_METRIKA_ID, 'init', {
-    defer: true,
+  if (typeof window.ym !== 'undefined') {
+    window.ym(CONFIG.YANDEX_METRIKA_ID, 'init', {
+      defer: true,
     clickmap: true,
     trackLinks: true,
     accurateTrackBounce: true,
@@ -64,7 +65,8 @@ function initYandexMetrika() {
       viewport_size: `${window.innerWidth}x${window.innerHeight}`,
       page_title: document.title,
     },
-  });
+    });
+  }
 
   debugLog('Yandex Metrika initialized');
 }
@@ -85,7 +87,7 @@ function initGoogleAnalytics() {
   // Initialize
   window.dataLayer = window.dataLayer || [];
   function gtag() {
-    dataLayer.push(arguments);
+    window.dataLayer.push(arguments);
   }
   window.gtag = gtag;
   gtag('js', new Date());
@@ -117,15 +119,15 @@ function trackScrollDepth() {
           trackedDepths.push(depth);
 
           // Yandex.Metrika
-          if (typeof ym !== 'undefined') {
-            ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'scroll_depth', {
+          if (typeof window.ym !== 'undefined') {
+            window.ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'scroll_depth', {
               depth: depth,
             });
           }
 
           // Google Analytics
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'scroll', {
+          if (typeof window.gtag !== 'undefined') {
+            window.gtag('event', 'scroll', {
               event_category: 'engagement',
               event_label: `${depth}%`,
               value: depth,
@@ -149,15 +151,15 @@ function trackPhoneClicks() {
         const phoneNumber = link.href.replace('tel:', '');
 
         // Yandex.Metrika
-        if (typeof ym !== 'undefined') {
-          ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'phone_click', {
+        if (typeof window.ym !== 'undefined') {
+          window.ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'phone_click', {
             phone: phoneNumber,
           });
         }
 
         // Google Analytics
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'phone_click', {
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'phone_click', {
             event_category: 'contact',
             event_label: phoneNumber,
           });
@@ -179,16 +181,16 @@ function trackFormSubmissions() {
       const formClass = form.className || 'unknown';
 
       // Yandex.Metrika
-      if (typeof ym !== 'undefined') {
-        ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'form_submit_direct', {
+      if (typeof window.ym !== 'undefined') {
+        window.ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'form_submit_direct', {
           form_id: formId,
           form_class: formClass,
         });
       }
 
       // Google Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'form_submit_direct', {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'form_submit_direct', {
           event_category: 'engagement',
           event_label: formId,
         });
@@ -212,16 +214,16 @@ function trackCTAClicks() {
         const buttonLocation = button.closest('section')?.className || 'unknown';
 
         // Yandex.Metrika
-        if (typeof ym !== 'undefined') {
-          ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'cta_click', {
+        if (typeof window.ym !== 'undefined') {
+          window.ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', 'cta_click', {
             button_text: buttonText,
             location: buttonLocation,
           });
         }
 
         // Google Analytics
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'cta_click', {
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'cta_click', {
             event_category: 'engagement',
             event_label: buttonText,
             event_location: buttonLocation,
@@ -254,13 +256,13 @@ function initAnalytics() {
       parameters = parameters || {};
 
       // Yandex.Metrika
-      if (typeof ym !== 'undefined' && CONFIG.YANDEX_METRIKA_ID) {
-        ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', eventName, parameters);
+      if (typeof window.ym !== 'undefined' && CONFIG.YANDEX_METRIKA_ID) {
+        window.ym(CONFIG.YANDEX_METRIKA_ID, 'reachGoal', eventName, parameters);
       }
 
       // Google Analytics
-      if (typeof gtag !== 'undefined' && CONFIG.GOOGLE_ANALYTICS_ID) {
-        gtag(
+      if (typeof window.gtag !== 'undefined' && CONFIG.GOOGLE_ANALYTICS_ID) {
+        window.gtag(
           'event',
           eventName,
           Object.assign(

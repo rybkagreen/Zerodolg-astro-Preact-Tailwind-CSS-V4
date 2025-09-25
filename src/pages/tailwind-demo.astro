@@ -1,0 +1,170 @@
+---
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+import FeatureCard from '../components/ui/FeatureCard.astro';
+import AccessibleAccordion from '../components/ui/AccessibleAccordion.astro';
+
+// Sample data for components
+const testimonials = [
+  {
+    id: '1',
+    name: 'Анна К.',
+    role: 'Клиент',
+    quote: 'Благодаря этой компании я смогла избавиться от долгов и начать новую жизнь. Профессиональный подход и поддержка на каждом этапе!',
+    rating: 5,
+    date: 'Май 2024',
+    avatar: '/images/avatar-1.jpg'
+  },
+  {
+    id: '2',
+    name: 'Дмитрий П.',
+    role: 'Предприниматель',
+    company: 'ООО "ТехноСтрой"',
+    quote: 'Обратился с серьезной долговой нагрузкой. Специалисты нашли выход из сложной ситуации и помогли списать большую часть долгов.',
+    rating: 5,
+    date: 'Июнь 2024',
+    avatar: '/images/avatar-2.jpg'
+  },
+  {
+    id: '3',
+    name: 'Елена С.',
+    role: 'Фрилансер',
+    quote: 'Оказались в сложной финансовой ситуации из-за пандемии. Компания помогла пройти процедуру банкротства быстро и без лишних хлопот.',
+    rating: 5,
+    date: 'Июль 2024',
+    avatar: '/images/avatar-3.jpg'
+  }
+];
+
+const faqItems = [
+  {
+    id: 'faq1',
+    title: 'Как проходит процедура банкротства физических лиц?',
+    content: 'Процедура банкротства физических лиц включает подачу заявления в суд, анализ финансового состояния, собрание кредиторов и реализацию имущества. Мы сопровождаем на каждом этапе.'
+  },
+  {
+    id: 'faq2',
+    title: 'Сколько времени занимает процедура банкротства?',
+    content: 'Процедура банкротства занимает от 6 до 12 месяцев в зависимости от сложности дела и активов. Мы стараемся завершить процесс в максимально короткие сроки.'
+  },
+  {
+    id: 'faq3',
+    title: 'Могу ли я сохранить единственное жилье при банкротстве?',
+    content: 'Да, единственное пригодное для проживания жилье с определенными характеристиками не подлежит реализации в рамках процедуры банкротства.'
+  }
+];
+
+const features = [
+  {
+    id: 'feature1',
+    title: 'Бесплатная консультация',
+    description: 'Первоначальная консультация абсолютно бесплатна. Мы оценим вашу ситуацию и предложим оптимальное решение.',
+    icon: '/icons/chat-icon.svg'
+  },
+  {
+    id: 'feature2',
+    title: '100% гарантия возврата',
+    description: 'При отказе суда в признании банкротом по вине юриста, мы вернем 100% оплаченных средств.',
+    icon: '/icons/shield-icon.svg'
+  },
+  {
+    id: 'feature3',
+    title: 'Опыт более 12 лет',
+    description: 'Наша команда имеет более 12 лет опыта в области банкротства и успешно решила более 800 случаев.',
+    icon: '/icons/experience-icon.svg'
+  }
+];
+---
+
+<!-- Example page demonstrating Tailwind CSS v4 best practices -->
+<div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+  <!-- Hero Section -->
+  <section class="py-16 md:py-24 bg-gradient-to-r from-primary to-primary-dark text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">
+        Избавьтесь от долгов с нами
+      </h1>
+      <p class="text-xl max-w-2xl mx-auto mb-10 text-primary-light">
+        Профессиональная помощь в процедуре банкротства физических лиц и ИП
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a 
+          href="/consultation" 
+          class="px-8 py-4 bg-white text-primary font-bold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300 inline-block"
+        >
+          Бесплатная консультация
+        </a>
+        <a 
+          href="/how-it-works" 
+          class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-colors duration-300 inline-block"
+        >
+          Как это работает
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Наши преимущества
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Мы предлагаем комплексное сопровождение в процедуре банкротства
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <FeatureCard
+            key={feature.id}
+            title={feature.title}
+            description={feature.description}
+            icon={feature.icon}
+            color="primary"
+            size="md"
+            rounded="lg"
+            hoverEffect={true}
+            gradient={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <TestimonialsSection 
+    testimonials={testimonials}
+    title="Отзывы наших клиентов"
+    subtitle="Более 847 довольных клиентов уже избавились от долгов с нашей помощью"
+  />
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <AccessibleAccordion 
+        items={faqItems}
+        title="Часто задаваемые вопросы"
+      />
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-gradient-to-r from-accent to-accent-light">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Готовы решить свои финансовые проблемы?
+      </h2>
+      <p class="text-xl mb-10 max-w-2xl mx-auto">
+        Получите бесплатную консультацию прямо сейчас и узнайте, как мы можем помочь именно в вашей ситуации
+      </p>
+      <a 
+        href="/consultation" 
+        class="inline-block px-8 py-4 bg-white text-accent font-bold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300"
+      >
+        Получить консультацию
+      </a>
+    </div>
+  </section>
+</div>

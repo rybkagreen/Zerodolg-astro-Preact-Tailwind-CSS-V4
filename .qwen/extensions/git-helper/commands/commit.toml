@@ -1,8 +1,7 @@
 name = "Создать коммит в Git"
 description = "Создание коммита с сообщением"
 
-[prompt]
-text = "Создать коммит в Git"
+prompt = "Создать коммит в Git"
 
 [command]
 type = "shell"

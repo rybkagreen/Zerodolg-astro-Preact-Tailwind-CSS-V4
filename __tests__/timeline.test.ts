@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+// @ts-ignore
 import { JSDOM } from 'jsdom';
 
 // Mock DOM
@@ -20,6 +21,8 @@ global.localStorage = {
   setItem: vi.fn(),
   removeItem: vi.fn(),
   clear: vi.fn(),
+  length: 0,
+  key: vi.fn(),
 };
 
 describe('Timeline Component', () => {

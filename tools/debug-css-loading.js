@@ -206,9 +206,9 @@ async function debugCSSLoading() {
       // Check CSS media queries
       analysis.mediaQueries = [];
       try {
-        for (let sheet of document.styleSheets) {
+        for (const sheet of document.styleSheets) {
           if (sheet.cssRules) {
-            for (let rule of sheet.cssRules) {
+            for (const rule of sheet.cssRules) {
               if (rule.type === CSSRule.MEDIA_RULE) {
                 analysis.mediaQueries.push({
                   media: rule.media.mediaText,

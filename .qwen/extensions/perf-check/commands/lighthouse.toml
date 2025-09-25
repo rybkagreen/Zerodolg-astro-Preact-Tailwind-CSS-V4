@@ -1,8 +1,7 @@
 name = "Аудит производительности Lighthouse"
 description = "Запуск аудита производительности с помощью Lighthouse"
 
-[prompt]
-text = "Аудит производительности Lighthouse"
+prompt = "Аудит производительности Lighthouse"
 
 [command]
 type = "shell"

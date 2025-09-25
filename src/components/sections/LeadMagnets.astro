@@ -64,29 +64,52 @@ const ctaData = {
 ---
 
 <!-- Lead Magnets Section -->
-<section class="py-16 lg:py-24 relative bg-gradient-to-b from-gray-50 to-white" aria-labelledby="lead-magnets-title">
+<section
+  class="py-16 lg:py-24 relative bg-gradient-to-b from-gray-50 to-white"
+  aria-labelledby="lead-magnets-title"
+>
   <!-- Decorative Elements -->
-  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none" aria-hidden="true">
-    <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-accent opacity-10 animate-pulse"></div>
-    <div class="absolute top-3/4 right-1/4 w-48 h-48 rounded-full bg-primary opacity-10 animate-pulse delay-300"></div>
-    <div class="absolute bottom-1/4 left-1/2 w-40 h-40 rounded-full bg-success opacity-10 animate-pulse delay-700"></div>
+  <div
+    class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-accent opacity-10 animate-pulse"
+    >
+    </div>
+    <div
+      class="absolute top-3/4 right-1/4 w-48 h-48 rounded-full bg-primary opacity-10 animate-pulse delay-300"
+    >
+    </div>
+    <div
+      class="absolute bottom-1/4 left-1/2 w-40 h-40 rounded-full bg-success opacity-10 animate-pulse delay-700"
+    >
+    </div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <header class="text-center mb-12">
-      <h2 id="lead-magnets-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Полезные материалы</h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">Получите бесплатные ресурсы для начала процедуры банкротства</p>
+      <h2 id="lead-magnets-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Полезные материалы
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Получите бесплатные ресурсы для начала процедуры банкротства
+      </p>
     </header>
 
     <!-- Lead Magnets Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
       {
         leadMagnets.map((magnet) => (
-          <div class={`bg-white rounded-xl shadow-lg p-6 border relative overflow-hidden ${magnet.type === 'consultation' ? 'border-blue-500' : magnet.type === 'calculator' ? 'border-green-500' : 'border-purple-500'}`}>
+          <div
+            class={`bg-white rounded-xl shadow-lg p-6 border relative overflow-hidden ${magnet.type === 'consultation' ? 'border-blue-500' : magnet.type === 'calculator' ? 'border-green-500' : 'border-purple-500'}`}
+          >
             {/* Badge */}
             {magnet.badge && (
-              <div class={`absolute top-4 ${magnet.badgeType === 'primary' ? 'right-4 bg-blue-500 text-white' : 'right-4 bg-gray-200 text-gray-800'} px-3 py-1 rounded-full text-xs font-semibold`}>
+              <div
+                class={`absolute top-4 ${magnet.badgeType === 'primary' ? 'right-4 bg-blue-500 text-white' : 'right-4 bg-gray-200 text-gray-800'} px-3 py-1 rounded-full text-xs font-semibold`}
+              >
                 {magnet.badge}
               </div>
             )}
@@ -94,7 +117,11 @@ const ctaData = {
             {/* Content */}
             <div class="mt-8">
               {/* Icon */}
-              <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 mb-6" set:html={magnet.icon} aria-hidden="true" />
+              <div
+                class="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 mb-6"
+                set:html={magnet.icon}
+                aria-hidden="true"
+              />
 
               {/* Title */}
               <h3 class="text-xl font-bold text-gray-900 mb-3">{magnet.title}</h3>
@@ -128,7 +155,12 @@ const ctaData = {
               >
                 <span>{magnet.buttonText}</span>
                 <span class="ml-2 loader hidden">
-                  <svg class="animate-spin h-5 w-5 text-white" viewBox="0 0 50 50" aria-label="Загрузка" role="status">
+                  <svg
+                    class="animate-spin h-5 w-5 text-white"
+                    viewBox="0 0 50 50"
+                    aria-label="Загрузка"
+                    role="status"
+                  >
                     <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" />
                   </svg>
                 </span>
@@ -147,7 +179,10 @@ const ctaData = {
       <div>
         <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">{ctaData.title}</h3>
         <p class="text-lg text-blue-100 mb-6">{ctaData.subtitle}</p>
-        <button class="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 transition-colors duration-200" data-modal={ctaData.modalType}>
+        <button
+          class="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 transition-colors duration-200"
+          data-modal={ctaData.modalType}
+        >
           <span>{ctaData.buttonText}</span>
           <span class="ml-2" set:html={ctaData.buttonIcon} aria-hidden="true" />
         </button>

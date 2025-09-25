@@ -18,7 +18,7 @@ export default function ScrollAnimations({
   duration = 800,
   once = false,
   mirror = false,
-}: ScrollAnimationsProps) {
+}: ScrollAnimationsProps): null {
   // anchorPlacement parameter available but unused in current implementation
   useEffect(() => {
     // Get all elements with data-aos attribute

@@ -12,7 +12,11 @@ const teamStats = calculateTeamStats(activeTeamMembers);
 <section class="team-interactive py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white" id="team">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="team-interactive__header text-center mb-12 md:mb-16">
-      <h2 class="team-interactive__title section-title text-3xl md:text-4xl font-bold text-gray-900 mb-4">Наша команда экспертов</h2>
+      <h2
+        class="team-interactive__title section-title text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+      >
+        Наша команда экспертов
+      </h2>
       <p class="team-interactive__subtitle text-xl text-gray-600 max-w-3xl mx-auto">
         Профессионалы с многолетним опытом в сфере банкротства физических лиц
       </p>
@@ -25,20 +29,36 @@ const teamStats = calculateTeamStats(activeTeamMembers);
 
     <!-- Overall Team Stats -->
     <div class="team-interactive__stats grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-      <div class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block">{teamStats.totalExperience}</span>
+      <div
+        class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center"
+      >
+        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block"
+          >{teamStats.totalExperience}</span
+        >
         <span class="team-interactive__stat-label text-gray-600">лет суммарного опыта</span>
       </div>
-      <div class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block">{teamStats.totalCases}</span>
+      <div
+        class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center"
+      >
+        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block"
+          >{teamStats.totalCases}</span
+        >
         <span class="team-interactive__stat-label text-gray-600">проведенных дел</span>
       </div>
-      <div class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block">{teamStats.totalSaved}</span>
+      <div
+        class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center"
+      >
+        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block"
+          >{teamStats.totalSaved}</span
+        >
         <span class="team-interactive__stat-label text-gray-600">списано долгов</span>
       </div>
-      <div class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
-        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block">{teamStats.successRate}</span>
+      <div
+        class="team-interactive__stat bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center"
+      >
+        <span class="team-interactive__stat-number text-3xl font-bold text-primary mb-2 block"
+          >{teamStats.successRate}</span
+        >
         <span class="team-interactive__stat-label text-gray-600">успешных дел</span>
       </div>
     </div>

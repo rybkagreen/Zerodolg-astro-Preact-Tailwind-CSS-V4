@@ -1,10 +1,4 @@
 // Shared analytics utilities
-declare global {
-  interface Window {
-    gtag?: (command: string, ...args: any[]) => void;
-    ym?: (id: number, command: string, ...args: any[]) => void;
-  }
-}
 
 export function trackEvent(action: string, category: string, label?: string, value?: number): void {
   // Google Analytics

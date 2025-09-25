@@ -16,20 +16,5 @@
       "name": "perf-check",
       "path": "./extensions/perf-check"
     }
-  ],
-  "mcpServers": {
-    "Astro docs": {
-      "httpUrl": "https://mcp.docs.astro.build/mcp"
-    },
-    "astro-mcp": {
-      "command": "npx",
-      "args": ["astro", "mcp"],
-      "env": {}
-    },
-    "puppeteer-browser": {
-      "command": "node",
-      "args": ["tools/mcp-puppeteer-server.js"],
-      "env": {}
-    }
-  }
+  ]
 }

@@ -1,4 +1,5 @@
 import { useEffect } from 'preact/hooks';
+import { type VNode } from 'preact';
 
 // Utility function for debouncing
 type DebouncedFunction<T extends (...args: Parameters<T>) => ReturnType<T>> = (
@@ -20,7 +21,7 @@ function debounce<T extends (...args: Parameters<T>) => ReturnType<T>>(
   };
 }
 
-const Timeline = (): null => {
+const Timeline = (): VNode | null => {
   useEffect(() => {
     // State management
     const state = {
@@ -71,10 +72,19 @@ const Timeline = (): null => {
     let touchEndX = 0;
 
     // Track event in analytics
-    const trackEvent = (eventName: string, parameters: Record<string, string | number | boolean> = {}): void => {
+    const trackEvent = (
+      eventName: string,
+      parameters: Record<string, string | number | boolean> = {}
+    ): void => {
       // Google Analytics 4
       if (window.gtag) {
-        (window.gtag as (command: string, eventName: string, parameters: Record<string, unknown>) => void)('event', eventName, {
+        (
+          window.gtag as (
+            command: string,
+            eventName: string,
+            parameters: Record<string, unknown>
+          ) => void
+        )('event', eventName, {
           event_category: 'timeline_interaction',
           event_label: 'bankruptcy_process',
           ...parameters,
@@ -83,7 +93,14 @@ const Timeline = (): null => {
 
       // Yandex Metrika
       if (window.ym) {
-        (window.ym as (id: number, method: string, eventName: string, parameters?: Record<string, unknown>) => void)(window.yaCounterId || 98741026, 'reachGoal', eventName, parameters);
+        (
+          window.ym as (
+            id: number,
+            method: string,
+            eventName: string,
+            parameters?: Record<string, unknown>
+          ) => void
+        )(window.yaCounterId || 98741026, 'reachGoal', eventName, parameters);
       }
     };
 

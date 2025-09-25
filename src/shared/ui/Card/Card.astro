@@ -3,12 +3,12 @@ interface Props {
   /** Card title */
   title?: string;
   /** Card content */
-  children: any;
+  children: import('astro').JSX.ElementContent;
   /** Additional CSS classes */
   class?: string;
 }
 
-const { title, children, class: className = '' } = Astro.props;
+const { title, class: className = '' } = Astro.props;
 
 const baseClasses = 'bg-white rounded-lg shadow-md overflow-hidden';
 const classes = [baseClasses, className].join(' ');

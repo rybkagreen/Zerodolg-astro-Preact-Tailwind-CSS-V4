@@ -28,7 +28,7 @@ files.forEach((file) => {
       .filter((tag) => tag.length > 0);
 
     // Create frontmatter
-    let frontmatterLines = [
+    const frontmatterLines = [
       '---',
       `title: "${title}"`,
       `description: "${description}"`,

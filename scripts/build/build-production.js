@@ -122,7 +122,10 @@ async function optimizeAssets() {
   log.header('🖼️ Asset Optimization');
 
   // Check if we have any image optimization scripts
-  const optimizationScripts = ['../maintenance/optimize-images.js', '../maintenance/optimize-images.cjs'];
+  const optimizationScripts = [
+    '../maintenance/optimize-images.js',
+    '../maintenance/optimize-images.cjs',
+  ];
 
   for (const script of optimizationScripts) {
     if (fileExists(path.resolve(script))) {

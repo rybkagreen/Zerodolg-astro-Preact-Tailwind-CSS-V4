@@ -1,4 +1,8 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
+# Запускаем lint-staged для проверки изменённых файлов
 npx lint-staged
+
+# Запускаем проверку типов
+npm run type-check

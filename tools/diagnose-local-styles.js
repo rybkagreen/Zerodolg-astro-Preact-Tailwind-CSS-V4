@@ -62,7 +62,7 @@ async function diagnoseLocalSite() {
 
       // Count CSS rules
       try {
-        for (let sheet of document.styleSheets) {
+        for (const sheet of document.styleSheets) {
           if (sheet.cssRules) {
             data.cssRules += sheet.cssRules.length;
           }

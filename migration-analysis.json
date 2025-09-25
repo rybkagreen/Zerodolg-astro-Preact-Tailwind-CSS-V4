@@ -1,8 +1,6 @@
 {
   "errors": [],
-  "warnings": [
-    "Найдены BEM классы: 433 штук"
-  ],
+  "warnings": ["Найдены BEM классы: 433 штук"],
   "tests": [
     {
       "name": "dist directory",

@@ -125,8 +125,8 @@
         stickerElement.classList.contains('online-sticker--visible')
       ) {
         // Track sticker display
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'online_sticker_shown', {
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'online_sticker_shown', {
             event_category: 'engagement',
             event_label: 'sticker_display',
           });

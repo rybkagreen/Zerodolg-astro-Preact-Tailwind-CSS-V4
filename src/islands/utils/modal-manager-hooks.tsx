@@ -1,8 +1,13 @@
+import { type VNode } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { useModal } from '@features/modals/model/modal-context';
 import { useDynamicModals } from '@features/modals/model/use-dynamic-modals';
 
-export default function ModalManager() {
+interface ModalManagerHooksProps {
+  // This component doesn't accept any props
+}
+
+export default function ModalManagerHooks({}: ModalManagerHooksProps): null {
   const { openModal, closeModal } = useModal();
   const { createModal } = useDynamicModals();
 

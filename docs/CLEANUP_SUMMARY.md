@@ -5,6 +5,7 @@ This document outlines the changes made to organize the project structure and wh
 ## ✅ Completed Actions
 
 ### 1. Created New Directory Structure
+
 - ✅ `docs/` - Documentation directory
 - ✅ `docs/optimization/` - Optimization guides
 - ✅ `docs/setup/` - Setup documentation
@@ -17,11 +18,13 @@ This document outlines the changes made to organize the project structure and wh
 - ✅ `.github/workflows/` - GitHub Actions
 
 ### 2. Moved Key Files
+
 - ✅ `OPTIMIZATION_CHECKLIST.md` → `docs/optimization/`
 - ✅ `build-production.js` → `scripts/build/`
 - ✅ `compare-sites.js` → `tools/`
 
 ### 3. Updated Configuration
+
 - ✅ Updated `package.json` with organized script paths
 - ✅ Created CI/CD workflow in `.github/workflows/ci.yml`
 - ✅ Created comprehensive `PROJECT_STRUCTURE.md`
@@ -31,6 +34,7 @@ This document outlines the changes made to organize the project structure and wh
 ### Root Directory Files to Move
 
 #### Documentation Files → `docs/`
+
 ```bash
 # Move to docs/optimization/
 OPTIMIZATION_COMPARISON_REPORT.md → docs/optimization/
@@ -48,6 +52,7 @@ SITE-COMPARISON-SUMMARY.md → docs/
 ```
 
 #### Utility Scripts → `tools/`
+
 ```bash
 debug-css-loading.js → tools/
 diagnose-local-styles.js → tools/
@@ -58,12 +63,14 @@ test-puppeteer.js → tools/
 ```
 
 #### Analysis Files → `docs/analysis/` (new)
+
 ```bash
 project-analysis.json → docs/analysis/
 project-analysis.md → docs/analysis/
 ```
 
 #### Config Backup Files (Consider Removing)
+
 ```bash
 postcss.config.cjs.bak → DELETE (backup file)
 ```
@@ -71,6 +78,7 @@ postcss.config.cjs.bak → DELETE (backup file)
 ### Scripts Directory Files to Organize
 
 #### Build Scripts → `scripts/build/`
+
 ```bash
 build-prod.bat → scripts/build/
 build-prod.sh → scripts/build/
@@ -79,6 +87,7 @@ build-production.sh → scripts/build/
 ```
 
 #### Deploy Scripts → `scripts/deploy/`
+
 ```bash
 create-backup.js → scripts/deploy/
 deploy-complete.js → scripts/deploy/
@@ -91,6 +100,7 @@ rollback.js → scripts/deploy/
 ```
 
 #### Development Scripts → `scripts/dev/`
+
 ```bash
 setup-env.js → scripts/dev/
 setup-optimization.js → scripts/dev/
@@ -98,6 +108,7 @@ validate-env.js → scripts/dev/
 ```
 
 #### Test Scripts → `scripts/test/`
+
 ```bash
 run-tests-with-coverage.js → scripts/test/
 test-env-validation.js → scripts/test/
@@ -109,6 +120,7 @@ start-mcp-puppeteer.js → scripts/test/
 ```
 
 #### Maintenance Scripts → `scripts/maintenance/`
+
 ```bash
 audit-deps.cjs → scripts/maintenance/
 compare-metrics.cjs → scripts/maintenance/
@@ -128,6 +140,7 @@ seo-monitor.cjs → scripts/maintenance/
 ## 🚀 Recommended Next Steps
 
 ### 1. Move Files (Priority: High)
+
 ```bash
 # Create missing directories
 mkdir -p docs/analysis
@@ -150,12 +163,15 @@ mv test-*.js tools/
 ```
 
 ### 2. Update Script References (Priority: High)
+
 After moving files, update any remaining references:
+
 - Check import statements in scripts
 - Update relative paths
 - Test all npm scripts work correctly
 
 ### 3. Clean Up (Priority: Medium)
+
 ```bash
 # Remove backup files
 rm postcss.config.cjs.bak
@@ -167,6 +183,7 @@ rm compare-sites.js           # Already moved
 ```
 
 ### 4. Update Documentation (Priority: Low)
+
 - Update README.md with new structure
 - Add contribution guidelines
 - Update any existing documentation links
@@ -174,9 +191,11 @@ rm compare-sites.js           # Already moved
 ## 🧹 Files to Remove
 
 ### Backup Files
+
 - `postcss.config.cjs.bak` - Outdated backup file
 
 ### Temporary Files (if any)
+
 - Any `.tmp` files
 - Any `.bak` files
 - Any log files that shouldn't be in repository

@@ -8,11 +8,11 @@
 /**
  * Initialize analytics tracking
  */
-export function initAnalytics() {
+export function initAnalytics(): void {
   // Initialize Google Analytics if available
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     console.log('Analytics initialized');
-    
+
     // Track initial page view
     trackPageView(window.location.pathname + window.location.search);
   } else {
@@ -26,7 +26,7 @@ export function initAnalytics() {
  * @param url - The URL to track
  * @param title - The page title
  */
-export function trackPageView(url: string = '', title: string = '') {
+export function trackPageView(url: string = '', title: string = ''): void {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     window.gtag('config', import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'GA_MEASUREMENT_ID', {
       page_path: url,
@@ -44,12 +44,7 @@ export function trackPageView(url: string = '', title: string = '') {
  * @param label - Optional label
  * @param value - Optional value
  */
-export function trackEvent(
-  action: string,
-  category: string,
-  label?: string,
-  value?: number
-) {
+export function trackEvent(action: string, category: string, label?: string, value?: number): void {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     window.gtag('event', action, {
       event_category: category,
@@ -66,7 +61,7 @@ export function trackEvent(
  * @param description - Description of the error
  * @param fatal - Whether the error was fatal
  */
-export function trackException(description: string, fatal: boolean = false) {
+export function trackException(description: string, fatal: boolean = false): void {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     window.gtag('event', 'exception', {
       description: description,

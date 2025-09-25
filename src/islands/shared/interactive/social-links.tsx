@@ -1,6 +1,10 @@
-import { useEffect } from 'preact/hooks';
+import { type VNode } from 'preact';
+// useState and SocialLink are imported but not currently used
+// They are kept for potential future use
+import { useState } from 'preact/hooks';
+import type { SocialLink } from '@features/social/types';
 
-export default function SocialLinksLogic() {
+export default function SocialLinks({}: { data?: Record<string, unknown> }): VNode {
   useEffect(() => {
     const handleSocialClick = (e: Event) => {
       const mouseEvent = e as MouseEvent;

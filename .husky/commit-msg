@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Проверяем формат сообщения коммита
+# Формат: type(scope): description
+# Примеры: feat(auth): add user login, fix(ui): button alignment
+commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build)(\(.+\))?: .{1,50}'
+
+if ! grep -qE "$commit_regex" "$1"; then
+    echo "❌ Неправильный формат сообщения коммита!"
+    echo "📋 Используйте формат: type(scope): description"
+    echo "📋 Типы: feat, fix, docs, style, refactor, test, chore, perf, ci, build"
+    echo "📋 Пример: feat(auth): add user authentication"
+    exit 1
+fi
+
+echo "✅ Сообщение коммита соответствует формату"

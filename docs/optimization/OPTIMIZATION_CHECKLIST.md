@@ -147,18 +147,18 @@ npm run test
 
 ### Перед оптимизацией (текущее состояние)
 
-- [ ] Lighthouse Score: ___
-- [ ] Bundle Size: ___
-- [ ] Build Time: ___
-- [ ] Test Coverage: ___
-- [ ] TypeScript Errors: ___
+- [ ] Lighthouse Score: \_\_\_
+- [ ] Bundle Size: \_\_\_
+- [ ] Build Time: \_\_\_
+- [ ] Test Coverage: \_\_\_
+- [ ] TypeScript Errors: \_\_\_
 
 ### После каждой недели
 
-- [ ] Неделя 1: Lighthouse: **_ | Bundle: _** | Tests: ___
-- [ ] Неделя 2: Lighthouse: **_ | Bundle: _** | Tests: ___
-- [ ] Неделя 3: Lighthouse: **_ | Bundle: _** | Tests: ___
-- [ ] Неделя 4: Lighthouse: **_ | Bundle: _** | Tests: ___
+- [ ] Неделя 1: Lighthouse: **_ | Bundle: _** | Tests: \_\_\_
+- [ ] Неделя 2: Lighthouse: **_ | Bundle: _** | Tests: \_\_\_
+- [ ] Неделя 3: Lighthouse: **_ | Bundle: _** | Tests: \_\_\_
+- [ ] Неделя 4: Lighthouse: **_ | Bundle: _** | Tests: \_\_\_
 
 ### Целевые метрики
 

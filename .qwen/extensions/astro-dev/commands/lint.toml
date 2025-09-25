@@ -1,8 +1,7 @@
 name = "Запустить линтер"
 description = "Проверка кода с помощью ESLint"
 
-[prompt]
-text = "Запуск линтера проекта"
+prompt = "Запуск линтера проекта"
 
 [command]
 type = "shell"
