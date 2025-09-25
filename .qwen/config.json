@@ -1,7 +1,35 @@
 {
+  "extensions": [
+    {
+      "name": "astro-dev",
+      "path": "./extensions/astro-dev"
+    },
+    {
+      "name": "deps-manager",
+      "path": "./extensions/deps-manager"
+    },
+    {
+      "name": "git-helper",
+      "path": "./extensions/git-helper"
+    },
+    {
+      "name": "perf-check",
+      "path": "./extensions/perf-check"
+    }
+  ],
   "mcpServers": {
     "Astro docs": {
       "httpUrl": "https://mcp.docs.astro.build/mcp"
+    },
+    "astro-mcp": {
+      "command": "npx",
+      "args": ["astro", "mcp"],
+      "env": {}
+    },
+    "puppeteer-browser": {
+      "command": "node",
+      "args": ["tools/mcp-puppeteer-server.js"],
+      "env": {}
     }
   }
 }

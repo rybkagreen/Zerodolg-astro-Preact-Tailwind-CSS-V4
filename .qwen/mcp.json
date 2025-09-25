@@ -12,7 +12,7 @@
     },
     "puppeteer-browser": {
       "command": "node",
-      "args": ["mcp-puppeteer-server.js"],
+      "args": ["tools/mcp-puppeteer-server.js"],
       "env": {}
     }
   }

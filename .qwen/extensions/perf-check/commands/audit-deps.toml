@@ -1,0 +1,10 @@
+name = "Аудит зависимостей на уязвимости"
+description = "Проверка зависимостей проекта на наличие уязвимостей с помощью npm audit"
+
+[prompt]
+text = "Аудит зависимостей на уязвимости"
+
+[command]
+type = "shell"
+run = "npm run maintenance:audit"
+directory = "."

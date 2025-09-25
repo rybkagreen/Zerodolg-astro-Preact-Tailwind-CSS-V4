@@ -32,30 +32,26 @@ This file contains comprehensive settings, preferences, and guidelines for Qwen 
 
 ```
 zerodolg-astro/
-├── docs/                # Project documentation
-├── src/
-│   ├── components/      # Reusable components
-│   │   ├── islands/     # Interactive Preact components
-│   │   ├── sections/    # Page sections (Hero, Reviews, etc.)
-│   │   └── ui/          # UI components (buttons, cards, etc.)
-│   ├── content/         # Content collections (reviews, team, etc.)
-│   ├── data/            # Static data files
-│   ├── layouts/         # Page layouts
-│   ├── lib/             # Utility functions and services
-│   ├── pages/           # Route pages
-│   │   └── api/         # API routes
-│   └── styles/          # ITCSS architecture
-│       ├── 00-settings/ # Variables and configurations
-│       ├── 01-generic/  # Reset and base styles
-│       ├── 02-elements/ # HTML element styles
-│       ├── 03-components/ # Component styles
-│       ├── 04-sections/ # Section-specific styles
-│       └── 05-utilities/ # Utility classes
-├── public/              # Static assets
-│   ├── fonts/           # Web fonts
-│   ├── images/          # Images and graphics
-│   └── js/              # Client-side JavaScript
-└── dist/                # Build output
+├── .github/                    # GitHub-specific files
+│   └── workflows/              # GitHub Actions workflows
+│       └── ci.yml              # CI/CD pipeline
+├── .husky/                     # Git hooks configuration
+├── .qwen/                      # Qwen AI assistant configuration
+├── .vscode/                    # VS Code configuration
+├── docs/                       # Documentation files
+│   ├── optimization/           # Optimization guides and checklists
+│   └── setup/                  # Setup and configuration docs
+├── public/                     # Static assets
+├── screenshots/                # Screenshots and comparison reports
+├── scripts/                    # Organized development scripts
+│   ├── build/                  # Build-related scripts
+│   ├── deploy/                 # Deployment scripts
+│   ├── dev/                    # Development utilities
+│   ├── maintenance/            # Maintenance and optimization
+│   └── test/                   # Testing scripts
+├── src/                        # Source code
+├── tools/                      # Standalone utility tools
+└── Configuration Files         # Root-level config files
 ```
 
 ## Code Style Guidelines
@@ -264,6 +260,17 @@ function calculateReviewStats(reviews) {
    - Update documentation
    - Commit with descriptive message
 
+### Script Organization
+
+The project follows a structured approach to scripts and tools:
+
+- **Build Scripts** (`scripts/build/`): Production builds with optimizations
+- **Deployment Scripts** (`scripts/deploy/`): Complete deployment process, verification, and rollback
+- **Development Scripts** (`scripts/dev/`): Environment validation and setup
+- **Maintenance Scripts** (`scripts/maintenance/`): Dependency auditing, image optimization, performance auditing
+- **Test Scripts** (`scripts/test/`): Testing with coverage, E2E tests, environment validation
+- **Standalone Tools** (`tools/`): Utilities that can be run independently (site comparison, CSS diagnosis, etc.)
+
 ### Git Commit Messages
 
 ```
@@ -306,6 +313,9 @@ Types:
 - Maintain existing URL structures where possible
 - Ensure mobile responsiveness
 - Follow any accessibility guidelines already established
+- Scripts are organized by function (build, deploy, test, maintenance) in the scripts/ directory
+- Standalone tools are kept in the tools/ directory
+- Documentation is centralized in the docs/ directory
 
 ## ⚠️ CRITICAL REQUIREMENTS - MUST FOLLOW
 
@@ -463,6 +473,12 @@ Types:
 - Variables: `/src/styles/00-settings/_variables.css`
 - Components: `/src/components/`
 - Pages: `/src/pages/`
+- Build scripts: `/scripts/build/`
+- Deployment scripts: `/scripts/deploy/`
+- Test scripts: `/scripts/test/`
+- Maintenance scripts: `/scripts/maintenance/`
+- Standalone tools: `/tools/`
+- Documentation: `/docs/`
 
 ### Project Documentation
 

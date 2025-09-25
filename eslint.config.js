@@ -24,6 +24,7 @@ export default [
       'jest.setup.ts',
       'astro.config.mjs',
       'astro.config.prod.mjs',
+      'tailwind.config.js',
       '**/*.d.ts',
       'dist/**/*',
       'public/**/*',
@@ -35,12 +36,42 @@ export default [
   // Base ESLint recommended config
   eslint.configs.recommended,
 
+  // Skip TypeScript parsing for config files by creating a separate config without ts settings
+  {
+    files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
+    ignores: [
+      'eslint.config.js',
+      'tailwind.config.js',
+      'astro.config.mjs',
+      'astro.config.prod.mjs',
+      'jest.config.cjs',
+    ],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.jest,
+      },
+    },
+    rules: {
+      'no-console': 'warn',
+      'no-debugger': 'error',
+      'no-alert': 'error',
+      'no-var': 'error',
+      'prefer-const': 'error',
+      'prefer-arrow-callback': 'error',
+    },
+  },
+
   // TypeScript ESLint configs
   ...tseslint.configs.recommended,
 
   // JavaScript and TypeScript files configuration
   {
-    files: ['**/*.js', '**/*.mjs', '**/*.cjs', '**/*.ts', '**/*.tsx'],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

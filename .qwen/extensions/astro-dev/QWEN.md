@@ -24,28 +24,32 @@
 
 ```
 zerodolg-astro/
-├── docs/                # Документация проекта
-├── src/
-│   ├── components/      # Повторно используемые компоненты
-│   │   ├── islands/     # Интерактивные компоненты Preact
-│   │   ├── sections/    # Разделы страниц (Hero, Reviews и т.д.)
-│   │   └── ui/          # Компоненты пользовательского интерфейса
-│   ├── content/         # Коллекции контента (отзывы, команда и т.д.)
-│   ├── data/            # Статические файлы данных
-│   ├── layouts/         # Макеты страниц
-│   ├── lib/             # Вспомогательные функции и сервисы
-│   ├── pages/           # Страницы маршрутов
-│   │   └── api/         # Маршруты API
-│   └── styles/          # Архитектура ITCSS
-│       ├── 00-settings/ # Переменные и конфигурации
-│       ├── 01-generic/  # Сброс и базовые стили
-│       ├── 02-elements/ # Стили элементов HTML
-│       ├── 03-components/ # Стили компонентов
-│       ├── 04-sections/ # Стили разделов
-│       └── 05-utilities/ # Классы утилит
-├── public/              # Статические ресурсы
-│   ├── fonts/           # Веб-шрифты
-│   ├── images/          # Изображения и графика
-│   └── js/              # Клиентский JavaScript
-└── dist/                # Вывод сборки
+├── .github/             # GitHub-specific files
+│   └── workflows/       # GitHub Actions workflows
+│       └── ci.yml       # CI/CD pipeline
+├── .husky/              # Git hooks configuration
+├── .qwen/               # Qwen AI assistant configuration
+├── .vscode/             # VS Code configuration
+├── docs/                # Documentation files
+│   ├── optimization/    # Optimization guides and checklists
+│   └── setup/           # Setup and configuration docs
+├── public/              # Static assets
+├── screenshots/         # Screenshots and comparison reports
+├── scripts/             # Organized development scripts
+│   ├── build/           # Build-related scripts
+│   ├── deploy/          # Deployment scripts
+│   ├── dev/             # Development utilities
+│   ├── maintenance/     # Maintenance and optimization
+│   └── test/            # Testing scripts
+├── src/                 # Source code
+├── tools/               # Standalone utility tools
+└── Configuration Files  # Root-level config files
 ```
+
+## Astro Development
+
+- Запуск сервера разработки с горячей перезагрузкой
+- Сборка проекта для продакшена
+- Просмотр собранного проекта
+- Тестирование и проверка типов
+- Линтинг кода

@@ -1,21 +1,43 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
+    // JSX конфигурация для Preact
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": ["astro/client"],
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
+
+    // Типы и модули
+    "types": ["astro/client", "@types/node"],
+    "moduleResolution": "bundler", // Современная настройка для bundler
     "allowJs": true,
+    "checkJs": false, // Не проверяем JS файлы, только TS
+
+    // Строгость TypeScript
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true, // Дополнительная безопасность для массивов
+
+    // Неиспользуемый код
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Современные настройки
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+
+    // Пути и базовый URL
     "baseUrl": ".",
     "paths": {
       "@core/*": ["src/core/*"],
@@ -37,6 +59,7 @@
     "src/__tests__/**/*",
     "astro.config.mjs",
     "astro.config.prod.mjs",
-    "eslint.config.js"
+    "eslint.config.js",
+    "tailwind.config.js"
   ]
 }

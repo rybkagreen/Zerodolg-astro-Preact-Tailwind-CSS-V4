@@ -1,0 +1,10 @@
+name = "Запустить тесты"
+description = "Запуск всех тестов проекта с помощью Jest"
+
+[prompt]
+text = "Запуск тестов проекта"
+
+[command]
+type = "shell"
+run = "npm run test"
+directory = "."

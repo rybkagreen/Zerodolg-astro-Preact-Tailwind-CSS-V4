@@ -1,0 +1,10 @@
+name = "Проверить переменные окружения"
+description = "Проверка корректности переменных окружения для проекта"
+
+[prompt]
+text = "Проверка переменных окружения"
+
+[command]
+type = "shell"
+run = "npm run env:validate"
+directory = "."

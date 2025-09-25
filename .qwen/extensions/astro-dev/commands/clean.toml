@@ -1,0 +1,10 @@
+name = "Очистить сборку"
+description = "Удаление директории сборки и временных файлов Astro"
+
+[prompt]
+text = "Очистка временных файлов сборки"
+
+[command]
+type = "shell"
+run = "npm run clean"
+directory = "."

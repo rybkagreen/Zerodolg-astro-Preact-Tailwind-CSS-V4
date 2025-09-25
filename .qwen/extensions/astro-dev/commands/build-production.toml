@@ -1,0 +1,10 @@
+name = "Собрать проект для продакшена (production)"
+description = "Полная сборка проекта Astro с оптимизациями для продакшена"
+
+[prompt]
+text = "Полная продакшен-сборка проекта"
+
+[command]
+type = "shell"
+run = "npm run build:production"
+directory = "."

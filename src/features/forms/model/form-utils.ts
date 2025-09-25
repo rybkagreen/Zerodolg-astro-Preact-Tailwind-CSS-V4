@@ -11,7 +11,6 @@ export function createFormState(): FormState {
     isSubmitting: false,
     isSuccess: false,
     isError: false,
-    errorMessage: undefined,
   };
 }
 

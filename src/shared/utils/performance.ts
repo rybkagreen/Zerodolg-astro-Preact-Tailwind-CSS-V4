@@ -54,7 +54,9 @@ export function trackLargestContentfulPaint(callback: (lcp: number) => void): vo
     const observer = new PerformanceObserver((list) => {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
-      callback(lastEntry.startTime);
+      if (lastEntry) {
+        callback(lastEntry.startTime);
+      }
     });
 
     observer.observe({ entryTypes: ['largest-contentful-paint'] });

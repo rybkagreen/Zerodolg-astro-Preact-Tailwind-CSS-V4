@@ -1,0 +1,129 @@
+---
+import Modal from './Modal.astro';
+import BaseForm from '../../forms/ui/BaseForm.astro';
+
+interface Props {
+  modalId?: string;
+}
+
+const { modalId = 'callback-modal' } = Astro.props;
+---
+
+<Modal
+  id="callback"
+  title="Заказать обратный звонок"
+  subtitle="Оставьте свой номер телефона, и наш специалист свяжется с вами в течение 15 минут"
+>
+  <BaseForm formId="callback" formType="callback">
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-text mb-1" for="callback-name">
+        Ваше имя <span class="text-error font-bold ml-1">*</span>
+      </label>
+      <input
+        type="text"
+        class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+        id="callback-name"
+        name="name"
+        placeholder="Введите ваше имя"
+        required
+        autocomplete="name"
+      />
+      <span class="text-sm text-error mt-1" data-error="name"></span>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-text mb-1" for="callback-phone">
+        Телефон <span class="text-error font-bold ml-1">*</span>
+      </label>
+      <input
+        type="tel"
+        class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+        id="callback-phone"
+        name="phone"
+        placeholder="+7 (___) ___-__-__"
+        data-mask="phone"
+        required
+        autocomplete="tel"
+      />
+      <span class="text-sm text-error mt-1" data-error="phone"></span>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-text mb-1" for="callback-time">
+        Удобное время для звонка
+      </label>
+      <select
+        class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors bg-white"
+        id="callback-time"
+        name="time"
+        autocomplete="off"
+      >
+        <option value="">Любое время</option>
+        <option value="9-12">С 9:00 до 12:00</option>
+        <option value="12-15">С 12:00 до 15:00</option>
+        <option value="15-18">С 15:00 до 18:00</option>
+        <option value="18-21">С 18:00 до 21:00</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-text mb-1" for="callback-message">
+        Комментарий
+      </label>
+      <textarea
+        class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+        id="callback-message"
+        name="message"
+        placeholder="Кратко опишите вашу ситуацию"
+        rows="3"
+        autocomplete="off"></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="flex items-start" for="callback-agreement">
+        <input
+          type="checkbox"
+          class="mt-1 mr-2 rounded border-border text-primary focus:ring-primary"
+          id="callback-agreement"
+          name="agreement"
+          required
+        />
+        <span class="text-sm">
+          Я согласен на обработку
+          <a
+            href="/privacy"
+            target="_blank"
+            class="text-primary hover:text-primary-dark transition-colors">персональных данных</a
+          >
+        </span>
+      </label>
+      <span class="text-sm text-error mt-1" data-error="agreement"></span>
+    </div>
+
+    <button type="submit" class="btn-primary w-full relative py-3">
+      <span class="btn__text">Заказать звонок</span>
+      <span
+        class="btn__loader absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden"
+      >
+        <svg
+          class="spinner w-5 h-5 animate-spin"
+          viewBox="0 0 50 50"
+          aria-label="Загрузка"
+          role="status"
+        >
+          <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="currentColor"
+          ></circle>
+        </svg>
+      </span>
+    </button>
+
+    <p class="text-sm text-text-muted mt-3">
+      Нажимая кнопку, вы соглашаетесь с
+      <a
+        href="/terms"
+        target="_blank"
+        class="text-primary hover:text-primary-dark transition-colors">условиями обработки данных</a
+      >
+    </p>
+  </BaseForm>
+</Modal>

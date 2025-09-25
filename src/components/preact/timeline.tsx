@@ -3,20 +3,32 @@ import { useEffect } from 'preact/hooks';
 // Declare global interfaces for analytics
 declare global {
   interface Window {
-    gtag?: (command: string, ...args: any[]) => void;
-    ym?: (id: number, method: string, ...args: any[]) => void;
-    yaCounter98741026?: any;
+    gtag?: (command: string, eventName: string, parameters: Record<string, unknown>) => void;
+    ym?: (
+      id: number,
+      method: string,
+      eventName: string,
+      parameters?: Record<string, unknown>
+    ) => void;
+    yaCounter98741026?: {
+      reachGoal: (eventName: string, parameters?: Record<string, unknown>) => void;
+    };
     yaMetrikaId?: number;
   }
 }
 
 // Utility function for debouncing
-type DebouncedFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
+type DebouncedFunction<T extends (...args: Parameters<T>) => ReturnType<T>> = (
+  ...args: Parameters<T>
+) => void;
 
-function debounce<T extends (...args: any[]) => any>(func: T, wait: number): DebouncedFunction<T> {
-  let timeout: any;
-  return function executedFunction(...args: Parameters<T>) {
-    const later = () => {
+function debounce<T extends (...args: Parameters<T>) => ReturnType<T>>(
+  func: T,
+  wait: number
+): DebouncedFunction<T> {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  return function executedFunction(...args: Parameters<T>): void {
+    const later = (): void => {
       clearTimeout(timeout);
       func(...args);
     };
@@ -25,7 +37,7 @@ function debounce<T extends (...args: any[]) => any>(func: T, wait: number): Deb
   };
 }
 
-const Timeline = () => {
+const Timeline = (): null => {
   useEffect(() => {
     // State management
     const state = {
@@ -76,7 +88,10 @@ const Timeline = () => {
     let touchEndX = 0;
 
     // Track event in analytics
-    const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => {
+    const trackEvent = (
+      eventName: string,
+      parameters: Record<string, string | number | boolean> = {}
+    ): void => {
       // Google Analytics 4
       if (window.gtag) {
         window.gtag('event', eventName, {
@@ -95,7 +110,7 @@ const Timeline = () => {
     };
 
     // Emit custom event
-    const emitEvent = (eventName: string, detail: Record<string, any> = {}) => {
+    const emitEvent = (eventName: string, detail: Record<string, unknown> = {}) => {
       const event = new CustomEvent(`timeline:${eventName}`, {
         detail: {
           ...detail,
@@ -612,14 +627,20 @@ const Timeline = () => {
     const handleTouchStart = (e: Event) => {
       const touchEvent = e as TouchEvent;
       if (state.isAnimating) return;
-      touchStartX = touchEvent.changedTouches[0].screenX;
+      const firstTouch = touchEvent.changedTouches[0];
+      if (firstTouch) {
+        touchStartX = firstTouch.screenX;
+      }
     };
 
     const handleTouchEnd = async (e: Event) => {
       const touchEvent = e as TouchEvent;
       if (state.isAnimating) return;
-      touchEndX = touchEvent.changedTouches[0].screenX;
-      await handleSwipe();
+      const firstTouch = touchEvent.changedTouches[0];
+      if (firstTouch) {
+        touchEndX = firstTouch.screenX;
+        await handleSwipe();
+      }
     };
 
     const handleSwipe = async () => {

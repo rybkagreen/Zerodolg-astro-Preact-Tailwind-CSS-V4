@@ -1,5 +1,22 @@
 import { useEffect } from 'preact/hooks';
 
+// Declare global interfaces for analytics
+declare global {
+  interface Window {
+    gtag?: (command: string, eventName: string, parameters: Record<string, unknown>) => void;
+    ym?: (
+      id: number,
+      method: string,
+      eventName: string,
+      parameters?: Record<string, unknown>
+    ) => void;
+    yaCounter98741026?: {
+      reachGoal: (eventName: string, parameters?: Record<string, unknown>) => void;
+    };
+    yaMetrikaId?: number;
+  }
+}
+
 interface TeamMember {
   id: string;
   name: string;
@@ -37,7 +54,7 @@ class TeamInteractive {
   private initialized: boolean = false;
 
   constructor(members: TeamMember[]) {
-    this.currentMember = members.length > 0 ? members[0].id : '';
+    this.currentMember = members.length > 0 && members[0] ? members[0].id : '';
   }
 
   init(): void {
@@ -183,9 +200,12 @@ class TeamInteractive {
       'touchstart',
       (e) => {
         const touchEvent = e as TouchEvent;
-        touchStartX = touchEvent.changedTouches[0].screenX;
-        touchStartY = touchEvent.changedTouches[0].screenY;
-        isSwiping = true;
+        const firstTouch = touchEvent.changedTouches[0];
+        if (firstTouch) {
+          touchStartX = firstTouch.screenX;
+          touchStartY = firstTouch.screenY;
+          isSwiping = true;
+        }
       },
       { passive: true }
     );
@@ -197,8 +217,10 @@ class TeamInteractive {
 
         const touchEvent = e as TouchEvent;
         // Calculate the swipe angle to determine if it's horizontal
-        const currentX = touchEvent.changedTouches[0].screenX;
-        const currentY = touchEvent.changedTouches[0].screenY;
+        const firstTouch = touchEvent.changedTouches[0];
+        if (!firstTouch) return;
+        const currentX = firstTouch.screenX;
+        const currentY = firstTouch.screenY;
         const diffX = Math.abs(currentX - touchStartX);
         const diffY = Math.abs(currentY - touchStartY);
 
@@ -216,8 +238,10 @@ class TeamInteractive {
         if (!isSwiping) return;
 
         const touchEvent = e as TouchEvent;
-        touchEndX = touchEvent.changedTouches[0].screenX;
-        touchEndY = touchEvent.changedTouches[0].screenY;
+        const firstTouch = touchEvent.changedTouches[0];
+        if (!firstTouch) return;
+        touchEndX = firstTouch.screenX;
+        touchEndY = firstTouch.screenY;
         this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
         isSwiping = false;
       },
@@ -277,34 +301,35 @@ class TeamInteractive {
     return names[memberId] || memberId;
   }
 
-  private trackEvent(eventName: string, parameters: Record<string, any> = {}): void {
+  private trackEvent(eventName: string, parameters: Record<string, string | number> = {}): void {
     // Google Analytics 4
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', eventName, {
         event_category: 'team_interaction',
         ...parameters,
       });
     }
 
     // Yandex Metrika
-    if (typeof window !== 'undefined' && (window as any).ym) {
-      (window as any).ym(98741026, 'reachGoal', eventName, parameters);
+    if (typeof window !== 'undefined' && window.ym) {
+      window.ym(98741026, 'reachGoal', eventName, parameters);
     }
   }
 }
 
 // Component to initialize the team interactive functionality
-export default function TeamInteractiveComponent({ members = [] }: TeamInteractiveProps) {
+export default function TeamInteractiveComponent({ members = [] }: TeamInteractiveProps): null {
   useEffect(() => {
     // Initialize the team interactive functionality
     const teamInteractive = new TeamInteractive(members);
     teamInteractive.init();
 
     // Store instance for potential cleanup or debugging
-    (window as any).teamInteractive = teamInteractive;
+    (window as typeof window & { teamInteractive: TeamInteractive }).teamInteractive =
+      teamInteractive;
 
     // Cleanup function
-    return () => {
+    return (): void => {
       // Remove event listeners if needed (though the component handles this internally)
     };
   }, [members]);

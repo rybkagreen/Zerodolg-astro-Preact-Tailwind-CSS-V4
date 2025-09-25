@@ -148,8 +148,15 @@ export const teamMembers: TeamMember[] = [
   },
 ];
 
+interface TeamStats {
+  totalExperience: string;
+  totalCases: string;
+  totalSaved: string;
+  successRate: string;
+}
+
 // Calculate team statistics
-export const calculateTeamStats = (members: TeamMember[]) => {
+export const calculateTeamStats = (members: TeamMember[]): TeamStats => {
   let totalExperience = 0;
   let totalCases = 0;
   const successRates: number[] = [];
@@ -157,15 +164,15 @@ export const calculateTeamStats = (members: TeamMember[]) => {
   members.forEach((member) => {
     // Extract numbers from experience string (e.g., "7+" -> 7)
     const expMatch = member.stats.experience.match(/(\d+)/);
-    if (expMatch) totalExperience += parseInt(expMatch[1]);
+    if (expMatch && expMatch[1]) totalExperience += parseInt(expMatch[1], 10);
 
-    // Extract numbers from cases string (e.g., "1000+" -> 100)
+    // Extract numbers from cases string (e.g., "1000+" -> 1000)
     const casesMatch = member.stats.cases.match(/(\d+)/);
-    if (casesMatch) totalCases += parseInt(casesMatch[1]);
+    if (casesMatch && casesMatch[1]) totalCases += parseInt(casesMatch[1], 10);
 
     // Extract success rate (e.g., "96%" -> 96)
     const successMatch = member.stats.success.match(/(\d+)/);
-    if (successMatch) successRates.push(parseInt(successMatch[1]));
+    if (successMatch && successMatch[1]) successRates.push(parseInt(successMatch[1], 10));
   });
 
   // Calculate average success rate

@@ -12,7 +12,7 @@ Create and maintain a properly configured Qwen Code environment for the zerodolg
 - **Language**: Russian for content and UI, English for code and comments
 - **File Naming**: PascalCase for components, kebab-case for pages, BEM methodology for CSS classes
 - **Key Prohibitions**: No inline styles, no !important in CSS, only CSS classes for styling
-- **Directory Structure**: ITCSS architecture for styles, components in /src/components/, content collections in /src/content/
+- **Directory Structure**: Organized scripts by function (build, deploy, test, maintenance), tools in separate directory, documentation centralized in docs/, ITCSS architecture for styles, components in /src/components/, content collections in /src/content/
 - **Extensions**: All extensions need proper qwen-extension.json and command files with required 'prompt' fields
 
 ## Recent Actions
@@ -28,6 +28,7 @@ Create and maintain a properly configured Qwen Code environment for the zerodolg
 - [DONE] Fix extension command validation errors
 - [DONE] Clean up configuration files
 - [DONE] Ensure all Qwen Code extensions work properly
+- [DONE] Update configuration files with latest project structure
 
 The Qwen Code environment is now properly configured for the zerodolg-astro project with all extensions functioning correctly and no validation errors.
 
