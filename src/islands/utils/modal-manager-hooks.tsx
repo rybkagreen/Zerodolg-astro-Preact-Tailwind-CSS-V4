@@ -1,18 +1,28 @@
-import { type VNode } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { useModal } from '@features/modals/model/modal-context';
 import { useDynamicModals } from '@features/modals/model/use-dynamic-modals';
+import { logger } from '@shared/utils/logger';
 
-interface ModalManagerHooksProps {
-  // This component doesn't accept any props
+// Global type declarations
+declare global {
+  interface Window {
+    modalManager?: {
+      open: (modalId: string, modalType?: string) => void;
+      close: (modalId?: string) => void;
+      closeAll: () => void;
+    };
+  }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface ModalManagerHooksProps {}
 
 export default function ModalManagerHooks({}: ModalManagerHooksProps): null {
   const { openModal, closeModal } = useModal();
-  const { createModal } = useDynamicModals();
+  const { loadModal } = useDynamicModals();
 
   useEffect(() => {
-    console.log('[ModalManager] Initializing with hooks');
+    logger.debug('[ModalManager] Initializing with hooks');
 
     // Setup event delegation for modal triggers
     const handleTriggerClick = (e: Event) => {
@@ -27,7 +37,7 @@ export default function ModalManagerHooks({}: ModalManagerHooksProps): null {
         if (modalId) {
           if (modalType) {
             // Create dynamic modal
-            createModal(modalId, modalType);
+            loadModal(modalId);
           } else {
             // Open existing modal
             openModal(modalId);
@@ -60,7 +70,7 @@ export default function ModalManagerHooks({}: ModalManagerHooksProps): null {
     checkHashForModal();
 
     // Setup public API
-    (window as any).modalManager = {
+    window.modalManager = {
       open: openModal,
       close: closeModal,
       closeAll: () => {
@@ -69,14 +79,14 @@ export default function ModalManagerHooks({}: ModalManagerHooksProps): null {
       },
     };
 
-    console.log('[ModalManager] Initialization completed with hooks');
+    logger.info('[ModalManager] Initialization completed with hooks');
 
     // Cleanup function
     return () => {
-      console.log('[ModalManager] Cleaning up');
+      logger.debug('[ModalManager] Cleaning up');
       document.removeEventListener('click', handleTriggerClick);
       window.removeEventListener('hashchange', checkHashForModal);
-      delete (window as any).modalManager;
+      delete window.modalManager;
     };
   }, []);
 

@@ -50,7 +50,7 @@ const enabledPlatforms = Object.keys(socialLinks).filter(
 ---
 
 <div
-  class={`social-links social-links--${size} ${className}`}
+  class:list={`social-links social-links--${size} ${className}`}
   data-social-links
   data-enable-tracking={enableTracking}
 >
@@ -63,22 +63,25 @@ const enabledPlatforms = Object.keys(socialLinks).filter(
         return (
           <a
             href={url}
-            class={`social-link ${platformConfig.className} ${openInNewTab ? 'social-link--new-tab' : ''}`}
+            class:list={[
+              `social-link ${platformConfig.className} `,
+              { 'social-link--new-tab': openInNewTab },
+            ]}
             target={openInNewTab ? '_blank' : '_self'}
             rel={openInNewTab ? 'noopener noreferrer' : ''}
             data-platform={platform}
             aria-label={`Написать в ${platformConfig.name}`}
             title={`Написать в ${platformConfig.name}`}
           >
-            <span class="social-link__icon" aria-hidden="true">
+            <span class='social-link__icon' aria-hidden='true'>
               {platformConfig.icon}
             </span>
-            {showLabels && <span class="social-link__label">{platformConfig.name}</span>}
+            {showLabels && <span class='social-link__label'>{platformConfig.name}</span>}
           </a>
         );
       })
     ) : (
-      <div class="social-links__empty">{/* Empty state handled by CSS if needed */}</div>
+      <div class='social-links__empty'>{/* Empty state handled by CSS if needed */}</div>
     )
   }
 </div>

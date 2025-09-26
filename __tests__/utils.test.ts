@@ -46,7 +46,7 @@ describe('Utility Functions', () => {
     const formatCurrency = (amount: number, currency = 'RUB') => {
       return new Intl.NumberFormat('ru-RU', {
         style: 'currency',
-        currency: currency,
+        currency,
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       }).format(amount);
@@ -89,7 +89,7 @@ describe('Utility Functions', () => {
   it('should truncate text correctly', () => {
     const truncateText = (text: string, maxLength: number) => {
       if (text.length <= maxLength) return text;
-      return text.substr(0, maxLength) + '...';
+      return `${text.substr(0, maxLength)}...`;
     };
 
     expect(truncateText('Short text', 20)).toBe('Short text');

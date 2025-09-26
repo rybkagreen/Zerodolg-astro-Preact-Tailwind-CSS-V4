@@ -42,7 +42,7 @@ const Stats = (): VNode | null => {
 
             // Start animation
             element.classList.add('animated');
-            element.textContent = '0' + suffix;
+            element.textContent = `0${suffix}`;
 
             setTimeout(() => {
               animateValue(element, 0, endValue, 2000);

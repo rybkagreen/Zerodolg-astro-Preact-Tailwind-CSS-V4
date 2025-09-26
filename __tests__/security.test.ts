@@ -4,7 +4,7 @@ describe('Security Tests', () => {
   // XSS prevention tests
   it('should prevent XSS attacks correctly', () => {
     const sanitizer = {
-      sanitize: function (dirty: string) {
+      sanitize(dirty: string) {
         // Remove dangerous tags and attributes
         let clean = dirty;
 
@@ -25,7 +25,7 @@ describe('Security Tests', () => {
 
         return clean;
       },
-      isDangerousContent: function (content: string) {
+      isDangerousContent(content: string) {
         const dangerousPatterns = [
           /<script/i,
           /javascript:/i,
@@ -87,22 +87,22 @@ describe('Security Tests', () => {
   it('should implement CSRF protection correctly', () => {
     const csrfProtection = {
       tokens: new Map<string, string>(),
-      generateToken: function (userId: string) {
+      generateToken(userId: string) {
         // Generate secure random token
         const token =
           Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
         this.tokens.set(userId, token);
         return token;
       },
-      validateToken: function (userId: string, token: string) {
+      validateToken(userId: string, token: string) {
         const storedToken = this.tokens.get(userId);
         return storedToken === token;
       },
-      regenerateToken: function (userId: string) {
+      regenerateToken(userId: string) {
         this.tokens.delete(userId);
         return this.generateToken(userId);
       },
-      expireOldTokens: function (maxAgeMinutes: number = 60) {
+      expireOldTokens(maxAgeMinutes: number = 60) {
         // In a real implementation, we'd store timestamps with tokens
         // For this test, we'll just return the count of expired tokens (0)
         return 0;
@@ -146,27 +146,27 @@ describe('Security Tests', () => {
   // Input validation tests
   it('should validate inputs correctly', () => {
     const inputValidator = {
-      validateEmail: function (email: string) {
+      validateEmail(email: string) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       },
-      validatePhone: function (phone: string) {
+      validatePhone(phone: string) {
         const phoneRegex =
           /^(\+7|8)[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
         return phoneRegex.test(phone);
       },
-      validateName: function (name: string) {
+      validateName(name: string) {
         const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-']+$/;
         return nameRegex.test(name) && name.trim().length >= 2 && name.trim().length <= 50;
       },
-      validateMessage: function (message: string) {
+      validateMessage(message: string) {
         return typeof message === 'string' && message.length >= 10 && message.length <= 1000;
       },
-      validateId: function (id: string) {
+      validateId(id: string) {
         const idRegex = /^[a-zA-Z0-9_-]+$/;
         return idRegex.test(id) && id.length >= 1 && id.length <= 100;
       },
-      sanitizeString: function (str: string) {
+      sanitizeString(str: string) {
         // Basic sanitization - remove potentially dangerous characters
         return str
           .replace(/[<>"]/g, '')
@@ -224,7 +224,7 @@ describe('Security Tests', () => {
       'scriptalert(XSS)/script'
     );
     expect(inputValidator.sanitizeString('"quoted" text')).toBe('quoted text');
-    expect(inputValidator.sanitizeString('javascript:alert("bad")')).toBe(':alert(bad)');
+    expect(inputValidator.sanitizeString('script:alert("bad")')).toBe(':alert(bad)');
   });
 
   // Authentication security tests
@@ -234,14 +234,14 @@ describe('Security Tests', () => {
       rateLimits: new Map<string, { count: number; lastReset: number }>(),
       maxLoginAttempts: 5,
       lockoutDuration: 15 * 60 * 1000, // 15 minutes
-      generateSessionId: function () {
+      generateSessionId() {
         return (
           Math.random().toString(36).substring(2) +
           Math.random().toString(36).substring(2) +
           Date.now().toString(36)
         );
       },
-      createSession: function (userId: string, ip: string) {
+      createSession(userId: string, ip: string) {
         const sessionId = this.generateSessionId();
         const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
 
@@ -253,7 +253,7 @@ describe('Security Tests', () => {
 
         return { sessionId, expiresAt };
       },
-      validateSession: function (sessionId: string, ip: string) {
+      validateSession(sessionId: string, ip: string) {
         const session = this.sessions.get(sessionId);
 
         if (!session) {
@@ -271,7 +271,7 @@ describe('Security Tests', () => {
 
         return { valid: true, userId: session.userId };
       },
-      incrementLoginAttempts: function (ip: string) {
+      incrementLoginAttempts(ip: string) {
         const now = Date.now();
         let attempts = this.rateLimits.get(ip);
 
@@ -284,7 +284,7 @@ describe('Security Tests', () => {
 
         return attempts.count;
       },
-      isRateLimited: function (ip: string) {
+      isRateLimited(ip: string) {
         const attempts = this.rateLimits.get(ip);
         if (!attempts) return false;
 
@@ -296,7 +296,7 @@ describe('Security Tests', () => {
 
         return attempts.count >= this.maxLoginAttempts;
       },
-      resetRateLimit: function (ip: string) {
+      resetRateLimit(ip: string) {
         this.rateLimits.delete(ip);
       },
     };
@@ -351,7 +351,7 @@ describe('Security Tests', () => {
   it('should handle data encryption correctly', () => {
     const encryptor = {
       // Mock encryption functions (for testing purposes)
-      encrypt: function (text: string, key: string) {
+      encrypt(text: string, key: string) {
         // Simple XOR cipher for testing (NOT for production!)
         let result = '';
         for (let i = 0; i < text.length; i++) {
@@ -360,7 +360,7 @@ describe('Security Tests', () => {
         }
         return Buffer.from(result, 'binary').toString('base64');
       },
-      decrypt: function (encryptedText: string, key: string) {
+      decrypt(encryptedText: string, key: string) {
         // Reverse of encrypt
         const binary = Buffer.from(encryptedText, 'base64').toString('binary');
         let result = '';
@@ -370,7 +370,7 @@ describe('Security Tests', () => {
         }
         return result;
       },
-      hash: function (text: string) {
+      hash(text: string) {
         // Simple hash for testing
         let hash = 0;
         for (let i = 0; i < text.length; i++) {
@@ -380,7 +380,7 @@ describe('Security Tests', () => {
         }
         return hash.toString(36);
       },
-      salt: function (length: number = 16) {
+      salt(length: number = 16) {
         // Generate random salt
         return Math.random()
           .toString(36)
@@ -428,7 +428,7 @@ describe('Security Tests', () => {
   it('should handle cookies securely', () => {
     const cookieManager = {
       cookies: new Map<string, { value: string; options: Record<string, any> }>(),
-      setCookie: function (name: string, value: string, options: Record<string, any> = {}) {
+      setCookie(name: string, value: string, options: Record<string, any> = {}) {
         // Set secure defaults
         const defaultOptions = {
           httpOnly: true,
@@ -445,19 +445,19 @@ describe('Security Tests', () => {
 
         return defaultOptions;
       },
-      getCookie: function (name: string) {
+      getCookie(name: string) {
         const cookie = this.cookies.get(name);
         return cookie ? cookie.value : null;
       },
-      deleteCookie: function (name: string) {
+      deleteCookie(name: string) {
         this.cookies.delete(name);
       },
-      isSecureCookie: function (options: Record<string, any>) {
+      isSecureCookie(options: Record<string, any>) {
         return (
           options.httpOnly === true && options.secure === true && options.sameSite === 'Strict'
         );
       },
-      setSignedCookie: function (
+      setSignedCookie(
         name: string,
         value: string,
         secret: string,
@@ -469,7 +469,7 @@ describe('Security Tests', () => {
 
         return this.setCookie(name, signedValue, options);
       },
-      verifySignedCookie: function (name: string, secret: string) {
+      verifySignedCookie(name: string, secret: string) {
         const cookie = this.cookies.get(name);
         if (!cookie) return null;
 
@@ -482,11 +482,11 @@ describe('Security Tests', () => {
 
         return null; // Invalid signature
       },
-      signValue: function (value: string, secret: string) {
+      signValue(value: string, secret: string) {
         // Simple signing for testing
         return this.simpleHash(value + secret);
       },
-      simpleHash: function (str: string) {
+      simpleHash(str: string) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
           const char = str.charCodeAt(i);
@@ -551,29 +551,29 @@ describe('Security Tests', () => {
   it('should generate CSP headers correctly', () => {
     const cspGenerator = {
       policies: {
-        'default-src': ['\'self\''],
+        'default-src': ["'self'"],
         'script-src': [
-          '\'self\'',
-          '\'unsafe-inline\'',
+          "'self'",
+          "'unsafe-inline'",
           'https://www.googletagmanager.com',
           'https://www.google-analytics.com',
         ],
-        'style-src': ['\'self\'', '\'unsafe-inline\'', 'https://fonts.googleapis.com'],
+        'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         'img-src': [
-          '\'self\'',
+          "'self'",
           'data:',
           'https://www.googletagmanager.com',
           'https://www.google-analytics.com',
         ],
-        'font-src': ['\'self\'', 'https://fonts.gstatic.com'],
-        'connect-src': ['\'self\'', 'https://www.google-analytics.com'],
-        'frame-src': ['\'self\'', 'https://www.google.com'],
-        'object-src': ['\'none\''],
-        'base-uri': ['\'self\''],
-        'form-action': ['\'self\''],
+        'font-src': ["'self'", 'https://fonts.gstatic.com'],
+        'connect-src': ["'self'", 'https://www.google-analytics.com'],
+        'frame-src': ["'self'", 'https://www.google.com'],
+        'object-src': ["'none'"],
+        'base-uri': ["'self'"],
+        'form-action': ["'self'"],
         'upgrade-insecure-requests': [],
       },
-      addPolicy: function (directive: string, sources: string[]) {
+      addPolicy(directive: string, sources: string[]) {
         if (!this.policies[directive]) {
           this.policies[directive] = [];
         }
@@ -583,14 +583,14 @@ describe('Security Tests', () => {
           }
         });
       },
-      removePolicy: function (directive: string, sources: string[]) {
+      removePolicy(directive: string, sources: string[]) {
         if (this.policies[directive]) {
           this.policies[directive] = this.policies[directive].filter(
             (source) => !sources.includes(source)
           );
         }
       },
-      generateHeader: function () {
+      generateHeader() {
         return Object.entries(this.policies)
           .map(([directive, sources]) => {
             if (sources.length === 0) {
@@ -598,13 +598,13 @@ describe('Security Tests', () => {
             }
             return `${directive} ${sources.join(' ')}`;
           })
-        .join('-');
+          .join('-');
       },
-      isRestrictivePolicy: function (directive: string) {
+      isRestrictivePolicy(directive: string) {
         const policy = this.policies[directive];
         return (
           policy &&
-          (policy.includes('\'none\'') || (policy.includes('\'self\'') && policy.length === 1))
+          (policy.includes("'none'") || (policy.includes("'self'") && policy.length === 1))
         );
       },
     };
@@ -613,10 +613,10 @@ describe('Security Tests', () => {
     const cspHeader = cspGenerator.generateHeader();
     expect(typeof cspHeader).toBe('string');
     expect(cspHeader.length).toBeGreaterThan(100);
-    expect(cspHeader).toContain('default-src \'self\'');
-    expect(cspHeader).toContain('script-src \'self\'');
-    expect(cspHeader).toContain('img-src \'self\'');
-    expect(cspHeader).toContain('object-src \'none\'');
+    expect(cspHeader).toContain("default-src 'self'");
+    expect(cspHeader).toContain("script-src 'self'");
+    expect(cspHeader).toContain("img-src 'self'");
+    expect(cspHeader).toContain("object-src 'none'");
 
     // Test adding policies
     cspGenerator.addPolicy('script-src', ['https://cdn.example.com']);
@@ -624,9 +624,9 @@ describe('Security Tests', () => {
     expect(updatedCSP).toContain('https://cdn.example.com');
 
     // Test removing policies
-    cspGenerator.removePolicy('script-src', ['\'unsafe-inline\'']);
+    cspGenerator.removePolicy('script-src', ["'unsafe-inline'"]);
     const restrictedCSP = cspGenerator.generateHeader();
-    expect(restrictedCSP).not.toContain('\'unsafe-inline\'');
+    expect(restrictedCSP).not.toContain("'unsafe-inline'");
 
     // Test restrictive policies
     expect(cspGenerator.isRestrictivePolicy('object-src')).toBe(true);
@@ -637,10 +637,10 @@ describe('Security Tests', () => {
 
     // Test specific directive policies
     const scriptSources = cspGenerator.policies['script-src'];
-    expect(scriptSources).toContain('\'self\'');
+    expect(scriptSources).toContain("'self'");
     expect(scriptSources).toContain('https://www.googletagmanager.com');
     expect(scriptSources).toContain('https://cdn.example.com');
-    expect(scriptSources).not.toContain('\'unsafe-inline\''); // Should have been removed
+    expect(scriptSources).not.toContain("'unsafe-inline'"); // Should have been removed
 
     // Test empty policy directive
     cspGenerator.addPolicy('report-uri', []);
@@ -654,7 +654,7 @@ describe('Security Tests', () => {
       limits: new Map<string, { count: number; resetTime: number }>(),
       maxRequests: 100,
       windowMs: 15 * 60 * 1000, // 15 minutes
-      checkLimit: function (key: string) {
+      checkLimit(key: string) {
         const now = Date.now();
         let limit = this.limits.get(key);
 
@@ -686,10 +686,10 @@ describe('Security Tests', () => {
           retryIn: 0,
         };
       },
-      resetLimit: function (key: string) {
+      resetLimit(key: string) {
         this.limits.delete(key);
       },
-      getRateLimitInfo: function (key: string) {
+      getRateLimitInfo(key: string) {
         const limit = this.limits.get(key);
         if (!limit) {
           return null;

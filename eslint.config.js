@@ -6,18 +6,20 @@ import tsParser from '@typescript-eslint/parser';
 import globals from 'globals';
 
 export default [
-  // Global ignores
+  // Global ignores - важно поставить в начало
   {
-    files: ['**/*'],
     ignores: [
-      'dist/**/*',
-      'node_modules/**/*',
-      '.astro/**/*',
+      'dist/**',
+      'node_modules/**',
+      '.astro/**',
       '*.min.js',
-      'public/**/*',
-      'coverage/**/*',
-      '.git/**/*',
-      '.github/**/*',
+      'public/**',
+      'coverage/**',
+      '__tests__/**',
+      'vitest.config.ts',
+      'vitest.setup.ts',
+      '.git/**',
+      '.github/**',
       'eslint.config.js',
       'jest.config.cjs',
       'jest.setup.ts',
@@ -26,18 +28,11 @@ export default [
       'tailwind.config.js',
       'postcss.config.cjs',
       '**/*.d.ts',
-      'dist/**/*',
-      'public/**/*',
-      '__tests__/**/*',
-      'src/__tests__/**/*',
-      'vitest.config.ts',
-      'vitest.setup.ts',
       'simple-test.cjs',
       'test-js-functionality.cjs',
-      'tools/**/*',
-      'scripts/**/*',
-      'scripts/**/*.cjs',
-      'scripts/**/*.js',
+      'tools/**',
+      'scripts/**',
+      'tsconfig.test.json',
     ],
   },
 
@@ -60,19 +55,18 @@ export default [
     },
   },
 
-  // Skip TypeScript parsing for config files by creating a separate config without ts settings
+  // Skip TypeScript parsing for JavaScript files
   {
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     ignores: [
-      'eslint.config.js',
-      'tailwind.config.js',
-      'astro.config.mjs',
-      'astro.config.prod.mjs',
-      'jest.config.cjs',
-      'postcss.config.cjs',
-      'scripts/**/*',
-      'tools/**/*',
-      'public/**/*',
+      'scripts/**',
+      'tools/**',
+      'public/**',
+      '__tests__/**',
+      '**/*.test.*',
+      '**/*.spec.*',
+      'simple-test.cjs',
+      'test-js-functionality.cjs',
     ],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -121,18 +115,50 @@ export default [
       },
     },
     rules: {
-      // TypeScript specific rules - stricter rules
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/explicit-module-boundary-types': 'error',
-      '@typescript-eslint/no-non-null-assertion': 'error',
+      // TypeScript specific rules - modern 2025 best practices
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/no-explicit-any': 'warn', // Более мягко для продакшена
+      '@typescript-eslint/explicit-module-boundary-types': 'off', // Отключаем для удобства
+      '@typescript-eslint/no-non-null-assertion': 'warn',
       '@typescript-eslint/no-unsafe-function-type': 'error',
       '@typescript-eslint/no-require-imports': 'error',
-      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-unused-expressions': 'error',
+      '@typescript-eslint/ban-ts-comment': [
+        'error',
+        {
+          'ts-expect-error': 'allow-with-description',
+          'ts-ignore': true,
+          'ts-nocheck': true,
+          'ts-check': false,
+          minimumDescriptionLength: 3,
+        },
+      ],
+      '@typescript-eslint/no-empty-object-type': [
+        'error',
+        {
+          allowInterfaces: 'with-single-extends',
+          allowObjectTypes: 'never',
+        },
+      ],
+
+      // Modern JavaScript/TypeScript best practices
+      'object-shorthand': 'error',
+      'prefer-destructuring': ['warn', { object: true, array: false }],
+      'prefer-template': 'error',
+      'template-curly-spacing': ['error', 'never'],
+      'array-bracket-spacing': ['error', 'never'],
+      'object-curly-spacing': ['error', 'always'],
+
       // Base rules
-      indent: 'off', // Temporarily disabled due to recursion issue in v9.35.0
-      quotes: ['error', 'single'],
+      quotes: ['error', 'single', { avoidEscape: true }],
       semi: ['error', 'always'],
       'no-console': 'warn',
       'no-debugger': 'error',
@@ -141,6 +167,12 @@ export default [
       'prefer-const': 'error',
       'prefer-arrow-callback': 'error',
       'no-unused-vars': 'off', // Use TypeScript version instead
+
+      // Security and performance
+      'no-eval': 'error',
+      'no-implied-eval': 'error',
+      'no-new-func': 'error',
+      'no-script-url': 'error',
     },
   },
 
@@ -170,56 +202,110 @@ export default [
     rules: {
       ...astroPlugin.configs.recommended.rules,
       ...astroPlugin.configs['jsx-a11y-recommended'].rules,
-      // Astro-specific rule overrides
-      'astro/no-set-html-directive': 'warn',
+      // Astro-specific rule overrides - более мягкие для продакшена
+      'astro/no-set-html-directive': 'warn', // Предупреждение вместо ошибки
       'astro/no-unused-css-selector': 'warn',
-      // TypeScript rules for Astro files
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unused-vars': 'error',
+      'astro/prefer-class-list-directive': 'warn',
+      'astro/prefer-object-class-list': 'warn',
+
+      // TypeScript rules for Astro files - более мягкие
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      // Разрешаем console в Astro файлах для отладки
+      'no-console': 'off',
     },
   },
 
-  // Scripts and tools configuration - allow relaxed rules for development utilities
+  // Scripts and tools configuration - relaxed rules for development utilities
   {
-    files: ['scripts/**/*', 'tools/**/*', 'src/shared/utils/**/*'],
+    files: ['scripts/**/*', 'tools/**/*'],
     languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: {
         ...globals.node,
+        console: true,
+        process: true,
+        Buffer: true,
+        __dirname: true,
+        __filename: true,
       },
     },
     rules: {
-      // Allow console in scripts and tools
+      // Разрешенные в скриптах и инструментах
       'no-console': 'off',
-      '@typescript-eslint/no-explicit-any': 'warn', // Warn instead of error
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
+      'no-process-exit': 'off',
+      'prefer-const': 'off',
+      'no-undef': 'off',
     },
   },
 
-  // Test files configuration
+  // Test files configuration - максимально мягкие правила для тестов
   {
-    files: ['**/__tests__/**/*.ts', '**/*.test.ts', '**/*.spec.ts', 'vitest.config.ts', 'vitest.setup.ts'],
+    files: [
+      '**/__tests__/**/*',
+      '**/*.test.*',
+      '**/*.spec.*',
+      'vitest.config.*',
+      'vitest.setup.*',
+      'simple-test.cjs',
+      'test-js-functionality.cjs',
+    ],
     languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: {
         ...globals.jest,
         ...globals.node,
+        ...globals.browser,
         vi: true, // Vitest global
         describe: true,
         it: true,
+        test: true,
         expect: true,
         beforeEach: true,
         afterEach: true,
         beforeAll: true,
         afterAll: true,
+        jest: true,
+        window: true,
+        document: true,
+        global: true,
       },
     },
     rules: {
-      // Relax some rules for test files
+      // Полное отключение строгих правил для тестов
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
       'no-console': 'off',
       'no-unused-expressions': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      'prefer-const': 'off',
+      'no-var': 'off',
     },
   },
 

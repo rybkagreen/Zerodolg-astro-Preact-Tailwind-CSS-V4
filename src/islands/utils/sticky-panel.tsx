@@ -9,11 +9,11 @@ interface StickyPanelProps {
   cookieDays?: number;
 }
 
-export default function StickyPanel({ 
+export default function StickyPanel({
   delay = 5000,
   scrollThreshold = 300,
   cookieDays = 1,
-}: StickyPanelProps): JSX.Element {
+}: StickyPanelProps): JSX.Element | null {
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenShown, setHasBeenShown] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -216,5 +216,5 @@ export default function StickyPanel({
     };
   }, [delay, scrollThreshold, cookieDays, hasBeenShown]);
 
-  return null as any; // This component only handles logic, no UI
+  return null; // This component only handles logic, no UI
 }

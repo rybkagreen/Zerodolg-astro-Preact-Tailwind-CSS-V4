@@ -54,12 +54,12 @@ export default function Faq(_props: FaqProps): null {
             content.setAttribute('aria-hidden', 'false');
             item.classList.add('faq__item--expanded');
             // Set max height for animation
-            content.style.maxHeight = content.scrollHeight + 'px';
+            content.style.maxHeight = `${content.scrollHeight}px`;
 
             // Recalculate height after transition for dynamic content
             setTimeout(() => {
               if (trigger.getAttribute('aria-expanded') === 'true' && content) {
-                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.maxHeight = `${content.scrollHeight}px`;
               }
             }, 300);
           }
@@ -78,7 +78,7 @@ export default function Faq(_props: FaqProps): null {
           const content = item.querySelector('[data-faq-content]') as HTMLElement;
 
           if (trigger?.getAttribute('aria-expanded') === 'true' && content) {
-            content.style.maxHeight = content.scrollHeight + 'px';
+            content.style.maxHeight = `${content.scrollHeight}px`;
           }
         });
       }, 250);

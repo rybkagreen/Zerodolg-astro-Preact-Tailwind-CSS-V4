@@ -18,13 +18,13 @@ const {
 } = Astro.props;
 ---
 
-<div class={`cta-form ${className}`}>
+<div class:list={`cta-form ${className}`}>
   <Form
     formId={formId}
-    formType="cta"
+    formType='cta'
     submitText={submitText}
     showDebtField={showDebtField}
     variant={variant}
-    className="cta-form__form"
+    className='cta-form__form'
   />
 </div>

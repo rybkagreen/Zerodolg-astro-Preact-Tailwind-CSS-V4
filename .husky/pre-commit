@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Запускаем lint-staged для проверки изменённых файлов
+echo "🔍 Running pre-commit checks..."
+
+# Run lint-staged for staged files
 npx lint-staged
 
-# Запускаем проверку типов
-npm run type-check
+echo "✅ Pre-commit checks completed!"

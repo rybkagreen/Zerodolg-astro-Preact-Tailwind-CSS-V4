@@ -6,7 +6,7 @@ export function trackEvent(action: string, category: string, label?: string, val
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
-      value: value,
+      value,
     });
   }
 
@@ -24,7 +24,7 @@ export function trackEvent(action: string, category: string, label?: string, val
 export function trackPageView(pagePath: string): void {
   // Google Analytics
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', import.meta.env.PUBLIC_GA_ID, {
+    window.gtag('config', import.meta.env['PUBLIC_GA_ID'], {
       page_path: pagePath,
     });
   }

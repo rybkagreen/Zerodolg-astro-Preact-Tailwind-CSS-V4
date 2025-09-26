@@ -67,9 +67,7 @@ interface BreadcrumbSchema {
   }>;
 }
 
-export const breadcrumbSchema = (
-  items: Array<{ name: string; url: string }>
-): BreadcrumbSchema => {
+export const breadcrumbSchema = (items: Array<{ name: string; url: string }>): BreadcrumbSchema => {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',

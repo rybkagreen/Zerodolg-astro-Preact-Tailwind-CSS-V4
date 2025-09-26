@@ -37,7 +37,7 @@ describe('Navigation Component', () => {
   it('should toggle mobile menu state correctly', () => {
     const mobileMenuState = {
       isOpen: false,
-      toggle: function () {
+      toggle() {
         this.isOpen = !this.isOpen;
       },
     };

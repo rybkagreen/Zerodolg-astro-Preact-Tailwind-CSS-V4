@@ -2,9 +2,14 @@
 
 ## Project Overview
 
-ZeroDolg Astro Website is a corporate website for a legal company specializing in bankruptcy services for individuals. The project is built using Astro v5.13.7 as a static site generator with Preact for interactive components. The codebase is organized according to Feature-Sliced Design principles, emphasizing maintainability and scalability.
+ZeroDolg Astro Website is a corporate website for a legal company specializing
+in bankruptcy services for individuals. The project is built using Astro v5.13.7
+as a static site generator with Preact for interactive components. The codebase
+is organized according to Feature-Sliced Design principles, emphasizing
+maintainability and scalability.
 
 Key technologies used:
+
 - **Astro** - Static Site Generator (v5.13.7)
 - **Preact** - Lightweight alternative to React (v10.27.1)
 - **TypeScript** - Type safety (v5.9.2)
@@ -18,6 +23,7 @@ Key technologies used:
 ## Project Architecture
 
 ### Core Principles
+
 - **Feature-Sliced Design** - Code organized by business features and layers
 - **Islands Architecture** - Interactive components only where needed
 - **Static Generation** - Pre-rendered HTML for maximum performance
@@ -25,6 +31,7 @@ Key technologies used:
 - **Component-Based** - Modular and reusable architecture
 
 ### Directory Structure
+
 ```
 zerodolg-astro/
 ├── .github/                    # GitHub-specific files
@@ -79,6 +86,7 @@ zerodolg-astro/
 ## Building and Running
 
 ### Development Commands
+
 - `npm run dev` - Start local development server
 - `npm run build` - Build project for production
 - `npm run build:prod` - Build project with production optimizations
@@ -98,7 +106,9 @@ zerodolg-astro/
 - `npm run mcp:info` - Get info about MCP configuration
 
 ### Project Configuration
+
 The project requires environment variables for Alibaba CMS integration:
+
 ```
 # Alibaba CMS
 CMS_API_BASE=https://your-cms-endpoint.alibabacloud.com
@@ -108,12 +118,14 @@ CMS_API_KEY=your-api-key-here
 ## Development Conventions
 
 ### Styling Architecture
+
 - **ITCSS** - Inverted Triangle CSS for organizing styles
 - **BEM Methodology** - Block, Element, Modifier for CSS class naming
 - **Tailwind CSS v4** - Utility-first CSS framework for rapid development
 - **Mobile First** - Design starting with mobile devices
 
 ### Code Quality
+
 - TypeScript with strict mode enabled
 - ESLint for code linting
 - Prettier for code formatting
@@ -121,6 +133,7 @@ CMS_API_KEY=your-api-key-here
 - Lint-staged for pre-commit checks
 
 ### TypeScript Path Aliases
+
 - `@core/*` - Maps to `src/core/*`
 - `@features/*` - Maps to `src/features/*`
 - `@shared/*` - Maps to `src/shared/*`
@@ -132,6 +145,7 @@ CMS_API_KEY=your-api-key-here
 ## Project Status
 
 The project is fully completed and production-ready:
+
 - All pages implemented and tested
 - SEO fully optimized with robots.txt and sitemap.xml
 - All interactive components working correctly
@@ -145,14 +159,17 @@ The project is fully completed and production-ready:
 ## Key Integrations
 
 ### SEO and Analytics
+
 - Sitemap generation via `@astrojs/sitemap`
 - Robots.txt configuration via `astro-robots-txt`
 - Analytics integration for tracking
 
 ### Model Context Protocol (MCP)
+
 - MCP integration via `astro-mcp` for enhanced AI capabilities
 
 ### Testing
+
 - Vitest for unit and integration testing
 - Puppeteer for end-to-end testing
 - Testing Library for component testing

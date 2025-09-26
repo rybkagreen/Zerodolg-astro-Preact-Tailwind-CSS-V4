@@ -159,7 +159,7 @@ describe('OnlineSticker Component', () => {
       saveData: false,
       lastChecked: Date.now(),
       qualityHistory: [] as { quality: string; timestamp: number }[],
-      updateQuality: function () {
+      updateQuality() {
         // Mock connection quality update
         try {
           // @ts-ignore
@@ -202,7 +202,7 @@ describe('OnlineSticker Component', () => {
 
         return this;
       },
-      getQualityScore: function () {
+      getQualityScore() {
         switch (this.speed) {
           case 'excellent':
             return 5;
@@ -216,7 +216,7 @@ describe('OnlineSticker Component', () => {
             return 1;
         }
       },
-      getQualityDescription: function () {
+      getQualityDescription() {
         switch (this.speed) {
           case 'excellent':
             return 'Отличное соединение';
@@ -230,7 +230,7 @@ describe('OnlineSticker Component', () => {
             return 'Неизвестное качество соединения';
         }
       },
-      getQualityRecommendation: function () {
+      getQualityRecommendation() {
         switch (this.speed) {
           case 'excellent':
             return 'Все функции сайта доступны';
@@ -710,16 +710,16 @@ describe('OnlineSticker Component', () => {
     const performanceMock = {
       marks: [] as string[],
       measures: [] as { name: string; duration: number }[],
-      mark: function (name: string) {
+      mark(name: string) {
         this.marks.push(name);
       },
-      measure: function (name: string, startMark: string, endMark: string) {
+      measure(name: string, startMark: string, endMark: string) {
         // Simulate measurement
         const duration = Math.random() * 100;
         this.measures.push({ name, duration });
         return { name, duration };
       },
-      getEntriesByName: function (name: string) {
+      getEntriesByName(name: string) {
         return this.measures.filter((m) => m.name === name);
       },
     };

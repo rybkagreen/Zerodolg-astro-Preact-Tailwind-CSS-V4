@@ -7,7 +7,13 @@
     "model2-monitor": "node ./task-monitor/model2-monitor.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["ai-models", "coordination", "task-management", "astro", "zerodolg"],
+  "keywords": [
+    "ai-models",
+    "coordination",
+    "task-management",
+    "astro",
+    "zerodolg"
+  ],
   "author": "Qwen Code",
   "license": "MIT"
 }

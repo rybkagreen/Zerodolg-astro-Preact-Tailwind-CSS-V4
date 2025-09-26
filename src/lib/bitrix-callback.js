@@ -248,13 +248,13 @@ export class BitrixCallback {
       console.error('Error submitting callback form:', error);
       // Show user-friendly error message instead of alert
       console.error(`Произошла ошибка. Пожалуйста, позвоните нам: ${this.sitePhone}`);
-      
+
       // Show error in UI instead of alert
       const errorDiv = document.createElement('div');
       errorDiv.className = 'bitrix-callback__error bitrix-callback__error--visible';
       errorDiv.textContent = 'Произошла ошибка отправки. Попробуйте еще раз или позвоните нам.';
       this.form.appendChild(errorDiv);
-      
+
       setTimeout(() => {
         errorDiv.remove();
       }, 5000);

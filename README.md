@@ -77,7 +77,8 @@ zerodolg-astro/
 
 ### Основные документы
 
-- [Архитектура](docs/architecture.md) - Проектная архитектура с Feature-Sliced Design
+- [Архитектура](docs/architecture.md) - Проектная архитектура с Feature-Sliced
+  Design
 - [Qwen.md](QWEN.md) - Конфигурация и руководство для Qwen Code
 
 ### Документация в подкаталогах
@@ -91,13 +92,18 @@ zerodolg-astro/
 ## 🛠 Технологии
 
 - **[Astro](https://astro.build/)** - Статический генератор сайтов (v5.13.7)
-- **[Preact](https://preactjs.com/)** - Легковесная альтернатива React (v10.27.1)
-- **[TypeScript](https://www.typescriptlang.org/)** - Строгая типизация JavaScript (v5.9.2)
-- **[CSS](https://developer.mozilla.org/ru/docs/Web/CSS)** - Современный CSS с пользовательскими свойствами
-- **[Alibaba CMS](https://www.alibabacloud.com/product/cms)** - Облачная система управления контентом
+- **[Preact](https://preactjs.com/)** - Легковесная альтернатива React
+  (v10.27.1)
+- **[TypeScript](https://www.typescriptlang.org/)** - Строгая типизация
+  JavaScript (v5.9.2)
+- **[CSS](https://developer.mozilla.org/ru/docs/Web/CSS)** - Современный CSS с
+  пользовательскими свойствами
+- **[Alibaba CMS](https://www.alibabacloud.com/product/cms)** - Облачная система
+  управления контентом
 - **[Tailwind CSS](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк v4
 - **[Vitest](https://vitest.dev/)** - Инструмент для тестирования (v3.2.4)
-- **[Puppeteer](https://pptr.dev/)** - Инструмент для end-to-end тестирования (v24.22.3)
+- **[Puppeteer](https://pptr.dev/)** - Инструмент для end-to-end тестирования
+  (v24.22.3)
 
 ## 🎨 Архитектура
 
@@ -105,15 +111,19 @@ zerodolg-astro/
 
 - **Feature-Sliced Design** - Организация кода по бизнес-функциям и слоям
 - **Islands Architecture** - Интерактивные компоненты только там, где они нужны
-- **Статическая генерация** - Предварительный рендеринг HTML для максимальной производительности
+- **Статическая генерация** - Предварительный рендеринг HTML для максимальной
+  производительности
 - **Прогрессивное улучшение** - Сайт работает без JavaScript
 - **Компонентный подход** - Модульная и переиспользуемая архитектура
 
 ### Стили
 
-- **[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)** - Инвертированный треугольник CSS для организации стилей
-- **[BEM](http://getbem.com/)** - Блок, Элемент, Модификатор для именования CSS классов
-- **[Tailwind CSS v4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк для быстрой разработки
+- **[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)** -
+  Инвертированный треугольник CSS для организации стилей
+- **[BEM](http://getbem.com/)** - Блок, Элемент, Модификатор для именования CSS
+  классов
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк
+  для быстрой разработки
 - **Mobile First** - Дизайн сначала для мобильных устройств
 
 ## ✅ Статус проекта

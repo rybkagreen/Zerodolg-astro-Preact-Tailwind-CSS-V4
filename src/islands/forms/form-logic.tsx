@@ -106,7 +106,7 @@ export default function Form({ formId, formType, onSuccess, onError }: FormProps
             gtag?: (command: string, ...args: unknown[]) => void;
             ym?: (id: number, command: string, ...args: unknown[]) => void;
           };
-          
+
           // Google Analytics
           if (win.gtag) {
             win.gtag('event', 'form_submit', {

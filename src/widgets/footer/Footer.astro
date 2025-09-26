@@ -27,54 +27,54 @@ const company = {
 ---
 
 <footer
-  class="bg-gray-900 text-white"
-  role="contentinfo"
-  data-component="Footer"
+  class='bg-gray-900 text-white'
+  role='contentinfo'
+  data-component='Footer'
   itemscope
-  itemtype="https://schema.org/Organization"
+  itemtype='https://schema.org/Organization'
 >
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+  <div class='py-12'>
+    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div class='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
         <!-- Company Information -->
-        <div class="md:col-span-2 lg:col-span-1">
+        <div class='md:col-span-2 lg:col-span-1'>
           <a
-            href="/"
-            class="inline-block mb-4"
-            title="{company.name} - Главная страница"
-            aria-label="Логотип {company.name}, перейти на главную страницу"
+            href='/'
+            class='inline-block mb-4'
+            title='{company.name} - Главная страница'
+            aria-label='Логотип {company.name}, перейти на главную страницу'
           >
             <img
-              src="/images/logo-white.svg"
-              alt="{company.name} - Банкротство физических лиц"
-              width="180"
-              height="50"
-              loading="lazy"
+              src='/images/logo-white.svg'
+              alt='{company.name} - Банкротство физических лиц'
+              width='180'
+              height='50'
+              loading='lazy'
             />
           </a>
 
-          <p class="text-gray-300 mb-6" itemprop="description">
+          <p class='text-gray-300 mb-6' itemprop='description'>
             Профессиональная юридическая помощь в банкротстве физических лиц. Работаем с <time
-              datetime="2008"
-              itemprop="foundingDate">2008 года</time
-            >, более <strong class="text-white">500 успешных дел</strong>.
+              datetime='2008'
+              itemprop='foundingDate'>2008 года</time
+            >, более <strong class='text-white'>500 успешных дел</strong>.
           </p>
 
           <!-- Social Media Links -->
-          <div class="flex space-x-4" role="navigation" aria-label="Социальные сети компании">
+          <div class='flex space-x-4' role='navigation' aria-label='Социальные сети компании'>
             {
               company.social.whatsapp && (
                 <a
-                  href="{company.social.whatsapp}"
-                  class="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
-                  target="_blank"
-                  rel="noopener nofollow"
-                  itemprop="sameAs"
-                  aria-label="Консультация в WhatsApp по банкротству физических лиц"
-                  title="Написать в WhatsApp"
+                  href='{company.social.whatsapp}'
+                  class='w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200'
+                  target='_blank'
+                  rel='noopener nofollow'
+                  itemprop='sameAs'
+                  aria-label='Консультация в WhatsApp по банкротству физических лиц'
+                  title='Написать в WhatsApp'
                 >
-                  <svg class="w-6 h-6 text-white" width="24" height="24" aria-hidden="true">
-                    <use xlink:href="#icon-whatsapp" />
+                  <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
+                    <use xlink:href='#icon-whatsapp' />
                   </svg>
                 </a>
               )
@@ -82,16 +82,16 @@ const company = {
             {
               company.social.telegram && (
                 <a
-                  href="{company.social.telegram}"
-                  class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
-                  target="_blank"
-                  rel="noopener nofollow"
-                  itemprop="sameAs"
-                  aria-label="Консультация в Telegram по банкротству физических лиц"
-                  title="Написать в Telegram"
+                  href='{company.social.telegram}'
+                  class='w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200'
+                  target='_blank'
+                  rel='noopener nofollow'
+                  itemprop='sameAs'
+                  aria-label='Консультация в Telegram по банкротству физических лиц'
+                  title='Написать в Telegram'
                 >
-                  <svg class="w-6 h-6 text-white" width="24" height="24" aria-hidden="true">
-                    <use xlink:href="#icon-telegram" />
+                  <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
+                    <use xlink:href='#icon-telegram' />
                   </svg>
                 </a>
               )
@@ -99,16 +99,16 @@ const company = {
             {
               company.social.vk && (
                 <a
-                  href="{company.social.vk}"
-                  class="w-10 h-10 bg-gray-800 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors duration-200"
-                  target="_blank"
-                  rel="noopener nofollow"
-                  itemprop="sameAs"
-                  aria-label="Группа ВКонтакте о банкротстве физических лиц"
-                  title="Наша группа ВКонтакте"
+                  href='{company.social.vk}'
+                  class='w-10 h-10 bg-gray-800 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors duration-200'
+                  target='_blank'
+                  rel='noopener nofollow'
+                  itemprop='sameAs'
+                  aria-label='Группа ВКонтакте о банкротстве физических лиц'
+                  title='Наша группа ВКонтакте'
                 >
-                  <svg class="w-6 h-6 text-white" width="24" height="24" aria-hidden="true">
-                    <use xlink:href="#icon-vk" />
+                  <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
+                    <use xlink:href='#icon-vk' />
                   </svg>
                 </a>
               )
@@ -118,50 +118,50 @@ const company = {
 
         <!-- Services Section -->
         <div>
-          <h3 class="text-lg font-semibold mb-4">Услуги по банкротству</h3>
-          <nav role="navigation" aria-label="Услуги компании">
-            <ul class="space-y-2">
+          <h3 class='text-lg font-semibold mb-4'>Услуги по банкротству</h3>
+          <nav role='navigation' aria-label='Услуги компании'>
+            <ul class='space-y-2'>
               <li>
                 <a
-                  href="#benefits"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Судебное банкротство физических лиц через Арбитражный суд"
+                  href='#benefits'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Судебное банкротство физических лиц через Арбитражный суд'
                 >
                   Судебное банкротство
                 </a>
               </li>
               <li>
                 <a
-                  href="#process"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Внесудебное банкротство через МФЦ"
+                  href='#process'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Внесудебное банкротство через МФЦ'
                 >
                   Внесудебное банкротство
                 </a>
               </li>
               <li>
                 <a
-                  href="#calculator"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Реструктуризация долгов физических лиц"
+                  href='#calculator'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Реструктуризация долгов физических лиц'
                 >
                   Реструктуризация долгов
                 </a>
               </li>
               <li>
                 <a
-                  href="#problems"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Защита от коллекторских агентств"
+                  href='#problems'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Защита от коллекторских агентств'
                 >
                   Защита от коллекторов
                 </a>
               </li>
               <li>
                 <a
-                  href="#calculator"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Рассчитать стоимость банкротства онлайн"
+                  href='#calculator'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Рассчитать стоимость банкротства онлайн'
                 >
                   Калькулятор стоимости
                 </a>
@@ -172,50 +172,50 @@ const company = {
 
         <!-- Information Section -->
         <div>
-          <h3 class="text-lg font-semibold mb-4">О компании</h3>
-          <nav role="navigation" aria-label="Информация о компании">
-            <ul class="space-y-2">
+          <h3 class='text-lg font-semibold mb-4'>О компании</h3>
+          <nav role='navigation' aria-label='Информация о компании'>
+            <ul class='space-y-2'>
               <li>
                 <a
-                  href="#hero"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="О юридической компании МАСХУЛИА"
+                  href='#hero'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='О юридической компании МАСХУЛИА'
                 >
                   О компании
                 </a>
               </li>
               <li>
                 <a
-                  href="#testimonials"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Наша команда юристов и специалистов"
+                  href='#testimonials'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Наша команда юристов и специалистов'
                 >
                   Наша команда
                 </a>
               </li>
               <li>
                 <a
-                  href="#testimonials"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Отзывы клиентов о банкротстве физических лиц"
+                  href='#testimonials'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Отзывы клиентов о банкротстве физических лиц'
                 >
                   Отзывы клиентов
                 </a>
               </li>
               <li>
                 <a
-                  href="#faq"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Полезные статьи о банкротстве и списании долгов"
+                  href='#faq'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Полезные статьи о банкротстве и списании долгов'
                 >
                   Полезные статьи
                 </a>
               </li>
               <li>
                 <a
-                  href="#faq"
-                  class="text-gray-300 hover:text-white transition-colors duration-200"
-                  title="Часто задаваемые вопросы о банкротстве"
+                  href='#faq'
+                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  title='Часто задаваемые вопросы о банкротстве'
                 >
                   Вопросы и ответы
                 </a>
@@ -226,33 +226,33 @@ const company = {
 
         <!-- Contact Information -->
         <div
-          class="md:col-span-2 lg:col-span-1"
+          class='md:col-span-2 lg:col-span-1'
           itemscope
-          itemtype="https://schema.org/LocalBusiness"
+          itemtype='https://schema.org/LocalBusiness'
         >
-          <h3 class="text-lg font-semibold mb-4">Контактная информация</h3>
+          <h3 class='text-lg font-semibold mb-4'>Контактная информация</h3>
 
-          <div class="space-y-4">
+          <div class='space-y-4'>
             <!-- Phone Contact -->
-            <div class="flex items-start space-x-3">
-              <svg class="w-5 h-5 text-gray-400 mt-1" width="20" height="20" aria-hidden="true">
-                <use xlink:href="#icon-phone"></use>
+            <div class='flex items-start space-x-3'>
+              <svg class='w-5 h-5 text-gray-400 mt-1' width='20' height='20' aria-hidden='true'>
+                <use xlink:href='#icon-phone'></use>
               </svg>
               <div>
                 <a
-                  href="tel:{phone company.phone}"
-                  class="text-white hover:text-blue-400 transition-colors duration-200 font-semibold"
-                  itemprop="telephone"
-                  title="Позвонить для бесплатной консультации по банкротству"
-                  aria-label="Телефон для консультации: {company.phone}"
+                  href='tel:{phone company.phone}'
+                  class='text-white hover:text-blue-400 transition-colors duration-200 font-semibold'
+                  itemprop='telephone'
+                  title='Позвонить для бесплатной консультации по банкротству'
+                  aria-label='Телефон для консультации: {company.phone}'
                 >
                   {company.phone}
                 </a>
                 <time
-                  class="block text-sm text-gray-400"
-                  datetime="Mo-Fr 09:00-18:00"
-                  itemprop="openingHours"
-                  title="Часы работы офиса"
+                  class='block text-sm text-gray-400'
+                  datetime='Mo-Fr 09:00-18:00'
+                  itemprop='openingHours'
+                  title='Часы работы офиса'
                 >
                   {company.workHours}
                 </time>
@@ -260,16 +260,16 @@ const company = {
             </div>
 
             <!-- Email Contact -->
-            <div class="flex items-center space-x-3">
-              <svg class="w-5 h-5 text-gray-400" width="20" height="20" aria-hidden="true">
-                <use xlink:href="#icon-email"></use>
+            <div class='flex items-center space-x-3'>
+              <svg class='w-5 h-5 text-gray-400' width='20' height='20' aria-hidden='true'>
+                <use xlink:href='#icon-email'></use>
               </svg>
               <a
-                href="mailto:{company.email}"
-                class="text-white hover:text-blue-400 transition-colors duration-200"
-                itemprop="email"
-                title="Написать письмо для консультации по банкротству"
-                aria-label="Email: {company.email}"
+                href='mailto:{company.email}'
+                class='text-white hover:text-blue-400 transition-colors duration-200'
+                itemprop='email'
+                title='Написать письмо для консультации по банкротству'
+                aria-label='Email: {company.email}'
               >
                 {company.email}
               </a>
@@ -277,31 +277,31 @@ const company = {
 
             <!-- Address -->
             <div
-              class="flex items-start space-x-3"
-              itemprop="address"
+              class='flex items-start space-x-3'
+              itemprop='address'
               itemscope
-              itemtype="https://schema.org/PostalAddress"
+              itemtype='https://schema.org/PostalAddress'
             >
-              <svg class="w-5 h-5 text-gray-400 mt-1" width="20" height="20" aria-hidden="true">
-                <use xlink:href="#icon-location"></use>
+              <svg class='w-5 h-5 text-gray-400 mt-1' width='20' height='20' aria-hidden='true'>
+                <use xlink:href='#icon-location'></use>
               </svg>
-              <address class="text-gray-300 not-italic leading-relaxed">
-                <span itemprop="addressLocality">{company.address.city}</span>,<br />
-                <span itemprop="streetAddress">{company.address.street}</span>
-                <meta itemprop="addressRegion" content="{company.address.region}" />
-                <meta itemprop="postalCode" content="{company.address.postal}" />
-                <meta itemprop="addressCountry" content="RU" />
+              <address class='text-gray-300 not-italic leading-relaxed'>
+                <span itemprop='addressLocality'>{company.address.city}</span>,<br />
+                <span itemprop='streetAddress'>{company.address.street}</span>
+                <meta itemprop='addressRegion' content='{company.address.region}' />
+                <meta itemprop='postalCode' content='{company.address.postal}' />
+                <meta itemprop='addressCountry' content='RU' />
               </address>
             </div>
           </div>
 
           <!-- CTA Button -->
           <button
-            class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
-            data-modal="callback"
-            type="button"
-            aria-label="Заказать бесплатную консультацию по банкротству физических лиц"
-            title="Бесплатная юридическая консультация"
+            class='w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200'
+            data-modal='callback'
+            type='button'
+            aria-label='Заказать бесплатную консультацию по банкротству физических лиц'
+            title='Бесплатная юридическая консультация'
           >
             <span>Заказать консультацию</span>
           </button>
@@ -311,48 +311,48 @@ const company = {
   </div>
 
   <!-- Footer Bottom -->
-  <div class="border-t border-gray-800 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+  <div class='border-t border-gray-800 py-6'>
+    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div class='flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0'>
         <!-- Copyright Information -->
-        <div class="text-sm text-gray-400" itemscope itemtype="https://schema.org/Organization">
-          <p class="mb-1">
-            <span>&copy; 2008-<time datetime="2024">2024</time></span>
-            <span itemprop="legalName">{company.name}</span>.
+        <div class='text-sm text-gray-400' itemscope itemtype='https://schema.org/Organization'>
+          <p class='mb-1'>
+            <span>&copy; 2008-<time datetime='2024'>2024</time></span>
+            <span itemprop='legalName'>{company.name}</span>.
             <span>Все права защищены.</span>
           </p>
-          <p class="text-xs">
-            ИНН: <span itemprop="taxID">9729317468</span> | ОГРН: <span>1217700631697</span>
+          <p class='text-xs'>
+            ИНН: <span itemprop='taxID'>9729317468</span> | ОГРН: <span>1217700631697</span>
           </p>
         </div>
 
         <!-- Legal Links -->
         <nav
-          class="flex flex-wrap gap-4 text-sm"
-          role="navigation"
-          aria-label="Правовая информация"
+          class='flex flex-wrap gap-4 text-sm'
+          role='navigation'
+          aria-label='Правовая информация'
         >
           <a
-            href="/privacy"
-            class="text-gray-400 hover:text-white transition-colors duration-200"
-            title="Политика конфиденциальности и обработки персональных данных"
-            rel="nofollow"
+            href='/privacy'
+            class='text-gray-400 hover:text-white transition-colors duration-200'
+            title='Политика конфиденциальности и обработки персональных данных'
+            rel='nofollow'
           >
             Политика конфиденциальности
           </a>
           <a
-            href="/terms"
-            class="text-gray-400 hover:text-white transition-colors duration-200"
-            title="Пользовательское соглашение и условия предоставления услуг"
-            rel="nofollow"
+            href='/terms'
+            class='text-gray-400 hover:text-white transition-colors duration-200'
+            title='Пользовательское соглашение и условия предоставления услуг'
+            rel='nofollow'
           >
             Пользовательское соглашение
           </a>
           <a
-            href="/sitemap"
-            class="text-gray-400 hover:text-white transition-colors duration-200"
-            title="Карта сайта со всеми страницами"
-            rel="nofollow"
+            href='/sitemap'
+            class='text-gray-400 hover:text-white transition-colors duration-200'
+            title='Карта сайта со всеми страницами'
+            rel='nofollow'
           >
             Карта сайта
           </a>

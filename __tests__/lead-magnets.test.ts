@@ -282,19 +282,19 @@ describe('LeadMagnets Component', () => {
   it('should handle lead magnet download tracking correctly', () => {
     const downloadTracking = {
       downloads: new Map<string, number>(),
-      trackDownload: function (magnetId: string) {
+      trackDownload(magnetId: string) {
         const currentCount = this.downloads.get(magnetId) || 0;
         this.downloads.set(magnetId, currentCount + 1);
       },
-      getDownloadCount: function (magnetId: string) {
+      getDownloadCount(magnetId: string) {
         return this.downloads.get(magnetId) || 0;
       },
-      getTotalDownloads: function () {
+      getTotalDownloads() {
         let total = 0;
         this.downloads.forEach((count) => (total += count));
         return total;
       },
-      getMostDownloaded: function (magnets: { id: string; title: string }[]) {
+      getMostDownloaded(magnets: { id: string; title: string }[]) {
         let maxDownloads = 0;
         let mostDownloadedId = '';
 
@@ -308,7 +308,7 @@ describe('LeadMagnets Component', () => {
         const magnet = magnets.find((m) => m.id === mostDownloadedId);
         return magnet ? { ...magnet, downloads: maxDownloads } : null;
       },
-      getDownloadHistory: function () {
+      getDownloadHistory() {
         const history: { magnetId: string; count: number; timestamp: number }[] = [];
         this.downloads.forEach((count, magnetId) => {
           history.push({ magnetId, count, timestamp: Date.now() });
@@ -734,16 +734,16 @@ describe('LeadMagnets Component', () => {
     const performanceMock = {
       marks: [] as string[],
       measures: [] as { name: string; duration: number }[],
-      mark: function (name: string) {
+      mark(name: string) {
         this.marks.push(name);
       },
-      measure: function (name: string, startMark: string, endMark: string) {
+      measure(name: string, startMark: string, endMark: string) {
         // Simulate measurement
         const duration = Math.random() * 100;
         this.measures.push({ name, duration });
         return { name, duration };
       },
-      getEntriesByName: function (name: string) {
+      getEntriesByName(name: string) {
         return this.measures.filter((m) => m.name === name);
       },
     };

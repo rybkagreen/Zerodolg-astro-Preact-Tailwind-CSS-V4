@@ -82,25 +82,25 @@ const siteMap = [
 ];
 ---
 
-<Layout title={title} description={description} canonical="https://zerodolg.ru/sitemap">
-  <article class="sitemap-page">
-    <div class="container">
+<Layout title={title} description={description} canonical='https://zerodolg.ru/sitemap'>
+  <article class='sitemap-page'>
+    <div class='container'>
       <h1>Карта сайта</h1>
 
-      <div class="sitemap-content">
-        <p class="sitemap-intro">
+      <div class='sitemap-content'>
+        <p class='sitemap-intro'>
           Добро пожаловать на полную карту сайта ZeroDolg. Здесь вы найдете все разделы и страницы
           нашего сайта, посвященного банкротству физических лиц. Вы можете использовать эту карту
           для быстрой навигации по всему содержимому сайта.
         </p>
 
-        <nav class="sitemap-navigation" role="navigation" aria-label="Карта сайта">
-          <ul class="sitemap-list">
+        <nav class='sitemap-navigation' role='navigation' aria-label='Карта сайта'>
+          <ul class='sitemap-list'>
             {
               siteMap.map((section) => (
-                <li class="sitemap-section">
+                <li class='sitemap-section'>
                   {section.title && (
-                    <h2 class="sitemap-section-title">
+                    <h2 class='sitemap-section-title'>
                       {section.url ? (
                         <a href={section.url} title={section.description || section.title}>
                           {section.title}
@@ -112,14 +112,14 @@ const siteMap = [
                   )}
 
                   {section.children && (
-                    <ul class="sitemap-sublist">
+                    <ul class='sitemap-sublist'>
                       {section.children.map((item) => (
-                        <li class="sitemap-item">
+                        <li class='sitemap-item'>
                           <a href={item.url} title={item.description || item.title}>
                             {item.title}
                           </a>
                           {item.description && (
-                            <p class="sitemap-item-description">{item.description}</p>
+                            <p class='sitemap-item-description'>{item.description}</p>
                           )}
                         </li>
                       ))}
@@ -127,7 +127,7 @@ const siteMap = [
                   )}
 
                   {!section.children && section.description && (
-                    <p class="sitemap-section-description">{section.description}</p>
+                    <p class='sitemap-section-description'>{section.description}</p>
                   )}
                 </li>
               ))
@@ -135,18 +135,18 @@ const siteMap = [
           </ul>
         </nav>
 
-        <div class="sitemap-additional">
+        <div class='sitemap-additional'>
           <h2>Дополнительная информация</h2>
           <ul>
-            <li><a href="/#contacts">Контакты</a> - Наши контактные данные и адрес офиса</li>
+            <li><a href='/#contacts'>Контакты</a> - Наши контактные данные и адрес офиса</li>
             <li>
-              <a href="tel:+79055773387">Позвонить нам</a> - Бесплатная консультация по телефону
+              <a href='tel:+79055773387'>Позвонить нам</a> - Бесплатная консультация по телефону
             </li>
             <li>
-              <a href="https://wa.me/79055773387">WhatsApp</a> - Консультация в мессенджере WhatsApp
+              <a href='https://wa.me/79055773387'>WhatsApp</a> - Консультация в мессенджере WhatsApp
             </li>
             <li>
-              <a href="https://t.me/zerodolg">Telegram</a> - Консультация в мессенджере Telegram
+              <a href='https://t.me/zerodolg'>Telegram</a> - Консультация в мессенджере Telegram
             </li>
           </ul>
         </div>

@@ -1,10 +1,7 @@
 import { type VNode } from 'preact';
-// useState and SocialLink are imported but not currently used
-// They are kept for potential future use
-import { useState } from 'preact/hooks';
-import type { SocialLink } from '@features/social/types';
+import { useEffect } from 'preact/hooks';
 
-export default function SocialLinks({}: { data?: Record<string, unknown> }): VNode {
+export default function SocialLinks({}: { data?: Record<string, unknown> }): VNode | null {
   useEffect(() => {
     const handleSocialClick = (e: Event) => {
       const mouseEvent = e as MouseEvent;
@@ -27,9 +24,9 @@ export default function SocialLinks({}: { data?: Record<string, unknown> }): VNo
       // Track with Yandex Metrika
       if (window.ym && window.yaCounterId) {
         window.ym(window.yaCounterId, 'reachGoal', 'social_link_click', {
-          platform: platform,
+          platform,
           position: index,
-          url: url,
+          url,
         });
       }
 

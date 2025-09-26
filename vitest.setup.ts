@@ -50,10 +50,13 @@ Object.defineProperty(window, 'sessionStorage', {
 
 // Mock ResizeObserver
 beforeEach(() => {
-  vi.stubGlobal('ResizeObserver', class {
-    // Minimal implementation for tests
-    observe = vi.fn();
-    unobserve = vi.fn();
-    disconnect = vi.fn();
-  });
+  vi.stubGlobal(
+    'ResizeObserver',
+    class {
+      // Minimal implementation for tests
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    }
+  );
 });

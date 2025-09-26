@@ -6,8 +6,8 @@ declare global {
     ym?: (id: number, command: string, ...args: unknown[]) => void;
     yaCounterId?: number;
     modalManager?: {
-      open: (modalId: string) => void;
-      close: (modal?: HTMLElement) => void;
+      open: (modalId: string, modalType?: string) => void;
+      close: (modalId?: string) => void;
       closeAll: () => void;
     };
   }

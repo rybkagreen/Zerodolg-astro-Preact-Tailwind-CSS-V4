@@ -59,17 +59,17 @@ describe('Component Isolation Tests', () => {
   it('should mount components correctly', () => {
     const componentMounter = {
       mountedComponents: new Set<string>(),
-      mount: function (componentId: string) {
+      mount(componentId: string) {
         if (this.mountedComponents.has(componentId)) {
           throw new Error(`Component ${componentId} already mounted`);
         }
         this.mountedComponents.add(componentId);
         return true;
       },
-      unmount: function (componentId: string) {
+      unmount(componentId: string) {
         return this.mountedComponents.delete(componentId);
       },
-      isMounted: function (componentId: string) {
+      isMounted(componentId: string) {
         return this.mountedComponents.has(componentId);
       },
     };
@@ -99,7 +99,7 @@ describe('Component Isolation Tests', () => {
       mounted: [] as string[],
       updated: [] as string[],
       destroyed: [] as string[],
-      track: function (event: string, componentId: string) {
+      track(event: string, componentId: string) {
         this[event].push(componentId);
       },
     };
@@ -133,17 +133,17 @@ describe('Component Isolation Tests', () => {
   it('should handle component communication correctly', () => {
     const eventBus = {
       listeners: new Map<string, Function[]>(),
-      on: function (event: string, callback: Function) {
+      on(event: string, callback: Function) {
         if (!this.listeners.has(event)) {
           this.listeners.set(event, []);
         }
         this.listeners.get(event)?.push(callback);
       },
-      emit: function (event: string, data?: any) {
+      emit(event: string, data?: any) {
         const callbacks = this.listeners.get(event) || [];
         callbacks.forEach((callback) => callback(data));
       },
-      off: function (event: string, callback: Function) {
+      off(event: string, callback: Function) {
         const callbacks = this.listeners.get(event) || [];
         const index = callbacks.indexOf(callback);
         if (index > -1) {
@@ -182,20 +182,20 @@ describe('Component Isolation Tests', () => {
     const stateManager = {
       state: {} as Record<string, any>,
       subscriptions: new Map<string, Function[]>(),
-      setState: function (key: string, value: any) {
+      setState(key: string, value: any) {
         this.state[key] = value;
         this.notifySubscribers(key, value);
       },
-      getState: function (key: string) {
+      getState(key: string) {
         return this.state[key];
       },
-      subscribe: function (key: string, callback: Function) {
+      subscribe(key: string, callback: Function) {
         if (!this.subscriptions.has(key)) {
           this.subscriptions.set(key, []);
         }
         this.subscriptions.get(key)?.push(callback);
       },
-      notifySubscribers: function (key: string, value: any) {
+      notifySubscribers(key: string, value: any) {
         const subscribers = this.subscriptions.get(key) || [];
         subscribers.forEach((subscriber) => subscriber(value));
       },
@@ -238,24 +238,24 @@ describe('Component Isolation Tests', () => {
   it('should handle component performance correctly', () => {
     const performanceMonitor = {
       measurements: new Map<string, number[]>(),
-      start: function (operation: string) {
+      start(operation: string) {
         if (!this.measurements.has(operation)) {
           this.measurements.set(operation, []);
         }
         return performance.now();
       },
-      end: function (operation: string, startTime: number) {
+      end(operation: string, startTime: number) {
         const endTime = performance.now();
         const duration = endTime - startTime;
         this.measurements.get(operation)?.push(duration);
         return duration;
       },
-      getAverage: function (operation: string) {
+      getAverage(operation: string) {
         const durations = this.measurements.get(operation) || [];
         if (durations.length === 0) return 0;
         return durations.reduce((sum, dur) => sum + dur, 0) / durations.length;
       },
-      getCount: function (operation: string) {
+      getCount(operation: string) {
         return (this.measurements.get(operation) || []).length;
       },
     };
@@ -290,20 +290,20 @@ describe('Component Isolation Tests', () => {
   it('should handle component errors gracefully', () => {
     const errorHandler = {
       errors: [] as Array<{ component: string; error: Error; timestamp: number }>,
-      handleError: function (component: string, error: Error) {
+      handleError(component: string, error: Error) {
         this.errors.push({
           component,
           error,
           timestamp: Date.now(),
         });
       },
-      getErrors: function (component?: string) {
+      getErrors(component?: string) {
         if (component) {
           return this.errors.filter((e) => e.component === component);
         }
         return this.errors;
       },
-      clearErrors: function (component?: string) {
+      clearErrors(component?: string) {
         if (component) {
           this.errors = this.errors.filter((e) => e.component !== component);
         } else {

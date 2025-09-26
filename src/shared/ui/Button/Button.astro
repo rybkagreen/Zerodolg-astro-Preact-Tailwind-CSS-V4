@@ -49,6 +49,6 @@ const classes = [
 ].join(' ');
 ---
 
-<button type={type} class={classes} disabled={disabled} onClick={onClick}>
+<button type={type} class:list={classes} disabled={disabled} onClick={onClick}>
   <slot />
 </button>

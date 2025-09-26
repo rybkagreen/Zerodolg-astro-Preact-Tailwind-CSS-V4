@@ -2,7 +2,8 @@
 
 ## Обзор
 
-Вместо запуска отдельных координаторов для каждой модели, предлагается использовать единую точку управления, которая будет:
+Вместо запуска отдельных координаторов для каждой модели, предлагается
+использовать единую точку управления, которая будет:
 
 1. Регистрировать модели при подключении
 2. Назначать роли моделям
@@ -57,14 +58,14 @@ class QwenCoordinationHub {
     this.taskQueue = new TaskQueue(); // Очередь задач
     this.taskTracker = new TaskTracker(); // Трекер задач
   }
-  
+
   // Регистрация модели
   registerModel(modelId, role) {
     const model = new Model(modelId, role);
     this.models.set(modelId, model);
     console.log(`Model ${modelId} registered with role ${role}`);
   }
-  
+
   // Назначение задачи модели
   assignTaskToModel(modelId, task) {
     const model = this.models.get(modelId);
@@ -72,7 +73,7 @@ class QwenCoordinationHub {
       model.assignTask(task);
     }
   }
-  
+
   // Запуск координации
   startCoordination() {
     // Логика координации задач между моделями
@@ -80,15 +81,15 @@ class QwenCoordinationHub {
       this.coordinateTasks();
     }, 5000); // Проверка каждые 5 секунд
   }
-  
+
   // Координация задач
   coordinateTasks() {
     // Получить задачи из трекера
     const tasks = this.taskTracker.getActiveTasks();
-    
+
     // Назначить задачи моделям в зависимости от ролей
     for (const task of tasks) {
-      switch(task.assignedTo) {
+      switch (task.assignedTo) {
         case 'model1':
           this.assignTaskToModel('model1', task);
           break;
@@ -115,7 +116,7 @@ class AnalyzerRole {
     console.log('Analyzing code quality...');
     // Выполнение анализа кода
     const issues = await this.runCodeAnalysis();
-    
+
     // Создание задач в трекере
     for (const issue of issues) {
       await this.taskTracker.createTask({
@@ -124,7 +125,7 @@ class AnalyzerRole {
         priority: issue.priority,
         assignedTo: 'model2', // Назначить Модели 2 для планирования
         filesAffected: issue.files,
-        reporter: 'model1'
+        reporter: 'model1',
       });
     }
   }
@@ -136,14 +137,14 @@ class ArchitectRole {
     console.log('Planning architectural improvements...');
     // Получить задачи, назначенные этой модели
     const tasks = await this.taskTracker.getTasksForModel('model2');
-    
+
     // Планирование улучшений для каждой задачи
     for (const task of tasks) {
       await this.planImprovementsForTask(task);
       // Назначить задачу Модели 3 для реализации
       await this.taskTracker.updateTask(task.id, {
         assignedTo: 'model3',
-        status: 'processing'
+        status: 'processing',
       });
     }
   }
@@ -155,7 +156,7 @@ class OptimizerRole {
     console.log('Implementing improvements...');
     // Получить задачи, назначенные этой модели
     const tasks = await this.taskTracker.getTasksForModel('model3');
-    
+
     // Реализация улучшений для каждой задачи
     for (const task of tasks) {
       await this.implementTask(task);
@@ -169,7 +170,8 @@ class OptimizerRole {
 ## Преимущества упрощенной системы
 
 1. **Единая точка управления**: Все координация происходит через один центр
-2. **Простота использования**: Нет необходимости запускать несколько координаторов
+2. **Простота использования**: Нет необходимости запускать несколько
+   координаторов
 3. **Гибкость**: Модели могут регистрироваться динамически
 4. **Отслеживаемость**: Все действия логируются и отслеживаются
 5. **Масштабируемость**: Можно легко добавлять новые роли и модели
@@ -179,20 +181,22 @@ class OptimizerRole {
 ### Запуск системы
 
 1. Запустить координатор в одном окне:
+
    ```bash
    node hub.js
    ```
 
 2. Зарегистрировать модели в других окнах:
+
    ```javascript
    // В окне Модели 1
    const model1 = new Model('model1');
    model1.registerWithHub('analyzer');
-   
+
    // В окне Модели 2
    const model2 = new Model('model2');
    model2.registerWithHub('architect');
-   
+
    // В окне Модели 3
    const model3 = new Model('model3');
    model3.registerWithHub('optimizer');
@@ -212,4 +216,6 @@ class OptimizerRole {
 
 ## Заключение
 
-Упрощенная система координации с единым центром управления значительно упрощает работу с моделями Qwen и делает систему более понятной и удобной для использования.
+Упрощенная система координации с единым центром управления значительно упрощает
+работу с моделями Qwen и делает систему более понятной и удобной для
+использования.

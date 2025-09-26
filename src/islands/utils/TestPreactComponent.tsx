@@ -1,9 +1,8 @@
 import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-interface TestPreactComponentProps {
-  // Define your props here
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface TestPreactComponentProps {}
 
 export default function TestPreactComponent({}: TestPreactComponentProps): VNode {
   const [count, setCount] = useState(0);

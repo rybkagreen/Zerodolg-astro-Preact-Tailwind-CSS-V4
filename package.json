@@ -92,23 +92,19 @@
     "vitest": "^3.2.4"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "*.{js,mjs,cjs,ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{astro}": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
-    "*.{css,scss}": [
-      "prettier --write",
-      "git add"
+    "*.{css,scss,pcss}": [
+      "prettier --write"
     ],
-    "*.{json,md}": [
-      "prettier --write",
-      "git add"
+    "*.{json,jsonc,md,yml,yaml}": [
+      "prettier --write"
     ]
   },
   "engines": {

@@ -11,217 +11,217 @@ const {
 } = Astro.props;
 ---
 
-<section class="py-16 md:py-24 bg-gradient-to-b from-blue-50 to-indigo-50" id="calculator">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <header class="text-center mb-12 md:mb-16">
-      <h2 id="calculator-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+<section class='py-16 md:py-24 bg-gradient-to-b from-blue-50 to-indigo-50' id='calculator'>
+  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <header class='text-center mb-12 md:mb-16'>
+      <h2 id='calculator-title' class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
         {title}
       </h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">{subtitle}</p>
+      <p class='text-xl text-gray-600 max-w-3xl mx-auto'>{subtitle}</p>
     </header>
 
     <form
-      class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto"
-      role="form"
-      aria-labelledby="calculator-title"
+      class='bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto'
+      role='form'
+      aria-labelledby='calculator-title'
     >
-      <fieldset class="space-y-6">
-        <legend class="sr-only">Параметры для расчета стоимости банкротства</legend>
+      <fieldset class='space-y-6'>
+        <legend class='sr-only'>Параметры для расчета стоимости банкротства</legend>
 
-        <div class="space-y-2">
-          <label for="debt-amount" class="block text-lg font-medium text-gray-900"
+        <div class='space-y-2'>
+          <label for='debt-amount' class='block text-lg font-medium text-gray-900'
             >Сумма долга</label
           >
           <select
-            id="debt-amount"
-            class="calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white"
-            aria-describedby="debt-help"
+            id='debt-amount'
+            class='calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white'
+            aria-describedby='debt-help'
           >
-            <option value="">Выберите сумму долга</option>
-            <option value="under-300k">До 300 000 ₽</option>
-            <option value="300k-1m">От 300 000 ₽ до 1 млн ₽</option>
-            <option value="1m-3m">От 1 млн ₽ до 3 млн ₽</option>
-            <option value="3m-5m">От 3 млн ₽ до 5 млн ₽</option>
-            <option value="5m-10m">От 5 млн ₽ до 10 млн ₽</option>
-            <option value="over-10m">Свыше 10 млн ₽</option>
+            <option value=''>Выберите сумму долга</option>
+            <option value='under-300k'>До 300 000 ₽</option>
+            <option value='300k-1m'>От 300 000 ₽ до 1 млн ₽</option>
+            <option value='1m-3m'>От 1 млн ₽ до 3 млн ₽</option>
+            <option value='3m-5m'>От 3 млн ₽ до 5 млн ₽</option>
+            <option value='5m-10m'>От 5 млн ₽ до 10 млн ₽</option>
+            <option value='over-10m'>Свыше 10 млн ₽</option>
           </select>
-          <small id="debt-help" class="block text-sm text-gray-500"
+          <small id='debt-help' class='block text-sm text-gray-500'
             >Укажите общую сумму ваших долгов</small
           >
         </div>
 
-        <div class="space-y-2">
-          <label for="property" class="block text-lg font-medium text-gray-900"
+        <div class='space-y-2'>
+          <label for='property' class='block text-lg font-medium text-gray-900'
             >Есть ли имущество?</label
           >
           <select
-            id="property"
-            class="calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white"
-            aria-describedby="property-help"
+            id='property'
+            class='calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white'
+            aria-describedby='property-help'
           >
-            <option value="">Выберите вариант</option>
-            <option value="no-property">Нет имущества</option>
-            <option value="property-no-equity">Есть имущество без залогов</option>
-            <option value="property-with-equity">Есть имущество с залогами</option>
+            <option value=''>Выберите вариант</option>
+            <option value='no-property'>Нет имущества</option>
+            <option value='property-no-equity'>Есть имущество без залогов</option>
+            <option value='property-with-equity'>Есть имущество с залогами</option>
           </select>
-          <small id="property-help" class="block text-sm text-gray-500">
+          <small id='property-help' class='block text-sm text-gray-500'>
             Укажите наличие имущества, которое может быть реализовано
           </small>
         </div>
 
-        <div class="space-y-2">
-          <label for="employment" class="block text-lg font-medium text-gray-900"
+        <div class='space-y-2'>
+          <label for='employment' class='block text-lg font-medium text-gray-900'
             >Трудоустройство</label
           >
           <select
-            id="employment"
-            class="calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white"
-            aria-describedby="employment-help"
+            id='employment'
+            class='calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white'
+            aria-describedby='employment-help'
           >
-            <option value="">Выберите статус</option>
-            <option value="employed">Трудоустроен</option>
-            <option value="unemployed">Безработный</option>
-            <option value="pensioner">Пенсионер</option>
-            <option value="invalid">Инвалид</option>
-            <option value="entrepreneur">ИП</option>
+            <option value=''>Выберите статус</option>
+            <option value='employed'>Трудоустроен</option>
+            <option value='unemployed'>Безработный</option>
+            <option value='pensioner'>Пенсионер</option>
+            <option value='invalid'>Инвалид</option>
+            <option value='entrepreneur'>ИП</option>
           </select>
-          <small id="employment-help" class="block text-sm text-gray-500">
+          <small id='employment-help' class='block text-sm text-gray-500'>
             Укажите ваш текущий статус трудоустройства
           </small>
         </div>
 
         <button
-          type="button"
-          class="calc-submit w-full py-4 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 font-bold text-lg flex items-center justify-center"
-          data-action="calculate"
+          type='button'
+          class='calc-submit w-full py-4 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 font-bold text-lg flex items-center justify-center'
+          data-action='calculate'
         >
           <span>Рассчитать стоимость</span>
-          <span class="ml-2 loader hidden">
+          <span class='ml-2 loader hidden'>
             <svg
-              class="animate-spin h-5 w-5 text-white"
-              viewBox="0 0 50 50"
-              aria-label="Загрузка"
-              role="status"
+              class='animate-spin h-5 w-5 text-white'
+              viewBox='0 0 50 50'
+              aria-label='Загрузка'
+              role='status'
             >
-              <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+              <circle cx='25' cy='25' r='20' fill='none' stroke-width='5'></circle>
             </svg>
           </span>
         </button>
       </fieldset>
 
-      <div class="calc-result hidden mt-8" aria-live="polite">
-        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
+      <div class='calc-result hidden mt-8' aria-live='polite'>
+        <div class='bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6'>
           <div
-            class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"
+            class='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6'
           >
             <div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-2">Ваш персональный расчет готов!</h3>
+              <h3 class='text-2xl font-bold text-gray-900 mb-2'>Ваш персональный расчет готов!</h3>
               <div
-                class="calc-badge inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full"
+                class='calc-badge inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full'
               >
               </div>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class='grid grid-cols-1 md:grid-cols-3 gap-4 mb-6'>
             <div
-              class="result-card primary bg-white rounded-lg p-4 text-center border border-gray-200"
+              class='result-card primary bg-white rounded-lg p-4 text-center border border-gray-200'
             >
-              <div class="text-gray-600 mb-1">Стоимость под ключ</div>
-              <div class="result-value text-2xl font-bold text-gray-900 mb-1">0 ₽</div>
-              <div class="text-sm text-gray-500">или 0 ₽/мес</div>
+              <div class='text-gray-600 mb-1'>Стоимость под ключ</div>
+              <div class='result-value text-2xl font-bold text-gray-900 mb-1'>0 ₽</div>
+              <div class='text-sm text-gray-500'>или 0 ₽/мес</div>
             </div>
-            <div class="result-card bg-white rounded-lg p-4 text-center border border-gray-200">
-              <div class="text-gray-600 mb-1">Срок процедуры</div>
-              <div class="result-value text-2xl font-bold text-gray-900 mb-1">0 мес</div>
-              <div class="text-sm text-gray-500">полное списание долгов</div>
+            <div class='result-card bg-white rounded-lg p-4 text-center border border-gray-200'>
+              <div class='text-gray-600 mb-1'>Срок процедуры</div>
+              <div class='result-value text-2xl font-bold text-gray-900 mb-1'>0 мес</div>
+              <div class='text-sm text-gray-500'>полное списание долгов</div>
             </div>
             <div
-              class="result-card success bg-white rounded-lg p-4 text-center border border-gray-200"
+              class='result-card success bg-white rounded-lg p-4 text-center border border-gray-200'
             >
-              <div class="text-gray-600 mb-1">Ваша экономия</div>
-              <div class="result-value text-2xl font-bold text-gray-900 mb-1">0 ₽</div>
-              <div class="text-sm text-gray-500">0% от суммы долга</div>
+              <div class='text-gray-600 mb-1'>Ваша экономия</div>
+              <div class='result-value text-2xl font-bold text-gray-900 mb-1'>0 ₽</div>
+              <div class='text-sm text-gray-500'>0% от суммы долга</div>
             </div>
           </div>
 
-          <div class="result-features mb-6">
-            <h4 class="text-lg font-semibold text-gray-900 mb-3">Что входит в стоимость:</h4>
-            <ul class="space-y-2">
-              <li class="flex items-start">
+          <div class='result-features mb-6'>
+            <h4 class='text-lg font-semibold text-gray-900 mb-3'>Что входит в стоимость:</h4>
+            <ul class='space-y-2'>
+              <li class='flex items-start'>
                 <svg
-                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='2'
                 >
-                  <path d="M20 6L9 17l-5-5"></path>
+                  <path d='M20 6L9 17l-5-5'></path>
                 </svg>
                 <span>Полная подготовка документов</span>
               </li>
-              <li class="flex items-start">
+              <li class='flex items-start'>
                 <svg
-                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='2'
                 >
-                  <path d="M20 6L9 17l-5-5"></path>
+                  <path d='M20 6L9 17l-5-5'></path>
                 </svg>
                 <span>Подача заявления в суд</span>
               </li>
-              <li class="flex items-start">
+              <li class='flex items-start'>
                 <svg
-                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='2'
                 >
-                  <path d="M20 6L9 17l-5-5"></path>
+                  <path d='M20 6L9 17l-5-5'></path>
                 </svg>
                 <span>Представительство на всех заседаниях</span>
               </li>
-              <li class="flex items-start">
+              <li class='flex items-start'>
                 <svg
-                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='2'
                 >
-                  <path d="M20 6L9 17l-5-5"></path>
+                  <path d='M20 6L9 17l-5-5'></path>
                 </svg>
                 <span>Работа с финансовым управляющим</span>
               </li>
-              <li class="flex items-start">
+              <li class='flex items-start'>
                 <svg
-                  class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='2'
                 >
-                  <path d="M20 6L9 17l-5-5"></path>
+                  <path d='M20 6L9 17l-5-5'></path>
                 </svg>
                 <span>Полное сопровождение до списания</span>
               </li>
             </ul>
           </div>
 
-          <div class="result-actions mb-4">
+          <div class='result-actions mb-4'>
             <button
-              type="button"
-              class="result-btn w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium flex items-center justify-center"
-              data-modal-trigger="callback"
+              type='button'
+              class='result-btn w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium flex items-center justify-center'
+              data-modal-trigger='callback'
             >
               Получить консультацию
             </button>
           </div>
 
-          <p class="text-xs text-gray-500 text-center">
+          <p class='text-xs text-gray-500 text-center'>
             Расчет является ориентировочным. Точную стоимость определит юрист после анализа вашей
             ситуации.
           </p>

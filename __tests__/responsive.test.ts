@@ -77,20 +77,20 @@ describe('Responsive Component Tests', () => {
         desktop: 1024,
         largeDesktop: 1280,
       },
-      getCurrentBreakpoint: function (width: number) {
+      getCurrentBreakpoint(width: number) {
         if (width < this.breakpoints.mobile) return 'mobile';
         if (width < this.breakpoints.tablet) return 'phablet';
         if (width < this.breakpoints.desktop) return 'tablet';
         if (width < this.breakpoints.largeDesktop) return 'desktop';
         return 'largeDesktop';
       },
-      isMobile: function (width: number) {
+      isMobile(width: number) {
         return width < this.breakpoints.tablet;
       },
-      isTablet: function (width: number) {
+      isTablet(width: number) {
         return width >= this.breakpoints.tablet && width < this.breakpoints.desktop;
       },
-      isDesktop: function (width: number) {
+      isDesktop(width: number) {
         return width >= this.breakpoints.desktop;
       },
     };
@@ -130,19 +130,19 @@ describe('Responsive Component Tests', () => {
   // Responsive grid tests
   it('should calculate responsive grid columns correctly', () => {
     const gridCalculator = {
-      getColumnCount: function (containerWidth: number, itemMinWidth: number, gap: number = 20) {
+      getColumnCount(containerWidth: number, itemMinWidth: number, gap: number = 20) {
         // Calculate available width for items
         const availableWidth = containerWidth - gap;
         // Calculate how many items can fit
         return Math.max(1, Math.floor(availableWidth / (itemMinWidth + gap)));
       },
-      getColumnWidth: function (containerWidth: number, columns: number, gap: number = 20) {
+      getColumnWidth(containerWidth: number, columns: number, gap: number = 20) {
         // Calculate width minus gaps
         const totalGapWidth = gap * (columns - 1);
         const availableWidth = containerWidth - totalGapWidth;
         return Math.max(0, availableWidth / columns);
       },
-      getResponsiveColumns: function (width: number) {
+      getResponsiveColumns(width: number) {
         if (width < 480) return 1; // Mobile: 1 column
         if (width < 768) return 2; // Phablet/Tablet: 2 columns
         if (width < 1024) return 3; // Tablet: 3 columns
@@ -172,11 +172,11 @@ describe('Responsive Component Tests', () => {
   // Responsive typography tests
   it('should calculate responsive font sizes correctly', () => {
     const typographyScaler = {
-      clamp: function (min: number, preferred: string, max: number) {
+      clamp(min: number, preferred: string, max: number) {
         // Simple clamp implementation for testing
         return `clamp(${min}px, ${preferred}, ${max}px)`;
       },
-      getResponsiveFontSize: function (viewportWidth: number, minSize: number, maxSize: number) {
+      getResponsiveFontSize(viewportWidth: number, minSize: number, maxSize: number) {
         // Linear scaling based on viewport width
         const minWidth = 320;
         const maxWidth = 1920;
@@ -187,12 +187,7 @@ describe('Responsive Component Tests', () => {
         const scale = (viewportWidth - minWidth) / (maxWidth - minWidth);
         return minSize + (maxSize - minSize) * scale;
       },
-      generateClampValue: function (
-        minSize: number,
-        maxSize: number,
-        minWidth: number,
-        maxWidth: number
-      ) {
+      generateClampValue(minSize: number, maxSize: number, minWidth: number, maxWidth: number) {
         // Generate CSS clamp() value
         const preferred = `${minSize + (maxSize - minSize) / 2}px`;
         return `clamp(${minSize}px, ${preferred}, ${maxSize}px)`;
@@ -218,7 +213,7 @@ describe('Responsive Component Tests', () => {
         tablet: '(min-width: 480px) and (max-width: 1023px)',
         desktop: '(min-width: 1024px)',
       },
-      matches: function (query: string, viewportWidth: number) {
+      matches(query: string, viewportWidth: number) {
         if (query === this.queries.mobile) {
           return viewportWidth < 480;
         }
@@ -249,15 +244,15 @@ describe('Responsive Component Tests', () => {
   // Responsive image handling tests
   it('should handle responsive images correctly', () => {
     const imageHandler = {
-      getSrcSet: function (basePath: string, widths: number[]) {
+      getSrcSet(basePath: string, widths: number[]) {
         return widths.map((width) => `${basePath}-${width}.jpg ${width}w`).join(', ');
       },
-      getSizes: function (breakpoints: Record<string, string>) {
+      getSizes(breakpoints: Record<string, string>) {
         return Object.entries(breakpoints)
           .map(([breakpoint, size]) => `(max-width: ${breakpoint}) ${size}`)
           .join(', ');
       },
-      getOptimalWidth: function (viewportWidth: number, devicePixelRatio: number = 1) {
+      getOptimalWidth(viewportWidth: number, devicePixelRatio: number = 1) {
         // Round up to nearest 100px for performance
         const effectiveWidth = viewportWidth * devicePixelRatio;
         return Math.ceil(effectiveWidth / 100) * 100;
@@ -293,18 +288,18 @@ describe('Responsive Component Tests', () => {
       breakpoints: {
         mobile: 768,
       },
-      shouldShowMobileMenu: function (viewportWidth: number) {
+      shouldShowMobileMenu(viewportWidth: number) {
         return viewportWidth < this.breakpoints.mobile;
       },
-      toggleMobileMenu: function () {
+      toggleMobileMenu() {
         this.isMobileMenuActive = !this.isMobileMenuActive;
         return this.isMobileMenuActive;
       },
-      closeMobileMenu: function () {
+      closeMobileMenu() {
         this.isMobileMenuActive = false;
         return false;
       },
-      openMobileMenu: function () {
+      openMobileMenu() {
         this.isMobileMenuActive = true;
         return true;
       },
@@ -331,18 +326,18 @@ describe('Responsive Component Tests', () => {
   // Responsive layout tests
   it('should calculate responsive layouts correctly', () => {
     const layoutCalculator = {
-      getContainerPadding: function (viewportWidth: number) {
+      getContainerPadding(viewportWidth: number) {
         if (viewportWidth < 480) return 16; // Mobile: 16px padding
         if (viewportWidth < 768) return 24; // Tablet: 24px padding
         if (viewportWidth < 1024) return 32; // Desktop: 32px padding
         return 40; // Large desktop: 40px padding
       },
-      getMaxWidth: function (viewportWidth: number) {
+      getMaxWidth(viewportWidth: number) {
         if (viewportWidth < 768) return viewportWidth - 32; // Full width minus padding
         if (viewportWidth < 1200) return 768; // Fixed max width
         return 1140; // Larger fixed max width
       },
-      getGridGap: function (viewportWidth: number) {
+      getGridGap(viewportWidth: number) {
         if (viewportWidth < 480) return 16; // Mobile: 16px gap
         if (viewportWidth < 768) return 20; // Tablet: 20px gap
         if (viewportWidth < 1024) return 24; // Desktop: 24px gap

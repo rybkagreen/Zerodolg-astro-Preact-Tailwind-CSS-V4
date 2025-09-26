@@ -279,71 +279,59 @@ const reviewsIncrement = 3;
 ---
 
 <section
-  class="py-16 md:py-24 bg-gradient-to-b from-blue-900 to-indigo-900 text-white"
-  id="reviews"
+  class='py-16 md:py-24 bg-gradient-to-b from-blue-900 to-indigo-900 text-white'
+  id='reviews'
 >
-  <div class="absolute inset-0 overflow-hidden">
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-blue-900/80 to-indigo-900/90"
-    >
-    </div>
+  <div class='absolute inset-0 overflow-hidden'>
+    <div class='absolute inset-0 bg-gradient-to-b from-blue-900/80 to-indigo-900/90'></div>
   </div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <div class="text-center mb-12 md:mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-        Отзывы наших клиентов
-      </h2>
-      <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative'>
+    <div class='text-center mb-12 md:mb-16'>
+      <h2 class='text-3xl md:text-4xl font-bold text-white mb-4'>Отзывы наших клиентов</h2>
+      <p class='text-xl text-blue-100 max-w-3xl mx-auto'>
         Более 847+ довольных клиентов, которые полностью освободились от долгов
       </p>
     </div>
 
-    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-12">
-      <div
-        class="flex flex-col md:flex-row items-center justify-between gap-8"
-      >
-        <div class="text-center">
-          <span class="text-5xl md:text-6xl font-bold text-white"
-            >{stats.average.toFixed(1)}</span
-          >
-          <div class="flex justify-center gap-1 my-2">
+    <div class='bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-12'>
+      <div class='flex flex-col md:flex-row items-center justify-between gap-8'>
+        <div class='text-center'>
+          <span class='text-5xl md:text-6xl font-bold text-white'>{stats.average.toFixed(1)}</span>
+          <div class='flex justify-center gap-1 my-2'>
             {
               Array.from({ length: 5 }).map((_, i) => (
                 <span
-                  class={`text-2xl ${i < Math.floor(stats.average) ? 'text-yellow-400' : 'text-gray-400'}`}
+                  class:list={[
+                    `text-2xl `,
+                    {
+                      'text-yellow-400': i < Math.floor(stats.average),
+                      'text-gray-400': !(i < Math.floor(stats.average)),
+                    },
+                  ]}
                 >
                   ★
                 </span>
               ))
             }
           </div>
-          <span class="text-blue-200"
-            >На основе {stats.total * 230} отзывов</span
-          >
+          <span class='text-blue-200'>На основе {stats.total * 230} отзывов</span>
         </div>
-        <div class="w-full md:w-2/3">
+        <div class='w-full md:w-2/3'>
           {
             Object.entries(stats.distribution)
               .sort(([a], [b]) => parseInt(b) - parseInt(a))
               .map(([rating, count]) => {
                 const percentage = (count / stats.total) * 100;
                 return (
-                  <div
-                    class="flex items-center gap-3 mb-2 last:mb-0"
-                    key={rating}
-                  >
-                    <span class="w-8 text-right text-blue-200">
-                      {rating}★
-                    </span>
-                    <div class="flex-1 h-2 bg-blue-800 rounded-full overflow-hidden">
+                  <div class='flex items-center gap-3 mb-2 last:mb-0' key={rating}>
+                    <span class='w-8 text-right text-blue-200'>{rating}★</span>
+                    <div class='flex-1 h-2 bg-blue-800 rounded-full overflow-hidden'>
                       <div
-                        class="h-full bg-yellow-400 rounded-full"
+                        class='h-full bg-yellow-400 rounded-full'
                         style={`width: ${percentage}%`}
                       />
                     </div>
-                    <span class="w-12 text-right text-blue-200">
-                      {Math.round(percentage)}%
-                    </span>
+                    <span class='w-12 text-right text-blue-200'>{Math.round(percentage)}%</span>
                   </div>
                 );
               })
@@ -352,37 +340,33 @@ const reviewsIncrement = 3;
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {
         reviews.slice(0, visibleReviews).map((review, index) => (
           <article
-            class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300"
+            class='bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300'
             data-index={index}
             key={review.id}
           >
-            <div class="mb-4">
-              <div class="flex items-start gap-3">
-                <div class="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold">
+            <div class='mb-4'>
+              <div class='flex items-start gap-3'>
+                <div class='w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold'>
                   {review.author.charAt(0)}
                 </div>
                 <div>
-                  <h3 class="text-lg font-bold text-white mb-1">
-                    {review.author || review.name}
-                  </h3>
-                  <time class="text-sm text-blue-200 block">
-                    {formatDate(review.date)}
-                  </time>
+                  <h3 class='text-lg font-bold text-white mb-1'>{review.author || review.name}</h3>
+                  <time class='text-sm text-blue-200 block'>{formatDate(review.date)}</time>
                 </div>
                 {review.verified && (
-                  <div class="ml-auto">
-                    <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <div class='ml-auto'>
+                    <span class='inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full'>
+                      <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
                         <path
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+                          stroke='currentColor'
+                          stroke-width='2'
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
                         />
                       </svg>
                       Проверено
@@ -391,49 +375,55 @@ const reviewsIncrement = 3;
                 )}
               </div>
             </div>
-            <div class="review-card__rating flex gap-1 mb-3">
+            <div class='review-card__rating flex gap-1 mb-3'>
               {Array.from({ length: 5 }).map((_, i) => (
                 <span
-                  class={`review-card__star text-lg ${i < review.rating ? 'review-card__star--filled text-yellow-400' : 'text-gray-400'}`}
+                  class:list={[
+                    `review-card__star text-lg `,
+                    {
+                      'review-card__star--filled text-yellow-400': i < review.rating,
+                      'text-gray-400': !(i < review.rating),
+                    },
+                  ]}
                 >
                   ★
                 </span>
               ))}
             </div>
-            <p class="review-card__text text-blue-100 mb-4">{review.text}</p>
+            <p class='review-card__text text-blue-100 mb-4'>{review.text}</p>
             {review.tags && review.tags.length > 0 && (
-              <div class="review-card__tags flex flex-wrap gap-2 mb-4">
+              <div class='review-card__tags flex flex-wrap gap-2 mb-4'>
                 {review.tags.map((tag) => (
-                  <span class="review-card__tag px-2 py-1 bg-blue-700/50 text-blue-200 text-xs rounded-full">
+                  <span class='review-card__tag px-2 py-1 bg-blue-700/50 text-blue-200 text-xs rounded-full'>
                     {tag}
                   </span>
                 ))}
               </div>
             )}
-            <div class="review-card__footer flex justify-between items-center">
+            <div class='review-card__footer flex justify-between items-center'>
               <button
-                class="review-card__helpful inline-flex items-center gap-1 text-blue-200 hover:text-white transition-colors"
+                class='review-card__helpful inline-flex items-center gap-1 text-blue-200 hover:text-white transition-colors'
                 data-review-id={review.id}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
                   <path
-                    d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    d='M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3'
+                    stroke='currentColor'
+                    stroke-width='2'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
                   />
                 </svg>
                 Полезно ({review.helpful})
               </button>
-              <button class="text-blue-200 hover:text-white transition-colors">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <button class='text-blue-200 hover:text-white transition-colors'>
+                <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
                   <path
-                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    d='M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z'
+                    stroke='currentColor'
+                    stroke-width='2'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
                   />
                 </svg>
               </button>
@@ -445,19 +435,19 @@ const reviewsIncrement = 3;
 
     {
       visibleReviews < reviews.length && (
-        <div class="reviews__actions text-center mt-12">
+        <div class='reviews__actions text-center mt-12'>
           <button
-            class="reviews__load-more inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-900 font-bold rounded-lg hover:bg-blue-100 transition-colors"
+            class='reviews__load-more inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-900 font-bold rounded-lg hover:bg-blue-100 transition-colors'
             onClick={() => (visibleReviews += reviewsIncrement)}
           >
             <span>Загрузить ещё отзывы</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
               <path
-                d="M6 9l6 6 6-6"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                d='M6 9l6 6 6-6'
+                stroke='currentColor'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'
               />
             </svg>
           </button>

@@ -164,15 +164,21 @@ export const calculateTeamStats = (members: TeamMember[]): TeamStats => {
   members.forEach((member) => {
     // Extract numbers from experience string (e.g., "7+" -> 7)
     const expMatch = member.stats.experience.match(/(\d+)/);
-    if (expMatch && expMatch[1]) totalExperience += parseInt(expMatch[1], 10);
+    if (expMatch?.[1]) {
+      totalExperience += parseInt(expMatch[1], 10);
+    }
 
     // Extract numbers from cases string (e.g., "1000+" -> 1000)
     const casesMatch = member.stats.cases.match(/(\d+)/);
-    if (casesMatch && casesMatch[1]) totalCases += parseInt(casesMatch[1], 10);
+    if (casesMatch?.[1]) {
+      totalCases += parseInt(casesMatch[1], 10);
+    }
 
     // Extract success rate (e.g., "96%" -> 96)
     const successMatch = member.stats.success.match(/(\d+)/);
-    if (successMatch && successMatch[1]) successRates.push(parseInt(successMatch[1], 10));
+    if (successMatch?.[1]) {
+      successRates.push(parseInt(successMatch[1], 10));
+    }
   });
 
   // Calculate average success rate

@@ -31,9 +31,6 @@ const Header = (): null => {
     const dropdowns = document.querySelectorAll('.nav-dropdown');
     const mobileToggle = document.querySelector('[data-mobile-toggle]') as HTMLButtonElement;
     const mobileMenu = document.getElementById('mobile-menu');
-    const searchBtn = document.querySelector('[data-action="search"]') as HTMLButtonElement;
-    const searchOverlay = document.querySelector('[data-search-overlay]') as HTMLElement;
-    const searchClose = document.querySelector('[data-search-close]') as HTMLButtonElement;
 
     let activeDropdown: Element | null = null;
     let lastScrollTop = 0;
@@ -222,41 +219,6 @@ const Header = (): null => {
       }
     };
 
-    // Setup Search
-    const setupSearch = () => {
-      if (!searchBtn || !searchOverlay) return;
-
-      searchBtn.addEventListener('click', () => openSearch());
-      if (searchClose) {
-        searchClose.addEventListener('click', () => closeSearch());
-      }
-      searchOverlay.addEventListener('click', (e) => {
-        if (e.target === searchOverlay) closeSearch();
-      });
-
-      // Handle ESC key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
-          closeSearch();
-        }
-      });
-    };
-
-    const openSearch = () => {
-      if (!searchOverlay) return;
-      searchOverlay.classList.add('active');
-      const input = searchOverlay.querySelector('.search-input') as HTMLInputElement;
-      if (input) setTimeout(() => input.focus(), 100);
-      document.body.classList.add('search-open');
-    };
-
-    const closeSearch = () => {
-      if (!searchOverlay) return;
-      searchOverlay.classList.remove('active');
-      document.body.classList.remove('search-open');
-      if (searchBtn) searchBtn.focus();
-    };
-
     // Setup Scroll Behavior
     const setupScrollBehavior = () => {
       const handleScroll = debounce(() => {
@@ -364,7 +326,6 @@ const Header = (): null => {
     // Initialize all features
     setupDropdowns();
     setupMobileMenu();
-    setupSearch();
     setupScrollBehavior();
     setupSmoothScroll();
     setupKeyboardNavigation();

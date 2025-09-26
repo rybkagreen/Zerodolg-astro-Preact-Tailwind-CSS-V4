@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { logger } from '../../shared/utils/logger';
+
+export { logger };
 
 const envSchema = z.object({
   PUBLIC_SITE_URL: z.string().url(),
@@ -17,7 +20,9 @@ export const validateEnv = (): z.infer<typeof envSchema> => {
   try {
     return envSchema.parse(process.env);
   } catch (error) {
-    console.error('Environment validation failed:', error);
+    logger.error('Environment validation failed', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
     process.exit(1);
   }
 };

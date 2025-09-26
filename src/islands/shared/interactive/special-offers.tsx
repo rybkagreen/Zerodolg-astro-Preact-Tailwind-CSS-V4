@@ -2,7 +2,7 @@ import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 // Countdown Timer Component
-  const CountdownTimer = ({ deadline }: { deadline: string }): VNode => {
+const CountdownTimer = ({ deadline }: { deadline: string }): VNode | null => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isExpired, setIsExpired] = useState(false);
 
@@ -41,24 +41,24 @@ import { useState, useEffect } from 'preact/hooks';
   }, [deadline]);
 
   if (isExpired) {
-    return <div class="countdown-expired">Время истекло</div>;
+    return <div class='countdown-expired'>Время истекло</div>;
   }
 
   return (
-    <div class="countdown-timer">
-      <span class="countdown-label">Осталось:</span>
-      <div class="countdown-blocks">
-        <div class="countdown-block">
-          <span class="countdown-number">{String(timeLeft.hours).padStart(2, '0')}</span>
-          <span class="countdown-unit">час</span>
+    <div class='countdown-timer'>
+      <span class='countdown-label'>Осталось:</span>
+      <div class='countdown-blocks'>
+        <div class='countdown-block'>
+          <span class='countdown-number'>{String(timeLeft.hours).padStart(2, '0')}</span>
+          <span class='countdown-unit'>час</span>
         </div>
-        <div class="countdown-block">
-          <span class="countdown-number">{String(timeLeft.minutes).padStart(2, '0')}</span>
-          <span class="countdown-unit">мин</span>
+        <div class='countdown-block'>
+          <span class='countdown-number'>{String(timeLeft.minutes).padStart(2, '0')}</span>
+          <span class='countdown-unit'>мин</span>
         </div>
-        <div class="countdown-block">
-          <span class="countdown-number">{String(timeLeft.seconds).padStart(2, '0')}</span>
-          <span class="countdown-unit">сек</span>
+        <div class='countdown-block'>
+          <span class='countdown-number'>{String(timeLeft.seconds).padStart(2, '0')}</span>
+          <span class='countdown-unit'>сек</span>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ import { useState, useEffect } from 'preact/hooks';
 };
 
 // Special Offer Banner Component
-const SpecialOfferBanner = (): VNode => {
+const SpecialOfferBanner = (): VNode | null => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 
@@ -97,27 +97,27 @@ const SpecialOfferBanner = (): VNode => {
   return (
     <div
       class={`special-offer-banner compact ${isExiting ? 'slide-out' : ''}`}
-      id="special-offer-banner"
+      id='special-offer-banner'
     >
-      <div class="offer-container compact">
-        <button class="offer-close" aria-label="Закрыть" onClick={handleClose}>
+      <div class='offer-container compact'>
+        <button class='offer-close' aria-label='Закрыть' onClick={handleClose}>
           ×
         </button>
-        <div class="offer-content compact">
-          <div class="offer-header-row">
-            <span class="offer-badge-compact">🔥 АКЦИЯ</span>
-            <span class="offer-title-compact">Банкротство под ключ</span>
+        <div class='offer-content compact'>
+          <div class='offer-header-row'>
+            <span class='offer-badge-compact'>🔥 АКЦИЯ</span>
+            <span class='offer-title-compact'>Банкротство под ключ</span>
           </div>
-          <div class="offer-price-row">
-            <span class="old-price-compact">220 000₽</span>
-            <span class="price-arrow"> → </span>
-            <span class="new-price-compact">150 000₽</span>
-            <span class="discount-compact">-32%</span>
+          <div class='offer-price-row'>
+            <span class='old-price-compact'>220 000₽</span>
+            <span class='price-arrow'> → </span>
+            <span class='new-price-compact'>150 000₽</span>
+            <span class='discount-compact'>-32%</span>
           </div>
-          <div class="countdown-compact">
-            <CountdownTimer />
+          <div class='countdown-compact'>
+            <CountdownTimer deadline='2025-12-31' />
           </div>
-          <button class="cta-button-compact" onClick={handleCtaClick}>
+          <button class='cta-button-compact' onClick={handleCtaClick}>
             Получить скидку
           </button>
         </div>

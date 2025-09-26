@@ -24,10 +24,10 @@ const {
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang='ru'>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 
     <!-- SEO Component -->
     <SEO
@@ -71,42 +71,42 @@ const {
     <!-- Main CSS will be imported through Astro's build process -->
 
     <!-- Preconnect to important third-party origins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
 
     <!-- Load fonts from Google Fonts -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel='stylesheet'
+      href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
     />
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="/images/team/mashulia.webp" as="image" />
+    <link rel='preload' href='/images/team/mashulia.webp' as='image' />
 
     <!-- Prefetch likely next pages -->
-    <link rel="prefetch" href="/#reviews" />
-    <link rel="prefetch" href="/#faq" />
+    <link rel='prefetch' href='/#reviews' />
+    <link rel='prefetch' href='/#faq' />
 
     <!-- DNS prefetch for external domains -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel='dns-prefetch' href='//fonts.gstatic.com' />
 
     <!-- Preload critical CSS - handled through import mechanism -->
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' type='image/png' href='/favicon.png' />
+    <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
 
-    <meta name="generator" content={Astro.generator} />
+    <meta name='generator' content={Astro.generator} />
   </head>
   <body>
     <slot />
 
     <!-- Service Worker Registration - deferred -->
-    <script is:inline defer src="/js/service-worker-register.js"></script>
+    <script is:inline defer src='/js/service-worker-register.js'></script>
 
     <!-- Initialize analytics after DOM is ready -->
-    <script is:inline type="module">
+    <script is:inline type='module'>
       import { initAnalytics } from '../lib/analytics';
       import { measurePageLoad } from '@shared/utils/performance';
 

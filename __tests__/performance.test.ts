@@ -55,7 +55,7 @@ describe('Performance Tests', () => {
     const renderer = {
       renderQueue: [] as Array<{ component: string; priority: number }>,
       renderTimes: new Map<string, number[]>(),
-      render: function (component: string) {
+      render(component: string) {
         const startTime = performance.now();
         performance.mark(`${component}-start`);
 
@@ -78,12 +78,12 @@ describe('Performance Tests', () => {
 
         return duration;
       },
-      getAverageRenderTime: function (component: string) {
+      getAverageRenderTime(component: string) {
         const times = this.renderTimes.get(component) || [];
         if (times.length === 0) return 0;
         return times.reduce((sum, time) => sum + time, 0) / times.length;
       },
-      getRenderCount: function (component: string) {
+      getRenderCount(component: string) {
         return (this.renderTimes.get(component) || []).length;
       },
     };
@@ -119,7 +119,7 @@ describe('Performance Tests', () => {
   it('should monitor memory usage correctly', () => {
     const memoryMonitor = {
       snapshots: [] as Array<{ timestamp: number; used: number; total: number }>,
-      takeSnapshot: function () {
+      takeSnapshot() {
         // Simulate memory snapshot
         const snapshot = {
           timestamp: Date.now(),
@@ -129,12 +129,12 @@ describe('Performance Tests', () => {
         this.snapshots.push(snapshot);
         return snapshot;
       },
-      getMemoryUsage: function () {
+      getMemoryUsage() {
         if (this.snapshots.length === 0) return 0;
         const latest = this.snapshots[this.snapshots.length - 1];
         return (latest.used / latest.total) * 100;
       },
-      getMemoryTrend: function () {
+      getMemoryTrend() {
         if (this.snapshots.length < 2) return 'stable';
 
         const first = this.snapshots[0];
@@ -145,7 +145,7 @@ describe('Performance Tests', () => {
         if (trend < -0.1) return 'decreasing';
         return 'stable';
       },
-      clearSnapshots: function () {
+      clearSnapshots() {
         this.snapshots = [];
       },
     };
@@ -181,22 +181,22 @@ describe('Performance Tests', () => {
         styles: { size: 45 * 1024, gzip: 12 * 1024 }, // 45KB / 12KB gzipped
         runtime: { size: 8 * 1024, gzip: 3 * 1024 }, // 8KB / 3KB gzipped
       },
-      getTotalSize: function (gzipped: boolean = false) {
+      getTotalSize(gzipped: boolean = false) {
         return Object.values(this.bundles).reduce(
           (sum, bundle) => sum + (gzipped ? bundle.gzip : bundle.size),
           0
         );
       },
-      getBundleRatio: function (bundleName: string) {
+      getBundleRatio(bundleName: string) {
         const bundle = this.bundles[bundleName as keyof typeof this.bundles];
         if (!bundle) return 0;
         return (bundle.size / this.getTotalSize()) * 100;
       },
-      isWithinBudget: function (maxSize: number, gzipped: boolean = false) {
+      isWithinBudget(maxSize: number, gzipped: boolean = false) {
         const total = this.getTotalSize(gzipped);
         return total <= maxSize;
       },
-      getRecommendations: function () {
+      getRecommendations() {
         const recommendations = [];
         const total = this.getTotalSize();
 
@@ -247,7 +247,7 @@ describe('Performance Tests', () => {
   it('should measure network performance correctly', () => {
     const networkMonitor = {
       requests: [] as Array<{ url: string; startTime: number; endTime: number; size: number }>,
-      simulateRequest: function (url: string, size: number = 1024) {
+      simulateRequest(url: string, size: number = 1024) {
         const request = {
           url,
           startTime: performance.now(),
@@ -258,7 +258,7 @@ describe('Performance Tests', () => {
         this.requests.push(request);
         return request;
       },
-      getAverageResponseTime: function () {
+      getAverageResponseTime() {
         if (this.requests.length === 0) return 0;
         const totalTime = this.requests.reduce(
           (sum, req) => sum + (req.endTime - req.startTime),
@@ -266,10 +266,10 @@ describe('Performance Tests', () => {
         );
         return totalTime / this.requests.length;
       },
-      getTotalBytes: function () {
+      getTotalBytes() {
         return this.requests.reduce((sum, req) => sum + req.size, 0);
       },
-      getRequestsPerSecond: function () {
+      getRequestsPerSecond() {
         if (this.requests.length === 0) return 0;
 
         const firstTime = Math.min(...this.requests.map((req) => req.startTime));
@@ -278,7 +278,7 @@ describe('Performance Tests', () => {
 
         return durationSeconds > 0 ? this.requests.length / durationSeconds : 0;
       },
-      getSlowRequests: function (threshold: number = 500) {
+      getSlowRequests(threshold: number = 500) {
         return this.requests.filter((req) => req.endTime - req.startTime > threshold);
       },
     };
@@ -325,14 +325,14 @@ describe('Performance Tests', () => {
         string,
         { frameCount: number; totalTime: number; frameTimes: number[] }
       >(),
-      startAnimation: function (animationId: string) {
+      startAnimation(animationId: string) {
         this.animations.set(animationId, {
           frameCount: 0,
           totalTime: 0,
           frameTimes: [],
         });
       },
-      recordFrame: function (animationId: string, frameTime: number) {
+      recordFrame(animationId: string, frameTime: number) {
         const animation = this.animations.get(animationId);
         if (animation) {
           animation.frameCount++;
@@ -340,18 +340,18 @@ describe('Performance Tests', () => {
           animation.frameTimes.push(frameTime);
         }
       },
-      getFPS: function (animationId: string) {
+      getFPS(animationId: string) {
         const animation = this.animations.get(animationId);
         if (!animation || animation.totalTime === 0) return 0;
         return (animation.frameCount / animation.totalTime) * 1000; // Convert to FPS
       },
-      getAverageFrameTime: function (animationId: string) {
+      getAverageFrameTime(animationId: string) {
         const animation = this.animations.get(animationId);
         if (!animation || animation.frameTimes.length === 0) return 0;
         const sum = animation.frameTimes.reduce((acc, time) => acc + time, 0);
         return sum / animation.frameTimes.length;
       },
-      isSmooth: function (animationId: string, targetFPS: number = 60) {
+      isSmooth(animationId: string, targetFPS: number = 60) {
         const fps = this.getFPS(animationId);
         return fps >= targetFPS * 0.9; // Allow 10% tolerance
       },
@@ -405,31 +405,31 @@ describe('Performance Tests', () => {
       maxSize: 100,
       hitTimes: [] as number[],
       missTimes: [] as number[],
-      recordHit: function (time: number = 1) {
+      recordHit(time: number = 1) {
         // Cache hits are typically fast
         this.cacheHits++;
         this.hitTimes.push(time);
       },
-      recordMiss: function (time: number = 10) {
+      recordMiss(time: number = 10) {
         // Cache misses are typically slower
         this.cacheMisses++;
         this.missTimes.push(time);
       },
-      getHitRate: function () {
+      getHitRate() {
         const total = this.cacheHits + this.cacheMisses;
         return total > 0 ? (this.cacheHits / total) * 100 : 0;
       },
-      getAverageHitTime: function () {
+      getAverageHitTime() {
         if (this.hitTimes.length === 0) return 0;
         const sum = this.hitTimes.reduce((acc, time) => acc + time, 0);
         return sum / this.hitTimes.length;
       },
-      getAverageMissTime: function () {
+      getAverageMissTime() {
         if (this.missTimes.length === 0) return 0;
         const sum = this.missTimes.reduce((acc, time) => acc + time, 0);
         return sum / this.missTimes.length;
       },
-      getTimeSaved: function () {
+      getTimeSaved() {
         const avgHit = this.getAverageHitTime();
         const avgMiss = this.getAverageMissTime();
         const hitRate = this.getHitRate() / 100;
@@ -484,7 +484,7 @@ describe('Performance Tests', () => {
         { loaded: boolean; loadTime: number; size: number; type: string }
       >(),
       loadingQueue: [] as string[],
-      loadResource: function (url: string, type: string, size: number = 1024) {
+      loadResource(url: string, type: string, size: number = 1024) {
         this.loadingQueue.push(url);
 
         // Simulate loading time based on size and network conditions
@@ -509,25 +509,25 @@ describe('Performance Tests', () => {
 
         return resource;
       },
-      getResourceLoadTime: function (url: string) {
+      getResourceLoadTime(url: string) {
         const resource = this.resources.get(url);
         return resource ? resource.loadTime : 0;
       },
-      getTotalLoadTime: function () {
+      getTotalLoadTime() {
         let total = 0;
         this.resources.forEach((resource) => {
           total += resource.loadTime;
         });
         return total;
       },
-      getAverageLoadTime: function () {
+      getAverageLoadTime() {
         if (this.resources.size === 0) return 0;
         return this.getTotalLoadTime() / this.resources.size;
       },
-      getLoadingConcurrency: function () {
+      getLoadingConcurrency() {
         return this.loadingQueue.length;
       },
-      isCriticalResource: function (url: string) {
+      isCriticalResource(url: string) {
         return url.includes('critical') || url.includes('essential');
       },
     };

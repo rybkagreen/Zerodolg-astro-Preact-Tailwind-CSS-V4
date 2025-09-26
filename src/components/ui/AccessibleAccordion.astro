@@ -11,62 +11,64 @@ export interface Props {
   className?: string;
 }
 
-const { items, title = "Часто задаваемые вопросы", className = '' } = Astro.props;
+const { items, title = 'Часто задаваемые вопросы', className = '' } = Astro.props;
 ---
 
-<div class={`py-12 ${className}`}>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    {title && (
-      <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
-        {title}
-      </h2>
-    )}
-    
-    <div class="max-w-3xl mx-auto space-y-4">
-      {items.map((item) => (
-        <details 
-          key={item.id} 
-          class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden transition-colors duration-300"
-          itemscope 
-          itemtype="https://schema.org/FAQPage"
-        >
-          <summary 
-            class="w-full flex justify-between items-center p-6 bg-white dark:bg-gray-800 cursor-pointer list-none"
-            itemprop="mainEntity"
-            itemscope 
-            itemtype="https://schema.org/Question"
+<div class:list={`py-12 ${className}`}>
+  <div class='container mx-auto px-4 sm:px-6 lg:px-8'>
+    {
+      title && (
+        <h2 class='text-3xl font-bold text-center text-gray-900 dark:text-white mb-12'>{title}</h2>
+      )
+    }
+
+    <div class='max-w-3xl mx-auto space-y-4'>
+      {
+        items.map((item) => (
+          <details
+            key={item.id}
+            class='border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden transition-colors duration-300'
+            itemscope
+            itemtype='https://schema.org/FAQPage'
           >
-            <span 
-              class="text-lg font-semibold text-gray-900 dark:text-white"
-              itemprop="name"
+            <summary
+              class='w-full flex justify-between items-center p-6 bg-white dark:bg-gray-800 cursor-pointer list-none'
+              itemprop='mainEntity'
+              itemscope
+              itemtype='https://schema.org/Question'
             >
-              {item.title}
-            </span>
-            <svg 
-              class="w-5 h-5 text-primary ml-4 flex-shrink-0"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24" 
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
+              <span class='text-lg font-semibold text-gray-900 dark:text-white' itemprop='name'>
+                {item.title}
+              </span>
+              <svg
+                class='w-5 h-5 text-primary ml-4 flex-shrink-0'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+                aria-hidden='true'
+              >
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M19 9l-7 7-7-7'
+                />
+              </svg>
+              <span class='sr-only'>Развернуть/свернуть</span>
+            </summary>
+
+            <div
+              class='p-6 pt-0 text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700'
+              itemprop='acceptedAnswer'
+              itemscope
+              itemtype='https://schema.org/Answer'
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-            <span class="sr-only">Развернуть/свернуть</span>
-          </summary>
-          
-          <div 
-            class="p-6 pt-0 text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700"
-            itemprop="acceptedAnswer"
-            itemscope 
-            itemtype="https://schema.org/Answer"
-          >
-            <div itemprop="text">
-              {item.content}
+              <div itemprop='text'>{item.content}</div>
             </div>
-          </div>
-        </details>
-      ))}
+          </details>
+        ))
+      }
     </div>
   </div>
 </div>

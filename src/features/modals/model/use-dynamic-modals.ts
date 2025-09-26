@@ -16,7 +16,7 @@ export const useDynamicModals = (): DynamicModalsContextType => {
   const loadModal = async (modalId: string) => {
     // Implementation for loading dynamic modals
     // Add modal to state
-    setModals(prev => [...prev, { id: modalId, type: 'dynamic' }]);
+    setModals((prev) => [...prev, { id: modalId, type: 'dynamic' }]);
   };
 
   return { loadModal, modals };

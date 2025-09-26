@@ -13,124 +13,318 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative py-12 bg-gradient-to-br from-blue-50 to-indigo-50 sm:py-16 lg:py-20">
-  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-    <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+<section
+  class='relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-20 lg:py-28'
+>
+  <!-- Background decoration -->
+  <div class='absolute inset-0'>
+    <div
+      class='absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-blue-400/30 to-indigo-600/30 rounded-full blur-3xl'
+    >
+    </div>
+    <div
+      class='absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-tr from-purple-400/20 to-pink-600/20 rounded-full blur-3xl'
+    >
+    </div>
+    <div
+      class='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl'
+    >
+    </div>
+  </div>
+
+  <div class='relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+    <div class='grid items-center grid-cols-1 gap-16 lg:grid-cols-2'>
       <!-- Left Column - Main Content -->
-      <div class="space-y-8">
+      <div class='space-y-10 text-center lg:text-left'>
+        <!-- Badge -->
         <div
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-800 bg-blue-100 rounded-full"
+          class='inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white/90 backdrop-blur-sm ring-1 ring-white/20'
         >
+          <svg class='h-4 w-4 text-green-400' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <path
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              stroke-width='2'
+              d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+          </svg>
           Федеральный закон №127-ФЗ «О несостоятельности»
         </div>
 
-        <h1 class="text-4xl font-bold leading-tight text-gray-900 md:text-5xl lg:text-6xl">
-          {title}
-          <span class="block mt-4 text-2xl md:text-3xl text-primary"
-            >Спишем долги от 300 тыс. до 10 млн ₽ через суд</span
+        <!-- Main Heading -->
+        <div class='space-y-6'>
+          <h1
+            class='text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl'
           >
-        </h1>
+            <span class='bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent'>
+              {title}
+            </span>
+          </h1>
+          <div
+            class='text-2xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text sm:text-3xl lg:text-4xl'
+          >
+            Спишем долги от 300 тыс. до 10 млн ₽ через суд
+          </div>
+        </div>
 
-        <p class="text-xl leading-relaxed text-gray-600">
+        <!-- Subtitle -->
+        <p class='text-xl leading-relaxed text-blue-100 lg:text-2xl'>
           {subtitle}
-          <span class="font-semibold text-success">89% клиентов</span> полностью освобождаются от долгов
-          за 6-8 месяцев. Офис в 5 минутах от метро Минская.
         </p>
 
-        <div class="space-y-6">
-          <div class="space-y-3">
-            <p class="text-gray-700">
-              ✅ Единственное жилье защищено законом<br />
-              ✅ Полное списание долгов через суд<br />
-              ✅ Защита от взысканий с первого дня
-            </p>
-
-            <p class="inline-block px-4 py-2 font-semibold text-red-800 bg-red-100 rounded-lg">
-              🔥 Консультация БЕСПЛАТНО — акция до 31 августа 2025 для первых 10 человек!
-            </p>
+        <!-- Key Stats -->
+        <div class='inline-flex items-center gap-6 text-white'>
+          <div class='text-center'>
+            <div class='text-3xl font-bold text-green-400'>89%</div>
+            <div class='text-sm text-blue-200'>успех</div>
           </div>
+          <div class='w-px h-12 bg-white/20'></div>
+          <div class='text-center'>
+            <div class='text-3xl font-bold text-yellow-400'>6-8</div>
+            <div class='text-sm text-blue-200'>месяцев</div>
+          </div>
+          <div class='w-px h-12 bg-white/20'></div>
+          <div class='text-center'>
+            <div class='text-3xl font-bold text-blue-400'>5 мин</div>
+            <div class='text-sm text-blue-200'>от метро</div>
+          </div>
+        </div>
 
-          <button
-            class="flex flex-col items-center justify-center w-full px-8 py-4 text-lg font-bold text-white transition-colors duration-200 sm:w-auto bg-primary rounded-xl hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:flex-row"
-            data-action="scroll-to-form"
-          >
-            <span>Получить бесплатную консультацию</span>
-            <span
-              class="inline-flex items-center px-3 py-1 mt-2 text-sm font-semibold text-white bg-yellow-500 rounded-full sm:mt-0 sm:ml-3"
+        <!-- Benefits List -->
+        <div class='space-y-4'>
+          <ul class='space-y-3 text-left'>
+            <li class='flex items-center gap-3 text-lg text-white'>
+              <div
+                class='flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20 ring-1 ring-green-400/30'
+              >
+                <svg
+                  class='h-3 w-3 text-green-400'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='3'
+                    d='M5 13l4 4L19 7'></path>
+                </svg>
+              </div>
+              Единственное жилье защищено законом
+            </li>
+            <li class='flex items-center gap-3 text-lg text-white'>
+              <div
+                class='flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20 ring-1 ring-green-400/30'
+              >
+                <svg
+                  class='h-3 w-3 text-green-400'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='3'
+                    d='M5 13l4 4L19 7'></path>
+                </svg>
+              </div>
+              Полное списание долгов через суд
+            </li>
+            <li class='flex items-center gap-3 text-lg text-white'>
+              <div
+                class='flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20 ring-1 ring-green-400/30'
+              >
+                <svg
+                  class='h-3 w-3 text-green-400'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='3'
+                    d='M5 13l4 4L19 7'></path>
+                </svg>
+              </div>
+              Защита от взысканий с первого дня
+            </li>
+          </ul>
+
+          <!-- Special Offer Badge -->
+          <div class='relative mt-6'>
+            <div
+              class='absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 blur opacity-75'
             >
+            </div>
+            <div
+              class='relative rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 p-4 text-center text-white'
+            >
+              <div class='flex items-center justify-center gap-2 text-lg font-bold'>
+                <span class='text-2xl'>🔥</span>
+                <span>Консультация БЕСПЛАТНО</span>
+              </div>
+              <p class='text-sm opacity-90'>акция до 31 августа 2025 для первых 10 человек!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class='pt-4'>
+          <button
+            class='group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6 text-lg font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-500/25 sm:w-auto'
+            data-action='scroll-to-form'
+          >
+            <span class='relative z-10'>Получить бесплатную консультацию</span>
+            <div
+              class='relative z-10 flex items-center gap-1 rounded-full bg-yellow-400/20 px-3 py-1 text-sm font-semibold text-yellow-300 ring-1 ring-yellow-400/30'
+            >
+              <div class='h-2 w-2 rounded-full bg-yellow-400 animate-pulse'></div>
               Осталось 7 мест
-            </span>
+            </div>
+            <div
+              class='absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000'
+            >
+            </div>
           </button>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3">
-          <div class="flex items-center">
-            <span class="mr-2 text-2xl">🏢</span>
-            <span class="text-gray-700">Офис: Минская ул., 2Ж</span>
+        <!-- Contact Info -->
+        <div class='grid grid-cols-1 gap-6 pt-8 text-blue-100 sm:grid-cols-3'>
+          <div class='flex items-center gap-3'>
+            <div
+              class='flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20'
+            >
+              <span class='text-xl'>🏢</span>
+            </div>
+            <span>Офис: Минская ул., 2Ж</span>
           </div>
-          <div class="flex items-center">
-            <span class="mr-2 text-2xl">🔒</span>
-            <span class="text-gray-700">Защита данных по 152-ФЗ</span>
+          <div class='flex items-center gap-3'>
+            <div
+              class='flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20'
+            >
+              <span class='text-xl'>🔒</span>
+            </div>
+            <span>Защита данных по 152-ФЗ</span>
           </div>
-          <div class="flex items-center">
-            <span class="mr-2 text-2xl">📞</span>
-            <span class="text-gray-700">Ежедневно 9:00-21:00</span>
+          <div class='flex items-center gap-3'>
+            <div
+              class='flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20'
+            >
+              <span class='text-xl'>📞</span>
+            </div>
+            <span>Ежедневно 9:00-21:00</span>
           </div>
         </div>
       </div>
 
       <!-- Right Column - Expert Card, Form and Stats -->
-      <div class="space-y-8">
-        <!-- Mashulia Card -->
-        <div class="p-6 bg-white shadow-lg rounded-2xl">
-          <div class="flex items-start">
-            <div class="flex-shrink-0">
+      <div class='space-y-8'>
+        <!-- Expert Card with Modern Design -->
+        <div
+          class='relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-lg p-8 shadow-2xl ring-1 ring-white/20'
+        >
+          <div
+            class='absolute -top-10 -right-10 h-20 w-20 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-xl'
+          >
+          </div>
+          <div class='relative flex items-start gap-6'>
+            <div class='relative'>
+              <div
+                class='absolute -inset-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-75 blur'
+              >
+              </div>
               <img
-                class="object-cover w-20 h-20 border-4 border-blue-100 rounded-full"
-                src="/images/team/mashulia.webp"
-                alt="Масхулиа Леван Зурабович - Арбитражный управляющий"
-                width="80"
-                height="80"
-                fetchpriority="high"
-                decoding="async"
+                class='relative h-24 w-24 rounded-full object-cover ring-2 ring-white'
+                src='/images/team/mashulia.webp'
+                alt='Масхулиа Леван Зурабович - Арбитражный управляющий'
+                width='96'
+                height='96'
+                fetchpriority='high'
+                decoding='async'
               />
+              <div
+                class='absolute -bottom-1 -right-1 rounded-full bg-green-500 p-1 ring-2 ring-white'
+              >
+                <svg class='h-3 w-3 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                  <path
+                    fill-rule='evenodd'
+                    d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                    clip-rule='evenodd'></path>
+                </svg>
+              </div>
             </div>
-            <div class="ml-4">
-              <div class="text-xl font-bold text-gray-900">Масхулиа Л.З.</div>
-              <div class="text-sm text-gray-600">Арбитражный управляющий №14320</div>
-              <div class="mt-2 text-sm text-gray-700">
-                ✓ 11+ лет опыта<br />
-                ✓ 1200+ успешных дел<br />
-                ✓ Член СРО арбитражных управляющих
+            <div class='flex-1'>
+              <div class='mb-2'>
+                <h3 class='text-2xl font-bold text-gray-900'>Масхулиа Л.З.</h3>
+                <p class='text-blue-600 font-semibold'>Арбитражный управляющий №14320</p>
+              </div>
+              <div class='space-y-2 text-sm text-gray-600'>
+                <div class='flex items-center gap-2'>
+                  <div class='h-2 w-2 rounded-full bg-green-400'></div>
+                  <span>11+ лет опыта</span>
+                </div>
+                <div class='flex items-center gap-2'>
+                  <div class='h-2 w-2 rounded-full bg-blue-400'></div>
+                  <span>1200+ успешных дел</span>
+                </div>
+                <div class='flex items-center gap-2'>
+                  <div class='h-2 w-2 rounded-full bg-purple-400'></div>
+                  <span>Член СРО арбитражных управляющих</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Form -->
-        <div class="p-6 bg-white shadow-lg rounded-2xl">
-          <HeroForm id="consultation-form" />
+        <!-- Form with Enhanced Design -->
+        <div class='relative'>
+          <div
+            class='absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-75 blur'
+          >
+          </div>
+          <div class='relative rounded-3xl bg-white p-8'>
+            <HeroForm id='consultation-form' />
+          </div>
         </div>
 
-        <!-- Stats -->
-        <div class="grid grid-cols-3 gap-4">
+        <!-- Stats with Modern Cards -->
+        <div class='grid grid-cols-3 gap-4'>
           <div
-            class="p-4 text-center text-white bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl"
+            class='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-center text-white shadow-xl transition-transform hover:scale-105'
           >
-            <div class="text-3xl font-bold">1000+</div>
-            <div class="text-sm opacity-90">Клиентов</div>
+            <div
+              class='absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100'
+            >
+            </div>
+            <div class='relative'>
+              <div class='text-3xl font-bold'>1000+</div>
+              <div class='text-sm opacity-90'>Клиентов</div>
+            </div>
           </div>
           <div
-            class="p-4 text-center text-white bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl"
+            class='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 p-6 text-center text-white shadow-xl transition-transform hover:scale-105'
           >
-            <div class="text-3xl font-bold">100%</div>
-            <div class="text-sm opacity-90">Успех</div>
+            <div
+              class='absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100'
+            >
+            </div>
+            <div class='relative'>
+              <div class='text-3xl font-bold'>98%</div>
+              <div class='text-sm opacity-90'>Успех</div>
+            </div>
           </div>
           <div
-            class="p-4 text-center text-white bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl"
+            class='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-center text-white shadow-xl transition-transform hover:scale-105'
           >
-            <div class="text-3xl font-bold">1.2M+</div>
-            <div class="text-sm opacity-90">Списано</div>
+            <div
+              class='absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100'
+            >
+            </div>
+            <div class='relative'>
+              <div class='text-3xl font-bold'>2.1M+</div>
+              <div class='text-sm opacity-90'>Списано</div>
+            </div>
           </div>
         </div>
       </div>

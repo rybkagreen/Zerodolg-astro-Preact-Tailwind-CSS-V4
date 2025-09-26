@@ -21,16 +21,16 @@ export async function onRequest(
   // Set security headers
   response.headers.set(
     'Content-Security-Policy',
-    'default-src \'self\'; ' +
-      'script-src \'self\' \'unsafe-inline\' https://www.googletagmanager.com https://www.google-analytics.com; ' +
-      'style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com; ' +
-      'img-src \'self\' data: https://www.googletagmanager.com https://www.google-analytics.com; ' +
-      'font-src \'self\' https://fonts.gstatic.com data:; ' +
-      'connect-src \'self\' https://www.google-analytics.com; ' +
-      'frame-src \'self\' https://www.google.com; ' +
-      'object-src \'none\'; ' +
-      'base-uri \'self\'; ' +
-      'form-action \'self\'; ' +
+    "default-src 'self'; " +
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " +
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+      "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; " +
+      "font-src 'self' https://fonts.gstatic.com data:; " +
+      "connect-src 'self' https://www.google-analytics.com; " +
+      "frame-src 'self' https://www.google.com; " +
+      "object-src 'none'; " +
+      "base-uri 'self'; " +
+      "form-action 'self'; " +
       'upgrade-insecure-requests;'
   );
 

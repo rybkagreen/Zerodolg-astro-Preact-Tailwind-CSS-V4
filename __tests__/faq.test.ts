@@ -135,10 +135,10 @@ describe('Faq Component', () => {
     // Category selection tracking
     const categoryState = {
       selectedCategory: 'all',
-      selectCategory: function (categoryId: string) {
+      selectCategory(categoryId: string) {
         this.selectedCategory = categoryId;
       },
-      getSelectedCategory: function () {
+      getSelectedCategory() {
         return this.selectedCategory;
       },
     };
@@ -238,14 +238,14 @@ describe('Faq Component', () => {
       results: [] as typeof faqItems,
       isLoading: false,
       hasResults: false,
-      updateQuery: function (newQuery: string, items: typeof faqItems) {
+      updateQuery(newQuery: string, items: typeof faqItems) {
         this.query = newQuery;
         this.isLoading = true;
         this.results = searchFAQ(items, newQuery);
         this.hasResults = this.results.length > 0;
         this.isLoading = false;
       },
-      clearSearch: function () {
+      clearSearch() {
         this.query = '';
         this.results = [];
         this.hasResults = false;
@@ -779,16 +779,16 @@ describe('Faq Component', () => {
     const performanceMock = {
       marks: [] as string[],
       measures: [] as { name: string; duration: number }[],
-      mark: function (name: string) {
+      mark(name: string) {
         this.marks.push(name);
       },
-      measure: function (name: string, startMark: string, endMark: string) {
+      measure(name: string, startMark: string, endMark: string) {
         // Simulate measurement
         const duration = Math.random() * 100;
         this.measures.push({ name, duration });
         return { name, duration };
       },
-      getEntriesByName: function (name: string) {
+      getEntriesByName(name: string) {
         return this.measures.filter((m) => m.name === name);
       },
     };

@@ -18,7 +18,7 @@ const { title, description, pubDate } = post.data;
   title={title}
   description={description}
   canonical={`https://zerodolg.ru/blog/${post.slug}/`}
-  type="article"
+  type='article'
 >
   <article>
     <header>
@@ -37,8 +37,8 @@ const { title, description, pubDate } = post.data;
   {/* Structured Data for Blog Posts */}
   <script
     is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify(
+    type='application/ld+json'
+    set:text={JSON.stringify(
       {
         '@context': 'https://schema.org',
         '@type': 'Article',

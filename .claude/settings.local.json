@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run type-check)",
+      "Bash(npm run format:check)",
+      "Bash(npm run lint:fix)",
+      "Bash(npm run format)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

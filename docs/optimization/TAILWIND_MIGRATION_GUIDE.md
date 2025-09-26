@@ -3,10 +3,9 @@
 ## 📌 КОНТЕКСТ ПРОЕКТА
 
 **Проект:** zerodolg-astro - сайт услуг банкротства физических лиц
-**Фреймворк:** Astro 5.13.7 с Preact
-**Текущая структура стилей:** ITCSS архитектура, 8,357 строк CSS
-**Окружение:** Windows, PowerShell 7.5.3
-**Путь проекта:** `D:\develop\zerodolg.ru\zerodolg-astro`
+**Фреймворк:** Astro 5.13.7 с Preact **Текущая структура стилей:** ITCSS
+архитектура, 8,357 строк CSS **Окружение:** Windows, PowerShell 7.5.3 **Путь
+проекта:** `D:\develop\zerodolg.ru\zerodolg-astro`
 
 ## ⚠️ КРИТИЧЕСКИ ВАЖНЫЕ ПРАВИЛА
 
@@ -21,104 +20,113 @@
 ### ШАГ 1: УСТАНОВКА И БАЗОВАЯ НАСТРОЙКА
 
 #### 1.1 Установи необходимые пакеты:
+
 ```bash
 npm install -D tailwindcss @astrojs/tailwind
 npm install -D @tailwindcss/typography @tailwindcss/forms @tailwindcss/aspect-ratio @tailwindcss/container-queries
 ```
 
 #### 1.2 Создай файл `tailwind.config.mjs`:
+
 ```javascript
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}',
     './src/components/**/*.{astro,tsx,jsx}',
-    './src/features/**/*.{astro,tsx,jsx}', 
+    './src/features/**/*.{astro,tsx,jsx}',
     './src/widgets/**/*.{astro,tsx,jsx}',
     './src/shared/**/*.{astro,tsx,jsx}',
-    './src/pages/**/*.{astro,md}'
+    './src/pages/**/*.{astro,md}',
   ],
   theme: {
     extend: {
       colors: {
         // Точное соответствие существующим CSS переменным
-        'primary': {
+        primary: {
           DEFAULT: '#2563eb',
-          'dark': '#1e40af',
-          'light': '#60a5fa',
+          dark: '#1e40af',
+          light: '#60a5fa',
         },
-        'accent': {
+        accent: {
           DEFAULT: '#ea580c',
-          'dark': '#c2410c', 
-          'light': '#fb923c',
-          'gold': '#ffd700',
-          'orange': '#fb923c',
+          dark: '#c2410c',
+          light: '#fb923c',
+          gold: '#ffd700',
+          orange: '#fb923c',
         },
-        'success': {
+        success: {
           DEFAULT: '#059669',
-          'light': '#10b981',
+          light: '#10b981',
         },
-        'error': {
+        error: {
           DEFAULT: '#dc2626',
-          'light': '#ef4444',
+          light: '#ef4444',
         },
-        'warning': {
+        warning: {
           DEFAULT: '#d97706',
-          'light': '#f59e0b',
+          light: '#f59e0b',
         },
         // Дополнительные цвета из проекта
-        'nav': {
-          'text': '#333333',
-          'hover': '#2c5aa0',
+        nav: {
+          text: '#333333',
+          hover: '#2c5aa0',
         },
-        'text': {
+        text: {
           DEFAULT: '#1e293b',
-          'muted': '#64748b',
-          'light': '#94a3b8',
-          'inverse': '#ffffff',
+          muted: '#64748b',
+          light: '#94a3b8',
+          inverse: '#ffffff',
         },
-        'bg': {
+        bg: {
           DEFAULT: '#ffffff',
-          'muted': '#f8fafc',
-          'dark': '#f1f5f9',
-          'accent': '#eff6ff',
+          muted: '#f8fafc',
+          dark: '#f1f5f9',
+          accent: '#eff6ff',
         },
-        'border': {
+        border: {
           DEFAULT: '#e2e8f0',
-          'dark': '#cbd5e1',
-          'light': 'rgba(0, 0, 0, 0.05)',
-        }
+          dark: '#cbd5e1',
+          light: 'rgba(0, 0, 0, 0.05)',
+        },
       },
       fontFamily: {
-        'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        'mono': ['Fira Code', 'Courier New', 'monospace'],
+        sans: [
+          'Inter',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
+        mono: ['Fira Code', 'Courier New', 'monospace'],
       },
       fontSize: {
-        'xs': '0.75rem',    // 12px
-        'sm': '0.875rem',   // 14px
-        'base': '1rem',     // 16px
-        'lg': '1.125rem',   // 18px
-        'xl': '1.25rem',    // 20px
-        '2xl': '1.5rem',    // 24px
-        '3xl': '1.875rem',  // 30px
-        '4xl': '2.25rem',   // 36px
-        '5xl': '3rem',      // 48px
-        '6xl': '3.75rem',   // 60px
+        xs: '0.75rem', // 12px
+        sm: '0.875rem', // 14px
+        base: '1rem', // 16px
+        lg: '1.125rem', // 18px
+        xl: '1.25rem', // 20px
+        '2xl': '1.5rem', // 24px
+        '3xl': '1.875rem', // 30px
+        '4xl': '2.25rem', // 36px
+        '5xl': '3rem', // 48px
+        '6xl': '3.75rem', // 60px
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
+        18: '4.5rem',
+        88: '22rem',
+        128: '32rem',
       },
       borderRadius: {
-        'xl': '0.75rem',
+        xl: '0.75rem',
       },
       boxShadow: {
-        'card': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        card: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       },
       animation: {
-        'fadeIn': 'fadeIn 0.5s ease-in-out',
-        'slideUp': 'slideUp 0.3s ease-out',
+        fadeIn: 'fadeIn 0.5s ease-in-out',
+        slideUp: 'slideUp 0.3s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -128,8 +136,8 @@ export default {
         slideUp: {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
-        }
-      }
+        },
+      },
     },
   },
   plugins: [
@@ -148,24 +156,26 @@ export default {
     // Классы для модалок
     'modal-open',
     'modal-backdrop',
-  ]
-}
+  ],
+};
 ```
 
 #### 1.3 Обнови `postcss.config.cjs`:
+
 ```javascript
 module.exports = {
   plugins: [
     require('tailwindcss'),
     require('autoprefixer'),
-    ...(process.env.NODE_ENV === 'production' 
-      ? [require('cssnano')({ preset: 'default' })] 
-      : [])
-  ]
+    ...(process.env.NODE_ENV === 'production'
+      ? [require('cssnano')({ preset: 'default' })]
+      : []),
+  ],
 };
 ```
 
 #### 1.4 Добавь Tailwind интеграцию в `astro.config.mjs`:
+
 ```javascript
 import tailwind from '@astrojs/tailwind';
 
@@ -175,17 +185,18 @@ export default defineConfig({
     preact(),
     tailwind({
       applyBaseStyles: false, // Важно! Не применяем базовые стили автоматически
-      config: { path: './tailwind.config.mjs' }
+      config: { path: './tailwind.config.mjs' },
     }),
     mcp(),
     sitemap(),
-    robotsTxt()
+    robotsTxt(),
   ],
   // ... остальная конфигурация
 });
 ```
 
 #### 1.5 Создай новый главный CSS файл `src/styles/globals.css`:
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -319,6 +330,7 @@ export default defineConfig({
 ```
 
 #### 1.6 Обнови Layout.astro:
+
 ```astro
 ---
 // src/layouts/Layout.astro
@@ -334,35 +346,49 @@ import '../styles/globals.css'; // Новый импорт
 ### ФАЗА 1: Простые компоненты (начни с них!)
 
 #### 1. Button.astro (`src/shared/ui/Button/Button.astro`)
+
 **Текущие классы для замены:**
+
 ```css
 /* Старый CSS */
-.button -> @apply px-6 py-3 rounded-lg font-semibold transition-colors
-.button--primary -> @apply bg-primary text-white hover:bg-primary-dark
-.button--secondary -> @apply bg-white text-primary border-2 border-primary
+.button {
+  @apply px-6 py-3 rounded-lg font-semibold transition-colors;
+}
+.button--primary {
+  @apply bg-primary text-white hover:bg-primary-dark;
+}
+.button--secondary {
+  @apply bg-white text-primary border-2 border-primary;
+}
 ```
 
 **Пример миграции:**
+
 ```astro
 <!-- ДО -->
-<button class="button button--primary">Текст</button>
+<button class='button button--primary'>Текст</button>
 
 <!-- ПОСЛЕ -->
-<button class="px-6 py-3 rounded-lg font-semibold transition-colors bg-primary text-white hover:bg-primary-dark">
+<button
+  class='px-6 py-3 rounded-lg font-semibold transition-colors bg-primary text-white hover:bg-primary-dark'
+>
   Текст
 </button>
 
 <!-- ИЛИ используй компонентный класс -->
-<button class="btn-primary">Текст</button>
+<button class='btn-primary'>Текст</button>
 ```
 
 #### 2. Card.astro (`src/shared/ui/Card/Card.astro`)
+
 ```astro
 <!-- ДО -->
-<div class="card">...</div>
+<div class='card'>...</div>
 
 <!-- ПОСЛЕ -->
-<div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+<div
+  class='bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow'
+>
   ...
 </div>
 ```
@@ -370,10 +396,13 @@ import '../styles/globals.css'; // Новый импорт
 ### ФАЗА 2: Формы
 
 #### BaseForm.astro (`src/features/forms/ui/BaseForm.astro`)
+
 **Ключевые замены:**
+
 ```astro
-<!-- Поля ввода -->
-class="form__input" -> class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+<!-- Поля ввода -->class="form__input" -> class="w-full px-4 py-2 border
+border-border rounded-lg focus:ring-2 focus:ring-primary
+focus:border-transparent"
 
 <!-- Лейблы -->
 class="form__label" -> class="block text-sm font-medium text-text mb-1"
@@ -388,47 +417,49 @@ class="form__group" -> class="mb-4"
 ### ФАЗА 3: Навигация и Layout
 
 #### Header.astro (`src/widgets/header/Header.astro`)
+
 **Важно:** Сохрани все data-атрибуты и JS-хуки!
 
 ```astro
-<!-- Навигационное меню -->
-class="nav__menu" -> class="flex items-center space-x-8"
-class="nav__link" -> class="text-nav-text hover:text-nav-hover transition-colors"
-class="nav__link--active" -> class="text-primary font-semibold"
+<!-- Навигационное меню -->class="nav__menu" -> class="flex items-center
+space-x-8" class="nav__link" -> class="text-nav-text hover:text-nav-hover
+transition-colors" class="nav__link--active" -> class="text-primary
+font-semibold"
 
 <!-- Мобильное меню -->
-class="mobile-menu" -> class="lg:hidden fixed inset-0 z-50 bg-white"
-class="mobile-menu__toggle" -> class="lg:hidden p-2"
+class="mobile-menu" -> class="lg:hidden fixed inset-0 z-50 bg-white" class="mobile-menu__toggle"
+-> class="lg:hidden p-2"
 ```
 
 ### ФАЗА 4: Секции страниц
 
 #### Hero.astro (`src/components/islands/Hero.astro`)
+
 ```astro
-<!-- Контейнер героя -->
-class="hero" -> class="relative min-h-screen flex items-center"
-class="hero__content" -> class="container-custom py-20"
+<!-- Контейнер героя -->class="hero" -> class="relative min-h-screen flex
+items-center" class="hero__content" -> class="container-custom py-20"
 class="hero__title" -> class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
 class="hero__subtitle" -> class="text-xl text-text-muted mb-8"
 ```
 
 ## 🔄 ТАБЛИЦА СООТВЕТСТВИЯ КЛАССОВ
 
-| Старый класс | Новые Tailwind классы | Примечания |
-|--------------|----------------------|------------|
-| `.container` | `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` | Или используй `.container-custom` |
-| `.text-primary` | `text-primary` | Прямое соответствие |
-| `.bg-accent` | `bg-accent` | Прямое соответствие |
-| `.shadow-card` | `shadow-md hover:shadow-lg` | С эффектом при наведении |
-| `.hidden-mobile` | `hidden sm:block` | Mobile-first подход |
-| `.flex-center` | `flex items-center justify-center` | |
-| `.grid-auto` | `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6` | |
-| `.section` | `py-12 sm:py-16 lg:py-24` | |
-| `.text-large` | `text-lg lg:text-xl` | |
+| Старый класс     | Новые Tailwind классы                                  | Примечания                        |
+| ---------------- | ------------------------------------------------------ | --------------------------------- |
+| `.container`     | `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`               | Или используй `.container-custom` |
+| `.text-primary`  | `text-primary`                                         | Прямое соответствие               |
+| `.bg-accent`     | `bg-accent`                                            | Прямое соответствие               |
+| `.shadow-card`   | `shadow-md hover:shadow-lg`                            | С эффектом при наведении          |
+| `.hidden-mobile` | `hidden sm:block`                                      | Mobile-first подход               |
+| `.flex-center`   | `flex items-center justify-center`                     |                                   |
+| `.grid-auto`     | `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6` |                                   |
+| `.section`       | `py-12 sm:py-16 lg:py-24`                              |                                   |
+| `.text-large`    | `text-lg lg:text-xl`                                   |                                   |
 
 ## 🛠️ УТИЛИТЫ ДЛЯ МИГРАЦИИ
 
 ### Команда для поиска использований класса:
+
 ```powershell
 # Найти все использования конкретного CSS класса
 Select-String -Path "src\**\*.astro","src\**\*.tsx","src\**\*.jsx" -Pattern "className.*button" -CaseSensitive
@@ -438,12 +469,14 @@ Get-ChildItem -Recurse -Include *.astro,*.tsx,*.jsx | Select-String "button--pri
 ```
 
 ### Создание резервной копии:
+
 ```powershell
 # Перед изменением компонента
 Copy-Item "src\components\islands\Hero.astro" "src\components\islands\Hero.astro.backup"
 ```
 
 ### Проверка изменений:
+
 ```powershell
 # После изменения компонента
 npm run dev
@@ -455,12 +488,14 @@ npm run dev
 ### После каждой фазы выполняй:
 
 1. **Проверка размера CSS:**
+
 ```powershell
 npm run build
 Get-ChildItem dist\**\*.css | Measure-Object -Property Length -Sum
 ```
 
 2. **Проверка неиспользуемых стилей:**
+
 ```powershell
 # Установи PurgeCSS CLI если нужно
 npm install -g purgecss
@@ -470,27 +505,31 @@ purgecss --css dist/**/*.css --content dist/**/*.html --output analyzed.css
 ## 🚨 ЧАСТЫЕ ОШИБКИ И КАК ИХ ИЗБЕЖАТЬ
 
 ### ❌ НЕ ДЕЛАЙ ТАК:
+
 ```astro
 <!-- Неправильно: смешивание старых и новых классов -->
-<div class="card px-4 py-6">
+<div class='card px-4 py-6'>
+  <!-- Неправильно: забыл про респонсивность -->
+  <div class='text-6xl'>
+    <!-- Слишком большой на мобилке -->
 
-<!-- Неправильно: забыл про респонсивность -->
-<div class="text-6xl"> <!-- Слишком большой на мобилке -->
-
-<!-- Неправильно: удалил data-атрибуты -->
-<button class="btn-primary"> <!-- Был data-modal-trigger -->
+    <!-- Неправильно: удалил data-атрибуты -->
+    <button class='btn-primary'> <!-- Был data-modal-trigger --></button>
+  </div>
+</div>
 ```
 
 ### ✅ ДЕЛАЙ ТАК:
+
 ```astro
 <!-- Правильно: полная миграция -->
-<div class="bg-white rounded-xl shadow-card p-6">
-
-<!-- Правильно: респонсивные размеры -->
-<div class="text-3xl md:text-4xl lg:text-6xl">
-
-<!-- Правильно: сохранены data-атрибуты -->
-<button class="btn-primary" data-modal-trigger="callback">
+<div class='bg-white rounded-xl shadow-card p-6'>
+  <!-- Правильно: респонсивные размеры -->
+  <div class='text-3xl md:text-4xl lg:text-6xl'>
+    <!-- Правильно: сохранены data-атрибуты -->
+    <button class='btn-primary' data-modal-trigger='callback'></button>
+  </div>
+</div>
 ```
 
 ## 📝 КОНТРОЛЬНЫЙ СПИСОК ДЛЯ КАЖДОГО КОМПОНЕНТА
@@ -517,16 +556,19 @@ purgecss --css dist/**/*.css --content dist/**/*.html --output analyzed.css
 ## 🔧 ОТЛАДКА ПРОБЛЕМ
 
 ### Если стили не применяются:
+
 1. Проверь, что файл включен в `content` в tailwind.config.mjs
 2. Перезапусти dev сервер: `Ctrl+C` затем `npm run dev`
 3. Очисти кэш: `npm run clean && npm run dev`
 
 ### Если компонент сломался визуально:
+
 1. Проверь специфичность CSS - возможно старые стили перебивают новые
 2. Используй `!important` временно: `!bg-primary`
 3. Проверь порядок импортов в Layout.astro
 
 ### Если не работает JavaScript:
+
 1. Убедись, что сохранены все классы, используемые в JS
 2. Проверь консоль браузера на ошибки
 3. Добавь классы в safelist в tailwind.config.mjs
@@ -539,20 +581,23 @@ purgecss --css dist/**/*.css --content dist/**/*.html --output analyzed.css
 # Отчет о миграции - Фаза 1
 
 ## Мигрированные компоненты:
+
 - [x] Button.astro
 - [x] Card.astro
 - [x] ...
 
 ## Метрики:
+
 - Размер CSS до: X KB
 - Размер CSS после: Y KB
 - Уменьшение: Z%
 
 ## Проблемы и решения:
-1. Проблема: ...
-   Решение: ...
+
+1. Проблема: ... Решение: ...
 
 ## Следующие шаги:
+
 - Начать Фазу 2
 ```
 
@@ -589,6 +634,8 @@ npm run test
 
 ---
 
-**ВАЖНО:** Эта инструкция - твой главный гайд. Следуй ей пошагово, не пропускай этапы. При возникновении вопросов или нестандартных ситуаций - документируй их и решения в отдельном файле `MIGRATION_NOTES.md`.
+**ВАЖНО:** Эта инструкция - твой главный гайд. Следуй ей пошагово, не пропускай
+этапы. При возникновении вопросов или нестандартных ситуаций - документируй их и
+решения в отдельном файле `MIGRATION_NOTES.md`.
 
 Удачи в миграции! 🎯

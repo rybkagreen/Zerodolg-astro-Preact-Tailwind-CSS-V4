@@ -2,7 +2,8 @@ import type { APIRoute } from 'astro';
 
 // Конфигурация Bitrix24 из переменных окружения
 const BITRIX24_WEBHOOK_URL =
-  import.meta.env.BITRIX24_WEBHOOK_URL || 'https://zerodolg.bitrix24.ru/rest/1/sn1lo90na6t13v1d/';
+  import.meta.env['BITRIX24_WEBHOOK_URL'] ||
+  'https://zerodolg.bitrix24.ru/rest/1/sn1lo90na6t13v1d/';
 
 export const POST: APIRoute = async ({ request }) => {
   try {

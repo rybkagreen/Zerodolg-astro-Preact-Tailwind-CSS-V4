@@ -32,23 +32,23 @@ describe('Accessibility Tests', () => {
         search: 'search',
         form: 'form',
       },
-      generateLabel: function (element: string, text: string) {
+      generateLabel(element: string, text: string) {
         return {
           'aria-label': text,
           'data-element': element,
         };
       },
-      generateDescribedBy: function (descriptionId: string) {
+      generateDescribedBy(descriptionId: string) {
         return {
           'aria-describedby': descriptionId,
         };
       },
-      generateControls: function (controlledId: string) {
+      generateControls(controlledId: string) {
         return {
           'aria-controls': controlledId,
         };
       },
-      generateOwns: function (ownedId: string) {
+      generateOwns(ownedId: string) {
         return {
           'aria-owns': ownedId,
         };
@@ -137,7 +137,7 @@ describe('Accessibility Tests', () => {
         textarea: 'textbox',
         button: 'button',
       },
-      validateSemantics: function (html: string) {
+      validateSemantics(html: string) {
         const issues = [];
         const semanticTags = Object.keys(this.semanticTags);
 
@@ -170,7 +170,7 @@ describe('Accessibility Tests', () => {
           semanticScore: semanticTags.length - missingSemantics.length,
         };
       },
-      suggestImprovements: function (html: string) {
+      suggestImprovements(html: string) {
         const suggestions = [];
 
         // Suggest heading structure improvements
@@ -283,7 +283,7 @@ describe('Accessibility Tests', () => {
         '[tabindex]:not([tabindex="-1"])',
         '[contentEditable=true]',
       ],
-      getFocusableElements: function (container: HTMLElement) {
+      getFocusableElements(container: HTMLElement) {
         const selectors = this.focusableSelectors;
         const elements = [];
 
@@ -294,7 +294,7 @@ describe('Accessibility Tests', () => {
 
         return elements;
       },
-      hasKeyboardAccess: function (element: HTMLElement) {
+      hasKeyboardAccess(element: HTMLElement) {
         // Check if element is keyboard accessible
         const tabIndex = element.getAttribute('tabindex');
         const isNativeFocusable = this.focusableSelectors.some((selector) =>
@@ -303,11 +303,11 @@ describe('Accessibility Tests', () => {
 
         return isNativeFocusable || (tabIndex && parseInt(tabIndex) >= 0);
       },
-      getTabIndex: function (element: HTMLElement) {
+      getTabIndex(element: HTMLElement) {
         const tabIndex = element.getAttribute('tabindex');
         return tabIndex ? parseInt(tabIndex) : null;
       },
-      isFocusable: function (element: HTMLElement) {
+      isFocusable(element: HTMLElement) {
         const computedStyle = window.getComputedStyle(element);
         return (
           computedStyle.visibility !== 'hidden' &&
@@ -315,7 +315,7 @@ describe('Accessibility Tests', () => {
           this.hasKeyboardAccess(element)
         );
       },
-      getKeyboardShortcuts: function () {
+      getKeyboardShortcuts() {
         return {
           Tab: 'Navigate to next focusable element',
           'Shift+Tab': 'Navigate to previous focusable element',
@@ -394,7 +394,7 @@ describe('Accessibility Tests', () => {
         collapsed: 'aria-expanded="false"',
       },
       announcements: new Map<string, string>(),
-      announce: function (message: string, priority: 'polite' | 'assertive' = 'polite') {
+      announce(message: string, priority: 'polite' | 'assertive' = 'polite') {
         // Create announcement
         const announcement = {
           id: `announcement-${Date.now()}`,
@@ -406,13 +406,13 @@ describe('Accessibility Tests', () => {
         this.announcements.set(announcement.id, message);
         return announcement;
       },
-      getAnnouncement: function (id: string) {
+      getAnnouncement(id: string) {
         return this.announcements.get(id) || null;
       },
-      clearAnnouncements: function () {
+      clearAnnouncements() {
         this.announcements.clear();
       },
-      generateStatusMessage: function (status: string, message: string) {
+      generateStatusMessage(status: string, message: string) {
         return {
           'aria-label': `${status}: ${message}`,
           'data-status': status,
@@ -485,7 +485,7 @@ describe('Accessibility Tests', () => {
         gray: '#64748b',
         muted: '#94a3b8',
       },
-      calculateContrastRatio: function (foreground: string, background: string) {
+      calculateContrastRatio(foreground: string, background: string) {
         // Convert hex to RGB
         const fgRgb = this.hexToRgb(foreground);
         const bgRgb = this.hexToRgb(background);
@@ -502,7 +502,7 @@ describe('Accessibility Tests', () => {
 
         return (lighter + 0.05) / (darker + 0.05);
       },
-      hexToRgb: function (hex: string) {
+      hexToRgb(hex: string) {
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result
           ? {
@@ -512,21 +512,17 @@ describe('Accessibility Tests', () => {
             }
           : null;
       },
-      getRelativeLuminance: function (rgb: { r: number; g: number; b: number }) {
+      getRelativeLuminance(rgb: { r: number; g: number; b: number }) {
         const r = this.gamma(rgb.r / 255);
         const g = this.gamma(rgb.g / 255);
         const b = this.gamma(rgb.b / 255);
 
         return 0.2126 * r + 0.7152 * g + 0.0722 * b;
       },
-      gamma: function (value: number) {
+      gamma(value: number) {
         return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
       },
-      meetsWCAG: function (
-        ratio: number,
-        level: 'AA' | 'AAA' = 'AA',
-        size: 'normal' | 'large' = 'normal'
-      ) {
+      meetsWCAG(ratio: number, level: 'AA' | 'AAA' = 'AA', size: 'normal' | 'large' = 'normal') {
         if (level === 'AAA') {
           if (size === 'large') return ratio >= 4.5;
           return ratio >= 7.0;
@@ -534,7 +530,7 @@ describe('Accessibility Tests', () => {
         if (size === 'large') return ratio >= 3.0;
         return ratio >= 4.5;
       },
-      testColorCombination: function (
+      testColorCombination(
         foreground: string,
         background: string,
         level: 'AA' | 'AAA' = 'AA',
@@ -620,7 +616,7 @@ describe('Accessibility Tests', () => {
         HTMLElement,
         { firstFocusable: HTMLElement; lastFocusable: HTMLElement }
       >(),
-      trapFocus: function (container: HTMLElement) {
+      trapFocus(container: HTMLElement) {
         // Get all focusable elements within the container
         const focusable = this.getFocusableElements(container);
         if (focusable.length === 0) return;
@@ -653,7 +649,7 @@ describe('Accessibility Tests', () => {
         // Focus the first element
         firstFocusable.focus();
       },
-      getFocusableElements: function (container: HTMLElement) {
+      getFocusableElements(container: HTMLElement) {
         const focusableSelectors = [
           'a[href]',
           'area[href]',
@@ -674,7 +670,7 @@ describe('Accessibility Tests', () => {
 
         return elements;
       },
-      trapWithin: function (container: HTMLElement) {
+      trapWithin(container: HTMLElement) {
         const focusableElements = this.getFocusableElements(container);
         if (focusableElements.length === 0) return;
 
@@ -697,7 +693,7 @@ describe('Accessibility Tests', () => {
 
         return focusableElements;
       },
-      restoreFocus: function (container: HTMLElement) {
+      restoreFocus(container: HTMLElement) {
         // Restore focus when component is closed
         const trap = this.trappedElements.get(container);
         if (trap) {
@@ -746,19 +742,19 @@ describe('Accessibility Tests', () => {
   it('should implement skip links correctly', () => {
     const skipLinks = {
       skipLinks: [] as Array<{ href: string; text: string; target: string }>,
-      addSkipLink: function (href: string, text: string, target: string) {
+      addSkipLink(href: string, text: string, target: string) {
         const skipLink = { href, text, target };
         this.skipLinks.push(skipLink);
         return skipLink;
       },
-      generateSkipLinkMarkup: function (href: string, text: string, target: string) {
+      generateSkipLinkMarkup(href: string, text: string, target: string) {
         return `
           <a href="${href}" class="skip-link" data-skip-target="${target}">
             ${text}
           </a>
         `.trim();
       },
-      validateSkipLink: function (href: string, text: string, target: string) {
+      validateSkipLink(href: string, text: string, target: string) {
         return {
           validHref: href.startsWith('#'),
           hasText: text.length > 0,
@@ -766,10 +762,10 @@ describe('Accessibility Tests', () => {
           accessible: href.startsWith('#') && text.length > 0,
         };
       },
-      getSkipLinks: function () {
+      getSkipLinks() {
         return this.skipLinks;
       },
-      clearSkipLinks: function () {
+      clearSkipLinks() {
         this.skipLinks = [];
       },
     };
@@ -834,7 +830,7 @@ describe('Accessibility Tests', () => {
         'aria-relevant':
           'Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified',
       },
-      createAriaAttributes: function (attrs: Record<string, string>) {
+      createAriaAttributes(attrs: Record<string, string>) {
         const result: Record<string, string> = {};
 
         Object.keys(attrs).forEach((key) => {
@@ -845,7 +841,7 @@ describe('Accessibility Tests', () => {
 
         return result;
       },
-      validateAriaAttributes: function (attrs: Record<string, string>) {
+      validateAriaAttributes(attrs: Record<string, string>) {
         const issues = [];
 
         Object.keys(attrs).forEach((key) => {
@@ -859,7 +855,7 @@ describe('Accessibility Tests', () => {
           issues,
         };
       },
-      getAriaDescription: function (attribute: string) {
+      getAriaDescription(attribute: string) {
         return (
           this.attributes[attribute as keyof typeof this.attributes] || 'Unknown ARIA attribute'
         );
@@ -935,7 +931,7 @@ describe('Accessibility Tests', () => {
       },
       rtlLanguages: ['ar', 'he', 'fa', 'ur'],
       defaultLanguage: 'ru',
-      setLanguage: function (lang: string) {
+      setLanguage(lang: string) {
         const html = document.documentElement;
         html.setAttribute('lang', lang);
 
@@ -948,20 +944,20 @@ describe('Accessibility Tests', () => {
 
         return lang;
       },
-      getCurrentLanguage: function () {
+      getCurrentLanguage() {
         return document.documentElement.lang || this.defaultLanguage;
       },
-      isRTLLanguage: function (lang: string) {
+      isRTLLanguage(lang: string) {
         return this.rtlLanguages.includes(lang);
       },
-      getLanguageName: function (lang: string) {
+      getLanguageName(lang: string) {
         return this.languages[lang as keyof typeof this.languages] || 'Unknown Language';
       },
-      validateLanguageCode: function (lang: string) {
+      validateLanguageCode(lang: string) {
         // ISO 639-1 codes are 2 characters
         return /^[a-z]{2}$/i.test(lang);
       },
-      getSupportedLanguages: function () {
+      getSupportedLanguages() {
         return Object.keys(this.languages);
       },
     };
@@ -1021,27 +1017,27 @@ describe('Accessibility Tests', () => {
         search: 'Search functionality',
         form: 'Form associated with the document',
       },
-      createLandmark: function (role: string, label: string) {
+      createLandmark(role: string, label: string) {
         return {
-          role: role,
+          role,
           'aria-label': label,
           tabindex: -1, // Not focusable by default
         };
       },
-      addKeyboardShortcut: function (key: string, description: string) {
+      addKeyboardShortcut(key: string, description: string) {
         return {
           key,
           description,
           'aria-keyshortcuts': key,
         };
       },
-      getNavigationMethod: function (method: string) {
+      getNavigationMethod(method: string) {
         return (
           this.navigationMethods[method as keyof typeof this.navigationMethods] ||
           'Unsupported method'
         );
       },
-      getLandmarkDescription: function (landmark: string) {
+      getLandmarkDescription(landmark: string) {
         return this.landmarks[landmark as keyof typeof this.landmarks] || 'Unknown landmark';
       },
     };

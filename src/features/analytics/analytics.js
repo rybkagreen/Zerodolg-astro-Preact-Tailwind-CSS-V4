@@ -36,35 +36,35 @@ function initYandexMetrika() {
         return;
       }
     }
-    ((k = e.createElement(t)),
-      (a = e.getElementsByTagName(t)[0]),
-      (k.async = 1),
-      (k.src = r),
-      a.parentNode.insertBefore(k, a));
+    k = e.createElement(t);
+    a = e.getElementsByTagName(t)[0];
+    k.async = 1;
+    k.src = r;
+    a.parentNode.insertBefore(k, a);
   })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
   // Initialize with configuration
   if (typeof window.ym !== 'undefined') {
     window.ym(CONFIG.YANDEX_METRIKA_ID, 'init', {
       defer: true,
-    clickmap: true,
-    trackLinks: true,
-    accurateTrackBounce: true,
-    webvisor: true,
-    ecommerce: 'dataLayer',
-    triggerEvent: true,
-    params: {
-      page_url: window.location.href,
-      page_ref: document.referrer,
-      init_utc_timestamp: new Date().toISOString(),
-      page_load_utc: new Date().getTime(),
-      timezone_offset: new Date().getTimezoneOffset(),
-      timezone_name: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      user_agent: navigator.userAgent,
-      screen_resolution: `${screen.width}x${screen.height}`,
-      viewport_size: `${window.innerWidth}x${window.innerHeight}`,
-      page_title: document.title,
-    },
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true,
+      ecommerce: 'dataLayer',
+      triggerEvent: true,
+      params: {
+        page_url: window.location.href,
+        page_ref: document.referrer,
+        init_utc_timestamp: new Date().toISOString(),
+        page_load_utc: new Date().getTime(),
+        timezone_offset: new Date().getTimezoneOffset(),
+        timezone_name: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        user_agent: navigator.userAgent,
+        screen_resolution: `${screen.width}x${screen.height}`,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+        page_title: document.title,
+      },
     });
   }
 

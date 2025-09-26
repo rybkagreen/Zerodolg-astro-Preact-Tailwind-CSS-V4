@@ -2,7 +2,11 @@
 
 ## Executive Summary
 
-This report outlines a comprehensive refactoring plan for the Astro and Preact components in the zerodolg-astro project. The plan addresses existing issues with component architecture, code quality, and adherence to modern practices. The refactoring will result in improved performance, maintainability, and developer experience while reducing long-term maintenance costs.
+This report outlines a comprehensive refactoring plan for the Astro and Preact
+components in the zerodolg-astro project. The plan addresses existing issues
+with component architecture, code quality, and adherence to modern practices.
+The refactoring will result in improved performance, maintainability, and
+developer experience while reducing long-term maintenance costs.
 
 ## Current State Analysis
 
@@ -10,14 +14,17 @@ This report outlines a comprehensive refactoring plan for the Astro and Preact c
 
 - **Framework**: Astro v5.13.7 with Preact v10.27.1
 - **Primary Language**: TypeScript (Russian content/UI, English code/comments)
-- **Architecture**: Islands architecture with static rendering and targeted hydration
-- **Structure**: Inconsistent organization with Preact components scattered across multiple directories
+- **Architecture**: Islands architecture with static rendering and targeted
+  hydration
+- **Structure**: Inconsistent organization with Preact components scattered
+  across multiple directories
 
 ### Identified Issues
 
 1. **Architecture Inconsistencies**
    - Mixing of Astro islands and Preact components without clear separation
-   - Inconsistent directory structure (e.g., Preact components in both `/src/components/preact` and `/src/components/islands`)
+   - Inconsistent directory structure (e.g., Preact components in both
+     `/src/components/preact` and `/src/components/islands`)
    - Manual DOM manipulation instead of using React/Preact patterns
 
 2. **Code Quality Problems**
@@ -55,9 +62,11 @@ src/
 
 #### Key Changes
 
-- **Clear Separation**: Static Astro components vs. interactive Preact components
+- **Clear Separation**: Static Astro components vs. interactive Preact
+  components
 - **Standardized Hydration**: Consistent use of appropriate hydration strategies
-- **Functional Components**: Replace class-based Preact components with hooks-based functional components
+- **Functional Components**: Replace class-based Preact components with
+  hooks-based functional components
 
 ### 2. Implementation Examples
 
@@ -85,7 +94,9 @@ interface Props {
 }
 
 export default function TeamInteractive({ members }: Props) {
-  const [activeMemberId, setActiveMemberId] = useState<string>(members[0]?.id || '');
+  const [activeMemberId, setActiveMemberId] = useState<string>(
+    members[0]?.id || ''
+  );
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile view
@@ -109,7 +120,7 @@ export default function TeamInteractive({ members }: Props) {
   const activeMember = members.find((member) => member.id === activeMemberId);
 
   return (
-    <section class="team-interactive" id="team">
+    <section class='team-interactive' id='team'>
       {/* JSX content using the new declarative approach */}
     </section>
   );
@@ -135,10 +146,13 @@ export default function TeamInteractive({ members }: Props) {
 
 - `client:load`: For critical interactive components that must load immediately
 - `client:idle`: For non-critical components that can load after page idle time
-- `client:visible`: For components that should hydrate only when visible in viewport
-- `client:media={query}`: For responsive components with different hydration needs
+- `client:visible`: For components that should hydrate only when visible in
+  viewport
+- `client:media={query}`: For responsive components with different hydration
+  needs
 
-This approach will significantly reduce initial JavaScript bundle size and improve Core Web Vitals.
+This approach will significantly reduce initial JavaScript bundle size and
+improve Core Web Vitals.
 
 ### 4. Enhanced Type Safety
 
@@ -172,7 +186,8 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 
 #### Development Efficiency
 
-- **Feature Implementation**: 25-30% faster due to standardized, reusable components
+- **Feature Implementation**: 25-30% faster due to standardized, reusable
+  components
 - **Bug Resolution**: 35-45% faster with consistent architecture patterns
 - **Scalability**: Modular, well-organized components enable easier expansion
 
@@ -222,7 +237,8 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 
 ### Technical Risks
 
-- **Compatibility**: Thorough testing to ensure all existing functionality remains intact
+- **Compatibility**: Thorough testing to ensure all existing functionality
+  remains intact
 - **Performance**: Continuous monitoring during and after refactoring
 - **Breaking Changes**: Careful migration plan with fallback mechanisms
 
@@ -230,12 +246,21 @@ This approach will significantly reduce initial JavaScript bundle size and impro
 
 - **Learning Curve**: Comprehensive documentation and training
 - **Timeline**: Phased approach to minimize disruption
-- **Team Adoption**: Clear communication of benefits and support during transition
+- **Team Adoption**: Clear communication of benefits and support during
+  transition
 
 ## Conclusion
 
-The proposed refactoring plan addresses critical issues in the current Astro and Preact component architecture, providing significant improvements in performance, maintainability, and developer experience. The investment required for refactoring will yield substantial returns in reduced maintenance costs, improved development velocity, and better user experience.
+The proposed refactoring plan addresses critical issues in the current Astro and
+Preact component architecture, providing significant improvements in
+performance, maintainability, and developer experience. The investment required
+for refactoring will yield substantial returns in reduced maintenance costs,
+improved development velocity, and better user experience.
 
-The standardized architecture, modern React/Preact patterns, and strategic hydration approach will position the zerodolg-astro project for sustainable growth and easier long-term maintenance.
+The standardized architecture, modern React/Preact patterns, and strategic
+hydration approach will position the zerodolg-astro project for sustainable
+growth and easier long-term maintenance.
 
-By implementing this comprehensive refactoring plan, the project will align with modern web development best practices while maintaining the high-quality user experience that the business requires.
+By implementing this comprehensive refactoring plan, the project will align with
+modern web development best practices while maintaining the high-quality user
+experience that the business requires.

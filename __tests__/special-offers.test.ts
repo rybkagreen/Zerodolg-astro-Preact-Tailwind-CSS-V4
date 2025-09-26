@@ -813,16 +813,16 @@ describe('SpecialOffers Component', () => {
     const performanceMock = {
       marks: [] as string[],
       measures: [] as { name: string; duration: number }[],
-      mark: function (name: string) {
+      mark(name: string) {
         this.marks.push(name);
       },
-      measure: function (name: string, startMark: string, endMark: string) {
+      measure(name: string, startMark: string, endMark: string) {
         // Simulate measurement
         const duration = Math.random() * 100;
         this.measures.push({ name, duration });
         return { name, duration };
       },
-      getEntriesByName: function (name: string) {
+      getEntriesByName(name: string) {
         return this.measures.filter((m) => m.name === name);
       },
     };

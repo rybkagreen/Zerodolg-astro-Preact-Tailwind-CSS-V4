@@ -177,19 +177,19 @@ describe('Process Component', () => {
 
     const completionState = {
       completedSteps: new Set<number>(),
-      markStepCompleted: function (stepIndex: number) {
+      markStepCompleted(stepIndex: number) {
         this.completedSteps.add(stepIndex);
       },
-      isStepCompleted: function (stepIndex: number) {
+      isStepCompleted(stepIndex: number) {
         return this.completedSteps.has(stepIndex);
       },
-      getCompletionPercentage: function (totalSteps: number) {
+      getCompletionPercentage(totalSteps: number) {
         return totalSteps > 0 ? (this.completedSteps.size / totalSteps) * 100 : 0;
       },
-      getCompletedStepsCount: function () {
+      getCompletedStepsCount() {
         return this.completedSteps.size;
       },
-      resetCompletion: function () {
+      resetCompletion() {
         this.completedSteps.clear();
       },
     };
@@ -649,16 +649,16 @@ describe('Process Component', () => {
     const performanceMock = {
       marks: [] as string[],
       measures: [] as { name: string; duration: number }[],
-      mark: function (name: string) {
+      mark(name: string) {
         this.marks.push(name);
       },
-      measure: function (name: string, startMark: string, endMark: string) {
+      measure(name: string, startMark: string, endMark: string) {
         // Simulate measurement
         const duration = Math.random() * 100;
         this.measures.push({ name, duration });
         return { name, duration };
       },
-      getEntriesByName: function (name: string) {
+      getEntriesByName(name: string) {
         return this.measures.filter((m) => m.name === name);
       },
     };

@@ -1,6 +1,7 @@
 # 🤖 Puppeteer MCP Server
 
-Автоматизация браузера через протокол MCP для просмотра и взаимодействия с веб-страницами.
+Автоматизация браузера через протокол MCP для просмотра и взаимодействия с
+веб-страницами.
 
 ## 🚀 Быстрый старт
 
@@ -102,7 +103,8 @@ node test-mcp-server.js
 
 ## 📖 Полная документация
 
-Подробное руководство: [docs/puppeteer-mcp-guide.md](docs/puppeteer-mcp-guide.md)
+Подробное руководство:
+[docs/puppeteer-mcp-guide.md](docs/puppeteer-mcp-guide.md)
 
 ## ⚠️ Требования
 

@@ -28,7 +28,7 @@ export function initAnalytics(): void {
  */
 export function trackPageView(url: string = '', title: string = ''): void {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-    window.gtag('config', import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'GA_MEASUREMENT_ID', {
+    window.gtag('config', import.meta.env['PUBLIC_GA_MEASUREMENT_ID'] || 'GA_MEASUREMENT_ID', {
       page_path: url,
       page_title: title,
     });
@@ -49,7 +49,7 @@ export function trackEvent(action: string, category: string, label?: string, val
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
-      value: value,
+      value,
     });
   } else {
     console.log(`Event tracked: ${action} in ${category}${label ? ` (label: ${label})` : ''}`);
@@ -64,8 +64,8 @@ export function trackEvent(action: string, category: string, label?: string, val
 export function trackException(description: string, fatal: boolean = false): void {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     window.gtag('event', 'exception', {
-      description: description,
-      fatal: fatal,
+      description,
+      fatal,
     });
   } else {
     console.error(`Exception tracked: ${description}, Fatal: ${fatal}`);

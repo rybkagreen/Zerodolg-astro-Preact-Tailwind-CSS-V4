@@ -1,4 +1,4 @@
-import { type VNode } from 'preact';
+import { type VNode, type ComponentChildren } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { useModal } from '../model/modal-context';
 
@@ -6,7 +6,7 @@ interface ModalProps {
   id: string;
   title: string;
   onClose?: () => void;
-  children: import('preact').ComponentChildren;
+  children: ComponentChildren;
 }
 
 export default function Modal({ id, title, onClose, children }: ModalProps): VNode | null {
@@ -59,16 +59,16 @@ export default function Modal({ id, title, onClose, children }: ModalProps): VNo
   if (!isOpen) return null;
 
   return (
-    <div class="modal modal--visible" ref={modalRef}>
-      <div class="modal__overlay"></div>
-      <div class="modal__container">
-        <div class="modal__header">
-          <h3 class="modal__title">{title}</h3>
-          <button class="modal__close" onClick={handleClose}>
+    <div class='modal modal--visible' ref={modalRef}>
+      <div class='modal__overlay'></div>
+      <div class='modal__container'>
+        <div class='modal__header'>
+          <h3 class='modal__title'>{title}</h3>
+          <button class='modal__close' onClick={handleClose}>
             &times;
           </button>
         </div>
-        <div class="modal__body">{children}</div>
+        <div class='modal__body'>{children}</div>
       </div>
     </div>
   );

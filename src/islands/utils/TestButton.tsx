@@ -1,11 +1,10 @@
 import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-interface TestButtonProps {
-  // This component doesn't accept any props
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface TestButtonProps {}
 
-export default function TestButton({}: TestButtonProps): VNode {
+export default function TestButton({}: TestButtonProps): VNode | null {
   const [count, setCount] = useState(0);
   const [isClient, setIsClient] = useState(false);
 

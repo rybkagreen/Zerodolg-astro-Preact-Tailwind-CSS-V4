@@ -50,7 +50,7 @@ export function validateField(field: HTMLInputElement): ValidationResult {
   }
 
   // Name validation
-  else if (field.dataset.validate === 'name') {
+  else if (field.dataset['validate'] === 'name') {
     if (field.value.trim().length < 2) {
       isValid = false;
       errorMessage = 'Имя должно содержать минимум 2 символа';
@@ -152,7 +152,7 @@ export function initPhoneMask(form: HTMLFormElement): void {
 
       // Add +7 if not present
       if (value.length > 0 && !value.startsWith('7')) {
-        value = '7' + value;
+        value = `7${value}`;
       }
 
       // Format the number
@@ -160,16 +160,16 @@ export function initPhoneMask(form: HTMLFormElement): void {
       if (value.length > 0) {
         formatted = '+7';
         if (value.length > 1) {
-          formatted += ' (' + value.substring(1, 4);
+          formatted += ` (${value.substring(1, 4)}`;
         }
         if (value.length >= 5) {
-          formatted += ') ' + value.substring(4, 7);
+          formatted += `) ${value.substring(4, 7)}`;
         }
         if (value.length >= 8) {
-          formatted += '-' + value.substring(7, 9);
+          formatted += `-${value.substring(7, 9)}`;
         }
         if (value.length >= 10) {
-          formatted += '-' + value.substring(9, 11);
+          formatted += `-${value.substring(9, 11)}`;
         }
       }
 
@@ -211,7 +211,7 @@ export function initCurrencyMask(form: HTMLFormElement): void {
       if (value.length > 0) {
         // Format with spaces as thousand separators
         const formatted = parseInt(value).toLocaleString('ru-RU');
-        currencyInput.value = formatted + ' руб';
+        currencyInput.value = `${formatted} руб`;
       }
     });
 

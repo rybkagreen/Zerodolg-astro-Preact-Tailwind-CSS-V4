@@ -2,7 +2,9 @@
 
 ## Обзор
 
-В проекте используется гибридный подход с ITCSS архитектурой и Tailwind CSS v4. Цель миграции - перейти к полностью компонентно-ориентированному подходу на основе Tailwind CSS v4.
+В проекте используется гибридный подход с ITCSS архитектурой и Tailwind CSS v4.
+Цель миграции - перейти к полностью компонентно-ориентированному подходу на
+основе Tailwind CSS v4.
 
 ## Текущее состояние
 
@@ -35,7 +37,8 @@
 
 1. Создать копии компонентов для миграции
 2. Заменить традиционные CSS-классы на Tailwind утилиты
-3. Обновить JavaScript логику для работы с новыми классами (например, для состояния загрузки)
+3. Обновить JavaScript логику для работы с новыми классами (например, для
+   состояния загрузки)
 4. Протестировать визуальное отображение
 5. Заменить оригинальный компонент мигрированной версией
 6. Удалить неиспользуемые CSS-правила из ITCSS структуры
@@ -44,8 +47,11 @@
 
 #### Состояния загрузки
 
-- Традиционный подход: `.form__submit.loading .btn__text { visibility: hidden; }` и `.form__submit.loading .btn__loader { display: block; }`
-- Tailwind подход: Использовать `invisible` для текста и `block` для лоадера, переключаемые через JavaScript
+- Традиционный подход:
+  `.form__submit.loading .btn__text { visibility: hidden; }` и
+  `.form__submit.loading .btn__loader { display: block; }`
+- Tailwind подход: Использовать `invisible` для текста и `block` для лоадера,
+  переключаемые через JavaScript
 
 #### Адаптивный дизайн
 
@@ -64,25 +70,27 @@
 **До:**
 
 ```astro
-<div class="form__group">
-  <label class="form__label" for="name">Ваше имя</label>
-  <input class="form__input" id="name" name="name" placeholder="Введите имя" />
-  <span class="form__error" data-error="name"></span>
+<div class='form__group'>
+  <label class='form__label' for='name'>Ваше имя</label>
+  <input class='form__input' id='name' name='name' placeholder='Введите имя' />
+  <span class='form__error' data-error='name'></span>
 </div>
 ```
 
 **После:**
 
 ```astro
-<div class="mb-4">
-  <label class="block text-sm font-medium text-text mb-1" for="name">Ваше имя</label>
+<div class='mb-4'>
+  <label class='block text-sm font-medium text-text mb-1' for='name'
+    >Ваше имя</label
+  >
   <input
-    class="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-    id="name"
-    name="name"
-    placeholder="Введите имя"
+    class='w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors'
+    id='name'
+    name='name'
+    placeholder='Введите имя'
   />
-  <span class="text-sm text-error mt-1" data-error="name"></span>
+  <span class='text-sm text-error mt-1' data-error='name'></span>
 </div>
 ```
 

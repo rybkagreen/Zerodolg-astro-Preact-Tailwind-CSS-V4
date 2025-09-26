@@ -1,4 +1,4 @@
-import { createContext, type VNode } from 'preact';
+import { createContext, type VNode, type ComponentChildren } from 'preact';
 import { useContext, useState, useCallback } from 'preact/hooks';
 
 interface ModalContextType {
@@ -10,7 +10,7 @@ interface ModalContextType {
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalProvider = ({ children }: { children: import('preact').ComponentChildren }): VNode => {
+export const ModalProvider = ({ children }: { children: ComponentChildren }): VNode => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const openModal = useCallback((modalId: string) => {

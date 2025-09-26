@@ -1,11 +1,16 @@
 import { type VNode } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-interface ClientInteractionsProps {
-  // This component doesn't accept any props
+// Extended Element interface for custom properties
+interface ExtendedElement extends Element {
+  _scrollHandler?: (e: Event) => void;
+  _anchorHandler?: (e: Event) => void;
 }
 
-export default function ClientInteractions({}: ClientInteractionsProps): VNode {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface ClientInteractionsProps {}
+
+export default function ClientInteractions({}: ClientInteractionsProps): VNode | null {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -89,8 +94,8 @@ function setupScrollToActions() {
   const scrollButtons = document.querySelectorAll('[data-action="scroll-to-form"]');
   scrollButtons.forEach((button) => {
     // Check if we've already added the handler
-    if (!(button as any)._scrollHandler) {
-      (button as any)._scrollHandler = function (e: Event) {
+    if (!(button as ExtendedElement)._scrollHandler) {
+      (button as ExtendedElement)._scrollHandler = function (e: Event) {
         e.preventDefault();
         const targetForm =
           document.getElementById('consultation-form') ||
@@ -112,15 +117,15 @@ function setupScrollToActions() {
         }
       };
 
-      button.addEventListener('click', (button as any)._scrollHandler);
+      button.addEventListener('click', (button as ExtendedElement)._scrollHandler!);
     }
   });
 
   // Handle other scroll actions
   const otherScrollButtons = document.querySelectorAll('[data-scroll-target]');
   otherScrollButtons.forEach((button) => {
-    if (!(button as any)._scrollHandler) {
-      (button as any)._scrollHandler = function (e: Event) {
+    if (!(button as ExtendedElement)._scrollHandler) {
+      (button as ExtendedElement)._scrollHandler = function (e: Event) {
         e.preventDefault();
         const targetSelector = button.getAttribute('data-scroll-target');
         if (targetSelector) {
@@ -143,7 +148,7 @@ function setupScrollToActions() {
         }
       };
 
-      button.addEventListener('click', (button as any)._scrollHandler);
+      button.addEventListener('click', (button as ExtendedElement)._scrollHandler!);
     }
   });
 }
@@ -162,8 +167,8 @@ function setupAnchorNavigation() {
       return;
     }
 
-    if (!(anchor as any)._anchorHandler) {
-      (anchor as any)._anchorHandler = function (e: Event) {
+    if (!(anchor as ExtendedElement)._anchorHandler) {
+      (anchor as ExtendedElement)._anchorHandler = function (e: Event) {
         const href = anchor.getAttribute('href');
         if (href && href !== '#' && !href.startsWith('#modal-')) {
           // Don't interfere with modal links
@@ -177,7 +182,7 @@ function setupAnchorNavigation() {
         }
       };
 
-      anchor.addEventListener('click', (anchor as any)._anchorHandler);
+      anchor.addEventListener('click', (anchor as ExtendedElement)._anchorHandler!);
     }
   });
 

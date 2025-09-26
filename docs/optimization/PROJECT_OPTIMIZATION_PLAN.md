@@ -14,26 +14,33 @@
 ### 0.1 Реальные данные проекта (на основе project-analysis.json)
 
 - **Фреймворк**: Astro 5.13.7 с Preact 10.27.1
-- **Структура**: 26 папок, 2 уровня вложенности (components, content, data, layouts, lib, pages, styles, **tests**)
+- **Структура**: 26 папок, 2 уровня вложенности (components, content, data,
+  layouts, lib, pages, styles, **tests**)
 - **Компоненты**: 48 компонентов (29 .astro, 20 .tsx)
-  - **Islands компоненты**: Calculator, Faq, Hero, Stats, Timeline, BitrixCallback
+  - **Islands компоненты**: Calculator, Faq, Hero, Stats, Timeline,
+    BitrixCallback
   - **Секции**: Benefits, LeadMagnets, Reviews, TeamInteractive
   - **Статические**: Header, Footer, Cta
-- **Стилизация**: 45 CSS файлов с ITCSS архитектурой (00-settings, 01-generic, 02-elements, 03-components, 04-sections, 05-utilities)
+- **Стилизация**: 45 CSS файлов с ITCSS архитектурой (00-settings, 01-generic,
+  02-elements, 03-components, 04-sections, 05-utilities)
 - **TypeScript**: 50 .ts/.tsx файлов, нестрогая конфигурация
 - **Тестирование**: 26 тестовых файлов (Jest + Testing Library)
 - **Контент**: 10 блог-постов, данные команды, калькулятора
 - **Зависимости**: 31 пакет (6 production, 25 dev)
-- **Производительность**: Оценка 90/100, bundle optimization, image optimization, code splitting активны
+- **Производительность**: Оценка 90/100, bundle optimization, image
+  optimization, code splitting активны
 - **SEO**: Sitemap и robots.txt реализованы, остальное требует доработки
-- **Безопасность**: Переменные окружения защищены, обнаружены потенциально чувствительные данные в 1 файле
+- **Безопасность**: Переменные окружения защищены, обнаружены потенциально
+  чувствительные данные в 1 файле
 
 ### 0.2 Основные проблемы проекта
 
 1. **TypeScript**: Не в строгом режиме (критическое замечание)
-2. **Безопасность**: Потенциально чувствительные данные в файлах (критическое замечание)
+2. **Безопасность**: Потенциально чувствительные данные в файлах (критическое
+   замечание)
 3. **Форматирование**: Отсутствует Prettier (рекомендация)
-4. **Большие файлы**: Некоторые файлы превышают рекомендуемый размер (рекомендация)
+4. **Большие файлы**: Некоторые файлы превышают рекомендуемый размер
+   (рекомендация)
 5. **Навигация**: Сложная структура компонентов без четкой модульности
 
 ### 0.3 Основные возможности проекта
@@ -50,7 +57,8 @@
 - **Стилизация**: Классический CSS с BEM-подобной структурой (45 CSS файлов)
 - **TypeScript**: Нестрогая конфигурация (50 TypeScript файлов, 48 компонентов)
 - **Тестирование**: Jest с базовым покрытием (26 тестовых файлов)
-- **Структура**: Частично организованная архитектура (26 папок, 2 уровня вложенности)
+- **Структура**: Частично организованная архитектура (26 папок, 2 уровня
+  вложенности)
 - **Производительность**: Хорошее состояние (оценка 90/100)
 - **SEO**: Частично реализовано (sitemap и robots.txt есть, остальное требуется)
 
@@ -201,11 +209,16 @@ src/features/calculator/
 
 ### 2.1 Создание SEO компонента
 
-```astro
+```typescript
 // src/shared/ui/SEO.astro
 
-export interface Props { title: string; description: string; image?: string; canonical?: string; noindex?:
-boolean; }
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
 ```
 
 ### 2.2 Настройка структурированных данных
@@ -274,7 +287,8 @@ export default defineConfig({
 
 ### 3.1 Миграция на Tailwind CSS
 
-Проект использует классический CSS с BEM-подобной структурой в 45 файлах, организованных по архитектуре ITCSS:
+Проект использует классический CSS с BEM-подобной структурой в 45 файлах,
+организованных по архитектуре ITCSS:
 
 - 00-settings: переменные и критические стили
 - 01-generic: сброс стилей
@@ -305,12 +319,11 @@ module.exports = {
 
 ### 3.2 Или использование CSS Modules
 
-Альтернативно, можно продолжить использовать CSS Modules для более постепенной миграции:
+Альтернативно, можно продолжить использовать CSS Modules для более постепенной
+миграции:
 
 ```astro
-// Component.astro
-
-import styles from './Component.module.css';
+// Component.astro import styles from './Component.module.css';
 <div class={styles.container}>
   <!-- content -->
 </div>
@@ -364,7 +377,8 @@ export default defineConfig({
 
 ### 4.1 Строгая TypeScript конфигурация
 
-Согласно анализу проекта, текущая конфигурация TypeScript не использует строгий режим, что является критическим замечанием. Необходимо обновить конфигурацию:
+Согласно анализу проекта, текущая конфигурация TypeScript не использует строгий
+режим, что является критическим замечанием. Необходимо обновить конфигурацию:
 
 ```json
 // tsconfig.json
@@ -394,7 +408,8 @@ export default defineConfig({
 
 ### 4.2 Улучшенная ESLint конфигурация
 
-Проект уже использует ESLint, но можно усилить правила для улучшения качества кода:
+Проект уже использует ESLint, но можно усилить правила для улучшения качества
+кода:
 
 ```javascript
 // eslint.config.js
@@ -405,7 +420,10 @@ export default [
       'no-debugger': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/explicit-function-return-type': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
@@ -415,7 +433,8 @@ export default [
 
 ### 4.3 Добавление Prettier (критическая рекомендация)
 
-Проекту не хватает форматировщика кода. Согласно анализу, это одна из рекомендаций:
+Проекту не хватает форматировщика кода. Согласно анализу, это одна из
+рекомендаций:
 
 ```json
 // .prettierrc
@@ -522,12 +541,18 @@ export function onRequest({ locals, request }, next) {
 
   // Статические ресурсы - длительное кеширование
   if (request.url.includes('/assets/')) {
-    response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=31536000, immutable'
+    );
   }
 
   // HTML страницы - короткое кеширование
   if (response.headers.get('content-type')?.includes('text/html')) {
-    response.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=86400');
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=3600, s-maxage=86400'
+    );
   }
 
   return response;
@@ -543,12 +568,18 @@ export function onRequest({ locals, request }, next) {
 
 <head>
   <!-- Preload критических ресурсов -->
-  <link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/css/critical.css" as="style" />
+  <link
+    rel='preload'
+    href='/fonts/main.woff2'
+    as='font'
+    type='font/woff2'
+    crossorigin
+  />
+  <link rel='preload' href='/css/critical.css' as='style' />
 
   <!-- Prefetch следующих страниц -->
-  <link rel="prefetch" href="/calculator" />
-  <link rel="dns-prefetch" href="https://api.zerodolg.ru" />
+  <link rel='prefetch' href='/calculator' />
+  <link rel='dns-prefetch' href='https://api.zerodolg.ru' />
 </head>
 ```
 
@@ -658,7 +689,11 @@ npm install -D @storybook/astro @storybook/addon-essentials
 // .storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-docs'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+  ],
   framework: {
     name: '@storybook/preact-vite',
     options: {},
@@ -763,7 +798,8 @@ export const Primary: Story = {
 
 ### 8.1 Content Security Policy
 
-Согласно анализу, проекту не хватает Content Security Policy, что является важным аспектом безопасности:
+Согласно анализу, проекту не хватает Content Security Policy, что является
+важным аспектом безопасности:
 
 ```typescript
 // src/middleware/security.ts
@@ -781,7 +817,10 @@ export function setSecurityHeaders(response: Response) {
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  response.headers.set(
+    'Permissions-Policy',
+    'geolocation=(), microphone=(), camera=()'
+  );
 
   return response;
 }
@@ -789,7 +828,8 @@ export function setSecurityHeaders(response: Response) {
 
 ### 8.2 Валидация окружения
 
-Проект использует переменные окружения, которые должны быть правильно валидированы:
+Проект использует переменные окружения, которые должны быть правильно
+валидированы:
 
 ```typescript
 // src/core/config/env.ts
@@ -831,7 +871,8 @@ export function validateEnv() {
 
 ### 8.4 Устранение чувствительных данных
 
-Согласно анализу, в 1 файле обнаружены потенциально чувствительные данные. Необходимо:
+Согласно анализу, в 1 файле обнаружены потенциально чувствительные данные.
+Необходимо:
 
 1. Проверить файл `src/__tests__/security.test.ts`
 2. Убедиться, что никакие реальные учетные данные не захардкожены
@@ -918,7 +959,8 @@ export function validateEnv() {
 
 ### Безопасность:
 
-- **0 чувствительных данных в коде** (текущее состояние: 1 файл с потенциально чувствительными данными)
+- **0 чувствительных данных в коде** (текущее состояние: 1 файл с потенциально
+  чувствительными данными)
 - **Все зависимости проверены на уязвимости**
 - **Content Security Policy реализована**
 - **Переменные окружения правильно валидированы**
@@ -1068,7 +1110,8 @@ npm run dev
 
 1. **Разделение крупных компонентов**: Каждый компонент >15KB следует разделить
 2. **Выделение бизнес-логики**: Перенос логики из .astro в .ts/.tsx файлы
-3. **Оптимизация состояния**: Использование глобального состояния для связанных компонентов
+3. **Оптимизация состояния**: Использование глобального состояния для связанных
+   компонентов
 4. **Типизация props**: Добавление строгой типизации для всех компонентов
 
 ## 👥 КОМАНДА И ОТВЕТСТВЕННОСТЬ
@@ -1080,32 +1123,41 @@ npm run dev
 - **Performance**: Frontend Developer (оптимизация загрузки, bundle size)
 - **Инфраструктура**: DevOps (CI/CD, Docker, мониторинг)
 - **Тестирование**: QA Engineer (расширение покрытия тестами)
-- **Безопасность**: Security Specialist (CSP, аудит зависимостей, чувствительные данные)
+- **Безопасность**: Security Specialist (CSP, аудит зависимостей, чувствительные
+  данные)
 
 ## 🎯 СПЕЦИФИЧЕСКИЕ РЕКОМЕНДАЦИИ ПРОЕКТА
 
-На основе анализа проекта (project-analysis.json) были выявлены следующие специфические рекомендации:
+На основе анализа проекта (project-analysis.json) были выявлены следующие
+специфические рекомендации:
 
 ### Критические (требуют немедленного внимания):
 
-1. **🔴 TypeScript не в строгом режиме** - необходимо активировать `"strict": true` в `tsconfig.json`
-2. **🔴 Обнаружены потенциально чувствительные данные** в 1 файле - необходимо проверить `src/__tests__/security.test.ts`
+1. **🔴 TypeScript не в строгом режиме** - необходимо активировать
+   `"strict": true` в `tsconfig.json`
+2. **🔴 Обнаружены потенциально чувствительные данные** в 1 файле - необходимо
+   проверить `src/__tests__/security.test.ts`
 
 ### Рекомендуемые улучшения:
 
 1. **🟢 Добавьте Prettier** для единообразного форматирования кода
-2. **🟢 Некоторые файлы слишком большие** - рекомендуется разделить крупные компоненты (>15KB)
+2. **🟢 Некоторые файлы слишком большие** - рекомендуется разделить крупные
+   компоненты (>15KB)
 
 ### Особенности проекта, которые следует учитывать:
 
-1. **Проект уже имеет хорошую производительность** (оценка 90/100) - акцент на улучшения, а не на исправление проблем
-2. **Уже реализованы SEO основы** (sitemap, robots.txt) - необходимо расширить, а не создавать с нуля
-3. **Обширное тестовое покрытие** (26 тестовых файлов) - следует расширять, а не создавать заново
-4. **Существующая CSS архитектура** (45 файлов по ITCSS) - следует оптимизировать, а не заменять полностью
+1. **Проект уже имеет хорошую производительность** (оценка 90/100) - акцент на
+   улучшения, а не на исправление проблем
+2. **Уже реализованы SEO основы** (sitemap, robots.txt) - необходимо расширить,
+   а не создавать с нуля
+3. **Обширное тестовое покрытие** (26 тестовых файлов) - следует расширять, а не
+   создавать заново
+4. **Существующая CSS архитектура** (45 файлов по ITCSS) - следует
+   оптимизировать, а не заменять полностью
 
 ---
 
-_Этот документ является живым и должен обновляться по мере прогресса оптимизации._
+_Этот документ является живым и должен обновляться по мере прогресса
+оптимизации._
 
-**Дата создания**: ${new Date().toLocaleDateString('ru-RU')}
-**Версия**: 1.0.0
+**Дата создания**: ${new Date().toLocaleDateString('ru-RU')} **Версия**: 1.0.0

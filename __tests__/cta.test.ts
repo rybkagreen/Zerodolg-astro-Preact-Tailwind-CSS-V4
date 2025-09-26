@@ -450,16 +450,16 @@ describe('CTA Component', () => {
     const performanceMock = {
       marks: [] as string[],
       measures: [] as { name: string; duration: number }[],
-      mark: function (name: string) {
+      mark(name: string) {
         this.marks.push(name);
       },
-      measure: function (name: string, startMark: string, endMark: string) {
+      measure(name: string, startMark: string, endMark: string) {
         // Simulate measurement
         const duration = Math.random() * 100;
         this.measures.push({ name, duration });
         return { name, duration };
       },
-      getEntriesByName: function (name: string) {
+      getEntriesByName(name: string) {
         return this.measures.filter((m) => m.name === name);
       },
     };
@@ -749,16 +749,16 @@ describe('CTA Component', () => {
     // Mock analytics tracking
     const analyticsMock = {
       events: [] as { name: string; params: Record<string, any> }[],
-      track: function (eventName: string, params: Record<string, any> = {}) {
+      track(eventName: string, params: Record<string, any> = {}) {
         this.events.push({ name: eventName, params });
       },
-      getEvents: function () {
+      getEvents() {
         return this.events;
       },
-      getEventCount: function (eventName: string) {
+      getEventCount(eventName: string) {
         return this.events.filter((e) => e.name === eventName).length;
       },
-      getLastEvent: function () {
+      getLastEvent() {
         return this.events.length > 0 ? this.events[this.events.length - 1] : null;
       },
     };
@@ -805,7 +805,7 @@ describe('CTA Component', () => {
     const trackConversion = (conversionType: string, value: number, analytics = analyticsMock) => {
       analytics.track('conversion', {
         conversion_type: conversionType,
-        value: value,
+        value,
         currency: 'RUB',
         timestamp: Date.now(),
       });
@@ -839,7 +839,7 @@ describe('CTA Component', () => {
     ) => {
       analytics.track('engagement', {
         engagement_type: engagementType,
-        duration: duration,
+        duration,
         timestamp: Date.now(),
       });
     };

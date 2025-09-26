@@ -1,10 +1,7 @@
 import { type VNode } from 'preact';
-// useState and LeadMagnet are imported but not currently used
-// They are kept for potential future use
-import { useState } from 'preact/hooks';
-import type { LeadMagnet } from '@features/lead-magnets/types';
+import { useEffect } from 'preact/hooks';
 
-export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNode {
+export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNode | null {
   useEffect(() => {
     // Button click handlers
     const buttons = document.querySelectorAll(
@@ -439,7 +436,7 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
         gtag?: (command: string, ...args: unknown[]) => void;
         ym?: (id: number, command: string, ...args: unknown[]) => void;
       };
-      
+
       // Google Analytics
       if (typeof window !== 'undefined' && win.gtag) {
         win.gtag('event', eventName, {

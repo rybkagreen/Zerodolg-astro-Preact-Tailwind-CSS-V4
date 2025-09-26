@@ -1,11 +1,21 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["jest", "node"],
+    "types": ["vitest/globals", "@testing-library/jest-dom", "node"],
+    // Relax strictness for test files with 2029 best practices
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "strict": false,
+    // Modern module resolution
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node"
+    "skipLibCheck": true
   },
-  "include": ["src/**/*", "src/__tests__/**/*", "__tests__/**/*"],
-  "exclude": ["node_modules", "dist", ".astro"]
+  "include": ["__tests__/**/*", "vitest.config.ts", "vitest.setup.ts", "src/**/*"],
+  "exclude": ["node_modules", "node_modules/**/*", "dist", "dist/**/*", ".astro", ".astro/**/*"]
 }

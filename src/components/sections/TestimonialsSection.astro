@@ -17,59 +17,68 @@ export interface Props {
   className?: string;
 }
 
-const { 
-  testimonials, 
-  title = "Отзывы клиентов", 
-  subtitle = "Что говорят наши клиенты",
-  className = '' 
+const {
+  testimonials,
+  title = 'Отзывы клиентов',
+  subtitle = 'Что говорят наши клиенты',
+  className = '',
 } = Astro.props;
 ---
 
-<section class={`py-16 md:py-24 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 ${className}`} aria-labelledby="testimonials-title">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 id="testimonials-title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+<section
+  class:list={`py-16 md:py-24 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 ${className}`}
+  aria-labelledby='testimonials-title'
+>
+  <div class='container mx-auto px-4 sm:px-6 lg:px-8'>
+    <div class='text-center mb-16'>
+      <h2
+        id='testimonials-title'
+        class='text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4'
+      >
         {title}
       </h2>
-      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      <p class='text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto'>
         {subtitle}
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {testimonials.map((testimonial) => (
-        <TestimonialCard 
-          key={testimonial.id}
-          name={testimonial.name}
-          role={testimonial.role}
-          company={testimonial.company}
-          quote={testimonial.quote}
-          avatar={testimonial.avatar}
-          rating={testimonial.rating}
-          date={testimonial.date}
-          className="h-full"
-        />
-      ))}
+    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+      {
+        testimonials.map((testimonial) => (
+          <TestimonialCard
+            key={testimonial.id}
+            name={testimonial.name}
+            role={testimonial.role}
+            company={testimonial.company}
+            quote={testimonial.quote}
+            avatar={testimonial.avatar}
+            rating={testimonial.rating}
+            date={testimonial.date}
+            className='h-full'
+          />
+        ))
+      }
     </div>
 
     <!-- CTA Section -->
-    <div class="mt-16 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-12 text-center">
-      <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+    <div class='mt-16 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-12 text-center'>
+      <h3 class='text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4'>
         Готовы решить свои финансовые проблемы?
       </h3>
-      <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-        Присоединяйтесь к тысячам довольных клиентов, которые уже избавились от долгов с нашей помощью.
+      <p class='text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto'>
+        Присоединяйтесь к тысячам довольных клиентов, которые уже избавились от долгов с нашей
+        помощью.
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a 
-          href="/contact" 
-          class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      <div class='flex flex-col sm:flex-row justify-center gap-4'>
+        <a
+          href='/contact'
+          class='inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
         >
           Консультация
         </a>
-        <a 
-          href="/reviews" 
-          class="inline-flex items-center justify-center px-6 py-3 bg-white text-primary font-semibold rounded-lg shadow-md border border-primary hover:bg-gray-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600"
+        <a
+          href='/reviews'
+          class='inline-flex items-center justify-center px-6 py-3 bg-white text-primary font-semibold rounded-lg shadow-md border border-primary hover:bg-gray-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600'
         >
           Все отзывы
         </a>

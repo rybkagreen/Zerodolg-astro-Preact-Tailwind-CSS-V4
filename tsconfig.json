@@ -1,17 +1,23 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
+    // Базовые настройки
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+
     // JSX конфигурация для Preact
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
 
     // Типы и модули
-    "types": ["astro/client", "@types/node"],
-    "moduleResolution": "bundler", // Современная настройка для bundler
+    "types": ["astro/client", "@types/node", "vite/client"],
     "allowJs": true,
-    "checkJs": false, // Не проверяем JS файлы, только TS
+    "checkJs": false,
 
-    // Строгость TypeScript
+    // Максимальная строгость TypeScript для 2025
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -21,14 +27,18 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true, // Дополнительная безопасность для массивов
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
 
-    // Неиспользуемый код
+    // Дополнительные проверки
+    "exactOptionalPropertyTypes": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
 
-    // Современные настройки
+    // Современные настройки ES модулей
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
@@ -36,36 +46,60 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "useDefineForClassFields": true,
+    "preserveWatchOutput": true,
+
+    // Эмиттинг
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "removeComments": false,
+    "importHelpers": true,
+    "downlevelIteration": true,
 
     // Пути и базовый URL
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@core/*": ["src/core/*"],
       "@features/*": ["src/features/*"],
       "@shared/*": ["src/shared/*"],
       "@widgets/*": ["src/widgets/*"],
       "@styles/*": ["src/styles/*"],
       "@types/*": ["src/core/types/*"],
-      "@utils/*": ["src/shared/utils/*"]
+      "@utils/*": ["src/shared/utils/*"],
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@pages/*": ["src/pages/*"]
     }
   },
-  "include": [
-    ".astro/types.d.ts",
-    "src/**/*",
-    "src/astro-env.d.ts",
-    "__tests__/**/*",
-    "vitest.config.ts",
-    "vitest.setup.ts"
-  ],
+  "include": [".astro/types.d.ts", "src/**/*", "src/astro-env.d.ts", "src/env.d.ts", "*.d.ts"],
   "exclude": [
     "dist",
+    "dist/**/*",
     "node_modules",
+    "node_modules/**/*",
     ".astro",
+    ".astro/**/*",
     "coverage",
+    "coverage/**/*",
+    "public",
+    "public/**/*",
     "scripts",
+    "scripts/**/*",
+    "tools",
+    "tools/**/*",
     "astro.config.mjs",
     "astro.config.prod.mjs",
     "eslint.config.js",
-    "tailwind.config.js"
+    "tailwind.config.js",
+    "postcss.config.cjs",
+    "*.min.js",
+    "**/*.min.js",
+    "simple-test.cjs",
+    "test-js-functionality.cjs",
+    "__tests__/**/*",
+    "vitest.config.ts",
+    "vitest.setup.ts"
   ]
 }
