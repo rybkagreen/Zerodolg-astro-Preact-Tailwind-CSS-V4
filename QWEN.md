@@ -1,207 +1,175 @@
-# Qwen Code Configuration for ZeroDolg Astro Website
+# 🚀 Qwen Code Integration Guide
 
-## Project Overview
+## Установка и настройка
 
-ZeroDolg Astro Website is a corporate website for a legal company specializing
-in bankruptcy services for individuals. The project is built using Astro v5.13.7
-as a static site generator with Preact for interactive components. The codebase
-is organized according to Feature-Sliced Design principles, emphasizing
-maintainability and scalability.
+### Установка Qwen Code
+1. Установите расширение Qwen Code для VS Code из Marketplace
+2. Авторизуйтесь с помощью своего Alibaba Cloud аккаунта
+3. Настройте проект для работы с Qwen Code
 
-Key technologies used:
+### Конфигурация .qwenrc.json
+Создайте файл `.qwenrc.json` в корне проекта с настройками:
 
-- **Astro** - Static Site Generator (v5.13.7)
-- **Preact** - Lightweight alternative to React (v10.27.1)
-- **TypeScript** - Type safety (v5.9.2)
-- **Tailwind CSS** - Utility-first CSS framework (v4)
-- **Alibaba CMS** - Cloud-based content management system
-- **CSS** - Modern CSS with custom properties following ITCSS architecture
-- **Vitest** - Testing framework (v3.2.4)
-- **Puppeteer** - End-to-end testing (v24.22.3)
-- **Model Context Protocol (MCP)** - Enhanced AI capabilities
-
-## Project Architecture
-
-### Core Principles
-
-- **Feature-Sliced Design** - Code organized by business features and layers
-- **Islands Architecture** - Interactive components only where needed
-- **Static Generation** - Pre-rendered HTML for maximum performance
-- **Progressive Enhancement** - Site works without JavaScript
-- **Component-Based** - Modular and reusable architecture
-
-### Directory Structure
-
-```
-zerodolg-astro/
-├── .github/                    # GitHub-specific files
-│   └── workflows/              # GitHub Actions workflows
-│       └── ci.yml              # CI/CD pipeline
-├── .husky/                     # Git hooks configuration
-├── .qwen/                      # Qwen AI assistant configuration
-├── .vscode/                    # VS Code configuration
-├── docs/                       # Documentation files
-│   ├── analysis/               # Analysis reports
-│   ├── blog/                   # Blog content
-│   ├── migrations/             # Migration guides
-│   ├── optimization/           # Optimization guides and checklists
-│   └── setup/                  # Setup and configuration docs
-├── public/                     # Static assets
-├── screenshots/                # Screenshots and comparison reports
-├── scripts/                    # Organized development scripts
-│   ├── build/                  # Build-related scripts
-│   ├── deploy/                 # Deployment scripts
-│   ├── dev/                    # Development utilities
-│   ├── maintenance/            # Maintenance and optimization
-│   └── test/                   # Testing scripts
-├── src/                        # Source code
-│   ├── components/             # Reusable UI components
-│   │   ├── ui/                 # Base UI components (Button, Card, etc.)
-│   │   ├── forms/              # Form components
-│   │   ├── layout/             # Layout components (Header, Footer, etc.)
-│   │   └── sections/           # Page sections (Hero, Benefits, etc.)
-│   ├── islands/                # Interactive Preact components only
-│   │   ├── forms/              # Interactive form components
-│   │   ├── interactive/        # Interactive components (TeamInteractive, etc.)
-│   │   ├── layout/             # Interactive layout components
-│   │   ├── shared/             # Shared interactive components
-│   │   └── utils/              # Interactive utilities
-│   ├── features/               # Business-feature specific logic
-│   │   ├── analytics/          # Analytics feature
-│   │   ├── calculator/         # Calculator feature
-│   │   ├── forms/              # Form handling feature
-│   │   └── modals/             # Modal dialogs feature
-│   ├── layouts/                # Page layouts
-│   ├── pages/                  # Page routes
-│   ├── widgets/                # Complex UI components
-│   ├── content/                # Content collections
-│   ├── lib/                    # Utilities and helper functions
-│   ├── shared/                 # Shared utilities and APIs
-│   ├── core/                   # Core application logic
-│   └── styles/                 # ITCSS styled architecture
-├── tools/                      # Standalone utility tools
-└── Configuration Files         # Root-level config files
+```json
+{
+  "model": "qwen3-coder-plus",
+  "temperature": 0.2,
+  "max_tokens": 8192,
+  "context_window": 32768,
+  "project_context": {
+    "name": "ZeroDolg Astro",
+    "type": "corporate-website",
+    "tech_stack": ["Astro", "Preact", "TypeScript", "Tailwind CSS v4"],
+    "domain": "legal-bankruptcy",
+    "architecture": "feature-sliced-design",
+    "ai_tools": ["qwen-code", "model-context-protocol"]
+  },
+  "custom_prompts": {
+    "astro_component": "Создай компонент Astro с использованием Preact для интерактивных элементов",
+    "tailwind_v4": "Используй синтаксис Tailwind CSS v4 с новым CSS-конфигурационным подходом",
+    "ts_strict": "Генерируй TypeScript код с strict mode и полной типизацией"
+  }
+}
 ```
 
-## Building and Running
+### Настройка контекста проекта
+1. Добавьте файл `QWEN.md` в корень проекта с описанием архитектуры
+2. Обновите `README.md` с инструкциями по работе с Qwen Code
+3. Добавьте `.qwen/` директорию для хранения промптов и настроек
 
-### Development Commands
+## Рабочие промпты
 
-- `npm run dev` - Start local development server
-- `npm run build` - Build project for production
-- `npm run build:prod` - Build project with production optimizations
-- `npm run preview` - Preview built site locally
-- `npm run lint` - Check code with ESLint
-- `npm run lint:fix` - Automatically fix code issues
-- `npm run type-check` - Check TypeScript types
-- `npm run test` - Run tests with Vitest
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run clean` - Clean compiled files
-- `npm run test:e2e` - Run end-to-end tests with Puppeteer
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:ui` - Run tests with UI interface
-- `npm run deploy` - Deploy the application
-- `npm run maintenance:audit` - Audit project dependencies
-- `npm run maintenance:lighthouse` - Run Lighthouse audit
-- `npm run mcp:info` - Get info about MCP configuration
-
-### Project Configuration
-
-The project requires environment variables for Alibaba CMS integration:
-
+### Генерация компонентов (Astro + Preact + TypeScript)
 ```
-# Alibaba CMS
-CMS_API_BASE=https://your-cms-endpoint.alibabacloud.com
-CMS_API_KEY=your-api-key-here
+Создай компонент Astro с использованием Preact для интерактивных элементов. 
+Компонент должен соответствовать Feature-Sliced Design архитектуре.
+Используй строгую типизацию TypeScript.
 ```
 
-## Development Conventions
+### Code review шаблоны
+```
+Проверь код на:
+- Соответствие TypeScript best practices
+- Эффективность использования Tailwind CSS v4
+- Соответствие архитектуре Feature-Sliced Design
+- Производительность и доступность
+- Безопасность (CSP, XSS protection)
+```
 
-### Styling Architecture
+### Рефакторинг сценарии
+```
+Рефакторь следующий код с учетом:
+- Современных практик TypeScript 5.9+
+- Оптимизации производительности в Astro
+- Совместимости с Tailwind CSS v4
+- Доступности (WCAG 2.2/3.0)
+```
 
-- **ITCSS** - Inverted Triangle CSS for organizing styles
-- **BEM Methodology** - Block, Element, Modifier for CSS class naming
-- **Tailwind CSS v4** - Utility-first CSS framework for rapid development
-- **Mobile First** - Design starting with mobile devices
+### Автоматическое тестирование
+```
+Создай тесты для компонента с использованием Vitest и Puppeteer.
+Покрой все ветвления логики и пограничные случаи.
+```
 
-### Code Quality
+## Интеграция с проектом
 
-- TypeScript with strict mode enabled
-- ESLint for code linting
-- Prettier for code formatting
-- Husky for Git hooks
-- Lint-staged for pre-commit checks
+### Специфичные для Astro промпты
+```
+Создай страницу Astro с использованием layout и правильной загрузки данных.
+Оптимизируй для SEO и производительности.
+```
 
-### TypeScript Path Aliases
+### Tailwind CSS v4 код-генерация
+```
+Используй новый синтаксис Tailwind CSS v4 с CSS-конфигурацией.
+Компонент должен быть адаптивным и соответствовать mobile-first подходу.
+```
 
-- `@core/*` - Maps to `src/core/*`
-- `@features/*` - Maps to `src/features/*`
-- `@shared/*` - Maps to `src/shared/*`
-- `@widgets/*` - Maps to `src/widgets/*`
-- `@styles/*` - Maps to `src/styles/*`
-- `@types/*` - Maps to `src/core/types/*`
-- `@utils/*` - Maps to `src/shared/utils/*`
+### TypeScript типизация помощника
+```
+Создай строго типизированный интерфейс с использованием TypeScript 5.9+
+Следуй принципам type safety и избегай any типов.
+```
 
-## Project Status
+## Современные практики 2025
 
-The project is fully completed and production-ready:
+### Безопасность
+- Используй Semgrep для SAST анализа
+- Реализуй CSP заголовки с nonce подходом
+- Применяй Subresource Integrity (SRI) для внешних ресурсов
 
-- All pages implemented and tested
-- SEO fully optimized with robots.txt and sitemap.xml
-- All interactive components working correctly
-- Forms validated and submitting data properly
-- Modal system functioning correctly
-- Analytics integrated and working
-- Performance optimized
-- Design adapted for all devices
-- Tailwind CSS v4 migration completed
+### Производительность
+- Цели Core Web Vitals 2025:
+  - LCP < 1.0s
+  - FID < 100ms
+  - CLS < 0.1
+- Оптимизация bundle size
+- Image optimization с использованием WebP/AVIF
 
-## Key Integrations
+### Доступность
+- Соответствие WCAG 2.2/3.0
+- Использование ARIA аттрибутов
+- Keyboard navigation
+- Screen reader support
 
-### SEO and Analytics
+### Экологичность
+- Оптимизация энергопотребления
+- Уменьшение размера бандла
+- Эффективное кеширование
 
-- Sitemap generation via `@astrojs/sitemap`
-- Robots.txt configuration via `astro-robots-txt`
-- Analytics integration for tracking
+## Работа с AI агентами
 
-### Model Context Protocol (MCP)
+### Qwen Code как основной ассистент
+- Приоритет при генерации кода
+- Code review и архитектурные рекомендации
+- Автоматизация рутинных задач
 
-- MCP integration via `astro-mcp` for enhanced AI capabilities
+### Интеграция с MCP (Model Context Protocol)
+- Используй `astro-mcp` для расширенной AI интеграции
+- Команды: `mcp:info`, `mcp:puppeteer`, `mcp:server`
 
-### Testing
+## Troubleshooting
 
-- Vitest for unit and integration testing
-- Puppeteer for end-to-end testing
-- Testing Library for component testing
-- Comprehensive test coverage with coverage reports
+### Распространенные проблемы
+- **Проблема**: Qwen Code не понимает контекст проекта
+  **Решение**: Обновите `.qwenrc.json` и добавьте больше контекста в промпты
 
-## Special Considerations
+- **Проблема**: Сгенерированный код не соответствует архитектуре
+  **Решение**: Уточните промпт, добавив требования Feature-Sliced Design
 
-1. **No Inline Styles**: Never use `style="..."` or `style={...}` attributes
-2. **No !important**: Never use `!important` in CSS
-3. **Progressive Enhancement**: Must work without JavaScript
-4. **Semantic HTML**: Use proper HTML5 semantic elements
-5. **ARIA Labels**: For all interactive elements
-6. **Alt Text**: For all images
+- **Проблема**: Ошибки типизации в сгенерированном коде
+  **Решение**: Убедитесь, что в промпте указано использование TypeScript strict mode
 
-## Development Workflow
+### Best Practices
+- Всегда указывайте целевую архитектуру в промптах
+- Используйте шаблоны промптов для консистентности
+- Проверяйте сгенерированный код на соответствие стандартам безопасности
+- Обновляйте контекст проекта при изменении архитектуры
 
-1. **Before Making Changes**:
-   - Check existing implementations
-   - Review similar components
-   - Verify design requirements
-   - Check responsive behavior
+## Примеры использования
 
-2. **During Development**:
-   - Follow existing patterns
-   - Write semantic HTML first
-   - Add styling through CSS classes
-   - Implement interactivity last
-   - Test incrementally
+### Генерация компонента
+```
+Создай компонент формы обратной связи с валидацией, 
+используя архитектуру Feature-Sliced Design и TypeScript strict mode.
+Компонент должен быть доступен и оптимизирован для производительности.
+```
 
-3. **After Changes**:
-   - Run build: `npm run build`
-   - Test all viewports
-   - Verify accessibility
-   - Update documentation
-   - Commit with descriptive message
+### Рефакторинг существующего кода
+```
+Рефакторь файл src/features/calculator/Calculator.tsx с учетом:
+- Современных практик TypeScript 5.9+
+- Оптимизации производительности
+- Доступности WCAG 2.2
+- Интеграции с Tailwind CSS v4
+```
+
+### Code review
+```
+Проверь файл src/pages/index.astro на:
+- Соответствие Astro best practices
+- SEO оптимизацию
+- Производительность и доступность
+- Использование правильных TypeScript типов
+- Безопасность (CSP, XSS protection)
+```

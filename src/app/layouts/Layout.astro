@@ -1,0 +1,123 @@
+---
+import '../styles/globals.css'; // Импорт Tailwind CSS
+import { SEO } from '@shared/ui/SEO';
+
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  canonical?: string;
+  type?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'ZeroDolg - Банкротство физических лиц в Москве',
+  description = '⭐ 98% успешных дел! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору.',
+  // keywords = 'банкротство физических лиц, списание долгов, банкротство физлиц 2024, защита от коллекторов', // TODO: Implement keywords
+  image = '/images/og-image.jpg',
+  canonical = 'https://zerodolg.ru/',
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang='ru'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+    <!-- SEO Component -->
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical}
+      type={type}
+      noindex={noindex}
+    />
+
+    <!-- Critical inline styles for faster initial rendering -->
+    <style is:inline>
+      /* Basic reset and critical styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        font-size: 1rem;
+        color: #1e293b;
+        background-color: #ffffff;
+        min-height: 100vh;
+      }
+    </style>
+
+    <!-- Main CSS will be imported through Astro's build process -->
+
+    <!-- Preconnect to important third-party origins -->
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+
+    <!-- Load fonts from Google Fonts -->
+    <link
+      rel='stylesheet'
+      href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
+    />
+
+    <!-- Preload critical resources -->
+    <link rel='preload' href='/images/team/mashulia.webp' as='image' />
+
+    <!-- Prefetch likely next pages -->
+    <link rel='prefetch' href='/#reviews' />
+    <link rel='prefetch' href='/#faq' />
+
+    <!-- DNS prefetch for external domains -->
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel='dns-prefetch' href='//fonts.gstatic.com' />
+
+    <!-- Preload critical CSS - handled through import mechanism -->
+
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' type='image/png' href='/favicon.png' />
+    <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
+
+    <meta name='generator' content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Service Worker Registration - deferred -->
+    <script is:inline defer src='/js/service-worker-register.js'></script>
+
+    <!-- Initialize analytics after DOM is ready -->
+    <script is:inline type='module'>
+      import { initAnalytics } from '@shared/lib/analytics';
+      import { measurePageLoad } from '@shared/lib/performance';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof initAnalytics === 'function') {
+          initAnalytics();
+        }
+        if (typeof measurePageLoad === 'function') {
+          measurePageLoad();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -15,6 +15,16 @@ export default defineConfig({
   build: {
     // Встроенная минификация активна по умолчанию
     inlineStylesheets: 'auto',
+    // Улучшенная оптимизация для лучшего кэширования
+    rollupOptions: {
+      output: {
+        // Оптимизация чанков для лучшей загрузки
+        manualChunks: {
+          vendor: ['preact', 'preact/hooks'],
+          ui: ['@astrojs/preact'],
+        },
+      },
+    },
   },
 
   integrations: [
@@ -55,10 +65,17 @@ export default defineConfig({
         output: {
           // Разделение vendor пакетов для лучшего кэширования
           manualChunks: {
-            preact: ['preact', '@preact/signals'],
+            vendor: ['preact', 'preact/hooks'],
+            ui: ['@astrojs/preact'],
           },
+          // Улучшенное именование файлов для кэширования
+          chunkFileNames: 'chunks/[name].[hash].js',
+          entryFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]',
         },
       },
+      // Включаем дополнительные оптимизации для production
+      minify: 'esbuild',
     },
   },
 
@@ -66,5 +83,26 @@ export default defineConfig({
   server: {
     port: 4321,
     host: true,
+  },
+  
+  // Включаем сжатие HTML для уменьшения размера
+  compressHTML: true,
+  
+  // Оптимизация изображений
+  image: {
+    // Используем Sharp для оптимизации изображений
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+    // Оптимальное качество для веба
+    quality: 80,
+    // Поддержка современных форматов
+    formats: ['avif', 'webp'],
+  },
+  
+  // Включаем предзагрузку для улучшения производительности
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
   },
 });

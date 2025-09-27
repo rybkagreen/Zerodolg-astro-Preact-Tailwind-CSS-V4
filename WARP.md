@@ -1,157 +1,254 @@
-# ZeroDolg Astro Project - Final Status Report
+# ⚡ Warp Terminal Configuration
 
-## Project Completion Date
+## Профиль проекта
 
-September 25, 2025
+### Custom commands для Astro разработки
+Создайте в Warp следующие snippet-ы для быстрого доступа к командам проекта:
 
-## Executive Summary
+**astro-dev** - Запуск локального сервера разработки
+```bash
+npm run dev
+```
 
-The ZeroDolg Astro website project has been successfully completed and further
-enhanced. All major features have been implemented, tested, and are functioning
-correctly. The website is now ready for production deployment and includes
-additional functionality since the initial completion date.
+**astro-build** - Сборка проекта для продакшена
+```bash
+npm run build
+```
 
-## Project Goals Achieved
+**astro-preview** - Предварительный просмотр собранного сайта
+```bash
+npm run preview
+```
 
-### 1. Technical Implementation
+**astro-check** - Проверка качества кода
+```bash
+npm run type-check && npm run lint
+```
 
-- ✅ Astro v5.13.5 framework implementation
-- ✅ Preact component integration for interactive functionality
-- ✅ TypeScript type safety for complex components
-- ✅ Modern CSS architecture with ITCSS and BEM methodologies
-- ✅ Responsive design for all device sizes
+**astro-test** - Запуск всех тестов
+```bash
+npm run test
+```
 
-### 2. SEO Optimization
+### Workflow с Qwen Code интеграцией
+**qwen-setup** - Команды для настройки Qwen Code
+```bash
+# Проверка конфигурации Qwen
+# cat .qwenrc.json
 
-- ✅ Technical SEO audit and implementation
-- ✅ robots.txt and sitemap.xml creation
-- ✅ Structured data enhancement
-- ✅ Meta tag optimization
-- ✅ Content organization improvement
+# Запуск анализа проекта
+# npx qwen analyze
+```
 
-### 3. Content Migration
+**qwen-security** - Запуск безопасности
+```bash
+npx semgrep scan
+```
 
-- ✅ All existing content migrated to Astro content collections
-- ✅ Blog articles properly organized and optimized
-- ✅ Team member profiles implemented
-- ✅ Review content structured and displayed
+**qwen-performance** - Запуск аудита производительности
+```bash
+npm run maintenance:lighthouse
+```
 
-### 4. Interactive Features
+## Интеграция с AI
 
-- ✅ Dynamic modal system with consultation, calculator, and guide modals
-- ✅ Form validation and submission handling
-- ✅ Interactive timeline component
-- ✅ FAQ accordion functionality
-- ✅ Special offers banner with countdown timer
+### Warp AI + Qwen Code синергия
+1. Используйте Warp AI для быстрых команд в терминале
+2. Используйте Qwen Code для генерации сложных команд
+3. Сохраняйте часто используемые команды как snippet-ы
 
-### 5. Analytics & Monitoring
+### Быстрые команды для генерации кода
+**gen-component** - Генерация компонента Astro
+```bash
+# Используйте для генерации нового компонента через Qwen Code
+# Скопируйте результат в соответствующую директорию
+```
 
-- ✅ Yandex.Metrika integration
-- ✅ Google Analytics implementation
-- ✅ Bitrix24 tracking setup
-- ✅ Event tracking for user interactions
+**gen-feature** - Генерация новой фичи
+```bash
+# Создание новой фичи по архитектуре Feature-Sliced Design
+# npm run generate:feature [название-фичи]
+```
 
-### 6. Performance Optimization
+### Дебаггинг через терминал
+**debug-astro** - Запуск Astro в режиме отладки
+```bash
+DEBUG=* npm run dev
+```
 
-- ✅ Code splitting for efficient loading
-- ✅ Asset compression and optimization
-- ✅ Caching strategies implementation
-- ✅ Fast loading times across all devices
-- ✅ Advanced CSS optimization with Tailwind CSS v4
-- ✅ Bundle analysis and optimization
-- ✅ Image optimization with Sharp
+**debug-security** - Подробный аудит безопасности
+```bash
+npx semgrep scan --verbose
+```
 
-## Key Issues Resolved
+**debug-performance** - Подробный аудит производительности
+```bash
+npx lighthouse http://localhost:4321 --output json --output-path reports/lh-report.json
+```
 
-### Preact Component Loading Issues
+## Пользовательские настройки Warp
 
-- **Problem**: ModalManager component was failing to load with "Modal with id
-  'consultation' not found" error
-- **Solution**: Implemented dynamic modal creation system with proper type
-  mapping
-- **Result**: All modals now create and display correctly when triggered
+### Тема и внешний вид
+Рекомендуемая тема: `One Dark Pro` или `Dracula` для лучшей читаемости кода
 
-### SpecialOffers Component Directive Issue
+### Шрифты
+- **Основной шрифт**: JetBrains Mono или FiraCode (с поддержкой ligatures)
+- **Размер**: 14px для комфортной работы
+- **Высота строки**: 1.4 для лучшей читаемости
 
-- **Problem**: Incorrect client directive causing build warnings
-- **Solution**: Removed inappropriate client directives from Astro components
-- **Result**: Clean build process with no warnings
+### Цветовая схема для AI-разработки
+```json
+{
+  "ui": {
+    "accent": "#FF6B00",
+    "background": {
+      "one": "#282c34",
+      "two": "#21252b"
+    },
+    "text": {
+      "primary": "#ffffff",
+      "secondary": "#abb2bf"
+    },
+    "terminal": {
+      "background": "#1e2127",
+      "cursor": "#528bff"
+    }
+  }
+}
+```
 
-### Content Collection Integration
+### Плагины для AI-разработки
+- **Warp AI** - Встроенный помощник для команд
+- **Git** - Интеграция с Git
+- **Node.js** - Подсветка команд Node.js
+- **NPM** - Подсказки для npm команд
 
-- **Problem**: Content needed to be migrated to Astro's content collections
-- **Solution**: Implemented proper content collection structure
-- **Result**: Well-organized, maintainable content system
+## Автодополнение для команд проекта
 
-### Model Context Protocol (MCP) Integration
+### Astro команды
+```
+dev        | Запуск локального сервера разработки
+build      | Сборка проекта для продакшена
+build:prod | Сборка с продакшен-оптимизациями
+preview    | Предварительный просмотр собранного сайта
+```
 
-- **Problem**: Need for enhanced AI capabilities in the website
-- **Solution**: Integrated astro-mcp for AI-powered content generation
-- **Result**: Enhanced AI capabilities for dynamic content
+### Qwen Code команды
+```
+qwen:setup    | Настройка Qwen Code
+qwen:analyze  | Анализ проекта с помощью Qwen
+qwen:security | Проверка безопасности
+qwen:perf     | Анализ производительности
+```
 
-## Testing Results
+### Тестирование команды
+```
+test          | Запуск всех тестов
+test:watch    | Запуск тестов в watch режиме
+test:coverage | Запуск тестов с покрытием
+test:ui       | UI для тестов
+test:e2e      | E2E тестирование
+```
 
-All components have been thoroughly tested and are functioning correctly:
+### Обслуживания команды
+```
+maintenance:audit       | Аудит зависимостей
+maintenance:lighthouse  | Lighthouse аудит
+tools:compare-sites     | Сравнение сайтов
+tools:diagnose-css      | Диагностика CSS
+tools:semgrep           | Проверка безопасности
+tools:trufflehog        | Проверка утечки секретов
+```
 
-- Homepage loads without errors
-- All interactive components work as expected
-- Forms validate and submit properly
-- Modals create and display dynamically
-- Responsive design works on all device sizes
-- Analytics track user interactions
-- SEO infrastructure is properly implemented
-- Unit and integration tests pass with Vitest
-- End-to-end tests pass with Puppeteer
-- Accessibility standards met
-- Performance benchmarks achieved
+## Шаблоны команд для Warp AI
 
-## Current Status
+### Генерация отчетов
+```
+Command: npm run tools:generate-report
+Template: Генерация полного отчета о состоянии проекта
+Parameters: [report-type] (security, performance, accessibility)
+```
 
-✅ **READY FOR PRODUCTION DEPLOYMENT**
+### Обновление зависимостей
+```
+Command: npm run maintenance:update-deps
+Template: Обновление зависимостей с проверкой безопасности
+Parameters: [dep-type] (prod, dev, all)
+```
 
-All project requirements have been met:
+### Запуск CI цикла локально
+```
+Command: npm run ci:local
+Template: Запуск полного CI цикла локально
+Parameters: none
+```
 
-- All pages are implemented and tested
-- SEO is fully optimized
-- Performance meets industry standards
-- All interactive functionality works correctly
-- Analytics and tracking are in place
-- Content is properly organized and accessible
+## Профиль разработчика
 
-## Recommendations for Ongoing Maintenance
+### Активация профиля
+Создайте в корне проекта файл `.env.warp` с командами для быстрого запуска:
 
-1. **Content Updates**: Regularly update blog content and team information
-2. **SEO Monitoring**: Continue monitoring search performance and make
-   adjustments
-3. **Performance Monitoring**: Monitor site speed and user experience metrics
-4. **Security Updates**: Keep dependencies updated for security
-5. **User Feedback**: Collect and implement user feedback for continuous
-   improvement
+```bash
+# Быстрая активация разработки
+alias astro-dev='npm run dev'
 
-## Technical Debt & Future Enhancements
+# Быстрая проверка качества
+alias astro-check='npm run type-check && npm run lint'
 
-While the website is fully functional, some areas could be enhanced in future
-iterations:
+# Быстрая сборка
+alias astro-build='npm run build'
 
-1. **TypeScript Coverage**: Expand TypeScript type checking across all
-   components
-2. **Testing Framework**: Continue improving unit and integration tests coverage
-3. **Advanced Analytics**: Add more detailed user behavior tracking
-4. **CMS Integration**: Enhance content management capabilities
-5. **Accessibility**: Further improve accessibility features
-6. **AI Content Generation**: Leverage MCP for more dynamic content
-7. **Performance Monitoring**: Implement advanced performance monitoring
-8. **Security Enhancements**: Continue hardening security measures
+# Быстрое тестирование
+alias astro-test='npm run test'
 
-## Conclusion
+# Быстрая проверка безопасности
+alias security-check='npx semgrep scan && npx trufflehog .'
 
-The ZeroDolg Astro website project has been successfully completed and enhanced,
-delivering a modern, high-performance website that meets all requirements. The
-site provides an excellent user experience while maintaining strong technical
-foundations for SEO, performance, and maintainability.
+# Быстрая проверка производительности
+alias perf-check='npm run maintenance:lighthouse'
+```
 
-The Preact component integration issues have been fully resolved, and all
-interactive functionality is working correctly. Additionally, the Model Context
-Protocol (MCP) integration provides enhanced AI capabilities for future content
-generation. The website is now ready for production deployment and continues to
-serve as an effective platform for the company's bankruptcy legal services.
+### Интеграция с Git
+```
+# Быстрая проверка изменений с AI-анализом
+git ai-status    # Анализ изменений с помощью AI
+git ai-commit    # Автогенерация сообщения коммита с AI
+git ai-branch    # Автогенерация названия ветки с AI
+```
+
+## Рабочие сценарии
+
+### Сценарий 1: Быстрый запуск разработки
+1. Откройте Warp Terminal
+2. Перейдите в директорию проекта
+3. Выполните `astro-dev` для запуска сервера
+4. В другом табе выполните `astro-check` для проверки качества
+
+### Сценарий 2: Полная проверка перед коммитом
+1. `astro-check` - Проверка качества кода
+2. `security-check` - Проверка безопасности
+3. `perf-check` - Проверка производительности
+4. `astro-test` - Запуск тестов
+5. `git add . && git commit -m "feat: add amazing feature"`
+
+### Сценарий 3: Отладка производительности
+1. `astro-dev` - Запуск в режиме разработки
+2. `debug-performance` - Подробный аудит
+3. Анализ результатов в `reports/lh-report.json`
+
+## Полезные сочетания клавиш
+
+### Для работы с AI
+- `Cmd+Shift+I` - Включение AI-интеграции
+- `Cmd+Shift+C` - Копирование результата в буфер обмена
+- `Cmd+Shift+S` - Сохранение вывода в файл
+
+### Навигация
+- `Cmd+Shift+T` - Новый таб
+- `Cmd+Shift+P` - Командная палитра
+- `Cmd+Shift+F` - Поиск по выводу терминала
+
+### Работа с проектом
+- `F1` - Показать сниппеты проекта
+- `F2` - Быстрая вставка часто используемых команд
+- `F3` - Переключение между профилями разработки

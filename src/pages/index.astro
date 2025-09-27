@@ -1,27 +1,27 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../widgets/header/Header.astro';
+import Layout from '@app/layouts/Layout.astro';
+import Header from '@widgets/header/Header.astro';
 import Hero from '../components/sections/Hero.astro';
 import Problems from '../components/sections/Problems.astro';
-import Stats from '../components/ui/Stats.astro';
-import Calculator from '../features/calculator/ui/Calculator.astro';
+import Stats from '@shared/ui/Stats.astro';
+import Calculator from '@features/calculator/ui/Calculator.astro';
 import Benefits from '../components/sections/Benefits.astro';
-import Timeline from '../components/ui/Timeline.astro';
-import TeamInteractive from '../components/sections/TeamInteractive.astro';
+import Timeline from '@shared/ui/Timeline.astro';
+import TeamInteractive from '../islands/interactive/TeamInteractiveEnhanced.tsx';
 import LeadMagnets from '../components/sections/LeadMagnets.astro';
-import Reviews from '../widgets/reviews/Reviews.astro';
-import Faq from '../widgets/faq/Faq.astro';
-import Cta from '../components/ui/Cta.astro';
-import Footer from '../widgets/footer/Footer.astro';
-import CallbackModal from '../features/modals/ui/CallbackModal.astro';
+import Reviews from '@widgets/reviews/Reviews.astro';
+import Faq from '@widgets/faq/Faq.astro';
+import Cta from '@shared/ui/Cta.astro';
+import Footer from '@widgets/footer/Footer.astro';
+import CallbackModal from '@features/modals/ui/CallbackModal.astro';
 import ModalManager from '../features/modals/model/modal-manager.tsx';
-import SocialLinks from '../components/sections/SocialLinks.astro';
+import SocialLinks from '../islands/shared/interactive/social-links.tsx';
 import ScrollAnimations from '../islands/utils/scroll-animations.tsx';
-import OnlineSticker from '../components/ui/OnlineSticker.astro';
-import BitrixCallback from '../components/ui/BitrixCallback.astro';
-import SpecialOffers from '../components/ui/SpecialOffers.astro';
+import OnlineSticker from '@shared/ui/OnlineSticker.astro';
+import BitrixCallback from '@shared/ui/BitrixCallback.astro';
+import SpecialOffers from '@shared/ui/SpecialOffers.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
-import TestButton from '../islands/utils/TestButton.tsx';
+
 ---
 
 <Layout
@@ -101,6 +101,5 @@ import TestButton from '../islands/utils/TestButton.tsx';
   <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
   <ClientInteractions client:idle />
 
-  <!-- Test Button for debugging -->
-  <TestButton client:idle />
+  
 </Layout>

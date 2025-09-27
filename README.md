@@ -15,14 +15,14 @@
 ошибками  
 ⚡ **Высокая производительность** - Статическая генерация + Islands
 Architecture  
-🔒 **Безопасность** - Современные практики безопасности и валидации  
+🔒 **Безопасность** - Современные практики безопасности (Semgrep, TruffleHog)  
 📱 **Mobile-First** - Отзывчивый дизайн для всех устройств  
 🚀 **SEO оптимизирован** - Структурированные данные, robots.txt, sitemap.xml  
 🎨 **Современный стек** - Astro 5 + Preact + TypeScript + Tailwind CSS v4  
-🧪 **100% покрытие тестами** - Vitest + Puppeteer для E2E тестирования  
-🤖 **AI-Enhanced** - Интеграция с MCP (Model Context Protocol)
+🧪 **Высокое покрытие тестами** - Vitest + Puppeteer для E2E тестирования  
+🤖 **AI-Enhanced** - Интеграция с Qwen Code как главный AI-ассистент
 
-## 🚀 Быстрый старт
+## 🚀 Быстрый старт с Qwen Code
 
 ```bash
 # 📦 Установка зависимостей
@@ -37,6 +37,11 @@ npm run build
 
 # 👀 Предварительный просмотр собранного сайта
 npm run preview
+
+# 🤖 Настройка Qwen Code
+# 1. Установите расширение Qwen Code для VS Code
+# 2. Сконфигурируйте проект с .qwenrc.json
+# 3. Начните использовать AI-ассистента для генерации кода
 ```
 
 ## 🏗️ Архитектура проекта
@@ -48,15 +53,16 @@ zerodolg-astro/
 ├── 🔧 .github/workflows/       # CI/CD автоматизация
 ├── 🪝 .husky/                  # Git hooks (pre-commit, commit-msg)
 ├── 🤖 .qwen/                   # AI assistant конфигурация
-├── 📊 .claude/                 # Claude AI настройки
 ├── 🛠️ .vscode/                 # VS Code конфигурация
+├── 🤖 agents/                  # AI агенты конфигурация
 │
 ├── 📖 docs/                    # Документация проекта
 │   ├── 📊 analysis/            # Анализ и отчеты
 │   ├── ✏️ blog/                # Блог контент
 │   ├── 🔄 migrations/          # Гиды миграции
 │   ├── ⚡ optimization/        # Оптимизация и производительность
-│   └── 🔧 setup/               # Настройка и установка
+│   ├── 🏗️ architecture.md      # Feature-Sliced Design архитектура
+│   └── 📝 style-guide.md       # Руководство по стилю
 │
 ├── 🌐 public/                  # Статические файлы
 ├── 📸 screenshots/             # Скриншоты и сравнения
@@ -91,7 +97,7 @@ zerodolg-astro/
 │   ├── 🔨 lib/                 # Утилиты и хелперы
 │   ├── 🤝 shared/              # Общие утилиты
 │   ├── 🎯 core/                # Основная логика приложения
-│   └── 🎨 styles/              # ITCSS архитектура стилей
+│   └── 🎨 styles/              # Pure Tailwind CSS v4 стили
 │
 └── 🛠️ tools/                   # Автономные инструменты
 ```
@@ -100,8 +106,9 @@ zerodolg-astro/
 
 ### 📖 Основные документы
 
-- 📋 [**CLAUDE.md**](CLAUDE.md) - Руководство по работе с Claude AI
-- 🤖 [**QWEN.md**](QWEN.md) - Конфигурация Qwen AI assistant
+- 🤖 [**QWEN.md**](QWEN.md) - Руководство по Qwen Code (основной AI-ассистент)
+- 🤖 [**AGENT.md**](AGENT.md) - Конфигурация AI агентов
+- 🖥️ [**WARP.md**](WARP.md) - Конфигурация Warp Terminal
 - 🏗️ [**Архитектура**](docs/architecture.md) - Feature-Sliced Design архитектура
 - 🔄 [**CHANGELOG.md**](CHANGELOG.md) - История изменений проекта
 
@@ -113,7 +120,10 @@ zerodolg-astro/
 | 🔧 **Настройка**   | Инструкции по установке и конфигурации   | [docs/setup/](docs/setup/)               |
 | 🔄 **Миграции**    | Гайды по обновлению технологий           | [docs/migrations/](docs/migrations/)     |
 | 📊 **Анализ**      | Отчеты и метрики проекта                 | [docs/analysis/](docs/analysis/)         |
-| ✏️ **Блог**        | Документация контента блога              | [docs/blog/](docs/blog/)                 |
+| 🏗️ **Архитектура** | Feature-Sliced Design архитектура        | [docs/architecture.md](docs/architecture.md) |
+| 📝 **Руководство по стилю** | Стандарты кодирования и именования | [docs/style-guide.md](docs/style-guide.md) |
+| 📁 **Разработка**  | Руководство по работе с Git и внесению изменений | [docs/git.md](docs/git.md) |
+| 📋 **ADR**         | Architecture Decision Records           | [docs/adrs/](docs/adrs/)                 |
 
 ## 🛠️ Технологический стек
 
@@ -124,7 +134,7 @@ zerodolg-astro/
 | **[Astro](https://astro.build/)**                 | `5.13.7`  | 🌟 Статический генератор сайтов   |
 | **[Preact](https://preactjs.com/)**               | `10.27.1` | ⚡ Легковесная альтернатива React |
 | **[TypeScript](https://www.typescriptlang.org/)** | `5.9.2`   | 🔒 Строгая типизация JavaScript   |
-| **[Tailwind CSS](https://tailwindcss.com/)**      | `4.1.13`  | 🎨 Утилитарный CSS-фреймворк      |
+| **[Tailwind CSS](https://tailwindcss.com/)**      | `4.0.0`   | 🎨 Утилитарный CSS-фреймворк      |
 
 ### 🧪 Инструменты разработки
 
@@ -138,9 +148,9 @@ zerodolg-astro/
 
 ### 🤖 AI и автоматизация
 
+- **Qwen Code** - Основной AI код-ассистент
 - **Model Context Protocol (MCP)** - Расширенная AI интеграция
-- **Claude AI** - Помощник в разработке
-- **Qwen Code** - AI код-ассистент
+- **AI Агенты** - Многоуровневая система для анализа кода
 - **GitHub Actions** - CI/CD автоматизация
 
 ## 🏆 Качество кода
@@ -171,6 +181,12 @@ npm run format:check
 
 # ✨ Автоформатирование
 npm run format
+
+# 🛡️ Проверка безопасности (Semgrep)
+npx semgrep scan
+
+# 🔍 Проверка утечки секретов (TruffleHog)
+npx trufflehog .
 ```
 
 ## 🎨 Архитектура
@@ -181,18 +197,49 @@ npm run format
 - **Islands Architecture** - Интерактивные компоненты только там, где они нужны
 - **Статическая генерация** - Предварительный рендеринг HTML для максимальной
   производительности
-- **Прогрессивное улучшение** - Сайт работает без JavaScript
+- **Progressive Enhancement** - The site works without JavaScript
+- **Visual Fidelity** - UI/UX should match the original production site (https://zerodolg.ru/) using only Tailwind CSS and built-in Astro/Preact capabilities
 - **Компонентный подход** - Модульная и переиспользуемая архитектура
 
 ### Стили
 
-- **[ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/)** -
-  Инвертированный треугольник CSS для организации стилей
-- **[BEM](http://getbem.com/)** - Блок, Элемент, Модификатор для именования CSS
-  классов
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк
-  для быстрой разработки
+  для быстрой разработки. Используется стабильная версия v4 с новым синтаксисом конфигурации через CSS
 - **Mobile First** - Дизайн сначала для мобильных устройств
+
+## 🌍 Современные практики 2025
+
+### 🔐 Безопасность (SAST)
+
+- **Semgrep** - Static Analysis Security Testing
+- **TruffleHog** - Проверка утечки секретов
+- **CSP Headers** - Content Security Policy с nonce подходом
+- **SRI** - Subresource Integrity для внешних ресурсов
+- **Security Headers** - X-Frame-Options, X-Content-Type-Options и др.
+
+### ⚡ Производительность
+
+- **Core Web Vitals 2025**:
+  - LCP < 1.0s
+  - FID < 75ms (новый стандарт 2025)
+  - CLS < 0.05 (новый стандарт 2025)
+- **Image optimization** - WebP/AVIF форматы, lazy loading
+- **Bundle optimization** - Tree-shaking, code splitting
+- **Caching strategy** - Modern HTTP caching headers
+
+### ♿ Доступность
+
+- **WCAG 2.2** - Соответствие стандарту Web Content Accessibility Guidelines
+- **ARIA атрибуты** - Пропертисы для доступности интерфейсов
+- **Keyboard navigation** - Управление с клавиатуры
+- **Screen reader support** - Совместимость с чтецами
+
+### 🌱 Экологичность (Sustainability)
+
+- **Энергоэффективный код** - Минимизация ресурсов
+- **Оптимизация бандла** - Снижение объема загрузки
+- **Эффективное кэширование** - Снижение количества запросов
+- **Carbon-aware оптимизации** - Уменьшение углеродного следа
 
 ## ✅ Статус проекта
 
@@ -206,8 +253,13 @@ npm run format
 - ✅ Аналитика интегрирована и работает
 - ✅ Производительность оптимизирована
 - ✅ Дизайн адаптирован для всех устройств
-- ✅ Миграция на Tailwind CSS v4 завершена
 - ✅ Интеграция с Model Context Protocol (MCP) для расширенных возможностей AI
+- ✅ Миграция на стабильную Tailwind CSS v4 завершена
+- ✅ Комплексная система безопасности с CSP заголовками реализована
+- ✅ Современные практики безопасности 2025 (Semgrep, TruffleHog) внедрены
+- ✅ AI-ассистент Qwen Code интегрирован в разработку
+- ✅ WCAG 2.2 доступность реализована
+- ✅ Core Web Vitals 2025 стандарты соблюдены
 
 ## 📦 Команды
 
@@ -258,7 +310,9 @@ npm run format
 | `npm run clean`               | 🧹 Очистка файлов сборки         | Очистка кэша              |
 | `npm run env:validate`        | ✅ Проверка переменных окружения | Валидация конфига         |
 | `npm run tools:compare-sites` | 📊 Сравнение сайтов              | Анализ производительности |
-| `npm run tools:diagnose-css`  | 🎨 Диагностика CSS               | Отладка стилей            |
+| `npm run tools:diagnose-css`  | 🎨 Диагностика CSS               | Отчет о стилях            |
+| `npm run tools:semgrep`       | 🛡️ Проверка безопасности         | SAST анализ               |
+| `npm run tools:trufflehog`    | 🔍 Проверка утечки секретов       | Безопасность кода         |
 
 ## 🔧 Конфигурация и требования
 
@@ -267,6 +321,7 @@ npm run format
 - **Node.js**: `>=18.17.1` (рекомендуется последняя LTS версия)
 - **npm**: `>=9.0.0` (с поддержкой workspaces)
 - **Git**: `>=2.34.0` (для корректной работы Husky)
+- **Docker**: `>=20.10.0` (для локального запуска AI инструментов)
 
 ### ⚙️ Переменные окружения
 
@@ -288,6 +343,9 @@ PUBLIC_ASTRO_TOOLBAR=false
 # 🐈 Интеграция с Bitrix24
 BITRIX24_WEBHOOK_URL=https://your-domain.bitrix24.ru/rest/1/webhook_key/
 
+# 🤖 Qwen Code интеграция (опционально)
+QWEN_API_KEY=your-qwen-api-key
+
 # 🌍 Окружение
 NODE_ENV=development # development | production
 ```
@@ -304,18 +362,21 @@ NODE_ENV=development # development | production
 
 ### 👨‍💻 Для разработчиков
 
-1. **🔀 Fork** - Форкните репозиторий
-2. **🌳 Branch** - Создайте ветку: `git checkout -b feature/amazing-feature`
-3. **✨ Develop** - Используйте `npm run dev` для разработки
-4. **✅ Test** - Убедитесь, что `npm run test` проходит
-5. **🔍 Quality** - Проверьте `npm run lint` и `npm run type-check`
-6. **📝 Commit** - Используйте
+1. ** <<=FORK==> ** - Форкните репозиторий
+2. ** <<=BRANCH==> ** - Создайте ветку: `git checkout -b feature/amazing-feature`
+3. ** <<=DEVELOP==> ** - Используйте `npm run dev` для разработки
+4. ** <<=TEST==> ** - Убедитесь, что `npm run test` проходит
+5. ** <<=QUALITY==> ** - Проверьте `npm run lint` и `npm run type-check`
+6. ** <<=AI REVIEW==> ** - Используйте Qwen Code для проверки кода
+7. ** <<=COMMIT==> ** - Используйте
    [Conventional Commits](https://conventionalcommits.org/):
    ```bash
    git commit -m "feat(component): add amazing feature"
    ```
-7. **🚀 Push** - Отправьте ветку: `git push origin feature/amazing-feature`
-8. **🔁 PR** - Откройте Pull Request с описанием изменений
+8. ** <<=PUSH==> ** - Отправьте ветку: `git push origin feature/amazing-feature`
+9. ** <<=PR==> ** - Откройте Pull Request с описанием изменений
+
+Подробное руководство по внесению вклада см. в файле [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### 📔 Формат коммитов
 
@@ -328,6 +389,13 @@ NODE_ENV=development # development | production
 - `refactor(scope): description` - рефакторинг
 - `test(scope): description` - добавление тестов
 - `chore(scope): description` - служебные задачи
+
+### 🤖 Работа с Qwen Code
+
+1. Используйте Qwen Code как основного AI-ассистента
+2. Обновляйте `.qwenrc.json` при изменении контекста проекта
+3. Используйте шаблоны промптов для согласованности кода
+4. Проверяйте сгенерированный код на безопасность и доступность
 
 ## 📞 Контакты и поддержка
 
@@ -364,5 +432,6 @@ NODE_ENV=development # development | production
 [![Astro](https://img.shields.io/badge/Powered_by-Astro-orange?logo=astro&logoColor=white)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/Built_with-TypeScript-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Styled_with-Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Qwen Code](https://img.shields.io/badge/Powered_by-Qwen_Code-FF6B00?logo=alibaba-cloud&logoColor=white)](https://qwen.ai/)
 
 </div>

@@ -93,6 +93,13 @@ const Timeline = (): VNode | null => {
 
       // Yandex Metrika
       if (window.ym) {
+        let validId = 98741026; // default value
+        if (window.yaCounterId) {
+          const counterId = typeof window.yaCounterId === 'string' 
+            ? parseInt(window.yaCounterId, 10) 
+            : window.yaCounterId;
+          validId = !isNaN(counterId) && counterId ? counterId : 98741026;
+        }
         (
           window.ym as (
             id: number,
@@ -100,7 +107,7 @@ const Timeline = (): VNode | null => {
             eventName: string,
             parameters?: Record<string, unknown>
           ) => void
-        )(window.yaCounterId || 98741026, 'reachGoal', eventName, parameters);
+        )(validId, 'reachGoal', eventName, parameters);
       }
     };
 

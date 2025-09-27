@@ -1,5 +1,5 @@
 ---
-import Form from '../../islands/forms/Form.tsx';
+import Form from '../../islands/forms/FormEnhancedFinal.tsx';
 import type { FormConfig, FormField } from '../../../types/form';
 
 export interface Props {
@@ -97,5 +97,13 @@ const baseClasses = `max-w-md mx-auto ${className}`;
   {title && <h3 class='text-xl font-semibold text-gray-900 mb-2'>{title}</h3>}
   {subtitle && <p class='text-gray-600 mb-4'>{subtitle}</p>}
 
-  <Form config={config} client:load />
+  <Form 
+    config={config} 
+    client:load 
+    enableAnalytics={true} 
+    enableAutoSave={false}
+    submitOnEnter={true}
+    enableProgressiveEnhancement={true}
+    enableFieldValidationHighlight={true}
+  />
 </div>

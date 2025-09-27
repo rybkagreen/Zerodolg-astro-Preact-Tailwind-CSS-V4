@@ -1,0 +1,8 @@
+/* 
+ * Главный CSS файл проекта
+ * Полностью на Tailwind CSS v4
+ */
+
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+@import "../styles/theme.css";

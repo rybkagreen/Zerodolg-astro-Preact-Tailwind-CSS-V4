@@ -1,0 +1,226 @@
+Folder PATH listing for volume HOME PC
+Volume serial number is 54C0-31A3
+D:\DEVELOP\ZERODOLG.RU\ZERODOLG-ASTRO\SRC
+¦   astro-env.d.ts
+¦   global.d.ts
+¦   middleware.ts
+¦   
++---components
+¦   +---forms
+¦   ¦       BaseForm.astro
+¦   ¦       CTAForm.astro
+¦   ¦       HeroForm.astro
+¦   ¦       
+¦   +---layout
+¦   +---sections
+¦   ¦       Benefits.astro
+¦   ¦       Hero.astro
+¦   ¦       LandingPageEnhanced.astro
+¦   ¦       LeadMagnets.astro
+¦   ¦       Problems.astro
+¦   ¦       SocialLinks.astro
+¦   ¦       TeamInteractive.astro
+¦   ¦       TestimonialsSection.astro
+¦   ¦       
+¦   L---ui
+¦           AccessibleAccordion.astro
+¦           BitrixCallback.astro
+¦           Cta.astro
+¦           FeatureCard.astro
+¦           Icon.astro
+¦           OnlineSticker.astro
+¦           SpecialOffers.astro
+¦           Stats.astro
+¦           TestimonialCard.astro
+¦           Timeline.astro
+¦           
++---content
+¦   ¦   config.ts
+¦   ¦   
+¦   +---blog
+¦   ¦       bankruptcy-basics.md
+¦   ¦       blog-bankrotstvo-pensionera.md
+¦   ¦       blog-bankruptcy-consequences.md
+¦   ¦       blog-bankruptcy-guide.md
+¦   ¦       blog-bankruptcy-mortgage.md
+¦   ¦       blog-bankruptcy-through-mfc.md
+¦   ¦       blog-collectors-protection.md
+¦   ¦       blog-legal-ways-avoid-credit.md
+¦   ¦       blog-mistakes-before-bankruptcy.md
+¦   ¦       blog-restructuring-vs-bankruptcy.md
+¦   ¦       
+¦   +---reviews
+¦   ¦       review-1.json
+¦   ¦       
+¦   L---team
+¦           mashulia.json
+¦           
++---core
+¦   ¦   team-members.ts
+¦   ¦   
+¦   +---config
+¦   ¦       env.ts
+¦   ¦       site.json
+¦   ¦       site.ts
+¦   ¦       
+¦   +---constants
+¦   ¦       index.ts
+¦   ¦       
+¦   +---types
+¦   ¦       index.ts
+¦   ¦       
+¦   L---utils
+¦           env-validator.ts
+¦           
++---features
+¦   +---analytics
+¦   ¦       analytics.js
+¦   ¦       
+¦   +---calculator
+¦   ¦   ¦   index.ts
+¦   ¦   ¦   
+¦   ¦   +---api
+¦   ¦   +---data
+¦   ¦   ¦       calculator.json
+¦   ¦   ¦       
+¦   ¦   +---model
+¦   ¦   +---types
+¦   ¦   L---ui
+¦   ¦           Calculator.astro
+¦   ¦           
+¦   +---forms
+¦   ¦   ¦   index.ts
+¦   ¦   ¦   
+¦   ¦   +---api
+¦   ¦   L---model
+¦   ¦           form-utils.ts
+¦   ¦           
+¦   L---modals
+¦       ¦   index.ts
+¦       ¦   
+¦       +---model
+¦       ¦       modal-context.tsx
+¦       ¦       modal-manager.tsx
+¦       ¦       use-dynamic-modals.ts
+¦       ¦       
+¦       L---ui
+¦               CallbackModal-tailwind.astro
+¦               CallbackModal.astro
+¦               Modal.astro
+¦               ModalEnhanced.tsx
+¦               
++---hooks
+¦       index.ts
+¦       useAsyncEffect.ts
+¦       useClickOutside.ts
+¦       useDebounce.ts
+¦       useFocusTrap.ts
+¦       useIntersectionObserver.ts
+¦       useLocalStorage.ts
+¦       useMediaQuery.ts
+¦       usePerformanceMonitor.ts
+¦       usePrevious.ts
+¦       useReducedMotion.ts
+¦       useScrollLock.ts
+¦       useThrottle.ts
+¦       
++---islands
+¦   +---forms
+¦   ¦       form-logic.tsx
+¦   ¦       FormEnhancedFinal.tsx
+¦   ¦       
+¦   +---interactive
+¦   ¦       TeamInteractiveEnhanced.tsx
+¦   ¦       
+¦   +---layout
+¦   ¦       faqEnhanced.tsx
+¦   ¦       headerEnhanced.tsx
+¦   ¦       
+¦   +---shared
+¦   ¦   L---interactive
+¦   ¦           lead-magnets.tsx
+¦   ¦           social-links.tsx
+¦   ¦           special-offers.tsx
+¦   ¦           statsEnhanced.tsx
+¦   ¦           timeline.tsx
+¦   ¦           
+¦   L---utils
+¦           client-interactions.tsx
+¦           dynamic-modals.tsx
+¦           modal-manager-hooks.tsx
+¦           scroll-animations.tsx
+¦           sticky-panel.tsx
+¦           TestButton.tsx
+¦           TestPreactComponent.tsx
+¦           
++---layouts
+¦       Layout.astro
+¦       
++---lib
+¦       analytics.ts
+¦       bitrix-callback.js
+¦       critical-css.js
+¦       index.js
+¦       puppeteer-helper.js
+¦       
++---pages
+¦   ¦   index.astro
+¦   ¦   privacy.astro
+¦   ¦   sitemap.astro
+¦   ¦   terms.astro
+¦   ¦   
+¦   +---api
+¦   ¦       form.ts
+¦   ¦       
+¦   L---blog
+¦           index.astro
+¦           [slug].astro
+¦           
++---shared
+¦   +---api
+¦   +---hooks
+¦   +---ui
+¦   ¦   +---Button
+¦   ¦   ¦       Button.astro
+¦   ¦   ¦       index.ts
+¦   ¦   ¦       
+¦   ¦   +---Card
+¦   ¦   ¦       Card.astro
+¦   ¦   ¦       index.ts
+¦   ¦   ¦       
+¦   ¦   L---SEO
+¦   ¦           index.ts
+¦   ¦           SEO.astro
+¦   ¦           
+¦   L---utils
+¦           analytics.ts
+¦           form-utils.ts
+¦           index.ts
+¦           logger.ts
+¦           performance.ts
+¦           structured-data.ts
+¦           
++---styles
+¦       globals.css
+¦       main.css
+¦       tailwind.css
+¦       
++---types
+¦       form.ts
+¦       index.ts
+¦       team.ts
+¦       
+L---widgets
+    +---faq
+    ¦       Faq.astro
+    ¦       
+    +---footer
+    ¦       Footer.astro
+    ¦       
+    +---header
+    ¦   ¦   Header.astro
+    ¦   ¦   
+    ¦   L---navigation
+    L---reviews
+            Reviews.astro
+            

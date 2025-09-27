@@ -1,0 +1,127 @@
+---
+// Это будет главная страница или лендинг для конкретной услуги
+// Пока что это статический компонент, но при необходимости мы можем добавить островковые компоненты
+export interface Props {
+  heroTitle?: string;
+  heroSubtitle?: string;
+  features?: {
+    title: string;
+    description: string;
+    icon?: string;
+  }[];
+  testimonials?: {
+    name: string;
+    role: string;
+    content: string;
+    avatar?: string;
+  }[];
+}
+
+const {
+  heroTitle = 'Профессиональные услуги в сфере банкротства',
+  heroSubtitle = 'Помогаем физическим лицам избавиться от долгов合法но и эффективно',
+  features = [
+    { title: 'Бесплатная консультация', description: 'Первичная консультация абсолютно бесплатна' },
+    { title: 'Опыт более 10 лет', description: 'Работаем с 2013 года, за это время помогли тысячам клиентов' },
+    { title: 'Индивидуальный подход', description: 'Каждый случай уникален, разрабатываем персональную стратегию' }
+  ],
+  testimonials = [
+    { name: 'Иван Петров', role: 'Клиент', content: 'Спасибо за профессиональную помощь! От долгов осталась только память.' }
+  ]
+} = Astro.props;
+---
+
+<section class="relative py-20 md:py-28 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 z-0"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        {heroTitle}
+      </h1>
+      <p class="text-xl text-gray-600 mb-10">
+        {heroSubtitle}
+      </p>
+      <div class="flex justify-center gap-4">
+        <a href="/#form" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+          Получить консультацию
+        </a>
+        <a href="/#process" class="px-8 py-4 bg-white text-gray-800 font-semibold rounded-lg shadow-md hover:shadow-lg border border-gray-200 transform hover:-translate-y-1 transition duration-300">
+          Узнать больше
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Наши преимущества</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Мы предлагаем лучшие решения для вашего финансового освобождения
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {features.map((feature, index) => (
+        <div key={index} class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-500 hover:scale-105 hover:shadow-xl">
+          {feature.icon && (
+            <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-6">
+              <span class="text-blue-600 text-2xl">{feature.icon}</span>
+            </div>
+          )}
+          <h3 class="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Отзывы клиентов</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Что говорят наши довольные клиенты
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {testimonials.map((testimonial, index) => (
+        <div key={index} class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+          <div class="flex items-center mb-6">
+            {testimonial.avatar ? (
+              <img 
+                src={testimonial.avatar} 
+                alt={testimonial.name} 
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
+            ) : (
+              <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+                <span class="text-gray-600 font-bold">{testimonial.name.charAt(0)}</span>
+              </div>
+            )}
+            <div>
+              <h4 class="font-bold text-gray-900">{testimonial.name}</h4>
+              <p class="text-gray-600">{testimonial.role}</p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">"{testimonial.content}"</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">Готовы начать путь к финансовому освобождению?</h2>
+    <p class="text-xl mb-10 max-w-2xl mx-auto">
+      Присоединяйтесь к тысячам довольных клиентов, которые избавились от долгов
+    </p>
+    <a href="/#form" class="px-8 py-4 bg-white text-blue-600 font-bold rounded-lg shadow-lg hover:bg-gray-100 transform hover:-translate-y-1 transition duration-300 inline-block">
+      Получить бесплатную консультацию
+    </a>
+  </div>
+</section>

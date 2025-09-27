@@ -74,9 +74,9 @@ export default defineConfig({
         output: {
           manualChunks: {
             vendor: ['preact', 'preact/hooks'],
-            ui: ['@astrojs/preact/client.js'],
+            ui: ['@astrojs/preact'],
           },
-          // Better chunk naming
+          // Better chunk naming for improved caching
           chunkFileNames: 'chunks/[name].[hash].js',
           assetFileNames: 'assets/[name].[hash].[ext]',
         },
@@ -93,6 +93,8 @@ export default defineConfig({
     service: {
       entrypoint: 'astro/assets/services/sharp',
     },
+    quality: 80,
+    formats: ['avif', 'webp'],
   },
   // Performance optimizations
   prefetch: {

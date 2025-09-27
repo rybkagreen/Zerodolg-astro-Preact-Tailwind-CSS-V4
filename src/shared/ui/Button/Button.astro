@@ -14,6 +14,10 @@ interface Props {
   children: import('astro').JSX.ElementContent;
   /** Additional CSS classes */
   class?: string;
+  /** ARIA label for accessibility */
+  ariaLabel?: string;
+  /** ARIA role for accessibility */
+  role?: string;
 }
 
 const {
@@ -23,6 +27,8 @@ const {
   disabled = false,
   onClick,
   class: className = '',
+  ariaLabel,
+  role,
 } = Astro.props;
 
 const baseClasses =
@@ -49,6 +55,14 @@ const classes = [
 ].join(' ');
 ---
 
-<button type={type} class:list={classes} disabled={disabled} onClick={onClick}>
+<button 
+  type={type} 
+  class:list={classes} 
+  disabled={disabled} 
+  onClick={onClick}
+  aria-label={ariaLabel}
+  role={role}
+  {disabled ? 'aria-disabled="true"' : ''}
+>
   <slot />
 </button>

@@ -18,7 +18,7 @@ features/ # Business-feature specific logic 14 ├── widgets/ # Complex UI
 components 15 ├── layouts/ # Page layouts 16 ├── pages/ # Page routes 17 ├──
 content/ # Content collections 18 ├── lib/ # Utilities and helper functions 19
 ├── shared/ # Shared utilities and APIs 20 ├── core/ # Core application logic 21
-├── styles/ # ITCSS styled architecture 22 └── types/ # TypeScript types
+├── styles/ # Pure Tailwind CSS v4 styles 22 └── types/ # TypeScript types
 
 🧹 Issues Resolved:
 
@@ -37,3 +37,8 @@ content/ # Content collections 18 ├── lib/ # Utilities and helper function
 The project now fully adheres to the proposed Feature-Sliced Design structure
 with all interactive components in the islands directory and all other
 components organized by type in the components directory.
+
+🎨 Visual Fidelity Requirements:
+- UI/UX should match the original production site (https://zerodolg.ru/)
+- Implementation must use only Pure Tailwind CSS v4 and built-in Astro/Preact capabilities
+- No custom CSS outside of Tailwind configuration

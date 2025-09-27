@@ -42,7 +42,9 @@
     "mcp:demo": "node tools/demo-mcp-puppeteer.js",
     "tools:compare-sites": "node tools/compare-sites.js",
     "tools:diagnose-css": "node tools/diagnose-local-styles.js",
-    "tools:debug-css": "node tools/debug-css-loading.js"
+    "tools:debug-css": "node tools/debug-css-loading.js",
+    "tools:semgrep": "node tools/semgrep-scan.js",
+    "tools:trufflehog": "node tools/trufflehog-scan.js"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.1",
@@ -52,6 +54,7 @@
     "astro-mcp": "^0.4.2",
     "astro-robots-txt": "^1.0.0",
     "preact": "^10.27.1",
+    "tailwind-merge": "^3.3.1",
     "zod": "^4.1.11"
   },
   "devDependencies": {
@@ -62,6 +65,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "@testing-library/jest-dom": "^6.8.0",
     "@types/node": "^24.5.2",
+    "@types/puppeteer": "^5.4.7",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
     "@vitest/coverage-v8": "^3.2.4",
@@ -80,6 +84,7 @@
     "lint-staged": "^16.2.0",
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",
+    "postcss-nesting": "^13.0.2",
     "postcss-preset-env": "^10.4.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
@@ -87,6 +92,7 @@
     "rimraf": "^6.0.1",
     "sharp": "^0.34.4",
     "tailwindcss": "^4.1.13",
+    "terser": "^5.44.0",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
     "vitest": "^3.2.4"

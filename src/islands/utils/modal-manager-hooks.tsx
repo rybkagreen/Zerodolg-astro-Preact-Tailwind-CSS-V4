@@ -1,7 +1,7 @@
 import { useEffect } from 'preact/hooks';
 import { useModal } from '@features/modals/model/modal-context';
 import { useDynamicModals } from '@features/modals/model/use-dynamic-modals';
-import { logger } from '@shared/utils/logger';
+import { logger } from '@shared/lib/logger';
 
 // Global type declarations
 declare global {

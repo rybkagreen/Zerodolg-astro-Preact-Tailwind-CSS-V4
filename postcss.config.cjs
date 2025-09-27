@@ -3,8 +3,8 @@
 
 module.exports = {
   plugins: [
-    require('@tailwindcss/postcss'),
-    require('autoprefixer'),
-    ...(process.env.NODE_ENV === 'production' ? [require('cssnano')({ preset: 'default' })] : []),
+    ...(process.env.NODE_ENV === 'production' 
+      ? [require('cssnano')({ preset: 'default' })] 
+      : []),
   ],
 };

@@ -1,5 +1,5 @@
 import { useEffect } from 'preact/hooks';
-import { logger } from '../../../shared/utils/logger';
+import { logger } from '../../../shared/lib/logger';
 
 // Extended HTMLElement interface for modal-specific properties
 interface ExtendedHTMLElement extends HTMLElement {

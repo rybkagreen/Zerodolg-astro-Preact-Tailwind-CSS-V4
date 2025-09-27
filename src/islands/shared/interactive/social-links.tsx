@@ -23,11 +23,14 @@ export default function SocialLinks({}: { data?: Record<string, unknown> }): VNo
 
       // Track with Yandex Metrika
       if (window.ym && window.yaCounterId) {
-        window.ym(window.yaCounterId, 'reachGoal', 'social_link_click', {
-          platform,
-          position: index,
-          url,
-        });
+        const counterId = typeof window.yaCounterId === 'string' ? parseInt(window.yaCounterId, 10) : window.yaCounterId;
+        if (!isNaN(counterId)) {
+          window.ym(counterId, 'reachGoal', 'social_link_click', {
+            platform,
+            position: index,
+            url,
+          });
+        }
       }
 
       // Open in new tab for social links

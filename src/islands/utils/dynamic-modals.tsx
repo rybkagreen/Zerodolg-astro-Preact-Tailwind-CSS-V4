@@ -1,6 +1,6 @@
 import { type VNode } from 'preact';
 import { useDynamicModals } from '@features/modals/model/use-dynamic-modals';
-import Modal from '@features/modals/ui/Modal';
+import Modal from '../../features/modals/ui/ModalEnhanced';
 
 export default function DynamicModals(): VNode {
   const { modals } = useDynamicModals();
