@@ -73,31 +73,90 @@ zerodolg-astro/
 │   ├── 🔧 maintenance/         # Обслуживание и оптимизация
 │   └── 🧪 test/                # Тестирование
 │
-├── 💻 src/                     # Исходный код
-│   ├── 🧩 components/          # UI компоненты
-│   │   ├── ui/                 # Базовые UI элементы
+├── 💻 src/                     # Исходный код (Feature-Sliced Design архитектура)
+│   │
+│   ├── 📱 app/                  # Application слой (FSD)
+│   │   ├── layouts/            # Главные макеты приложения
+│   │   ├── providers/          # React провайдеры и контекст
+│   │   └── styles/             # Глобальные стили приложения
+│   │
+│   ├── 🧩 components/          # UI компоненты (временные, мигрируют в shared/ui)
 │   │   ├── forms/              # Формы
+│   │   ├── layout/             # Layout компоненты
 │   │   └── sections/           # Секции страниц
 │   │
-│   ├── 🏝️ islands/             # Интерактивные Preact компоненты
+│   ├── 🎯 core/                # Основная бизнес-логика
+│   │   ├── constants/          # Константы приложения
+│   │   └── team-members.ts     # Данные команды
+│   │
+│   ├── 🗄️ entities/             # Entities слой (FSD) - бизнес-сущности
+│   │   ├── blog/content/       # Блог статьи (Markdown)
+│   │   ├── review/content/     # Отзывы клиентов
+│   │   ├── team/content/       # Данные команды
+│   │   └── config.ts           # Конфигурация сущностей
+│   │
+│   ├── ⚡ features/             # Features слой (FSD) - бизнес-функции
+│   │   ├── analytics/          # Аналитика (Google, Yandex)
+│   │   ├── calculator/         # Калькулятор стоимости
+│   │   ├── forms/              # Обработка форм
+│   │   └── modals/             # Система модальных окон
+│   │
+│   ├── 🏝️ islands/             # Islands Architecture - интерактивные Preact компоненты
 │   │   ├── forms/              # Интерактивные формы
-│   │   ├── shared/             # Общие интерактивные компоненты
+│   │   ├── interactive/        # Интерактивные компоненты
+│   │   ├── layout/             # Layout островки
+│   │   ├── shared/interactive/ # Общие интерактивные компоненты
 │   │   └── utils/              # Утилиты островов
 │   │
-│   ├── ⚡ features/             # Бизнес-функции
-│   │   ├── analytics/          # Аналитика
-│   │   ├── calculator/         # Калькулятор
-│   │   ├── forms/              # Обработка форм
-│   │   └── modals/             # Модальные окна
+│   ├── 📄 pages/               # Pages слой (FSD) - маршруты страниц
+│   │   ├── api/                # API маршруты
+│   │   └── blog/               # Страницы блога
 │   │
-│   ├── 🏗️ layouts/             # Макеты страниц
-│   ├── 📄 pages/               # Маршруты страниц
-│   ├── 🔧 widgets/             # Сложные UI компоненты
-│   ├── 📝 content/             # Коллекции контента
-│   ├── 🔨 lib/                 # Утилиты и хелперы
-│   ├── 🤝 shared/              # Общие утилиты
-│   ├── 🎯 core/                # Основная логика приложения
-│   └── 🎨 styles/              # Pure Tailwind CSS v4 стили
+│   ├── 🤝 shared/              # Shared слой (FSD) - переиспользуемые ресурсы
+│   │   ├── api/                # API клиенты и интеграции
+│   │   ├── config/             # Конфигурация приложения
+│   │   ├── hooks/              # Custom React hooks (12 hooks)
+│   │   │   ├── useAsyncEffect.ts      # Асинхронные эффекты
+│   │   │   ├── useClickOutside.ts     # Обработка кликов вне
+│   │   │   ├── useDebounce.ts         # Дебаунс хук
+│   │   │   ├── useFocusTrap.ts        # Ловушка фокуса
+│   │   │   ├── useIntersectionObserver.ts # Наблюдение за пересечением
+│   │   │   ├── useLocalStorage.ts     # Работа с localStorage
+│   │   │   ├── useMediaQuery.ts       # Медиа-запросы
+│   │   │   ├── usePerformanceMonitor.ts # Мониторинг производительности
+│   │   │   ├── usePrevious.ts         # Предыдущие значения
+│   │   │   ├── useReducedMotion.ts    # Анимации с учетом доступности
+│   │   │   ├── useScrollLock.ts       # Блокировка скролла
+│   │   │   └── useThrottle.ts         # Троттлинг хук
+│   │   ├── lib/                # Утилиты и хелперы
+│   │   │   ├── analytics.ts    # Аналитика
+│   │   │   ├── bitrix-callback.ts # Bitrix24 интеграция
+│   │   │   ├── env-validator.ts # Валидация переменных окружения
+│   │   │   ├── form-utils.ts   # Утилиты для форм
+│   │   │   ├── logger.ts       # Логирование
+│   │   │   └── performance.ts  # Производительность
+│   │   ├── types/              # TypeScript типы
+│   │   │   ├── analytics.ts    # Типы аналитики
+│   │   │   ├── form.ts         # Типы форм
+│   │   │   └── team.ts         # Типы команды
+│   │   ├── ui/                 # Переиспользуемые UI компоненты
+│   │   │   ├── Button/         # Кнопки
+│   │   │   ├── Card/           # Карточки
+│   │   │   ├── SEO/            # SEO компоненты
+│   │   │   ├── AccessibleModal.tsx # Доступные модальные окна
+│   │   │   ├── BitrixCallback.astro # Bitrix виджет
+│   │   │   └── [другие UI]     # Остальные UI компоненты
+│   │   └── utils/              # Общие утилиты
+│   │       └── cn.ts           # Утилиты для className
+│   │
+│   ├── 🎨 styles/              # Дополнительные стили
+│   │   └── theme.css           # Тема приложения
+│   │
+│   └── 🔧 widgets/             # Widgets слой (FSD) - сложные UI компоненты
+│       ├── faq/                # FAQ секция
+│       ├── footer/             # Подвал сайта
+│       ├── header/             # Шапка сайта
+│       └── reviews/            # Отзывы клиентов
 │
 └── 🛠️ tools/                   # Автономные инструменты
 ```
@@ -114,16 +173,16 @@ zerodolg-astro/
 
 ### 📁 Специализированная документация
 
-| Раздел             | Описание                                 | Ссылка                                   |
-| ------------------ | ---------------------------------------- | ---------------------------------------- |
-| ⚡ **Оптимизация** | Гиды по производительности и оптимизации | [docs/optimization/](docs/optimization/) |
-| 🔧 **Настройка**   | Инструкции по установке и конфигурации   | [docs/setup/](docs/setup/)               |
-| 🔄 **Миграции**    | Гайды по обновлению технологий           | [docs/migrations/](docs/migrations/)     |
-| 📊 **Анализ**      | Отчеты и метрики проекта                 | [docs/analysis/](docs/analysis/)         |
-| 🏗️ **Архитектура** | Feature-Sliced Design архитектура        | [docs/architecture.md](docs/architecture.md) |
-| 📝 **Руководство по стилю** | Стандарты кодирования и именования | [docs/style-guide.md](docs/style-guide.md) |
-| 📁 **Разработка**  | Руководство по работе с Git и внесению изменений | [docs/git.md](docs/git.md) |
-| 📋 **ADR**         | Architecture Decision Records           | [docs/adrs/](docs/adrs/)                 |
+| Раздел                      | Описание                                         | Ссылка                                       |
+| --------------------------- | ------------------------------------------------ | -------------------------------------------- |
+| ⚡ **Оптимизация**          | Гиды по производительности и оптимизации         | [docs/optimization/](docs/optimization/)     |
+| 🔧 **Настройка**            | Инструкции по установке и конфигурации           | [docs/setup/](docs/setup/)                   |
+| 🔄 **Миграции**             | Гайды по обновлению технологий                   | [docs/migrations/](docs/migrations/)         |
+| 📊 **Анализ**               | Отчеты и метрики проекта                         | [docs/analysis/](docs/analysis/)             |
+| 🏗️ **Архитектура**          | Feature-Sliced Design архитектура                | [docs/architecture.md](docs/architecture.md) |
+| 📝 **Руководство по стилю** | Стандарты кодирования и именования               | [docs/style-guide.md](docs/style-guide.md)   |
+| 📁 **Разработка**           | Руководство по работе с Git и внесению изменений | [docs/git.md](docs/git.md)                   |
+| 📋 **ADR**                  | Architecture Decision Records                    | [docs/adrs/](docs/adrs/)                     |
 
 ## 🛠️ Технологический стек
 
@@ -191,6 +250,48 @@ npx trufflehog .
 
 ## 🎨 Архитектура
 
+### 🏗️ Feature-Sliced Design (FSD)
+
+Проект использует современную **Feature-Sliced Design** архитектуру для
+организации кода по слоям и функциям:
+
+#### 📱 Слои FSD
+
+| Слой         | Папка           | Назначение                                                | Зависимости                           |
+| ------------ | --------------- | --------------------------------------------------------- | ------------------------------------- |
+| **App**      | `src/app/`      | 🎯 Инициализация приложения, провайдеры, глобальные стили | ← Все остальные слои                  |
+| **Pages**    | `src/pages/`    | 📄 Маршруты и страницы                                    | ← widgets, features, entities, shared |
+| **Widgets**  | `src/widgets/`  | 🔧 Сложные UI-блоки (Header, Footer, FAQ)                 | ← features, entities, shared          |
+| **Features** | `src/features/` | ⚡ Бизнес-функции (калькулятор, формы, модалы)            | ← entities, shared                    |
+| **Entities** | `src/entities/` | 🗄️ Бизнес-сущности (blog, team, reviews)                  | ← shared                              |
+| **Shared**   | `src/shared/`   | 🤝 Переиспользуемые ресурсы                               | Независимый                           |
+
+#### 🔄 Правила зависимостей
+
+- Слои могут использовать только **нижележащие** слои
+- **Shared** не зависит ни от кого
+- **Features** не знают друг о друге
+- **Pages** объединяют все слои
+
+#### 📦 Структура Shared слоя
+
+Samый важный слой содержит:
+
+- **`config/`** - Конфигурация приложения и переменные окружения
+- **`hooks/`** - 12 custom React hooks для типовых задач
+- **`lib/`** - Утилиты и хелперы (аналитика, валидация, логи)
+- **`types/`** - Централизованные TypeScript типы
+- **`ui/`** - Переиспользуемые UI компоненты
+- **`api/`** - API клиенты и интеграции
+
+### 🏝️ Islands Architecture + FSD
+
+Интеграция Astro Islands с FSD:
+
+- **Статические компоненты**: `src/shared/ui/`, `src/widgets/`
+- **Интерактивные острова**: `src/islands/` с логикой из `src/features/`
+- **Гидратация по требованию**: Только интерактивные части
+
 ### Основные принципы
 
 - **Feature-Sliced Design** - Организация кода по бизнес-функциям и слоям
@@ -198,13 +299,64 @@ npx trufflehog .
 - **Статическая генерация** - Предварительный рендеринг HTML для максимальной
   производительности
 - **Progressive Enhancement** - The site works without JavaScript
-- **Visual Fidelity** - UI/UX should match the original production site (https://zerodolg.ru/) using only Tailwind CSS and built-in Astro/Preact capabilities
+- **Visual Fidelity** - UI/UX should match the original production site
+  (https://zerodolg.ru/) using only Tailwind CSS and built-in Astro/Preact
+  capabilities
 - **Компонентный подход** - Модульная и переиспользуемая архитектура
+
+### 📺 Custom React Hooks
+
+Проект содержит **12 кастомных hooks** в `src/shared/hooks/` для решения типовых
+задач:
+
+| Hook                          | Назначение                       | Пример использования                     |
+| ----------------------------- | -------------------------------- | ---------------------------------------- |
+| **`useAsyncEffect`**          | 🔄 Асинхронные эффекты           | API запросы, загрузка данных             |
+| **`useClickOutside`**         | 🎯 Обработка кликов вне элемента | Закрытие модалов, выпадающих меню        |
+| **`useDebounce`**             | ⏱️ Дебаунс значений              | Поиск, валидация форм в реальном времени |
+| **`useFocusTrap`**            | 🌯 Ловушка фокуса                | Доступность модальных окон               |
+| **`useIntersectionObserver`** | 🔎 Наблюдение за пересечением    | Lazy loading, анимации появления         |
+| **`useLocalStorage`**         | 💾 Работа с localStorage         | Пользовательские настройки, кэширование  |
+| **`useMediaQuery`**           | 📱 Медиа-запросы                 | Адаптивные компоненты, темы              |
+| **`usePerformanceMonitor`**   | 📊 Мониторинг производительности | Core Web Vitals, метрики                 |
+| **`usePrevious`**             | ⬅️ Предыдущие значения           | Сравнение состояний, анимации            |
+| **`useReducedMotion`**        | ♿ Анимации с учетом доступности | Почтение `prefers-reduced-motion`        |
+| **`useScrollLock`**           | 🔒 Блокировка скролла            | Модальные окна, меню                     |
+| **`useThrottle`**             | 📟 Троттлинг вызовов             | Ограничение частоты событий              |
+
+#### 🔧 Пример использования
+
+```tsx
+// Пример с модальным окном
+import { useClickOutside, useFocusTrap, useScrollLock } from '@/shared/hooks';
+
+function Modal({ isOpen, onClose, children }) {
+  const modalRef = useRef(null);
+
+  // Автоматическое закрытие по клику вне
+  useClickOutside(modalRef, onClose);
+
+  // Ловушка фокуса для доступности
+  useFocusTrap(modalRef, isOpen);
+
+  // Блокировка скролла фона
+  useScrollLock(isOpen);
+
+  return isOpen ? (
+    <div className='modal-backdrop'>
+      <div ref={modalRef} className='modal'>
+        {children}
+      </div>
+    </div>
+  ) : null;
+}
+```
 
 ### Стили
 
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк
-  для быстрой разработки. Используется стабильная версия v4 с новым синтаксисом конфигурации через CSS
+  для быстрой разработки. Используется стабильная версия v4 с новым синтаксисом
+  конфигурации через CSS
 - **Mobile First** - Дизайн сначала для мобильных устройств
 
 ## 🌍 Современные практики 2025
@@ -312,7 +464,7 @@ npx trufflehog .
 | `npm run tools:compare-sites` | 📊 Сравнение сайтов              | Анализ производительности |
 | `npm run tools:diagnose-css`  | 🎨 Диагностика CSS               | Отчет о стилях            |
 | `npm run tools:semgrep`       | 🛡️ Проверка безопасности         | SAST анализ               |
-| `npm run tools:trufflehog`    | 🔍 Проверка утечки секретов       | Безопасность кода         |
+| `npm run tools:trufflehog`    | 🔍 Проверка утечки секретов      | Безопасность кода         |
 
 ## 🔧 Конфигурация и требования
 
@@ -363,7 +515,8 @@ NODE_ENV=development # development | production
 ### 👨‍💻 Для разработчиков
 
 1. ** <<=FORK==> ** - Форкните репозиторий
-2. ** <<=BRANCH==> ** - Создайте ветку: `git checkout -b feature/amazing-feature`
+2. ** <<=BRANCH==> ** - Создайте ветку:
+   `git checkout -b feature/amazing-feature`
 3. ** <<=DEVELOP==> ** - Используйте `npm run dev` для разработки
 4. ** <<=TEST==> ** - Убедитесь, что `npm run test` проходит
 5. ** <<=QUALITY==> ** - Проверьте `npm run lint` и `npm run type-check`
@@ -376,7 +529,8 @@ NODE_ENV=development # development | production
 8. ** <<=PUSH==> ** - Отправьте ветку: `git push origin feature/amazing-feature`
 9. ** <<=PR==> ** - Откройте Pull Request с описанием изменений
 
-Подробное руководство по внесению вклада см. в файле [CONTRIBUTING.md](CONTRIBUTING.md).
+Подробное руководство по внесению вклада см. в файле
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### 📔 Формат коммитов
 
