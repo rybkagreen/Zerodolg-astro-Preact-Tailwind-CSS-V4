@@ -93,7 +93,7 @@ const process = {
 ---
 
 <section
-  class:list={`py-20 md:py-28 bg-gradient-to-br from-indigo-50 via-blue-50 to-slate-50 relative overflow-hidden ${className}`}
+  class:list={`timeline-bg section-padding ${className}`}
   id='process'
 >
   <!-- Background decoration -->
@@ -102,7 +102,7 @@ const process = {
     <div class='absolute bottom-40 right-20 w-80 h-80 bg-indigo-300/10 rounded-full blur-3xl'></div>
   </div>
 
-  <div class='relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
+  <div class='container-custom'>
     <!-- Header -->
     <header class='text-center mb-16 md:mb-20'>
       <div
@@ -118,14 +118,8 @@ const process = {
         </svg>
         Процесс банкротства
       </div>
-      <h2 class='text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight'>
-        <span
-          class='bg-gradient-to-r from-slate-900 via-indigo-900 to-blue-900 bg-clip-text text-transparent'
-        >
-          {process.title}
-        </span>
-      </h2>
-      <p class='text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed'>{process.subtitle}</p>
+      <h2 class='section-title'>{process.title}</h2>
+      <p class='section-subtitle'>{process.subtitle}</p>
     </header>
 
     <!-- Modern Vertical Timeline -->
@@ -165,7 +159,7 @@ const process = {
 
                 {/* Card content */}
                 <div class='flex-1'>
-                  <div class='rounded-3xl bg-white/80 backdrop-blur-sm p-8 shadow-xl ring-1 ring-slate-200/50 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl'>
+                  <div class='enhanced-card p-8'>
                     {/* Header */}
                     <div class='mb-6'>
                       <div class='mb-2 flex items-center gap-3'>

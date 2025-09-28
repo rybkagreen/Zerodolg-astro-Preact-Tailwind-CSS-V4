@@ -30,5 +30,5 @@ export function useClickOutside<T extends HTMLElement>(
 
   return { ref: (element: T | null) => {
     ref.current = element;
-  }};
+  } };
 }

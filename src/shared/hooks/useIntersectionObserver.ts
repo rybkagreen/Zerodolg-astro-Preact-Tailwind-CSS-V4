@@ -12,7 +12,7 @@ interface IntersectionObserverOptions {
  */
 export function useIntersectionObserver<T extends HTMLElement>(
   options: IntersectionObserverOptions = {}
-): [import("preact").RefObject<T>, boolean, IntersectionObserverEntry | null] {
+): [import('preact').RefObject<T>, boolean, IntersectionObserverEntry | null] {
   const { threshold = 0, root = null, rootMargin = '0px', triggerOnce = false } = options;
   
   const elementRef = useRef<T>(null);
@@ -54,5 +54,5 @@ export function useIntersectionObserver<T extends HTMLElement>(
     };
   }, [threshold, root, rootMargin, triggerOnce]);
 
-  return [elementRef as import("preact").RefObject<T>, isIntersecting, entry];
+  return [elementRef as import('preact').RefObject<T>, isIntersecting, entry];
 }

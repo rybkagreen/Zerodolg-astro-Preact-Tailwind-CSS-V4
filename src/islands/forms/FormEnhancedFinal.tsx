@@ -5,7 +5,7 @@ import type { JSX, VNode } from 'preact';
 import { useDebounce } from '../../shared/hooks/useDebounce';
 import { useIntersectionObserver } from '../../shared/hooks/useIntersectionObserver';
 import { usePerformanceMonitor } from '../../shared/hooks/usePerformanceMonitor';
-import { type FormField, type FormConfig } from '@shared/types/form';
+import { type FormField, type FormConfig } from '../../shared/types/form';
 
 // Form validation schemas using Zod
 const createFieldSchema = (field: FormField) => {
@@ -158,19 +158,6 @@ const SuccessCheckmark = (): JSX.Element => (
   </div>
 );
 
-// Field Error Component with animation
-const FieldError = ({ message }: { message: string }): JSX.Element => (
-  <div class="field-error mt-1 flex items-center text-sm text-red-500 animate-slide-in" role="alert">
-    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-      <path
-        fill-rule="evenodd"
-        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-        clip-rule="evenodd"
-      />
-    </svg>
-    <span>{message}</span>
-  </div>
-);
 
 // Main Enhanced Form Component
 export default function FormEnhancedFinal({
@@ -468,21 +455,17 @@ export default function FormEnhancedFinal({
   
   // Determine input field class based on validation state
   const getFieldClass = (fieldName: string) => {
-    const baseClass = "w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all";
+    let className = 'input-field';
     
-    if (!enableFieldValidationHighlight) {
-      return `${baseClass} border-gray-300`;
-    }
-    
-    if (touchedFields.has(fieldName)) {
+    if (enableFieldValidationHighlight && touchedFields.has(fieldName)) {
       if (errors[fieldName]) {
-        return `${baseClass} border-red-500 focus:ring-red-500`;
+        className += ' is-invalid';
       } else if (fieldValidation[fieldName] === 'valid') {
-        return `${baseClass} border-green-500 focus:ring-green-500`;
+        className += ' is-valid';
       }
     }
     
-    return `${baseClass} border-gray-300`;
+    return className;
   };
   
   return (
@@ -540,7 +523,14 @@ export default function FormEnhancedFinal({
                 
                 {/* Показываем ошибку только для touched полей */}
                 {errors[field.name] && touchedFields.has(field.name) && (
-                  <FieldError message={errors[field.name] || ''} />
+                  <div class="field-error">
+                    <div class="error-icon">
+                      <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <span>{errors[field.name]}</span>
+                  </div>
                 )}
                 
                 {/* Показываем индикатор валидации */}
@@ -559,11 +549,7 @@ export default function FormEnhancedFinal({
           <button
             type="submit"
             disabled={isSubmitting || submitStatus === 'success'}
-            class={`w-full py-3 px-6 rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-[0.98] ${
-              isSubmitting || submitStatus === 'success'
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl'
-            }`}
+            class={`btn-primary w-full ${isSubmitting || submitStatus === 'success' ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {isSubmitting ? (
               <span class="flex items-center justify-center">

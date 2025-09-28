@@ -77,14 +77,14 @@ class FormErrorBoundary extends Component<{ children: VNode; className?: string 
   render() {
     if (this.state.hasError) {
       return (
-        <div class={cn("p-6 bg-error-50 border border-error-200 rounded-lg", this.props.className || '')}>
+        <div class={cn('p-6 bg-error-50 border border-error-200 rounded-lg', this.props.className || '')}>
           <h3 class="text-error-800 font-semibold mb-2">Произошла ошибка</h3>
           <p class="text-error-600">
             {this.state.error?.message || 'Что-то пошло не так. Пожалуйста, обновите страницу.'}
           </p>
           <button
             onClick={() => window.location.reload()}
-            class={cn("mt-4 px-4 py-2 bg-error text-white rounded hover:bg-error-700")}
+            class={cn('mt-4 px-4 py-2 bg-error text-white rounded hover:bg-error-700')}
           >
             Обновить страницу
           </button>
@@ -98,9 +98,9 @@ class FormErrorBoundary extends Component<{ children: VNode; className?: string 
 
 // Loading spinner component
 const LoadingSpinner = (): JSX.Element => (
-  <svg class={cn("animate-spin h-5 w-5")} viewBox="0 0 24 24" aria-label="Загрузка">
+  <svg class={cn('animate-spin h-5 w-5')} viewBox="0 0 24 24" aria-label="Загрузка">
     <circle
-      class={cn("opacity-25")}
+      class={cn('opacity-25')}
       cx="12"
       cy="12"
       r="10"
@@ -109,7 +109,7 @@ const LoadingSpinner = (): JSX.Element => (
       fill="none"
     />
     <path
-      class={cn("opacity-75")}
+      class={cn('opacity-75')}
       fill="currentColor"
       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
     />
@@ -119,9 +119,9 @@ const LoadingSpinner = (): JSX.Element => (
 // Success animation component
 const SuccessCheckmark = (): JSX.Element => (
   <div class="success-checkmark">
-    <svg class={cn("w-16 h-16")} viewBox="0 0 52 52">
-      <circle class={cn("checkmark-circle")} cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-      <path class={cn("checkmark-check")} fill="none" stroke="currentColor" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    <svg class={cn('w-16 h-16')} viewBox="0 0 52 52">
+      <circle class={cn('checkmark-circle')} cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path class={cn('checkmark-check')} fill="none" stroke="currentColor" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
     </svg>
     <style jsx>{`
       @keyframes stroke {
@@ -161,8 +161,8 @@ const SuccessCheckmark = (): JSX.Element => (
 
 // Field Error Component with animation
 const FieldError = ({ message }: { message: string }): JSX.Element => (
-  <div class={cn("mt-1 flex items-center text-sm text-error-500 animate-fade-in")} role="alert">
-    <svg class={cn("w-4 h-4 mr-1")} fill="currentColor" viewBox="0 0 20 20">
+  <div class={cn('mt-1 flex items-center text-sm text-error-500 animate-fade-in')} role="alert">
+    <svg class={cn('w-4 h-4 mr-1')} fill="currentColor" viewBox="0 0 20 20">
       <path
         fill-rule="evenodd"
         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
@@ -469,26 +469,26 @@ export default function FormEnhancedFinal({
   
   // Determine input field class based on validation state
   const getFieldClass = (fieldName: string) => {
-    const baseClass = cn("w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all");
+    const baseClass = cn('w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all');
     
     if (!enableFieldValidationHighlight) {
-      return cn(baseClass, "border-border");
+      return cn(baseClass, 'border-border');
     }
     
     if (touchedFields.has(fieldName)) {
       if (errors[fieldName]) {
-        return cn(baseClass, "border-error-500 focus:ring-error-500");
+        return cn(baseClass, 'border-error-500 focus:ring-error-500');
       } else if (fieldValidation[fieldName] === 'valid') {
-        return cn(baseClass, "border-success-500 focus:ring-success-500");
+        return cn(baseClass, 'border-success-500 focus:ring-success-500');
       }
     }
     
-    return cn(baseClass, "border-border");
+    return cn(baseClass, 'border-border');
   };
   
   return (
     <FormErrorBoundary>
-      <div ref={observerRef as any} class={cn("form-enhanced", className)}>
+      <div ref={observerRef as any} class={cn('form-enhanced', className)}>
         <form
           ref={formRef}
           onSubmit={handleSubmit}
@@ -563,7 +563,7 @@ export default function FormEnhancedFinal({
             type="submit"
             disabled={isSubmitting || submitStatus === 'success'}
             class={cn(
-              "w-full py-3 px-6 rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-[0.98]",
+              'w-full py-3 px-6 rounded-lg font-semibold transition-all transform hover:scale-[1.02] active:scale-[0.98]',
               (isSubmitting || submitStatus === 'success') 
                 ? 'bg-gray-400 cursor-not-allowed' 
                 : cn('bg-gradient-to-r from-primary-500 to-accent text-white shadow-lg hover:shadow-xl hover:from-primary-600 hover:to-accent-600')
@@ -586,13 +586,13 @@ export default function FormEnhancedFinal({
           
           {/* Status messages */}
           {submitStatus === 'success' && (
-            <div class={cn("p-4 bg-success-50 border border-success-200 rounded-lg animate-fade-in")}>
+            <div class={cn('p-4 bg-success-50 border border-success-200 rounded-lg animate-fade-in')}>
               <p class="text-success-800">{submitMessage}</p>
             </div>
           )}
           
           {submitStatus === 'error' && (
-            <div class={cn("p-4 bg-error-50 border border-error-200 rounded-lg animate-fade-in")}>
+            <div class={cn('p-4 bg-error-50 border border-error-200 rounded-lg animate-fade-in')}>
               <p class="text-error-800">{submitMessage}</p>
             </div>
           )}

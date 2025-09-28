@@ -13,7 +13,7 @@ export function useScrollLock(isActive: boolean): void {
 
     if (isActive) {
       // Сохраняем текущую позицию прокрутки
-      const scrollY = window.scrollY;
+      const { scrollY } = window;
 
       // Устанавливаем позицию прокрутки и добавляем стили для отключения прокрутки
       document.body.style.position = 'fixed';

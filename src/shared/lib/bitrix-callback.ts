@@ -163,16 +163,16 @@ export class BitrixCallback {
 
         let formatted = '+7';
         if (value.length > 0) {
-          formatted += ' (' + value.substring(0, 3);
+          formatted += ` (${value.substring(0, 3)}`;
         }
         if (value.length >= 4) {
-          formatted += ') ' + value.substring(3, 6);
+          formatted += `) ${value.substring(3, 6)}`;
         }
         if (value.length >= 7) {
-          formatted += '-' + value.substring(6, 8);
+          formatted += `-${value.substring(6, 8)}`;
         }
         if (value.length >= 9) {
-          formatted += '-' + value.substring(8, 10);
+          formatted += `-${value.substring(8, 10)}`;
         }
 
         eventTarget.value = formatted;

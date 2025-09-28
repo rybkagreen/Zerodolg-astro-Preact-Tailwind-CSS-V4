@@ -1,0 +1,297 @@
+/* Card CSS Module */
+/* Изолированные стили для карточек с использованием CSS Modules */
+
+.card {
+  @apply bg-white rounded-lg shadow-md border border-gray-200 transition-all duration-300 ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary-500), transparent);
+  transition: left 0.5s ease;
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+/* Enhanced Card Variant */
+.enhanced {
+  @apply shadow-lg border-gray-100;
+  backdrop-filter: blur(10px);
+}
+
+.enhanced:hover {
+  @apply shadow-xl -translate-y-1 border-blue-500/30;
+}
+
+/* Interactive Card */
+.interactive {
+  @apply cursor-pointer;
+}
+
+.interactive:hover {
+  @apply scale-[1.02] shadow-lg -translate-y-1;
+}
+
+.interactive:active {
+  @apply scale-[1.01] translate-y-0;
+}
+
+/* Glass Card Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Gradient Border Card */
+.gradientBorder {
+  position: relative;
+  background: white;
+}
+
+.gradientBorder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+}
+
+/* Card Header */
+.header {
+  @apply p-6 border-b border-gray-200;
+}
+
+.header:last-child {
+  @apply border-b-0;
+}
+
+/* Card Body */
+.body {
+  @apply p-6;
+}
+
+/* Card Footer */
+.footer {
+  @apply p-6 border-t border-gray-200 bg-gray-50;
+}
+
+.footer:first-child {
+  @apply border-t-0;
+}
+
+/* Size Variants */
+.small {
+  @apply text-sm;
+}
+
+.small .header,
+.small .body,
+.small .footer {
+  @apply p-4;
+}
+
+.large {
+  @apply text-lg;
+}
+
+.large .header,
+.large .body,
+.large .footer {
+  @apply p-8;
+}
+
+/* Padding Variants */
+.compact .header,
+.compact .body,
+.compact .footer {
+  @apply p-4;
+}
+
+.spacious .header,
+.spacious .body,
+.spacious .footer {
+  @apply p-8;
+}
+
+/* Content Layout */
+.horizontal {
+  @apply flex items-center gap-6;
+}
+
+.vertical {
+  @apply flex flex-col gap-4;
+}
+
+/* Image Card */
+.imageCard {
+  @apply overflow-hidden;
+}
+
+.imageCard img {
+  @apply w-full h-48 object-cover transition-transform duration-300;
+}
+
+.imageCard:hover img {
+  @apply scale-110;
+}
+
+/* Media Card */
+.mediaCard {
+  @apply flex gap-4 p-4;
+}
+
+.mediaCard .media {
+  @apply flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden;
+}
+
+.mediaCard .content {
+  @apply flex-1 min-w-0;
+}
+
+/* Stats Card */
+.statsCard {
+  @apply text-center p-6;
+}
+
+.statsCard .number {
+  @apply text-3xl font-bold text-blue-600 mb-2;
+}
+
+.statsCard .label {
+  @apply text-gray-500 font-medium;
+}
+
+/* Feature Card */
+.featureCard {
+  @apply p-6 text-center;
+}
+
+.featureCard .icon {
+  @apply w-12 h-12 mx-auto mb-4 p-3 rounded-full bg-blue-500/10 text-blue-600;
+}
+
+.featureCard .title {
+  @apply text-xl font-semibold mb-2;
+}
+
+.featureCard .description {
+  @apply text-gray-500;
+}
+
+/* Testimonial Card */
+.testimonialCard {
+  @apply p-6 relative;
+}
+
+.testimonialCard::before {
+  content: '"';
+  @apply absolute top-4 left-4 text-6xl text-blue-500/20 font-serif;
+}
+
+.testimonialCard .quote {
+  @apply relative z-10 mb-4 italic;
+}
+
+.testimonialCard .author {
+  @apply flex items-center gap-3 mt-4;
+}
+
+.testimonialCard .avatar {
+  @apply w-10 h-10 rounded-full overflow-hidden;
+}
+
+/* Pricing Card */
+.pricingCard {
+  @apply text-center relative overflow-hidden;
+}
+
+.pricingCard.popular {
+  @apply border-blue-500 shadow-lg;
+}
+
+.pricingCard.popular::before {
+  content: 'Популярный';
+  @apply absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 text-sm transform rotate-45 translate-x-6 translate-y-2;
+}
+
+.pricingCard .price {
+  @apply text-4xl font-bold text-blue-600 mb-2;
+}
+
+.pricingCard .currency {
+  @apply text-lg text-gray-500;
+}
+
+.pricingCard .features {
+  @apply space-y-2 mb-6;
+}
+
+/* Action Card */
+.actionCard {
+  @apply p-6 bg-gradient-to-br from-blue-500/5 to-purple-500/5 border-l-4 border-blue-500;
+}
+
+.actionCard .title {
+  @apply text-xl font-semibold text-blue-600 mb-2;
+}
+
+.actionCard .action {
+  @apply mt-4;
+}
+
+/* Loading State */
+.loading {
+  @apply relative overflow-hidden;
+}
+
+.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .card {
+  @apply bg-gray-800 border-gray-700;
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .footer {
+  @apply bg-gray-900;
+}

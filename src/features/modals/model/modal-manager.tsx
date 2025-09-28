@@ -19,6 +19,22 @@ class UnifiedModalManager {
 
   init(): void {
     logger.debug('[ModalManager] Starting initialization');
+    
+    // Make sure DOM is ready
+    if (document.readyState !== 'complete' && document.readyState !== 'interactive') {
+      logger.debug('[ModalManager] DOM not ready, waiting...');
+      document.addEventListener('DOMContentLoaded', () => {
+        logger.debug('[ModalManager] DOM ready, initializing...');
+        this.setupModalManager();
+      });
+      return;
+    }
+    
+    this.setupModalManager();
+  }
+  
+  private setupModalManager(): void {
+    logger.debug('[ModalManager] Setting up modal manager');
 
     // Setup event delegation for modal triggers
     document.addEventListener('click', this.handleTriggerClick.bind(this));
@@ -38,7 +54,13 @@ class UnifiedModalManager {
       open: this.openModal.bind(this),
       close: (modalId?: string) => this.closeModal(modalId),
       closeAll: this.closeAllModals.bind(this),
+      debug: this.getStats.bind(this),
     };
+
+    // Debug info
+    logger.debug('[ModalManager] Available modals:', {
+      modals: Array.from(document.querySelectorAll('.modal')).map(m => ({ id: m.id, classes: m.className }))
+    });
 
     logger.debug('[ModalManager] Global API window.modalManager set up');
     logger.info('[ModalManager] Initialization completed');
@@ -48,7 +70,17 @@ class UnifiedModalManager {
     logger.debug('[ModalManager] handleTriggerClick called');
     const target = e.target as HTMLElement;
     const trigger = target.closest('[data-modal]') as HTMLElement;
+    const closeButton = target.closest('[data-modal-close]') as HTMLElement;
 
+    // Handle modal close buttons
+    if (closeButton) {
+      e.preventDefault();
+      logger.debug('[ModalManager] Close button clicked');
+      this.closeModal();
+      return;
+    }
+
+    // Handle modal open triggers
     if (trigger) {
       e.preventDefault();
       const modalId = trigger.getAttribute('data-modal');
@@ -340,9 +372,17 @@ export const modalManager = new UnifiedModalManager();
 // Hook for React/Preact components
 export const useModalManager = () => {
   useEffect(() => {
-    modalManager.init();
+    try {
+      logger.debug('[ModalManager] Initializing from useModalManager hook');
+      modalManager.init();
+    } catch (error) {
+      logger.error('[ModalManager] Failed to initialize', {
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
 
     return () => {
+      logger.debug('[ModalManager] Cleanup from useModalManager hook');
       // Cleanup if needed
     };
   }, []);
@@ -350,5 +390,8 @@ export const useModalManager = () => {
   return modalManager;
 };
 
-// Default export for convenience
-export default useModalManager;
+// Component wrapper for easier usage
+export default function ModalManagerComponent() {
+  useModalManager();
+  return null;
+}

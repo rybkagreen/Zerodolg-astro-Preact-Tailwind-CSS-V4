@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Background Images and Section Styles
+   ========================================================================== */
+
+/* Hero Section Backgrounds */
+.hero-bg {
+  background: 
+    linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 50%, rgba(51, 65, 85, 0.9) 100%),
+    url('/images/sections/trust.svg');
+  background-size: cover, 400px 400px;
+  background-position: center, right 10% bottom 20%;
+  background-repeat: no-repeat;
+}
+
+/* Problems Section */
+.problems-bg {
+  background: 
+    linear-gradient(to bottom, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+}
+
+.problems-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/sections/learn.svg');
+  background-size: 300px 300px;
+  background-position: left 5% center;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Stats Section */
+.stats-bg {
+  background: 
+    linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  animation: gentle-float 20s ease-in-out infinite;
+}
+
+/* Calculator Section */
+.calculator-bg {
+  background: 
+    linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+}
+
+.calculator-bg::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  width: 200px;
+  height: 200px;
+  background: url('/icons/solution/04-chain-broken.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* Benefits Section */
+.benefits-bg {
+  background: 
+    linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  position: relative;
+}
+
+.benefits-bg::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 150px;
+  height: 150px;
+  background: url('/icons/solution/01-shield-check.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* Timeline Section */
+.timeline-bg {
+  background: 
+    linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);
+  position: relative;
+}
+
+/* Reviews Section */
+.reviews-bg {
+  background: 
+    linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+}
+
+/* Team Section */
+.team-bg {
+  background: 
+    linear-gradient(to bottom, #f9fafb 0%, #ffffff 100%);
+  position: relative;
+}
+
+.team-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  width: 250px;
+  height: 250px;
+  background: url('/images/sections/team.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* FAQ Section */
+.faq-bg {
+  background: 
+    linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  position: relative;
+}
+
+/* CTA Section */
+.cta-bg {
+  background: 
+    linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #581c87 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-bg::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: gentle-rotate 30s linear infinite;
+}
+
+/* ==========================================================================
+   Background Animations
+   ========================================================================== */
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes gentle-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ==========================================================================
+   Card and Component Enhancements
+   ========================================================================== */
+
+/* Enhanced card styles */
+.enhanced-card {
+  @apply bg-white rounded-xl shadow-sm ring-1 ring-gray-200 hover:shadow-md hover:ring-gray-300 transition-all duration-300;
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-card:hover::before {
+  left: 100%;
+}
+
+/* Glass effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Gradient borders */
+.gradient-border {
+  position: relative;
+  background: #ffffff;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+}
+
+/* ==========================================================================
+   Responsive Background Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .hero-bg {
+    background-size: cover, 250px 250px;
+    background-position: center, right 5% bottom 10%;
+  }
+  
+  .problems-bg::before,
+  .calculator-bg::after,
+  .benefits-bg::before,
+  .team-bg::after {
+    opacity: 0.03;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-bg {
+    background-size: cover, 200px 200px;
+  }
+  
+  .stats-bg::before {
+    animation-duration: 15s;
+  }
+  
+  .cta-bg::before {
+    width: 200px;
+    height: 200px;
+    animation-duration: 20s;
+  }
+}
+
+/* ==========================================================================
+   Dark Mode Support
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .problems-bg,
+  .calculator-bg,
+  .benefits-bg,
+  .reviews-bg,
+  .team-bg,
+  .faq-bg {
+    background: 
+      linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  
+  .enhanced-card {
+    @apply bg-gray-800 ring-gray-700 hover:ring-gray-600;
+  }
+}

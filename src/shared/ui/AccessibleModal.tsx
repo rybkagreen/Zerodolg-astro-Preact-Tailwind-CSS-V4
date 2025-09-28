@@ -61,9 +61,9 @@ export default function AccessibleModal({
     <div
       ref={containerRef}
       class={cn(
-        "fixed inset-0 z-[1000] overflow-y-auto",
-        "bg-black bg-opacity-50 backdrop-blur-sm",
-        "flex items-center justify-center p-4",
+        'fixed inset-0 z-[1000] overflow-y-auto',
+        'bg-black bg-opacity-50 backdrop-blur-sm',
+        'flex items-center justify-center p-4',
         className
       )}
       role={role}
@@ -74,10 +74,10 @@ export default function AccessibleModal({
       <div
         ref={modalRef}
         class={cn(
-          "relative bg-bg-primary rounded-xl shadow-xl",
-          "w-full max-h-[90vh] overflow-y-auto",
+          'relative bg-bg-primary rounded-xl shadow-xl',
+          'w-full max-h-[90vh] overflow-y-auto',
           sizeClasses[size],
-          "transform transition-all duration-300 ease-out"
+          'transform transition-all duration-300 ease-out'
         )}
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
       >
@@ -92,9 +92,9 @@ export default function AccessibleModal({
             <button
               onClick={onClose}
               class={cn(
-                "modal-close",
-                "p-1 rounded-full hover:bg-bg-muted focus:outline-none focus:ring-2 focus:ring-primary-500",
-                "text-text-muted hover:text-text-primary"
+                'modal-close',
+                'p-1 rounded-full hover:bg-bg-muted focus:outline-none focus:ring-2 focus:ring-primary-500',
+                'text-text-muted hover:text-text-primary'
               )}
               aria-label="Закрыть модальное окно"
               data-modal-id={title}

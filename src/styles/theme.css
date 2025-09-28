@@ -1,4 +1,4 @@
-@theme {
+:root {
   /* Brand Colors */
   --color-primary: oklch(48.25% 0.227 262.89);
   --color-primary-50: oklch(94.51% 0.015 262.89);

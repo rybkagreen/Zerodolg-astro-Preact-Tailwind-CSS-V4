@@ -1,8 +1,8 @@
 // Service Worker for ZeroDolg.ru - Offline Support and Caching
 
-const CACHE_NAME = 'zerodolg-v1.0.0';
-const STATIC_CACHE_NAME = 'zerodolg-static-v1.0.0';
-const DYNAMIC_CACHE_NAME = 'zerodolg-dynamic-v1.0.0';
+const CACHE_NAME = 'zerodolg-v2.0.0';
+const STATIC_CACHE_NAME = 'zerodolg-static-v2.0.0';
+const DYNAMIC_CACHE_NAME = 'zerodolg-dynamic-v2.0.0';
 
 // URLs to cache on install (critical assets)
 const STATIC_ASSETS = [

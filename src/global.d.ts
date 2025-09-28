@@ -22,6 +22,12 @@ declare global {
       getConfig: () => AnalyticsConfig;
     };
     yaCounterId?: string;
+    modalManager?: {
+      open: (modalId: string, modalType?: string) => void;
+      close: (modalId?: string) => void;
+      closeAll: () => void;
+      debug: () => { totalModals: number; activeModal: string | null; dynamicModals: number };
+    };
   }
 }
 

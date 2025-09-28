@@ -14,7 +14,7 @@ import Faq from '@widgets/faq/Faq.astro';
 import Cta from '@shared/ui/Cta.astro';
 import Footer from '@widgets/footer/Footer.astro';
 import CallbackModal from '@features/modals/ui/CallbackModal.astro';
-import ModalManager from '../features/modals/model/modal-manager.tsx';
+import SimpleModalInit from '../islands/utils/SimpleModalInit.tsx';
 import SocialLinks from '../islands/shared/interactive/social-links.tsx';
 import ScrollAnimations from '../islands/utils/scroll-animations.tsx';
 import OnlineSticker from '@shared/ui/OnlineSticker.astro';
@@ -87,10 +87,10 @@ import ClientInteractions from '../islands/utils/client-interactions.tsx';
   </div>
 
   <!-- Modals -->
-  <CallbackModal />
+  <CallbackModal modalId='callback' />
 
-  <!-- Modal Manager for handling all modals -->
-  <ModalManager client:idle />
+  <!-- Simple Modal Manager for handling all modals -->
+  <SimpleModalInit client:idle />
 
   <!-- Special Offers Components -->
   <SpecialOffers />

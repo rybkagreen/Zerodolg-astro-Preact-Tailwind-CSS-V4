@@ -154,7 +154,7 @@ function trackScrollDepth(): void {
             const ymId = parseInt(CONFIG.YANDEX_METRIKA_ID, 10);
             if (!isNaN(ymId)) {
               window.ym(ymId, 'reachGoal', 'scroll_depth', {
-                depth: depth,
+                depth,
               });
             }
           }
@@ -295,7 +295,7 @@ function initAnalytics(): void {
   // Expose analytics API for manual tracking
   window.ZeroDolgAnalytics = {
     // Track custom event
-    trackEvent: function (eventName: string, parameters?: EventParameters): void {
+    trackEvent (eventName: string, parameters?: EventParameters): void {
       parameters = parameters || {};
 
       // Yandex.Metrika
@@ -320,17 +320,17 @@ function initAnalytics(): void {
         );
       }
 
-      debugLog('Custom event tracked:', { event: eventName, parameters: parameters });
+      debugLog('Custom event tracked:', { event: eventName, parameters });
     },
 
     // Enable/disable debug mode
-    setDebug: function (enabled: boolean): void {
+    setDebug (enabled: boolean): void {
       CONFIG.DEBUG = enabled;
       debugLog('Debug mode:', enabled ? 'enabled' : 'disabled');
     },
 
     // Get current config
-    getConfig: function (): AnalyticsConfig {
+    getConfig (): AnalyticsConfig {
       return CONFIG;
     },
   };

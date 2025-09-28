@@ -41,7 +41,7 @@ const benefits = [
 ---
 
 <section
-  class='py-20 md:py-28 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden'
+  class='benefits-section section-padding'
   id='benefits'
   aria-labelledby='benefits-title'
 >
@@ -57,7 +57,7 @@ const benefits = [
     </div>
   </div>
 
-  <div class='relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+  <div class='container-custom'>
     <header class='text-center mb-16 md:mb-20'>
       <div
         class='inline-flex items-center gap-2 rounded-full bg-blue-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
@@ -71,26 +71,15 @@ const benefits = [
         </svg>
         Наши преимущества
       </div>
-      <h2
-        id='benefits-title'
-        class='text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight'
-      >
-        <span
-          class='bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent'
-        >
-          Почему выбирают именно нас
-        </span>
+      <h2 id='benefits-title' class='section-title'>
+        Почему выбирают именно нас
       </h2>
-      <p class='text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed'>
+      <p class='section-subtitle'>
         Мы создали идеальную систему для решения ваших финансовых проблем
       </p>
     </header>
 
-    <div
-      class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10'
-      role='list'
-      aria-label='Преимущества работы с нами'
-    >
+    <div class='grid-auto-fit' role='list' aria-label='Преимущества работы с нами'>
       {
         benefits.map((benefit, index) => {
           const gradientClasses = [
@@ -104,10 +93,7 @@ const benefits = [
           const gradient = gradientClasses[index % gradientClasses.length];
 
           return (
-            <article
-              class='group relative overflow-hidden rounded-3xl bg-white/80 backdrop-blur-sm p-8 shadow-xl ring-1 ring-slate-200/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:ring-slate-300/50'
-              role='listitem'
-            >
+            <article class='feature-card' role='listitem'>
               {/* Background gradient overlay on hover */}
               <div
                 class:list={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`}
@@ -119,9 +105,7 @@ const benefits = [
               <div class='relative'>
                 {/* Enhanced icon container */}
                 <div class='mb-6'>
-                  <div
-                    class:list={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
-                  >
+                  <div class='feature-icon'>
                     {benefit.icon === 'experience' && (
                       <svg
                         viewBox='0 0 24 24'
@@ -217,12 +201,8 @@ const benefits = [
 
                 {/* Content */}
                 <div class='space-y-4'>
-                  <h3 class='text-2xl font-bold text-slate-900 group-hover:text-slate-800 transition-colors duration-300'>
-                    {benefit.title}
-                  </h3>
-                  <p class='text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-300'>
-                    {benefit.description}
-                  </p>
+                  <h3 class='feature-title'>{benefit.title}</h3>
+                  <p class='feature-description'>{benefit.description}</p>
                 </div>
 
                 {/* Decorative arrow */}

@@ -1,0 +1,169 @@
+/* Button CSS Module */
+/* Изолированные стили для кнопок с использованием CSS Modules */
+
+.button {
+  @apply inline-flex items-center justify-center gap-3 px-6 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ease-out cursor-pointer border-0 outline-none;
+  min-height: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.button:hover::before {
+  opacity: 0.1;
+}
+
+/* Primary Button Variant */
+.primary {
+  @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg;
+}
+
+.primary:hover {
+  @apply shadow-xl scale-105 -translate-y-1 from-blue-600 to-blue-700;
+}
+
+.primary:focus {
+  @apply ring-4 ring-blue-500/25;
+}
+
+.primary:active {
+  @apply scale-[1.02] translate-y-0;
+}
+
+/* Secondary Button Variant */
+.secondary {
+  @apply bg-gray-100 text-gray-800 border-2 border-gray-300 shadow-md;
+}
+
+.secondary:hover {
+  @apply bg-gray-200 border-blue-500/50 shadow-lg scale-105 -translate-y-1;
+}
+
+.secondary:focus {
+  @apply ring-4 ring-blue-500/25;
+}
+
+/* Ghost Button Variant */
+.ghost {
+  @apply bg-transparent text-gray-700 border-2 border-transparent;
+}
+
+.ghost:hover {
+  @apply bg-gray-100/50 border-gray-300 text-blue-600;
+}
+
+.ghost:focus {
+  @apply ring-2 ring-blue-500/25;
+}
+
+/* Danger Button Variant */
+.danger {
+  @apply bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg;
+}
+
+.danger:hover {
+  @apply shadow-xl scale-105 -translate-y-1 from-red-600 to-red-700;
+}
+
+/* Success Button Variant */
+.success {
+  @apply bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg;
+}
+
+.success:hover {
+  @apply shadow-xl scale-105 -translate-y-1 from-green-600 to-green-700;
+}
+
+/* Size Variants */
+.small {
+  @apply px-4 py-2 text-sm;
+  min-height: 2.5rem;
+}
+
+.large {
+  @apply px-8 py-5 text-xl;
+  min-height: 4rem;
+}
+
+/* State Variants */
+.loading {
+  @apply cursor-not-allowed opacity-75;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.disabled {
+  @apply cursor-not-allowed opacity-50;
+  pointer-events: none;
+}
+
+/* Icon Only Button */
+.iconOnly {
+  @apply w-12 h-12 p-0;
+  min-height: 3rem;
+}
+
+.iconOnly.small {
+  @apply w-8 h-8;
+  min-height: 2rem;
+}
+
+.iconOnly.large {
+  @apply w-16 h-16;
+  min-height: 4rem;
+}
+
+/* Full Width Button */
+.fullWidth {
+  @apply w-full;
+}
+
+/* Button Group */
+.group {
+  @apply inline-flex;
+}
+
+.group .button:not(:first-child) {
+  @apply rounded-l-none border-l-0;
+}
+
+.group .button:not(:last-child) {
+  @apply rounded-r-none;
+}
+
+/* Floating Action Button */
+.fab {
+  @apply fixed bottom-6 right-6 rounded-full shadow-2xl z-50;
+  min-height: 3.5rem;
+  width: 3.5rem;
+}
+
+.fab:hover {
+  @apply shadow-2xl scale-110 -translate-y-2;
+}
+
+/* Animation keyframes */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

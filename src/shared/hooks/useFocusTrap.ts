@@ -14,7 +14,7 @@ interface FocusTrapOptions {
 export function useFocusTrap<T extends HTMLElement>(
   isActive: boolean,
   options: FocusTrapOptions = {}
-): import("preact").RefObject<T> {
+): import('preact').RefObject<T> {
   const {
     initialFocus,
     restoreFocus = true,

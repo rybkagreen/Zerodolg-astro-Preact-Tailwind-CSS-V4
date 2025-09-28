@@ -32,10 +32,10 @@ export default function ModalEnhanced({
   disableScrollLock = false,
   initialFocus,
   role = 'dialog',
-  backdropClass = 'fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity',
-  containerClass = 'fixed inset-0 overflow-y-auto',
-  headerClass = 'flex items-center justify-between p-4 border-b',
-  bodyClass = 'p-4'
+  backdropClass = 'fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity z-modalBackdrop',
+  containerClass = 'fixed inset-0 overflow-y-auto z-modal',
+  headerClass = 'flex items-center justify-between p-6 border-b border-neutral-200',
+  bodyClass = 'p-6'
 }: ModalProps): VNode | null {
   const [isActive, setIsActive] = useState(false);
   const { ref: clickOutsideRef } = useClickOutside<HTMLDivElement>(() => {
@@ -122,17 +122,17 @@ export default function ModalEnhanced({
               focusTrapRef.current = el;
             }
           }}
-          class="relative bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden"
+          class="enhanced-card w-full max-w-md overflow-hidden"
           style={contentStyle}
           role="document"
         >
           <div class={headerClass}>
-            <h3 class="text-lg font-semibold text-gray-900" id={`${id}-title`}>
+            <h3 class="text-xl font-semibold text-neutral-900" id={`${id}-title`}>
               {title}
             </h3>
             <button
               onClick={handleClose}
-              class="text-gray-400 hover:text-gray-600 rounded-full p-1"
+              class="btn-ghost !p-2 text-neutral-400 hover:text-neutral-600"
               aria-label="Закрыть"
             >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

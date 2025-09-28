@@ -12,7 +12,7 @@ interface StatsItem {
 }
 
 interface StatsProps {
-  items: StatsItem[];
+  items?: StatsItem[];
   title?: string;
   description?: string;
   enableAnimations?: boolean;
@@ -22,9 +22,9 @@ interface StatsProps {
 }
 
 const StatsEnhanced = ({
-  items,
-  title,
-  description,
+  items = [],
+  title = '',
+  description = '',
   enableAnimations = true,
   enableTiltEffect = true,
   liveVisitorCount = false,
@@ -215,7 +215,7 @@ const StatsEnhanced = ({
       <div ref={observerRef} style={{ display: 'none' }} aria-hidden="true" />
       {/* Using props to avoid unused variable errors */}
       <span style={{ display: 'none' }} aria-live="polite">
-        {title} {description} {items.length}
+        {title} {description} {items?.length || 0}
       </span>
       {/* Using liveCount to avoid unused variable error */}
       {liveVisitorCount && <span style={{ display: 'none' }} aria-live="polite">{`Текущее количество посетителей: ${liveCount}`}</span>}

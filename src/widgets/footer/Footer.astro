@@ -34,7 +34,7 @@ const company = {
   itemtype='https://schema.org/Organization'
 >
   <div class='py-12'>
-    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <div class='container-custom'>
       <div class='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
         <!-- Company Information -->
         <div class='md:col-span-2 lg:col-span-1'>
@@ -46,7 +46,7 @@ const company = {
           >
             <img
               src='/images/logo-white.svg'
-              alt='{company.name} - Банкротство физических лиц'
+              alt={`${company.name} - Банкротство физических лиц`}
               width='180'
               height='50'
               loading='lazy'
@@ -64,15 +64,15 @@ const company = {
           <div class='flex space-x-4' role='navigation' aria-label='Социальные сети компании'>
             {
               company.social.whatsapp && (
-                <a
-                  href='{company.social.whatsapp}'
-                  class='w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200'
-                  target='_blank'
-                  rel='noopener nofollow'
-                  itemprop='sameAs'
-                  aria-label='Консультация в WhatsApp по банкротству физических лиц'
-                  title='Написать в WhatsApp'
-                >
+              <a
+                href={company.social.whatsapp}
+                class='w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200'
+                target='_blank'
+                rel='noopener nofollow'
+                itemprop='sameAs'
+                aria-label='Консультация в WhatsApp по банкротству физических лиц'
+                title='Написать в WhatsApp'
+              >
                   <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
                     <use xlink:href='#icon-whatsapp' />
                   </svg>
@@ -81,15 +81,15 @@ const company = {
             }
             {
               company.social.telegram && (
-                <a
-                  href='{company.social.telegram}'
-                  class='w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200'
-                  target='_blank'
-                  rel='noopener nofollow'
-                  itemprop='sameAs'
-                  aria-label='Консультация в Telegram по банкротству физических лиц'
-                  title='Написать в Telegram'
-                >
+              <a
+                href={company.social.telegram}
+                class='w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200'
+                target='_blank'
+                rel='noopener nofollow'
+                itemprop='sameAs'
+                aria-label='Консультация в Telegram по банкротству физических лиц'
+                title='Написать в Telegram'
+              >
                   <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
                     <use xlink:href='#icon-telegram' />
                   </svg>
@@ -98,15 +98,15 @@ const company = {
             }
             {
               company.social.vk && (
-                <a
-                  href='{company.social.vk}'
-                  class='w-10 h-10 bg-gray-800 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors duration-200'
-                  target='_blank'
-                  rel='noopener nofollow'
-                  itemprop='sameAs'
-                  aria-label='Группа ВКонтакте о банкротстве физических лиц'
-                  title='Наша группа ВКонтакте'
-                >
+              <a
+                href={company.social.vk}
+                class='w-10 h-10 bg-gray-800 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors duration-200'
+                target='_blank'
+                rel='noopener nofollow'
+                itemprop='sameAs'
+                aria-label='Группа ВКонтакте о банкротстве физических лиц'
+                title='Наша группа ВКонтакте'
+              >
                   <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
                     <use xlink:href='#icon-vk' />
                   </svg>
@@ -240,11 +240,11 @@ const company = {
               </svg>
               <div>
                 <a
-                  href='tel:{phone company.phone}'
+                  href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
                   class='text-white hover:text-blue-400 transition-colors duration-200 font-semibold'
                   itemprop='telephone'
                   title='Позвонить для бесплатной консультации по банкротству'
-                  aria-label='Телефон для консультации: {company.phone}'
+                  aria-label={`Телефон для консультации: ${company.phone}`}
                 >
                   {company.phone}
                 </a>
@@ -265,11 +265,11 @@ const company = {
                 <use xlink:href='#icon-email'></use>
               </svg>
               <a
-                href='mailto:{company.email}'
+                href={`mailto:${company.email}`}
                 class='text-white hover:text-blue-400 transition-colors duration-200'
                 itemprop='email'
                 title='Написать письмо для консультации по банкротству'
-                aria-label='Email: {company.email}'
+                aria-label={`Email: ${company.email}`}
               >
                 {company.email}
               </a>
@@ -288,8 +288,7 @@ const company = {
               <address class='text-gray-300 not-italic leading-relaxed'>
                 <span itemprop='addressLocality'>{company.address.city}</span>,<br />
                 <span itemprop='streetAddress'>{company.address.street}</span>
-                <meta itemprop='addressRegion' content='{company.address.region}' />
-                <meta itemprop='postalCode' content='{company.address.postal}' />
+                <meta itemprop='addressRegion' content={company.address.region} />
                 <meta itemprop='addressCountry' content='RU' />
               </address>
             </div>
@@ -297,7 +296,7 @@ const company = {
 
           <!-- CTA Button -->
           <button
-            class='w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200'
+            class='w-full mt-6 btn-primary py-3'
             data-modal='callback'
             type='button'
             aria-label='Заказать бесплатную консультацию по банкротству физических лиц'

@@ -1,0 +1,86 @@
+---
+import Layout from '@app/layouts/Layout.astro';
+import CallbackModal from '@features/modals/ui/CallbackModal.astro';
+import ModalManager from '../features/modals/model/modal-manager.tsx';
+---
+
+<Layout title="Modal Test">
+  <div class="container mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-8">Modal Test Page</h1>
+    
+    <!-- Test buttons -->
+    <div class="space-y-4">
+      <button 
+        class="btn-primary"
+        data-modal="callback"
+        type="button"
+      >
+        Open Callback Modal
+      </button>
+      
+      <button 
+        class="btn-secondary"
+        onclick="console.log('Testing modal manager:', window.modalManager); window.modalManager?.open('callback')"
+        type="button"
+      >
+        Test Modal Manager Directly
+      </button>
+      
+      <button 
+        class="btn-ghost"
+        onclick="console.log('All modals:', document.querySelectorAll('.modal'))"
+        type="button"
+      >
+        Debug: List All Modals
+      </button>
+    </div>
+
+    <!-- Debug info -->
+    <div class="mt-8 p-4 bg-gray-100 rounded">
+      <h2 class="text-xl font-bold mb-4">Debug Info:</h2>
+      <div id="debug-info">
+        <p>Modal Manager: <span id="modal-manager-status">Loading...</span></p>
+        <p>Modals found: <span id="modals-count">-</span></p>
+        <p>Callback Modal ID: <span id="callback-modal-id">-</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <CallbackModal modalId='callback' />
+  
+  <!-- Modal Manager -->
+  <ModalManager client:load />
+
+  <script>
+    // Debug script
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        // Check modal manager
+        const managerStatus = document.getElementById('modal-manager-status');
+        if (managerStatus) {
+          managerStatus.textContent = window.modalManager ? 'Available' : 'Not found';
+        }
+
+        // Count modals
+        const modalsCount = document.getElementById('modals-count');
+        if (modalsCount) {
+          modalsCount.textContent = document.querySelectorAll('.modal').length.toString();
+        }
+
+        // Check callback modal
+        const callbackModalId = document.getElementById('callback-modal-id');
+        if (callbackModalId) {
+          const modal = document.getElementById('callback');
+          callbackModalId.textContent = modal ? 'Found' : 'Not found';
+        }
+
+        console.log('Debug info:', {
+          modalManager: !!window.modalManager,
+          modals: document.querySelectorAll('.modal'),
+          callbackModal: document.getElementById('callback')
+        });
+      }, 1000);
+    });
+  </script>
+</Layout>

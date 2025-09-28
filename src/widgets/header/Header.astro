@@ -78,9 +78,9 @@ const mobileMenuItems = [
 ---
 
 <!-- Advanced Interactive Navigation -->
-<header class='bg-white shadow-md sticky top-0 z-50' id='main-header'>
+<header class='bg-white shadow-md sticky top-0 z-fixed' id='main-header'>
   <nav
-    class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
+    class='container-custom'
     role='navigation'
     aria-label='Главная навигация'
   >
@@ -96,7 +96,7 @@ const mobileMenuItems = [
           <!-- Services Dropdown -->
           <li class='relative group'>
             <button
-              class='text-gray-700 hover:text-primary px-3 py-2 font-medium text-sm flex items-center'
+              class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
               aria-haspopup='true'
               data-dropdown='services'
@@ -112,7 +112,7 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block'
+              class='absolute z-50 mt-2 w-64 card hidden group-hover:block'
               data-dropdown-menu='services'
             >
               <div class='py-1'>
@@ -142,7 +142,7 @@ const mobileMenuItems = [
           <!-- About Dropdown -->
           <li class='relative group'>
             <button
-              class='text-gray-700 hover:text-primary px-3 py-2 font-medium text-sm flex items-center'
+              class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
               aria-haspopup='true'
               data-dropdown='about'
@@ -158,7 +158,7 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block'
+              class='absolute z-50 mt-2 w-64 card hidden group-hover:block'
               data-dropdown-menu='about'
             >
               <div class='py-1'>
@@ -182,7 +182,7 @@ const mobileMenuItems = [
           <!-- Info Dropdown -->
           <li class='relative group'>
             <button
-              class='text-gray-700 hover:text-primary px-3 py-2 font-medium text-sm flex items-center'
+              class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
               aria-haspopup='true'
               data-dropdown='info'
@@ -198,7 +198,7 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute z-10 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block'
+              class='absolute z-50 mt-2 w-64 card hidden group-hover:block'
               data-dropdown-menu='info'
             >
               <div class='py-1'>
@@ -225,11 +225,11 @@ const mobileMenuItems = [
       <div class='flex items-center'>
         <!-- Quick Actions for Desktop -->
         <div class='hidden md:flex items-center space-x-4'>
-          <a
-            href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
-            class='flex items-center text-nav-text hover:text-nav-hover transition-colors'
-            aria-label='Позвонить'
-          >
+        <a
+          href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
+          class='flex items-center text-gray-600 hover:text-blue-600 transition-colors'
+          aria-label='Позвонить'
+        >
             <svg width='20' height='20' viewBox='0 0 20 20' fill='none'>
               <path
                 d='M18.3 15.2C18.3 15.5 18.24 15.81 18.11 16.11C17.98 16.41 17.81 16.69 17.58 16.95C17.19 17.38 16.76 17.68 16.27 17.86C15.79 18.04 15.27 18.13 14.71 18.13C13.86 18.13 12.96 17.92 12.02 17.49C11.08 17.06 10.14 16.49 9.21 15.78C8.27 15.06 7.38 14.27 6.53 13.4C5.69 12.54 4.91 11.64 4.2 10.7C3.5 9.76 2.93 8.82 2.51 7.89C2.09 6.95 1.88 6.05 1.88 5.19C1.88 4.65 1.97 4.13 2.14 3.64C2.31 3.14 2.6 2.69 3.02 2.3C3.53 1.8 4.09 1.55 4.68 1.55C4.91 1.55 5.14 1.6 5.35 1.7C5.57 1.8 5.77 1.95 5.93 2.17L7.72 4.71C7.88 4.92 8 5.11 8.08 5.29C8.16 5.46 8.2 5.63 8.2 5.78C8.2 5.97 8.14 6.16 8.02 6.34C7.91 6.52 7.75 6.71 7.55 6.9L6.96 7.51C6.87 7.6 6.83 7.71 6.83 7.84C6.83 7.9 6.84 7.95 6.86 8.01C6.89 8.07 6.92 8.11 6.94 8.15C7.1 8.43 7.37 8.8 7.75 9.24C8.14 9.68 8.55 10.13 9 10.58C9.46 11.03 9.9 11.44 10.35 11.83C10.79 12.21 11.16 12.47 11.45 12.63C11.48 12.65 11.52 12.68 11.57 12.71C11.63 12.74 11.69 12.75 11.76 12.75C11.9 12.75 12.01 12.7 12.1 12.61L12.69 12.03C12.89 11.83 13.08 11.68 13.26 11.57C13.44 11.45 13.62 11.39 13.82 11.39C13.97 11.39 14.13 11.42 14.31 11.5C14.49 11.58 14.68 11.69 14.89 11.84L17.46 13.66C17.68 13.82 17.83 14.01 17.92 14.23C18 14.45 18.05 14.67 18.05 14.91'
@@ -243,7 +243,7 @@ const mobileMenuItems = [
 
         <!-- CTA Button -->
         <button
-          class='hidden md:inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ml-4'
+          class='hidden md:inline-flex btn-primary'
           data-modal='callback'
         >
           <span>Получить консультацию</span>
@@ -259,7 +259,7 @@ const mobileMenuItems = [
 
         <!-- Mobile Menu Toggle -->
         <button
-          class='md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary'
+          class='md:hidden inline-flex btn-ghost !p-2'
           aria-label='Меню'
           aria-expanded='false'
           data-mobile-toggle
@@ -303,7 +303,7 @@ const mobileMenuItems = [
             <img src='/icons/logo.svg' alt={company.name} width='180' height='50' loading='lazy' />
           </a>
           <button
-            class='-mr-2 p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+            class='btn-ghost !p-2'
             type='button'
             aria-label='Закрыть мобильное меню'
             data-mobile-menu-close
@@ -343,19 +343,19 @@ const mobileMenuItems = [
 
         <!-- Mobile Contact Information -->
         <div class='border-t p-4 space-y-4'>
-          <a
-            href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
-            class='block text-center text-lg font-semibold text-primary hover:text-primary-dark'
-            title='Позвонить для консультации'
-            aria-label={`Телефон: ${company.phone}`}
-          >
+        <a
+          href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
+          class='block text-center text-lg font-semibold text-blue-600 hover:text-blue-700'
+          title='Позвонить для консультации'
+          aria-label={`Телефон: ${company.phone}`}
+        >
             {company.phone}
           </a>
           <time class='block text-center text-base text-gray-500' datetime='Mo-Fr 09:00-18:00'>
             {company.workHours}
           </time>
           <button
-            class='w-full py-3 px-4 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+            class='w-full btn-secondary py-3'
             data-modal='install-app'
             type='button'
             aria-label='Установить приложение'
@@ -363,7 +363,7 @@ const mobileMenuItems = [
             <span>📱 Установить приложение</span>
           </button>
           <button
-            class='w-full py-3 px-4 bg-primary text-white rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
+            class='w-full btn-primary py-3'
             data-modal='callback'
             type='button'
             aria-label='Заказать обратный звонок для консультации'

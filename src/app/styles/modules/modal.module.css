@@ -1,0 +1,268 @@
+/**
+ * Modal Components Styles
+ * Modern modal window implementation with backdrop blur and animations
+ */
+
+/* Modal container */
+.modal {
+  @apply fixed inset-0 z-50 overflow-y-auto;
+  @apply flex items-center justify-center p-4;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  /* Animation */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-out;
+}
+
+.modal[data-modal-open="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal overlay */
+.modal__overlay {
+  @apply absolute inset-0 bg-black/50;
+  @apply cursor-pointer;
+}
+
+/* Modal content */
+.modal__content {
+  @apply relative bg-white rounded-xl shadow-2xl;
+  @apply transform transition-all duration-300 ease-out;
+  @apply w-full max-w-md mx-auto;
+  @apply max-h-[90vh] overflow-y-auto;
+  
+  /* Animation */
+  transform: scale(0.95) translateY(10px);
+}
+
+.modal[data-modal-open="true"] .modal__content {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal sizes */
+.modal__content--small {
+  @apply max-w-sm;
+}
+
+.modal__content--medium {
+  @apply max-w-md;
+}
+
+.modal__content--large {
+  @apply max-w-lg;
+}
+
+/* Modal close button */
+.modal__close {
+  @apply absolute top-4 right-4 z-10;
+  @apply w-8 h-8 flex items-center justify-center;
+  @apply text-gray-400 hover:text-gray-600;
+  @apply bg-white rounded-full shadow-sm;
+  @apply transition-colors duration-200;
+}
+
+.modal__close:hover {
+  @apply bg-gray-50;
+}
+
+/* Modal body */
+.modal__body {
+  @apply p-6;
+}
+
+/* Modal title */
+.modal__title {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+  @apply leading-tight;
+}
+
+/* Modal subtitle */
+.modal__subtitle {
+  @apply text-gray-600 mb-6;
+  @apply leading-relaxed;
+}
+
+/* Form styles within modals */
+.modal .form__group {
+  @apply mb-4;
+}
+
+.modal .form__label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+.modal .form__required {
+  @apply text-red-500;
+}
+
+.modal .form__input,
+.modal .form__select,
+.modal .form__textarea {
+  @apply w-full px-4 py-3 rounded-lg border border-gray-300;
+  @apply bg-white text-gray-900 placeholder-gray-500;
+  @apply transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.modal .form__textarea {
+  @apply min-h-[80px];
+  resize: vertical;
+}
+
+.modal .form__error {
+  @apply block text-sm text-red-600 mt-1;
+  @apply opacity-0 transform -translate-y-1;
+  @apply transition-all duration-200;
+}
+
+.modal .form__error:not(:empty) {
+  @apply opacity-100 transform translate-y-0;
+}
+
+/* Checkbox styles */
+.modal .form__checkbox {
+  @apply flex items-start gap-3 cursor-pointer;
+}
+
+.modal .form__checkbox input[type="checkbox"] {
+  @apply w-4 h-4 mt-1 text-blue-600 bg-gray-100 border-gray-300 rounded;
+  @apply focus:ring-blue-500 focus:ring-2;
+}
+
+.modal .form__checkbox-text {
+  @apply text-sm text-gray-700 leading-relaxed;
+}
+
+.modal .form__checkbox-text a {
+  @apply text-blue-600 hover:text-blue-700 underline;
+}
+
+/* Submit button */
+.modal .form__submit {
+  @apply w-full relative;
+}
+
+.modal .btn {
+  @apply inline-flex items-center justify-center gap-2;
+  @apply px-6 py-3 rounded-lg font-semibold;
+  @apply transition-all duration-200;
+  @apply focus:outline-none focus:ring-4;
+}
+
+.modal .btn--primary {
+  @apply bg-blue-600 text-white;
+  @apply hover:bg-blue-700;
+  @apply focus:ring-blue-500/25;
+}
+
+.modal .btn--block {
+  @apply w-full;
+}
+
+.modal .btn__text {
+  @apply transition-opacity duration-200;
+}
+
+.modal .btn__loader {
+  @apply absolute inset-0 flex items-center justify-center;
+  @apply opacity-0 transition-opacity duration-200;
+}
+
+.modal .btn:disabled .btn__text {
+  @apply opacity-0;
+}
+
+.modal .btn:disabled .btn__loader {
+  @apply opacity-100;
+}
+
+.modal .btn:disabled {
+  @apply cursor-not-allowed opacity-80;
+}
+
+/* Spinner animation */
+.modal .spinner {
+  @apply w-5 h-5 animate-spin text-white;
+}
+
+.modal .spinner circle {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-dasharray: 31.416;
+  stroke-dashoffset: 31.416;
+  animation: spinner-dash 2s ease-in-out infinite;
+}
+
+@keyframes spinner-dash {
+  0% {
+    stroke-dasharray: 1, 31.416;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 15.708, 15.708;
+    stroke-dashoffset: -4.712;
+  }
+  100% {
+    stroke-dasharray: 31.416, 0;
+    stroke-dashoffset: -31.416;
+  }
+}
+
+/* Form note */
+.modal .form__note {
+  @apply text-xs text-gray-500 text-center mt-4;
+}
+
+.modal .form__note a {
+  @apply text-blue-600 hover:text-blue-700 underline;
+}
+
+/* Icon styles */
+.icon-close {
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .modal {
+    @apply p-2;
+  }
+  
+  .modal__content {
+    @apply mx-2;
+  }
+  
+  .modal__body {
+    @apply p-4;
+  }
+  
+  .modal__title {
+    @apply text-xl;
+  }
+}
+
+/* Animation for form validation */
+.form__input.error,
+.form__select.error,
+.form__textarea.error {
+  @apply border-red-300 focus:border-red-500 focus:ring-red-500;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Success state */
+.form__input.success,
+.form__select.success,
+.form__textarea.success {
+  @apply border-green-300 focus:border-green-500 focus:ring-green-500;
+}

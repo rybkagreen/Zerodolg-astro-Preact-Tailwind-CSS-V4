@@ -1,65 +1,85 @@
-// Tailwind CSS v4 configuration with 2025 best practices
+// Tailwind CSS v3 Production Configuration with Design Tokens
+// Modern 2025 architecture for scalable web applications
+
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-    './node_modules/astro/components/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@astrojs/**/*.{js,ts,jsx,tsx}',
+    './public/**/*.html',
   ],
 
-  darkMode: 'class',
+  darkMode: 'class', // Modern class-based dark mode
 
   theme: {
+    // Complete theme system with design tokens
     extend: {
+      // Color system - OKLCH for better color science
       colors: {
-        // Using design tokens defined in src/styles/theme.css
-        primary: 'var(--color-primary)',
-        'primary-50': 'var(--color-primary-50)',
-        'primary-100': 'var(--color-primary-100)',
-        'primary-200': 'var(--color-primary-200)',
-        'primary-300': 'var(--color-primary-300)',
-        'primary-400': 'var(--color-primary-400)',
-        'primary-500': 'var(--color-primary-500)',
-        'primary-600': 'var(--color-primary-600)',
-        'primary-700': 'var(--color-primary-700)',
-        'primary-800': 'var(--color-primary-800)',
-        'primary-900': 'var(--color-primary-900)',
-        'primary-950': 'var(--color-primary-950)',
-        
-        accent: 'var(--color-accent)',
-        'accent-50': 'var(--color-accent-50)',
-        'accent-100': 'var(--color-accent-100)',
-        'accent-200': 'var(--color-accent-200)',
-        'accent-300': 'var(--color-accent-300)',
-        'accent-400': 'var(--color-accent-400)',
-        'accent-500': 'var(--color-accent-500)',
-        'accent-600': 'var(--color-accent-600)',
-        'accent-700': 'var(--color-accent-700)',
-        'accent-800': 'var(--color-accent-800)',
-        'accent-900': 'var(--color-accent-900)',
-        'accent-950': 'var(--color-accent-950)',
-        
-        success: 'var(--color-success)',
-        error: 'var(--color-error)',
-        warning: 'var(--color-warning)',
-        
-        text: {
-          primary: 'var(--color-text-primary)',
-          secondary: 'var(--color-text-secondary)',
-          muted: 'var(--color-text-muted)',
-          inverse: 'var(--color-text-inverse)',
+        // Primary brand colors
+        primary: {
+          50: 'oklch(94.51% 0.015 262.89)',
+          100: 'oklch(87.96% 0.036 262.89)',
+          200: 'oklch(78.32% 0.07 262.89)',
+          300: 'oklch(68.68% 0.105 262.89)',
+          400: 'oklch(59.04% 0.14 262.89)',
+          500: 'oklch(48.25% 0.227 262.89)', // Base
+          600: 'oklch(42.39% 0.231 262.89)',
+          700: 'oklch(35.26% 0.192 262.89)',
+          800: 'oklch(28.8% 0.14 262.89)',
+          900: 'oklch(23.39% 0.104 262.89)',
+          950: 'oklch(17.22% 0.07 262.89)',
+          DEFAULT: 'oklch(48.25% 0.227 262.89)',
         },
         
-        bg: {
-          primary: 'var(--color-bg-primary)',
-          secondary: 'var(--color-bg-secondary)',
-          muted: 'var(--color-bg-muted)',
+        // Accent colors
+        accent: {
+          50: 'oklch(97.04% 0.019 39.93)',
+          100: 'oklch(92.81% 0.043 39.93)',
+          200: 'oklch(85.62% 0.086 39.93)',
+          300: 'oklch(78.43% 0.129 39.93)',
+          400: 'oklch(71.24% 0.172 39.93)',
+          500: 'oklch(67.96% 0.156 39.93)', // Base
+          600: 'oklch(54.84% 0.156 39.93)',
+          700: 'oklch(45.88% 0.13 39.93)',
+          800: 'oklch(37.84% 0.104 39.93)',
+          900: 'oklch(31.27% 0.086 39.93)',
+          950: 'oklch(21.65% 0.057 39.93)',
+          DEFAULT: 'oklch(67.96% 0.156 39.93)',
         },
         
-        border: {
-          DEFAULT: 'var(--color-border)',
-          secondary: 'var(--color-border-secondary)',
+        // Semantic colors
+        success: {
+          50: 'oklch(96.3% 0.029 142.13)',
+          100: 'oklch(92.4% 0.058 142.13)',
+          500: 'oklch(72.04% 0.117 142.13)',
+          600: 'oklch(65.69% 0.125 142.13)',
+          DEFAULT: 'oklch(72.04% 0.117 142.13)',
+        },
+        error: {
+          50: 'oklch(96.3% 0.043 22.91)',
+          100: 'oklch(92.4% 0.087 22.91)',
+          500: 'oklch(63.78% 0.174 22.91)',
+          600: 'oklch(58.56% 0.185 22.91)',
+          DEFAULT: 'oklch(63.78% 0.174 22.91)',
+        },
+        warning: {
+          50: 'oklch(97.8% 0.029 90.43)',
+          100: 'oklch(94.5% 0.059 90.43)',
+          500: 'oklch(83.06% 0.118 90.43)',
+          600: 'oklch(76.88% 0.126 90.43)',
+          DEFAULT: 'oklch(83.06% 0.118 90.43)',
+        },
+        info: {
+          50: 'oklch(96.3% 0.033 231.8)',
+          100: 'oklch(92.4% 0.065 231.8)',
+          500: 'oklch(70.2% 0.131 231.8)',
+          600: 'oklch(64.12% 0.140 231.8)',
+          DEFAULT: 'oklch(70.2% 0.131 231.8)',
         },
       },
+
+      // Typography scale - Perfect Fourth (1.333)
       fontFamily: {
         sans: [
           'Inter Variable',
@@ -74,10 +94,6 @@ export default {
           'Arial',
           'Noto Sans',
           'sans-serif',
-          'Apple Color Emoji',
-          'Segoe UI Emoji',
-          'Segoe UI Symbol',
-          'Noto Color Emoji',
         ],
         mono: [
           'JetBrains Mono Variable',
@@ -93,37 +109,31 @@ export default {
           'monospace',
         ],
       },
-      fontSize: {
-        xs: ['0.75rem', { lineHeight: '1rem' }],
-        sm: ['0.875rem', { lineHeight: '1.25rem' }],
-        base: ['1rem', { lineHeight: '1.5rem' }],
-        lg: ['1.125rem', { lineHeight: '1.75rem' }],
-        xl: ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-        '5xl': ['3rem', { lineHeight: '1' }],
-        '6xl': ['3.75rem', { lineHeight: '1' }],
-        '7xl': ['4.5rem', { lineHeight: '1' }],
-        '8xl': ['6rem', { lineHeight: '1' }],
-        '9xl': ['8rem', { lineHeight: '1' }],
-      },
+
+      // Extended spacing scale
       spacing: {
-        18: '4.5rem',
-        88: '22rem',
-        128: '32rem',
+        18: '4.5rem',   // 72px
+        88: '22rem',    // 352px
+        128: '32rem',   // 512px
       },
+
+      // Extended border radius
       borderRadius: {
         '4xl': '2rem',
         '5xl': '2.5rem',
       },
+
+      // Enhanced shadows
       boxShadow: {
-        card: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        'card': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
         'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        soft: '0 2px 15px 0 rgb(0 0 0 / 0.1)',
-        medium: '0 4px 20px 0 rgb(0 0 0 / 0.12)',
-        hard: '0 8px 30px 0 rgb(0 0 0 / 0.15)',
+        'soft': '0 2px 15px 0 rgb(0 0 0 / 0.1)',
+        'medium': '0 4px 20px 0 rgb(0 0 0 / 0.12)',
+        'hard': '0 8px 30px 0 rgb(0 0 0 / 0.15)',
+        'glow': '0 0 20px rgb(59 130 246 / 0.5)',
       },
+
+      // Animation system
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
@@ -132,28 +142,33 @@ export default {
         'slide-in-right': 'slideInRight 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 1s ease-in-out infinite',
         'pulse-gentle': 'pulseGentle 2s ease-in-out infinite',
-        ticker: 'ticker 30s linear infinite',
+        'gradient-shift': 'gradientShift 3s ease infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'typing': 'typing 3.5s steps(40, end)',
+        'blink': 'blink 1s infinite',
       },
+      
+      // Custom keyframes
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideDown: {
-          '0%': { transform: 'translateY(-20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideInLeft: {
-          '0%': { transform: 'translateX(-20px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)', opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
         },
         slideInRight: {
-          '0%': { transform: 'translateX(20px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)', opacity: '1' },
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
         },
         bounceGentle: {
           '0%, 100%': { transform: 'translateY(0)' },
@@ -163,35 +178,74 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.8' },
         },
-        ticker: {
-          to: { transform: 'translateX(-50%)' },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '50%': { transform: 'translateY(-20px) rotate(10deg)' },
+        },
+        typing: {
+          'from': { width: '0' },
+          'to': { width: '100%' },
+        },
+        blink: {
+          '0%, 50%': { borderColor: 'transparent' },
+          '51%, 100%': { borderColor: 'currentColor' },
         },
       },
-      transitionTimingFunction: {
-        'out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
-        'out-back': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+      
+      // Enhanced background utilities
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'mesh-gradient': 'radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%)',
       },
-      blur: {
-        xs: '2px',
+      
+      // Z-index scale
+      zIndex: {
+        '60': '60',
+        '70': '70',
+        '80': '80',
+        '90': '90',
+        '100': '100',
       },
-      backdropBlur: {
-        xs: '2px',
+      
+      // Extended screens
+      screens: {
+        '3xl': '1920px',
+        '4xl': '2560px',
       },
-      ringWidth: {
-        3: '3px',
+      
+      // Typography enhancements
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'oklch(15.22% 0.012 227.25)',
+            '[class~="lead"]': {
+              color: 'oklch(37.14% 0.015 227.25)',
+            },
+            strong: {
+              color: 'oklch(15.22% 0.012 227.25)',
+              fontWeight: '600',
+            },
+            'h1, h2, h3, h4': {
+              color: 'oklch(15.22% 0.012 227.25)',
+            },
+          },
+        },
       },
     },
   },
 
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 
-  // Future-proof configuration
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
-
-  // Experimental features for 2025
-  experimental: {
-    optimizeUniversalDefaults: true,
+  // Performance optimizations
+  corePlugins: {
+    preflight: true,
   },
 };

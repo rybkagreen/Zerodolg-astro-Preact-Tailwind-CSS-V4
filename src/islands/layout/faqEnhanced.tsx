@@ -9,7 +9,7 @@ interface FAQItem {
 }
 
 interface FAQProps {
-  items: FAQItem[];
+  items?: FAQItem[];
   title?: string;
   description?: string;
   initialExpandedId?: string;
@@ -19,7 +19,7 @@ interface FAQProps {
 }
 
 const FAQEnhanced = ({
-  items,
+  items = [],
   title = 'Часто задаваемые вопросы',
   description = 'Ответы на популярные вопросы',
   initialExpandedId,
@@ -29,7 +29,7 @@ const FAQEnhanced = ({
 }: FAQProps) => {
   const [activeId, setActiveId] = useState<string | null>(initialExpandedId || null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredItems, setFilteredItems] = useState<FAQItem[]>(items);
+  const [filteredItems, setFilteredItems] = useState<FAQItem[]>(items || []);
   const [focusedIndex, setFocusedIndex] = useState(0);
   
   const prefersReducedMotion = useReducedMotion();
@@ -39,6 +39,11 @@ const FAQEnhanced = ({
 
   // Filter items based on search query
   useEffect(() => {
+    if (!items || items.length === 0) {
+      setFilteredItems([]);
+      return;
+    }
+    
     if (enableSearch && searchQuery) {
       const filtered = items.filter(item =>
         item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||

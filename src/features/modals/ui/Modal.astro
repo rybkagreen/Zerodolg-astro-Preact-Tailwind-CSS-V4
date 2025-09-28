@@ -10,12 +10,14 @@ const { id, title, subtitle, size = 'medium' } = Astro.props;
 ---
 
 <div
+  id={id}
   class='modal'
   data-modal-container={id}
   aria-hidden='true'
   role='dialog'
   aria-modal='true'
   aria-labelledby={`modal-title-${id}`}
+  style='display: none;'
 >
   <div class='modal__overlay' data-modal-close tabindex='-1'></div>
   <div class:list={`modal__content modal__content--${size}`}>

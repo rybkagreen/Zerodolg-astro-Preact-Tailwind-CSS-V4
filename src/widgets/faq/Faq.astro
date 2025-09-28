@@ -22,11 +22,12 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
 
 <!-- FAQ Section - Modern Accordion Style -->
 <section
-  class='faq py-16 md:py-24 bg-gradient-to-b from-white to-gray-50'
+  class='section-padding bg-gray-50'
   id='faq'
   data-section='faq'
+  data-aos='fade-up'
 >
-  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+  <div class='container-custom'>
     <!-- Section Header - сохраняем текущий стиль заголовка -->
     <div class='faq__header text-center mb-12 md:mb-16'>
       <h2
@@ -43,9 +44,9 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
     <!-- FAQ Accordion Container -->
     <div class='faq__accordion' role='region' aria-label='Вопросы и ответы'>
       <!-- FAQ Item 1 -->
-      <div class='faq__item border border-gray-200 rounded-xl mb-4 overflow-hidden' data-faq-item>
+      <div class='faq__item card mb-4 overflow-hidden' data-faq-item>
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors duration-200'
           aria-expanded='false'
           aria-controls='faq-answer-1'
           data-faq-trigger
@@ -106,7 +107,7 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
       </div>
 
       <!-- FAQ Item 2 -->
-      <div class='faq__item border border-gray-200 rounded-xl mb-4 overflow-hidden' data-faq-item>
+      <div class='faq__item card mb-4 overflow-hidden' data-faq-item>
         <button
           class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors'
           aria-expanded='false'
@@ -160,7 +161,7 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
       </div>
 
       <!-- FAQ Item 3 -->
-      <div class='faq__item border border-gray-200 rounded-xl mb-4 overflow-hidden' data-faq-item>
+      <div class='faq__item card mb-4 overflow-hidden' data-faq-item>
         <button
           class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors'
           aria-expanded='false'
@@ -233,7 +234,7 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
       </div>
 
       <!-- FAQ Item 4 -->
-      <div class='faq__item border border-gray-200 rounded-xl mb-4 overflow-hidden' data-faq-item>
+      <div class='faq__item card mb-4 overflow-hidden' data-faq-item>
         <button
           class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors'
           aria-expanded='false'
@@ -295,7 +296,7 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
       </div>
 
       <!-- FAQ Item 5 -->
-      <div class='faq__item border border-gray-200 rounded-xl mb-4 overflow-hidden' data-faq-item>
+      <div class='faq__item card mb-4 overflow-hidden' data-faq-item>
         <button
           class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors'
           aria-expanded='false'
@@ -373,7 +374,7 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
       </div>
 
       <!-- FAQ Item 6 -->
-      <div class='faq__item border border-gray-200 rounded-xl mb-4 overflow-hidden' data-faq-item>
+      <div class='faq__item card mb-4 overflow-hidden' data-faq-item>
         <button
           class='faq__question w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors'
           aria-expanded='false'
@@ -448,14 +449,14 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
       </p>
       <div class='faq__cta-buttons flex flex-col sm:flex-row gap-4 justify-center'>
         <button
-          class='btn btn--primary inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium'
+          class='btn-primary inline-flex items-center'
           data-modal='consultation'
         >
           <span>Задать вопрос юристу</span>
         </button>
         <a
           href='tel:+79055773387'
-          class='btn btn--outline inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50'
+          class='btn-secondary inline-flex items-center gap-2'
         >
           <svg width='20' height='20' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
             <path

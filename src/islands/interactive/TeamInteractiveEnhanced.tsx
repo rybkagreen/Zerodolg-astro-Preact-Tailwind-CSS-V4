@@ -27,10 +27,10 @@ interface TeamMember {
 }
 
 interface Props {
-  members: TeamMember[];
+  members?: TeamMember[];
 }
 
-export default function TeamInteractiveEnhanced({ members }: Props): VNode {
+export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode {
   const [activeMemberId, setActiveMemberId] = useState<string | null>(members[0]?.id || null);
   const [isVisible, setIsVisible] = useState(false);
   const [observerRef, isIntersecting] = useIntersectionObserver<HTMLDivElement>({
@@ -69,6 +69,20 @@ export default function TeamInteractiveEnhanced({ members }: Props): VNode {
       }
     }
   }, [members]);
+
+  // Early return if no members
+  if (!members || members.length === 0) {
+    return (
+      <section class='py-16 md:py-24' id='team'>
+        <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div class='text-center'>
+            <h2 class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Наша команда экспертов</h2>
+            <p class='text-lg text-gray-600'>Информация о команде обновляется...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const activeMember = members.find((member) => member.id === activeMemberId);
 
