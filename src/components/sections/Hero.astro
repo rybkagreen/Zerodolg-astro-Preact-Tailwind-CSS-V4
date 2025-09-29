@@ -1,5 +1,5 @@
 ---
-// Hero.astro - Hero section with two-column layout
+// Hero.astro - Hero section with Tailwind CSS v3 styling
 import HeroForm from '../../components/forms/HeroForm.astro';
 
 export interface Props {
@@ -13,322 +13,302 @@ const {
 } = Astro.props;
 ---
 
-<section class='hero-section section-padding'>
-  <!-- Background decoration -->
-  <div class='absolute inset-0'>
-    <div
-      class='absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-blue-400/30 to-indigo-600/30 rounded-full blur-3xl'
-    >
-    </div>
-    <div
-      class='absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-tr from-purple-400/20 to-pink-600/20 rounded-full blur-3xl'
-    >
-    </div>
-    <div
-      class='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl'
-    >
-    </div>
+<!-- Hero Section with Animated Dark Blue Gradient Background -->
+<section class='relative min-h-screen overflow-hidden'>
+  <!-- Dark Blue to Blue Cyclic Rotating Animated Gradient Background -->
+  <div
+    class='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900 via-slate-800 to-blue-800 animate-gradient-rotate-smooth'
+  >
   </div>
 
-  <div class='relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-    <div class='grid items-center grid-cols-1 gap-16 lg:grid-cols-2'>
-      <!-- Left Column - Main Content -->
-      <div class='space-y-10 text-center lg:text-left'>
-        <!-- Badge -->
-        <div
-          class='inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white/90 backdrop-blur-sm ring-1 ring-white/20'
-        >
-          <svg class='h-4 w-4 text-green-400' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-            <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              stroke-width='2'
-              d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
-          </svg>
-          Федеральный закон №127-ФЗ «О несостоятельности»
-        </div>
+  <!-- Subtle Overlay Pattern -->
+  <div class='absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30'></div>
 
-        <!-- Main Heading -->
-        <div class='space-y-6'>
+  <!-- Content Container -->
+  <div class='relative container mx-auto px-4 py-12 lg:py-20'>
+    <!-- Trust Badge - Above main content -->
+    <div class='mb-8'>
+      <div
+        class='inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3'
+      >
+        <svg class='w-5 h-5 text-amber-400' fill='currentColor' viewBox='0 0 20 20'>
+          <path
+            d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z'
+          ></path>
+        </svg>
+        <span class='text-white text-sm font-medium tracking-wide'>
+          Федеральный закон №127-ФЗ «О несостоятельности»
+        </span>
+      </div>
+    </div>
+
+    <div class='grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-12 items-start'>
+      <!-- Left Column - Main Content -->
+      <div class='space-y-8'>
+        <!-- Title Section -->
+        <div class='space-y-4'>
           <h1
-            class='text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl'
+            class='text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1] tracking-tight'
           >
-            <span class='bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent'>
-              {title}
-            </span>
+            {title}
           </h1>
-          <div
-            class='text-2xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text sm:text-3xl lg:text-4xl'
-          >
+          <div class='text-2xl lg:text-3xl font-semibold text-amber-400 leading-tight'>
             Спишем долги от 300 тыс. до 10 млн ₽ через суд
           </div>
         </div>
 
-        <!-- Subtitle -->
-        <p class='text-xl leading-relaxed text-blue-100 lg:text-2xl'>
+        <!-- Description -->
+        <p class='text-lg text-gray-300 leading-relaxed max-w-2xl'>
           {subtitle}
+          <span class='text-amber-400 font-semibold ml-2'>89% клиентов</span> полностью освобождаются
+          от долгов за 6-8 месяцев. Офис в 5 минутах от метро Минская.
         </p>
 
-        <!-- Key Stats -->
-        <div class='inline-flex items-center gap-6 text-white'>
-          <div class='text-center'>
-            <div class='text-3xl font-bold text-green-400'>89%</div>
-            <div class='text-sm text-blue-200'>успех</div>
-          </div>
-          <div class='w-px h-12 bg-white/20'></div>
-          <div class='text-center'>
-            <div class='text-3xl font-bold text-yellow-400'>6-8</div>
-            <div class='text-sm text-blue-200'>месяцев</div>
-          </div>
-          <div class='w-px h-12 bg-white/20'></div>
-          <div class='text-center'>
-            <div class='text-3xl font-bold text-blue-400'>5 мин</div>
-            <div class='text-sm text-blue-200'>от метро</div>
-          </div>
-        </div>
-
-        <!-- Benefits List -->
-        <div class='space-y-4'>
-          <ul class='space-y-3 text-left'>
-            <li class='flex items-center gap-3 text-lg text-white'>
-              <div
-                class='flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20 ring-1 ring-green-400/30'
-              >
-                <svg
-                  class='h-3 w-3 text-green-400'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='3'
-                    d='M5 13l4 4L19 7'></path>
-                </svg>
-              </div>
-              Единственное жилье защищено законом
-            </li>
-            <li class='flex items-center gap-3 text-lg text-white'>
-              <div
-                class='flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20 ring-1 ring-green-400/30'
-              >
-                <svg
-                  class='h-3 w-3 text-green-400'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='3'
-                    d='M5 13l4 4L19 7'></path>
-                </svg>
-              </div>
-              Полное списание долгов через суд
-            </li>
-            <li class='flex items-center gap-3 text-lg text-white'>
-              <div
-                class='flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20 ring-1 ring-green-400/30'
-              >
-                <svg
-                  class='h-3 w-3 text-green-400'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='3'
-                    d='M5 13l4 4L19 7'></path>
-                </svg>
-              </div>
-              Защита от взысканий с первого дня
-            </li>
-          </ul>
-
-          <!-- Special Offer Badge -->
-          <div class='relative mt-6'>
-            <div
-              class='absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 blur opacity-75'
-            >
-            </div>
-            <div
-              class='relative rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 p-4 text-center text-white'
-            >
-              <div class='flex items-center justify-center gap-2 text-lg font-bold'>
-                <span class='text-2xl'>🔥</span>
-                <span>Консультация БЕСПЛАТНО</span>
-              </div>
-              <p class='text-sm opacity-90'>акция до 31 августа 2025 для первых 10 человек!</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- CTA Button -->
-        <div class='pt-4'>
-          <button
-            class='group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6 text-lg font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-500/25 sm:w-auto'
-            data-action='scroll-to-form'
+        <!-- Benefits Grid -->
+        <div class='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          <div
+            class='rounded-xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 backdrop-blur-sm border border-emerald-500/30 p-5 text-center'
           >
-            <span class='relative z-10'>Получить бесплатную консультацию</span>
-            <div
-              class='relative z-10 flex items-center gap-1 rounded-full bg-yellow-400/20 px-3 py-1 text-sm font-semibold text-yellow-300 ring-1 ring-yellow-400/30'
-            >
-              <div class='h-2 w-2 rounded-full bg-yellow-400 animate-pulse'></div>
-              Осталось 7 мест
+            <div class='flex justify-center mb-3'>
+              <div
+                class='w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center'
+              >
+                <svg
+                  class='w-6 h-6 text-emerald-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+                  ></path>
+                </svg>
+              </div>
             </div>
-            <div
-              class='absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000'
-            >
+            <h3 class='text-lg font-bold text-white mb-1'>Единственное жилье</h3>
+            <p class='text-gray-300 text-sm'>защищено законом</p>
+          </div>
+          <div
+            class='rounded-xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 backdrop-blur-sm border border-emerald-500/30 p-5 text-center'
+          >
+            <div class='flex justify-center mb-3'>
+              <div
+                class='w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center'
+              >
+                <svg
+                  class='w-6 h-6 text-emerald-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'
+                  ></path>
+                </svg>
+              </div>
             </div>
-          </button>
+            <h3 class='text-lg font-bold text-white mb-1'>Полное списание</h3>
+            <p class='text-gray-300 text-sm'>долгов через суд</p>
+          </div>
+          <div
+            class='rounded-xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 backdrop-blur-sm border border-emerald-500/30 p-5 text-center'
+          >
+            <div class='flex justify-center mb-3'>
+              <div
+                class='w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center'
+              >
+                <svg
+                  class='w-6 h-6 text-emerald-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z'
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class='text-lg font-bold text-white mb-1'>Защита от взысканий</h3>
+            <p class='text-gray-300 text-sm'>с первого дня</p>
+          </div>
         </div>
 
-        <!-- Contact Info -->
-        <div class='grid grid-cols-1 gap-6 pt-8 text-blue-100 sm:grid-cols-3'>
-          <div class='flex items-center gap-3'>
+        <!-- CTA Card -->
+        <div
+          class='rounded-2xl bg-gradient-to-r from-orange-600/20 to-red-600/20 backdrop-blur-md border border-orange-500/30 p-6'
+        >
+          <div class='text-center'>
             <div
-              class='flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20'
+              class='inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-orange-500/30 px-4 py-2 mb-4'
             >
-              <span class='text-xl'>🏢</span>
+              <svg class='w-5 h-5 text-orange-400' fill='currentColor' viewBox='0 0 20 20'>
+                <path
+                  fill-rule='evenodd'
+                  d='M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z'
+                  clip-rule='evenodd'></path>
+              </svg>
+              <span class='text-orange-400 font-semibold text-sm'>
+                Консультация БЕСПЛАТНО — акция до 31 августа 2025
+              </span>
             </div>
-            <span>Офис: Минская ул., 2Ж</span>
+
+            <h3 class='text-xl font-bold text-white mb-2'>Получите бесплатную консультацию</h3>
+            <p class='text-gray-300 mb-4'>Оставьте заявку и мы свяжемся с вами в течение 5 минут</p>
+
+            <p class='text-orange-300/70 text-sm'>Осталось 7 мест на август</p>
           </div>
-          <div class='flex items-center gap-3'>
-            <div
-              class='flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20'
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class='flex flex-wrap items-center gap-6 pt-4'>
+          <div class='flex items-center gap-2'>
+            <svg
+              class='w-5 h-5 text-gray-400'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
             >
-              <span class='text-xl'>🔒</span>
-            </div>
-            <span>Защита данных по 152-ФЗ</span>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+              ></path>
+            </svg>
+            <span class='text-gray-400 text-sm'>Офис в центре Москвы</span>
           </div>
-          <div class='flex items-center gap-3'>
-            <div
-              class='flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20'
+          <div class='flex items-center gap-2'>
+            <svg
+              class='w-5 h-5 text-gray-400'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
             >
-              <span class='text-xl'>📞</span>
-            </div>
-            <span>Ежедневно 9:00-21:00</span>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z'
+              ></path>
+            </svg>
+            <span class='text-gray-400 text-sm'>Конфиденциально</span>
+          </div>
+          <div class='flex items-center gap-2'>
+            <svg
+              class='w-5 h-5 text-gray-400'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+            </svg>
+            <span class='text-gray-400 text-sm'>Работаем 9:00-21:00</span>
           </div>
         </div>
       </div>
 
       <!-- Right Column - Expert Card, Form and Stats -->
-      <div class='space-y-8'>
-        <!-- Expert Card with Modern Design -->
-        <div
-          class='relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-lg p-8 shadow-2xl ring-1 ring-white/20'
-        >
-          <div
-            class='absolute -top-10 -right-10 h-20 w-20 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-xl'
-          >
-          </div>
-          <div class='relative flex items-start gap-6'>
-            <div class='relative'>
+      <div class='space-y-6'>
+        <!-- Expert Card -->
+        <div class='rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl'>
+          <div class='flex items-start gap-4'>
+            <div class='relative flex-shrink-0'>
               <div
-                class='absolute -inset-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-75 blur'
+                class='w-32 h-32 rounded-full overflow-hidden border-4 border-blue-300 shadow-2xl shadow-blue-400/30'
               >
-              </div>
-              <img
-                class='relative h-24 w-24 rounded-full object-cover ring-2 ring-white'
-                src='/images/team/mashulia.webp'
-                alt='Масхулиа Леван Зурабович - Арбитражный управляющий'
-                width='96'
-                height='96'
-                fetchpriority='high'
-                decoding='async'
-              />
-              <div
-                class='absolute -bottom-1 -right-1 rounded-full bg-green-500 p-1 ring-2 ring-white'
-              >
-                <svg class='h-3 w-3 text-white' fill='currentColor' viewBox='0 0 20 20'>
-                  <path
-                    fill-rule='evenodd'
-                    d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                    clip-rule='evenodd'></path>
-                </svg>
+                <img
+                  src='/images/team/mashulia.webp'
+                  alt='Масхулиа Леван Зурабович - Арбитражный управляющий'
+                  class='w-full h-full object-cover'
+                />
               </div>
             </div>
             <div class='flex-1'>
-              <div class='mb-2'>
-                <h3 class='text-2xl font-bold text-gray-900'>Масхулиа Л.З.</h3>
-                <p class='text-blue-600 font-semibold'>Арбитражный управляющий №14320</p>
-              </div>
-              <div class='space-y-2 text-sm text-gray-600'>
-                <div class='flex items-center gap-2'>
-                  <div class='h-2 w-2 rounded-full bg-green-400'></div>
-                  <span>11+ лет опыта</span>
-                </div>
-                <div class='flex items-center gap-2'>
-                  <div class='h-2 w-2 rounded-full bg-blue-400'></div>
-                  <span>1200+ успешных дел</span>
-                </div>
-                <div class='flex items-center gap-2'>
-                  <div class='h-2 w-2 rounded-full bg-purple-400'></div>
-                  <span>Член СРО арбитражных управляющих</span>
-                </div>
+              <div class='text-white font-bold text-lg'>Масхулиа Л.З.</div>
+              <div class='text-amber-400 text-sm font-medium'>Арбитражный управляющий №14320</div>
+              <div class='mt-2 text-gray-200 text-sm space-y-1'>
+                <span class='block'>✓ 11+ лет опыта</span>
+                <span class='block'>✓ 1200+ успешных дел</span>
+                <span class='block'>✓ Член СРО арбитражных управляющих</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Form with Enhanced Design -->
-        <div class='relative'>
+        <!-- Form Container -->
+        <div
+          class='rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl'
+          id='consultation-form'
+        >
           <div
-            class='absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-75 blur'
+            class='[&_input]:bg-white/10 [&_input]:backdrop-blur-sm [&_input]:border-white/20 [&_input]:text-white [&_input]:placeholder-gray-300 [&_textarea]:bg-white/10 [&_textarea]:backdrop-blur-sm [&_textarea]:border-white/20 [&_textarea]:text-white [&_textarea]:placeholder-gray-300 [&_select]:bg-white/10 [&_select]:backdrop-blur-sm [&_select]:border-white/20 [&_select]:text-white [&_label]:text-gray-200 [&_input:focus]:bg-white/20 [&_input:focus]:border-yellow-400 [&_textarea:focus]:bg-white/20 [&_textarea:focus]:border-yellow-400 [&_select:focus]:bg-white/20 [&_select:focus]:border-yellow-400'
           >
-          </div>
-          <div class='relative rounded-3xl bg-white p-8'>
-            <HeroForm id='consultation-form' />
+            <HeroForm />
           </div>
         </div>
 
-        <!-- Stats with Modern Cards -->
+        <!-- Stats Grid -->
         <div class='grid grid-cols-3 gap-4'>
           <div
-            class='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-center text-white shadow-xl transition-transform hover:scale-105'
+            class='rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 text-center'
           >
-            <div
-              class='absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100'
-            >
-            </div>
-            <div class='relative'>
-              <div class='text-3xl font-bold'>1000+</div>
-              <div class='text-sm opacity-90'>Клиентов</div>
-            </div>
+            <span class='block text-2xl font-bold text-amber-400'>1200+</span>
+            <span class='block text-sm text-gray-300 mt-1'>Клиентов</span>
           </div>
           <div
-            class='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 p-6 text-center text-white shadow-xl transition-transform hover:scale-105'
+            class='rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 text-center'
           >
-            <div
-              class='absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100'
-            >
-            </div>
-            <div class='relative'>
-              <div class='text-3xl font-bold'>98%</div>
-              <div class='text-sm opacity-90'>Успех</div>
-            </div>
+            <span class='block text-2xl font-bold text-amber-400'>100%</span>
+            <span class='block text-sm text-gray-300 mt-1'>Успех</span>
           </div>
           <div
-            class='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-center text-white shadow-xl transition-transform hover:scale-105'
+            class='rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 text-center'
           >
-            <div
-              class='absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100'
-            >
-            </div>
-            <div class='relative'>
-              <div class='text-3xl font-bold'>2.1M+</div>
-              <div class='text-sm opacity-90'>Списано</div>
-            </div>
+            <span class='block text-2xl font-bold text-amber-400'>1.2M+</span>
+            <span class='block text-sm text-gray-300 mt-1'>Списано</span>
           </div>
         </div>
       </div>
-      <!-- End of right column -->
     </div>
   </div>
 </section>
 
-<!-- Hero interactivity is handled by Preact components -->
+<style>
+  /* Custom animations */
+  @keyframes gradient-rotate-smooth {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 100% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    75% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+  .animate-gradient-rotate-smooth {
+    background-size: 300% 300%;
+    animation: gradient-rotate-smooth 25s ease infinite;
+  }
+</style>

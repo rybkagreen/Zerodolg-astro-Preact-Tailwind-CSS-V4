@@ -17,153 +17,153 @@
 }
 
 /* Fade animations */
-[data-aos="fade-up"] {
+[data-aos='fade-up'] {
   opacity: 0;
   transform: translateY(20px);
 }
 
-[data-aos="fade-up"].aos-animated {
+[data-aos='fade-up'].aos-animated {
   opacity: 1;
   transform: translateY(0);
 }
 
-[data-aos="fade-down"] {
+[data-aos='fade-down'] {
   opacity: 0;
   transform: translateY(-20px);
 }
 
-[data-aos="fade-down"].aos-animated {
+[data-aos='fade-down'].aos-animated {
   opacity: 1;
   transform: translateY(0);
 }
 
-[data-aos="fade-left"] {
+[data-aos='fade-left'] {
   opacity: 0;
   transform: translateX(20px);
 }
 
-[data-aos="fade-left"].aos-animated {
+[data-aos='fade-left'].aos-animated {
   opacity: 1;
   transform: translateX(0);
 }
 
-[data-aos="fade-right"] {
+[data-aos='fade-right'] {
   opacity: 0;
   transform: translateX(-20px);
 }
 
-[data-aos="fade-right"].aos-animated {
+[data-aos='fade-right'].aos-animated {
   opacity: 1;
   transform: translateX(0);
 }
 
-[data-aos="fade"] {
+[data-aos='fade'] {
   opacity: 0;
 }
 
-[data-aos="fade"].aos-animated {
+[data-aos='fade'].aos-animated {
   opacity: 1;
 }
 
 /* Zoom animations */
-[data-aos="zoom-in"] {
+[data-aos='zoom-in'] {
   opacity: 0;
   transform: scale(0.8);
 }
 
-[data-aos="zoom-in"].aos-animated {
+[data-aos='zoom-in'].aos-animated {
   opacity: 1;
   transform: scale(1);
 }
 
-[data-aos="zoom-out"] {
+[data-aos='zoom-out'] {
   opacity: 0;
   transform: scale(1.2);
 }
 
-[data-aos="zoom-out"].aos-animated {
+[data-aos='zoom-out'].aos-animated {
   opacity: 1;
   transform: scale(1);
 }
 
 /* Slide animations */
-[data-aos="slide-up"] {
+[data-aos='slide-up'] {
   opacity: 0;
   transform: translateY(100px);
 }
 
-[data-aos="slide-up"].aos-animated {
+[data-aos='slide-up'].aos-animated {
   opacity: 1;
   transform: translateY(0);
 }
 
-[data-aos="slide-down"] {
+[data-aos='slide-down'] {
   opacity: 0;
   transform: translateY(-100px);
 }
 
-[data-aos="slide-down"].aos-animated {
+[data-aos='slide-down'].aos-animated {
   opacity: 1;
   transform: translateY(0);
 }
 
-[data-aos="slide-left"] {
+[data-aos='slide-left'] {
   opacity: 0;
   transform: translateX(100px);
 }
 
-[data-aos="slide-left"].aos-animated {
+[data-aos='slide-left'].aos-animated {
   opacity: 1;
   transform: translateX(0);
 }
 
-[data-aos="slide-right"] {
+[data-aos='slide-right'] {
   opacity: 0;
   transform: translateX(-100px);
 }
 
-[data-aos="slide-right"].aos-animated {
+[data-aos='slide-right'].aos-animated {
   opacity: 1;
   transform: translateX(0);
 }
 
 /* Flip animations */
-[data-aos="flip-left"] {
+[data-aos='flip-left'] {
   opacity: 0;
   transform: perspective(2500px) rotateY(-100deg);
 }
 
-[data-aos="flip-left"].aos-animated {
+[data-aos='flip-left'].aos-animated {
   opacity: 1;
   transform: perspective(2500px) rotateY(0deg);
 }
 
-[data-aos="flip-right"] {
+[data-aos='flip-right'] {
   opacity: 0;
   transform: perspective(2500px) rotateY(100deg);
 }
 
-[data-aos="flip-right"].aos-animated {
+[data-aos='flip-right'].aos-animated {
   opacity: 1;
   transform: perspective(2500px) rotateY(0deg);
 }
 
-[data-aos="flip-up"] {
+[data-aos='flip-up'] {
   opacity: 0;
   transform: perspective(2500px) rotateX(-100deg);
 }
 
-[data-aos="flip-up"].aos-animated {
+[data-aos='flip-up'].aos-animated {
   opacity: 1;
   transform: perspective(2500px) rotateX(0deg);
 }
 
-[data-aos="flip-down"] {
+[data-aos='flip-down'] {
   opacity: 0;
   transform: perspective(2500px) rotateX(100deg);
 }
 
-[data-aos="flip-down"].aos-animated {
+[data-aos='flip-down'].aos-animated {
   opacity: 1;
   transform: perspective(2500px) rotateX(0deg);
 }
@@ -190,7 +190,8 @@
 
 /* Loading animations */
 @keyframes pulse-gentle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -209,7 +210,8 @@
 
 /* Background animations */
 @keyframes gradient-shift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -229,10 +231,12 @@
 }
 
 @keyframes blink {
-  0%, 50% {
+  0%,
+  50% {
     opacity: 1;
   }
-  51%, 100% {
+  51%,
+  100% {
     opacity: 0;
   }
 }
@@ -253,7 +257,7 @@
     transition: none !important;
     animation: none !important;
   }
-  
+
   .animate-pulse,
   .animate-spin,
   .animate-bounce,

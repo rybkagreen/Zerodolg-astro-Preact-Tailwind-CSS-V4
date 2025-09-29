@@ -8,8 +8,8 @@ code in this repository.
 ZeroDolg Astro Website is a corporate website for a legal company specializing
 in bankruptcy services for individuals. The project uses Astro v5.13.7 as a
 static site generator with Preact for interactive components, organized
-according to Feature-Sliced Design principles. The project now emphasizes
-Qwen Code as the primary AI assistant in the development workflow.
+according to Feature-Sliced Design principles. The project now emphasizes Qwen
+Code as the primary AI assistant in the development workflow.
 
 ## Development Commands
 
@@ -70,7 +70,8 @@ src/
 ### Key Architectural Principles
 
 - **Feature-Sliced Design**: Code organized by business features and layers
-- **Islands Architecture**: Interactive components are isolated and loaded only when needed
+- **Islands Architecture**: Interactive components are isolated and loaded only
+  when needed
 - **Static Generation**: HTML pre-rendered for maximum performance
 - **Progressive Enhancement**: Site works without JavaScript
 - **Mobile First**: Design starting with mobile devices
@@ -100,7 +101,8 @@ src/
 
 ### Styling Architecture
 
-- **Tailwind CSS v4** - Modern utility-first framework with new CSS-based configuration
+- **Tailwind CSS v4** - Modern utility-first framework with new CSS-based
+  configuration
 - **Mobile First** - Design approach starting with mobile devices
 - **Component-based** - Reusable UI components with consistent styling
 

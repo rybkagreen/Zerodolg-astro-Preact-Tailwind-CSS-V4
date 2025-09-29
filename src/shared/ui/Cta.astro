@@ -66,11 +66,16 @@ const cta = {
   </div>
 
   <div class='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-    <header class='text-center mb-12'>
-      <h2 id='cta-title' class='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6'>
+    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <h2
+        id='cta-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight'
+      >
         {cta.title}
       </h2>
-      <p class='text-lg md:text-xl text-blue-100 max-w-3xl mx-auto'>{cta.subtitle}</p>
+      <p class='text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium'>
+        {cta.subtitle}
+      </p>
     </header>
 
     <!-- CTA Content Wrapper with Form and Manager Info -->

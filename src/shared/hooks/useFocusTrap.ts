@@ -1,3 +1,4 @@
+import type { RefObject } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 
 interface FocusTrapOptions {
@@ -14,13 +15,13 @@ interface FocusTrapOptions {
 export function useFocusTrap<T extends HTMLElement>(
   isActive: boolean,
   options: FocusTrapOptions = {}
-): import('preact').RefObject<T> {
+): RefObject<T> {
   const {
     initialFocus,
     restoreFocus = true,
     allowOutsideClick = false,
     escapeDeactivates = true,
-    onDeactivate
+    onDeactivate,
   } = options;
 
   const containerRef = useRef<T>(null);
@@ -30,7 +31,7 @@ export function useFocusTrap<T extends HTMLElement>(
     if (!isActive || !containerRef.current) return;
 
     const container = containerRef.current;
-    
+
     // Save previously focused element
     if (restoreFocus) {
       previousActiveElement.current = document.activeElement as HTMLElement;
@@ -44,12 +45,12 @@ export function useFocusTrap<T extends HTMLElement>(
         'textarea:not([disabled])',
         'input:not([disabled])',
         'select:not([disabled])',
-        '[tabindex]:not([tabindex="-1"])'
+        '[tabindex]:not([tabindex="-1"])',
       ];
-      
+
       return Array.from(
         container.querySelectorAll<HTMLElement>(focusableSelectors.join(', '))
-      ).filter(el => {
+      ).filter((el) => {
         // Check if element is visible and not hidden
         const style = window.getComputedStyle(el);
         return style.display !== 'none' && style.visibility !== 'hidden';
@@ -62,10 +63,11 @@ export function useFocusTrap<T extends HTMLElement>(
 
     // Set initial focus
     if (initialFocus) {
-      const initialElement = typeof initialFocus === 'string' 
-        ? container.querySelector<HTMLElement>(initialFocus)
-        : initialFocus;
-      
+      const initialElement =
+        typeof initialFocus === 'string'
+          ? container.querySelector<HTMLElement>(initialFocus)
+          : initialFocus;
+
       if (initialElement) {
         initialElement.focus();
       } else if (firstFocusable) {
@@ -119,7 +121,7 @@ export function useFocusTrap<T extends HTMLElement>(
     return () => {
       container.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('click', handleClickOutside, true);
-      
+
       // Restore focus
       if (restoreFocus && previousActiveElement.current) {
         previousActiveElement.current.focus();

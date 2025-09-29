@@ -1,3 +1,4 @@
+import type { RefObject } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 interface IntersectionObserverOptions {
@@ -12,9 +13,9 @@ interface IntersectionObserverOptions {
  */
 export function useIntersectionObserver<T extends HTMLElement>(
   options: IntersectionObserverOptions = {}
-): [import('preact').RefObject<T>, boolean, IntersectionObserverEntry | null] {
+): [RefObject<T>, boolean, IntersectionObserverEntry | null] {
   const { threshold = 0, root = null, rootMargin = '0px', triggerOnce = false } = options;
-  
+
   const elementRef = useRef<T>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
@@ -22,16 +23,18 @@ export function useIntersectionObserver<T extends HTMLElement>(
 
   useEffect(() => {
     if (!elementRef.current) return;
-    
+
     // Skip if already triggered and triggerOnce is true
     if (triggerOnce && hasTriggeredRef.current) return;
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      if (!entries || entries.length === 0) return;
+
       const [entry] = entries;
       if (entry) {
         setEntry(entry);
         setIsIntersecting(entry.isIntersecting);
-        
+
         if (entry.isIntersecting && triggerOnce) {
           hasTriggeredRef.current = true;
         }
@@ -54,5 +57,5 @@ export function useIntersectionObserver<T extends HTMLElement>(
     };
   }, [threshold, root, rootMargin, triggerOnce]);
 
-  return [elementRef as import('preact').RefObject<T>, isIntersecting, entry];
+  return [elementRef as RefObject<T>, isIntersecting, entry];
 }

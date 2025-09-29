@@ -14,7 +14,7 @@ export function useAsyncEffect(
 
     const executeEffect = async () => {
       const cleanup = await effect();
-      
+
       if (cancelled && typeof cleanup === 'function') {
         cleanup();
       }

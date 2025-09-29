@@ -6,7 +6,7 @@ import Problems from '../components/sections/Problems.astro';
 import Stats from '@shared/ui/Stats.astro';
 import Calculator from '@features/calculator/ui/Calculator.astro';
 import Benefits from '../components/sections/Benefits.astro';
-import Timeline from '@shared/ui/Timeline.astro';
+import Process from '../components/sections/Process.astro';
 import TeamInteractive from '../islands/interactive/TeamInteractiveEnhanced.tsx';
 import LeadMagnets from '../components/sections/LeadMagnets.astro';
 import Reviews from '@widgets/reviews/Reviews.astro';
@@ -21,7 +21,7 @@ import OnlineSticker from '@shared/ui/OnlineSticker.astro';
 import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import SpecialOffers from '@shared/ui/SpecialOffers.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
-
+import FaqAccordion from '../islands/utils/faq-accordion.tsx';
 ---
 
 <Layout
@@ -51,7 +51,7 @@ import ClientInteractions from '../islands/utils/client-interactions.tsx';
     </div>
 
     <div data-aos='fade-up' data-aos-duration='800'>
-      <Timeline />
+      <Process />
     </div>
 
     <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
@@ -62,12 +62,12 @@ import ClientInteractions from '../islands/utils/client-interactions.tsx';
       <TeamInteractive />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
-      <LeadMagnets />
-    </div>
-
     <div data-aos='fade-up' data-aos-duration='800'>
       <Faq />
+    </div>
+
+    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
+      <LeadMagnets />
     </div>
 
     <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
@@ -101,5 +101,6 @@ import ClientInteractions from '../islands/utils/client-interactions.tsx';
   <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
   <ClientInteractions client:idle />
 
-  
+  <!-- FAQ Accordion Handler -->
+  <FaqAccordion client:idle />
 </Layout>

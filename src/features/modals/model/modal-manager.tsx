@@ -19,7 +19,7 @@ class UnifiedModalManager {
 
   init(): void {
     logger.debug('[ModalManager] Starting initialization');
-    
+
     // Make sure DOM is ready
     if (document.readyState !== 'complete' && document.readyState !== 'interactive') {
       logger.debug('[ModalManager] DOM not ready, waiting...');
@@ -29,10 +29,10 @@ class UnifiedModalManager {
       });
       return;
     }
-    
+
     this.setupModalManager();
   }
-  
+
   private setupModalManager(): void {
     logger.debug('[ModalManager] Setting up modal manager');
 
@@ -59,7 +59,10 @@ class UnifiedModalManager {
 
     // Debug info
     logger.debug('[ModalManager] Available modals:', {
-      modals: Array.from(document.querySelectorAll('.modal')).map(m => ({ id: m.id, classes: m.className }))
+      modals: Array.from(document.querySelectorAll('.modal')).map((m) => ({
+        id: m.id,
+        classes: m.className,
+      })),
     });
 
     logger.debug('[ModalManager] Global API window.modalManager set up');
@@ -377,7 +380,7 @@ export const useModalManager = () => {
       modalManager.init();
     } catch (error) {
       logger.error('[ModalManager] Failed to initialize', {
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : 'Unknown error',
       });
     }
 

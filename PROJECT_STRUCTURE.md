@@ -39,6 +39,8 @@ with all interactive components in the islands directory and all other
 components organized by type in the components directory.
 
 🎨 Visual Fidelity Requirements:
+
 - UI/UX should match the original production site (https://zerodolg.ru/)
-- Implementation must use only Pure Tailwind CSS v4 and built-in Astro/Preact capabilities
+- Implementation must use only Pure Tailwind CSS v4 and built-in Astro/Preact
+  capabilities
 - No custom CSS outside of Tailwind configuration

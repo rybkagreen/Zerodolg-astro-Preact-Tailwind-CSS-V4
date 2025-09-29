@@ -1,5 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111827" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-  <path d="M18 8a6 6 0 0 0-12 0v5l-2 2h16l-2-2V8"/>
-  <path d="M4 4l16 16"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Document/Receipt -->
+  <path d="M18 3H8a3 3 0 0 0-3 3v20a3 3 0 0 0 3 3h16a3 3 0 0 0 3-3V10z"/>
+  <polyline points="18 3 18 10 27 10"/>
+  <!-- Dollar sign for taxes -->
+  <line x1="16" y1="14" x2="16" y2="22"/>
+  <path d="M13 17h6m-3-5v2m0 4v2"/>
 </svg>

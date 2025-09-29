@@ -16,27 +16,23 @@ export interface Props {
   [key: string]: unknown;
 }
 
-// Import interactive logic
-import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
+// Interactive logic is handled by FaqAccordion component in main layout
 ---
 
 <!-- FAQ Section - Modern Accordion Style -->
-<section
-  class='section-padding bg-gray-50'
-  id='faq'
-  data-section='faq'
-  data-aos='fade-up'
->
+<section class='section-padding bg-gray-50' id='faq' data-section='faq' data-aos='fade-up'>
   <div class='container-custom'>
-    <!-- Section Header - сохраняем текущий стиль заголовка -->
-    <div class='faq__header text-center mb-12 md:mb-16'>
+    <!-- Section Header -->
+    <div class='faq__header text-center mb-16 md:mb-20 lg:mb-24'>
       <h2
-        class='faq__title text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3'
+        class='faq__title text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight flex items-center justify-center gap-3'
       >
         <span class='faq__title-icon'>❓</span>
         Часто задаваемые вопросы
       </h2>
-      <p class='faq__subtitle text-lg text-gray-600 max-w-3xl mx-auto'>
+      <p
+        class='faq__subtitle text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'
+      >
         Ответы на популярные вопросы о процедуре банкротства физических лиц
       </p>
     </div>
@@ -448,16 +444,10 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
         Получите бесплатную консультацию нашего юриста по банкротству
       </p>
       <div class='faq__cta-buttons flex flex-col sm:flex-row gap-4 justify-center'>
-        <button
-          class='btn-primary inline-flex items-center'
-          data-modal='consultation'
-        >
+        <button class='btn-primary inline-flex items-center' data-modal='consultation'>
           <span>Задать вопрос юристу</span>
         </button>
-        <a
-          href='tel:+79055773387'
-          class='btn-secondary inline-flex items-center gap-2'
-        >
+        <a href='tel:+79055773387' class='btn-secondary inline-flex items-center gap-2'>
           <svg width='20' height='20' viewBox='0 0 24 24' fill='none' aria-hidden='true'>
             <path
               d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z'
@@ -473,5 +463,4 @@ import FaqComponent from '../../islands/layout/faqEnhanced.tsx';
   </div>
 </section>
 
-<!-- FAQ interactivity is handled by Faq Preact component -->
-<FaqComponent client:load />
+<!-- FAQ interactivity is handled by FaqAccordion component in main layout -->

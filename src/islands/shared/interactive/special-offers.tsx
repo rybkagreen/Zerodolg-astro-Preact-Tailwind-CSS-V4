@@ -67,36 +67,133 @@ const CountdownTimer = ({ deadline }: { deadline: string }): VNode | null => {
 
 // Special Offer Banner Component
 const SpecialOfferBanner = (): VNode | null => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false); // Начинаем с false
   const [isExiting, setIsExiting] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Проверяем, не был ли баннер закрыт
+  useEffect(() => {
+    const checkBannerStatus = () => {
+      try {
+        console.log('[SpecialOfferBanner] Initializing banner check...');
+
+        if (typeof window === 'undefined') {
+          console.log('[SpecialOfferBanner] Window undefined, skipping...');
+          return;
+        }
+
+        if (typeof sessionStorage === 'undefined') {
+          console.warn('[SpecialOfferBanner] SessionStorage unavailable, showing banner anyway');
+          setIsVisible(true);
+          setIsInitialized(true);
+          return;
+        }
+
+        const wasClosed = sessionStorage.getItem('offerBannerClosed');
+        const showDelay = 5000; // Показываем через 5 секунд
+
+        console.log('[SpecialOfferBanner] Banner status:', {
+          wasClosed: !!wasClosed,
+          showDelay,
+        });
+
+        if (!wasClosed) {
+          console.log('[SpecialOfferBanner] Banner not closed, setting timer...');
+          const timerId = setTimeout(() => {
+            console.log('[SpecialOfferBanner] Showing banner after delay');
+            setIsVisible(true);
+            setIsInitialized(true);
+          }, showDelay);
+
+          // Очищаем таймер при размонтировании
+          return () => clearTimeout(timerId);
+        } else {
+          console.log('[SpecialOfferBanner] Banner was closed, not showing');
+          setIsInitialized(true);
+          return undefined; // Explicitly return undefined when banner was closed
+        }
+      } catch (error) {
+        console.error('[SpecialOfferBanner] Error checking banner status:', error);
+        setIsInitialized(true);
+        return undefined;
+      }
+    };
+
+    const cleanup = checkBannerStatus();
+    return cleanup;
+  }, []);
 
   const handleClose = () => {
+    console.log('[SpecialOfferBanner] Closing banner...');
     setIsExiting(true);
     setTimeout(() => {
+      console.log('[SpecialOfferBanner] Banner hidden');
       setIsVisible(false);
-      if (typeof sessionStorage !== 'undefined') {
-        sessionStorage.setItem('offerBannerClosed', 'true');
+      try {
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem('offerBannerClosed', 'true');
+          console.log('[SpecialOfferBanner] Banner close status saved to sessionStorage');
+        }
+      } catch (error) {
+        console.error('[SpecialOfferBanner] Error saving to sessionStorage:', error);
       }
     }, 500);
   };
 
   const handleCtaClick = () => {
-    const form = document.getElementById('consultation-form');
-    if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
+    try {
+      // Try to trigger consultation modal
+      const modalTrigger = document.querySelector('[data-modal="consultation"]') as HTMLElement;
+      if (modalTrigger) {
+        modalTrigger.click();
+      } else {
+        // Fallback: scroll to form section or hero form
+        const heroForm =
+          document.querySelector('#hero .form-wrapper') ||
+          document.querySelector('#hero form') ||
+          document.querySelector('form[data-form-type="hero_form"]') ||
+          document.querySelector('.hero-form');
+        if (heroForm) {
+          heroForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          console.warn('[SpecialOfferBanner] No form found to scroll to');
+        }
+      }
+
+      // Analytics
+      try {
+        const win = window as typeof window & {
+          gtag?: (command: string, ...args: unknown[]) => void;
+        };
+        if (win.gtag) {
+          win.gtag('event', 'special_offer_cta_clicked', {
+            event_category: 'engagement',
+            event_label: 'discount_button',
+          });
+        }
+      } catch (analyticsError) {
+        console.warn('[SpecialOfferBanner] Analytics error:', analyticsError);
+      }
+    } catch (error) {
+      console.error('[SpecialOfferBanner] Error in handleCtaClick:', error);
     }
   };
 
-  if (
-    !isVisible ||
-    (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('offerBannerClosed'))
-  ) {
+  // Не показываем баннер до инициализации
+  if (!isInitialized) {
+    return null;
+  }
+
+  // Не показываем, если баннер скрыт или был закрыт
+  if (!isVisible) {
     return null;
   }
 
   return (
     <div
-      class={`special-offer-banner compact ${isExiting ? 'slide-out' : ''}`}
+      class={`special-offer-banner compact ${
+        isVisible && !isExiting ? 'visible' : ''
+      } ${isExiting ? 'slide-out' : ''}`}
       id='special-offer-banner'
     >
       <div class='offer-container compact'>

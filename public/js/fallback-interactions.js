@@ -78,7 +78,7 @@
 
     anchors.forEach((anchor) => {
       // Пропускаем ссылки внутри выпадающих меню (они обрабатываются отдельно)
-      if (anchor.closest('.nav-dropdown-menu')) {
+      if (anchor.closest('.nav-dropdown-menu') || anchor.closest('.group')) {
         return;
       }
 
@@ -94,6 +94,19 @@
 
         if (!href || href === '#' || href.startsWith('#modal-')) {
           return; // Пропускаем пустые и модальные ссылки
+        }
+
+        // Проверяем, не обрабатывается ли уже ссылка другим компонентом
+        if (
+          anchor.closest('nav') ||
+          anchor.closest('.header-redesign') ||
+          anchor.closest('#main-header')
+        ) {
+          console.log(
+            '[Fallback] Пропускаем якорную ссылку из навигации, она обрабатывается headerEnhanced:',
+            href
+          );
+          return;
         }
 
         e.preventDefault();
@@ -172,12 +185,21 @@
   }
 
   function scrollToElement(element) {
-    const header = document.querySelector('.header-redesign, .header, header');
+    // Ищем заголовок по разным селекторам
+    const header = document.querySelector('#main-header, .header-redesign, .header, header');
     const headerHeight = header ? header.offsetHeight : 80;
     const offset = 20;
 
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
+
+    console.log('[Fallback] Скроллим к элементу:', {
+      element: element.id || element.tagName,
+      headerHeight,
+      elementPosition,
+      offsetPosition,
+      currentScroll: window.pageYOffset,
+    });
 
     window.scrollTo({
       top: offsetPosition,

@@ -49,7 +49,7 @@ const envPath = path.resolve('.env');
 if (fs.existsSync(envPath)) {
   console.log('🔍 Loading environment variables from .env file...');
   const envConfig = fs.readFileSync(envPath, 'utf8');
-  envConfig.split('\n').forEach((line) => {
+  envConfig.split(/\r?\n/).forEach((line) => {
     // Skip comments and empty lines
     if (line.trim() === '' || line.startsWith('#')) return;
 

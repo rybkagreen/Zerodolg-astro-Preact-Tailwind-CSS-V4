@@ -18,13 +18,14 @@ async function importPuppeteer() {
     throw new Error('Puppeteer is not available in the browser environment');
   }
 
-  // In order to avoid TypeScript import errors during build time, 
-  // we're using dynamic import with require in a Node.js compatible way
-  const puppeteer = await eval("import('puppeteer')").catch(() => {
+  // In order to avoid TypeScript import errors during build time,
+  // we're using dynamic import in a Node.js compatible way
+  try {
+    const puppeteer = await import('puppeteer');
+    return puppeteer.default || puppeteer;
+  } catch (_error) {
     throw new Error('Puppeteer is not available. Make sure it is installed as a dependency.');
-  });
-  
-  return puppeteer.default || puppeteer;
+  }
 }
 
 class PuppeteerHelper {

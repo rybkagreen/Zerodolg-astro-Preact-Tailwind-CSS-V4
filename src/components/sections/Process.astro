@@ -1,0 +1,355 @@
+---
+import ProcessInteractive from '../../islands/sections/ProcessInteractive.tsx';
+
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+// Данные о процессе банкротства
+const processData = {
+  title: 'Как проходит банкротство',
+  subtitle: 'Пошаговый процесс освобождения от долгов через суд',
+  steps: [
+    {
+      number: 1,
+      title: 'Консультация',
+      shortTitle: 'Консультация',
+      description: 'Анализируем вашу ситуацию и определяем возможность банкротства',
+      duration: '1 день',
+      icon: '/icons/process/01-analysis.svg',
+      gradient: 'from-blue-500 to-indigo-600',
+      hoverColor: 'hover:text-blue-600',
+      bgGradient: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+      details: [
+        'Бесплатная оценка перспектив',
+        'Анализ всех долгов и кредиторов',
+        'Определение оптимальной стратегии',
+        'Расчет стоимости процедуры',
+      ],
+    },
+    {
+      number: 2,
+      title: 'Подготовка документов',
+      shortTitle: 'Документы',
+      description: 'Собираем и готовим все необходимые документы',
+      duration: '5-7 дней',
+      icon: '/icons/process/02-docs.svg',
+      gradient: 'from-emerald-500 to-teal-600',
+      hoverColor: 'hover:text-emerald-600',
+      bgGradient: 'bg-gradient-to-br from-emerald-50 to-teal-50',
+      details: [
+        'Помощь в сборе документов',
+        'Подготовка списка кредиторов',
+        'Оформление заявления в суд',
+        'Проверка всех данных',
+      ],
+    },
+    {
+      number: 3,
+      title: 'Подача заявления',
+      shortTitle: 'Подача в суд',
+      description: 'Подаем заявление в Арбитражный суд',
+      duration: '1 день',
+      icon: '/icons/process/03-court.svg',
+      gradient: 'from-orange-500 to-red-600',
+      hoverColor: 'hover:text-orange-600',
+      bgGradient: 'bg-gradient-to-br from-orange-50 to-red-50',
+      details: [
+        'Подача через электронную систему суда',
+        'Оплата госпошлины 300 рублей',
+        'Получение входящего номера дела',
+        'Уведомление всех кредиторов',
+      ],
+      warning: 'С момента подачи заявления коллекторы не могут вам звонить',
+    },
+    {
+      number: 4,
+      title: 'Судебная процедура',
+      shortTitle: 'Суд',
+      description: 'Представляем ваши интересы на всех заседаниях',
+      duration: '4-6 месяцев',
+      icon: '/icons/process/04-restruct.svg',
+      gradient: 'from-violet-500 to-pink-600',
+      hoverColor: 'hover:text-violet-600',
+      bgGradient: 'bg-gradient-to-br from-violet-50 to-pink-50',
+      details: [
+        'Первое судебное заседание',
+        'Назначение финансового управляющего',
+        'Реализация имущества (если есть)',
+        'Собрание кредиторов',
+      ],
+      warning: 'Единственное жилье и предметы обычного обихода остаются у вас',
+    },
+    {
+      number: 5,
+      title: 'Списание долгов',
+      shortTitle: 'Списание',
+      description: 'Получаем решение суда о списании всех долгов',
+      duration: '1 день',
+      icon: '/icons/process/06-discharge.svg',
+      gradient: 'from-green-500 to-emerald-600',
+      hoverColor: 'hover:text-green-600',
+      bgGradient: 'bg-gradient-to-br from-green-50 to-emerald-50',
+      details: [
+        'Окончательное судебное заседание',
+        'Получение решения суда',
+        'Списание всех долгов',
+        'Начало новой жизни без долгов',
+      ],
+    },
+  ],
+};
+---
+
+<!-- Process Section -->
+<section
+  class:list={`relative py-20 md:py-28 lg:py-36 overflow-hidden ${className}`}
+  id='process'
+  aria-labelledby='process-title'
+>
+  <!-- Background layers (стиль секции Problems) -->
+  <div class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'></div>
+
+  <!-- Background pattern -->
+  <div
+    class='absolute inset-0 opacity-30 mix-blend-multiply'
+    style='background-image: url("/patterns/Pastel Paint Strokes Abstract Digital Art Social Media Post (2).png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+  >
+  </div>
+
+  <!-- Dot pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-10'
+    style='background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px;'
+  >
+  </div>
+
+  <div class='relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <!-- Section Header -->
+    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <h2
+        id='process-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+      >
+        {processData.title}
+      </h2>
+      <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
+        {processData.subtitle}
+      </p>
+    </header>
+
+    <!-- Интерактивный компонент процесса -->
+    <ProcessInteractive client:load processData={processData} />
+  </div>
+</section>
+
+<!-- Enhanced Animation Styles for Process -->
+<style>
+  /* Process card animations */
+  .process-card {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Step transition animations */
+  .process-step-content {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .process-step-content.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .process-step-content.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Enhanced navigation button effects */
+  .process-nav-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process-nav-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .process-nav-btn:hover::before {
+    left: 100%;
+  }
+
+  .process-nav-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Progress dots enhanced animation */
+  .process-progress-dot {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .process-progress-dot::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.3s ease;
+  }
+
+  .process-progress-dot:hover::after {
+    opacity: 0.3;
+    transform: scale(1.5);
+  }
+
+  .process-progress-dot.active {
+    transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+
+  /* Progress bar animation */
+  #process-progress-bar {
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* CTA section animations */
+  #process-cta-section {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #process-cta-section.show {
+    opacity: 1;
+    height: auto;
+    transform: translateY(0);
+  }
+
+  /* Button ripple effect */
+  .process-nav-btn,
+  .process-progress-dot,
+  #process-prev-btn,
+  #process-next-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  /* Gradient animation for active elements */
+  .gradient-animate {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Hover glow effects */
+  .process-nav-btn:hover,
+  #process-next-btn:hover {
+    box-shadow: 0 0 30px -10px currentColor;
+  }
+
+  /* Smooth focus states */
+  .process-nav-btn:focus,
+  .process-progress-dot:focus,
+  #process-prev-btn:focus,
+  #process-next-btn:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .process-card,
+    .process-step-content,
+    .process-nav-btn,
+    .process-progress-dot,
+    #process-progress-bar,
+    #process-cta-section {
+      animation: none;
+      transition: none;
+    }
+
+    .process-card {
+      opacity: 1;
+    }
+
+    .process-nav-btn:hover,
+    .process-progress-dot:hover {
+      transform: none;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .process-card {
+      background: rgba(15, 23, 42, 0.8);
+      border-color: rgba(51, 65, 85, 0.6);
+    }
+  }
+</style>

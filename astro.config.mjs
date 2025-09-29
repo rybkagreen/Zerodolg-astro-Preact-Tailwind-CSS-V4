@@ -54,6 +54,17 @@ export default defineConfig({
 
   // Оптимизация Vite
   vite: {
+    resolve: {
+      alias: {
+        '@': '/src',
+        '@app': '/src/app',
+        '@entities': '/src/entities',
+        '@features': '/src/features',
+        '@widgets': '/src/widgets',
+        '@shared': '/src/shared',
+        '@pages': '/src/pages',
+      },
+    },
     css: {
       postcss: './postcss.config.cjs',
     },
@@ -84,10 +95,10 @@ export default defineConfig({
     port: 4321,
     host: true,
   },
-  
+
   // Включаем сжатие HTML для уменьшения размера
   compressHTML: true,
-  
+
   // Оптимизация изображений
   image: {
     // Используем Sharp для оптимизации изображений
@@ -99,7 +110,7 @@ export default defineConfig({
     // Поддержка современных форматов
     formats: ['avif', 'webp'],
   },
-  
+
   // Включаем предзагрузку для улучшения производительности
   prefetch: {
     prefetchAll: true,

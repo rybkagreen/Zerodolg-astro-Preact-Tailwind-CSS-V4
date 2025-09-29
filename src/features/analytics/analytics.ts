@@ -41,7 +41,7 @@ function debugLog(message: string, data?: any): void {
   }
 }
 
-  // Initialize Yandex Metrika
+// Initialize Yandex Metrika
 function initYandexMetrika(): void {
   if (!CONFIG.YANDEX_METRIKA_ID) {
     debugLog('Yandex Metrika ID not configured');
@@ -49,11 +49,19 @@ function initYandexMetrika(): void {
   }
 
   // Load Yandex Metrika script
-  (function (m: any, e: Document, t: string, r: string, i: string, k?: HTMLScriptElement, a?: HTMLScriptElement) {
+  (function (
+    m: any,
+    e: Document,
+    t: string,
+    r: string,
+    i: string,
+    k?: HTMLScriptElement,
+    a?: HTMLScriptElement
+  ) {
     m[i] =
       m[i] ||
-      function () {
-        (m[i].a = m[i].a || []).push(arguments);
+      function (...args: any[]) {
+        (m[i].a = m[i].a || []).push(args);
       };
     m[i].l = 1 * new Date().getTime();
     for (let j = 0; j < document.scripts.length; j++) {
@@ -102,7 +110,7 @@ function initYandexMetrika(): void {
   debugLog('Yandex Metrika initialized');
 }
 
-  // Initialize Google Analytics
+// Initialize Google Analytics
 function initGoogleAnalytics(): void {
   if (!CONFIG.GOOGLE_ANALYTICS_ID) {
     debugLog('Google Analytics ID not configured');
@@ -295,7 +303,7 @@ function initAnalytics(): void {
   // Expose analytics API for manual tracking
   window.ZeroDolgAnalytics = {
     // Track custom event
-    trackEvent (eventName: string, parameters?: EventParameters): void {
+    trackEvent(eventName: string, parameters?: EventParameters): void {
       parameters = parameters || {};
 
       // Yandex.Metrika
@@ -324,13 +332,13 @@ function initAnalytics(): void {
     },
 
     // Enable/disable debug mode
-    setDebug (enabled: boolean): void {
+    setDebug(enabled: boolean): void {
       CONFIG.DEBUG = enabled;
       debugLog('Debug mode:', enabled ? 'enabled' : 'disabled');
     },
 
     // Get current config
-    getConfig (): AnalyticsConfig {
+    getConfig(): AnalyticsConfig {
       return CONFIG;
     },
   };

@@ -1,3 +1,4 @@
+import type { JSX } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { createPortal } from 'preact/compat';
 import { useFocusTrap } from '@shared/hooks/useFocusTrap';
@@ -7,20 +8,20 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  children: import('preact').JSX.Element;
+  children: JSX.Element;
   role?: 'dialog' | 'alertdialog';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
 }
 
-export default function AccessibleModal({ 
-  isOpen, 
-  onClose, 
-  title, 
-  children, 
+export default function AccessibleModal({
+  isOpen,
+  onClose,
+  title,
+  children,
   role = 'dialog',
   size = 'md',
-  className = '' 
+  className = '',
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const containerRef = useFocusTrap<HTMLDivElement>(isOpen, {
@@ -67,7 +68,7 @@ export default function AccessibleModal({
         className
       )}
       role={role}
-      aria-modal="true"
+      aria-modal='true'
       aria-labelledby={`modal-title-${title}`}
       onClick={onClose} // Close on backdrop click
     >
@@ -81,12 +82,9 @@ export default function AccessibleModal({
         )}
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
       >
-        <div class="p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h2 
-              id={`modal-title-${title}`}
-              class="text-xl font-semibold text-text-primary"
-            >
+        <div class='p-6'>
+          <div class='flex items-center justify-between mb-4'>
+            <h2 id={`modal-title-${title}`} class='text-xl font-semibold text-text-primary'>
               {title}
             </h2>
             <button
@@ -96,24 +94,27 @@ export default function AccessibleModal({
                 'p-1 rounded-full hover:bg-bg-muted focus:outline-none focus:ring-2 focus:ring-primary-500',
                 'text-text-muted hover:text-text-primary'
               )}
-              aria-label="Закрыть модальное окно"
+              aria-label='Закрыть модальное окно'
               data-modal-id={title}
             >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                class="h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                class='h-6 w-6'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
               >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M6 18L18 6M6 6l12 12'
+                />
               </svg>
             </button>
           </div>
-          
-          <div class="modal-content">
-            {children}
-          </div>
+
+          <div class='modal-content'>{children}</div>
         </div>
       </div>
     </div>,

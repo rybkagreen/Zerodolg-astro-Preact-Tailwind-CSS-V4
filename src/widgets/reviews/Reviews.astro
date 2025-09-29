@@ -1,13 +1,19 @@
 ---
+// Import Preact component
+import ReviewsInteractive from '../../islands/sections/ReviewsInteractive.tsx';
+import TestReviews from '../../islands/test/TestReviews.tsx';
+import SimpleReviewsInteractive from '../../islands/test/SimpleReviewsInteractive.tsx';
+
 // Type definitions
 interface Review {
   id: string;
-  author: string;
+  author?: string;
+  name?: string;
   rating: number;
   date: string;
   text: string;
   verified: boolean;
-  helpful: number;
+  helpful?: number;
   avatar?: string;
   tags?: string[];
 }
@@ -96,6 +102,7 @@ const reviews: DetailedReview[] = [
   },
   {
     id: '7',
+    author: 'Александр Петров',
     name: 'Александр Петров',
     age: 42,
     city: 'Москва',
@@ -111,6 +118,7 @@ const reviews: DetailedReview[] = [
     result: 'Списаны все долги, сохранено единственное жилье, начал новый бизнес без обременений',
     text: 'Оказался в сложной ситуации после закрытия бизнеса. Команда Зеродолг помогла пройти процедуру банкротства профессионально и с минимальными потерями. Особенно благодарен юристу Андрею за поддержку на всех этапах.',
     verified: true,
+    helpful: 32,
     tags: ['Профессионализм', 'Поддержка', 'Результат'],
     lawyer: 'Андрей Соколов',
   },
@@ -132,6 +140,7 @@ const reviews: DetailedReview[] = [
       'Полное списание долгов за 6 месяцев, восстановлена кредитная история, нашла новую работу',
     text: 'После потери работы накопились долги по кредитам. В Зеродолг мне объяснили все варианты решения проблемы и помогли выбрать оптимальный. Процедура прошла быстрее, чем я ожидала.',
     verified: true,
+    helpful: 26,
     tags: ['Быстро', 'Понятно', 'Эффективно'],
     lawyer: 'Елена Морозова',
   },
@@ -151,6 +160,7 @@ const reviews: DetailedReview[] = [
     result: 'Списаны все долги, сохранены ключевые активы, возможность начать новое дело',
     text: 'Долго сомневался, стоит ли начинать процедуру банкротства. Специалисты Зеродолг развеяли все сомнения и провели через весь процесс. Теперь могу спокойно спать и строить планы на будущее.',
     verified: true,
+    helpful: 29,
     tags: ['Профессионально', 'Надежно'],
     lawyer: 'Игорь Волков',
   },
@@ -171,6 +181,7 @@ const reviews: DetailedReview[] = [
     result: 'Снижены платежи на 40%, сохранена кредитная история, возможность выплачивать долг',
     text: 'Обратилась за помощью в реструктуризации долгов. Юристы помогли договориться с банками и составить удобный график платежей. Процесс занял больше времени, чем планировалось, но результатом довольна.',
     verified: true,
+    helpful: 22,
     tags: ['Реструктуризация', 'Помощь'],
     lawyer: 'Ольга Белова',
   },
@@ -191,6 +202,7 @@ const reviews: DetailedReview[] = [
     result: 'Списаны все долги, сохранено единственное жилье, возможность начать заново',
     text: 'После краха строительного бизнеса остался с огромными долгами. Команда Зеродолг взяла на себя все юридические вопросы. Благодаря их профессионализму удалось сохранить единственное жилье.',
     verified: true,
+    helpful: 35,
     tags: ['Сохранили жилье', 'Профессионализм'],
     lawyer: 'Михаил Кузнецов',
   },
@@ -210,6 +222,7 @@ const reviews: DetailedReview[] = [
     result: 'Списаны все долги за 5 месяцев, начала новую жизнь с чистого листа',
     text: 'Попала в кредитную яму после развода. В Зеродолг отнеслись с пониманием к моей ситуации. Процедура прошла спокойно, без лишних нервов. Спасибо за человеческое отношение!',
     verified: true,
+    helpful: 18,
     tags: ['Понимание', 'Поддержка'],
     lawyer: 'Татьяна Попова',
   },
@@ -234,79 +247,75 @@ const calculateStats = (reviews: DetailedReview[]): ReviewStats => {
 
 const stats = calculateStats(reviews);
 
-// Format date for display
-const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr);
-  return new Intl.DateTimeFormat('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(date);
-};
-
-// Get initials from name - used in script section
-const getInitials = (name: string) => {
-  return name
-    .split(' ')
-    .map((word) => word[0])
-    .join('')
-    .toUpperCase();
-};
-
-// Declare global interface for window extensions
-declare global {
-  interface Window {
-    getInitials: (name: string) => string;
-    formatDate: (dateStr: string) => string;
-    reviews: DetailedReview[];
-    reviewsIncrement: number;
-    visibleReviews: number;
-  }
-}
-
-// Make functions available globally for script usage
-if (typeof window !== 'undefined') {
-  window.getInitials = getInitials;
-  window.formatDate = formatDate;
-  window.reviews = reviews;
-  window.reviewsIncrement = reviewsIncrement;
-  window.visibleReviews = visibleReviews;
-}
-
 // State for reviews display
 let visibleReviews = 3;
-const reviewsIncrement = 3;
 ---
 
-<section
-  class='section-padding bg-blue-600 text-white'
-  id='reviews'
-  data-aos='fade-up'
->
-  <div class='absolute inset-0 overflow-hidden'>
-    <div class='absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 opacity-90'></div>
+<section class='relative py-20 md:py-28 lg:py-36 overflow-hidden' id='reviews' data-aos='fade-up'>
+  <!-- Animated Gradient Background - Similar to Calculator -->
+  <div
+    class='absolute inset-0 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900'
+    style='background-size: 400% 400%; animation: gradient-rotate 20s ease infinite;'
+  >
   </div>
-  <div class='container-custom relative'>
-    <div class='text-center mb-12 md:mb-16'>
-      <h2 class='text-3xl md:text-4xl font-bold text-white mb-4'>Отзывы наших клиентов</h2>
-      <p class='text-xl text-blue-100 max-w-3xl mx-auto'>
+
+  <!-- Dark overlay for contrast -->
+  <div class='absolute inset-0 bg-gradient-to-br from-transparent via-black/20 to-black/40'></div>
+
+  <!-- Background pattern -->
+  <div
+    class='absolute inset-0 opacity-20 mix-blend-multiply'
+    style='background-image: url("/patterns/Pastel Paint Strokes Abstract Digital Art Social Media Post (2).png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+  >
+  </div>
+
+  <!-- Animated mesh pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-30'
+    style='background-image: radial-gradient(circle at 30% 70%, rgba(245, 158, 11, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.15) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%); animation: mesh-float 30s ease-in-out infinite;'
+  >
+  </div>
+  <div class='relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <div class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <h2
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight drop-shadow-lg'
+        style='text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);'
+      >
+        Отзывы наших клиентов
+      </h2>
+      <p
+        class='text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-sm'
+      >
         Более 847+ довольных клиентов, которые полностью освободились от долгов
       </p>
     </div>
 
-    <div class='bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-12'>
+    <!-- Glass Morphism Stats Container -->
+    <div
+      class='bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-8 mb-12 border border-white/20 shadow-2xl'
+      style='box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);'
+    >
+      <!-- Top accent line -->
+      <div
+        class='h-1 w-full bg-gradient-to-r from-orange-400 via-yellow-500 to-red-500 rounded-t-3xl -mx-6 md:-mx-8 -mt-6 md:-mt-8 mb-8'
+        style='animation: shimmer 3s ease-in-out infinite;'
+      >
+      </div>
+
       <div class='flex flex-col md:flex-row items-center justify-between gap-8'>
         <div class='text-center'>
-          <span class='text-5xl md:text-6xl font-bold text-white'>{stats.average.toFixed(1)}</span>
+          <span class='text-5xl md:text-6xl font-bold text-white drop-shadow-lg'
+            >{stats.average.toFixed(1)}</span
+          >
           <div class='flex justify-center gap-1 my-2'>
             {
               Array.from({ length: 5 }).map((_, i) => (
                 <span
                   class:list={[
-                    `text-2xl `,
+                    `text-2xl drop-shadow-sm`,
                     {
                       'text-yellow-400': i < Math.floor(stats.average),
-                      'text-gray-400': !(i < Math.floor(stats.average)),
+                      'text-white/40': !(i < Math.floor(stats.average)),
                     },
                   ]}
                 >
@@ -315,7 +324,9 @@ const reviewsIncrement = 3;
               ))
             }
           </div>
-          <span class='text-blue-200'>На основе {stats.total * 230} отзывов</span>
+          <span class='text-white/70 font-medium drop-shadow-sm'
+            >На основе {stats.total * 230} отзывов</span
+          >
         </div>
         <div class='w-full md:w-2/3'>
           {
@@ -324,15 +335,19 @@ const reviewsIncrement = 3;
               .map(([rating, count]) => {
                 const percentage = (count / stats.total) * 100;
                 return (
-                  <div class='flex items-center gap-3 mb-2 last:mb-0' key={rating}>
-                    <span class='w-8 text-right text-blue-200'>{rating}★</span>
-                    <div class='flex-1 h-2 bg-blue-800 rounded-full overflow-hidden'>
+                  <div class='flex items-center gap-3 mb-3 last:mb-0' key={rating}>
+                    <span class='w-8 text-right text-white/80 font-medium drop-shadow-sm'>
+                      {rating}★
+                    </span>
+                    <div class='flex-1 h-3 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm'>
                       <div
-                        class='h-full bg-yellow-400 rounded-full'
-                        style={`width: ${percentage}%`}
+                        class='h-full bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full shadow-inner'
+                        style={`width: ${percentage}%; animation: progressFill 2s ease-out;`}
                       />
                     </div>
-                    <span class='w-12 text-right text-blue-200'>{Math.round(percentage)}%</span>
+                    <span class='w-12 text-right text-white/70 font-medium drop-shadow-sm'>
+                      {Math.round(percentage)}%
+                    </span>
                   </div>
                 );
               })
@@ -341,333 +356,100 @@ const reviewsIncrement = 3;
       </div>
     </div>
 
-    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-      {
-        reviews.slice(0, visibleReviews).map((review, index) => (
-          <article
-            class='card bg-white/10 backdrop-blur-sm border-white/20 hover:border-white/30 text-white'
-            data-index={index}
-            key={review.id}
-          >
-            <div class='mb-4'>
-              <div class='flex items-start gap-3'>
-                <div class='w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold'>
-                  {review.author.charAt(0)}
-                </div>
-                <div>
-                  <h3 class='text-lg font-bold text-white mb-1'>{review.author || review.name}</h3>
-                  <time class='text-sm text-blue-200 block'>{formatDate(review.date)}</time>
-                </div>
-                {review.verified && (
-                  <div class='ml-auto'>
-                    <span class='inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full'>
-                      <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-                        <path
-                          d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
-                          stroke='currentColor'
-                          stroke-width='2'
-                          stroke-linecap='round'
-                          stroke-linejoin='round'
-                        />
-                      </svg>
-                      Проверено
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div class='review-card__rating flex gap-1 mb-3'>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <span
-                  class:list={[
-                    `review-card__star text-lg `,
-                    {
-                      'review-card__star--filled text-yellow-400': i < review.rating,
-                      'text-gray-400': !(i < review.rating),
-                    },
-                  ]}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-            <p class='review-card__text text-blue-100 mb-4'>{review.text}</p>
-            {review.tags && review.tags.length > 0 && (
-              <div class='review-card__tags flex flex-wrap gap-2 mb-4'>
-                {review.tags.map((tag) => (
-                  <span class='review-card__tag px-2 py-1 bg-blue-700/50 text-blue-200 text-xs rounded-full'>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-            <div class='review-card__footer flex justify-between items-center'>
-              <button
-                class='review-card__helpful inline-flex items-center gap-1 text-blue-200 hover:text-white transition-colors'
-                data-review-id={review.id}
-              >
-                <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-                  <path
-                    d='M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3'
-                    stroke='currentColor'
-                    stroke-width='2'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </svg>
-                Полезно ({review.helpful})
-              </button>
-              <button class='text-blue-200 hover:text-white transition-colors'>
-                <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-                  <path
-                    d='M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z'
-                    stroke='currentColor'
-                    stroke-width='2'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </svg>
-              </button>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+    <!-- Тестовый компонент для проверки Preact -->
+    <TestReviews client:load />
 
-    {
-      visibleReviews < reviews.length && (
-        <div class='reviews__actions text-center mt-12'>
-          <button
-            class='reviews__load-more btn-secondary inline-flex items-center gap-2'
-            onClick={() => (visibleReviews += reviewsIncrement)}
-          >
-            <span>Загрузить ещё отзывы</span>
-            <svg width='16' height='16' viewBox='0 0 24 24' fill='none'>
-              <path
-                d='M6 9l6 6 6-6'
-                stroke='currentColor'
-                stroke-width='2'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-            </svg>
-          </button>
-        </div>
-      )
-    }
+    <!-- Упрощенный Preact компонент отзывов -->
+    <SimpleReviewsInteractive client:load reviews={reviews} initialVisible={visibleReviews} />
+
+    <!-- Оригинальный компонент (отключен) -->
+    <!-- <ReviewsInteractive client:load reviews={reviews} initialVisible={visibleReviews} /> -->
   </div>
 </section>
 
-<script>
-  // Initialize animations on scroll
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px',
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-
-        // Animate rating bars
-        const ratingFills = entry.target.querySelectorAll('.reviews__rating-fill');
-        ratingFills.forEach((fill) => {
-          const width = fill.style.width;
-          fill.style.width = '0';
-          setTimeout(() => {
-            fill.style.width = width;
-          }, 100);
-        });
-      }
-    });
-  }, observerOptions);
-
-  // Observe review cards
-  document.querySelectorAll('.review-card').forEach((card) => {
-    observer.observe(card);
-  });
-
-  // Observe stats section
-  const statsSection = document.querySelector('.reviews__stats');
-  if (statsSection) {
-    observer.observe(statsSection);
+<!-- CSS Animations for Reviews Section -->
+<style>
+  /* Rotating gradient animation similar to calculator */
+  @keyframes gradient-rotate {
+    0% {
+      background-position: 0% 50%;
+      filter: hue-rotate(0deg);
+    }
+    25% {
+      background-position: 50% 100%;
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: hue-rotate(10deg);
+    }
+    75% {
+      background-position: 50% 0%;
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: hue-rotate(0deg);
+    }
   }
 
-  // Handle helpful button clicks
-  document.querySelectorAll('.review-card__helpful').forEach((button) => {
-    button.addEventListener('click', function () {
-      // const reviewId = this.dataset.reviewId; // Reserved for future analytics
-      const countMatch = this.textContent?.match(/\d+/);
-      if (countMatch) {
-        const currentCount = parseInt(countMatch[0]);
-        this.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 16 16">
-            <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="currentColor" stroke-width="1.5"/>
-          </svg>
-          Полезно (${currentCount + 1})
-        `;
-        this.style.background = '#f0f9ff';
-        this.style.borderColor = '#3b82f6';
-        this.style.color = '#3b82f6';
-        this.disabled = true;
-      }
-    });
-  });
-
-  // Handle load more button clicks
-  const handleLoadMore = () => {
-    const loadMoreBtn = document.querySelector('.reviews__load-more');
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', function () {
-        // Get current visible reviews count
-        const currentVisible = document.querySelectorAll('.review-card').length;
-        const totalReviews = window.reviews?.length || 0;
-
-        // Calculate new visible count
-        const increment = window.reviewsIncrement || 3;
-        const newVisible = Math.min(currentVisible + increment, totalReviews);
-
-        // Update button text and state
-        this.textContent = 'Загрузка...';
-        this.disabled = true;
-
-        // Simulate loading delay
-        setTimeout(() => {
-          // Update visible reviews count
-          window.visibleReviews = newVisible;
-
-          // Re-render reviews
-          renderReviews();
-
-          // Update button state
-          if (newVisible >= totalReviews) {
-            this.textContent = 'Все отзывы загружены';
-            this.style.opacity = '0.5';
-          } else {
-            this.textContent = 'Показать еще отзывы';
-            this.disabled = false;
-          }
-        }, 500);
-      });
+  /* Floating mesh animation */
+  @keyframes mesh-float {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
     }
-  };
+    33% {
+      transform: translate(-30px, 30px) rotate(120deg);
+    }
+    66% {
+      transform: translate(20px, -20px) rotate(240deg);
+    }
+  }
 
-  // Render reviews function
-  const renderReviews = () => {
-    const reviewsGrid = document.querySelector('.reviews__grid');
-    if (!reviewsGrid) return;
+  /* Shimmer animation for accent line */
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
 
-    // Clear current reviews
-    reviewsGrid.innerHTML = '';
+  /* Progress fill animation */
+  @keyframes progressFill {
+    from {
+      width: 0%;
+    }
+    to {
+      width: var(--target-width);
+    }
+  }
 
-    // Get global variables
-    const reviewsList = window.reviews || [];
-    const visibleCount = window.visibleReviews || 3;
-    const getInitialsFn = window.getInitials;
-    const formatDateFn = window.formatDate;
+  /* Card entrance animation */
+  @keyframes cardSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 
-    // Add visible reviews
-    const visibleReviewsSlice = reviewsList.slice(0, visibleCount);
-    visibleReviewsSlice.forEach((review, index) => {
-      const article = document.createElement('article');
-      article.className = 'review-card';
-      article.dataset.index = index.toString();
+  /* Apply entrance animation to cards */
+  .grid article {
+    animation: cardSlideIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+  }
 
-      article.innerHTML = `
-        <div class="review-card__header">
-          <div class="review-card__author">
-            <div class="review-card__avatar">
-              ${
-                review.avatar
-                  ? `<img src="${review.avatar}" alt="${review.author}" loading="lazy" />`
-                  : `<span>${getInitialsFn ? getInitialsFn(review.author || review.name || '') : (review.author || review.name || '').charAt(0)}</span>`
-              }
-            </div>
-            <div class="review-card__meta">
-              <h3 class="review-card__name">${review.author || review.name}</h3>
-              <time class="review-card__date">${formatDateFn ? formatDateFn(review.date) : review.date}</time>
-            </div>
-          </div>
-          ${
-            review.verified
-              ? `<div class="review-card__verified">
-              <svg width="16" height="16" viewBox="0 0 16 16">
-                <path d="M8 0L9.5 2.5L12.5 1.5L12 4.5L15 5.5L13.5 8L15 10.5L12 11.5L12.5 14.5L9.5 13.5L8 16L6.5 13.5L3.5 14.5L4 11.5L1 10.5L2.5 8L1 5.5L4 4.5L3.5 1.5L6.5 2.5L8 0Z" fill="currentColor"/>
-                <path d="M6 8L7 9L10 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Проверено
-            </div>`
-              : ''
-          }
-        </div>
-        
-        <div class="review-card__rating">
-          ${[...Array(5)]
-            .map(
-              (_, i) =>
-                `<svg 
-              class="review-card__star ${i < review.rating ? 'review-card__star--filled' : ''}"
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>`
-            )
-            .join('')}
-        </div>
-        
-        <p class="review-card__text">${review.text}</p>
-        
-        ${
-          review.tags && review.tags.length > 0
-            ? `<div class="review-card__tags">
-            ${review.tags.map((tag) => `<span class="review-card__tag">${tag}</span>`).join('')}
-          </div>`
-            : ''
-        }
-        
-        <div class="review-card__footer">
-          <button class="review-card__helpful" data-review-id="${review.id}">
-            <svg width="16" height="16" viewBox="0 0 16 16">
-              <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="none" stroke-width="1.5"/>
-            </svg>
-            Полезно (${review.helpful})
-          </button>
-        </div>
-      `;
-
-      reviewsGrid.appendChild(article);
-    });
-
-    // Re-attach event listeners
-    document.querySelectorAll('.review-card__helpful').forEach((button) => {
-      button.addEventListener('click', function () {
-        // const reviewId = this.dataset.reviewId; // Reserved for future analytics
-        const countMatch = this.textContent?.match(/\d+/);
-        if (countMatch) {
-          const currentCount = parseInt(countMatch[0]);
-          this.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 16 16">
-              <path d="M14 9.5v5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 011 14.5v-5a1 1 0 011-1h2.5l1.8-5.4A1.5 1.5 0 017.7 2h.1a2.2 2.2 0 012.2 2.2v2.3h3a1 1 0 01.98 1.2l-.98 4.3z" stroke="currentColor" fill="currentColor" stroke-width="1.5"/>
-            </svg>
-            Полезно (${currentCount + 1})
-          `;
-          this.style.background = '#f0f9ff';
-          this.style.borderColor = '#3b82f6';
-          this.style.color = '#3b82f6';
-          this.disabled = true;
-        }
-      });
-    });
-
-    // Re-initialize animations
-    document.querySelectorAll('.review-card').forEach((card) => {
-      observer.observe(card);
-    });
-  };
-
-  // Initialize load more button
-  handleLoadMore();
-</script>
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

@@ -9,39 +9,38 @@ if ('serviceWorker' in navigator) {
     try {
       // Get all registered service workers
       const registrations = await navigator.serviceWorker.getRegistrations();
-      
+
       if (registrations.length === 0) {
         console.log('[Service Worker] No service workers found to unregister.');
         return;
       }
-      
+
       // Unregister all service workers
       const unregisterPromises = registrations.map(async (registration) => {
         console.log('[Service Worker] Unregistering:', registration.scope);
         return await registration.unregister();
       });
-      
+
       const results = await Promise.all(unregisterPromises);
       const successCount = results.filter(Boolean).length;
-      
+
       console.log(`[Service Worker] Successfully unregistered ${successCount} service worker(s).`);
-      
+
       // Clear all caches
       if ('caches' in window) {
         const cacheNames = await caches.keys();
         if (cacheNames.length > 0) {
           console.log('[Service Worker] Clearing caches:', cacheNames);
-          const deletePromises = cacheNames.map(cacheName => caches.delete(cacheName));
+          const deletePromises = cacheNames.map((cacheName) => caches.delete(cacheName));
           await Promise.all(deletePromises);
           console.log('[Service Worker] All caches cleared.');
         }
       }
-      
+
       // Show notification that service worker has been disabled
       if (successCount > 0) {
         showRemovalNotification();
       }
-      
     } catch (error) {
       console.error('[Service Worker] Error during unregistration:', error);
     }

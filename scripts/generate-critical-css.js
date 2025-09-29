@@ -20,10 +20,10 @@ const config = {
   viewports: [
     { width: 1920, height: 1080, name: 'desktop' },
     { width: 768, height: 1024, name: 'tablet' },
-    { width: 375, height: 667, name: 'mobile' }
+    { width: 375, height: 667, name: 'mobile' },
   ],
   outputPath: join(__dirname, '../src/app/styles/critical.css'),
-  timeout: 30000
+  timeout: 30000,
 };
 
 /**
@@ -32,23 +32,23 @@ const config = {
 async function extractCriticalCSS(page, viewport) {
   await page.setViewport(viewport);
   await page.goto(config.url, { waitUntil: 'networkidle0', timeout: config.timeout });
-  
+
   // Получаем все CSS правила, которые применяются к элементам above-the-fold
   const criticalStyles = await page.evaluate(() => {
     const criticalSelectors = new Set();
     const viewportHeight = window.innerHeight;
-    
+
     // Получаем все элементы в пределах viewport
-    const elementsInViewport = Array.from(document.querySelectorAll('*')).filter(el => {
+    const elementsInViewport = Array.from(document.querySelectorAll('*')).filter((el) => {
       const rect = el.getBoundingClientRect();
       return rect.top < viewportHeight && rect.bottom > 0;
     });
-    
+
     // Для каждого элемента получаем примененные стили
-    elementsInViewport.forEach(element => {
+    elementsInViewport.forEach((element) => {
       const computedStyle = window.getComputedStyle(element);
       const rules = document.styleSheets[0]?.cssRules || [];
-      
+
       // Проверяем какие правила применяются к элементу
       for (let rule of rules) {
         if (rule.selectorText && element.matches && element.matches(rule.selectorText)) {
@@ -56,10 +56,10 @@ async function extractCriticalCSS(page, viewport) {
         }
       }
     });
-    
+
     return Array.from(criticalSelectors);
   });
-  
+
   return criticalStyles;
 }
 
@@ -68,26 +68,26 @@ async function extractCriticalCSS(page, viewport) {
  */
 async function generateCriticalCSS() {
   console.log('🚀 Запуск генерации критического CSS...');
-  
+
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
-  
+
   try {
     const page = await browser.newPage();
     const allCriticalStyles = new Set();
-    
+
     // Анализируем каждый viewport
     for (const viewport of config.viewports) {
       console.log(`📱 Анализ viewport: ${viewport.name} (${viewport.width}x${viewport.height})`);
-      
+
       const styles = await extractCriticalCSS(page, viewport);
-      styles.forEach(style => allCriticalStyles.add(style));
-      
+      styles.forEach((style) => allCriticalStyles.add(style));
+
       console.log(`✅ Найдено ${styles.length} критических стилей для ${viewport.name}`);
     }
-    
+
     // Базовые критические стили, которые всегда нужны
     const baseCriticalCSS = `
 /* Critical Above-the-fold CSS - Auto Generated */
@@ -121,18 +121,19 @@ nav{display:flex;align-items:center;justify-content:space-between;height:5rem}
 /* Utility Classes */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     `.trim();
-    
+
     // Объединяем базовые стили с извлеченными
-    const finalCSS = baseCriticalCSS + '\n\n/* Extracted Critical Styles */\n' + 
-                    Array.from(allCriticalStyles).join('\n');
-    
+    const finalCSS =
+      baseCriticalCSS +
+      '\n\n/* Extracted Critical Styles */\n' +
+      Array.from(allCriticalStyles).join('\n');
+
     // Записываем результат
     writeFileSync(config.outputPath, finalCSS, 'utf8');
-    
+
     console.log(`✅ Критический CSS сгенерирован: ${config.outputPath}`);
     console.log(`📊 Общий размер: ${(finalCSS.length / 1024).toFixed(2)} KB`);
     console.log(`🎯 Стилей обработано: ${allCriticalStyles.size}`);
-    
   } catch (error) {
     console.error('❌ Ошибка при генерации критического CSS:', error);
     process.exit(1);

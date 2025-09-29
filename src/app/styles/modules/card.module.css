@@ -70,7 +70,9 @@
   padding: 2px;
   background: linear-gradient(135deg, #60a5fa, #a78bfa);
   border-radius: inherit;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: xor;
   -webkit-mask-composite: xor;
 }
@@ -284,14 +286,14 @@
 }
 
 /* Dark Mode Support */
-[data-theme="dark"] .card {
+[data-theme='dark'] .card {
   @apply bg-gray-800 border-gray-700;
 }
 
-[data-theme="dark"] .glass {
+[data-theme='dark'] .glass {
   background: rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="dark"] .footer {
+[data-theme='dark'] .footer {
   @apply bg-gray-900;
 }
