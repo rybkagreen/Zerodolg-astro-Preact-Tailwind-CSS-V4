@@ -9,14 +9,14 @@
   @apply flex items-center justify-center p-4;
   backdrop-filter: blur(8px);
   background-color: rgba(0, 0, 0, 0.5);
-  
+
   /* Animation */
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease-out;
 }
 
-.modal[data-modal-open="true"] {
+.modal[data-modal-open='true'] {
   opacity: 1;
   visibility: visible;
 }
@@ -33,12 +33,12 @@
   @apply transform transition-all duration-300 ease-out;
   @apply w-full max-w-md mx-auto;
   @apply max-h-[90vh] overflow-y-auto;
-  
+
   /* Animation */
   transform: scale(0.95) translateY(10px);
 }
 
-.modal[data-modal-open="true"] .modal__content {
+.modal[data-modal-open='true'] .modal__content {
   transform: scale(1) translateY(0);
 }
 
@@ -127,7 +127,7 @@
   @apply flex items-start gap-3 cursor-pointer;
 }
 
-.modal .form__checkbox input[type="checkbox"] {
+.modal .form__checkbox input[type='checkbox'] {
   @apply w-4 h-4 mt-1 text-blue-600 bg-gray-100 border-gray-300 rounded;
   @apply focus:ring-blue-500 focus:ring-2;
 }
@@ -232,15 +232,15 @@
   .modal {
     @apply p-2;
   }
-  
+
   .modal__content {
     @apply mx-2;
   }
-  
+
   .modal__body {
     @apply p-4;
   }
-  
+
   .modal__title {
     @apply text-xl;
   }
@@ -255,9 +255,16 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
 
 /* Success state */

@@ -1,477 +1,161 @@
 ---
-// Calculator.astro - Calculator component with original design
+// Calculator.astro - Redesigned Calculator with Hero-style gradient background
+import CalculatorInteractive from '../../../islands/features/calculator/CalculatorInteractive.tsx';
+
 export interface Props {
   title?: string;
   subtitle?: string;
+  className?: string;
 }
 
 const {
-  title = 'Рассчитайте стоимость банкротства',
-  subtitle = 'Узнайте точную сумму за 1 минуту',
+  title = 'Калькулятор стоимости банкротства',
+  subtitle = 'Ответьте на несколько вопросов и узнайте точную стоимость процедуры',
+  className = '',
 } = Astro.props;
 ---
 
-<section class='py-16 md:py-24 bg-gradient-to-b from-blue-50 to-indigo-50' id='calculator'>
-  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-    <header class='text-center mb-12 md:mb-16'>
-      <h2 id='calculator-title' class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
+<!-- Hero-Style Calculator Section with Animated Gradient Background -->
+<section
+  class:list={`relative min-h-screen overflow-hidden flex items-center ${className}`}
+  id='calculator'
+  aria-labelledby='calculator-title'
+>
+  <!-- Animated Gradient Background - Similar to original -->
+  <div
+    class='absolute inset-0 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900'
+    style='background-size: 400% 400%; animation: gradient-rotate 20s ease infinite;'
+  >
+  </div>
+
+  <!-- Dark overlay for contrast -->
+  <div
+    class='absolute inset-0 bg-gradient-to-br from-transparent via-black/20 to-black/40 pointer-events-none'
+  >
+  </div>
+
+  <!-- Animated mesh pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-30'
+    style='background-image: radial-gradient(circle at 30% 70%, rgba(245, 158, 11, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.15) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%); animation: mesh-float 30s ease-in-out infinite;'
+  >
+  </div>
+
+  <div class='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20'>
+    <!-- Section Header -->
+    <header class='text-center mb-16'>
+      <h2
+        id='calculator-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight'
+        style='text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); animation: fadeInUp 0.8s ease-out;'
+      >
         {title}
       </h2>
-      <p class='text-xl text-gray-600 max-w-3xl mx-auto'>{subtitle}</p>
+      <p
+        class='text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium'
+        style='animation: fadeInUp 0.8s ease-out 0.2s; animation-fill-mode: both;'
+      >
+        {subtitle}
+      </p>
     </header>
 
-    <form
-      class='bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto'
-      role='form'
-      aria-labelledby='calculator-title'
+    <!-- Glass Morphism Calculator Form Container -->
+    <div
+      class='bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 max-w-4xl mx-auto border border-white/20 shadow-2xl'
+      style='box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5); animation: slideInUp 0.8s ease-out 0.4s; animation-fill-mode: both;'
     >
-      <fieldset class='space-y-6'>
-        <legend class='sr-only'>Параметры для расчета стоимости банкротства</legend>
-
-        <div class='space-y-2'>
-          <label for='debt-amount' class='block text-lg font-medium text-gray-900'
-            >Сумма долга</label
-          >
-          <select
-            id='debt-amount'
-            class='calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white'
-            aria-describedby='debt-help'
-          >
-            <option value=''>Выберите сумму долга</option>
-            <option value='under-300k'>До 300 000 ₽</option>
-            <option value='300k-1m'>От 300 000 ₽ до 1 млн ₽</option>
-            <option value='1m-3m'>От 1 млн ₽ до 3 млн ₽</option>
-            <option value='3m-5m'>От 3 млн ₽ до 5 млн ₽</option>
-            <option value='5m-10m'>От 5 млн ₽ до 10 млн ₽</option>
-            <option value='over-10m'>Свыше 10 млн ₽</option>
-          </select>
-          <small id='debt-help' class='block text-sm text-gray-500'
-            >Укажите общую сумму ваших долгов</small
-          >
-        </div>
-
-        <div class='space-y-2'>
-          <label for='property' class='block text-lg font-medium text-gray-900'
-            >Есть ли имущество?</label
-          >
-          <select
-            id='property'
-            class='calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white'
-            aria-describedby='property-help'
-          >
-            <option value=''>Выберите вариант</option>
-            <option value='no-property'>Нет имущества</option>
-            <option value='property-no-equity'>Есть имущество без залогов</option>
-            <option value='property-with-equity'>Есть имущество с залогами</option>
-          </select>
-          <small id='property-help' class='block text-sm text-gray-500'>
-            Укажите наличие имущества, которое может быть реализовано
-          </small>
-        </div>
-
-        <div class='space-y-2'>
-          <label for='employment' class='block text-lg font-medium text-gray-900'
-            >Трудоустройство</label
-          >
-          <select
-            id='employment'
-            class='calc-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 bg-white'
-            aria-describedby='employment-help'
-          >
-            <option value=''>Выберите статус</option>
-            <option value='employed'>Трудоустроен</option>
-            <option value='unemployed'>Безработный</option>
-            <option value='pensioner'>Пенсионер</option>
-            <option value='invalid'>Инвалид</option>
-            <option value='entrepreneur'>ИП</option>
-          </select>
-          <small id='employment-help' class='block text-sm text-gray-500'>
-            Укажите ваш текущий статус трудоустройства
-          </small>
-        </div>
-
-        <button
-          type='button'
-          class='calc-submit w-full py-4 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 font-bold text-lg flex items-center justify-center'
-          data-action='calculate'
-        >
-          <span>Рассчитать стоимость</span>
-          <span class='ml-2 loader hidden'>
-            <svg
-              class='animate-spin h-5 w-5 text-white'
-              viewBox='0 0 50 50'
-              aria-label='Загрузка'
-              role='status'
-            >
-              <circle cx='25' cy='25' r='20' fill='none' stroke-width='5'></circle>
-            </svg>
-          </span>
-        </button>
-      </fieldset>
-
-      <div class='calc-result hidden mt-8' aria-live='polite'>
-        <div class='bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6'>
-          <div
-            class='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6'
-          >
-            <div>
-              <h3 class='text-2xl font-bold text-gray-900 mb-2'>Ваш персональный расчет готов!</h3>
-              <div
-                class='calc-badge inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full'
-              >
-              </div>
-            </div>
-          </div>
-
-          <div class='grid grid-cols-1 md:grid-cols-3 gap-4 mb-6'>
-            <div
-              class='result-card primary bg-white rounded-lg p-4 text-center border border-gray-200'
-            >
-              <div class='text-gray-600 mb-1'>Стоимость под ключ</div>
-              <div class='result-value text-2xl font-bold text-gray-900 mb-1'>0 ₽</div>
-              <div class='text-sm text-gray-500'>или 0 ₽/мес</div>
-            </div>
-            <div class='result-card bg-white rounded-lg p-4 text-center border border-gray-200'>
-              <div class='text-gray-600 mb-1'>Срок процедуры</div>
-              <div class='result-value text-2xl font-bold text-gray-900 mb-1'>0 мес</div>
-              <div class='text-sm text-gray-500'>полное списание долгов</div>
-            </div>
-            <div
-              class='result-card success bg-white rounded-lg p-4 text-center border border-gray-200'
-            >
-              <div class='text-gray-600 mb-1'>Ваша экономия</div>
-              <div class='result-value text-2xl font-bold text-gray-900 mb-1'>0 ₽</div>
-              <div class='text-sm text-gray-500'>0% от суммы долга</div>
-            </div>
-          </div>
-
-          <div class='result-features mb-6'>
-            <h4 class='text-lg font-semibold text-gray-900 mb-3'>Что входит в стоимость:</h4>
-            <ul class='space-y-2'>
-              <li class='flex items-start'>
-                <svg
-                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                >
-                  <path d='M20 6L9 17l-5-5'></path>
-                </svg>
-                <span>Полная подготовка документов</span>
-              </li>
-              <li class='flex items-start'>
-                <svg
-                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                >
-                  <path d='M20 6L9 17l-5-5'></path>
-                </svg>
-                <span>Подача заявления в суд</span>
-              </li>
-              <li class='flex items-start'>
-                <svg
-                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                >
-                  <path d='M20 6L9 17l-5-5'></path>
-                </svg>
-                <span>Представительство на всех заседаниях</span>
-              </li>
-              <li class='flex items-start'>
-                <svg
-                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                >
-                  <path d='M20 6L9 17l-5-5'></path>
-                </svg>
-                <span>Работа с финансовым управляющим</span>
-              </li>
-              <li class='flex items-start'>
-                <svg
-                  class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                >
-                  <path d='M20 6L9 17l-5-5'></path>
-                </svg>
-                <span>Полное сопровождение до списания</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class='result-actions mb-4'>
-            <button
-              type='button'
-              class='result-btn w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium flex items-center justify-center'
-              data-modal-trigger='callback'
-            >
-              Получить консультацию
-            </button>
-          </div>
-
-          <p class='text-xs text-gray-500 text-center'>
-            Расчет является ориентировочным. Точную стоимость определит юрист после анализа вашей
-            ситуации.
-          </p>
-        </div>
+      <!-- Top accent line -->
+      <div
+        class='h-1 w-full bg-gradient-to-r from-orange-400 via-yellow-500 to-red-500 rounded-t-3xl -mx-8 md:-mx-12 -mt-8 md:-mt-12 mb-8'
+        style='animation: shimmer 3s ease-in-out infinite;'
+      >
       </div>
-    </form>
+
+      <!-- Interactive Calculator Component -->
+      <CalculatorInteractive client:visible />
+    </div>
   </div>
 </section>
 
-<script>
-  // Global analytics types
-  declare global {
-    interface Window {
-      gtag: (command: string, action: string, parameters?: Record<string, unknown>) => void;
+<!-- CSS Animations for Hero-style calculator -->
+<style>
+  /* Rotating gradient animation similar to original */
+  @keyframes gradient-rotate {
+    0% {
+      background-position: 0% 50%;
+      filter: hue-rotate(0deg);
+    }
+    25% {
+      background-position: 50% 100%;
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: hue-rotate(10deg);
+    }
+    75% {
+      background-position: 50% 0%;
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: hue-rotate(0deg);
     }
   }
 
-  // Calculator logic
-  class BankruptcyCalculator {
-    constructor() {
-      this.form = document.querySelector('form');
-      this.resultDiv = document.querySelector('.calc-result');
-      this.submitBtn = document.querySelector('.calc-submit');
-
-      if (this.form) {
-        this.init();
-      }
+  /* Floating mesh animation */
+  @keyframes mesh-float {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
     }
-
-    init() {
-      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-
-      // Add change listeners to update button state
-      const selects = this.form.querySelectorAll('select');
-      selects.forEach((select) => {
-        select.addEventListener('change', () => this.checkFormValidity());
-      });
+    33% {
+      transform: translate(-30px, 30px) rotate(120deg);
     }
-
-    checkFormValidity() {
-      const selects = this.form.querySelectorAll('select');
-      const allSelected = Array.from(selects).every((select) => select.value !== '');
-
-      if (this.submitBtn) {
-        this.submitBtn.disabled = !allSelected;
-      }
-    }
-
-    handleSubmit(e) {
-      e.preventDefault();
-
-      const formData = new FormData(this.form);
-      const data = {
-        debtAmount: formData.get('debtAmount'),
-        hasProperty: formData.get('hasProperty'),
-        employmentStatus: formData.get('employmentStatus'),
-      };
-
-      // Calculate the cost based on inputs
-      const result = this.calculateCost(data);
-
-      // Display the result
-      this.displayResult(result);
-
-      // Analytics
-      if (typeof window.gtag !== 'undefined') {
-        window.gtag('event', 'calculator_completed', {
-          event_category: 'engagement',
-          event_label: 'bankruptcy_calculator',
-          value: result.price,
-        });
-      }
-    }
-
-    calculateCost(data) {
-      let basePrice = 40000; // Base price
-      let monthlyPayment = 5000; // Base monthly payment
-      let duration = 8; // Months
-      let complexity = 'standard';
-
-      // Adjust based on debt amount
-      switch (data.debtAmount) {
-        case '100-300':
-          basePrice = 35000;
-          monthlyPayment = 4500;
-          break;
-        case '300-500':
-          basePrice = 40000;
-          monthlyPayment = 5000;
-          break;
-        case '500-1000':
-          basePrice = 45000;
-          monthlyPayment = 5500;
-          complexity = 'medium';
-          break;
-        case '1000+':
-          basePrice = 50000;
-          monthlyPayment = 6000;
-          complexity = 'complex';
-          duration = 10;
-          break;
-      }
-
-      // Adjust based on property
-      switch (data.hasProperty) {
-        case 'none':
-          basePrice -= 5000;
-          duration = 6;
-          complexity = 'simple';
-          break;
-        case 'apartment':
-          // No adjustment for single property
-          break;
-        case 'multiple':
-          basePrice += 10000;
-          duration = 12;
-          complexity = 'complex';
-          break;
-      }
-
-      // Adjust based on employment
-      switch (data.employmentStatus) {
-        case 'unemployed':
-          basePrice -= 3000;
-          monthlyPayment -= 500;
-          break;
-        case 'pension':
-          basePrice -= 2000;
-          monthlyPayment -= 300;
-          break;
-        case 'business':
-          basePrice += 5000;
-          complexity = 'complex';
-          break;
-      }
-
-      // Calculate savings
-      const averageDebt = this.getAverageDebt(data.debtAmount);
-      const savings = averageDebt - basePrice;
-      const savingsPercent = Math.round((savings / averageDebt) * 100);
-
-      return {
-        price: basePrice,
-        monthlyPayment: monthlyPayment,
-        duration: duration,
-        complexity: complexity,
-        savings: savings,
-        savingsPercent: savingsPercent,
-        debtAmount: averageDebt,
-      };
-    }
-
-    getAverageDebt(range) {
-      switch (range) {
-        case '100-300':
-          return 200000;
-        case '300-500':
-          return 400000;
-        case '500-1000':
-          return 750000;
-        case '1000+':
-          return 1500000;
-        default:
-          return 500000;
-      }
-    }
-
-    displayResult(result) {
-      const complexityText = {
-        simple: 'Простая процедура',
-        standard: 'Стандартная процедура',
-        medium: 'Процедура средней сложности',
-        complex: 'Сложная процедура',
-      };
-
-      this.resultDiv.innerHTML = `
-        <div class="calculator__result-content">
-          <div class="calculator__result-header">
-            <h3 class="calculator__result-title">Ваш персональный расчет готов!</h3>
-            <div class="calculator__result-badge">${complexityText[result.complexity]}</div>
-          </div>
-          
-          <div class="calculator__result-grid">
-            <div class="calculator__result-card calculator__result-card--primary">
-              <div class="calculator__result-label">Стоимость под ключ</div>
-              <div class="calculator__result-value">${result.price.toLocaleString('ru-RU')} ₽</div>
-              <div class="calculator__result-note">или ${result.monthlyPayment.toLocaleString('ru-RU')} ₽/мес</div>
-            </div>
-            
-            <div class="calculator__result-card">
-              <div class="calculator__result-label">Срок процедуры</div>
-              <div class="calculator__result-value">${result.duration} мес</div>
-              <div class="calculator__result-note">полное списание долгов</div>
-            </div>
-            
-            <div class="calculator__result-card calculator__result-card--success">
-              <div class="calculator__result-label">Ваша экономия</div>
-              <div class="calculator__result-value">${result.savings.toLocaleString('ru-RU')} ₽</div>
-              <div class="calculator__result-note">${result.savingsPercent}% от суммы долга</div>
-            </div>
-          </div>
-          
-          <div class="calculator__result-features">
-            <h4 class="calculator__result-features-title">Что входит в стоимость:</h4>
-            <ul class="calculator__result-features-list">
-              <li>Полное юридическое сопровождение</li>
-              <li>Подготовка всех документов</li>
-              <li>Представительство в суде</li>
-              <li>Работа с кредиторами</li>
-              <li>Гарантия результата по договору</li>
-            </ul>
-          </div>
-          
-          <div class="calculator__result-actions">
-            <button type="button" class="btn btn--primary btn--large calculator__result-btn" data-modal-trigger="callback">
-              Получить консультацию бесплатно
-            </button>
-            <p class="calculator__result-disclaimer">
-              Точная стоимость определяется после анализа вашей ситуации
-            </p>
-          </div>
-        </div>
-      `;
-
-      // Show result with animation
-      this.resultDiv.hidden = false;
-      this.resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-      // Add click handler for consultation button
-      const consultBtn = this.resultDiv.querySelector('[data-modal-trigger="callback"]');
-      if (consultBtn) {
-        consultBtn.addEventListener('click', () => {
-          // Trigger modal or scroll to form
-          const modal = document.querySelector('#callback-modal');
-          if (modal) {
-            modal.classList.add('modal--active');
-          } else {
-            // Fallback: scroll to CTA section
-            const ctaSection = document.querySelector('#cta, .cta');
-            if (ctaSection) {
-              ctaSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        });
-      }
+    66% {
+      transform: translate(20px, -20px) rotate(240deg);
     }
   }
 
-  // Initialize calculator when DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    new BankruptcyCalculator();
-  });
-</script>
+  /* Fade in up animation for content */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide in up animation for form */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(60px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Shimmer animation for accent line */
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

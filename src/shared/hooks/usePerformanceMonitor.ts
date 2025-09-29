@@ -16,11 +16,14 @@ export function usePerformanceMonitor(componentName: string): void {
     // Мониторим long tasks (задачи, занимающие >50ms)
     if ('PerformanceObserver' in window) {
       observer.current = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
-          if (entry.entryType === 'longtask') {
-            console.warn(`Long task detected in ${componentName}:`, entry);
-          }
-        });
+        const entries = list.getEntries();
+        if (entries && entries.length > 0) {
+          entries.forEach((entry) => {
+            if (entry.entryType === 'longtask') {
+              console.warn(`Long task detected in ${componentName}:`, entry);
+            }
+          });
+        }
       });
 
       observer.current.observe({ entryTypes: ['longtask'] });
@@ -47,18 +50,22 @@ export function usePerformanceMonitor(componentName: string): void {
     const measureName = `${componentName}-render`;
     if (performance.mark && performance.measure) {
       performance.mark(`${measureName}-start`);
-      
+
       return () => {
         performance.mark(`${measureName}-end`);
         performance.measure(measureName, `${measureName}-start`, `${measureName}-end`);
-        
-        const measure = performance.getEntriesByName(measureName)[0];
-        if (measure && measure.duration > 16.67) { // > 1 фрейма при 60 FPS
-          console.warn(`${componentName} render took ${measure.duration.toFixed(2)}ms`);
+
+        const measures = performance.getEntriesByName(measureName);
+        if (measures && measures.length > 0) {
+          const measure = measures[0];
+          if (measure && measure.duration > 16.67) {
+            // > 1 фрейма при 60 FPS
+            console.warn(`${componentName} render took ${measure.duration.toFixed(2)}ms`);
+          }
         }
       };
     }
-    
+
     // Return empty cleanup function to satisfy TypeScript
     return () => {};
   }, [componentName]);

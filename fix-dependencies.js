@@ -9,16 +9,9 @@ import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import path from 'path';
 
-const requiredDependencies = [
-  'postcss-import',
-  'postcss-nesting',
-  'autoprefixer',
-  'cssnano'
-];
+const requiredDependencies = ['postcss-import', 'postcss-nesting', 'autoprefixer', 'cssnano'];
 
-const requiredDevDependencies = [
-  '@tailwindcss/postcss'
-];
+const requiredDevDependencies = ['@tailwindcss/postcss'];
 
 console.log('🔧 Проверка и установка недостающих зависимостей...\n');
 
@@ -33,22 +26,22 @@ let packageJson;
 try {
   const packageJsonPath = path.resolve('package.json');
   packageJson = JSON.parse(execSync(`type "${packageJsonPath}"`, { encoding: 'utf8' }));
-  } catch (err) {
-    console.error('❌ Ошибка чтения package.json:', err.message);
-    process.exit(1);
-  }
+} catch (err) {
+  console.error('❌ Ошибка чтения package.json:', err.message);
+  process.exit(1);
+}
 
 // Проверяем зависимости
 const missingDependencies = [];
 const missingDevDependencies = [];
 
-requiredDependencies.forEach(dep => {
+requiredDependencies.forEach((dep) => {
   if (!packageJson.dependencies?.[dep] && !packageJson.devDependencies?.[dep]) {
     missingDependencies.push(dep);
   }
 });
 
-requiredDevDependencies.forEach(dep => {
+requiredDevDependencies.forEach((dep) => {
   if (!packageJson.devDependencies?.[dep]) {
     missingDevDependencies.push(dep);
   }

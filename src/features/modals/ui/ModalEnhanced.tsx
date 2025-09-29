@@ -35,7 +35,7 @@ export default function ModalEnhanced({
   backdropClass = 'fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity z-modalBackdrop',
   containerClass = 'fixed inset-0 overflow-y-auto z-modal',
   headerClass = 'flex items-center justify-between p-6 border-b border-neutral-200',
-  bodyClass = 'p-6'
+  bodyClass = 'p-6',
 }: ModalProps): VNode | null {
   const [isActive, setIsActive] = useState(false);
   const { ref: clickOutsideRef } = useClickOutside<HTMLDivElement>(() => {
@@ -50,7 +50,7 @@ export default function ModalEnhanced({
     restoreFocus: true,
     allowOutsideClick: false,
     escapeDeactivates: true,
-    onDeactivate: () => handleClose()
+    onDeactivate: () => handleClose(),
   });
   const prefersReducedMotion = useReducedMotion();
 
@@ -68,9 +68,12 @@ export default function ModalEnhanced({
   // Обработчик закрытия модального окна
   const handleClose = useCallback(() => {
     setIsActive(false);
-    setTimeout(() => {
-      onClose?.();
-    }, prefersReducedMotion ? 0 : 300); // Даем время на анимацию закрытия
+    setTimeout(
+      () => {
+        onClose?.();
+      },
+      prefersReducedMotion ? 0 : 300
+    ); // Даем время на анимацию закрытия
   }, [onClose, prefersReducedMotion]);
 
   // Обработка нажатия клавиши ESC
@@ -94,12 +97,12 @@ export default function ModalEnhanced({
   const containerStyle = {
     opacity: isActive ? 1 : 0,
     visibility: isActive ? 'visible' : 'hidden',
-    transition: prefersReducedMotion ? 'none' : 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)'
+    transition: prefersReducedMotion ? 'none' : 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
   };
 
   const contentStyle = {
     transform: isActive ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-    transition: prefersReducedMotion ? 'none' : 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)'
+    transition: prefersReducedMotion ? 'none' : 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
   };
 
   return (
@@ -111,10 +114,7 @@ export default function ModalEnhanced({
       role={role}
     >
       <div class={backdropClass} />
-      <div
-        ref={clickOutsideRef}
-        class="min-h-full flex items-center justify-center p-4"
-      >
+      <div ref={clickOutsideRef} class='min-h-full flex items-center justify-center p-4'>
         <div
           ref={(el) => {
             if (el) {
@@ -122,21 +122,26 @@ export default function ModalEnhanced({
               focusTrapRef.current = el;
             }
           }}
-          class="enhanced-card w-full max-w-md overflow-hidden"
+          class='enhanced-card w-full max-w-md overflow-hidden'
           style={contentStyle}
-          role="document"
+          role='document'
         >
           <div class={headerClass}>
-            <h3 class="text-xl font-semibold text-neutral-900" id={`${id}-title`}>
+            <h3 class='text-xl font-semibold text-neutral-900' id={`${id}-title`}>
               {title}
             </h3>
             <button
               onClick={handleClose}
-              class="btn-ghost !p-2 text-neutral-400 hover:text-neutral-600"
-              aria-label="Закрыть"
+              class='btn-ghost !p-2 text-neutral-400 hover:text-neutral-600'
+              aria-label='Закрыть'
             >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              <svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M6 18L18 6M6 6l12 12'
+                />
               </svg>
             </button>
           </div>

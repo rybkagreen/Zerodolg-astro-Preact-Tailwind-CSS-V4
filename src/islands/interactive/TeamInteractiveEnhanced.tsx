@@ -26,18 +26,26 @@ interface TeamMember {
   };
 }
 
-interface Props {
-  members?: TeamMember[];
+interface TeamStats {
+  totalExperience: string;
+  totalCases: string;
+  totalSaved: string;
+  successRate: string;
 }
 
-export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode {
+interface Props {
+  members?: TeamMember[];
+  stats?: TeamStats;
+}
+
+export default function TeamInteractiveEnhanced({ members = [], stats }: Props): VNode {
   const [activeMemberId, setActiveMemberId] = useState<string | null>(members[0]?.id || null);
   const [isVisible, setIsVisible] = useState(false);
   const [observerRef, isIntersecting] = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
-    triggerOnce: true
+    triggerOnce: true,
   });
-  
+
   const prefersReducedMotion = useReducedMotion();
   usePerformanceMonitor('TeamInteractiveEnhanced');
 
@@ -52,23 +60,26 @@ export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode 
     setActiveMemberId(memberId);
   }, []);
 
-  const handleArrowNavigation = useCallback((e: KeyboardEvent, currentIndex: number) => {
-    let newIndex: number | undefined;
+  const handleArrowNavigation = useCallback(
+    (e: KeyboardEvent, currentIndex: number) => {
+      let newIndex: number | undefined;
 
-    if (e.key === 'ArrowDown') {
-      newIndex = Math.min(currentIndex + 1, members.length - 1);
-    } else if (e.key === 'ArrowUp') {
-      newIndex = Math.max(currentIndex - 1, 0);
-    }
-
-    if (newIndex !== undefined && newIndex !== currentIndex) {
-      e.preventDefault();
-      const memberId = members[newIndex]?.id;
-      if (memberId) {
-        setActiveMemberId(memberId);
+      if (e.key === 'ArrowDown') {
+        newIndex = Math.min(currentIndex + 1, members.length - 1);
+      } else if (e.key === 'ArrowUp') {
+        newIndex = Math.max(currentIndex - 1, 0);
       }
-    }
-  }, [members]);
+
+      if (newIndex !== undefined && newIndex !== currentIndex) {
+        e.preventDefault();
+        const memberId = members[newIndex]?.id;
+        if (memberId) {
+          setActiveMemberId(memberId);
+        }
+      }
+    },
+    [members]
+  );
 
   // Early return if no members
   if (!members || members.length === 0) {
@@ -76,7 +87,9 @@ export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode 
       <section class='py-16 md:py-24' id='team'>
         <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div class='text-center'>
-            <h2 class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Наша команда экспертов</h2>
+            <h2 class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
+              Наша команда экспертов
+            </h2>
             <p class='text-lg text-gray-600'>Информация о команде обновляется...</p>
           </div>
         </div>
@@ -90,16 +103,11 @@ export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode 
   const containerStyle = {
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-    transition: prefersReducedMotion ? 'none' : 'all 0.5s ease-out'
+    transition: prefersReducedMotion ? 'none' : 'all 0.5s ease-out',
   };
 
   return (
-    <section 
-      ref={observerRef} 
-      class='py-16 md:py-24' 
-      id='team'
-      style={containerStyle}
-    >
+    <section ref={observerRef} class='team-section py-16 md:py-24' id='team' style={containerStyle}>
       <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div class='text-center mb-12 md:mb-16'>
           <h2 class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Наша команда экспертов</h2>
@@ -115,15 +123,17 @@ export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode 
               const isActive = activeMemberId === member.id;
               const tabStyle = {
                 transform: isActive && isVisible ? 'scale(1)' : 'scale(0.98)',
-                transition: prefersReducedMotion ? 'none' : 'all 0.3s ease'
+                transition: prefersReducedMotion ? 'none' : 'all 0.3s ease',
               };
-              
+
               return (
                 <button
                   key={member.id}
                   style={tabStyle}
                   class={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 text-left ${
-                    isActive ? 'border-blue-500 bg-blue-50 shadow-lg' : 'border-gray-200 hover:border-gray-300'
+                    isActive
+                      ? 'border-blue-500 bg-blue-50 shadow-lg'
+                      : 'border-gray-200 hover:border-gray-300'
                   }`}
                   role='tab'
                   aria-selected={isActive}
@@ -160,7 +170,9 @@ export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode 
           <div class='md:w-2/3'>
             {activeMember && (
               <div
-                class={'p-6 md:p-8 rounded-xl border border-gray-200 bg-white transition-opacity duration-300'}
+                class={
+                  'p-6 md:p-8 rounded-xl border border-gray-200 bg-white transition-opacity duration-300'
+                }
                 id={`team-member-${activeMember.id}`}
                 role='tabpanel'
                 aria-hidden='false'
@@ -283,6 +295,30 @@ export default function TeamInteractiveEnhanced({ members = [] }: Props): VNode 
             )}
           </div>
         </div>
+
+        {/* Overall Team Stats */}
+        {stats && (
+          <div class='grid grid-cols-2 md:grid-cols-4 gap-6 mt-16'>
+            <div class='bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center'>
+              <span class='text-3xl font-bold text-blue-600 mb-2 block'>
+                {stats.totalExperience}
+              </span>
+              <span class='text-gray-600'>лет суммарного опыта</span>
+            </div>
+            <div class='bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center'>
+              <span class='text-3xl font-bold text-blue-600 mb-2 block'>{stats.totalCases}</span>
+              <span class='text-gray-600'>проведенных дел</span>
+            </div>
+            <div class='bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center'>
+              <span class='text-3xl font-bold text-blue-600 mb-2 block'>{stats.totalSaved}</span>
+              <span class='text-gray-600'>списано долгов</span>
+            </div>
+            <div class='bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center'>
+              <span class='text-3xl font-bold text-blue-600 mb-2 block'>{stats.successRate}</span>
+              <span class='text-gray-600'>успешных дел</span>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -5,30 +5,37 @@ console.log('[Cache Clear] Starting cache cleanup...');
 
 // Clear all caches
 if ('caches' in window) {
-  caches.keys().then((cacheNames) => {
-    return Promise.all(
-      cacheNames.map((cacheName) => {
-        console.log('[Cache Clear] Deleting cache:', cacheName);
-        return caches.delete(cacheName);
-      })
-    );
-  }).then(() => {
-    console.log('[Cache Clear] All caches cleared');
-  }).catch((error) => {
-    console.error('[Cache Clear] Error clearing caches:', error);
-  });
+  caches
+    .keys()
+    .then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          console.log('[Cache Clear] Deleting cache:', cacheName);
+          return caches.delete(cacheName);
+        })
+      );
+    })
+    .then(() => {
+      console.log('[Cache Clear] All caches cleared');
+    })
+    .catch((error) => {
+      console.error('[Cache Clear] Error clearing caches:', error);
+    });
 }
 
 // Unregister all service workers
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    registrations.forEach((registration) => {
-      console.log('[Cache Clear] Unregistering service worker:', registration.scope);
-      registration.unregister();
+  navigator.serviceWorker
+    .getRegistrations()
+    .then((registrations) => {
+      registrations.forEach((registration) => {
+        console.log('[Cache Clear] Unregistering service worker:', registration.scope);
+        registration.unregister();
+      });
+    })
+    .catch((error) => {
+      console.error('[Cache Clear] Error unregistering service workers:', error);
     });
-  }).catch((error) => {
-    console.error('[Cache Clear] Error unregistering service workers:', error);
-  });
 }
 
 // Clear localStorage and sessionStorage

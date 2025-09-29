@@ -21,7 +21,7 @@ import OnlineSticker from '@shared/ui/OnlineSticker.astro';
 import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import SpecialOffers from '@shared/ui/SpecialOffers.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
-
+import FaqAccordion from '../islands/utils/faq-accordion.tsx';
 ---
 
 <Layout
@@ -62,12 +62,12 @@ import ClientInteractions from '../islands/utils/client-interactions.tsx';
       <TeamInteractive />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
-      <LeadMagnets />
-    </div>
-
     <div data-aos='fade-up' data-aos-duration='800'>
       <Faq />
+    </div>
+
+    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
+      <LeadMagnets />
     </div>
 
     <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
@@ -101,5 +101,6 @@ import ClientInteractions from '../islands/utils/client-interactions.tsx';
   <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
   <ClientInteractions client:idle />
 
-  
+  <!-- FAQ Accordion Handler -->
+  <FaqAccordion client:idle />
 </Layout>

@@ -245,10 +245,7 @@ export class BitrixCallback {
 
     // Validate
     if (!data.name || data.name.trim().length < 2) {
-      this.showError(
-        document.getElementById('callback-name')!,
-        'Введите ваше имя'
-      );
+      this.showError(document.getElementById('callback-name')!, 'Введите ваше имя');
       return;
     }
 
@@ -374,7 +371,10 @@ export class BitrixCallback {
 }
 
 // Initialize when DOM is ready
-export function initBitrixCallback(bitrixWebhookUrl: string | undefined, sitePhone: string | undefined) {
+export function initBitrixCallback(
+  bitrixWebhookUrl: string | undefined,
+  sitePhone: string | undefined
+) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       new BitrixCallback(bitrixWebhookUrl, sitePhone);

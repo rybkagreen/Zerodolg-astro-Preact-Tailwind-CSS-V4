@@ -2,7 +2,7 @@
 
 /**
  * Semgrep Security Scan Script
- * 
+ *
  * This script runs Semgrep security analysis on the project codebase
  * to identify potential security vulnerabilities and code issues.
  */
@@ -26,14 +26,14 @@ function isSemgrepInstalled() {
 // Run Semgrep scan
 function runSemgrepScan() {
   console.log('🔍 Starting Semgrep security scan...');
-  
+
   try {
     // Execute Semgrep scan with default rules
-    const result = execSync('npx semgrep scan --config=auto', { 
+    const result = execSync('npx semgrep scan --config=auto', {
       stdio: 'inherit',
-      encoding: 'utf8'
+      encoding: 'utf8',
     });
-    
+
     console.log('✅ Semgrep scan completed successfully');
     return true;
   } catch (error) {
@@ -46,7 +46,7 @@ function runSemgrepScan() {
 // Main execution
 async function main() {
   console.log('🛡️  Running security scan with Semgrep...');
-  
+
   // Check if Semgrep is installed
   if (!isSemgrepInstalled()) {
     process.exit(1);
@@ -61,7 +61,7 @@ async function main() {
 
   // Run the Semgrep scan
   const scanSuccess = runSemgrepScan();
-  
+
   if (scanSuccess) {
     console.log('\n📋 For more detailed configuration, you can create a .semgrep.yml file');
     console.log('🔗 Learn more: https://semgrep.dev/docs');
@@ -69,7 +69,7 @@ async function main() {
 }
 
 // Execute main function
-main().catch(error => {
+main().catch((error) => {
   console.error('💥 Error running Semgrep scan:', error.message);
   process.exit(1);
 });

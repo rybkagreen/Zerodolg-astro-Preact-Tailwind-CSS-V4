@@ -10,8 +10,8 @@ const performanceOptimizer = () => ({
     'build:before': () => {
       // This hook can be used to implement additional build optimizations
       console.log('Applying performance optimizations...');
-    }
-  }
+    },
+  },
 });
 
 export default defineConfig({

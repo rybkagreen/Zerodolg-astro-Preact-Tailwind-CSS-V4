@@ -12,23 +12,23 @@ const stats = [
   {
     id: 'clients',
     icon: 'users',
-    number: '847',
+    number: '1200',
     suffix: '+',
-    label: 'Счастливых клиентов',
+    label: 'Довольных клиентов',
     animateFrom: 0,
   },
   {
     id: 'debt',
     icon: 'dollar',
-    number: '327',
-    suffix: ' млн ₽',
+    number: '1.2',
+    suffix: ' млрд ₽',
     label: 'Списанных долгов',
     animateFrom: 0,
   },
   {
     id: 'experience',
     icon: 'chart',
-    number: '12',
+    number: '16',
     suffix: ' лет',
     label: 'На рынке юруслуг',
     animateFrom: 0,
@@ -36,7 +36,7 @@ const stats = [
   {
     id: 'success',
     icon: 'check',
-    number: '98',
+    number: '100',
     suffix: '%',
     label: 'Побед в суде',
     animateFrom: 0,
@@ -52,40 +52,70 @@ const stats = [
 ];
 
 const ticker = [
-  '✅ Анна К. списала 750 тыс. ₽ — 3 месяца',
-  '✅ Дмитрий П. освободился от 1.2 млн ₽ — 4 месяца',
-  '✅ Елена С. избавилась от долгов на 580 тыс. ₽ — 3 месяца',
-  '✅ Максим В. списал 2.1 млн ₽ — 5 месяцев',
-  '✅ Ольга Р. закрыла долги на 920 тыс. ₽ — 4 месяца',
+  '✅ Анна К. списала 1.8 млн ₽ — 4 месяца',
+  '✅ Дмитрий П. освободился от 3.2 млн ₽ — 5 месяцев',
+  '✅ Елена С. списала долги на 2.4 млн ₽ — 4 месяца',
+  '✅ Максим В. списал 4.7 млн ₽ — 6 месяцев',
+  '✅ Ольга Р. закрыла долги на 1.6 млн ₽ — 4 месяца',
+  '✅ Игорь Л. освободился от 5.1 млн ₽ — 5 месяцев',
 ];
 
 const company = {
-  fullName: 'ООО «ЮрПомощь»',
+  fullName: 'Общество с ограниченной ответственностью "ЮРИДИЧЕСКАЯ КОМПАНИЯ МАСХУЛИА"',
   legal: {
-    inn: '7707123456',
-    ogrn: '1187746123456',
+    inn: '7728415386',
+    ogrn: '1237700451193',
   },
 };
 ---
 
 <section
-  class:list={`stats-section section-padding ${className}`}
+  class:list={`stats-section section-padding relative overflow-hidden ${className}`}
   id='stats'
   aria-labelledby='stats-title'
   itemscope
   itemtype='https://schema.org/LegalService'
 >
-  <div class='container-custom'>
+  <!-- Reset background to white to override any previous section's background -->
+  <div class='absolute inset-0 bg-white z-0'></div>
+
+  <!-- Digital artwork background pattern with financial relief scale -->
+  <div
+    class='absolute inset-0 z-10 bg-cover bg-center bg-no-repeat opacity-25'
+    style='background-image: url("/patterns/Digital Artwork Of An Unbalanced Scale Representing Financial Relief.png");'
+  >
+  </div>
+
+  <!-- Soft gradient overlay to harmonize with neighboring sections -->
+  <div class='absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white/60 to-blue-50/30 z-20'>
+  </div>
+
+  <!-- Subtle dot pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-5 z-30'
+    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
+  >
+  </div>
+  <div class='container-custom relative z-40'>
     <!-- Section Header -->
-    <header class='text-center mb-10 md:mb-14'>
-      <h2 id='stats-title' class='section-title text-white'>
-        Нам доверяют уже <span class='text-accent-300'>847+</span> клиентов
+    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <h2
+        id='stats-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+      >
+        Нам доверяют уже <span class='text-blue-600'>1200+</span> клиентов
       </h2>
-      <p class='section-subtitle text-white/90'>Опыт, цифры и гарантии — все прозрачно</p>
+      <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
+        Опыт, цифры и гарантии — все прозрачно
+      </p>
     </header>
 
     <!-- Statistics Grid -->
-    <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6' role='list' aria-label='Статистика компании'>
+    <div
+      class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6'
+      role='list'
+      aria-label='Статистика компании'
+    >
       {
         stats.map((stat) => (
           <div class='glass-card p-5' role='listitem' data-stat={stat.id}>
@@ -224,11 +254,24 @@ const company = {
           </svg>
         </div>
         <div class='flex-1'>
-          <p class='text-sm text-slate-700'>
-            <strong class='font-semibold text-slate-900'>Гарантия возврата:</strong>
-            100% возврат средств при отказе суда в признании банкротом по вине юриста
-            <span class='ml-1 text-slate-500'>(действует весь период ведения дела)</span>
+          <p class='text-sm text-slate-700 mb-3'>
+            <strong class='font-semibold text-slate-900'>100% побед в суде:</strong>
+            Подтверждено данными Федерального реестра сведений о банкротстве
           </p>
+          <a
+            href='https://old.bankrot.fedresurs.ru/ArbitrManagerCard.aspx?ID=0fe01101-9000-45a5-9a14-31d86002b6ba'
+            class='inline-flex items-center text-xs text-blue-600 hover:text-blue-800 transition-colors'
+            target='_blank'
+            rel='noopener nofollow'
+            title='Проверить в реестре Федресурс'
+          >
+            <svg class='w-3 h-3 mr-1' viewBox='0 0 24 24' fill='none' stroke='currentColor'>
+              <path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'></path>
+              <polyline points='15 3 21 3 21 9'></polyline>
+              <line x1='10' y1='14' x2='21' y2='3'></line>
+            </svg>
+            Проверить в реестре Федресурс
+          </a>
         </div>
         <img
           class='hidden h-16 w-auto sm:block rounded-md ring-1 ring-slate-200'

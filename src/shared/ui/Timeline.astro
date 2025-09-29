@@ -92,10 +92,7 @@ const process = {
 };
 ---
 
-<section
-  class:list={`timeline-bg section-padding ${className}`}
-  id='process'
->
+<section class:list={`timeline-bg section-padding ${className}`} id='process'>
   <!-- Background decoration -->
   <div class='absolute inset-0'>
     <div class='absolute top-40 left-20 w-64 h-64 bg-blue-300/10 rounded-full blur-3xl'></div>
@@ -104,7 +101,7 @@ const process = {
 
   <div class='container-custom'>
     <!-- Header -->
-    <header class='text-center mb-16 md:mb-20'>
+    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
       <div
         class='inline-flex items-center gap-2 rounded-full bg-indigo-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-indigo-700 ring-1 ring-indigo-200/50 mb-8'
       >
@@ -118,8 +115,14 @@ const process = {
         </svg>
         Процесс банкротства
       </div>
-      <h2 class='section-title'>{process.title}</h2>
-      <p class='section-subtitle'>{process.subtitle}</p>
+      <h2
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+      >
+        {process.title}
+      </h2>
+      <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
+        {process.subtitle}
+      </p>
     </header>
 
     <!-- Modern Vertical Timeline -->

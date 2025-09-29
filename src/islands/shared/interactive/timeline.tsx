@@ -95,9 +95,10 @@ const Timeline = (): VNode | null => {
       if (window.ym) {
         let validId = 98741026; // default value
         if (window.yaCounterId) {
-          const counterId = typeof window.yaCounterId === 'string' 
-            ? parseInt(window.yaCounterId, 10) 
-            : window.yaCounterId;
+          const counterId =
+            typeof window.yaCounterId === 'string'
+              ? parseInt(window.yaCounterId, 10)
+              : window.yaCounterId;
           validId = !isNaN(counterId) && counterId ? counterId : 98741026;
         }
         (

@@ -43,6 +43,46 @@ const leadMagnets = [
     modalType: 'guide-download',
     trackEvent: 'lead_guide',
   },
+  {
+    type: 'checklist',
+    badge: 'Новое',
+    badgeType: 'success',
+    icon: 'checklist',
+    title: 'Чек-лист подготовки',
+    description:
+      'Полный список документов и действий для успешного банкротства. Ничего не забудьте!',
+    features: ['Список документов', 'Порядок действий', 'Частые ошибки'],
+    buttonText: 'Получить чек-лист',
+    note: 'Готовый список • Проверено на практике',
+    modalType: 'checklist-download',
+    trackEvent: 'lead_checklist',
+  },
+  {
+    type: 'webinar',
+    icon: 'webinar',
+    title: 'Бесплатный вебинар',
+    description:
+      'Еженедельный вебинар "Банкротство без ошибок". Разбор реальных кейсов и ответы на вопросы.',
+    features: ['Живое общение', 'Реальные кейсы', 'Q&A сессия'],
+    buttonText: 'Записаться на вебинар',
+    note: 'Каждый четверг • 19:00 МСК',
+    modalType: 'webinar-registration',
+    trackEvent: 'lead_webinar',
+  },
+  {
+    type: 'assessment',
+    badge: 'Эксклюзив',
+    badgeType: 'premium',
+    icon: 'assessment',
+    title: 'Экспресс-оценка дела',
+    description:
+      'Получите предварительную оценку перспектив вашего дела за 24 часа. Бесплатно и конфиденциально.',
+    features: ['Анализ за 24 часа', 'Персональные рекомендации', 'Оценка рисков'],
+    buttonText: 'Получить оценку',
+    note: 'Результат через 24 часа • Бесплатно',
+    modalType: 'assessment',
+    trackEvent: 'lead_assessment',
+  },
 ];
 
 const ctaData = {
@@ -90,7 +130,7 @@ const ctaData = {
     </header>
 
     <!-- Lead Magnets Grid -->
-    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16'>
+    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16'>
       {
         leadMagnets.map((magnet) => (
           <div
@@ -98,8 +138,19 @@ const ctaData = {
               `bg-white rounded-xl shadow-lg p-6 border relative overflow-hidden `,
               {
                 'border-blue-500': magnet.type === 'consultation',
-                'border-green-500': magnet.type !== 'consultation',
-                'border-purple-500': magnet.type !== 'consultation',
+                'border-green-500': magnet.type === 'calculator',
+                'border-purple-500': magnet.type === 'guide',
+                'border-orange-500': magnet.type === 'checklist',
+                'border-indigo-500': magnet.type === 'webinar',
+                'border-pink-500': magnet.type === 'assessment',
+                'border-gray-200': ![
+                  'consultation',
+                  'calculator',
+                  'guide',
+                  'checklist',
+                  'webinar',
+                  'assessment',
+                ].includes(magnet.type),
               },
             ]}
           >
@@ -107,10 +158,12 @@ const ctaData = {
             {magnet.badge && (
               <div
                 class:list={[
-                  `absolute top-4  px-3 py-1 rounded-full text-xs font-semibold`,
+                  `absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold`,
                   {
-                    'right-4 bg-blue-500 text-white': magnet.badgeType === 'primary',
-                    'right-4 bg-gray-200 text-gray-800': magnet.badgeType !== 'primary',
+                    'bg-blue-500 text-white': magnet.badgeType === 'primary',
+                    'bg-gray-200 text-gray-800': magnet.badgeType === 'secondary',
+                    'bg-green-500 text-white': magnet.badgeType === 'success',
+                    'bg-purple-500 text-white': magnet.badgeType === 'premium',
                   },
                 ]}
               >

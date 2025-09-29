@@ -31,7 +31,7 @@ module.exports = {
           950: 'oklch(17.22% 0.07 262.89)',
           DEFAULT: 'oklch(48.25% 0.227 262.89)',
         },
-        
+
         // Accent colors
         accent: {
           50: 'oklch(97.04% 0.019 39.93)',
@@ -47,7 +47,7 @@ module.exports = {
           950: 'oklch(21.65% 0.057 39.93)',
           DEFAULT: 'oklch(67.96% 0.156 39.93)',
         },
-        
+
         // Semantic colors
         success: {
           50: 'oklch(96.3% 0.029 142.13)',
@@ -112,9 +112,9 @@ module.exports = {
 
       // Extended spacing scale
       spacing: {
-        18: '4.5rem',   // 72px
-        88: '22rem',    // 352px
-        128: '32rem',   // 512px
+        18: '4.5rem', // 72px
+        88: '22rem', // 352px
+        128: '32rem', // 512px
       },
 
       // Extended border radius
@@ -125,12 +125,12 @@ module.exports = {
 
       // Enhanced shadows
       boxShadow: {
-        'card': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        card: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
         'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        'soft': '0 2px 15px 0 rgb(0 0 0 / 0.1)',
-        'medium': '0 4px 20px 0 rgb(0 0 0 / 0.12)',
-        'hard': '0 8px 30px 0 rgb(0 0 0 / 0.15)',
-        'glow': '0 0 20px rgb(59 130 246 / 0.5)',
+        soft: '0 2px 15px 0 rgb(0 0 0 / 0.1)',
+        medium: '0 4px 20px 0 rgb(0 0 0 / 0.12)',
+        hard: '0 8px 30px 0 rgb(0 0 0 / 0.15)',
+        glow: '0 0 20px rgb(59 130 246 / 0.5)',
       },
 
       // Animation system
@@ -143,11 +143,11 @@ module.exports = {
         'bounce-gentle': 'bounceGentle 1s ease-in-out infinite',
         'pulse-gentle': 'pulseGentle 2s ease-in-out infinite',
         'gradient-shift': 'gradientShift 3s ease infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'typing': 'typing 3.5s steps(40, end)',
-        'blink': 'blink 1s infinite',
+        float: 'float 6s ease-in-out infinite',
+        typing: 'typing 3.5s steps(40, end)',
+        blink: 'blink 1s infinite',
       },
-      
+
       // Custom keyframes
       keyframes: {
         fadeIn: {
@@ -187,37 +187,38 @@ module.exports = {
           '50%': { transform: 'translateY(-20px) rotate(10deg)' },
         },
         typing: {
-          'from': { width: '0' },
-          'to': { width: '100%' },
+          from: { width: '0' },
+          to: { width: '100%' },
         },
         blink: {
           '0%, 50%': { borderColor: 'transparent' },
           '51%, 100%': { borderColor: 'currentColor' },
         },
       },
-      
+
       // Enhanced background utilities
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'mesh-gradient': 'radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%)',
+        'mesh-gradient':
+          'radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%)',
       },
-      
+
       // Z-index scale
       zIndex: {
-        '60': '60',
-        '70': '70',
-        '80': '80',
-        '90': '90',
-        '100': '100',
+        60: '60',
+        70: '70',
+        80: '80',
+        90: '90',
+        100: '100',
       },
-      
+
       // Extended screens
       screens: {
         '3xl': '1920px',
         '4xl': '2560px',
       },
-      
+
       // Typography enhancements
       typography: {
         DEFAULT: {
@@ -240,9 +241,7 @@ module.exports = {
     },
   },
 
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 
   // Performance optimizations
   corePlugins: {

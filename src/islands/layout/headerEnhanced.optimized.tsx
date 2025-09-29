@@ -3,12 +3,11 @@ import { useThrottle } from '../../shared/hooks/useThrottle';
 import { useMediaQuery } from '../../shared/hooks/useMediaQuery';
 import { usePerformanceMonitor } from '../../shared/hooks/usePerformanceMonitor';
 
-
 const HeaderEnhanced = (): null => {
   const [isClient, setIsClient] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  
+
   const isDesktop = useMediaQuery('(min-width: 1025px)');
   usePerformanceMonitor('HeaderEnhanced');
 
@@ -16,7 +15,7 @@ const HeaderEnhanced = (): null => {
   const throttledScrollHandler = useThrottle(() => {
     const header = document.getElementById('main-header');
     if (!header) return;
-    
+
     const scrollTop = window.pageYOffset;
     const scrollThreshold = 100;
 
@@ -38,17 +37,17 @@ const HeaderEnhanced = (): null => {
   // Setup dropdowns
   const setupDropdowns = useCallback(() => {
     const dropdowns = document.querySelectorAll('.nav-dropdown');
-    
+
     dropdowns.forEach((dropdown) => {
       const dropdownId = dropdown.getAttribute('data-dropdown-id');
       const toggle = dropdown.querySelector('.nav-dropdown-toggle') as HTMLButtonElement;
-      
+
       if (toggle) {
         const handleClick = (e: Event) => {
           e.preventDefault();
           setActiveDropdown(dropdownId === activeDropdown ? null : dropdownId);
         };
-        
+
         toggle.removeEventListener('click', handleClick); // Remove previous listener
         toggle.addEventListener('click', handleClick);
       }
@@ -131,9 +130,9 @@ const HeaderEnhanced = (): null => {
     // Update attributes based on state
     mobileMenu.setAttribute('data-open', isMobileMenuOpen ? 'true' : 'false');
     mobileMenu.setAttribute('aria-hidden', isMobileMenuOpen ? 'false' : 'true');
-    
+
     document.body.classList.toggle('menu-open', isMobileMenuOpen);
-    
+
     if (mobileToggle) {
       mobileToggle.setAttribute('aria-expanded', isMobileMenuOpen ? 'true' : 'false');
     }
@@ -144,7 +143,7 @@ const HeaderEnhanced = (): null => {
       const handleClick = () => {
         setIsMobileMenuOpen(false);
       };
-      
+
       link.removeEventListener('click', handleClick);
       link.addEventListener('click', handleClick);
     });
@@ -169,7 +168,8 @@ const HeaderEnhanced = (): null => {
             e.preventDefault();
             const header = document.getElementById('main-header');
             const headerHeight = header ? header.offsetHeight : 80;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+            const targetPosition =
+              target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
 
             window.scrollTo({
               top: targetPosition,
@@ -185,15 +185,18 @@ const HeaderEnhanced = (): null => {
   }, []);
 
   // Define event handlers outside useCallback
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    // Close dropdowns and mobile menu on ESC
-    if (e.key === 'Escape') {
-      setActiveDropdown(null);
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      // Close dropdowns and mobile menu on ESC
+      if (e.key === 'Escape') {
+        setActiveDropdown(null);
+        if (isMobileMenuOpen) {
+          setIsMobileMenuOpen(false);
+        }
       }
-    }
-  }, [isMobileMenuOpen]);
+    },
+    [isMobileMenuOpen]
+  );
 
   const handleClickOutside = useCallback((e: Event) => {
     const target = e.target as HTMLElement;
@@ -237,7 +240,7 @@ const HeaderEnhanced = (): null => {
       const handleClick = () => {
         console.log('Opening consultation modal');
       };
-      
+
       btn.removeEventListener('click', handleClick);
       btn.addEventListener('click', handleClick);
     });
@@ -250,7 +253,7 @@ const HeaderEnhanced = (): null => {
           const dropdownId = dropdown.getAttribute('data-dropdown-id');
           setActiveDropdown(dropdownId);
         };
-        
+
         const handleMouseLeave = () => {
           // Add small timeout to allow for quick navigation between items
           setTimeout(() => {
@@ -263,7 +266,7 @@ const HeaderEnhanced = (): null => {
 
         dropdown.removeEventListener('mouseenter', handleMouseEnter);
         dropdown.removeEventListener('mouseleave', handleMouseLeave);
-        
+
         dropdown.addEventListener('mouseenter', handleMouseEnter);
         dropdown.addEventListener('mouseleave', handleMouseLeave);
       });
@@ -284,7 +287,7 @@ const HeaderEnhanced = (): null => {
     setupClickOutside,
     throttledScrollHandler,
     handleClickOutside,
-    handleKeyDown
+    handleKeyDown,
   ]);
 
   // Effect to handle dropdown state changes
@@ -293,7 +296,7 @@ const HeaderEnhanced = (): null => {
     dropdowns.forEach((dropdown) => {
       const dropdownId = dropdown.getAttribute('data-dropdown-id');
       const menu = dropdown.querySelector('.nav-dropdown-menu') as HTMLElement;
-      
+
       if (menu) {
         if (dropdownId === activeDropdown) {
           menu.style.display = 'block';

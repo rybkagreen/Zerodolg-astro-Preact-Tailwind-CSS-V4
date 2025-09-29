@@ -23,12 +23,34 @@ export default function ClientInteractions({}: ClientInteractionsProps): VNode |
     setupDynamicElementHandling();
     setupFormInteractions();
 
-    // Re-run when DOM content changes
-    const observer = new MutationObserver(() => {
-      setupScrollToActions();
-      setupAnchorNavigation();
-      setupDynamicElementHandling();
-      setupFormInteractions();
+    // Re-run when DOM content changes (but avoid interfering with form hydration)
+    const observer = new MutationObserver((mutations) => {
+      // Only re-setup if there are actual node additions/removals, not just attribute changes
+      const hasStructuralChanges = mutations.some((mutation) => {
+        if (mutation.type !== 'childList') return false;
+
+        // Skip mutations in form elements to avoid hydration issues
+        const target = mutation.target as Element;
+        if (
+          target.tagName === 'FORM' ||
+          target.closest('form') ||
+          target.closest('[data-preact]')
+        ) {
+          return false;
+        }
+
+        return mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0;
+      });
+
+      if (hasStructuralChanges) {
+        // Debounce to avoid excessive re-runs
+        setTimeout(() => {
+          setupScrollToActions();
+          setupAnchorNavigation();
+          setupDynamicElementHandling();
+          // Don't re-setup form interactions as they're handled by React/Preact
+        }, 100);
+      }
     });
 
     observer.observe(document.body, {
@@ -36,9 +58,9 @@ export default function ClientInteractions({}: ClientInteractionsProps): VNode |
       subtree: true,
     });
 
-    // Handle initial page load hash navigation
-    if (typeof window !== 'undefined' && window.location.hash) {
-      // Small delay to ensure elements are rendered
+    // Handle initial page load hash navigation (but not on first page load)
+    if (typeof window !== 'undefined' && window.location.hash && document.referrer) {
+      // Only auto-scroll if coming from another page, not on initial load
       setTimeout(() => {
         handleHashNavigation(window.location.hash);
       }, 100);

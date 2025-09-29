@@ -23,7 +23,10 @@ export default function SocialLinks({}: { data?: Record<string, unknown> }): VNo
 
       // Track with Yandex Metrika
       if (window.ym && window.yaCounterId) {
-        const counterId = typeof window.yaCounterId === 'string' ? parseInt(window.yaCounterId, 10) : window.yaCounterId;
+        const counterId =
+          typeof window.yaCounterId === 'string'
+            ? parseInt(window.yaCounterId, 10)
+            : window.yaCounterId;
         if (!isNaN(counterId)) {
           window.ym(counterId, 'reachGoal', 'social_link_click', {
             platform,

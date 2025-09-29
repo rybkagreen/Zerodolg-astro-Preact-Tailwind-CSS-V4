@@ -3,7 +3,6 @@ import { useModal } from '@features/modals/model/modal-context';
 import { useDynamicModals } from '@features/modals/model/use-dynamic-modals';
 import { logger } from '@shared/lib/logger';
 
-
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ModalManagerHooksProps {}
 
@@ -70,7 +69,7 @@ export default function ModalManagerHooks({}: ModalManagerHooksProps): null {
       debug: () => ({
         totalModals: document.querySelectorAll('.modal').length,
         activeModal: null,
-        dynamicModals: 0
+        dynamicModals: 0,
       }),
     };
 

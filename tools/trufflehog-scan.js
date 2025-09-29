@@ -2,7 +2,7 @@
 
 /**
  * TruffleHog Security Scan Script
- * 
+ *
  * This script runs TruffleHog security analysis on the project
  * to detect secrets and sensitive information in the codebase.
  */
@@ -35,15 +35,15 @@ function isTruffleHogInstalled() {
 // Run TruffleHog scan
 function runTruffleHogScan() {
   console.log('🔍 Starting TruffleHog secrets scan...');
-  
+
   try {
     // Execute TruffleHog scan on the current directory
-    const result = execSync('npx trufflehog .', { 
+    const result = execSync('npx trufflehog .', {
       stdio: 'inherit',
       encoding: 'utf8',
-      timeout: 300000 // 5 minute timeout
+      timeout: 300000, // 5 minute timeout
     });
-    
+
     console.log('✅ TruffleHog scan completed successfully');
     return true;
   } catch (error) {
@@ -62,15 +62,15 @@ function runTruffleHogScan() {
 // Alternative approach if npx trufflehog doesn't work
 function runTruffleHogAlternative() {
   console.log('🔍 Trying alternative TruffleHog approach...');
-  
+
   try {
     // Execute TruffleHog scan using the alternative command structure
-    const result = execSync('npx @trufflehq/trufflehog .', { 
+    const result = execSync('npx @trufflehq/trufflehog .', {
       stdio: 'inherit',
       encoding: 'utf8',
-      timeout: 300000 // 5 minute timeout
+      timeout: 300000, // 5 minute timeout
     });
-    
+
     console.log('✅ TruffleHog scan completed successfully');
     return true;
   } catch (error) {
@@ -89,7 +89,7 @@ function runTruffleHogAlternative() {
 // Main execution
 async function main() {
   console.log('🔍 Running secrets detection with TruffleHog...');
-  
+
   // Check if we're in the correct project directory
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   if (!fs.existsSync(packageJsonPath)) {
@@ -100,7 +100,7 @@ async function main() {
   // Try standard TruffleHog installation first
   if (isTruffleHogInstalled()) {
     const scanSuccess = runTruffleHogScan();
-    
+
     if (scanSuccess) {
       console.log('\n📋 TruffleHog scan finished');
       console.log('🔗 Learn more: https://trufflesecurity.com/docs');
@@ -116,7 +116,7 @@ async function main() {
 }
 
 // Execute main function
-main().catch(error => {
+main().catch((error) => {
   console.error('💥 Error running TruffleHog scan:', error.message);
   process.exit(1);
 });

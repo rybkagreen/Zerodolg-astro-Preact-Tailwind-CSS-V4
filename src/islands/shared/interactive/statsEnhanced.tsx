@@ -1,3 +1,4 @@
+import type { JSX } from 'preact';
 import { useEffect, useState, useRef } from 'preact/hooks';
 import { useIntersectionObserver } from '../../../shared/hooks/useIntersectionObserver';
 import { useReducedMotion } from '../../../shared/hooks/useReducedMotion';
@@ -28,20 +29,20 @@ const StatsEnhanced = ({
   enableAnimations = true,
   enableTiltEffect = true,
   liveVisitorCount = false,
-  updateInterval = 30000
-}: StatsProps): import('preact').JSX.Element => {
+  updateInterval = 30000,
+}: StatsProps): JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
   const [liveCount, setLiveCount] = useState(0);
   const [isClient, setIsClient] = useState(false);
   const [observerRef] = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.5,
-    triggerOnce: true
+    triggerOnce: true,
   });
-  
+
   const prefersReducedMotion = useReducedMotion();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const enhancedEnableAnimations = enableAnimations && !prefersReducedMotion;
-  
+
   usePerformanceMonitor('StatsEnhanced');
 
   // Initialize client-side only features
@@ -68,7 +69,7 @@ const StatsEnhanced = ({
         }
       };
     }
-    
+
     // Return cleanup function even when condition is not met
     return () => {};
   }, [liveVisitorCount, isClient, updateInterval]);
@@ -82,7 +83,7 @@ const StatsEnhanced = ({
 
     const handleMouseMove = (e: MouseEvent) => {
       const items = document.querySelectorAll('.stats__item-enhanced');
-      items.forEach(item => {
+      items.forEach((item) => {
         const element = item as HTMLElement;
         const rect = element.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -112,7 +113,7 @@ const StatsEnhanced = ({
 
     const handleMouseLeave = (_e: MouseEvent) => {
       const items = document.querySelectorAll('.stats__item-enhanced');
-      items.forEach(item => {
+      items.forEach((item) => {
         (item as HTMLElement).style.transform = 'translateY(0)';
         item.classList.remove('hovered');
       });
@@ -159,10 +160,12 @@ const StatsEnhanced = ({
     };
 
     // Find and animate all number elements
-    const numberElements = document.querySelectorAll('.stats__number-enhanced[data-animate="true"]');
+    const numberElements = document.querySelectorAll(
+      '.stats__number-enhanced[data-animate="true"]'
+    );
     numberElements.forEach((element, index) => {
       const el = element as HTMLElement;
-      
+
       // Add a delay for staggered animation
       setTimeout(() => {
         const endValue = parseInt(el.getAttribute('data-value') || '0');
@@ -173,7 +176,7 @@ const StatsEnhanced = ({
         animateValue(el, 0, endValue, 2000);
       }, index * 200); // 200ms delay between each animation
     });
-    
+
     // Return cleanup function to satisfy TypeScript
     return () => {
       // No cleanup needed for this specific effect
@@ -184,25 +187,25 @@ const StatsEnhanced = ({
   useEffect(() => {
     // Используем API IntersectionObserver напрямую
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       });
     };
-    
+
     if (!observerRef.current) {
       // Return cleanup function even if observerRef is not available yet
       return () => {};
     }
-    
+
     const observer = new IntersectionObserver(handleIntersect, {
       threshold: 0.5,
-      rootMargin: '0px'
+      rootMargin: '0px',
     });
-    
+
     observer.observe(observerRef.current);
-    
+
     // Return cleanup function
     return () => {
       observer.disconnect();
@@ -212,13 +215,18 @@ const StatsEnhanced = ({
   // We don't render anything directly, but we can create a hidden element to use the ref
   return (
     <>
-      <div ref={observerRef} style={{ display: 'none' }} aria-hidden="true" />
+      <div ref={observerRef} style={{ display: 'none' }} aria-hidden='true' />
       {/* Using props to avoid unused variable errors */}
-      <span style={{ display: 'none' }} aria-live="polite">
+      <span style={{ display: 'none' }} aria-live='polite'>
         {title} {description} {items?.length || 0}
       </span>
       {/* Using liveCount to avoid unused variable error */}
-      {liveVisitorCount && <span style={{ display: 'none' }} aria-live="polite">{`Текущее количество посетителей: ${liveCount}`}</span>}
+      {liveVisitorCount && (
+        <span
+          style={{ display: 'none' }}
+          aria-live='polite'
+        >{`Текущее количество посетителей: ${liveCount}`}</span>
+      )}
     </>
   );
 };
