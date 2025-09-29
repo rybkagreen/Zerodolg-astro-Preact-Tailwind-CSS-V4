@@ -18,19 +18,25 @@ export interface TeamMember {
     phone: string;
     email: string;
   };
+  documents?: {
+    title: string;
+    type: string;
+    image: string;
+    description: string;
+  }[];
 }
 
 export const teamMembers: TeamMember[] = [
   {
     id: 'mashulia',
-    name: 'Масхулиа Л.З.',
-    position: 'Руководитель компании',
+    name: 'Масхулиа Леван Зурабович',
+    position: 'Руководитель компании, Арбитражный финансовый управляющий',
     photo: '/images/team/mashulia.webp',
-    role: 'Руководитель компании',
+    role: 'Руководитель компании и Арбитражный финансовый управляющий',
     quote:
       'Наша задача - не просто списать долги, а помочь вам начать новую жизнь без финансового бремени',
     description:
-      'Более 12 лет специализируется на банкротстве физических лиц. Провела более 500 успешных дел. Эксперт в области финансового права и процедур банкротства.',
+      'Более 12 лет специализируется на банкротстве физических лиц. Провел более 1000 успешных дел. Эксперт в области финансового права и процедур банкротства. Арбитражный финансовый управляющий с действующей лицензией.',
     stats: {
       experience: '12+',
       cases: '1000+',
@@ -41,17 +47,46 @@ export const teamMembers: TeamMember[] = [
       'Реструктуризация долгов',
       'Защита имущества',
       'Оспаривание сделок',
+      'Антикризисное управление',
     ],
     achievements: [
-      'Списано долгов на сумму более 2 млрд рублей',
-      'Сохранено имущество в 89% случаев',
-      'Средний срок процедуры - 6 месяцев',
-      'Работа со сложными категориями дел',
+      'Списано долгов на 500+ млн рублей',
+      'Сохранено имущество в 90% случаев',
+      'Средний срок процедуры 6 мес.',
+      'Активный арбитражный управляющий',
     ],
     contacts: {
       phone: '+7 (495) 790-60-03',
       email: 'info@zerodolg.ru',
     },
+    documents: [
+      {
+        title: 'Диплом по антикризисному управлению',
+        type: 'Диплом',
+        image: '/images/proof/diplom_antikrizisnoe_upravlenie_page_1.webp',
+        description:
+          'Диплом о профессиональной переподготовке по программе "Антикризисное управление"',
+      },
+      {
+        title: 'Диплом по антикризисному управлению (стр. 2)',
+        type: 'Диплом',
+        image: '/images/proof/diplom_antikrizisnoe_upravlenie_page_2.webp',
+        description: 'Продолжение диплома с указанием изученных дисциплин и квалификации',
+      },
+      {
+        title: 'Повышение квалификации',
+        type: 'Сертификат',
+        image: '/images/proof/povishenie_kvalifikacii.webp',
+        description:
+          'Удостоверение о повышении квалификации в области банкротства и арбитражного управления',
+      },
+      {
+        title: 'Свидетельство о стажировке',
+        type: 'Свидетельство',
+        image: '/images/proof/svidetelstvo_o_stazhirovke_arbitr_ruller.png',
+        description: 'Свидетельство о прохождении стажировки арбитражного управляющего',
+      },
+    ],
   },
   {
     id: 'strukova',
@@ -65,7 +100,7 @@ export const teamMembers: TeamMember[] = [
     stats: {
       experience: '5+',
       cases: '300+',
-      success: '94%',
+      success: '100%',
     },
     specializations: [
       'Судебная защита',
@@ -74,10 +109,10 @@ export const teamMembers: TeamMember[] = [
       'Консультирование',
     ],
     achievements: [
-      'Выиграно 95% судебных дел',
-      'Специализация на ипотечных долгах',
-      'Работа с долгами перед банками',
+      'Списано долгов на 300+ млн ₽',
+      'Специалист по ипотечным долгам',
       'Защита от коллекторов',
+      'Эксперт по судебной защите',
     ],
     contacts: {
       phone: '+7 (495) 790-60-03',
@@ -96,7 +131,7 @@ export const teamMembers: TeamMember[] = [
     stats: {
       experience: '4+',
       cases: '250+',
-      success: '93%',
+      success: '100%',
     },
     specializations: [
       'Финансовый анализ',
@@ -105,10 +140,10 @@ export const teamMembers: TeamMember[] = [
       'Оценка рисков',
     ],
     achievements: [
-      'Разработка стратегий защиты имущества',
-      'Экспертиза более 1000 кредитных договоров',
+      'Списано долгов на 250+ млн ₽',
+      'Экспертиза 1000+ договоров',
       'Выявление незаконных начислений',
-      'Оптимизация процедур банкротства',
+      'Оптимизация процессов',
     ],
     contacts: {
       phone: '+7 (495) 790-60-03',
@@ -127,7 +162,7 @@ export const teamMembers: TeamMember[] = [
     stats: {
       experience: '6+',
       cases: '400+',
-      success: '97%',
+      success: '100%',
     },
     specializations: [
       'Процедура реализации имущества',
@@ -136,10 +171,10 @@ export const teamMembers: TeamMember[] = [
       'Взаимодействие с кредиторами',
     ],
     achievements: [
-      'Проведено более 400 процедур банкротства',
-      'Средний срок процедуры - 5 месяцев',
-      'Сохранение единственного жилья в 100% случаев',
-      'Минимизация судебных расходов',
+      'Списано долгов на 400+ млн ₽',
+      'Средний срок процедуры 5 мес.',
+      'Сохранение единств. жилья 100%',
+      'Минимальные судебные расходы',
     ],
     contacts: {
       phone: '+7 (495) 790-60-03',
@@ -188,9 +223,9 @@ export const calculateTeamStats = (members: TeamMember[]): TeamStats => {
       : 95;
 
   return {
-    totalExperience: totalExperience > 0 ? `${totalExperience}+` : '22+',
-    totalCases: totalCases > 0 ? `${totalCases}+` : '1450+',
-    totalSaved: '2 млрд ₽',
+    totalExperience: totalExperience > 0 ? `${totalExperience}+` : '27+',
+    totalCases: totalCases > 0 ? `${totalCases}+` : '1950+',
+    totalSaved: '1.2 млрд ₽',
     successRate: `${avgSuccessRate}%`,
   };
 };

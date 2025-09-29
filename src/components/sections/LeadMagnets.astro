@@ -96,149 +96,209 @@ const ctaData = {
 
 <!-- Lead Magnets Section -->
 <section
-  class='py-16 lg:py-24 relative bg-gradient-to-b from-gray-50 to-white'
+  class='lead-magnets-section section-padding relative overflow-hidden'
   aria-labelledby='lead-magnets-title'
 >
-  <!-- Decorative Elements -->
-  <div
-    class='absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none'
-    aria-hidden='true'
-  >
-    <div
-      class='absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-accent opacity-10 animate-pulse'
-    >
-    </div>
-    <div
-      class='absolute top-3/4 right-1/4 w-48 h-48 rounded-full bg-primary opacity-10 animate-pulse delay-300'
-    >
-    </div>
-    <div
-      class='absolute bottom-1/4 left-1/2 w-40 h-40 rounded-full bg-success opacity-10 animate-pulse delay-700'
-    >
-    </div>
+  <!-- Reset background to white to override any previous section's background -->
+  <div class='absolute inset-0 bg-white z-0'></div>
+
+  <!-- Background with financial relief pattern -->
+  <div class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30 z-10'>
   </div>
 
-  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+  <!-- Pastel paint strokes background pattern -->
+  <div
+    class='absolute inset-0 opacity-25 z-20'
+    style='background-image: url("/patterns/Pastel Paint Strokes Abstract Digital Art Social Media Post (1).png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+  >
+  </div>
+
+  <!-- Subtle dot pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-5 z-30'
+    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
+  >
+  </div>
+
+  <div class='container-custom relative z-40'>
     <!-- Section Header -->
-    <header class='text-center mb-12'>
-      <h2 id='lead-magnets-title' class='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
+    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <div
+        class='inline-flex items-center gap-2 rounded-full bg-blue-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
+      >
+        <svg class='h-4 w-4 text-blue-600' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+          <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-width='2'
+            d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
+          ></path>
+        </svg>
         Полезные материалы
+      </div>
+      <h2
+        id='lead-magnets-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+      >
+        Бесплатные ресурсы
       </h2>
-      <p class='text-xl text-gray-600 max-w-3xl mx-auto'>
-        Получите бесплатные ресурсы для начала процедуры банкротства
+      <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
+        Получите експертную помощь и базу знаний для успешного банкротства
       </p>
     </header>
 
     <!-- Lead Magnets Grid -->
-    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16'>
+    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-16'>
       {
-        leadMagnets.map((magnet) => (
-          <div
-            class:list={[
-              `bg-white rounded-xl shadow-lg p-6 border relative overflow-hidden `,
-              {
-                'border-blue-500': magnet.type === 'consultation',
-                'border-green-500': magnet.type === 'calculator',
-                'border-purple-500': magnet.type === 'guide',
-                'border-orange-500': magnet.type === 'checklist',
-                'border-indigo-500': magnet.type === 'webinar',
-                'border-pink-500': magnet.type === 'assessment',
-                'border-gray-200': ![
-                  'consultation',
-                  'calculator',
-                  'guide',
-                  'checklist',
-                  'webinar',
-                  'assessment',
-                ].includes(magnet.type),
-              },
-            ]}
-          >
-            {/* Badge */}
-            {magnet.badge && (
+        leadMagnets.map((magnet, index) => {
+          const gradientClasses = [
+            'from-blue-500 to-purple-600',
+            'from-emerald-500 to-teal-600',
+            'from-orange-500 to-red-600',
+            'from-violet-500 to-pink-600',
+            'from-cyan-500 to-blue-600',
+            'from-indigo-500 to-purple-600',
+          ];
+          const bgGradients = [
+            'bg-gradient-to-br from-blue-50 to-purple-50',
+            'bg-gradient-to-br from-emerald-50 to-teal-50',
+            'bg-gradient-to-br from-orange-50 to-red-50',
+            'bg-gradient-to-br from-violet-50 to-pink-50',
+            'bg-gradient-to-br from-cyan-50 to-blue-50',
+            'bg-gradient-to-br from-indigo-50 to-purple-50',
+          ];
+
+          const gradient = gradientClasses[index % gradientClasses.length];
+          const bgGradient = bgGradients[index % bgGradients.length];
+
+          return (
+            <div class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 p-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60 min-h-[420px] flex flex-col justify-between'>
+              {/* Gradient accent top border */}
               <div
                 class:list={[
-                  `absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold`,
-                  {
-                    'bg-blue-500 text-white': magnet.badgeType === 'primary',
-                    'bg-gray-200 text-gray-800': magnet.badgeType === 'secondary',
-                    'bg-green-500 text-white': magnet.badgeType === 'success',
-                    'bg-purple-500 text-white': magnet.badgeType === 'premium',
-                  },
+                  `absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${gradient} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-t-2xl`,
                 ]}
-              >
-                {magnet.badge}
-              </div>
-            )}
+              />
 
-            {/* Content */}
-            <div class='mt-8'>
-              {/* Icon */}
-              <div
-                class='w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 mb-6'
-                aria-hidden='true'
-              >
-                <Icon name={magnet.icon} />
-              </div>
+              {/* Badge */}
+              {magnet.badge && (
+                <div
+                  class:list={[
+                    `absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm`,
+                    {
+                      'bg-blue-500/90 text-white': magnet.badgeType === 'primary',
+                      'bg-slate-200/90 text-slate-800': magnet.badgeType === 'secondary',
+                      'bg-green-500/90 text-white': magnet.badgeType === 'success',
+                      'bg-purple-500/90 text-white': magnet.badgeType === 'premium',
+                    },
+                  ]}
+                >
+                  {magnet.badge}
+                </div>
+              )}
 
-              {/* Title */}
-              <h3 class='text-xl font-bold text-gray-900 mb-3'>{magnet.title}</h3>
-
-              {/* Description */}
-              <p class='text-gray-600 mb-6'>{magnet.description}</p>
-
-              {/* Features List */}
-              <ul class='mb-6'>
-                {magnet.features.map((feature) => (
-                  <li class='flex items-start mb-2'>
-                    <svg
-                      class='w-5 h-5 text-green-500 flex-shrink-0 mt-0.5 mr-2'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      stroke-width='2'
-                    >
-                      <path d='M20 6L9 17l-5-5' />
-                    </svg>
-                    <span class='text-gray-700'>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Button */}
-              <button
-                class='w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium flex items-center justify-center'
-                data-modal={magnet.modalType}
-                data-track={magnet.trackEvent}
-              >
-                <span>{magnet.buttonText}</span>
-                <span class='ml-2 loader hidden'>
-                  <svg
-                    class='animate-spin h-5 w-5 text-white'
-                    viewBox='0 0 50 50'
-                    aria-label='Загрузка'
-                    role='status'
+              {/* Content */}
+              <div class='mt-8 flex-grow flex flex-col'>
+                {/* Icon */}
+                <div class='flex-shrink-0 mb-4'>
+                  <div
+                    class:list={[
+                      `relative w-12 h-12 mx-auto rounded-xl bg-gradient-to-br ${gradient} p-2.5 shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`,
+                    ]}
                   >
-                    <circle cx='25' cy='25' r='20' fill='none' stroke-width='5' />
-                  </svg>
-                </span>
-              </button>
+                    {/* Inner glow effect */}
+                    <div class='absolute inset-0 rounded-xl bg-gradient-to-br from-white/30 to-transparent pointer-events-none' />
+                    <div class='w-full h-full flex items-center justify-center text-white'>
+                      <Icon name={magnet.icon} />
+                    </div>
+                  </div>
+                </div>
 
-              {/* Note */}
-              <p class='text-xs text-gray-500 mt-3 text-center'>{magnet.note}</p>
+                {/* Title */}
+                <h3 class='text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors duration-300 text-center'>
+                  {magnet.title}
+                </h3>
+
+                {/* Description */}
+                <p class='text-slate-600 mb-6 text-center leading-relaxed flex-grow'>
+                  {magnet.description}
+                </p>
+
+                {/* Features List */}
+                <ul class='mb-6 space-y-2'>
+                  {magnet.features.map((feature) => (
+                    <li class='flex items-start text-sm'>
+                      <svg
+                        class='w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5 mr-2'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-width='2.5'
+                      >
+                        <path d='M20 6L9 17l-5-5' />
+                      </svg>
+                      <span class='text-slate-700 leading-relaxed'>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Button */}
+                <button
+                  class:list={[
+                    `w-full py-3 px-6 bg-gradient-to-r ${gradient} text-white rounded-xl hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 font-semibold text-sm flex items-center justify-center group-hover:scale-105`,
+                  ]}
+                  data-modal={magnet.modalType}
+                  data-track={magnet.trackEvent}
+                >
+                  <span>{magnet.buttonText}</span>
+                  <span class='ml-2 loader hidden'>
+                    <svg
+                      class='animate-spin h-4 w-4 text-white'
+                      viewBox='0 0 24 24'
+                      aria-label='Загрузка'
+                      role='status'
+                    >
+                      <circle
+                        cx='12'
+                        cy='12'
+                        r='10'
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-width='2'
+                      />
+                    </svg>
+                  </span>
+                </button>
+
+                {/* Note */}
+                <p class='text-xs text-slate-500 mt-3 text-center leading-tight'>{magnet.note}</p>
+              </div>
+
+              {/* Hover background gradient */}
+              <div
+                class:list={[
+                  `absolute inset-0 ${bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`,
+                ]}
+              />
             </div>
-          </div>
-        ))
+          );
+        })
       }
     </div>
 
     {/* CTA Section */}
-    <div class='bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-8 md:p-12 text-center'>
-      <div>
+    <div
+      class='relative bg-white/60 backdrop-blur-md rounded-2xl border border-white/50 shadow-lg p-8 md:p-12 text-center'
+    >
+      {/* Gradient background overlay */}
+      <div class='absolute inset-0 bg-gradient-to-r from-blue-600/90 to-indigo-600/90 rounded-2xl'>
+      </div>
+
+      <div class='relative z-10'>
         <h3 class='text-2xl md:text-3xl font-bold text-white mb-3'>{ctaData.title}</h3>
         <p class='text-lg text-blue-100 mb-6'>{ctaData.subtitle}</p>
         <button
-          class='inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 transition-colors duration-200'
+          class='inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 transition-all duration-300 hover:scale-105 shadow-lg backdrop-blur-sm'
           data-modal={ctaData.modalType}
         >
           <span>{ctaData.buttonText}</span>

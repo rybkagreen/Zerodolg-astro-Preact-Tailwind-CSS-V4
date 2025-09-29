@@ -1,16 +1,6 @@
 import { describe, it, expect } from 'vitest';
-
-interface Review {
-  id: string;
-  author: string;
-  rating: number;
-  date: string;
-  text: string;
-  verified: boolean;
-  helpful: number;
-  avatar?: string;
-  tags?: string[];
-}
+import { reviews, reviewsStats } from '../src/shared/data/reviews-data';
+import type { Review } from '../src/shared/data/reviews-data';
 
 interface ReviewStats {
   total: number;
@@ -18,55 +8,145 @@ interface ReviewStats {
   distribution: Record<number, number>;
 }
 
-describe('Reviews Component', () => {
+describe('Reviews Data and Component', () => {
+  // Test mock reviews for unit tests
   const mockReviews: Review[] = [
     {
-      id: '1',
-      author: 'Александр В.',
+      id: 'test-1',
+      name: 'Тестовый Клиент',
+      age: 35,
+      city: 'Москва',
+      profession: 'Менеджер',
       rating: 5,
-      date: '2024-03-15',
+      date: '2025-01-15',
+      debt: '1.5 млн ₽',
+      duration: '5 месяцев',
+      procedure: 'Банкротство физлица',
+      problem: 'Тестовая проблема',
+      result: 'Тестовый результат',
       text: 'Отличная компания! Помогли решить проблему с долгами быстро и профессионально.',
       verified: true,
       helpful: 24,
       tags: ['Профессионализм', 'Быстро', 'Поддержка'],
+      lawyer: 'Тестовый Юрист',
     },
     {
-      id: '2',
-      author: 'Марина Б.',
+      id: 'test-2',
+      name: 'Марина Тестова',
+      age: 40,
+      city: 'Химки',
+      profession: 'Бухгалтер',
       rating: 4,
-      date: '2024-03-10',
+      date: '2025-01-10',
+      debt: '800 тыс ₽',
+      duration: '4 месяца',
+      procedure: 'Реструктуризация долга',
+      problem: 'Тестовая проблема 2',
+      result: 'Тестовый результат 2',
       text: 'Хорошие специалисты, помогли в сложной ситуации.',
       verified: true,
       helpful: 18,
       tags: ['Помощь', 'Консультация'],
+      lawyer: 'Ольга Белова',
     },
     {
-      id: '3',
-      author: 'Дмитрий К.',
+      id: 'test-3',
+      name: 'Дмитрий Тестовый',
+      age: 45,
+      city: 'Одинцово',
+      profession: 'ИП',
       rating: 5,
-      date: '2024-03-05',
+      date: '2025-01-05',
+      debt: '2.2 млн ₽',
+      duration: '6 месяцев',
+      procedure: 'Банкротство ИП',
+      problem: 'Тестовая проблема 3',
+      result: 'Тестовый результат 3',
       text: 'Полностью доволен результатом. Рекомендую!',
       verified: true,
       helpful: 15,
       tags: ['Результат', 'Рекомендую'],
+      lawyer: 'Игорь Волков',
     },
   ];
 
-  const calculateStats = (reviews: Review[]): ReviewStats => {
+  const calculateStats = (reviewsList: Review[]) => {
     const distribution: Record<number, number> = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
     let totalRating = 0;
 
-    reviews.forEach((review) => {
+    reviewsList.forEach((review) => {
       distribution[review.rating]++;
       totalRating += review.rating;
     });
 
     return {
-      total: reviews.length,
-      average: reviews.length > 0 ? totalRating / reviews.length : 0,
+      total: reviewsList.length,
+      average: reviewsList.length > 0 ? totalRating / reviewsList.length : 0,
       distribution,
     };
   };
+
+  it('should have at least 12 reviews in the data', () => {
+    expect(reviews.length).toBeGreaterThanOrEqual(12);
+  });
+
+  it('should have all reviews from Moscow and Moscow region', () => {
+    const moscowRegionCities = [
+      'Москва',
+      'Одинцово',
+      'Химки',
+      'Подольск',
+      'Королёв',
+      'Люберцы',
+      'Мытищи',
+      'Балашиха',
+      'Красногорск',
+      'Реутов',
+    ];
+    reviews.forEach((review) => {
+      expect(moscowRegionCities).toContain(review.city);
+    });
+  });
+
+  it('should have all reviews verified', () => {
+    reviews.forEach((review) => {
+      expect(review.verified).toBe(true);
+    });
+  });
+
+  it('should have reviews from 2024-2025', () => {
+    reviews.forEach((review) => {
+      const year = new Date(review.date).getFullYear();
+      expect(year).toBeGreaterThanOrEqual(2024);
+      expect(year).toBeLessThanOrEqual(2025);
+    });
+  });
+
+  it('should have all required fields in each review', () => {
+    reviews.forEach((review) => {
+      expect(review.id).toBeTruthy();
+      expect(review.name).toBeTruthy();
+      expect(review.age).toBeGreaterThan(0);
+      expect(review.city).toBeTruthy();
+      expect(review.profession).toBeTruthy();
+      expect(review.date).toBeTruthy();
+      expect(review.rating).toBeGreaterThan(0);
+      expect(review.rating).toBeLessThanOrEqual(5);
+      expect(review.debt).toBeTruthy();
+      expect(review.duration).toBeTruthy();
+      expect(review.procedure).toBeTruthy();
+      expect(review.text).toBeTruthy();
+      expect(Array.isArray(review.tags)).toBe(true);
+      expect(review.lawyer).toBeTruthy();
+    });
+  });
+
+  it('should have correct reviews stats', () => {
+    expect(reviewsStats.total).toBe(reviews.length);
+    expect(reviewsStats.averageRating).toBeGreaterThan(0);
+    expect(reviewsStats.averageRating).toBeLessThanOrEqual(5);
+    expect(reviewsStats.verifiedCount).toBe(reviews.length);
+  });
 
   it('should calculate review statistics correctly', () => {
     const stats = calculateStats(mockReviews);
@@ -109,18 +189,14 @@ describe('Reviews Component', () => {
     expect(typeof formattedDate).toBe('string');
   });
 
-  it('should get initials from names correctly', () => {
-    const getInitials = (name: string) => {
-      return name
-        .split(' ')
-        .map((word) => word[0])
-        .join('')
-        .toUpperCase();
+  it('should get first letter from names correctly', () => {
+    const getFirstLetter = (name: string) => {
+      return name.charAt(0).toUpperCase();
     };
 
-    expect(getInitials('Александр В.')).toBe('АВ');
-    expect(getInitials('Марина')).toBe('М');
-    expect(getInitials('Дмитрий Константинович Петров')).toBe('ДКП');
+    expect(getFirstLetter('Александр Петров')).toBe('А');
+    expect(getFirstLetter('Марина Иванова')).toBe('М');
+    expect(getFirstLetter('Дмитрий Сидоров')).toBe('Д');
   });
 
   it('should sort reviews by date correctly', () => {
@@ -128,7 +204,7 @@ describe('Reviews Component', () => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
 
-    expect(sortedReviews[0].id).toBe('1'); // Most recent
-    expect(sortedReviews[sortedReviews.length - 1].id).toBe('3'); // Oldest
+    expect(sortedReviews[0].id).toBe('test-1'); // Most recent
+    expect(sortedReviews[sortedReviews.length - 1].id).toBe('test-3'); // Oldest
   });
 });

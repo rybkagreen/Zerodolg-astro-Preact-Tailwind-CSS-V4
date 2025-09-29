@@ -81,13 +81,13 @@ const cta = {
     <!-- CTA Content Wrapper with Form and Manager Info -->
     <div class='grid lg:grid-cols-2 gap-12 items-start'>
       <!-- Left Column: Form -->
-      <div class='bg-white rounded-xl shadow-2xl p-8'>
+      <div class='bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20'>
         <CTAForm
           formId='cta-consultation-form'
           showDebtField={true}
           submitText='Получить консультацию бесплатно'
           variant='stacked'
-          className='space-y-4'
+          className='space-y-4 form-on-gradient'
         />
       </div>
 
@@ -150,3 +150,51 @@ const cta = {
     </div>
   </div>
 </section>
+
+<!-- Styles for form on gradient background -->
+<style>
+  .form-on-gradient input,
+  .form-on-gradient textarea,
+  .form-on-gradient select {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(8px);
+    color: #1e293b !important;
+    font-weight: 500;
+  }
+
+  .form-on-gradient input::placeholder,
+  .form-on-gradient textarea::placeholder {
+    color: #64748b !important;
+  }
+
+  .form-on-gradient input:focus,
+  .form-on-gradient textarea:focus,
+  .form-on-gradient select:focus {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(59, 130, 246, 0.8) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+  }
+
+  .form-on-gradient label {
+    color: white !important;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .form-on-gradient button[type='submit'] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    color: white !important;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+
+  .form-on-gradient button[type='submit']:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+</style>

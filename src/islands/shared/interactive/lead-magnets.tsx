@@ -4,9 +4,7 @@ import { useEffect } from 'preact/hooks';
 export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNode | null {
   useEffect(() => {
     // Button click handlers
-    const buttons = document.querySelectorAll(
-      '.lead-card__button[data-modal], .lead-magnets__cta-button[data-modal]'
-    );
+    const buttons = document.querySelectorAll('button[data-modal]');
 
     const handleButtonClick = (e: Event) => {
       e.preventDefault();
@@ -82,7 +80,7 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
       // Range input handler for calculator
       const rangeInput = modal.querySelector('input[type="range"]');
       if (rangeInput) {
-        const display = modal.querySelector('#debt-amount-display');
+        const display = modal.querySelector('#lead-debt-amount-display');
         rangeInput.addEventListener('input', (e) => {
           const value = parseInt((e.target as HTMLInputElement).value);
           if (display) {
@@ -313,36 +311,85 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
           </div>
         `,
 
-        emergency: `
+        'webinar-registration': `
           <div class="modal__overlay"></div>
           <div class="modal__container">
             <div class="modal__header">
-              <h3 class="modal__title">Экстренная правовая помощь</h3>
+              <h3 class="modal__title">Регистрация на вебинар</h3>
               <button class="modal__close" data-modal-close>&times;</button>
             </div>
             <div class="modal__body">
-              <div class="emergency-notice">
-                <div class="emergency-notice__icon">🚨</div>
-                <div class="emergency-notice__text">
-                  Экстренная консультация в течение 2 часов
+              <div class="webinar-info">
+                <div class="webinar-info__schedule">
+                  <strong>📅 Каждый четверг в 19:00 МСК</strong>
                 </div>
+                <p class="modal__description">
+                  "Банкротство без ошибок" — живой вебинар с разбором реальных кейсов и ответами на ваши вопросы.
+                </p>
               </div>
-              <form class="modal-form" data-form-type="emergency">
+              <form class="modal-form" data-form-type="webinar">
                 <div class="form-group">
-                  <label for="lead-emergency-name" class="form-label">Ваше имя</label>
-                  <input type="text" id="lead-emergency-name" name="name" class="form-input" required autocomplete="name">
+                  <label for="lead-webinar-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-webinar-name" name="name" class="form-input" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label for="lead-emergency-phone" class="form-label">Телефон</label>
-                  <input type="tel" id="lead-emergency-phone" name="phone" class="form-input" required autocomplete="tel">
+                  <label for="lead-webinar-email" class="form-label">Email для получения ссылки</label>
+                  <input type="email" id="lead-webinar-email" name="email" class="form-input" required autocomplete="email">
                 </div>
                 <div class="form-group">
-                  <label for="lead-emergency-situation" class="form-label">Опишите срочную ситуацию</label>
-                  <textarea id="lead-emergency-situation" name="emergency_situation" class="form-textarea" rows="3" required 
-                            placeholder="Коллекторы угрожают, арестованы счета, завтра суд..." autocomplete="off"></textarea>
+                  <label for="lead-webinar-phone" class="form-label">Телефон (необязательно)</label>
+                  <input type="tel" id="lead-webinar-phone" name="phone" class="form-input" autocomplete="tel">
                 </div>
-                <button type="submit" class="btn btn--danger btn--block">
-                  Получить помощь сейчас
+                <button type="submit" class="btn btn--primary btn--block">
+                  Записаться на вебинар
+                </button>
+              </form>
+            </div>
+          </div>
+        `,
+
+        assessment: `
+          <div class="modal__overlay"></div>
+          <div class="modal__container">
+            <div class="modal__header">
+              <h3 class="modal__title">Экспресс-оценка дела</h3>
+              <button class="modal__close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal__body">
+              <div class="assessment-info">
+                <div class="assessment-info__badge">
+                  <span>⚡ Результат через 24 часа</span>
+                </div>
+                <p class="modal__description">
+                  Получите предварительную оценку перспектив вашего дела от опытных юристов. Анализ проводится бесплатно и конфиденциально.
+                </p>
+              </div>
+              <form class="modal-form" data-form-type="assessment">
+                <div class="form-group">
+                  <label for="lead-assessment-name" class="form-label">Ваше имя</label>
+                  <input type="text" id="lead-assessment-name" name="name" class="form-input" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label for="lead-assessment-phone" class="form-label">Телефон</label>
+                  <input type="tel" id="lead-assessment-phone" name="phone" class="form-input" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                  <label for="lead-assessment-debt" class="form-label">Примерная сумма долгов</label>
+                  <select id="lead-assessment-debt" name="debt_amount" class="form-select" required autocomplete="off">
+                    <option value="">Выберите сумму</option>
+                    <option value="less_500k">Менее 500 000 ₽</option>
+                    <option value="500k_1m">500 000 - 1 000 000 ₽</option>
+                    <option value="1m_3m">1 - 3 млн ₽</option>
+                    <option value="more_3m">Более 3 млн ₽</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="lead-assessment-situation" class="form-label">Краткое описание ситуации</label>
+                  <textarea id="lead-assessment-situation" name="situation" class="form-textarea" rows="3" 
+                            placeholder="Опишите вашу финансовую ситуацию..." autocomplete="off"></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">
+                  Получить оценку бесплатно
                 </button>
               </form>
             </div>
@@ -391,8 +438,8 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
         calculator: 'Расчет отправлен на указанный номер телефона',
         guide: 'Гид отправлен на вашу электронную почту',
         checklist: 'Чек-лист отправлен на вашу почту',
-        test: 'Результаты теста отправлены',
-        emergency: 'Экстренная заявка принята. Перезвоним в течение 2 часов!',
+        webinar: 'Ссылка на вебинар отправлена на вашу почту',
+        assessment: 'Заявка принята. Оценка будет готова через 24 часа',
       };
 
       modalBody.innerHTML = `
