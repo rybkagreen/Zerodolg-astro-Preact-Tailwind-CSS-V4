@@ -19,12 +19,24 @@ export default function SimpleModalInit() {
           window.modalManager = {
             open: (modalId: string) => {
               console.log('[SimpleModalInit] 🔓 Открываем модаль:', modalId);
+
+              // Закрываем все открытые модали сначала
+              const openModals = document.querySelectorAll('[data-modal-open="true"]');
+              openModals.forEach((openModal) => {
+                (openModal as HTMLElement).style.display = 'none';
+                openModal.setAttribute('aria-hidden', 'true');
+                openModal.removeAttribute('data-modal-open');
+              });
+
               const modal = document.getElementById(modalId);
               if (modal) {
                 modal.style.display = 'block';
                 modal.setAttribute('aria-hidden', 'false');
                 modal.setAttribute('data-modal-open', 'true');
+
+                // Важно: устанавливаем overflow только один раз
                 document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
 
                 // Фокус на первый интерактивный элемент
                 const focusable = modal.querySelector<HTMLElement>(
@@ -48,7 +60,13 @@ export default function SimpleModalInit() {
                 (modal as HTMLElement).style.display = 'none';
                 modal.setAttribute('aria-hidden', 'true');
                 modal.removeAttribute('data-modal-open');
-                document.body.style.overflow = '';
+
+                // Проверяем, остались ли другие открытые модали
+                const remainingModals = document.querySelectorAll('[data-modal-open="true"]');
+                if (remainingModals.length === 0) {
+                  document.body.style.overflow = '';
+                  document.documentElement.style.overflow = '';
+                }
               }
             },
 
@@ -61,6 +79,7 @@ export default function SimpleModalInit() {
                 modal.removeAttribute('data-modal-open');
               });
               document.body.style.overflow = '';
+              document.documentElement.style.overflow = '';
             },
 
             debug: () => ({
@@ -121,6 +140,33 @@ export default function SimpleModalInit() {
         // Добавляем слушатели событий
         document.addEventListener('click', handleClick);
         document.addEventListener('keydown', handleKeydown);
+
+        // Защита от зависания: принудительный сброс overflow через 10 секунд после клика по кнопке
+        let resetTimeoutId: NodeJS.Timeout | undefined;
+        const resetOverflowProtection = () => {
+          if (resetTimeoutId) {
+            clearTimeout(resetTimeoutId);
+          }
+          resetTimeoutId = setTimeout(() => {
+            const openModals = document.querySelectorAll('[data-modal-open="true"]');
+            if (openModals.length === 0) {
+              // Нет открытых модалей, принудительно сбрасываем overflow
+              document.body.style.overflow = '';
+              document.documentElement.style.overflow = '';
+              console.log(
+                '[SimpleModalInit] 🔧 Принудительный сброс overflow (защита от зависания)'
+              );
+            }
+          }, 10000);
+        };
+
+        // Сброс на всех кликах по кнопкам модалей
+        document.addEventListener('click', (e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('[data-modal]')) {
+            resetOverflowProtection();
+          }
+        });
 
         console.log('[SimpleModalInit] ✅ Инициализация завершена успешно');
 
