@@ -51,7 +51,7 @@ export interface Props {
     <!-- Section Header -->
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
       <div
-        class='inline-flex items-center gap-2 rounded-full bg-blue-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
+        class='inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
       >
         <svg class='h-4 w-4 text-blue-600' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path
@@ -79,11 +79,11 @@ export interface Props {
     <div class='faq__accordion' role='region' aria-label='Вопросы и ответы'>
       <!-- FAQ Item 1 -->
       <div
-        class='faq__item group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60'
+        class='faq__item group relative overflow-hidden rounded-2xl bg-white/90 border border-gray-200/80 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300'
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-white/20 transition-all duration-300 backdrop-blur-sm'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-1'
           data-faq-trigger
@@ -109,12 +109,7 @@ export interface Props {
               stroke-linejoin='round'></path>
           </svg>
         </button>
-        <div
-          class='faq__answer bg-gradient-to-br from-blue-50/80 to-white/80 backdrop-blur-sm'
-          id='faq-answer-1'
-          aria-hidden='true'
-          data-faq-content
-        >
+        <div class='faq__answer bg-white/95' id='faq-answer-1' aria-hidden='true' data-faq-content>
           <div class='faq__answer-inner p-6 pt-0'>
             <p class='mb-4 text-slate-700'>
               Через процедуру банкротства можно списать практически все виды долгов:
@@ -158,11 +153,11 @@ export interface Props {
 
       <!-- FAQ Item 2 -->
       <div
-        class='faq__item group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60'
+        class='faq__item group relative overflow-hidden rounded-2xl bg-white/90 border border-gray-200/80 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300'
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-white/20 transition-all duration-300 backdrop-blur-sm'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-2'
           data-faq-trigger
@@ -188,12 +183,7 @@ export interface Props {
               stroke-linejoin='round'></path>
           </svg>
         </button>
-        <div
-          class='faq__answer bg-gradient-to-br from-emerald-50/80 to-white/80 backdrop-blur-sm'
-          id='faq-answer-2'
-          aria-hidden='true'
-          data-faq-content
-        >
+        <div class='faq__answer bg-white/95' id='faq-answer-2' aria-hidden='true' data-faq-content>
           <div class='faq__answer-inner p-6 pt-0'>
             <p class='mb-4 text-slate-700'>Сроки зависят от выбранной процедуры:</p>
             <div class='faq__timeline space-y-4 mb-4'>
@@ -224,11 +214,11 @@ export interface Props {
 
       <!-- FAQ Item 3 -->
       <div
-        class='faq__item group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60'
+        class='faq__item group relative overflow-hidden rounded-2xl bg-white/90 border border-gray-200/80 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300'
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-white/20 transition-all duration-300 backdrop-blur-sm'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-3'
           data-faq-trigger
@@ -254,12 +244,7 @@ export interface Props {
               stroke-linejoin='round'></path>
           </svg>
         </button>
-        <div
-          class='faq__answer bg-gradient-to-br from-orange-50/80 to-white/80 backdrop-blur-sm'
-          id='faq-answer-3'
-          aria-hidden='true'
-          data-faq-content
-        >
+        <div class='faq__answer bg-white/95' id='faq-answer-3' aria-hidden='true' data-faq-content>
           <div class='faq__answer-inner p-6 pt-0'>
             <p class='mb-4 text-slate-700'>По закону нельзя забрать:</p>
             <ul class='faq__list space-y-2 mb-4'>
@@ -313,11 +298,11 @@ export interface Props {
 
       <!-- FAQ Item 4 -->
       <div
-        class='faq__item group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60'
+        class='faq__item group relative overflow-hidden rounded-2xl bg-white/90 border border-gray-200/80 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300'
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-white/20 transition-all duration-300 backdrop-blur-sm'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-4'
           data-faq-trigger
@@ -343,12 +328,7 @@ export interface Props {
               stroke-linejoin='round'></path>
           </svg>
         </button>
-        <div
-          class='faq__answer bg-gradient-to-br from-violet-50/80 to-white/80 backdrop-blur-sm'
-          id='faq-answer-4'
-          aria-hidden='true'
-          data-faq-content
-        >
+        <div class='faq__answer bg-white/95' id='faq-answer-4' aria-hidden='true' data-faq-content>
           <div class='faq__answer-inner p-6 pt-0'>
             <p class='mb-4 text-slate-700'>После признания банкротом:</p>
             <div class='faq__consequences grid grid-cols-1 md:grid-cols-2 gap-6 mb-4'>
@@ -385,11 +365,11 @@ export interface Props {
 
       <!-- FAQ Item 5 -->
       <div
-        class='faq__item group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60'
+        class='faq__item group relative overflow-hidden rounded-2xl bg-white/90 border border-gray-200/80 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300'
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-white/20 transition-all duration-300 backdrop-blur-sm'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-5'
           data-faq-trigger
@@ -415,12 +395,7 @@ export interface Props {
               stroke-linejoin='round'></path>
           </svg>
         </button>
-        <div
-          class='faq__answer bg-gradient-to-br from-cyan-50/80 to-white/80 backdrop-blur-sm'
-          id='faq-answer-5'
-          aria-hidden='true'
-          data-faq-content
-        >
+        <div class='faq__answer bg-white/95' id='faq-answer-5' aria-hidden='true' data-faq-content>
           <div class='faq__answer-inner p-6 pt-0'>
             <div class='faq__pricing grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
               <div class='faq__price-card bg-white border border-gray-200 rounded-lg p-6'>
@@ -484,11 +459,11 @@ export interface Props {
 
       <!-- FAQ Item 6 -->
       <div
-        class='faq__item group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 hover:border-slate-200/60'
+        class='faq__item group relative overflow-hidden rounded-2xl bg-white/90 border border-gray-200/80 shadow-md shadow-slate-900/10 mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-white hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300'
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-white/20 transition-all duration-300 backdrop-blur-sm'
+          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-6'
           data-faq-trigger
@@ -514,12 +489,7 @@ export interface Props {
               stroke-linejoin='round'></path>
           </svg>
         </button>
-        <div
-          class='faq__answer bg-gradient-to-br from-indigo-50/80 to-white/80 backdrop-blur-sm'
-          id='faq-answer-6'
-          aria-hidden='true'
-          data-faq-content
-        >
+        <div class='faq__answer bg-white/95' id='faq-answer-6' aria-hidden='true' data-faq-content>
           <div class='faq__answer-inner p-6 pt-0'>
             <p class='mb-4 text-slate-700'>
               Теоретически — да, но на практике это очень сложно и рискованно:
@@ -564,7 +534,7 @@ export interface Props {
 
     <!-- CTA Section -->
     <div
-      class='faq__cta relative bg-white/60 backdrop-blur-md rounded-2xl border border-white/50 shadow-lg p-8 text-center mt-12 md:mt-16'
+      class='faq__cta relative bg-white/90 rounded-2xl border border-gray-200/80 shadow-lg p-8 text-center mt-12 md:mt-16'
     >
       <h3 class='text-2xl md:text-3xl font-bold text-slate-900 mb-4'>Остались вопросы?</h3>
       <p class='text-lg text-slate-600 mb-6'>
