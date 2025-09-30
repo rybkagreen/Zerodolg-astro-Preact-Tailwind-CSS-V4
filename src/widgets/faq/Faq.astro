@@ -26,30 +26,12 @@ export interface Props {
   data-section='faq'
   data-aos='fade-up'
 >
-  <!-- Reset background to white to override any previous section's background -->
+  <!-- Simple white background -->
   <div class='absolute inset-0 bg-white z-0'></div>
 
-  <!-- Background with financial relief pattern -->
-  <div class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30 z-10'>
-  </div>
-
-  <!-- Pastel paint strokes background pattern -->
-  <div
-    class='absolute inset-0 opacity-25 z-20'
-    style='background-image: url("/patterns/Pastel Paint Strokes Abstract Digital Art Social Media Post (1).png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
-  >
-  </div>
-
-  <!-- Subtle dot pattern overlay -->
-  <div
-    class='absolute inset-0 opacity-5 z-30'
-    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
-  >
-  </div>
-
-  <div class='container-custom relative z-40'>
+  <div class='container mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
     <!-- Section Header -->
-    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+    <header class='text-center mb-12 md:mb-16 lg:mb-20'>
       <div
         class='inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
       >
@@ -64,12 +46,12 @@ export interface Props {
         Часто задаваемые вопросы
       </div>
       <h2
-        class='faq__title text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+        class='faq__title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight px-4'
       >
         Ответы на ваши вопросы
       </h2>
       <p
-        class='faq__subtitle text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'
+        class='faq__subtitle text-lg sm:text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium px-4'
       >
         Разбираем самые популярные вопросы о банкротстве физических лиц
       </p>
@@ -83,13 +65,13 @@ export interface Props {
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-1'
           data-faq-trigger
         >
           <span
-            class='faq__question-text text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'
+            class='faq__question-text text-base sm:text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 pr-4'
           >
             Какие долги можно списать через банкротство?
           </span>
@@ -110,7 +92,7 @@ export interface Props {
           </svg>
         </button>
         <div class='faq__answer bg-white/95' id='faq-answer-1' aria-hidden='true' data-faq-content>
-          <div class='faq__answer-inner p-6 pt-0'>
+          <div class='faq__answer-inner p-4 sm:p-6 pt-0'>
             <p class='mb-4 text-slate-700'>
               Через процедуру банкротства можно списать практически все виды долгов:
             </p>
@@ -157,13 +139,13 @@ export interface Props {
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-2'
           data-faq-trigger
         >
           <span
-            class='faq__question-text text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'
+            class='faq__question-text text-base sm:text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 pr-4'
           >
             Сколько времени занимает процедура банкротства?
           </span>
@@ -184,7 +166,7 @@ export interface Props {
           </svg>
         </button>
         <div class='faq__answer bg-white/95' id='faq-answer-2' aria-hidden='true' data-faq-content>
-          <div class='faq__answer-inner p-6 pt-0'>
+          <div class='faq__answer-inner p-4 sm:p-6 pt-0'>
             <p class='mb-4 text-slate-700'>Сроки зависят от выбранной процедуры:</p>
             <div class='faq__timeline space-y-4 mb-4'>
               <div class='faq__timeline-item flex items-start gap-3'>
@@ -218,13 +200,13 @@ export interface Props {
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-3'
           data-faq-trigger
         >
           <span
-            class='faq__question-text text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'
+            class='faq__question-text text-base sm:text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 pr-4'
           >
             Какое имущество можно сохранить при банкротстве?
           </span>
@@ -245,7 +227,7 @@ export interface Props {
           </svg>
         </button>
         <div class='faq__answer bg-white/95' id='faq-answer-3' aria-hidden='true' data-faq-content>
-          <div class='faq__answer-inner p-6 pt-0'>
+          <div class='faq__answer-inner p-4 sm:p-6 pt-0'>
             <p class='mb-4 text-slate-700'>По закону нельзя забрать:</p>
             <ul class='faq__list space-y-2 mb-4'>
               <li class='flex items-start'>
@@ -302,13 +284,13 @@ export interface Props {
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-4'
           data-faq-trigger
         >
           <span
-            class='faq__question-text text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'
+            class='faq__question-text text-base sm:text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 pr-4'
           >
             Какие последствия банкротства для должника?
           </span>
@@ -329,7 +311,7 @@ export interface Props {
           </svg>
         </button>
         <div class='faq__answer bg-white/95' id='faq-answer-4' aria-hidden='true' data-faq-content>
-          <div class='faq__answer-inner p-6 pt-0'>
+          <div class='faq__answer-inner p-4 sm:p-6 pt-0'>
             <p class='mb-4 text-slate-700'>После признания банкротом:</p>
             <div class='faq__consequences grid grid-cols-1 md:grid-cols-2 gap-6 mb-4'>
               <div
@@ -369,13 +351,13 @@ export interface Props {
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-5'
           data-faq-trigger
         >
           <span
-            class='faq__question-text text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'
+            class='faq__question-text text-base sm:text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 pr-4'
           >
             Сколько стоит процедура банкротства?
           </span>
@@ -396,7 +378,7 @@ export interface Props {
           </svg>
         </button>
         <div class='faq__answer bg-white/95' id='faq-answer-5' aria-hidden='true' data-faq-content>
-          <div class='faq__answer-inner p-6 pt-0'>
+          <div class='faq__answer-inner p-4 sm:p-6 pt-0'>
             <div class='faq__pricing grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
               <div class='faq__price-card bg-white border border-gray-200 rounded-lg p-6'>
                 <h4 class='text-xl font-bold text-gray-900 mb-4'>Внесудебное банкротство</h4>
@@ -463,13 +445,13 @@ export interface Props {
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-center p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-4 sm:p-6 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-6'
           data-faq-trigger
         >
           <span
-            class='faq__question-text text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'
+            class='faq__question-text text-base sm:text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 pr-4'
           >
             Можно ли пройти банкротство без юриста?
           </span>
@@ -490,7 +472,7 @@ export interface Props {
           </svg>
         </button>
         <div class='faq__answer bg-white/95' id='faq-answer-6' aria-hidden='true' data-faq-content>
-          <div class='faq__answer-inner p-6 pt-0'>
+          <div class='faq__answer-inner p-4 sm:p-6 pt-0'>
             <p class='mb-4 text-slate-700'>
               Теоретически — да, но на практике это очень сложно и рискованно:
             </p>
@@ -534,10 +516,12 @@ export interface Props {
 
     <!-- CTA Section -->
     <div
-      class='faq__cta relative bg-white/90 rounded-2xl border border-gray-200/80 shadow-lg p-8 text-center mt-12 md:mt-16'
+      class='faq__cta relative bg-white/90 rounded-2xl border border-gray-200/80 shadow-lg p-6 sm:p-8 text-center mt-12 md:mt-16 mx-4 sm:mx-0'
     >
-      <h3 class='text-2xl md:text-3xl font-bold text-slate-900 mb-4'>Остались вопросы?</h3>
-      <p class='text-lg text-slate-600 mb-6'>
+      <h3 class='text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-4'>
+        Остались вопросы?
+      </h3>
+      <p class='text-base sm:text-lg text-slate-600 mb-6 px-4'>
         Получите бесплатную консультацию нашего юриста по банкротству
       </p>
       <div class='faq__cta-buttons flex flex-col sm:flex-row gap-4 justify-center'>
