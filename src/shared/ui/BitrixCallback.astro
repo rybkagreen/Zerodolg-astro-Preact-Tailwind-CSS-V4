@@ -152,10 +152,18 @@ const sitePhone = import.meta.env.PUBLIC_SITE_PHONE || '+7 (905) 577-33-87';
 </div>
 
 <script define:vars={{ bitrixWebhookUrl, sitePhone }}>
-  import { BitrixCallbackWidget } from '../lib/bitrix-callback-widget.js';
+  // Make variables available globally for the module script
+  window.__bitrixConfig = { bitrixWebhookUrl, sitePhone };
+</script>
+
+<script type='module'>
+  import { BitrixCallbackWidget } from '../lib/bitrix-callback-widget';
 
   // Initialize when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
-    new BitrixCallbackWidget(bitrixWebhookUrl, sitePhone);
+    const config = window.__bitrixConfig;
+    if (config) {
+      new BitrixCallbackWidget(config.bitrixWebhookUrl, config.sitePhone);
+    }
   });
 </script>

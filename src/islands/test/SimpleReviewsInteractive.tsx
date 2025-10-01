@@ -34,7 +34,11 @@ const SimpleReviewsInteractive = ({ reviews, initialVisible = 3 }: ReviewsIntera
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return new Intl.DateTimeFormat('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+    return new Intl.DateTimeFormat('ru-RU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date);
   };
 
   return (
@@ -48,12 +52,16 @@ const SimpleReviewsInteractive = ({ reviews, initialVisible = 3 }: ReviewsIntera
           >
             {/* Top Accent Line */}
             <div className='absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-            
+
             {/* Verified Badge */}
             {review.verified && (
               <div className='absolute -top-3 -right-3 bg-gradient-to-br from-green-400 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1'>
                 <svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
-                  <path fillRule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clipRule='evenodd' />
+                  <path
+                    fillRule='evenodd'
+                    d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                    clipRule='evenodd'
+                  />
                 </svg>
                 Проверено
               </div>
@@ -78,7 +86,9 @@ const SimpleReviewsInteractive = ({ reviews, initialVisible = 3 }: ReviewsIntera
                     <span
                       key={i}
                       className={`text-xl transition-transform group-hover:scale-110 ${
-                        i < review.rating ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]' : 'text-white/20'
+                        i < review.rating
+                          ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
+                          : 'text-white/20'
                       }`}
                     >
                       ★
@@ -86,7 +96,7 @@ const SimpleReviewsInteractive = ({ reviews, initialVisible = 3 }: ReviewsIntera
                   ))}
                 </div>
               </div>
-              
+
               {/* Stats Badges */}
               {(review.debt || review.duration || review.procedure) && (
                 <div className='flex flex-wrap gap-2 mb-3'>
@@ -134,7 +144,12 @@ const SimpleReviewsInteractive = ({ reviews, initialVisible = 3 }: ReviewsIntera
                 {/* Helpful Count */}
                 <div className='flex items-center gap-1 hover:text-white/90 transition-colors cursor-pointer'>
                   <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5' />
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5'
+                    />
                   </svg>
                   <span className='font-semibold'>{review.helpful ?? 0}</span>
                 </div>
@@ -163,8 +178,18 @@ const SimpleReviewsInteractive = ({ reviews, initialVisible = 3 }: ReviewsIntera
           >
             <span className='relative z-10 flex items-center gap-2'>
               Показать ещё отзывы
-              <svg className='w-5 h-5 transition-transform group-hover:translate-y-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+              <svg
+                className='w-5 h-5 transition-transform group-hover:translate-y-1'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M19 9l-7 7-7-7'
+                />
               </svg>
             </span>
             <div className='absolute inset-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />

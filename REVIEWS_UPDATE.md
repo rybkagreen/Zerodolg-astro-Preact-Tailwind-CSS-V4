@@ -57,13 +57,13 @@
 
 ### Glass Morphism эффект
 
-```css
+```text
 bg-white/10 backdrop-blur-lg border border-white/20
 ```
 
 ### Hover эффект
 
-```css
+```text
 hover:shadow-2xl hover:bg-white/15 hover:scale-105
 ```
 

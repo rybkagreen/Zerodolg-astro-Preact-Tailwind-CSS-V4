@@ -6,6 +6,8 @@ interface Props {
   title: string;
   /** Page description */
   description: string;
+  /** SEO keywords */
+  keywords?: string;
   /** Page image for social sharing */
   image?: string;
   /** Canonical URL */
@@ -14,15 +16,19 @@ interface Props {
   noindex?: boolean;
   /** Open Graph type */
   type?: string;
+  /** Locale for Open Graph */
+  locale?: string;
 }
 
 const {
   title,
   description,
+  keywords,
   image = '/images/og-image.jpg',
   canonical,
   noindex = false,
   type = 'website',
+  locale = 'ru_RU',
 } = Astro.props;
 
 const siteConfig = {
@@ -34,7 +40,14 @@ const siteConfig = {
 
 <title>{title}</title>
 <meta name='description' content={description} />
+{keywords && <meta name='keywords' content={keywords} />}
 <link rel='canonical' href={canonical || siteConfig.url} />
+
+<!-- Geographical meta tags for local SEO -->
+<meta name='geo.region' content='RU-MOW' />
+<meta name='geo.placename' content='Москва' />
+<meta name='geo.position' content='55.704061;37.508087' />
+<meta name='ICBM' content='55.704061, 37.508087' />
 
 <!-- Open Graph / Facebook -->
 <meta property='og:type' content={type} />
@@ -43,6 +56,7 @@ const siteConfig = {
 <meta property='og:image' content={image} />
 <meta property='og:url' content={canonical || siteConfig.url} />
 <meta property='og:site_name' content={siteConfig.name} />
+<meta property='og:locale' content={locale} />
 
 <!-- Twitter -->
 <meta property='twitter:card' content='summary_large_image' />

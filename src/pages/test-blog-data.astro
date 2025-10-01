@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+
+// Сортируем по slug для удобства
+blogPosts.sort((a, b) => a.slug.localeCompare(b.slug));
+
+// Проблемные посты
+const problematicSlugs = [
+  'blog-bankruptcy-guide',
+  'blog-bankruptcy-mortgage',
+  'blog-collectors-protection',
+  'blog-legal-ways-avoid-credit',
+  'blog-mistakes-before-bankruptcy',
+  'blog-restructuring-vs-bankruptcy',
+  'bankruptcy-basics',
+];
+
+const problematicPosts = blogPosts.filter((post) => problematicSlugs.includes(post.slug));
+---
+
+<!doctype html>
+<html lang='ru'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Диагностика Blog Collection</title>
+    <style>
+      body {
+        font-family: system-ui;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #1e40af;
+      }
+      h2 {
+        color: #3b82f6;
+        margin-top: 30px;
+      }
+      .post {
+        border: 1px solid #e5e7eb;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+      }
+      .problematic {
+        background-color: #fee2e2;
+        border-color: #ef4444;
+      }
+      .ok {
+        background-color: #d1fae5;
+        border-color: #10b981;
+      }
+      .label {
+        font-weight: bold;
+        color: #374151;
+      }
+      .value {
+        color: #6b7280;
+      }
+      pre {
+        background: #f3f4f6;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔍 Диагностика Blog Collection</h1>
+
+    <h2>📊 Общая статистика</h2>
+    <p><span class='label'>Всего постов:</span> <span class='value'>{blogPosts.length}</span></p>
+    <p>
+      <span class='label'>Проблемных постов найдено:</span>
+      <span class='value'>{problematicPosts.length} из {problematicSlugs.length}</span>
+    </p>
+
+    <h2>🚨 Проблемные посты (детали)</h2>
+    {
+      problematicPosts.map((post) => (
+        <div class='post problematic'>
+          <h3>Slug: {post.slug}</h3>
+          <p>
+            <span class='label'>Title:</span>{' '}
+            <span class='value'>{post.data.title || 'НЕТ ЗАГОЛОВКА'}</span>
+          </p>
+          <p>
+            <span class='label'>Description:</span>{' '}
+            <span class='value'>{post.data.description || 'НЕТ ОПИСАНИЯ'}</span>
+          </p>
+          <p>
+            <span class='label'>PubDate:</span>{' '}
+            <span class='value'>{post.data.pubDate?.toISOString() || 'НЕТ ДАТЫ'}</span>
+          </p>
+          <p>
+            <span class='label'>Tags:</span>{' '}
+            <span class='value'>{post.data.tags?.join(', ') || 'НЕТ ТЕГОВ'}</span>
+          </p>
+          <p>
+            <span class='label'>ID:</span> <span class='value'>{post.id}</span>
+          </p>
+          <details>
+            <summary style='cursor: pointer; color: #3b82f6;'>Показать полный объект data</summary>
+            <pre>{JSON.stringify(post.data, null, 2)}</pre>
+          </details>
+        </div>
+      ))
+    }
+
+    <h2>✅ Все посты (краткий список)</h2>
+    {
+      blogPosts.map((post) => {
+        const isProblematic = problematicSlugs.includes(post.slug);
+        return (
+          <div class:list={[`post `, { problematic: isProblematic, ok: !isProblematic }]}>
+            <p>
+              <span class='label'>{post.slug}</span> →
+              <span class='value'>{post.data.title || '❌ БЕЗ НАЗВАНИЯ'}</span>
+              {isProblematic && <span style='color: red; margin-left: 10px;'>⚠️ ПРОБЛЕМНЫЙ</span>}
+            </p>
+          </div>
+        );
+      })
+    }
+  </body>
+</html>

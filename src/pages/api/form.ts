@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { SERVICE_VALUES } from '@shared/lib/analytics-manager';
 
 // Конфигурация Bitrix24 из переменных окружения
 const BITRIX24_WEBHOOK_URL =
@@ -74,12 +75,23 @@ export const POST: APIRoute = async ({ request }) => {
     // Логируем для отладки
     console.log('Lead created:', bitrixResult);
 
-    // Возвращаем успешный ответ
+    // Определяем ценность конверсии
+    const leadValue = SERVICE_VALUES[formType] || SERVICE_VALUES.general;
+
+    // Возвращаем успешный ответ с данными для аналитики
     return new Response(
       JSON.stringify({
         success: true,
         leadId: bitrixResult.result,
         message: 'Заявка успешно отправлена! Мы свяжемся с вами в течение 15 минут.',
+        // Данные для отслеживания конверсии на клиенте
+        analytics: {
+          event: 'purchase',
+          transaction_id: bitrixResult.result?.toString() || `lead_${Date.now()}`,
+          value: leadValue,
+          currency: 'RUB',
+          form_type: formType,
+        },
       }),
       {
         status: 200,

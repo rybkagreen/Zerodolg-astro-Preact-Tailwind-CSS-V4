@@ -698,9 +698,6 @@ describe('CTA Component', () => {
     expect(invalidResult.errors).toContain('Телефон обязателен для заполнения');
 
     // Fill form with valid data
-    const nameInput = ctaForm.querySelector('#cta-name') as HTMLInputElement;
-    const phoneInput = ctaForm.querySelector('#cta-phone') as HTMLInputElement;
-
     nameInput.value = 'Иван Петров';
     phoneInput.value = '+7 (905) 577-33-87';
 

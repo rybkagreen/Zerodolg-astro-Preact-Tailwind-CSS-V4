@@ -1,6 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@app/layouts/Layout.astro';
+import Header from '@widgets/header/Header.astro';
+import Footer from '@widgets/footer/Footer.astro';
+import Breadcrumb from '@shared/ui/Breadcrumb/Breadcrumb.astro';
+import CallbackModal from '@features/modals/ui/CallbackModal.astro';
+import SimpleModalInit from '../../islands/utils/SimpleModalInit.tsx';
+import OnlineSticker from '@shared/ui/OnlineSticker.astro';
+import BitrixCallback from '@shared/ui/BitrixCallback.astro';
+import ClientInteractions from '../../islands/utils/client-interactions.tsx';
+import { SITE_CONSTANTS } from '../../shared/config/constants';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -11,28 +20,378 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate } = post.data;
+const { Content } = await post.render();
+const { title, description, pubDate, updatedDate, tags } = post.data;
+
+// Get all blog posts for related articles
+const allPosts = await getCollection('blog');
+const validPosts = allPosts.filter((p) => p.data.title && p.data.title !== 'Без названия');
+
+// Find related posts by tags
+const relatedPosts = validPosts
+  .filter((p) => {
+    if (p.slug === post.slug) return false;
+    const postTags = p.data.tags || [];
+    const currentTags = tags || [];
+    return postTags.some((tag) => currentTags.includes(tag));
+  })
+  .slice(0, 3);
+
+// Calculate reading time
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+}
+
+const manager = SITE_CONSTANTS.manager;
+const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonical={`https://zerodolg.ru/blog/${post.slug}/`}
-  type='article'
->
-  <article>
-    <header>
-      <h1>{title}</h1>
-      {
-        pubDate && (
-          <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString('ru-RU')}</time>
-        )
-      }
-    </header>
-    <section>
-      <slot />
+<Layout title={title} description={description} canonical={canonical} type='article'>
+  <Header />
+
+  <!-- Breadcrumb Navigation -->
+  <div class='container mx-auto px-4'>
+    <Breadcrumb
+      items={[
+        {
+          name: 'Блог',
+          url: '/blog/',
+        },
+        {
+          name: title,
+          url: canonical,
+        },
+      ]}
+    />
+  </div>
+
+  <main class='bg-gray-50'>
+    <!-- Article Header -->
+    <section class='bg-gradient-to-br from-blue-900 via-slate-800 to-blue-800 text-white py-12'>
+      <div class='container mx-auto px-4'>
+        <div class='max-w-4xl mx-auto'>
+          <!-- Tags -->
+          {
+            tags && tags.length > 0 && (
+              <div class='flex flex-wrap gap-2 mb-6'>
+                {tags.map((tag) => (
+                  <span class='inline-block bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3 py-1 rounded-full text-sm'>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )
+          }
+
+          <!-- Title -->
+          <h1 class='text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight'>
+            {title}
+          </h1>
+
+          <!-- Meta Info -->
+          <div class='flex flex-wrap items-center gap-6 text-blue-100'>
+            {
+              pubDate && (
+                <div class='flex items-center gap-2'>
+                  <svg class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
+                    <path
+                      fill-rule='evenodd'
+                      d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z'
+                      clip-rule='evenodd'
+                    />
+                  </svg>
+                  <time datetime={pubDate.toISOString()}>
+                    {pubDate.toLocaleDateString('ru-RU', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                </div>
+              )
+            }
+            {
+              updatedDate && (
+                <div class='flex items-center gap-2'>
+                  <svg class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
+                    <path
+                      fill-rule='evenodd'
+                      d='M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z'
+                      clip-rule='evenodd'
+                    />
+                  </svg>
+                  <span>
+                    Обновлено:{' '}
+                    {updatedDate.toLocaleDateString('ru-RU', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </span>
+                </div>
+              )
+            }
+            <div class='flex items-center gap-2'>
+              <svg class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
+                <path
+                  fill-rule='evenodd'
+                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z'
+                  clip-rule='evenodd'></path>
+              </svg>
+              <span>5-7 мин чтения</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  </article>
+
+    <!-- Article Content -->
+    <section class='py-12'>
+      <div class='container mx-auto px-4'>
+        <div class='max-w-4xl mx-auto'>
+          <div class='grid lg:grid-cols-[1fr_300px] gap-8'>
+            <!-- Main Content -->
+            <article
+              class='bg-white rounded-xl shadow-lg p-8 md:p-12 prose prose-lg prose-blue max-w-none
+                prose-headings:font-bold prose-headings:text-gray-900
+                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-200
+                prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
+                prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-gray-900 prose-strong:font-semibold
+                prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
+                prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
+                prose-li:my-2 prose-li:text-gray-700
+                prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600
+                prose-code:bg-gray-100 prose-code:text-blue-600 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                prose-pre:bg-gray-900 prose-pre:text-gray-100
+                prose-table:border-collapse prose-table:w-full
+                prose-th:bg-gray-50 prose-th:border prose-th:border-gray-300 prose-th:p-3
+                prose-td:border prose-td:border-gray-300 prose-td:p-3'
+            >
+              <Content />
+            </article>
+
+            <!-- Sidebar -->
+            <aside class='space-y-6'>
+              <!-- Author Card -->
+              <div class='bg-white rounded-xl shadow-lg p-6 sticky top-4'>
+                <div class='text-center mb-4'>
+                  <div
+                    class='w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-blue-500'
+                  >
+                    <img
+                      src='/images/team/mashulia.webp'
+                      alt={manager.name}
+                      class='w-full h-full object-cover'
+                      style='object-position: center 25%'
+                    />
+                  </div>
+                  <h3 class='font-bold text-lg text-gray-900'>{manager.name}</h3>
+                  <p class='text-sm text-blue-600'>{manager.position}</p>
+                </div>
+
+                <div class='space-y-2 text-sm text-gray-600 mb-4'>
+                  <div class='flex items-center gap-2'>
+                    <svg class='w-4 h-4 text-blue-600' fill='currentColor' viewBox='0 0 20 20'>
+                      <path
+                        fill-rule='evenodd'
+                        d='M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z'
+                        clip-rule='evenodd'></path>
+                    </svg>
+                    <span>{manager.experience.display}</span>
+                  </div>
+                  <div class='flex items-center gap-2'>
+                    <svg class='w-4 h-4 text-blue-600' fill='currentColor' viewBox='0 0 20 20'>
+                      <path
+                        d='M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z'
+                      ></path>
+                    </svg>
+                    <span>{manager.cases.display}</span>
+                  </div>
+                </div>
+
+                <button
+                  class='w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors'
+                  data-modal='consultation'
+                >
+                  Получить консультацию
+                </button>
+
+                <div class='mt-4 pt-4 border-t border-gray-200'>
+                  <a
+                    href='tel:+79055773387'
+                    class='flex items-center justify-center gap-2 text-blue-600 hover:text-blue-700 font-medium'
+                  >
+                    <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        stroke-width='2'
+                        d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+                      ></path>
+                    </svg>
+                    +7 (905) 577-33-87
+                  </a>
+                </div>
+              </div>
+
+              <!-- Quick Navigation -->
+              <div class='bg-white rounded-xl shadow-lg p-6 hidden lg:block'>
+                <h3 class='font-bold text-gray-900 mb-4'>Быстрая навигация</h3>
+                <nav class='space-y-2 text-sm'>
+                  <a href='/blog/' class='block text-blue-600 hover:text-blue-700 hover:underline'>
+                    ← Вернуться к блогу
+                  </a>
+                  <a
+                    href='/bankrotstvo-s-sokhraneniyem-imushchestva'
+                    class='block text-gray-600 hover:text-blue-600'
+                  >
+                    Банкротство с сохранением
+                  </a>
+                  <a
+                    href='/restrukturizaciya-dolgov'
+                    class='block text-gray-600 hover:text-blue-600'
+                  >
+                    Реструктуризация долгов
+                  </a>
+                </nav>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Articles -->
+    {
+      relatedPosts.length > 0 && (
+        <section class='py-12 bg-white'>
+          <div class='container mx-auto px-4'>
+            <div class='max-w-6xl mx-auto'>
+              <h2 class='text-3xl font-bold text-center mb-12 text-gray-900'>Похожие статьи</h2>
+              <div class='grid md:grid-cols-3 gap-8'>
+                {relatedPosts.map((relatedPost) => (
+                  <article class='group bg-gray-50 rounded-xl hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200'>
+                    <div class='relative h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center'>
+                      <svg
+                        class='w-16 h-16 text-white/90'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'
+                        />
+                      </svg>
+                    </div>
+                    <div class='p-6'>
+                      {relatedPost.data.tags && relatedPost.data.tags.length > 0 && (
+                        <div class='flex flex-wrap gap-2 mb-3'>
+                          {relatedPost.data.tags.slice(0, 2).map((tag) => (
+                            <span class='inline-block bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs font-medium'>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <h3 class='text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2'>
+                        <a href={`/blog/${relatedPost.slug}`} class='hover:underline'>
+                          {relatedPost.data.title}
+                        </a>
+                      </h3>
+                      {relatedPost.data.description && (
+                        <p class='text-gray-600 text-sm mb-4 line-clamp-2'>
+                          {relatedPost.data.description}
+                        </p>
+                      )}
+                      <a
+                        href={`/blog/${relatedPost.slug}`}
+                        class='text-blue-600 font-medium hover:text-blue-700 flex items-center gap-1 text-sm'
+                      >
+                        Читать далее
+                        <svg class='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                          <path
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='M9 5l7 7-7 7'
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <!-- CTA Section -->
+    <section class='py-16 bg-gradient-to-br from-blue-900 via-slate-800 to-blue-800 text-white'>
+      <div class='container mx-auto px-4'>
+        <div class='max-w-4xl mx-auto text-center'>
+          <h2 class='text-3xl md:text-4xl font-bold mb-6'>
+            Нужна помощь с банкротством или реструктуризацией?
+          </h2>
+          <p class='text-xl text-blue-100 mb-8'>
+            Получите бесплатную консультацию от юриста с опытом {manager.experience.years}+ лет
+          </p>
+          <div class='flex flex-col sm:flex-row gap-4 justify-center'>
+            <button
+              class='bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-8 rounded-lg transition-colors inline-flex items-center justify-center gap-2'
+              data-modal='consultation'
+            >
+              <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
+                ></path>
+              </svg>
+              Получить консультацию
+            </button>
+            <a
+              href='tel:+79055773387'
+              class='bg-white text-blue-900 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg transition-colors inline-flex items-center justify-center gap-2'
+            >
+              <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+                ></path>
+              </svg>
+              +7 (905) 577-33-87
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Auxiliary Components -->
+  <OnlineSticker />
+  <BitrixCallback />
+
+  <!-- Modals -->
+  <CallbackModal modalId='callback' />
+  <CallbackModal modalId='consultation' />
+  <SimpleModalInit client:idle />
+
+  <!-- Client Interactions Handler -->
+  <ClientInteractions client:idle />
 
   {/* Structured Data for Blog Posts */}
   <script
@@ -45,10 +404,11 @@ const { title, description, pubDate } = post.data;
         headline: title,
         description: description,
         datePublished: pubDate?.toISOString(),
-        dateModified: pubDate?.toISOString(),
+        dateModified: updatedDate?.toISOString() || pubDate?.toISOString(),
         author: {
-          '@type': 'Organization',
-          name: 'ZeroDolg',
+          '@type': 'Person',
+          name: manager.name,
+          jobTitle: manager.position,
         },
         publisher: {
           '@type': 'Organization',
@@ -60,8 +420,9 @@ const { title, description, pubDate } = post.data;
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': `https://zerodolg.ru/blog/${post.slug}/`,
+          '@id': canonical,
         },
+        keywords: tags?.join(', '),
       },
       null,
       2

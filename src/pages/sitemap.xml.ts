@@ -18,6 +18,24 @@ const staticPages = [
     priority: '0.9',
   },
   {
+    url: '/bankrotstvo-s-sokhraneniyem-imushchestva',
+    lastmod: '2024-10-01',
+    changefreq: 'monthly',
+    priority: '0.8',
+  },
+  {
+    url: '/stoimost-bankrotstva-fizicheskikh-lits',
+    lastmod: '2024-10-01',
+    changefreq: 'monthly',
+    priority: '0.8',
+  },
+  {
+    url: '/bankrotstvo-cherez-arbitrazh',
+    lastmod: '2024-10-01',
+    changefreq: 'monthly',
+    priority: '0.8',
+  },
+  {
     url: '/privacy',
     lastmod: '2024-10-01',
     changefreq: 'yearly',

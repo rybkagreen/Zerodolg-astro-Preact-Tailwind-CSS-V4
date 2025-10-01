@@ -60,7 +60,7 @@ src/app/styles/
 
 ### Layout Components
 
-```css
+```text
 .hero-section      /* Hero с градиентом и фоновыми изображениями */
 .problems-section  /* Section с тонкими фоновыми элементами */
 .stats-section     /* Анимированный градиентный фон */

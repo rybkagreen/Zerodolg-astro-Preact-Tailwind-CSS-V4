@@ -7,6 +7,9 @@ export async function onRequest(
 ): Promise<Response> {
   const response = await next();
 
+  // Check if we're in development mode
+  const isDev = import.meta.env.DEV || context.url.hostname === 'localhost';
+
   // Set cache control headers for static assets
   if (context.request.url.includes('/assets/')) {
     response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
@@ -19,19 +22,14 @@ export async function onRequest(
   }
 
   // Set security headers
+  // В dev режиме добавляем unsafe-eval для zod и других библиотек разработки
+  const scriptSrc = isDev
+    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; "
+    : "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; ";
+
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " +
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-      "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; " +
-      "font-src 'self' https://fonts.gstatic.com data:; " +
-      "connect-src 'self' https://www.google-analytics.com; " +
-      "frame-src 'self' https://www.google.com; " +
-      "object-src 'none'; " +
-      "base-uri 'self'; " +
-      "form-action 'self'; " +
-      'upgrade-insecure-requests;'
+    `default-src 'self'; ${scriptSrc}style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' ws://localhost:* wss://localhost:* https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru wss://mc.yandex.ru; frame-src 'self' https://www.google.com https://yandex.ru https://*.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;`
   );
 
   response.headers.set('X-Frame-Options', 'DENY');

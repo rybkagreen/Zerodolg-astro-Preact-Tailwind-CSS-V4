@@ -5,6 +5,7 @@
 import Layout from '@app/layouts/Layout.astro';
 import Header from '@widgets/header/Header.astro';
 import Footer from '@widgets/footer/Footer.astro';
+import Breadcrumb from '@shared/ui/Breadcrumb/Breadcrumb.astro';
 import CallbackModal from '@features/modals/ui/CallbackModal.astro';
 import LeadMagnetsModals from '@features/modals/ui/LeadMagnetsModals.astro';
 import SimpleModalInit from '../islands/utils/SimpleModalInit.tsx';
@@ -24,6 +25,8 @@ import RestructuringComparison from '../components/sections/RestructuringCompari
 const pageTitle = 'Реструктуризация долгов физических лиц в Москве - от 89000₽ | ZeroDolg';
 const pageDescription =
   'Реструктуризация долгов через арбитражный суд ⚡ Сохраните имущество ⚡ Льготные условия платежей ⚡ Опыт 15 лет ⚡ Рассрочка от 3700₽/мес';
+const pageKeywords =
+  'реструктуризация долгов, реструктуризация долгов физических лиц, сохранение имущества, реструктуризация через суд, льготные условия платежей, арбитражный суд, Москва';
 const canonical = 'https://zerodolg.ru/restrukturizaciya-dolgov';
 
 // Получаем актуальные данные из констант
@@ -137,7 +140,12 @@ const restructuringData = {
 };
 ---
 
-<Layout title={pageTitle} canonical={canonical}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+>
   <!-- Structured Data для реструктуризации -->
   <script
     type='application/ld+json'
@@ -177,6 +185,18 @@ const restructuringData = {
 
   <Header />
 
+  <!-- Breadcrumb Navigation -->
+  <div class='container mx-auto px-4'>
+    <Breadcrumb
+      items={[
+        {
+          name: 'Реструктуризация долгов',
+          url: 'https://zerodolg.ru/restrukturizaciya-dolgov',
+        },
+      ]}
+    />
+  </div>
+
   <main>
     <!-- Hero Section for Restructuring -->
     <section class='relative min-h-screen overflow-hidden'>
@@ -206,7 +226,7 @@ const restructuringData = {
           </div>
         </div>
 
-        <div class='grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-12 items-start'>
+        <div class='grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-12 items-stretch'>
           <!-- Left Column - Main Content -->
           <div class='space-y-8'>
             <!-- Title Section -->
@@ -341,6 +361,113 @@ const restructuringData = {
                     d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'></path>
                 </svg>
                 <span class='text-gray-400 text-sm'>Работаем {contacts.workTimeShort}</span>
+              </div>
+            </div>
+
+            <!-- Office Location Map -->
+            <div class='mt-8'>
+              <div
+                class='rounded-2xl overflow-hidden border-2 border-emerald-500/30 shadow-2xl backdrop-blur-sm h-full flex flex-col'
+                itemscope
+                itemtype='https://schema.org/Place'
+              >
+                <!-- Map Container -->
+                <div class='relative flex-1 w-full bg-gray-900 min-h-[400px]'>
+                  <iframe
+                    src='https://yandex.ru/map-widget/v1/?ll=37.504754%2C55.724143&z=16&l=map&pt=37.504754%2C55.724143%2Cpmwtm'
+                    frameborder='0'
+                    allowfullscreen='true'
+                    style='position:absolute;top:0;left:0;width:100%;height:100%;border:0;'
+                    loading='lazy'
+                    title='Офис ZeroDolg - Юридическая помощь по банкротству и реструктуризации долгов в Москве'
+                    aria-label='Карта с местоположением офиса ZeroDolg в Москве'></iframe>
+
+                  <!-- Map Overlay Info -->
+                  <div
+                    class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4'
+                  >
+                    <div class='flex items-start gap-3'>
+                      <div class='flex-shrink-0'>
+                        <svg
+                          class='w-6 h-6 text-emerald-400'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
+                          ></path>
+                          <path
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'></path>
+                        </svg>
+                      </div>
+                      <div itemprop='address' itemscope itemtype='https://schema.org/PostalAddress'>
+                        <div class='text-white font-semibold text-sm' itemprop='streetAddress'>
+                          ул. Минская, Москва
+                        </div>
+                        <div class='text-gray-300 text-xs mt-1'>
+                          <span itemprop='addressLocality'>Москва</span>,
+                          <span itemprop='addressCountry'>Россия</span>
+                        </div>
+                        <meta itemprop='postalCode' content='119590' />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Structured Data for Location -->
+                  <meta itemprop='name' content='ZeroDolg - Юридическая помощь по банкротству' />
+                  <meta itemprop='telephone' content='+7-905-577-33-87' />
+                  <div itemprop='geo' itemscope itemtype='https://schema.org/GeoCoordinates'>
+                    <meta itemprop='latitude' content='55.724143' />
+                    <meta itemprop='longitude' content='37.504754' />
+                  </div>
+                </div>
+
+                <!-- Quick Contact Info Below Map -->
+                <div
+                  class='bg-white/5 backdrop-blur-sm p-4 border-t border-emerald-500/20 flex-shrink-0'
+                >
+                  <div class='flex items-center justify-between text-sm'>
+                    <a
+                      href='https://yandex.ru/maps/?pt=37.504754,55.724143&z=16&l=map'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-2'
+                      aria-label='Открыть карту в Яндекс.Картах'
+                    >
+                      <svg class='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                        ></path>
+                      </svg>
+                      Открыть в Яндекс.Картах
+                    </a>
+                    <a
+                      href='tel:+79055773387'
+                      class='text-white hover:text-emerald-400 transition-colors flex items-center gap-2'
+                      itemprop='telephone'
+                    >
+                      <svg class='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+                        ></path>
+                      </svg>
+                      +7 (905) 577-33-87
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -506,7 +633,522 @@ const restructuringData = {
     <!-- Comparison Section -->
     <RestructuringComparison className='' />
 
-    <!-- Additional Sections будут добавлены далее... -->
+    <!-- Что сохраняется при реструктуризации -->
+    <section class='py-16 bg-white'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>
+          Что вы сохраните при реструктуризации долгов
+        </h2>
+        <p class='text-center text-gray-600 mb-12 max-w-3xl mx-auto text-lg'>
+          В отличие от банкротства, реструктуризация позволяет сохранить всё ваше имущество без
+          исключений
+        </p>
+
+        <div class='grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto'>
+          <!-- Всё жилье -->
+          <div
+            class='bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-xl border border-emerald-200 shadow-md hover:shadow-lg transition-shadow'
+          >
+            <div class='text-4xl mb-4'>🏠</div>
+            <h3 class='text-xl font-bold mb-3 text-emerald-900'>Всё жилье</h3>
+            <p class='text-gray-700'>
+              Квартиры, дома, дачи — всё остается в вашей собственности, даже если их несколько
+            </p>
+            <div class='mt-4 text-sm text-emerald-700 font-semibold'>✓ 100% сохранение</div>
+          </div>
+
+          <!-- Автомобили -->
+          <div
+            class='bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-md hover:shadow-lg transition-shadow'
+          >
+            <div class='text-4xl mb-4'>🚗</div>
+            <h3 class='text-xl font-bold mb-3 text-blue-900'>Автомобили</h3>
+            <p class='text-gray-700'>
+              Личный и рабочий транспорт остается у вас, независимо от стоимости
+            </p>
+            <div class='mt-4 text-sm text-blue-700 font-semibold'>✓ 100% сохранение</div>
+          </div>
+
+          <!-- Ценности -->
+          <div
+            class='bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200 shadow-md hover:shadow-lg transition-shadow'
+          >
+            <div class='text-4xl mb-4'>💎</div>
+            <h3 class='text-xl font-bold mb-3 text-purple-900'>Ценности</h3>
+            <p class='text-gray-700'>
+              Драгоценности, антиквариат, предметы искусства — всё ваше имущество защищено
+            </p>
+            <div class='mt-4 text-sm text-purple-700 font-semibold'>✓ 100% сохранение</div>
+          </div>
+
+          <!-- Бизнес и доля -->
+          <div
+            class='bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-xl border border-amber-200 shadow-md hover:shadow-lg transition-shadow'
+          >
+            <div class='text-4xl mb-4'>📊</div>
+            <h3 class='text-xl font-bold mb-3 text-amber-900'>Бизнес и доли</h3>
+            <p class='text-gray-700'>
+              Ваши доли в бизнесе, акции и ценные бумаги остаются в вашей собственности
+            </p>
+            <div class='mt-4 text-sm text-amber-700 font-semibold'>✓ 100% сохранение</div>
+          </div>
+
+          <!-- Счета и вклады -->
+          <div
+            class='bg-gradient-to-br from-teal-50 to-cyan-50 p-6 rounded-xl border border-teal-200 shadow-md hover:shadow-lg transition-shadow'
+          >
+            <div class='text-4xl mb-4'>💰</div>
+            <h3 class='text-xl font-bold mb-3 text-teal-900'>Счета и вклады</h3>
+            <p class='text-gray-700'>
+              Банковские счета и депозиты не блокируются, вы можете ими пользоваться
+            </p>
+            <div class='mt-4 text-sm text-teal-700 font-semibold'>✓ 100% сохранение</div>
+          </div>
+
+          <!-- Доход -->
+          <div
+            class='bg-gradient-to-br from-red-50 to-rose-50 p-6 rounded-xl border border-red-200 shadow-md hover:shadow-lg transition-shadow'
+          >
+            <div class='text-4xl mb-4'>💵</div>
+            <h3 class='text-xl font-bold mb-3 text-red-900'>Ваш доход</h3>
+            <p class='text-gray-700'>
+              Зарплата и другие доходы полностью в вашем распоряжении после платежей по плану
+            </p>
+            <div class='mt-4 text-sm text-red-700 font-semibold'>✓ 100% сохранение</div>
+          </div>
+        </div>
+
+        <div class='mt-12 max-w-4xl mx-auto'>
+          <div
+            class='bg-gradient-to-br from-emerald-100 to-teal-50 border-l-4 border-emerald-600 p-6 rounded-r-xl'
+          >
+            <div class='flex items-start gap-4'>
+              <div class='text-3xl'>ℹ️</div>
+              <div>
+                <h4 class='font-bold text-emerald-900 mb-2 text-lg'>
+                  Главное преимущество реструктуризации
+                </h4>
+                <p class='text-gray-700'>
+                  В отличие от процедуры банкротства с реализацией имущества, реструктуризация не
+                  предусматривает продажу вашей собственности. Вы сохраняете всё, что у вас есть, и
+                  постепенно выплачиваете долги на льготных условиях по утвержденному судом плану.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Как работает защита имущества при реструктуризации -->
+    <section class='py-16 bg-gradient-to-br from-slate-50 to-blue-50'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>
+          Как реструктуризация защищает ваше имущество
+        </h2>
+        <p class='text-center text-gray-600 mb-12 max-w-3xl mx-auto text-lg'>
+          Официальная процедура через арбитражный суд гарантирует законную защиту
+        </p>
+
+        <div class='max-w-4xl mx-auto space-y-6'>
+          <!-- Способ 1 -->
+          <div class='bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                1
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-emerald-900'>
+                  Судебная защита от взысканий
+                </h3>
+                <p class='text-gray-700 mb-3'>
+                  После введения процедуры реструктуризации все исполнительные производства
+                  приостанавливаются. Приставы не могут арестовывать ваше имущество или списывать
+                  деньги со счетов.
+                </p>
+                <div class='text-sm text-emerald-600 font-semibold'>
+                  ⚖️ Статья 213.11 Закона о банкротстве — полная защита от взысканий
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Способ 2 -->
+          <div class='bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                2
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-blue-900'>
+                  Остановка начисления штрафов и пеней
+                </h3>
+                <p class='text-gray-700 mb-3'>
+                  С момента введения реструктуризации прекращается начисление неустоек, штрафов и
+                  пеней по всем долгам. Ваша задолженность перестает расти, а процентная ставка
+                  снижается до ключевой ставки ЦБ.
+                </p>
+                <div class='text-sm text-blue-600 font-semibold'>
+                  ❄️ Долг "замораживается" на текущей сумме
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Способ 3 -->
+          <div class='bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                3
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-purple-900'>Комфортный график платежей</h3>
+                <p class='text-gray-700 mb-3'>
+                  Суд утверждает план реструктуризации, учитывающий ваши реальные возможности. Вы
+                  платите столько, сколько можете после обязательных расходов на жизнь. Срок выплат
+                  — до 4 лет.
+                </p>
+                <div class='text-sm text-purple-600 font-semibold'>
+                  📅 Индивидуальный план под вашу ситуацию
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Способ 4 -->
+          <div class='bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                4
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-amber-900'>Сохранение кредитной истории</h3>
+                <p class='text-gray-700 mb-3'>
+                  В отличие от банкротства с реализацией имущества, успешная реструктуризация не так
+                  сильно влияет на кредитную историю. После выполнения плана вы сможете снова
+                  получать кредиты на нормальных условиях.
+                </p>
+                <div class='text-sm text-amber-600 font-semibold'>
+                  ✨ Возможность финансового восстановления
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Способ 5 -->
+          <div class='bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                5
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-teal-900'>Социальная защита</h3>
+                <p class='text-gray-700 mb-3'>
+                  Вы сохраняете свой социальный статус, можете занимать руководящие должности,
+                  открывать счета, путешествовать. Нет ограничений, которые накладываются при
+                  банкротстве.
+                </p>
+                <div class='text-sm text-teal-600 font-semibold'>👔 Полная свобода действий</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Требования для реструктуризации -->
+    <section class='py-16 bg-white'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>
+          Требования для прохождения реструктуризации
+        </h2>
+        <p class='text-center text-gray-600 mb-12 max-w-3xl mx-auto text-lg'>
+          Проверьте, подходите ли вы для процедуры реструктуризации долгов
+        </p>
+
+        <div class='max-w-5xl mx-auto grid md:grid-cols-2 gap-6'>
+          {
+            restructuringData.requirements.map((req) => (
+              <div class='bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-200 shadow-sm hover:shadow-md transition-shadow'>
+                <div class='flex items-start gap-4'>
+                  <div class='flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-2xl'>
+                    {req.icon === 'money' && '💵'}
+                    {req.icon === 'calculator' && '🧮'}
+                    {req.icon === 'law' && '⚖️'}
+                    {req.icon === 'handshake' && '🤝'}
+                  </div>
+                  <div>
+                    <h3 class='text-lg font-bold mb-2 text-emerald-900'>{req.title}</h3>
+                    <p class='text-gray-700'>{req.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class='mt-12 max-w-4xl mx-auto'>
+          <div
+            class='bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-8 rounded-2xl shadow-xl text-center'
+          >
+            <h3 class='text-2xl font-bold mb-4'>Не уверены, подходит ли вам реструктуризация?</h3>
+            <p class='text-emerald-50 mb-6 text-lg'>
+              Проведем бесплатный анализ вашей ситуации и подберем оптимальное решение
+            </p>
+            <button
+              class='bg-white text-emerald-600 hover:bg-emerald-50 font-bold py-3 px-8 rounded-lg transition-colors inline-flex items-center gap-2'
+              data-modal='consultation'
+            >
+              <span>Получить бесплатную консультацию</span>
+              <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M9 5l7 7-7 7'></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Процесс реструктуризации -->
+    <section class='py-16 bg-gradient-to-br from-slate-50 to-blue-50'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>
+          Как проходит процедура реструктуризации
+        </h2>
+        <p class='text-center text-gray-600 mb-12 max-w-3xl mx-auto text-lg'>
+          Пошаговый процесс от консультации до освобождения от долгов
+        </p>
+
+        <div class='max-w-4xl mx-auto'>
+          <div class='relative'>
+            <!-- Вертикальная линия -->
+            <div
+              class='absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-600 via-blue-500 to-purple-600 hidden md:block'
+            >
+            </div>
+
+            <div class='space-y-8'>
+              {
+                restructuringData.process.map((step, index) => (
+                  <div class='relative flex items-start gap-6'>
+                    {/* Step number circle */}
+                    <div class='flex-shrink-0 w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-10'>
+                      {step.step}
+                    </div>
+
+                    {/* Content */}
+                    <div class='flex-1 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+                      <div class='flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3'>
+                        <h3 class='text-xl font-bold text-gray-900'>{step.title}</h3>
+                        <span class='inline-flex items-center gap-1 text-sm text-emerald-600 font-semibold bg-emerald-50 px-3 py-1 rounded-full'>
+                          <svg
+                            class='w-4 h-4'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path
+                              stroke-linecap='round'
+                              stroke-linejoin='round'
+                              stroke-width='2'
+                              d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+                            />
+                          </svg>
+                          {step.duration}
+                        </span>
+                      </div>
+                      <p class='text-gray-700'>{step.description}</p>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class='mt-12 text-center'>
+          <a
+            href='#consultation-form'
+            class='inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-8 rounded-lg transition-colors shadow-lg'
+          >
+            <span>Начать процедуру реструктуризации</span>
+            <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M13 7l5 5m0 0l-5 5m5-5H6'></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Форма консультации (дополнительная) -->
+    <section id='consultation-bottom' class='py-16 bg-white'>
+      <div class='container mx-auto px-4'>
+        <div class='max-w-2xl mx-auto'>
+          <div
+            class='bg-gradient-to-br from-emerald-50 to-teal-50 p-8 rounded-2xl border border-emerald-200 shadow-xl'
+          >
+            <div class='text-center mb-8'>
+              <h2 class='text-3xl font-bold mb-4 text-gray-900'>
+                Получите персональный план реструктуризации
+              </h2>
+              <p class='text-gray-700 text-lg'>
+                Юристы с опытом {manager.experience.years}+ лет проанализируют вашу ситуацию и
+                составят оптимальную схему выплат
+              </p>
+            </div>
+
+            <BaseForm
+              formId='restructuring-detailed-consultation'
+              formType='consultation'
+              submitText='Получить план реструктуризации'
+              showDebtField={true}
+              variant='stacked'
+            />
+
+            <div
+              class='mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-600'
+            >
+              <div class='flex items-center gap-2'>
+                <svg class='w-5 h-5 text-emerald-600' fill='currentColor' viewBox='0 0 20 20'>
+                  <path
+                    fill-rule='evenodd'
+                    d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+                    clip-rule='evenodd'></path>
+                </svg>
+                <span>Консультация бесплатно</span>
+              </div>
+              <div class='flex items-center gap-2'>
+                <svg class='w-5 h-5 text-emerald-600' fill='currentColor' viewBox='0 0 20 20'>
+                  <path
+                    fill-rule='evenodd'
+                    d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+                    clip-rule='evenodd'></path>
+                </svg>
+                <span>Ответ в течение 15 минут</span>
+              </div>
+            </div>
+
+            <div class='mt-6 pt-6 border-t border-emerald-200 text-center'>
+              <p class='text-gray-600 mb-2'>Или позвоните прямо сейчас:</p>
+              <a
+                href='tel:+79055773387'
+                class='text-2xl font-bold text-emerald-600 hover:text-emerald-700 transition-colors'
+              >
+                +7 (905) 577-33-87
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Статистика и результаты -->
+    <section
+      class='py-16 bg-gradient-to-br from-emerald-900 via-teal-800 to-emerald-900 text-white relative overflow-hidden'
+    >
+      <!-- Декоративный фон -->
+      <div class='absolute inset-0 opacity-10'>
+        <div class='absolute top-0 left-0 w-96 h-96 bg-emerald-500 rounded-full filter blur-3xl'>
+        </div>
+        <div class='absolute bottom-0 right-0 w-96 h-96 bg-teal-500 rounded-full filter blur-3xl'>
+        </div>
+      </div>
+
+      <div class='container mx-auto px-4 relative z-10'>
+        <div class='max-w-5xl mx-auto'>
+          <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>
+            Наши результаты в реструктуризации долгов
+          </h2>
+          <p class='text-center text-emerald-100 mb-12 text-lg'>
+            Реальные цифры успешных дел за {manager.experience.years} лет работы
+          </p>
+
+          <div class='grid md:grid-cols-4 gap-8 text-center'>
+            <div class='bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20'>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>
+                {restructuringData.stats.successRate}
+              </div>
+              <div class='text-emerald-100 font-medium'>Успешных реструктуризаций</div>
+              <div class='text-emerald-200 text-sm mt-2'>План утвержден судом</div>
+            </div>
+
+            <div class='bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20'>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>
+                {restructuringData.stats.clientsSaved}
+              </div>
+              <div class='text-emerald-100 font-medium'>Клиентов помогли</div>
+              <div class='text-emerald-200 text-sm mt-2'>Сохранили имущество</div>
+            </div>
+
+            <div class='bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20'>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>
+                {restructuringData.stats.avgDuration}
+              </div>
+              <div class='text-emerald-100 font-medium'>Средний срок</div>
+              <div class='text-emerald-200 text-sm mt-2'>Полное освобождение</div>
+            </div>
+
+            <div class='bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20'>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>100%</div>
+              <div class='text-emerald-100 font-medium'>Сохранение имущества</div>
+              <div class='text-emerald-200 text-sm mt-2'>Всё остается у вас</div>
+            </div>
+          </div>
+
+          <div class='mt-12 bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20'>
+            <h3 class='text-2xl font-bold text-center mb-6'>Типичные результаты наших клиентов</h3>
+            <div class='grid md:grid-cols-3 gap-6'>
+              <div class='text-center'>
+                <div class='text-3xl font-bold text-emerald-400 mb-2'>-70%</div>
+                <div class='text-emerald-100'>Снижение ежемесячного платежа в среднем</div>
+              </div>
+              <div class='text-center'>
+                <div class='text-3xl font-bold text-emerald-400 mb-2'>0 ₽</div>
+                <div class='text-emerald-100'>Штрафы и пени после введения процедуры</div>
+              </div>
+              <div class='text-center'>
+                <div class='text-3xl font-bold text-emerald-400 mb-2'>100%</div>
+                <div class='text-emerald-100'>Клиентов сохранили работу и социальный статус</div>
+              </div>
+            </div>
+          </div>
+
+          <div class='mt-8 text-center'>
+            <button
+              class='bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-8 rounded-lg transition-colors shadow-xl inline-flex items-center gap-2'
+              data-modal='consultation'
+            >
+              <span>Хочу такой же результат</span>
+              <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M13 7l5 5m0 0l-5 5m5-5H6'></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />
