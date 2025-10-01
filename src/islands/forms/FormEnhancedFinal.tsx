@@ -1,5 +1,4 @@
 import { useState, useCallback, useMemo, useRef, useEffect } from 'preact/hooks';
-import { Component } from 'preact';
 import { z } from 'zod';
 import type { JSX, VNode } from 'preact';
 import { useDebounce } from '../../shared/hooks/useDebounce';
@@ -51,48 +50,51 @@ interface EnhancedFormProps {
   enableFieldValidationHighlight?: boolean;
 }
 
-// Error Boundary Component
-class FormErrorBoundary extends Component<
-  { children: VNode; className?: string },
-  { hasError: boolean; error?: Error }
-> {
-  constructor(props: { children: VNode }) {
-    super(props);
-    this.state = { hasError: false };
+// Error Boundary Component - переделан в функциональный
+function FormErrorBoundary({ children, className = '' }: { children: VNode; className?: string }) {
+  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const handleError = (event: ErrorEvent) => {
+      setHasError(true);
+      setError(new Error(event.message));
+      console.error('Form error:', event.error);
+
+      // Send error to monitoring service
+      if (typeof window !== 'undefined' && (window as any).Sentry) {
+        (window as any).Sentry.captureException(event.error);
+      }
+    };
+
+    window.addEventListener('error', handleError);
+    return () => window.removeEventListener('error', handleError);
+  }, []);
+
+  if (hasError) {
+    return (
+      <div
+        class={`form-error-boundary p-6 bg-red-50 border border-red-200 rounded-lg ${className}`}
+      >
+        <h3 class='text-red-800 font-semibold mb-2'>Произошла ошибка</h3>
+        <p class='text-red-600'>
+          {error?.message || 'Что-то пошло не так. Пожалуйста, обновите страницу.'}
+        </p>
+        <button
+          onClick={() => {
+            setHasError(false);
+            setError(null);
+            window.location.reload();
+          }}
+          class='mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
+        >
+          Обновить страницу
+        </button>
+      </div>
+    );
   }
 
-  static override getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  override componentDidCatch(error: Error, errorInfo: any) {
-    console.error('Form error:', error, errorInfo);
-    // Send error to monitoring service
-    if (typeof window !== 'undefined' && (window as any).Sentry) {
-      (window as any).Sentry.captureException(error);
-    }
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div class='form-error-boundary p-6 bg-red-50 border border-red-200 rounded-lg'>
-          <h3 class='text-red-800 font-semibold mb-2'>Произошла ошибка</h3>
-          <p class='text-red-600'>
-            {this.state.error?.message || 'Что-то пошло не так. Пожалуйста, обновите страницу.'}
-          </p>
-          <button
-            onClick={() => window.location.reload()}
-            class='mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
-          >
-            Обновить страницу
-          </button>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
+  return children;
 }
 
 // Loading spinner component

@@ -20,6 +20,25 @@ const FaqAccordion = () => {
         if (trigger.hasAttribute('data-faq-initialized')) return;
         trigger.setAttribute('data-faq-initialized', 'true');
 
+        // Force proper layout for FAQ question
+        const questionText = trigger.querySelector('.faq__question-text') as HTMLElement;
+        if (questionText) {
+          trigger.style.display = 'flex';
+          trigger.style.justifyContent = 'space-between';
+          trigger.style.alignItems = 'center';
+          trigger.style.width = '100%';
+
+          questionText.style.flex = '1';
+          questionText.style.textAlign = 'left';
+          questionText.style.minWidth = '0';
+        }
+
+        if (icon) {
+          icon.style.flexShrink = '0';
+          icon.style.width = '24px';
+          icon.style.height = '24px';
+        }
+
         // Set initial state
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
         content.style.maxHeight = isExpanded ? `${content.scrollHeight}px` : '0px';
@@ -76,9 +95,42 @@ const FaqAccordion = () => {
       });
     };
 
-    // Wait for DOM to be fully loaded
+    // Force FAQ layout immediately and after DOM load
+    const forceLayoutFix = () => {
+      const allFaqQuestions = document.querySelectorAll('.faq__question');
+      allFaqQuestions.forEach((question) => {
+        const element = question as HTMLElement;
+        const textElement = element.querySelector('.faq__question-text') as HTMLElement;
+        const iconElement = element.querySelector('.faq__icon') as HTMLElement;
+
+        // Force flexbox layout
+        element.style.display = 'flex';
+        element.style.justifyContent = 'space-between';
+        element.style.alignItems = 'center';
+        element.style.width = '100%';
+        element.style.gap = '12px';
+
+        if (textElement) {
+          textElement.style.flex = '1 1 auto';
+          textElement.style.textAlign = 'left';
+          textElement.style.minWidth = '0';
+        }
+
+        if (iconElement) {
+          iconElement.style.flexShrink = '0';
+          iconElement.style.width = '24px';
+          iconElement.style.height = '24px';
+        }
+      });
+    };
+
+    // Apply immediately
+    forceLayoutFix();
+
+    // Wait for DOM to be fully loaded and apply again
     const timeoutId = setTimeout(() => {
       initFaqAccordion();
+      forceLayoutFix();
     }, 100);
 
     return () => {

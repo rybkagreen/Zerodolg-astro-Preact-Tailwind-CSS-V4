@@ -1,6 +1,8 @@
 ---
 import LeadMagnetsComponent from '../../islands/shared/interactive/lead-magnets.tsx';
 import Icon from '@shared/ui/Icon.astro';
+import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
+import SectionDivider from '../../shared/ui/SectionDivider.astro';
 
 const leadMagnets = [
   {
@@ -109,7 +111,7 @@ const ctaData = {
   <!-- Pastel paint strokes background pattern -->
   <div
     class='absolute inset-0 opacity-25 z-20'
-    style='background-image: url("/patterns/Pastel Paint Strokes Abstract Digital Art Social Media Post (1).png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+    style='background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
   >
   </div>
 
@@ -140,7 +142,7 @@ const ctaData = {
         id='lead-magnets-title'
         class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
       >
-        Бесплатные ресурсы
+        Полезные ресурсы
       </h2>
       <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
         Получите експертную помощь и базу знаний для успешного банкротства
@@ -309,7 +311,13 @@ const ctaData = {
       </div>
     </div>
   </div>
+
+  <!-- Разделитель для плавного перехода к следующей секции -->
+  <SectionDivider type='triangle' position='bottom' height='55px' color='white' opacity={0.85} />
 </section>
+
+<!-- Семантические данные для SEO -->
+<SectionSemantics sectionId='leadmagnets' />
 
 <!-- Load interactive logic -->
 <LeadMagnetsComponent client:load />

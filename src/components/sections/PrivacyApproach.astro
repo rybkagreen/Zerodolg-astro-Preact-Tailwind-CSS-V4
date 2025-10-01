@@ -1,0 +1,269 @@
+---
+import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
+import SectionDivider from '../../shared/ui/SectionDivider.astro';
+
+// Данные секции о конфиденциальности и подходе
+const approachData = {
+  badge: 'Индивидуальный подход',
+  title: 'Уважение к конфиденциальности — наш приоритет',
+  subtitle:
+    'Мы понимаем деликатность процесса банкротства и обеспечиваем полную конфиденциальность',
+  content: {
+    description:
+      'Мы уважаем конфиденциальность наших клиентов и понимаем деликатность процесса банкротства. По этой причине мы не делимся историями успеха наших клиентов. Вместо этого мы предлагаем вам насладиться уверенностью и спокойствием, которые приходят с первого дня работы с профессиональной командой.',
+    quote:
+      'Наши стратегии и подходы к банкротству основаны на тщательном анализе и глубоких знаниях закона. Мы представляем ваши интересы.',
+    quoteAuthor: 'Юридический советник',
+  },
+  features: [
+    {
+      icon: 'shield',
+      title: 'Полная конфиденциальность',
+      description: 'Никто не узнает о вашем банкротстве без вашего согласия',
+    },
+    {
+      icon: 'user-check',
+      title: 'Индивидуальный подход',
+      description: 'Каждое дело рассматриваем с учетом уникальных обстоятельств',
+    },
+    {
+      icon: 'heart',
+      title: 'Деликатное обращение',
+      description: 'Понимаем сложность ситуации и относимся с пониманием',
+    },
+    {
+      icon: 'lock',
+      title: 'Защита данных',
+      description: 'Все ваши документы и информация под надежной защитой',
+    },
+  ],
+};
+---
+
+<section
+  class='privacy-approach-section section-padding relative overflow-hidden'
+  id='privacy-approach'
+  aria-labelledby='privacy-approach-title'
+>
+  <!-- Background layers -->
+  <div class='absolute inset-0 bg-gradient-to-br from-slate-50/60 via-white/80 to-blue-50/40'></div>
+
+  <!-- Subtle pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-20'
+    style="background-image: url('/patterns/hero-dots.svg'); background-size: 80px 80px;"
+  >
+  </div>
+
+  <div class='container-custom relative z-40'>
+    <!-- Section Header -->
+    <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <div
+        class='inline-flex items-center gap-2 rounded-full bg-blue-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
+      >
+        <svg class='h-4 w-4 text-blue-600' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+          <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-width='2'
+            d='M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z'
+          ></path>
+        </svg>
+        {approachData.badge}
+      </div>
+      <h2
+        id='privacy-approach-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+      >
+        {approachData.title}
+      </h2>
+      <p class='text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium'>
+        {approachData.subtitle}
+      </p>
+    </header>
+
+    <div class='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center'>
+      <!-- Content Column -->
+      <div class='space-y-8'>
+        <!-- Main Description -->
+        <div class='prose prose-lg max-w-none'>
+          <p class='text-slate-700 leading-relaxed text-lg'>
+            {approachData.content.description}
+          </p>
+        </div>
+
+        <!-- Quote -->
+        <div class='relative'>
+          <div
+            class='absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/5 rounded-2xl'
+          >
+          </div>
+          <blockquote
+            class='relative bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl p-6 md:p-8 shadow-lg'
+          >
+            <div class='flex items-start gap-4'>
+              <div class='flex-shrink-0'>
+                <div
+                  class='w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg'
+                >
+                  <svg class='w-6 h-6 text-white' fill='currentColor' viewBox='0 0 24 24'>
+                    <path
+                      d='M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609L24 3.57c-2.248.726-4.01 2.472-4.01 5.096v1.066H24v11.268h-9.983zM0 21v-7.391C0 8.305 3.731 4.439 8.983 3.4L10 3.97c-2.248.726-4.01 2.472-4.01 5.096v1.066h4.01v11.268H0z'
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class='flex-1'>
+                <p class='text-slate-800 font-medium leading-relaxed italic mb-3'>
+                  "{approachData.content.quote}"
+                </p>
+                <footer class='text-sm text-slate-600 font-semibold'>
+                  — {approachData.content.quoteAuthor}
+                </footer>
+              </div>
+            </div>
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- Features Column -->
+      <div class='grid grid-cols-1 gap-6'>
+        {
+          approachData.features.map((feature, index) => (
+            <div class='group relative overflow-hidden bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:bg-white/80 hover:scale-105 transition-all duration-500'>
+              <div class='flex items-start gap-4'>
+                <div class='flex-shrink-0'>
+                  <div class='w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300'>
+                    {feature.icon === 'shield' && (
+                      <svg
+                        class='w-5 h-5 text-white'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'
+                        />
+                      </svg>
+                    )}
+                    {feature.icon === 'user-check' && (
+                      <svg
+                        class='w-5 h-5 text-white'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
+                        />
+                      </svg>
+                    )}
+                    {feature.icon === 'heart' && (
+                      <svg
+                        class='w-5 h-5 text-white'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
+                        />
+                      </svg>
+                    )}
+                    {feature.icon === 'lock' && (
+                      <svg
+                        class='w-5 h-5 text-white'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z'
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <div class='flex-1'>
+                  <h3 class='font-bold text-slate-900 text-lg mb-2 group-hover:text-blue-700 transition-colors duration-300'>
+                    {feature.title}
+                  </h3>
+                  <p class='text-slate-600 leading-relaxed'>{feature.description}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Разделитель для плавного перехода к следующей секции -->
+  <SectionDivider type='wave' position='bottom' height='50px' color='white' opacity={0.85} />
+</section>
+
+<!-- Семантические данные для SEO -->
+<SectionSemantics sectionId='privacy-approach' />
+
+<style>
+  /* Animation for privacy approach cards */
+  .privacy-approach-section .group {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .privacy-approach-section .group:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .privacy-approach-section .group:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .privacy-approach-section .group:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .privacy-approach-section .group:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced glassmorphism effect */
+  .privacy-approach-section .group,
+  .privacy-approach-section blockquote {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .privacy-approach-section .group {
+      animation: none;
+      opacity: 1;
+    }
+
+    .privacy-approach-section .group:hover {
+      transform: none;
+    }
+  }
+</style>

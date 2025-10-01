@@ -1,21 +1,23 @@
 ---
 // Footer.astro
+import { SITE_CONSTANTS } from '../../shared/config/constants';
+
 export interface Props {
   title?: string;
   data?: unknown;
   [key: string]: unknown;
 }
 
-// Company data from site.json
+// Company data from constants
 const company = {
-  name: 'ZeroDolg',
-  fullName: 'ООО "ЮРИДИЧЕСКАЯ КОМПАНИЯ МАСХУЛИА"',
-  phone: '+7 (905) 577-33-87',
-  workHours: 'Ежедневно с 9:00 до 21:00',
-  email: 'info@zerodolg.ru',
+  name: SITE_CONSTANTS.company.name,
+  fullName: SITE_CONSTANTS.company.fullName,
+  phone: SITE_CONSTANTS.contacts.phone,
+  workHours: SITE_CONSTANTS.contacts.workTime,
+  email: SITE_CONSTANTS.contacts.email,
   address: {
-    city: 'Москва',
-    street: 'Минская ул., 2Ж, Victory Park Plaza',
+    city: SITE_CONSTANTS.contacts.address.city,
+    street: SITE_CONSTANTS.contacts.address.street,
     region: 'г. Москва',
   },
   social: {
@@ -23,6 +25,8 @@ const company = {
     telegram: 'https://t.me/zerodolg',
     vk: 'https://vk.com/zerodolg',
   },
+  stats: SITE_CONSTANTS.stats,
+  established: SITE_CONSTANTS.company.established,
 };
 ---
 
@@ -33,32 +37,40 @@ const company = {
   itemscope
   itemtype='https://schema.org/Organization'
 >
-  <div class='py-12'>
-    <div class='container-custom'>
-      <div class='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
+  <!-- Main Footer Content -->
+  <div class='py-16'>
+    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12'>
         <!-- Company Information -->
-        <div class='md:col-span-2 lg:col-span-1'>
-          <a
-            href='/'
-            class='inline-block mb-4'
-            title='{company.name} - Главная страница'
-            aria-label='Логотип {company.name}, перейти на главную страницу'
-          >
-            <img
-              src='/images/logo-white.svg'
-              alt={`${company.name} - Банкротство физических лиц`}
-              width='180'
-              height='50'
-              loading='lazy'
-            />
-          </a>
+        <div class='lg:col-span-2'>
+          <!-- Logo -->
+          <div class='mb-6'>
+            <a
+              href='/'
+              class='inline-block'
+              title='ZeroDolg - Главная страница'
+              aria-label='Логотип ZeroDolg, перейти на главную страницу'
+            >
+              <img
+                src='/images/logo-white.svg'
+                alt='ZeroDolg - Банкротство физических лиц'
+                width='200'
+                height='55'
+                loading='lazy'
+                class='h-12 w-auto'
+              />
+            </a>
+          </div>
 
-          <p class='text-gray-300 mb-6' itemprop='description'>
-            Профессиональная юридическая помощь в банкротстве физических лиц. Работаем с <time
-              datetime='2008'
-              itemprop='foundingDate'>2008 года</time
-            >, более <strong class='text-white'>500 успешных дел</strong>.
-          </p>
+          <!-- Company Description -->
+          <div class='mb-8'>
+            <p class='text-gray-300 text-lg leading-relaxed max-w-lg' itemprop='description'>
+              Профессиональная юридическая помощь в банкротстве физических лиц.
+              <span class='text-white font-semibold'
+                >{company.stats.clients.display} довольных клиентов</span
+              >, опыт команды более 10 лет.
+            </p>
+          </div>
 
           <!-- Social Media Links -->
           <div class='flex space-x-4' role='navigation' aria-label='Социальные сети компании'>
@@ -66,14 +78,19 @@ const company = {
               company.social.whatsapp && (
                 <a
                   href={company.social.whatsapp}
-                  class='w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200'
+                  class='group w-12 h-12 bg-gray-800 hover:bg-green-600 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110'
                   target='_blank'
                   rel='noopener nofollow'
                   itemprop='sameAs'
                   aria-label='Консультация в WhatsApp по банкротству физических лиц'
                   title='Написать в WhatsApp'
                 >
-                  <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
+                  <svg
+                    class='w-6 h-6 text-white group-hover:scale-110 transition-transform'
+                    width='24'
+                    height='24'
+                    aria-hidden='true'
+                  >
                     <use xlink:href='#icon-whatsapp' />
                   </svg>
                 </a>
@@ -83,14 +100,19 @@ const company = {
               company.social.telegram && (
                 <a
                   href={company.social.telegram}
-                  class='w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200'
+                  class='group w-12 h-12 bg-gray-800 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110'
                   target='_blank'
                   rel='noopener nofollow'
                   itemprop='sameAs'
                   aria-label='Консультация в Telegram по банкротству физических лиц'
                   title='Написать в Telegram'
                 >
-                  <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
+                  <svg
+                    class='w-6 h-6 text-white group-hover:scale-110 transition-transform'
+                    width='24'
+                    height='24'
+                    aria-hidden='true'
+                  >
                     <use xlink:href='#icon-telegram' />
                   </svg>
                 </a>
@@ -100,14 +122,19 @@ const company = {
               company.social.vk && (
                 <a
                   href={company.social.vk}
-                  class='w-10 h-10 bg-gray-800 hover:bg-blue-800 rounded-full flex items-center justify-center transition-colors duration-200'
+                  class='group w-12 h-12 bg-gray-800 hover:bg-blue-800 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110'
                   target='_blank'
                   rel='noopener nofollow'
                   itemprop='sameAs'
                   aria-label='Группа ВКонтакте о банкротстве физических лиц'
                   title='Наша группа ВКонтакте'
                 >
-                  <svg class='w-6 h-6 text-white' width='24' height='24' aria-hidden='true'>
+                  <svg
+                    class='w-6 h-6 text-white group-hover:scale-110 transition-transform'
+                    width='24'
+                    height='24'
+                    aria-hidden='true'
+                  >
                     <use xlink:href='#icon-vk' />
                   </svg>
                 </a>
@@ -118,51 +145,68 @@ const company = {
 
         <!-- Services Section -->
         <div>
-          <h3 class='text-lg font-semibold mb-4'>Услуги по банкротству</h3>
+          <h3 class='text-xl font-bold mb-6 text-white border-l-4 border-blue-500 pl-4'>
+            Услуги по банкротству
+          </h3>
           <nav role='navigation' aria-label='Услуги компании'>
-            <ul class='space-y-2'>
+            <ul class='space-y-3'>
               <li>
                 <a
                   href='#benefits'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  class='group flex items-center text-gray-300 hover:text-white transition-all duration-200'
                   title='Судебное банкротство физических лиц через Арбитражный суд'
                 >
+                  <span
+                    class='w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-blue-500 transition-colors'
+                  ></span>
                   Судебное банкротство
                 </a>
               </li>
               <li>
                 <a
                   href='#process'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  class='group flex items-center text-gray-300 hover:text-white transition-all duration-200'
                   title='Внесудебное банкротство через МФЦ'
                 >
+                  <span
+                    class='w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-blue-500 transition-colors'
+                  ></span>
                   Внесудебное банкротство
                 </a>
               </li>
               <li>
                 <a
                   href='#calculator'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  class='group flex items-center text-gray-300 hover:text-white transition-all duration-200'
                   title='Реструктуризация долгов физических лиц'
                 >
+                  <span
+                    class='w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-blue-500 transition-colors'
+                  ></span>
                   Реструктуризация долгов
                 </a>
               </li>
               <li>
                 <a
                   href='#problems'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  class='group flex items-center text-gray-300 hover:text-white transition-all duration-200'
                   title='Защита от коллекторских агентств'
                 >
+                  <span
+                    class='w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-blue-500 transition-colors'
+                  ></span>
                   Защита от коллекторов
                 </a>
               </li>
               <li>
                 <a
                   href='#calculator'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
+                  class='group flex items-center text-gray-300 hover:text-white transition-all duration-200'
                   title='Рассчитать стоимость банкротства онлайн'
                 >
+                  <span
+                    class='w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-blue-500 transition-colors'
+                  ></span>
                   Калькулятор стоимости
                 </a>
               </li>
@@ -170,192 +214,179 @@ const company = {
           </nav>
         </div>
 
-        <!-- Information Section -->
-        <div>
-          <h3 class='text-lg font-semibold mb-4'>О компании</h3>
-          <nav role='navigation' aria-label='Информация о компании'>
-            <ul class='space-y-2'>
-              <li>
-                <a
-                  href='#hero'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
-                  title='О юридической компании МАСХУЛИА'
-                >
-                  О компании
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#testimonials'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
-                  title='Наша команда юристов и специалистов'
-                >
-                  Наша команда
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#testimonials'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
-                  title='Отзывы клиентов о банкротстве физических лиц'
-                >
-                  Отзывы клиентов
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#faq'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
-                  title='Полезные статьи о банкротстве и списании долгов'
-                >
-                  Полезные статьи
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#faq'
-                  class='text-gray-300 hover:text-white transition-colors duration-200'
-                  title='Часто задаваемые вопросы о банкротстве'
-                >
-                  Вопросы и ответы
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
         <!-- Contact Information -->
-        <div
-          class='md:col-span-2 lg:col-span-1'
-          itemscope
-          itemtype='https://schema.org/LocalBusiness'
-        >
-          <h3 class='text-lg font-semibold mb-4'>Контактная информация</h3>
+        <div itemscope itemtype='https://schema.org/LocalBusiness'>
+          <h3 class='text-xl font-bold mb-6 text-white border-l-4 border-blue-500 pl-4'>
+            Контактная информация
+          </h3>
 
-          <div class='space-y-4'>
+          <div class='space-y-6'>
             <!-- Phone Contact -->
-            <div class='flex items-start space-x-3'>
-              <svg class='w-5 h-5 text-gray-400 mt-1' width='20' height='20' aria-hidden='true'>
-                <use xlink:href='#icon-phone'></use>
-              </svg>
-              <div>
-                <a
-                  href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
-                  class='text-white hover:text-blue-400 transition-colors duration-200 font-semibold'
-                  itemprop='telephone'
-                  title='Позвонить для бесплатной консультации по банкротству'
-                  aria-label={`Телефон для консультации: ${company.phone}`}
+            <div class='group'>
+              <div class='flex items-start space-x-4'>
+                <div
+                  class='flex-shrink-0 w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors'
                 >
-                  {company.phone}
-                </a>
-                <time
-                  class='block text-sm text-gray-400'
-                  datetime='Mo-Fr 09:00-18:00'
-                  itemprop='openingHours'
-                  title='Часы работы офиса'
-                >
-                  {company.workHours}
-                </time>
+                  <svg
+                    class='w-5 h-5 text-gray-400 group-hover:text-white'
+                    width='20'
+                    height='20'
+                    aria-hidden='true'
+                  >
+                    <use xlink:href='#icon-phone'></use>
+                  </svg>
+                </div>
+                <div class='flex-1'>
+                  <a
+                    href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
+                    class='text-white hover:text-blue-400 transition-colors duration-200 font-bold text-lg block'
+                    itemprop='telephone'
+                    title='Позвонить для бесплатной консультации по банкротству'
+                    aria-label={`Телефон для консультации: ${company.phone}`}
+                  >
+                    {company.phone}
+                  </a>
+                  <time
+                    class='text-sm text-gray-400 mt-1 block'
+                    datetime='Mo-Su 09:00-21:00'
+                    itemprop='openingHours'
+                    title='Часы работы офиса'
+                  >
+                    {company.workHours}
+                  </time>
+                </div>
               </div>
             </div>
 
             <!-- Email Contact -->
-            <div class='flex items-center space-x-3'>
-              <svg class='w-5 h-5 text-gray-400' width='20' height='20' aria-hidden='true'>
-                <use xlink:href='#icon-email'></use>
-              </svg>
-              <a
-                href={`mailto:${company.email}`}
-                class='text-white hover:text-blue-400 transition-colors duration-200'
-                itemprop='email'
-                title='Написать письмо для консультации по банкротству'
-                aria-label={`Email: ${company.email}`}
-              >
-                {company.email}
-              </a>
+            <div class='group'>
+              <div class='flex items-center space-x-4'>
+                <div
+                  class='flex-shrink-0 w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors'
+                >
+                  <svg
+                    class='w-5 h-5 text-gray-400 group-hover:text-white'
+                    width='20'
+                    height='20'
+                    aria-hidden='true'
+                  >
+                    <use xlink:href='#icon-email'></use>
+                  </svg>
+                </div>
+                <div class='flex-1'>
+                  <a
+                    href={`mailto:${company.email}`}
+                    class='text-white hover:text-blue-400 transition-colors duration-200 font-medium'
+                    itemprop='email'
+                    title='Написать письмо для консультации по банкротству'
+                    aria-label={`Email: ${company.email}`}
+                  >
+                    {company.email}
+                  </a>
+                </div>
+              </div>
             </div>
 
             <!-- Address -->
-            <div
-              class='flex items-start space-x-3'
-              itemprop='address'
-              itemscope
-              itemtype='https://schema.org/PostalAddress'
-            >
-              <svg class='w-5 h-5 text-gray-400 mt-1' width='20' height='20' aria-hidden='true'>
-                <use xlink:href='#icon-location'></use>
-              </svg>
-              <address class='text-gray-300 not-italic leading-relaxed'>
-                <span itemprop='addressLocality'>{company.address.city}</span>,<br />
-                <span itemprop='streetAddress'>{company.address.street}</span>
-                <meta itemprop='addressRegion' content={company.address.region} />
-                <meta itemprop='addressCountry' content='RU' />
-              </address>
+            <div class='group'>
+              <div
+                class='flex items-start space-x-4'
+                itemprop='address'
+                itemscope
+                itemtype='https://schema.org/PostalAddress'
+              >
+                <div
+                  class='flex-shrink-0 w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors'
+                >
+                  <svg
+                    class='w-5 h-5 text-gray-400 group-hover:text-white'
+                    width='20'
+                    height='20'
+                    aria-hidden='true'
+                  >
+                    <use xlink:href='#icon-location'></use>
+                  </svg>
+                </div>
+                <div class='flex-1'>
+                  <address class='text-gray-300 not-italic leading-relaxed font-medium'>
+                    <div class='text-white font-semibold' itemprop='addressLocality'>
+                      {company.address.city},
+                    </div>
+                    <div class='mt-1' itemprop='streetAddress'>{company.address.street}</div>
+                    <meta itemprop='addressRegion' content={company.address.region} />
+                    <meta itemprop='addressCountry' content='RU' />
+                  </address>
+                </div>
+              </div>
             </div>
           </div>
-
-          <!-- CTA Button -->
-          <button
-            class='w-full mt-6 btn-primary py-3'
-            data-modal='callback'
-            type='button'
-            aria-label='Заказать бесплатную консультацию по банкротству физических лиц'
-            title='Бесплатная юридическая консультация'
-          >
-            <span>Заказать консультацию</span>
-          </button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Footer Bottom -->
-  <div class='border-t border-gray-800 py-6'>
+  <div class='border-t border-gray-800 bg-gray-900/50 py-8'>
     <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-      <div class='flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0'>
+      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12'>
         <!-- Copyright Information -->
-        <div class='text-sm text-gray-400' itemscope itemtype='https://schema.org/Organization'>
-          <p class='mb-1'>
-            <span>&copy; 2008-<time datetime='2024'>2024</time></span>
-            <span itemprop='legalName'>{company.name}</span>.
-            <span>Все права защищены.</span>
-          </p>
-          <p class='text-xs'>
-            ИНН: <span itemprop='taxID'>9729317468</span> | ОГРН: <span>1217700631697</span>
-          </p>
-        </div>
+        <div class='lg:col-span-3'>
+          <div class='space-y-3' itemscope itemtype='https://schema.org/Organization'>
+            <!-- Main Copyright -->
+            <div class='text-white font-medium text-base'>
+              &copy; 2025 <span itemprop='legalName'>{company.name}</span>
+            </div>
 
-        <!-- Legal Links -->
-        <nav
-          class='flex flex-wrap gap-4 text-sm'
-          role='navigation'
-          aria-label='Правовая информация'
-        >
-          <a
-            href='/privacy'
-            class='text-gray-400 hover:text-white transition-colors duration-200'
-            title='Политика конфиденциальности и обработки персональных данных'
-            rel='nofollow'
-          >
-            Политика конфиденциальности
-          </a>
-          <a
-            href='/terms'
-            class='text-gray-400 hover:text-white transition-colors duration-200'
-            title='Пользовательское соглашение и условия предоставления услуг'
-            rel='nofollow'
-          >
-            Пользовательское соглашение
-          </a>
-          <a
-            href='/sitemap'
-            class='text-gray-400 hover:text-white transition-colors duration-200'
-            title='Карта сайта со всеми страницами'
-            rel='nofollow'
-          >
-            Карта сайта
-          </a>
-        </nav>
+            <!-- Company Legal Name -->
+            <div class='text-gray-400 text-sm'>
+              2022-2025 «{company.fullName}»
+            </div>
+
+            <!-- Rights Reserved -->
+            <div class='text-gray-400 text-sm'>Все права защищены.</div>
+
+            <!-- Tax Information -->
+            <div class='text-gray-500 text-xs pt-2 border-t border-gray-700/50'>
+              ИНН: <span itemprop='taxID' class='font-mono'>9729317468</span> | ОГРН: <span
+                class='font-mono'>1217700631697</span
+              >
+            </div>
+
+            <!-- Legal Links -->
+            <div class='pt-4'>
+              <nav
+                class='flex flex-wrap gap-x-6 gap-y-2 text-sm'
+                role='navigation'
+                aria-label='Правовая информация'
+              >
+                <a
+                  href='/privacy'
+                  class='text-gray-400 hover:text-white transition-colors duration-200 hover:underline'
+                  title='Политика конфиденциальности и обработки персональных данных'
+                  rel='nofollow'
+                >
+                  Политика конфиденциальности
+                </a>
+                <a
+                  href='/terms'
+                  class='text-gray-400 hover:text-white transition-colors duration-200 hover:underline'
+                  title='Пользовательское соглашение и условия предоставления услуг'
+                  rel='nofollow'
+                >
+                  Пользовательское соглашение
+                </a>
+                <a
+                  href='/sitemap'
+                  class='text-gray-400 hover:text-white transition-colors duration-200 hover:underline'
+                  title='Карта сайта со всеми страницами'
+                  rel='nofollow'
+                >
+                  Карта сайта
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

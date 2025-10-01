@@ -1,5 +1,8 @@
 ---
 import StatsComponent from '../../islands/shared/interactive/statsEnhanced.tsx';
+import { SITE_CONSTANTS, getActualStats } from '../config/constants';
+import SectionSemantics from './SectionSemantics.astro';
+import SectionDivider from './SectionDivider.astro';
 
 export interface Props {
   className?: string;
@@ -7,36 +10,40 @@ export interface Props {
 
 const { className = '' } = Astro.props;
 
-// Данные статистики
+// Получаем актуальные данные из констант
+const actualStats = getActualStats();
+const companyData = SITE_CONSTANTS.company;
+
+// Данные статистики с актуальными значениями
 const stats = [
   {
     id: 'clients',
     icon: 'users',
-    number: '1200',
+    number: actualStats.clients.count.toString(),
     suffix: '+',
-    label: 'Довольных клиентов',
+    label: actualStats.clients.label,
     animateFrom: 0,
   },
   {
     id: 'debt',
     icon: 'dollar',
-    number: '1.2',
-    suffix: ' млрд ₽',
-    label: 'Списанных долгов',
+    number: actualStats.debtCleared.amount.toString(),
+    suffix: ` ${actualStats.debtCleared.unit}`,
+    label: actualStats.debtCleared.label,
     animateFrom: 0,
   },
   {
     id: 'experience',
     icon: 'chart',
-    number: '16',
+    number: actualStats.experience.years.toString(),
     suffix: ' лет',
-    label: 'На рынке юруслуг',
+    label: actualStats.experience.label,
     animateFrom: 0,
   },
   {
     id: 'success',
     icon: 'check',
-    number: '100',
+    number: actualStats.successRate.percent.toString(),
     suffix: '%',
     label: 'Побед в суде',
     animateFrom: 0,
@@ -44,27 +51,24 @@ const stats = [
   {
     id: 'time',
     icon: 'clock',
-    number: '4-6',
+    number: actualStats.averageTime.months,
     suffix: ' мес.',
-    label: 'Срок процедуры',
+    label: actualStats.averageTime.label,
     animate: false,
   },
 ];
 
-const ticker = [
-  '✅ Анна К. списала 1.8 млн ₽ — 4 месяца',
-  '✅ Дмитрий П. освободился от 3.2 млн ₽ — 5 месяцев',
-  '✅ Елена С. списала долги на 2.4 млн ₽ — 4 месяца',
-  '✅ Максим В. списал 4.7 млн ₽ — 6 месяцев',
-  '✅ Ольга Р. закрыла долги на 1.6 млн ₽ — 4 месяца',
-  '✅ Игорь Л. освободился от 5.1 млн ₽ — 5 месяцев',
-];
+// Используем данные из констант
+const ticker = SITE_CONSTANTS.testimonials.examples.map(
+  (testimonial) => `✅ ${testimonial.name} списала ${testimonial.amount} — ${testimonial.time}`
+);
 
+// Используем данные из констант
 const company = {
-  fullName: 'Общество с ограниченной ответственностью "ЮРИДИЧЕСКАЯ КОМПАНИЯ МАСХУЛИА"',
+  fullName: companyData.fullName,
   legal: {
-    inn: '7728415386',
-    ogrn: '1237700451193',
+    inn: companyData.inn,
+    ogrn: companyData.ogrn,
   },
 };
 ---
@@ -82,7 +86,7 @@ const company = {
   <!-- Digital artwork background pattern with financial relief scale -->
   <div
     class='absolute inset-0 z-10 bg-cover bg-center bg-no-repeat opacity-25'
-    style='background-image: url("/patterns/Digital Artwork Of An Unbalanced Scale Representing Financial Relief.png");'
+    style='background-image: url("/patterns/stats-pattern.png");'
   >
   </div>
 
@@ -103,7 +107,7 @@ const company = {
         id='stats-title'
         class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
       >
-        Нам доверяют уже <span class='text-blue-600'>1200+</span> клиентов
+        Нам доверяют уже <span class='text-blue-600'>{actualStats.clients.display}</span> клиентов
       </h2>
       <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
         Опыт, цифры и гарантии — все прозрачно
@@ -118,7 +122,12 @@ const company = {
     >
       {
         stats.map((stat) => (
-          <div class='glass-card p-5' role='listitem' data-stat={stat.id}>
+          <div
+            class='glass-card p-5'
+            role='listitem'
+            data-stat={stat.id}
+            style='background: transparent !important; backdrop-filter: blur(8px);'
+          >
             <div
               class='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-700 ring-1 ring-slate-200'
               aria-hidden='true'
@@ -319,13 +328,29 @@ const company = {
       </div>
     </div>
   </div>
+
+  <!-- Разделитель для плавного перехода к следующей секции -->
+  <SectionDivider type='fade' position='bottom' height='40px' color='white' opacity={0.6} />
 </section>
+
+<!-- Семантические данные для SEO -->
+<SectionSemantics sectionId='stats' />
 
 <style is:inline>
   @keyframes ticker {
     to {
       transform: translateX(-50%);
     }
+  }
+
+  /* Принудительно делаем карточки статистики полностью прозрачными */
+  .stats-section .glass-card {
+    background: transparent !important;
+    backdrop-filter: blur(8px);
+  }
+
+  .stats-section .glass-card:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
   }
 </style>
 

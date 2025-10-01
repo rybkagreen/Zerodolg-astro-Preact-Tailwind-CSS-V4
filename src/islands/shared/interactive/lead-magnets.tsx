@@ -5,6 +5,7 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
   useEffect(() => {
     // Button click handlers
     const buttons = document.querySelectorAll('button[data-modal]');
+    if (!buttons) return;
 
     const handleButtonClick = (e: Event) => {
       e.preventDefault();
@@ -754,9 +755,11 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
 
     // Cleanup function
     return () => {
-      buttons.forEach((button) => {
-        button.removeEventListener('click', handleButtonClick);
-      });
+      if (buttons) {
+        buttons.forEach((button) => {
+          button.removeEventListener('click', handleButtonClick);
+        });
+      }
     };
   }, []);
 

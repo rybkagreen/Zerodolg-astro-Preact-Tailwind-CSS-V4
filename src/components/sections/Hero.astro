@@ -1,6 +1,7 @@
 ---
 // Hero.astro - Hero section with Tailwind CSS v3 styling
 import HeroForm from '../../components/forms/HeroForm.astro';
+import { SITE_CONSTANTS, getPromoInfo } from '../../shared/config/constants';
 
 export interface Props {
   title?: string;
@@ -8,9 +9,15 @@ export interface Props {
 }
 
 const {
-  title = 'Коллекторы больше не позвонят.',
-  subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой юристов проведут вашу процедуру банкротства.',
+  title = 'От долгов — к свободе всего один шаг!',
+  subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой опытных юристов проведут вашу процедуру банкротства.',
 } = Astro.props;
+
+// Получаем актуальные данные из констант
+const stats = SITE_CONSTANTS.stats;
+const manager = SITE_CONSTANTS.manager;
+const contacts = SITE_CONSTANTS.contacts;
+const promo = getPromoInfo();
 ---
 
 <!-- Hero Section with Animated Dark Blue Gradient Background -->
@@ -53,16 +60,40 @@ const {
             {title}
           </h1>
           <div class='text-2xl lg:text-3xl font-semibold text-amber-400 leading-tight'>
-            Спишем долги от 300 тыс. до 10 млн ₽ через суд
+            Гарантированно спишем 300 тыс. – 10 млн ₽ — коллекторы замолчат навсегда.
           </div>
         </div>
 
         <!-- Description -->
-        <p class='text-lg text-gray-300 leading-relaxed max-w-2xl'>
-          {subtitle}
-          <span class='text-amber-400 font-semibold ml-2'>89% клиентов</span> полностью освобождаются
-          от долгов за 6-8 месяцев. Офис в 5 минутах от метро Минская.
-        </p>
+        <div class='space-y-4 text-lg text-gray-300 leading-relaxed max-w-2xl'>
+          <p>
+            Арбитражный управляющий Масхулиа Л.З. с командой опытных юристов проведёт ваше
+            банкротство.
+            <a
+              href='https://old.bankrot.fedresurs.ru/ArbitrManagerCard.aspx?ID=0fe01101-9000-45a5-9a14-31d86002b6ba'
+              target='_blank'
+              rel='noopener nofollow'
+              class='text-amber-400 font-semibold hover:text-amber-300 underline decoration-amber-400/50 hover:decoration-amber-300 transition-colors'
+            >
+              100% успешных дел (по данным ЕФРСБ)
+            </a>
+            — списание долгов в среднем за <span class='text-amber-400 font-semibold'
+              >4–6 месяцев</span
+            >.
+          </p>
+          <p class='text-emerald-400 font-medium'>
+            Офис в 3 минутах от метро Минская — ваше спокойствие начинается
+            <a
+              href='https://yandex.ru/profile/7922237253?lang=ru&no-distribution=1&view-state=mini&source=wizbiz_new_map_single'
+              target='_blank'
+              rel='noopener nofollow'
+              class='text-emerald-300 hover:text-emerald-200 underline decoration-emerald-300/50 hover:decoration-emerald-200 transition-colors font-semibold'
+              title='Посмотреть на Яндекс.Картах — отзывы и маршрут'
+            >
+              здесь
+            </a>!
+          </p>
+        </div>
 
         <!-- Benefits Grid -->
         <div class='grid grid-cols-1 md:grid-cols-3 gap-4'>
@@ -158,14 +189,16 @@ const {
                   clip-rule='evenodd'></path>
               </svg>
               <span class='text-orange-400 font-semibold text-sm'>
-                Консультация БЕСПЛАТНО — акция до 31 августа 2025
+                {SITE_CONSTANTS.promo.consultation.title} — {promo.availability}
               </span>
             </div>
 
-            <h3 class='text-xl font-bold text-white mb-2'>Получите бесплатную консультацию</h3>
+            <h3 class='text-xl font-bold text-white mb-2'>
+              {SITE_CONSTANTS.promo.consultation.description}
+            </h3>
             <p class='text-gray-300 mb-4'>Оставьте заявку и мы свяжемся с вами в течение 5 минут</p>
 
-            <p class='text-orange-300/70 text-sm'>Осталось 7 мест на август</p>
+            <p class='text-orange-300/70 text-sm'>{promo.availability}</p>
           </div>
         </div>
 
@@ -216,7 +249,7 @@ const {
                 stroke-width='2'
                 d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'></path>
             </svg>
-            <span class='text-gray-400 text-sm'>Работаем 9:00-21:00</span>
+            <span class='text-gray-400 text-sm'>Работаем {contacts.workTimeShort}</span>
           </div>
         </div>
       </div>
@@ -225,7 +258,7 @@ const {
       <div class='space-y-6'>
         <!-- Expert Card -->
         <div class='rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl'>
-          <div class='flex items-start gap-4'>
+          <div class='flex items-center gap-4'>
             <div class='relative flex-shrink-0'>
               <div
                 class='w-32 h-32 rounded-full overflow-hidden border-4 border-blue-300 shadow-2xl shadow-blue-400/30'
@@ -234,16 +267,32 @@ const {
                   src='/images/team/mashulia.webp'
                   alt='Масхулиа Леван Зурабович - Арбитражный управляющий'
                   class='w-full h-full object-cover'
+                  style='object-position: center 25%'
                 />
               </div>
             </div>
             <div class='flex-1'>
-              <div class='text-white font-bold text-lg'>Масхулиа Л.З.</div>
-              <div class='text-amber-400 text-sm font-medium'>Арбитражный управляющий №14320</div>
+              <div class='text-white font-bold text-lg'>{manager.shortName}</div>
+              <div class='text-amber-400 text-sm font-medium'>
+                Арбитражный финансовый управляющий (ИНН 505014806562)
+              </div>
               <div class='mt-2 text-gray-200 text-sm space-y-1'>
-                <span class='block'>✓ 11+ лет опыта</span>
-                <span class='block'>✓ 1200+ успешных дел</span>
-                <span class='block'>✓ Член СРО арбитражных управляющих</span>
+                <div class='block mb-2'>
+                  ✓ Член СРО "
+                  <a
+                    href='https://old.bankrot.fedresurs.ru/SroCard.aspx?ID=08422e0b-4cc3-4c28-9e89-9ca52edb16d0'
+                    target='_blank'
+                    rel='noopener nofollow'
+                    class='text-amber-300 hover:text-amber-200 underline decoration-amber-300/50 hover:decoration-amber-200 transition-colors text-xs leading-relaxed'
+                    title='Проверить в реестре Федресурс'
+                  >
+                    Ассоциация арбитражных управляющих саморегулируемая организация "Центральное
+                    агентство арбитражных управляющих"
+                  </a>
+                  "
+                </div>
+                <span class='block'>✓ {manager.experience.display}</span>
+                <span class='block'>✓ {manager.cases.display}</span>
               </div>
             </div>
           </div>
@@ -266,19 +315,21 @@ const {
           <div
             class='rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 text-center'
           >
-            <span class='block text-2xl font-bold text-amber-400'>1200+</span>
+            <span class='block text-2xl font-bold text-amber-400'>{stats.clients.display}</span>
             <span class='block text-sm text-gray-300 mt-1'>Клиентов</span>
           </div>
           <div
             class='rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 text-center'
           >
-            <span class='block text-2xl font-bold text-amber-400'>100%</span>
+            <span class='block text-2xl font-bold text-amber-400'>{stats.successRate.display}</span>
             <span class='block text-sm text-gray-300 mt-1'>Успех</span>
           </div>
           <div
             class='rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 text-center'
           >
-            <span class='block text-2xl font-bold text-amber-400'>1.2M+</span>
+            <span class='block text-2xl font-bold text-amber-400'
+              >{stats.debtCleared.shortDisplay}</span
+            >
             <span class='block text-sm text-gray-300 mt-1'>Списано</span>
           </div>
         </div>

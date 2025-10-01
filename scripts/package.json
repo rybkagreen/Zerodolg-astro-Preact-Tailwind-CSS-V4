@@ -1,6 +1,7 @@
 {
   "name": "model-coordination-scripts",
   "version": "1.0.0",
+  "type": "module",
   "description": "Scripts for coordinating tasks between different AI models in the ZeroDolg Astro project",
   "main": "model-coordinator.js",
   "scripts": {

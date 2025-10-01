@@ -1,0 +1,78 @@
+---
+import { getSectionSemantics, generateImageSchema } from '@shared/lib/section-semantics';
+
+export interface Props {
+  /** ID секции */
+  sectionId: string;
+  /** Добавлять ли схему изображения */
+  includeImageSchema?: boolean;
+  /** Добавлять ли мета-теги с ключевыми словами */
+  includeMetaTags?: boolean;
+  /** Добавлять ли скрытые хэштеги для семантического ядра */
+  includeHashtags?: boolean;
+}
+
+const {
+  sectionId,
+  includeImageSchema = true,
+  includeMetaTags = false,
+  includeHashtags = true,
+} = Astro.props;
+
+const semantics = getSectionSemantics(sectionId);
+const imageSchema = includeImageSchema ? generateImageSchema(sectionId) : null;
+---
+
+{/* Структурированные данные для изображения секции */}
+{
+  imageSchema && (
+    <script type='application/ld+json' set:text={JSON.stringify(imageSchema, null, 2)} />
+  )
+}
+
+{/* Мета-теги с ключевыми словами (опционально) */}
+{includeMetaTags && semantics && <meta name='keywords' content={semantics.keywords.join(', ')} />}
+
+{/* Скрытые хэштеги для семантического ядра */}
+{
+  includeHashtags && semantics && (
+    <div class='sr-only' aria-hidden='true'>
+      <span class='section-hashtags' data-section={sectionId}>
+        {semantics.hashtags.join(' ')}
+      </span>
+      <span class='section-keywords'>{semantics.keywords.join(', ')}</span>
+    </div>
+  )
+}
+
+{/* Улучшенное SEO для изображения секции */}
+{
+  semantics && (
+    <div class='section-semantic-context sr-only' aria-hidden='true'>
+      <h3>{semantics.title}</h3>
+      <p>{semantics.description}</p>
+      <img
+        src={semantics.patternImage.url}
+        alt={semantics.patternImage.alt}
+        title={semantics.patternImage.title}
+        style='display: none;'
+        loading='lazy'
+      />
+    </div>
+  )
+}
+
+<style>
+  /* Скрытые элементы для SEO */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

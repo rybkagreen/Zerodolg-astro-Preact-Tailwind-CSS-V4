@@ -30,6 +30,15 @@ interface TeamMember {
     type: string;
     image: string;
     description: string;
+    alt: string;
+    keywords: string[];
+    hashtags: string[];
+    issuedBy?: string;
+    issueDate?: string;
+    validUntil?: string;
+    documentNumber?: string;
+    seoTitle: string;
+    seoDescription: string;
   }[];
 }
 
@@ -199,7 +208,7 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
               id='team-title'
               class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
             >
-              Юристы с опытом 15+ лет
+              Профессионалы судебного банкротства с десятилетним стажем
             </h2>
             <p class='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium'>
               Профессионалы, которые спасли от долгов более 1000 семей
@@ -535,7 +544,8 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
                                 <div class='w-full aspect-[3/4] rounded-md overflow-hidden bg-white/80 shadow-inner mb-3'>
                                   <img
                                     src={document.image}
-                                    alt={document.title}
+                                    alt={document.alt || document.title}
+                                    title={document.seoTitle || document.title}
                                     class='w-full h-full object-cover object-top'
                                     loading='lazy'
                                     decoding='async'
@@ -598,7 +608,7 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
               <div class='w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div class='pt-12 md:pt-16 border-t border-slate-200/60'>
                   <h3 class='text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 text-center mb-10 md:mb-12 lg:mb-16'>
-                    Общая статистика команды
+                    Эффективность нашей работы
                   </h3>
                   <div class='grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto'>
                     <div class='group relative overflow-hidden bg-gradient-to-br from-blue-50/80 to-indigo-50/60 backdrop-blur-sm p-4 md:p-6 lg:p-8 rounded-2xl border border-white/50 shadow-lg shadow-slate-900/5 text-center hover:shadow-xl hover:shadow-slate-900/10 hover:scale-105 hover:-translate-y-1 transition-all duration-500 min-h-[160px] md:min-h-[180px] flex flex-col justify-center'>
@@ -741,7 +751,8 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
                     <div class='mb-4 md:mb-6'>
                       <img
                         src={selectedDocument.image}
-                        alt={selectedDocument.title}
+                        alt={selectedDocument.alt || selectedDocument.title}
+                        title={selectedDocument.seoTitle || selectedDocument.title}
                         class='w-full h-auto rounded-lg shadow-lg'
                         loading='lazy'
                         decoding='async'
@@ -750,9 +761,49 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
 
                     {/* Document Description */}
                     <div class='p-4 bg-gray-50 rounded-lg'>
-                      <p class='text-slate-700 leading-relaxed text-sm md:text-base'>
-                        {selectedDocument.description}
+                      <p class='text-slate-700 leading-relaxed text-sm md:text-base mb-4'>
+                        {selectedDocument.seoDescription || selectedDocument.description}
                       </p>
+
+                      {/* Keywords */}
+                      {selectedDocument.keywords && selectedDocument.keywords.length > 0 && (
+                        <div class='mb-3'>
+                          <h4 class='text-sm font-semibold text-slate-800 mb-2'>Ключевые слова:</h4>
+                          <div class='flex flex-wrap gap-1'>
+                            {selectedDocument.keywords
+                              .slice(0, 5)
+                              .map((keyword: string, index: number) => (
+                                <span
+                                  key={index}
+                                  class='inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full'
+                                >
+                                  {keyword}
+                                </span>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Document metadata if available */}
+                      {(selectedDocument.issuedBy || selectedDocument.issueDate) && (
+                        <div class='text-xs text-slate-500 border-t border-gray-200 pt-3 mt-3'>
+                          {selectedDocument.issuedBy && (
+                            <p>
+                              <strong>Выдан:</strong> {selectedDocument.issuedBy}
+                            </p>
+                          )}
+                          {selectedDocument.issueDate && (
+                            <p>
+                              <strong>Дата выдачи:</strong> {selectedDocument.issueDate}
+                            </p>
+                          )}
+                          {selectedDocument.validUntil && (
+                            <p>
+                              <strong>Действует до:</strong> {selectedDocument.validUntil}
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

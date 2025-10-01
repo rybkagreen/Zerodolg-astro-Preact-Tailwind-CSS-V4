@@ -1,4 +1,7 @@
 ---
+import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
+import SectionDivider from '../../shared/ui/SectionDivider.astro';
+
 // Benefits data - advantages of working with the company
 const benefits = [
   {
@@ -35,7 +38,8 @@ const benefits = [
     id: 'confidential',
     icon: 'confidential',
     title: 'Конфиденциальность',
-    description: 'Соблюдаем адвокатскую тайну',
+    description:
+      'Уважаем конфиденциальность наших клиентов и понимаем деликатность процесса банкротства',
   },
 ];
 ---
@@ -55,7 +59,7 @@ const benefits = [
   <!-- Pastel paint strokes background pattern -->
   <div
     class='absolute inset-0 opacity-25 z-20'
-    style='background-image: url("/patterns/Pastel Paint Strokes Abstract Digital Art Social Media Post (1).png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+    style='background-image: url("/patterns/benefits-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
   >
   </div>
 
@@ -294,7 +298,13 @@ const benefits = [
       }
     </div>
   </div>
+
+  <!-- Разделитель для плавного перехода к следующей секции -->
+  <SectionDivider type='curve' position='bottom' height='50px' color='white' opacity={0.8} />
 </section>
+
+<!-- Семантические данные для SEO -->
+<SectionSemantics sectionId='benefits' />
 
 <!-- Enhanced Animation Styles for Benefits -->
 <style>

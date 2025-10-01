@@ -2,7 +2,7 @@
    INTERACTIVE COMPONENTS STYLES
    =============================================== */
 
-/* FAQ Accordion Styles */
+/* FAQ Accordion Styles - Enhanced with higher specificity */
 .faq__answer {
   transition:
     max-height 0.3s ease-out,
@@ -17,7 +17,30 @@
   max-height: 1000px;
 }
 
-.faq__icon {
+/* Enhanced FAQ Button Styles with higher specificity */
+.faq__item .faq__question {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-align: left !important;
+}
+
+.faq__item .faq__question .faq__question-text {
+  flex: 1 !important;
+  text-align: left !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+  min-width: 0 !important;
+}
+
+.faq__item .faq__question .faq__icon {
+  flex-shrink: 0 !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
   transition: transform 0.3s ease;
 }
 
@@ -393,14 +416,492 @@
   }
 }
 
+/* FAQ Item Styles - Force white background */
+.faq__item {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.faq__item:hover {
+  background: #f9fafb !important;
+  border-color: #d1d5db !important;
+}
+
+.faq__answer {
+  background: #ffffff !important;
+}
+
 /* Dark mode support (if needed) */
 @media (prefers-color-scheme: dark) {
   .faq__item {
-    background: rgba(31, 41, 55, 0.8);
-    border-color: rgba(75, 85, 99, 0.3);
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
   }
 
   .faq__item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: #f9fafb !important;
+    border-color: #d1d5db !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE MENU STYLES
+   ========================================================================== */
+
+/* Mobile Menu Toggle Button (Hamburger) */
+.nav-toggle-line {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center;
+}
+
+/* Mobile Menu Toggle Animation States */
+[aria-expanded='true'] .nav-toggle-line:first-child {
+  transform: translateY(8px) rotate(45deg);
+}
+
+[aria-expanded='true'] .nav-toggle-line:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+[aria-expanded='true'] .nav-toggle-line:last-child {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Menu Container */
+#mobile-menu {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+#mobile-menu.mobile-menu-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Mobile Menu Overlay */
+[data-mobile-menu-overlay] {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+#mobile-menu.mobile-menu-open [data-mobile-menu-overlay] {
+  opacity: 1;
+}
+
+/* Mobile Menu Content */
+#mobile-menu .bg-white {
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#mobile-menu.mobile-menu-open .bg-white {
+  transform: translateX(0);
+}
+
+/* Mobile Menu Links Animation */
+#mobile-menu nav ul li {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#mobile-menu.mobile-menu-open nav ul li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger animation for menu items */
+#mobile-menu.mobile-menu-open nav ul li:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(4) {
+  transition-delay: 0.25s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(5) {
+  transition-delay: 0.3s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(6) {
+  transition-delay: 0.35s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(7) {
+  transition-delay: 0.4s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(8) {
+  transition-delay: 0.45s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(9) {
+  transition-delay: 0.5s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(10) {
+  transition-delay: 0.55s;
+}
+
+#mobile-menu.mobile-menu-open nav ul li:nth-child(11) {
+  transition-delay: 0.6s;
+}
+
+/* Body scroll lock when menu is open */
+body.menu-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Mobile Menu Link Hover Effects */
+#mobile-menu [data-mobile-link] {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+#mobile-menu [data-mobile-link]:hover {
+  transform: translateX(8px);
+  color: #3b82f6;
+}
+
+#mobile-menu [data-mobile-link]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  transition: width 0.3s ease;
+}
+
+#mobile-menu [data-mobile-link]:hover::before {
+  width: 20px;
+}
+
+/* Mobile Menu Close Button Animation */
+[data-mobile-menu-close] {
+  transition: all 0.2s ease;
+}
+
+[data-mobile-menu-close]:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+/* Enhanced Mobile Menu Responsive Design */
+@media (max-width: 768px) {
+  /* Adjust for smaller screens */
+  #mobile-menu {
+    z-index: 9999;
+  }
+
+  /* Ensure proper spacing on mobile */
+  .nav-toggle-line {
+    width: 22px;
+    height: 2px;
+    margin: 3px 0;
+  }
+
+  [aria-expanded='true'] .nav-toggle-line:first-child {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  [aria-expanded='true'] .nav-toggle-line:last-child {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+}
+
+/* Performance optimizations for mobile menu animations */
+#mobile-menu,
+#mobile-menu .bg-white,
+[data-mobile-menu-overlay],
+.nav-toggle-line {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Reduced motion support for mobile menu */
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu,
+  #mobile-menu .bg-white,
+  [data-mobile-menu-overlay],
+  .nav-toggle-line,
+  #mobile-menu nav ul li,
+  #mobile-menu [data-mobile-link],
+  [data-mobile-menu-close] {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP DROPDOWN STYLES
+   ========================================================================== */
+
+/* Desktop Dropdown Menus */
+[data-dropdown-menu] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  z-index: 50;
+}
+
+[data-dropdown-menu].block {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Desktop Dropdown Button States */
+[data-dropdown][aria-expanded='true'] {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+[data-dropdown][aria-expanded='true'] svg {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+
+[data-dropdown] svg {
+  transition: transform 0.2s ease;
+}
+
+/* Enhanced hover effects for desktop navigation */
+@media (min-width: 768px) {
+  [data-dropdown] {
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  [data-dropdown]:hover {
+    color: #3b82f6;
+  }
+
+  /* Smooth dropdown menu animations */
+  [data-dropdown-menu] {
+    transform-origin: top center;
+  }
+
+  /* Backdrop blur effect for desktop dropdowns */
+  [data-dropdown-menu]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  /* Enhanced dropdown item hover effects */
+  [data-dropdown-menu] a {
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-dropdown-menu] a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, #3b82f6, #1d4ed8);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+  }
+
+  [data-dropdown-menu] a:hover::before {
+    transform: scaleY(1);
+  }
+
+  /* Better shadow for desktop dropdowns */
+  [data-dropdown-menu].block {
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(59, 130, 246, 0.1);
+  }
+}
+
+/* Performance optimizations for desktop dropdowns */
+[data-dropdown],
+[data-dropdown-menu] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Reduced motion support for desktop dropdowns */
+@media (prefers-reduced-motion: reduce) {
+  [data-dropdown],
+  [data-dropdown-menu],
+  [data-dropdown] svg {
+    transition: none;
+    animation: none;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   ENHANCED HEADER PHONE LINK STYLES
+   ========================================================================== */
+
+/* Enhanced phone link with card-like appearance */
+a[href^='tel:'].group {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle glow effect on hover */
+a[href^='tel:'].group:hover {
+  box-shadow: 0 8px 25px -8px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Phone icon animation */
+a[href^='tel:'] svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Improved mobile menu toggle */
+[data-mobile-toggle] {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+[data-mobile-toggle]:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+  transform: scale(1.05);
+}
+
+/* Better hamburger line transitions */
+.nav-toggle-line {
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+/* Active state improvements */
+[aria-expanded='true'] .nav-toggle-line:first-child {
+  transform: translateY(8px) rotate(45deg);
+}
+
+[aria-expanded='true'] .nav-toggle-line:nth-child(2) {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+[aria-expanded='true'] .nav-toggle-line:last-child {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Header navigation improvements */
+@media (min-width: 768px) {
+  /* Better spacing for navigation items */
+  #navMenu ul {
+    align-items: center;
+  }
+
+  /* Enhanced dropdown button styling */
+  [data-dropdown] {
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+  }
+
+  [data-dropdown]:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+    transform: translateY(-1px);
+  }
+
+  /* Phone link special styling for desktop */
+  a[href^='tel:'] {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Responsive improvements */
+@media (min-width: 1280px) {
+  /* More breathing room on larger screens */
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* ==========================================================================
+   HEADER CONTACT STYLES
+   ========================================================================== */
+
+/* Enhanced phone link styling */
+a[href^='tel:'] {
+  position: relative;
+  overflow: hidden;
+}
+
+a[href^='tel:']:hover svg {
+  animation: phone-ring 1s ease-in-out;
+}
+
+@keyframes phone-ring {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+/* Work hours styling */
+time[datetime='Mo-Fr 09:00-18:00'] {
+  position: relative;
+}
+
+time[datetime='Mo-Fr 09:00-18:00']::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-50%) scale(1.2);
   }
 }
