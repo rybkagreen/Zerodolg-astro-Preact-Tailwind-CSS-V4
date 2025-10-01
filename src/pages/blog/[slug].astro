@@ -48,7 +48,13 @@ const manager = SITE_CONSTANTS.manager;
 const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
 ---
 
-<Layout title={title} description={description} canonical={canonical} type='article'>
+<Layout
+  title={title}
+  description={description}
+  canonical={canonical}
+  type='article'
+  preloadAuthorImage={true}
+>
   <Header />
 
   <!-- Breadcrumb Navigation -->

@@ -11,6 +11,7 @@ export interface Props {
   canonical?: string;
   type?: string;
   noindex?: boolean;
+  preloadAuthorImage?: boolean;
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   canonical = 'https://zerodolg.ru/',
   type = 'website',
   noindex = false,
+  preloadAuthorImage = false,
 } = Astro.props;
 ---
 
@@ -182,7 +184,7 @@ const {
     />
 
     <!-- Preload critical resources -->
-    <link rel='preload' href='/images/team/mashulia.webp' as='image' />
+    {preloadAuthorImage && <link rel='preload' href='/images/team/mashulia.webp' as='image' />}
 
     <!-- Prefetch likely next pages -->
     <link rel='prefetch' href='/#reviews' />
