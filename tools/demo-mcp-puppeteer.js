@@ -5,7 +5,7 @@
  * Demonstrates various browser automation capabilities
  */
 
-import PuppeteerHelper from './src/lib/puppeteer-helper.js';
+import PuppeteerHelper from '../src/shared/lib/puppeteer-helper.js';
 
 async function runDemo() {
   console.log('🎬 Starting Puppeteer MCP Demo...\n');

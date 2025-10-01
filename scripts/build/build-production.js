@@ -14,6 +14,11 @@
 import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
 
 // Colors for console output
 const COLORS = {
@@ -73,7 +78,7 @@ async function preBuildValidation() {
   // Check environment variables
   log.info('Validating environment variables...');
   try {
-    await execCommand('node', ['../validate-env.js']);
+    await execCommand('node', [path.join(PROJECT_ROOT, 'scripts', 'dev', 'validate-env.js')]);
     log.success('Environment variables validation passed');
   } catch (error) {
     log.error('Environment variables validation failed');
@@ -83,7 +88,7 @@ async function preBuildValidation() {
   // Check for required files
   const requiredFiles = ['.env', 'package.json'];
   for (const file of requiredFiles) {
-    if (!fileExists(path.resolve('../../', file))) {
+    if (!fileExists(path.join(PROJECT_ROOT, file))) {
       log.error(`Required file not found: ${file}`);
       throw new Error(`Required file not found: ${file}`);
     }
@@ -93,7 +98,7 @@ async function preBuildValidation() {
   // Type checking
   log.info('Running TypeScript type checking...');
   try {
-    await execCommand('npm', ['run', 'type-check'], { cwd: '../../' });
+    await execCommand('npm', ['run', 'type-check'], { cwd: PROJECT_ROOT });
     log.success('Type checking passed');
   } catch (error) {
     log.error('Type checking failed');
@@ -103,12 +108,12 @@ async function preBuildValidation() {
   // Code linting
   log.info('Running code linting...');
   try {
-    await execCommand('npm', ['run', 'lint'], { cwd: '../../' });
+    await execCommand('npm', ['run', 'lint'], { cwd: PROJECT_ROOT });
     log.success('Code linting passed');
   } catch (error) {
     log.warn('Code linting found issues, attempting to fix...');
     try {
-      await execCommand('npm', ['run', 'lint:fix'], { cwd: '../../' });
+      await execCommand('npm', ['run', 'lint:fix'], { cwd: PROJECT_ROOT });
       log.success('Code linting issues fixed');
     } catch (fixError) {
       log.error('Failed to fix code linting issues');
@@ -123,19 +128,19 @@ async function optimizeAssets() {
 
   // Check if we have any image optimization scripts
   const optimizationScripts = [
-    '../maintenance/optimize-images.js',
-    '../maintenance/optimize-images.cjs',
+    path.join(PROJECT_ROOT, 'scripts', 'maintenance', 'optimize-images.js'),
+    path.join(PROJECT_ROOT, 'scripts', 'maintenance', 'optimize-images.cjs'),
   ];
 
   for (const script of optimizationScripts) {
-    if (fileExists(path.resolve(script))) {
-      log.info(`Running ${script}...`);
+    if (fileExists(script)) {
+      log.info(`Running ${path.basename(script)}...`);
       try {
         await execCommand('node', [script]);
-        log.success(`${script} completed`);
+        log.success(`${path.basename(script)} completed`);
         return;
       } catch (error) {
-        log.warn(`Failed to run ${script}: ${error.message}`);
+        log.warn(`Failed to run ${path.basename(script)}: ${error.message}`);
       }
     }
   }
@@ -148,7 +153,7 @@ async function securityChecks() {
   log.header('🔒 Security Checks');
 
   // Check for .env in .gitignore
-  const gitignorePath = path.resolve('../../.gitignore');
+  const gitignorePath = path.join(PROJECT_ROOT, '.gitignore');
   if (fileExists(gitignorePath)) {
     const gitignoreContent = fs.readFileSync(gitignorePath, 'utf8');
     if (!gitignoreContent.includes('.env')) {
@@ -179,7 +184,7 @@ async function performanceOptimizations() {
   // Clean previous builds
   log.info('Cleaning previous build artifacts...');
   try {
-    await execCommand('npm', ['run', 'clean'], { cwd: '../../' });
+    await execCommand('npm', ['run', 'clean'], { cwd: PROJECT_ROOT });
     log.success('Clean completed');
   } catch (error) {
     log.warn(`Clean failed: ${error.message}`);
@@ -196,7 +201,7 @@ async function buildProcess() {
 
   log.info('Starting production build...');
   try {
-    await execCommand(buildCommand, buildArgs, { cwd: '../../' });
+    await execCommand(buildCommand, buildArgs, { cwd: PROJECT_ROOT });
     log.success('Production build completed successfully');
   } catch (error) {
     log.error('Production build failed');

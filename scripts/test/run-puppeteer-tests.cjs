@@ -53,7 +53,7 @@ async function runPuppeteerTests() {
   console.log('Running Puppeteer tests...');
 
   try {
-    const { exampleMcpUsage, testPage } = require('./scripts/puppeteer-mcp-example.js');
+    const { exampleMcpUsage, testPage } = require('./puppeteer-mcp-example.js');
 
     // Test the homepage
     await exampleMcpUsage();
