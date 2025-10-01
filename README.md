@@ -5,7 +5,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
 [![Astro](https://img.shields.io/badge/Astro-5.13.7-orange.svg)](https://astro.build/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.13-06B6D4.svg)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-06B6D4.svg)](https://tailwindcss.com/)
 [![Build Status](https://img.shields.io/badge/Build-Passing-green.svg)](#)
 [![Code Quality](https://img.shields.io/badge/Code_Quality-A+-brightgreen.svg)](#качество-кода)
 
@@ -18,9 +18,9 @@ Architecture
 🔒 **Безопасность** - Современные практики безопасности (Semgrep, TruffleHog)  
 📱 **Mobile-First** - Отзывчивый дизайн для всех устройств  
 🚀 **SEO оптимизирован** - Структурированные данные, robots.txt, sitemap.xml  
-🎨 **Современный стек** - Astro 5 + Preact + TypeScript + Tailwind CSS v4  
+🎨 **Современный стек** - Astro 5 + Preact + TypeScript + Tailwind CSS 3.4  
 🧪 **Высокое покрытие тестами** - Vitest + Puppeteer для E2E тестирования  
-🤖 **AI-Enhanced** - Интеграция с Qwen Code как главный AI-ассистент
+🤖 **AI-Enhanced** - Интеграция с Qwen Code и Model Context Protocol (MCP)
 
 ## 🚀 Быстрый старт с Qwen Code
 
@@ -193,14 +193,14 @@ zerodolg-astro/
 | **[Astro](https://astro.build/)**                 | `5.13.7`  | 🌟 Статический генератор сайтов   |
 | **[Preact](https://preactjs.com/)**               | `10.27.1` | ⚡ Легковесная альтернатива React |
 | **[TypeScript](https://www.typescriptlang.org/)** | `5.9.2`   | 🔒 Строгая типизация JavaScript   |
-| **[Tailwind CSS](https://tailwindcss.com/)**      | `4.0.0`   | 🎨 Утилитарный CSS-фреймворк      |
+| **[Tailwind CSS](https://tailwindcss.com/)**      | `3.4.17`  | 🎨 Утилитарный CSS-фреймворк      |
 
 ### 🧪 Инструменты разработки
 
 | Инструмент                                     | Версия    | Описание                         |
 | ---------------------------------------------- | --------- | -------------------------------- |
 | **[Vitest](https://vitest.dev/)**              | `3.2.4`   | 🧪 Современное unit-тестирование |
-| **[Puppeteer](https://pptr.dev/)**             | `24.22.3` | 🤖 E2E тестирование              |
+| **[Puppeteer](https://pptr.dev/)**             | `24.23.0` | 🤖 E2E тестирование              |
 | **[ESLint](https://eslint.org/)**              | `9.36.0`  | 🔍 Линтинг кода                  |
 | **[Prettier](https://prettier.io/)**           | `3.6.2`   | 💅 Форматирование кода           |
 | **[Husky](https://github.com/typicode/husky)** | `9.1.7`   | 🪝 Git hooks                     |
@@ -354,9 +354,8 @@ function Modal({ isOpen, onClose, children }) {
 
 ### Стили
 
-- **[Tailwind CSS v4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк
-  для быстрой разработки. Используется стабильная версия v4 с новым синтаксисом
-  конфигурации через CSS
+- **[Tailwind CSS v3.4](https://tailwindcss.com/)** - Утилитарный CSS-фреймворк
+  для быстрой разработки с оптимизированной конфигурацией
 - **Mobile First** - Дизайн сначала для мобильных устройств
 
 ## 🌍 Современные практики 2025
@@ -406,7 +405,7 @@ function Modal({ isOpen, onClose, children }) {
 - ✅ Производительность оптимизирована
 - ✅ Дизайн адаптирован для всех устройств
 - ✅ Интеграция с Model Context Protocol (MCP) для расширенных возможностей AI
-- ✅ Миграция на стабильную Tailwind CSS v4 завершена
+- ✅ Стабильная Tailwind CSS v3.4 с оптимизированной конфигурацией
 - ✅ Комплексная система безопасности с CSP заголовками реализована
 - ✅ Современные практики безопасности 2025 (Semgrep, TruffleHog) внедрены
 - ✅ AI-ассистент Qwen Code интегрирован в разработку
