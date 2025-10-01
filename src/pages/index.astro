@@ -1,8 +1,10 @@
 ---
 import Layout from '@app/layouts/Layout.astro';
 import Header from '@widgets/header/Header.astro';
+import OrganizationSchema from '../shared/seo/OrganizationSchema.astro';
 import Hero from '../components/sections/Hero.astro';
 import Problems from '../components/sections/Problems.astro';
+import SolutionChoice from '../components/sections/SolutionChoice.astro';
 import Stats from '@shared/ui/Stats.astro';
 import Calculator from '@features/calculator/ui/Calculator.astro';
 import Benefits from '../components/sections/Benefits.astro';
@@ -30,6 +32,7 @@ import FaqAccordion from '../islands/utils/faq-accordion.tsx';
   title='💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4 месяца | ZeroDolg'
   canonical='https://zerodolg.ru/'
 >
+  <OrganizationSchema services='both' pageType='homepage' slot='head' />
   <Header />
 
   <main>
@@ -38,6 +41,10 @@ import FaqAccordion from '../islands/utils/faq-accordion.tsx';
 
     <div data-aos='fade-up' data-aos-duration='800'>
       <Problems />
+    </div>
+
+    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='200'>
+      <SolutionChoice />
     </div>
 
     <div data-aos='fade-up' data-aos-duration='800'>

@@ -24,16 +24,22 @@ const company = {
 const navItems = {
   services: [
     {
+      href: '#solution-choice',
+      icon: '🎆',
+      title: 'Выбор решения',
+      desc: 'Банкротство или реструктуризация',
+    },
+    {
+      href: '/restrukturizaciya-dolgov',
+      icon: '🏠',
+      title: 'Реструктуризация долгов',
+      desc: 'Сохраните имущество, снизьте платежи',
+    },
+    {
       href: '#problems',
       icon: '⚡',
       title: 'Решаемые проблемы',
       desc: 'Какие долговые проблемы мы решаем',
-    },
-    {
-      href: '#process',
-      icon: '📋',
-      title: 'Процесс банкротства',
-      desc: 'Пошаговое описание процедуры',
     },
     {
       href: '#calculator',
@@ -63,6 +69,16 @@ const navItems = {
 };
 
 const mobileMenuItems = [
+  {
+    href: '#solution-choice',
+    title: '🎆 Выбор решения',
+    className: 'text-purple-600 hover:bg-purple-50 font-medium',
+  },
+  {
+    href: '/restrukturizaciya-dolgov',
+    title: '🏠 Реструктуризация',
+    className: 'text-emerald-600 hover:bg-emerald-50 font-medium',
+  },
   { href: '#problems', title: 'Проблемы' },
   { href: '#process', title: 'Процесс' },
   { href: '#calculator', title: 'Калькулятор' },

@@ -1,0 +1,559 @@
+---
+// restrukturizaciya-dolgov.astro - Dedicated страница реструктуризации долгов
+// Актуализированная версия на октябрь 2024
+
+import Layout from '@app/layouts/Layout.astro';
+import Header from '@widgets/header/Header.astro';
+import Footer from '@widgets/footer/Footer.astro';
+import CallbackModal from '@features/modals/ui/CallbackModal.astro';
+import LeadMagnetsModals from '@features/modals/ui/LeadMagnetsModals.astro';
+import SimpleModalInit from '../islands/utils/SimpleModalInit.tsx';
+import OnlineSticker from '@shared/ui/OnlineSticker.astro';
+import BitrixCallback from '@shared/ui/BitrixCallback.astro';
+import SpecialOffers from '@shared/ui/SpecialOffers.astro';
+import ClientInteractions from '../islands/utils/client-interactions.tsx';
+import ScrollAnimations from '../islands/utils/scroll-animations.tsx';
+import HeroForm from '../components/forms/HeroForm.astro';
+import BaseForm from '../components/forms/BaseForm.astro';
+import { SITE_CONSTANTS, getPromoInfo } from '../shared/config/constants';
+import OrganizationSchema from '../shared/seo/OrganizationSchema.astro';
+import RestructuringProblems from '../components/sections/RestructuringProblems.astro';
+import RestructuringComparison from '../components/sections/RestructuringComparison.astro';
+
+// SEO данные для страницы реструктуризации
+const pageTitle = 'Реструктуризация долгов физических лиц в Москве - от 89000₽ | ZeroDolg';
+const pageDescription =
+  'Реструктуризация долгов через арбитражный суд ⚡ Сохраните имущество ⚡ Льготные условия платежей ⚡ Опыт 15 лет ⚡ Рассрочка от 3700₽/мес';
+const canonical = 'https://zerodolg.ru/restrukturizaciya-dolgov';
+
+// Получаем актуальные данные из констант
+const stats = SITE_CONSTANTS.stats;
+const manager = SITE_CONSTANTS.manager;
+const contacts = SITE_CONSTANTS.contacts;
+const promo = getPromoInfo();
+
+// Данные по реструктуризации (актуальные на октябрь 2024)
+const restructuringData = {
+  pricing: {
+    base: 89000,
+    monthly: 3700,
+    deposit: 15000,
+    maxInstallments: 24,
+  },
+  stats: {
+    successRate: '61%',
+    avgDuration: '32 месяца',
+    avgDebt: '1.8 млн ₽',
+    clientsSaved: '2847',
+  },
+  advantages: [
+    {
+      title: 'Сохранение имущества',
+      description: 'Квартира, автомобиль и ценности остаются у вас',
+      icon: 'home',
+    },
+    {
+      title: 'Льготные условия',
+      description: 'Снижение процентов до ключевой ставки ЦБ',
+      icon: 'percent',
+    },
+    {
+      title: 'Заморозка штрафов',
+      description: 'Остановка начисления пеней и штрафов',
+      icon: 'freeze',
+    },
+    {
+      title: 'Защита от взысканий',
+      description: 'Прекращение исполнительных производств',
+      icon: 'shield',
+    },
+    { title: 'Социальные гарантии', description: 'Сохранение социального статуса', icon: 'people' },
+    {
+      title: 'Досрочное погашение',
+      description: 'Возможность закрыть долги раньше срока',
+      icon: 'speed',
+    },
+  ],
+  requirements: [
+    {
+      title: 'Постоянный доход',
+      description: 'Официальная зарплата, пенсия или доход от бизнеса от 45 000 ₽',
+      icon: 'money',
+    },
+    {
+      title: 'Платежеспособность',
+      description: 'Доход должен покрывать платежи по плану реструктуризации',
+      icon: 'calculator',
+    },
+    {
+      title: 'Отсутствие судимости',
+      description: 'За экономические преступления и умышленное банкротство',
+      icon: 'law',
+    },
+    {
+      title: 'Добросовестность',
+      description: 'Не было банкротства 5 лет и реструктуризации 8 лет',
+      icon: 'handshake',
+    },
+  ],
+  process: [
+    {
+      step: 1,
+      title: 'Консультация и анализ',
+      description: 'Изучаем вашу ситуацию и составляем план реструктуризации',
+      duration: '1-2 дня',
+    },
+    {
+      step: 2,
+      title: 'Подготовка документов',
+      description: 'Собираем справки и готовим заявление в арбитражный суд',
+      duration: '7-14 дней',
+    },
+    {
+      step: 3,
+      title: 'Подача в суд',
+      description: 'Подаем заявление и план реструктуризации в арбитражный суд',
+      duration: '1 день',
+    },
+    {
+      step: 4,
+      title: 'Назначение управляющего',
+      description: 'Суд назначает финансового управляющего для ведения процедуры',
+      duration: '30 дней',
+    },
+    {
+      step: 5,
+      title: 'Собрание кредиторов',
+      description: 'Кредиторы голосуют за утверждение плана реструктуризации',
+      duration: '45 дней',
+    },
+    {
+      step: 6,
+      title: 'Исполнение плана',
+      description: 'Выплачиваете долги по утвержденному плану',
+      duration: 'до 4 лет',
+    },
+  ],
+};
+---
+
+<Layout title={pageTitle} canonical={canonical}>
+  <!-- Structured Data для реструктуризации -->
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'LegalService',
+      name: 'Реструктуризация долгов физических лиц',
+      description:
+        'Профессиональная помощь в реструктуризации долгов через арбитражный суд с сохранением имущества',
+      provider: {
+        '@type': 'Organization',
+        name: 'ZeroDolg',
+        url: 'https://zerodolg.ru',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'ул. Минская',
+          addressLocality: 'Москва',
+          addressCountry: 'RU',
+        },
+      },
+      offers: {
+        '@type': 'Offer',
+        price: restructuringData.pricing.base,
+        priceCurrency: 'RUB',
+        description: 'Реструктуризация долгов под ключ',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '127',
+        bestRating: '5',
+      },
+    })}
+  />
+
+  <OrganizationSchema services='restructuring' pageType='service' slot='head' />
+
+  <Header />
+
+  <main>
+    <!-- Hero Section for Restructuring -->
+    <section class='relative min-h-screen overflow-hidden'>
+      <!-- Background -->
+      <div
+        class='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900 via-slate-800 to-teal-800 animate-gradient-rotate-smooth'
+      >
+      </div>
+      <div class='absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30'>
+      </div>
+
+      <!-- Content Container -->
+      <div class='relative container mx-auto px-4 py-12 lg:py-20'>
+        <!-- Trust Badge -->
+        <div class='mb-8'>
+          <div
+            class='inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3'
+          >
+            <svg class='w-5 h-5 text-emerald-400' fill='currentColor' viewBox='0 0 20 20'>
+              <path
+                d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z'
+              ></path>
+            </svg>
+            <span class='text-white text-sm font-medium tracking-wide'>
+              Федеральный закон №127-ФЗ «О несостоятельности»
+            </span>
+          </div>
+        </div>
+
+        <div class='grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-12 items-start'>
+          <!-- Left Column - Main Content -->
+          <div class='space-y-8'>
+            <!-- Title Section -->
+            <div class='space-y-4'>
+              <h1
+                class='text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1] tracking-tight'
+              >
+                Реструктуризация долгов — сохраните имущество!
+              </h1>
+              <div class='text-2xl lg:text-3xl font-semibold text-emerald-400 leading-tight'>
+                Льготные условия выплаты • Остановка штрафов и пеней • {
+                  restructuringData.stats.successRate
+                } успешности
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class='space-y-4 text-lg text-gray-300 leading-relaxed max-w-2xl'>
+              <p>
+                Реструктуризация долгов через арбитражный суд — это официальная процедура изменения
+                условий выплаты долгов с сохранением всего имущества. Средний срок — {
+                  restructuringData.stats.avgDuration
+                }.
+              </p>
+              <p class='text-emerald-400 font-medium'>
+                Более {restructuringData.stats.clientsSaved} клиентов уже сохранили свое имущество и
+                избавились от долгового бремени!
+              </p>
+            </div>
+
+            <!-- Key Benefits Grid -->
+            <div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div
+                class='rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-600/10 backdrop-blur-sm border border-emerald-500/30 p-5'
+              >
+                <div class='flex items-center gap-3 mb-3'>
+                  <div
+                    class='w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center'
+                  >
+                    <svg
+                      class='w-5 h-5 text-emerald-400'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        stroke-width='2'
+                        d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+                      ></path>
+                    </svg>
+                  </div>
+                  <h3 class='text-lg font-bold text-white'>Сохранение имущества</h3>
+                </div>
+                <p class='text-gray-300 text-sm'>Квартира, автомобиль и ценности остаются у вас</p>
+              </div>
+
+              <div
+                class='rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-600/10 backdrop-blur-sm border border-emerald-500/30 p-5'
+              >
+                <div class='flex items-center gap-3 mb-3'>
+                  <div
+                    class='w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center'
+                  >
+                    <svg
+                      class='w-5 h-5 text-emerald-400'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        stroke-width='2'
+                        d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1'
+                      ></path>
+                    </svg>
+                  </div>
+                  <h3 class='text-lg font-bold text-white'>Льготные условия</h3>
+                </div>
+                <p class='text-gray-300 text-sm'>Снижение процентов и комфортный график платежей</p>
+              </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class='flex flex-wrap items-center gap-6 pt-4'>
+              <div class='flex items-center gap-2'>
+                <svg
+                  class='w-5 h-5 text-gray-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+                </svg>
+                <span class='text-gray-400 text-sm'
+                  >{restructuringData.stats.successRate} успешных дел</span
+                >
+              </div>
+              <div class='flex items-center gap-2'>
+                <svg
+                  class='w-5 h-5 text-gray-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+                  ></path>
+                </svg>
+                <span class='text-gray-400 text-sm'>Офис в центре Москвы</span>
+              </div>
+              <div class='flex items-center gap-2'>
+                <svg
+                  class='w-5 h-5 text-gray-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+                </svg>
+                <span class='text-gray-400 text-sm'>Работаем {contacts.workTimeShort}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column - Expert Card and Form -->
+          <div class='space-y-6'>
+            <!-- Pricing Card -->
+            <div
+              class='rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl'
+            >
+              <div class='text-center mb-6'>
+                <div class='text-4xl font-bold text-emerald-400 mb-2'>
+                  {restructuringData.pricing.base.toLocaleString()} ₽
+                </div>
+                <div class='text-emerald-300 font-medium'>
+                  Рассрочка от {restructuringData.pricing.monthly.toLocaleString()} ₽/мес
+                </div>
+                <div class='text-gray-300 text-sm mt-1'>
+                  Первый взнос {restructuringData.pricing.deposit.toLocaleString()} ₽
+                </div>
+              </div>
+
+              <div class='space-y-3 mb-6'>
+                <div class='flex items-center'>
+                  <span class='text-emerald-400 mr-2'>✓</span>
+                  <span class='text-white text-sm'>Подготовка всех документов</span>
+                </div>
+                <div class='flex items-center'>
+                  <span class='text-emerald-400 mr-2'>✓</span>
+                  <span class='text-white text-sm'>Представительство в суде</span>
+                </div>
+                <div class='flex items-center'>
+                  <span class='text-emerald-400 mr-2'>✓</span>
+                  <span class='text-white text-sm'>Работа с управляющим</span>
+                </div>
+                <div class='flex items-center'>
+                  <span class='text-emerald-400 mr-2'>✓</span>
+                  <span class='text-white text-sm'>Гарантия результата</span>
+                </div>
+              </div>
+
+              <button
+                class='w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-colors'
+                data-modal='consultation'
+              >
+                Получить консультацию
+              </button>
+            </div>
+
+            <!-- Expert Card -->
+            <div
+              class='rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl'
+            >
+              <div class='flex items-center gap-4 mb-4'>
+                <div class='relative flex-shrink-0'>
+                  <div
+                    class='w-32 h-32 rounded-full overflow-hidden border-4 border-emerald-300 shadow-2xl shadow-emerald-400/30'
+                  >
+                    <img
+                      src='/images/team/mashulia.webp'
+                      alt='Масхулиа Леван Зурабович - Арбитражный управляющий'
+                      class='w-full h-full object-cover'
+                      style='object-position: center 25%'
+                    />
+                  </div>
+                </div>
+                <div class='flex-1'>
+                  <div class='text-white font-bold text-lg'>{manager.name}</div>
+                  <div class='text-emerald-400 text-sm font-medium'>
+                    {manager.position}
+                  </div>
+                  <div class='mt-2 text-gray-200 text-sm space-y-1'>
+                    <div class='block mb-2'>
+                      ✓ Член СРО "
+                      <a
+                        href={manager.sro.url}
+                        target='_blank'
+                        rel='noopener nofollow'
+                        class='text-emerald-300 hover:text-emerald-200 underline decoration-emerald-300/50 hover:decoration-emerald-200 transition-colors text-xs leading-relaxed'
+                        title={manager.sro.registryTitle}
+                      >
+                        {manager.sro.name}
+                      </a>
+                      "
+                    </div>
+                    <span class='block'>✓ {manager.experience.display}</span>
+                    <span class='block'>✓ {manager.cases.display}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Info Section -->
+              <div class='border-t border-white/10 pt-4'>
+                <div class='grid grid-cols-2 gap-4 text-center'>
+                  <div class='p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20'>
+                    <div class='text-2xl font-bold text-emerald-400 mb-1'>
+                      {manager.experience.years}+
+                    </div>
+                    <div class='text-xs text-gray-300'>лет опыта</div>
+                  </div>
+                  <div class='p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20'>
+                    <div class='text-2xl font-bold text-emerald-400 mb-1'>
+                      {manager.cases.successRate}
+                    </div>
+                    <div class='text-xs text-gray-300'>успех в делах</div>
+                  </div>
+                </div>
+
+                <!-- Quick Contact -->
+                <div class='mt-4 flex gap-2'>
+                  <a
+                    href='tel:+79055773387'
+                    class='flex-1 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-white text-center py-2 px-3 rounded-lg transition-colors text-sm font-medium'
+                  >
+                    📞 Позвонить
+                  </a>
+                  <button
+                    data-modal='consultation'
+                    class='flex-1 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-center py-2 px-3 rounded-lg transition-colors text-sm font-medium'
+                  >
+                    💬 Написать
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Container -->
+            <div
+              class='rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl'
+              id='consultation-form'
+            >
+              <!-- Custom Form Header for Restructuring Page -->
+              <div class='text-center mb-6'>
+                <h3 class='text-2xl font-bold text-white mb-2'>
+                  Получите <span class='text-emerald-400 font-semibold'>персональный план</span>
+                </h3>
+                <p class='text-white/90'>
+                  Проанализируем вашу ситуацию — составим оптимальную схему выплат
+                </p>
+              </div>
+
+              <div
+                class='[&_input]:bg-white/10 [&_input]:backdrop-blur-sm [&_input]:border-white/20 [&_input]:text-white [&_input]:placeholder-gray-300 [&_textarea]:bg-white/10 [&_textarea]:backdrop-blur-sm [&_textarea]:border-white/20 [&_textarea]:text-white [&_textarea]:placeholder-gray-300 [&_select]:bg-white/10 [&_select]:backdrop-blur-sm [&_select]:border-white/20 [&_select]:text-white [&_label]:text-gray-200 [&_input:focus]:bg-white/20 [&_input:focus]:border-emerald-400 [&_textarea:focus]:bg-white/20 [&_textarea:focus]:border-emerald-400 [&_select:focus]:bg-white/20 [&_select:focus]:border-emerald-400'
+              >
+                <!-- Custom BaseForm call without header -->
+                <BaseForm
+                  formId='restructuring-consultation-form'
+                  formType='restructuring'
+                  showDebtField={true}
+                  submitText='Получить план реструктуризации'
+                  variant='stacked'
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problems Section -->
+    <RestructuringProblems className='bg-white' />
+
+    <!-- Comparison Section -->
+    <RestructuringComparison className='' />
+
+    <!-- Additional Sections будут добавлены далее... -->
+  </main>
+
+  <Footer />
+
+  <!-- Auxiliary Components -->
+  <OnlineSticker />
+  <BitrixCallback />
+
+  <!-- Modals -->
+  <CallbackModal modalId='callback' />
+  <LeadMagnetsModals />
+
+  <!-- Simple Modal Manager -->
+  <SimpleModalInit client:idle />
+
+  <!-- Special Offers Components -->
+  <SpecialOffers />
+
+  <!-- Scroll Animations Handler -->
+  <ScrollAnimations client:idle once={true} offset={100} duration={800} />
+
+  <!-- Client Interactions Handler -->
+  <ClientInteractions client:idle />
+</Layout>
+
+<style>
+  /* Custom animations for restructuring theme */
+  @keyframes gradient-rotate-smooth {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 100% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    75% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+  .animate-gradient-rotate-smooth {
+    background-size: 300% 300%;
+    animation: gradient-rotate-smooth 25s ease infinite;
+  }
+</style>

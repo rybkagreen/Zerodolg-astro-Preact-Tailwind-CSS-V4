@@ -1,0 +1,279 @@
+---
+// OrganizationSchema.astro - Схема организации для всех страниц
+// Актуализированная версия на октябрь 2024
+
+export interface Props {
+  services?: 'bankruptcy' | 'restructuring' | 'both';
+  pageType?: 'homepage' | 'service' | 'blog';
+}
+
+const { services = 'both', pageType = 'homepage' } = Astro.props;
+
+// Базовая информация о компании
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: 'ZeroDolg - Банкротство и реструктуризация долгов',
+  description:
+    'Профессиональные услуги по банкротству физических лиц и реструктуризации долгов в Москве. 15 лет опыта, 98% успешных дел.',
+  url: 'https://zerodolg.ru',
+  logo: 'https://zerodolg.ru/icons/logo.svg',
+  image: 'https://zerodolg.ru/images/team/mashulia.webp',
+  telephone: '+7-905-577-33-87',
+  email: 'info@zerodolg.ru',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'ул. Минская',
+    addressLocality: 'Москва',
+    addressRegion: 'Москва',
+    postalCode: '119454',
+    addressCountry: 'RU',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '55.704061',
+    longitude: '37.508087',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '09:00',
+    closes: '21:00',
+  },
+  priceRange: '₽₽₽',
+  paymentAccepted: ['Cash', 'CreditCard', 'BankTransfer', 'Installments'],
+  currenciesAccepted: 'RUB',
+  areaServed: {
+    '@type': 'Place',
+    name: 'Москва и Московская область',
+  },
+};
+
+// Услуги в зависимости от типа страницы
+const servicesOffered = [];
+
+if (services === 'bankruptcy' || services === 'both') {
+  servicesOffered.push({
+    '@type': 'Service',
+    name: 'Банкротство физических лиц',
+    description: 'Полное списание долгов физических лиц через арбитражный суд за 4-6 месяцев',
+    url: 'https://zerodolg.ru',
+    offers: {
+      '@type': 'Offer',
+      price: '65000',
+      priceCurrency: 'RUB',
+      description: 'Банкротство под ключ с рассрочкой от 2700 руб/мес',
+    },
+  });
+}
+
+if (services === 'restructuring' || services === 'both') {
+  servicesOffered.push({
+    '@type': 'Service',
+    name: 'Реструктуризация долгов',
+    description: 'Изменение условий выплаты долгов с сохранением имущества на срок до 4 лет',
+    url: 'https://zerodolg.ru/restrukturizaciya-dolgov',
+    offers: {
+      '@type': 'Offer',
+      price: '89000',
+      priceCurrency: 'RUB',
+      description: 'Реструктуризация долгов под ключ с рассрочкой от 3700 руб/мес',
+    },
+  });
+}
+
+organizationSchema.hasOfferCatalog = {
+  '@type': 'OfferCatalog',
+  name: 'Услуги по решению долговых проблем',
+  itemListElement: servicesOffered,
+};
+
+// Отзывы и рейтинг
+organizationSchema.aggregateRating = {
+  '@type': 'AggregateRating',
+  ratingValue: '4.9',
+  reviewCount: '127',
+  bestRating: '5',
+  worstRating: '1',
+};
+
+// Персонал
+organizationSchema.employee = {
+  '@type': 'Person',
+  name: 'Масхулиа Леван Зурабович',
+  jobTitle: 'Арбитражный финансовый управляющий',
+  description:
+    'Опытный арбитражный управляющий с 15-летним стажем и 100% успешных дел по данным ЕФРСБ',
+  image: 'https://zerodolg.ru/images/team/mashulia.webp',
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'Арбитражный управляющий',
+    recognizedBy: {
+      '@type': 'Organization',
+      name: 'Ассоциация арбитражных управляющих саморегулируемая организация "Центральное агентство арбитражных управляющих"',
+    },
+  },
+};
+
+// Специфичная схема для страницы реструктуризации
+const restructuringPageSchema =
+  pageType === 'service' && services === 'restructuring'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Реструктуризация долгов физических лиц в Москве',
+        description:
+          'Реструктуризация долгов через арбитражный суд. Сохраните имущество, снизьте платежи. Успешность 61% в Москве. Рассрочка от 3700₽/мес.',
+        url: 'https://zerodolg.ru/restrukturizaciya-dolgov',
+        mainEntity: {
+          '@type': 'LegalService',
+          name: 'Реструктуризация долгов',
+          provider: organizationSchema,
+        },
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Главная',
+              item: 'https://zerodolg.ru',
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Реструктуризация долгов',
+              item: 'https://zerodolg.ru/restrukturizaciya-dolgov',
+            },
+          ],
+        },
+      }
+    : null;
+
+// FAQ Schema для страниц с часто задаваемыми вопросами
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Что лучше: банкротство или реструктуризация долгов?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Выбор зависит от вашей финансовой ситуации. Банкротство подходит при отсутствии стабильного дохода и долгах от 300 тыс ₽ - полное списание за 4-6 месяцев. Реструктуризация подходит при стабильном доходе от 45 тыс ₽ - сохранение имущества с льготными условиями выплаты до 4 лет.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Сколько стоит реструктуризация долгов в Москве?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Стоимость реструктуризации долгов под ключ составляет 89 000 ₽. Доступна рассрочка от 3 700 ₽/мес на 24 месяца. Первоначальный взнос 15 000 ₽. В стоимость включена подготовка документов, представительство в суде и сопровождение всей процедуры.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Какие долги можно реструктуризировать?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Можно реструктуризировать: кредиты банков (67%), займы МФО (18%), долги по ЖКХ (8%), налоговые долги (4%), долги по распискам и договорам. Не подлежат реструктуризации: алименты, возмещение вреда жизни и здоровью, субсидиарная ответственность.',
+      },
+    },
+  ],
+};
+---
+
+<!-- Основная схема организации -->
+<script type='application/ld+json' set:html={JSON.stringify(organizationSchema)} />
+
+<!-- Схема для страницы реструктуризации -->{
+  restructuringPageSchema && (
+    <script type='application/ld+json' set:html={JSON.stringify(restructuringPageSchema)} />
+  )
+}
+
+<!-- FAQ схема для релевантных страниц -->
+{
+  (pageType === 'homepage' || pageType === 'service') && (
+    <script type='application/ld+json' set:html={JSON.stringify(faqSchema)} />
+  )
+}
+
+<!-- WebSite схема для главной страницы -->
+{
+  pageType === 'homepage' && (
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'ZeroDolg',
+        url: 'https://zerodolg.ru',
+        description: 'Банкротство физических лиц и реструктуризация долгов в Москве',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://zerodolg.ru/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+        sameAs: [
+          'https://yandex.ru/profile/7922237253',
+          'https://www.google.com/maps/place/zerodolg',
+        ],
+      })}
+    />
+  )
+}
+
+<!-- Article схема для blog-статей -->
+{
+  pageType === 'blog' && (
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': Astro.url.href,
+        },
+        headline: 'Реструктуризация долгов vs банкротство: что выбрать должнику в 2024 году',
+        description:
+          'Подробное сравнение реструктуризации и банкротства физических лиц. Плюсы и минусы каждой процедуры, критерии выбора, расчеты и примеры.',
+        image: 'https://zerodolg.ru/images/blog/restructuring-vs-bankruptcy.webp',
+        author: {
+          '@type': 'Organization',
+          name: 'ZeroDolg',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'ZeroDolg',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://zerodolg.ru/icons/logo.svg',
+          },
+        },
+        datePublished: '2024-10-01',
+        dateModified: '2024-10-01',
+      })}
+    />
+  )
+}
+
+<!-- Local Business схема -->
+<script
+  type='application/ld+json'
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'ZeroDolg',
+    description: 'Юридические услуги по банкротству и реструктуризации долгов',
+    url: 'https://zerodolg.ru',
+    telephone: '+7-905-577-33-87',
+    address: organizationSchema.address,
+    geo: organizationSchema.geo,
+    openingHoursSpecification: organizationSchema.openingHoursSpecification,
+    aggregateRating: organizationSchema.aggregateRating,
+    priceRange: '₽₽₽',
+    paymentAccepted: organizationSchema.paymentAccepted,
+  })}
+/>

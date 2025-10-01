@@ -71,14 +71,21 @@ export const SITE_CONSTANTS = {
     fullPosition: 'Руководитель компании, Арбитражный финансовый управляющий',
     personalInn: '505014806562',
     experience: {
-      years: 12,
-      display: '12+ лет опыта',
+      years: 15,
+      display: '15+ лет опыта',
     },
     cases: {
-      count: 1000,
-      display: '1000+ успешных дел',
+      count: 100,
+      display: '100% успешных дел (по данным ЕФРСБ)',
+      successRate: '100%',
     },
     photo: '/images/team/mashulia.webp',
+    sro: {
+      name: 'Ассоциация арбитражных управляющих саморегулируемая организация "Центральное агентство арбитражных управляющих"',
+      shortName: 'Центральное агентство арбитражных управляющих',
+      url: 'https://old.bankrot.fedresurs.ru/SroCard.aspx?ID=08422e0b-4cc3-4c28-9e89-9ca52edb16d0',
+      registryTitle: 'Проверить в реестре Федресурс',
+    },
   },
 
   // === УСЛУГИ И ЦЕНЫ ===
@@ -112,10 +119,18 @@ export const SITE_CONSTANTS = {
         description: 'Внесудебное банкротство',
       },
       judicial: {
-        monthly: 5900,
-        display: 'от 5 900 ₽/мес',
+        total: 150000,
+        monthly: 25000,
+        display: '150 000 ₽',
+        monthlyDisplay: 'от 25 000 ₽/мес',
         description: 'Судебное банкротство',
-        installment: 'Рассрочка до 24 месяцев',
+        installment: 'Рассрочка до 6 месяцев',
+        promo: {
+          oldPrice: 200000,
+          newPrice: 150000,
+          discount: 25,
+          discountDisplay: '-25%',
+        },
       },
       consultation: {
         price: 0,
@@ -160,7 +175,7 @@ export const SITE_CONSTANTS = {
   // === SEO И МЕТА-ДАННЫЕ ===
   seo: {
     title:
-      '💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4-6 месяцев | ZeroDolg',
+      '💰 Банкротство физических лиц в Москве - Списание долгов от 150 000₽ за 4-6 месяцев | ZeroDolg',
     description:
       '⭐ 98% успешных дел в Москве! Законное списание долгов через банкротство физических лиц. ✅ Остановим проценты ✅ Защитим имущество ✅ Гарантия по договору. 🎯 Консультация БЕСПЛАТНО!',
     keywords:

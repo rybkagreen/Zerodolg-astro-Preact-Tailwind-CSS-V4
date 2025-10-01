@@ -202,14 +202,15 @@ const SpecialOfferBanner = (): VNode | null => {
         </button>
         <div class='offer-content compact'>
           <div class='offer-header-row'>
-            <span class='offer-badge-compact'>🔥 АКЦИЯ</span>
-            <span class='offer-title-compact'>Банкротство под ключ</span>
+            <span class='offer-title-compact'>
+              🔥 Банкротство «под ключ»: от заявления до списания долгов!
+            </span>
           </div>
           <div class='offer-price-row'>
-            <span class='old-price-compact'>220 000₽</span>
+            <span class='old-price-compact'>200 000₽</span>
             <span class='price-arrow'> → </span>
             <span class='new-price-compact'>150 000₽</span>
-            <span class='discount-compact'>-32%</span>
+            <span class='discount-compact'>-25%</span>
           </div>
           <div class='countdown-compact'>
             <CountdownTimer deadline='2025-12-31' />
