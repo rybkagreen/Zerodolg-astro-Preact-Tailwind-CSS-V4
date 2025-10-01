@@ -36,79 +36,116 @@ const HeaderEnhanced = (): null => {
 
   // Setup dropdowns
   const setupDropdowns = useCallback(() => {
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    const dropdownButtons = document.querySelectorAll('[data-dropdown]');
 
-    dropdowns.forEach((dropdown) => {
-      const dropdownId = dropdown.getAttribute('data-dropdown-id');
-      const toggle = dropdown.querySelector('.nav-dropdown-toggle') as HTMLButtonElement;
+    dropdownButtons.forEach((button) => {
+      const dropdownId = button.getAttribute('data-dropdown');
+      const dropdownMenu = document.querySelector(
+        `[data-dropdown-menu="${dropdownId}"]`
+      ) as HTMLElement;
 
-      if (toggle) {
+      if (button && dropdownMenu) {
+        // Update button state
+        button.setAttribute('aria-expanded', activeDropdown === dropdownId ? 'true' : 'false');
+
+        // Update menu visibility
+        if (activeDropdown === dropdownId) {
+          dropdownMenu.classList.remove('hidden');
+          dropdownMenu.classList.add('block');
+        } else {
+          dropdownMenu.classList.add('hidden');
+          dropdownMenu.classList.remove('block');
+        }
+
+        // Handle button clicks
         const handleClick = (e: Event) => {
           e.preventDefault();
-          setActiveDropdown(dropdownId === activeDropdown ? null : dropdownId);
+          setActiveDropdown(activeDropdown === dropdownId ? null : dropdownId);
         };
 
-        toggle.removeEventListener('click', handleClick); // Remove previous listener
-        toggle.addEventListener('click', handleClick);
+        button.removeEventListener('click', handleClick);
+        button.addEventListener('click', handleClick);
       }
 
       // Handle clicks on dropdown menu links
-      const dropdownLinks = dropdown.querySelectorAll('.nav-dropdown-menu a');
-      dropdownLinks.forEach((link) => {
-        const handleClick = (e: Event) => {
-          const href = link.getAttribute('href');
+      if (dropdownMenu) {
+        const dropdownLinks = dropdownMenu.querySelectorAll('a');
+        dropdownLinks.forEach((link) => {
+          const handleClick = (e: Event) => {
+            const href = link.getAttribute('href');
 
-          // Close dropdown with a small delay
-          setTimeout(() => setActiveDropdown(null), 100);
+            // Close dropdown with a small delay
+            setTimeout(() => setActiveDropdown(null), 100);
 
-          // Handle anchor links
-          if (href && href.startsWith('#')) {
-            e.preventDefault();
+            // Handle anchor links (both #section and /#section)
+            if (href) {
+              const isHashLink = href.startsWith('#');
+              const isHomeHashLink = href.startsWith('/#');
 
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
+              if (isHashLink) {
+                // If we're already on the home page, use smooth scroll
+                const currentPath = window.location.pathname;
+                if (currentPath === '/' || currentPath === '') {
+                  e.preventDefault();
 
-            if (targetElement) {
-              const header = document.querySelector('.header-redesign');
-              const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
-              const offset = 20; // Additional offset
+                  const targetId = href.substring(1);
+                  const targetElement = document.getElementById(targetId);
 
-              const elementPosition = targetElement.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
+                  if (targetElement) {
+                    const header = document.querySelector('#main-header, .header-redesign');
+                    const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
+                    const offset = 20; // Additional offset
 
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth',
-              });
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition =
+                      elementPosition + window.pageYOffset - headerHeight - offset;
 
-              // Update URL without reloading
-              history.pushState(null, '', href);
-            } else {
-              // If element not found, try to find it by query selector
-              const targetElementBySelector = document.querySelector(href);
-              if (targetElementBySelector) {
-                const header = document.querySelector('.header-redesign');
-                const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
-                const offset = 20; // Additional offset
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth',
+                    });
 
-                const elementPosition = targetElementBySelector.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerHeight - offset;
+                    // Update URL without reloading
+                    history.pushState(null, '', href);
+                  }
+                }
+              } else if (isHomeHashLink) {
+                // Navigate to home page with hash
+                const currentPath = window.location.pathname;
+                if (currentPath === '/' || currentPath === '') {
+                  // Already on home page, just scroll
+                  e.preventDefault();
 
-                window.scrollTo({
-                  top: offsetPosition,
-                  behavior: 'smooth',
-                });
+                  const targetId = href.substring(2); // Remove /#
+                  const targetElement = document.getElementById(targetId);
 
-                // Update URL without reloading
-                history.pushState(null, '', href);
+                  if (targetElement) {
+                    const header = document.querySelector('#main-header, .header-redesign');
+                    const headerHeight = header ? (header as HTMLElement).offsetHeight : 72;
+                    const offset = 20;
+
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition =
+                      elementPosition + window.pageYOffset - headerHeight - offset;
+
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth',
+                    });
+
+                    // Update URL
+                    history.pushState(null, '', href);
+                  }
+                }
+                // Otherwise, let the browser navigate normally
               }
             }
-          }
-        };
+          };
 
-        link.removeEventListener('click', handleClick); // Remove previous listener
-        link.addEventListener('click', handleClick);
-      });
+          link.removeEventListener('click', handleClick);
+          link.addEventListener('click', handleClick);
+        });
+      }
     });
   }, [activeDropdown]);
 
@@ -116,26 +153,46 @@ const HeaderEnhanced = (): null => {
   const setupMobileMenu = useCallback(() => {
     const mobileToggle = document.querySelector('[data-mobile-toggle]') as HTMLButtonElement;
     const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.querySelector('[data-mobile-menu-overlay]') as HTMLElement;
+    const mobileMenuClose = document.querySelector('[data-mobile-menu-close]') as HTMLButtonElement;
 
     if (!mobileToggle || !mobileMenu) return;
 
     const toggleMenu = () => {
-      const isOpen = mobileMenu.getAttribute('data-open') === 'true';
-      setIsMobileMenuOpen(!isOpen);
+      setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    // Remove existing listeners
     mobileToggle.removeEventListener('click', toggleMenu);
     mobileToggle.addEventListener('click', toggleMenu);
 
-    // Update attributes based on state
-    mobileMenu.setAttribute('data-open', isMobileMenuOpen ? 'true' : 'false');
-    mobileMenu.setAttribute('aria-hidden', isMobileMenuOpen ? 'false' : 'true');
-
-    document.body.classList.toggle('menu-open', isMobileMenuOpen);
-
-    if (mobileToggle) {
-      mobileToggle.setAttribute('aria-expanded', isMobileMenuOpen ? 'true' : 'false');
+    // Close menu handlers
+    if (mobileMenuOverlay) {
+      const handleOverlayClick = () => setIsMobileMenuOpen(false);
+      mobileMenuOverlay.removeEventListener('click', handleOverlayClick);
+      mobileMenuOverlay.addEventListener('click', handleOverlayClick);
     }
+
+    if (mobileMenuClose) {
+      const handleCloseClick = () => setIsMobileMenuOpen(false);
+      mobileMenuClose.removeEventListener('click', handleCloseClick);
+      mobileMenuClose.addEventListener('click', handleCloseClick);
+    }
+
+    // Update DOM based on state
+    if (isMobileMenuOpen) {
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('mobile-menu-open');
+      document.body.classList.add('menu-open');
+    } else {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('mobile-menu-open');
+      document.body.classList.remove('menu-open');
+    }
+
+    // Update ARIA attributes
+    mobileMenu.setAttribute('aria-hidden', isMobileMenuOpen ? 'false' : 'true');
+    mobileToggle.setAttribute('aria-expanded', isMobileMenuOpen ? 'true' : 'false');
 
     // Close mobile menu on link click
     const mobileLinks = mobileMenu.querySelectorAll('[data-mobile-link]');
@@ -151,7 +208,7 @@ const HeaderEnhanced = (): null => {
 
   // Setup smooth scroll
   const setupSmoothScroll = useCallback(() => {
-    const anchors = document.querySelectorAll('a[href^=\"#\"]');
+    const anchors = document.querySelectorAll('a[href^="#"]');
     anchors.forEach((anchor) => {
       const handleClick = (e: Event) => {
         const href = anchor.getAttribute('href');
@@ -200,7 +257,11 @@ const HeaderEnhanced = (): null => {
 
   const handleClickOutside = useCallback((e: Event) => {
     const target = e.target as HTMLElement;
-    if (!target.closest('.nav-dropdown') && !target.closest('.mobile-menu')) {
+    if (
+      !target.closest('[data-dropdown]') &&
+      !target.closest('[data-dropdown-menu]') &&
+      !target.closest('#mobile-menu')
+    ) {
       setActiveDropdown(null);
     }
   }, []);
@@ -232,43 +293,35 @@ const HeaderEnhanced = (): null => {
     window.removeEventListener('scroll', throttledScrollHandler);
     window.addEventListener('scroll', throttledScrollHandler);
 
-    // Handle consultation buttons
-    const consultationBtns = document.querySelectorAll(
-      '[data-modal="consultation"], [data-modal="callback"]'
-    );
-    consultationBtns.forEach((btn) => {
-      const handleClick = () => {
-        console.log('Opening consultation modal');
-      };
-
-      btn.removeEventListener('click', handleClick);
-      btn.addEventListener('click', handleClick);
-    });
-
     // Setup desktop hover behavior when applicable
     if (isDesktop) {
-      const dropdowns = document.querySelectorAll('.nav-dropdown');
-      dropdowns.forEach((dropdown) => {
-        const handleMouseEnter = () => {
-          const dropdownId = dropdown.getAttribute('data-dropdown-id');
-          setActiveDropdown(dropdownId);
-        };
+      const dropdownContainers = document.querySelectorAll('li.group');
+      dropdownContainers.forEach((container) => {
+        const button = container.querySelector('[data-dropdown]');
+        const menu = container.querySelector('[data-dropdown-menu]');
 
-        const handleMouseLeave = () => {
-          // Add small timeout to allow for quick navigation between items
-          setTimeout(() => {
-            const newHovered = document.querySelectorAll('.nav-dropdown:hover');
-            if (newHovered.length === 0) {
-              setActiveDropdown(null);
-            }
-          }, 200);
-        };
+        if (button && menu) {
+          const dropdownId = button.getAttribute('data-dropdown');
 
-        dropdown.removeEventListener('mouseenter', handleMouseEnter);
-        dropdown.removeEventListener('mouseleave', handleMouseLeave);
+          const handleMouseEnter = () => {
+            setActiveDropdown(dropdownId);
+          };
 
-        dropdown.addEventListener('mouseenter', handleMouseEnter);
-        dropdown.addEventListener('mouseleave', handleMouseLeave);
+          const handleMouseLeave = () => {
+            // Add small timeout to allow for quick navigation between items
+            setTimeout(() => {
+              if (!container.matches(':hover')) {
+                setActiveDropdown(null);
+              }
+            }, 150);
+          };
+
+          container.removeEventListener('mouseenter', handleMouseEnter);
+          container.removeEventListener('mouseleave', handleMouseLeave);
+
+          container.addEventListener('mouseenter', handleMouseEnter);
+          container.addEventListener('mouseleave', handleMouseLeave);
+        }
       });
     }
 
@@ -289,35 +342,6 @@ const HeaderEnhanced = (): null => {
     handleClickOutside,
     handleKeyDown,
   ]);
-
-  // Effect to handle dropdown state changes
-  useEffect(() => {
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-    dropdowns.forEach((dropdown) => {
-      const dropdownId = dropdown.getAttribute('data-dropdown-id');
-      const menu = dropdown.querySelector('.nav-dropdown-menu') as HTMLElement;
-
-      if (menu) {
-        if (dropdownId === activeDropdown) {
-          menu.style.display = 'block';
-          setTimeout(() => {
-            menu.style.opacity = '1';
-            menu.style.visibility = 'visible';
-            menu.style.pointerEvents = 'auto';
-          }, 10);
-        } else {
-          menu.style.opacity = '0';
-          menu.style.visibility = 'hidden';
-          menu.style.pointerEvents = 'none';
-          setTimeout(() => {
-            if (dropdownId !== activeDropdown) {
-              menu.style.display = 'none';
-            }
-          }, 300);
-        }
-      }
-    });
-  }, [activeDropdown]);
 
   // Don't render anything on the server
   if (!isClient) {
