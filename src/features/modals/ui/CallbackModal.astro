@@ -14,85 +14,14 @@ const { modalId = 'callback-modal' } = Astro.props;
   title='Заказать обратный звонок'
   subtitle='Оставьте свой номер телефона, и наш специалист свяжется с вами в течение 15 минут'
 >
-  <BaseForm formId='callback' formType='callback'>
-    <div class='form__group'>
-      <label class='form__label' for='callback-name'>
-        Ваше имя <span class='form__required'>*</span>
-      </label>
-      <input
-        type='text'
-        class='form__input'
-        id='callback-name'
-        name='name'
-        placeholder='Введите ваше имя'
-        required
-        autocomplete='name'
-      />
-      <span class='form__error' data-error='name'></span>
-    </div>
-
-    <div class='form__group'>
-      <label class='form__label' for='callback-phone'>
-        Телефон <span class='form__required'>*</span>
-      </label>
-      <input
-        type='tel'
-        class='form__input'
-        id='callback-phone'
-        name='phone'
-        placeholder='+7 (___) ___-__-__'
-        data-mask='phone'
-        required
-        autocomplete='tel'
-      />
-      <span class='form__error' data-error='phone'></span>
-    </div>
-
-    <div class='form__group'>
-      <label class='form__label' for='callback-time'> Удобное время для звонка </label>
-      <select class='form__select' id='callback-time' name='time' autocomplete='off'>
-        <option value=''>Любое время</option>
-        <option value='9-12'>С 9:00 до 12:00</option>
-        <option value='12-15'>С 12:00 до 15:00</option>
-        <option value='15-18'>С 15:00 до 18:00</option>
-        <option value='18-21'>С 18:00 до 21:00</option>
-      </select>
-    </div>
-
-    <div class='form__group'>
-      <label class='form__label' for='callback-message'> Комментарий </label>
-      <textarea
-        class='form__textarea'
-        id='callback-message'
-        name='message'
-        placeholder='Кратко опишите вашу ситуацию'
-        rows='3'
-        autocomplete='off'></textarea>
-    </div>
-
-    <div class='form__group'>
-      <label class='form__checkbox' for='callback-agreement'>
-        <input type='checkbox' id='callback-agreement' name='agreement' required />
-        <span class='form__checkbox-text'>
-          Я согласен на обработку
-          <a href='/privacy' target='_blank'>персональных данных</a>
-        </span>
-      </label>
-      <span class='form__error' data-error='agreement'></span>
-    </div>
-
-    <button type='submit' class='btn btn--primary btn--block form__submit'>
-      <span class='btn__text'>Заказать звонок</span>
-      <span class='btn__loader'>
-        <svg class='spinner' viewBox='0 0 50 50' aria-label='Загрузка' role='status'>
-          <circle cx='25' cy='25' r='20' fill='none' stroke-width='5'></circle>
-        </svg>
-      </span>
-    </button>
-
-    <p class='form__note'>
-      Нажимая кнопку, вы соглашаетесь с
-      <a href='/terms' target='_blank'>условиями обработки данных</a>
-    </p>
-  </BaseForm>
+  <BaseForm
+    formId='callback'
+    formType='callback'
+    showNameField={true}
+    showPhoneField={true}
+    showEmailField={false}
+    showDebtField={false}
+    submitText='Заказать звонок'
+    variant='stacked'
+  />
 </Modal>

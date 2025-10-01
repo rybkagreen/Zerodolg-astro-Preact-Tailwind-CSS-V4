@@ -1,10 +1,11 @@
 import { useState, useCallback, useMemo, useRef, useEffect } from 'preact/hooks';
 import { z } from 'zod';
-import type { JSX, VNode } from 'preact';
+import type { JSX, VNode, FunctionComponent } from 'preact';
 import { useDebounce } from '../../shared/hooks/useDebounce';
 import { useIntersectionObserver } from '../../shared/hooks/useIntersectionObserver';
 import { usePerformanceMonitor } from '../../shared/hooks/usePerformanceMonitor';
 import { type FormField, type FormConfig } from '../../shared/types/form';
+import { analytics } from '../../shared/lib/analytics-manager';
 
 // Form validation schemas using Zod
 const createFieldSchema = (field: FormField) => {
@@ -177,8 +178,8 @@ const SuccessCheckmark = (): JSX.Element => (
   </div>
 );
 
-// Main Enhanced Form Component
-export default function FormEnhancedFinal({
+// Main Enhanced Form Component - явно типизирован как FunctionComponent
+const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
   config,
   onSuccess,
   onError,
@@ -188,7 +189,7 @@ export default function FormEnhancedFinal({
   submitOnEnter = false,
   enableProgressiveEnhancement = true,
   enableFieldValidationHighlight = true,
-}: EnhancedFormProps): JSX.Element {
+}) => {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
@@ -427,11 +428,48 @@ export default function FormEnhancedFinal({
           localStorage.removeItem(`form-draft-${config.formId}`);
         }
 
-        // Track success
-        if (enableAnalytics) {
-          trackEvent('form_submit_success', {
-            form_id: config.formId,
+        // Track conversion with value (CRITICAL: This is where we track the lead!)
+        if (enableAnalytics && result.analytics) {
+          // Подготавливаем данные пользователя для Enhanced Conversions
+          const userData = {
+            email: formData.email,
+            phone: formData.phone || formData.tel,
+            firstName: formData.name || formData.firstName,
+            lastName: formData.lastName,
+            city: formData.city,
+            country: 'RU', // По умолчанию Россия для этого проекта
+          };
+
+          // Используем новый Analytics Manager для отслеживания конверсии
+          analytics.trackConversion({
+            transaction_id: result.analytics.transaction_id,
+            value: result.analytics.value,
+            currency: result.analytics.currency || 'RUB',
+            form_type: result.analytics.form_type,
+            lead_id: result.leadId,
+            user_data: userData, // Передаём данные пользователя для Enhanced Conversions
+          });
+        } else if (enableAnalytics) {
+          // Fallback: если сервер не вернул analytics, используем стандартные значения
+          const leadValue = analytics.getServiceValue(config.formType);
+
+          // Подготавливаем данные пользователя
+          const userData = {
+            email: formData.email,
+            phone: formData.phone || formData.tel,
+            firstName: formData.name || formData.firstName,
+            lastName: formData.lastName,
+            city: formData.city,
+            country: 'RU',
+          };
+
+          analytics.trackConversion({
+            transaction_id: result.leadId || `lead_${Date.now()}`,
+            value: leadValue,
+            currency: 'RUB',
             form_type: config.formType,
+            lead_id: result.leadId,
+            user_data: userData, // Передаём данные пользователя для Enhanced Conversions
           });
         }
 
@@ -547,6 +585,7 @@ export default function FormEnhancedFinal({
                     aria-describedby={errors[field.name] ? `${field.name}-error` : undefined}
                     class={getFieldClass(field.name)}
                     rows={4}
+                    autocomplete={field.autocomplete ?? 'off'}
                   />
                 ) : (
                   <input
@@ -644,7 +683,10 @@ export default function FormEnhancedFinal({
       </div>
     </FormErrorBoundary>
   );
-}
+};
+
+// Экспортируем компонент
+export default FormEnhancedFinal;
 
 // Analytics tracking helper
 function trackEvent(eventName: string, eventData: Record<string, any>) {
