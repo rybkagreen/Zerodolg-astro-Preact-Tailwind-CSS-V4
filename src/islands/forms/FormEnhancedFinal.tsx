@@ -432,11 +432,11 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
         if (enableAnalytics && result.analytics) {
           // Подготавливаем данные пользователя для Enhanced Conversions
           const userData = {
-            email: formData.email,
-            phone: formData.phone || formData.tel,
-            firstName: formData.name || formData.firstName,
-            lastName: formData.lastName,
-            city: formData.city,
+            email: formData['email'] ?? '',
+            phone: formData['phone'] ?? formData['tel'] ?? '',
+            firstName: formData['name'] ?? formData['firstName'] ?? '',
+            lastName: formData['lastName'] ?? '',
+            city: formData['city'] ?? '',
             country: 'RU', // По умолчанию Россия для этого проекта
           };
 
@@ -455,11 +455,11 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
 
           // Подготавливаем данные пользователя
           const userData = {
-            email: formData.email,
-            phone: formData.phone || formData.tel,
-            firstName: formData.name || formData.firstName,
-            lastName: formData.lastName,
-            city: formData.city,
+            email: formData['email'] ?? '',
+            phone: formData['phone'] ?? formData['tel'] ?? '',
+            firstName: formData['name'] ?? formData['firstName'] ?? '',
+            lastName: formData['lastName'] ?? '',
+            city: formData['city'] ?? '',
             country: 'RU',
           };
 
@@ -505,7 +505,7 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
           onError(errorObj);
         }
 
-        console.error('Form submission error:', errorObj);
+        // Error logged via analytics tracking above
       } finally {
         setIsSubmitting(false);
       }

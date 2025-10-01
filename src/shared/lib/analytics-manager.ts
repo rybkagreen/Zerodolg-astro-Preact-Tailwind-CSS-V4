@@ -63,7 +63,8 @@ export class AnalyticsManager {
     // Проверяем поддержку Enhanced Conversions
     this.enhancedConversionsEnabled = isWebCryptoSupported() && isSecureContext();
 
-    if (!this.enhancedConversionsEnabled) {
+    if (!this.enhancedConversionsEnabled && import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
       console.warn(
         'Enhanced Conversions disabled: Web Crypto API not supported or not in secure context'
       );
@@ -94,7 +95,8 @@ export class AnalyticsManager {
    * Логирование в режиме разработки
    */
   private log(message: string, data?: unknown): void {
-    if (import.meta.env.DEV) {
+    if (import.meta.env.DEV && typeof console !== 'undefined') {
+      // eslint-disable-next-line no-console
       console.log(`[Analytics] ${message}`, data || '');
     }
   }
@@ -140,14 +142,17 @@ export class AnalyticsManager {
 
       // Добавляем user_data для Enhanced Conversions
       if (userData && this.enhancedConversionsEnabled) {
-        eventParams.user_data = userData;
+        eventParams['user_data'] = userData;
         this.log('Enhanced Conversion data included', userData);
       }
 
       window.gtag('event', eventName, eventParams);
       this.log(`GA4 Event: ${eventName}`, params);
     } catch (error) {
-      console.error('GA4 tracking error:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('GA4 tracking error:', error);
+      }
     }
   }
 
@@ -167,7 +172,10 @@ export class AnalyticsManager {
         this.log(`YM Goal: ${goalName}`, params);
       }
     } catch (error) {
-      console.error('Yandex Metrika tracking error:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Yandex Metrika tracking error:', error);
+      }
     }
   }
 
@@ -187,7 +195,10 @@ export class AnalyticsManager {
       });
       this.log(`DataLayer: ${eventName}`, params);
     } catch (error) {
-      console.error('DataLayer push error:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('DataLayer push error:', error);
+      }
     }
   }
 
@@ -203,7 +214,7 @@ export class AnalyticsManager {
     }
 
     // Проверка на дубликат (только для важных событий)
-    if (params.prevent_duplicate) {
+    if (params['prevent_duplicate']) {
       const eventId = `${eventName}_${JSON.stringify(params)}`;
       if (this.isDuplicate(eventId)) {
         this.log(`Duplicate event prevented: ${eventName}`);
@@ -239,7 +250,10 @@ export class AnalyticsManager {
         hashedUserData = await hashUserData(user_data);
         this.log('User data hashed for Enhanced Conversions');
       } catch (error) {
-        console.error('Error hashing user data:', error);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.error('Error hashing user data:', error);
+        }
       }
     }
 
@@ -350,7 +364,10 @@ export class AnalyticsManager {
    * Получить стоимость услуги
    */
   getServiceValue(formType: string): number {
-    return SERVICE_VALUES[formType] || SERVICE_VALUES.general;
+    const value = SERVICE_VALUES[formType];
+    const defaultValue = SERVICE_VALUES['general'];
+    // Гарантируем возврат числа, используя константу по умолчанию
+    return value !== undefined ? value : defaultValue !== undefined ? defaultValue : 10000;
   }
 
   /**

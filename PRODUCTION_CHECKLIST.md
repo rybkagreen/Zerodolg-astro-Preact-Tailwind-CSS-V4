@@ -351,15 +351,15 @@ npm run deploy:verify           # Post-build verification
 
 ## ✅ Sign-Off
 
-**Prepared by**: ********\_********  
-**Date**: ********\_********
+**Prepared by**: **\*\*\*\***\_**\*\*\*\***  
+**Date**: **\*\*\*\***\_**\*\*\*\***
 
-**Reviewed by**: ********\_********  
-**Date**: ********\_********
+**Reviewed by**: **\*\*\*\***\_**\*\*\*\***  
+**Date**: **\*\*\*\***\_**\*\*\*\***
 
 **Approved for deployment**: ☐ Yes ☐ No
 
-**Deployment Date/Time**: ********\_********
+**Deployment Date/Time**: **\*\*\*\***\_**\*\*\*\***
 
 ---
 
