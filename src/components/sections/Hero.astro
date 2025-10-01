@@ -10,7 +10,7 @@ export interface Props {
 
 const {
   title = 'От долгов — к свободе всего один шаг!',
-  subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой опытных юристов проведут вашу процедуру банкротства.',
+  _subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой опытных юристов проведут вашу процедуру банкротства.',
 } = Astro.props;
 
 // Получаем актуальные данные из констант
@@ -196,7 +196,7 @@ const promo = getPromoInfo();
             <h3 class='text-xl font-bold text-white mb-2'>
               {SITE_CONSTANTS.promo.consultation.description}
             </h3>
-            <p class='text-gray-300 mb-4'>Оставьте заявку и мы свяжемся с вами в течение 5 минут</p>
+            <p class='text-gray-300 mb-4'>Оставьте заявку и мы свяжемся с вами в течение 2 минут</p>
 
             <p class='text-orange-300/70 text-sm'>{promo.availability}</p>
           </div>

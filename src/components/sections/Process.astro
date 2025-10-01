@@ -116,7 +116,7 @@ const processData = {
 
   <!-- Background pattern -->
   <div
-    class='absolute inset-0 opacity-30 mix-blend-multiply'
+    class='absolute inset-0 opacity-25'
     style='background-image: url("/patterns/process-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
   >
   </div>
@@ -145,10 +145,12 @@ const processData = {
     <!-- Интерактивный компонент процесса -->
     <ProcessInteractive client:load processData={processData} />
   </div>
-
-  <!-- Разделитель для плавного перехода к следующей секции -->
-  <SectionDivider type='slash' position='bottom' height='45px' color='white' opacity={0.75} />
 </section>
+
+<!-- Разделитель для плавного перехода к следующей секции -->
+<div class='relative'>
+  <SectionDivider type='slash' position='bottom' height='45px' color='white' opacity={0.75} />
+</div>
 
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='process' />
@@ -231,37 +233,9 @@ const processData = {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
   }
 
-  /* Progress bar animation */
-  #process-progress-bar {
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite linear;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
-  /* CTA section animations */
-  #process-cta-section {
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #process-cta-section.show {
-    opacity: 1;
-    height: auto;
-    transform: translateY(0);
-  }
-
   /* Button ripple effect */
   .process-nav-btn,
-  .process-progress-dot,
-  #process-prev-btn,
-  #process-next-btn {
+  .process-progress-dot {
     position: relative;
     overflow: hidden;
   }
@@ -317,16 +291,13 @@ const processData = {
   }
 
   /* Hover glow effects */
-  .process-nav-btn:hover,
-  #process-next-btn:hover {
+  .process-nav-btn:hover {
     box-shadow: 0 0 30px -10px currentColor;
   }
 
   /* Smooth focus states */
   .process-nav-btn:focus,
-  .process-progress-dot:focus,
-  #process-prev-btn:focus,
-  #process-next-btn:focus {
+  .process-progress-dot:focus {
     outline: 2px solid rgba(59, 130, 246, 0.5);
     outline-offset: 2px;
   }
@@ -336,9 +307,7 @@ const processData = {
     .process-card,
     .process-step-content,
     .process-nav-btn,
-    .process-progress-dot,
-    #process-progress-bar,
-    #process-cta-section {
+    .process-progress-dot {
       animation: none;
       transition: none;
     }

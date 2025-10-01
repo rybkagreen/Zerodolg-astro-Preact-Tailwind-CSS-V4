@@ -67,8 +67,8 @@ const solutionData = {
 
   <!-- Watercolor background pattern -->
   <div
-    class='absolute inset-0 opacity-20 mix-blend-multiply'
-    style="background-image: url('/patterns/solutions-pattern.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+    class='absolute inset-0 opacity-25'
+    style="background-image: url('/patterns/comparison-pattern-v1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
   >
   </div>
 
@@ -109,7 +109,7 @@ const solutionData = {
     <div class='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16'>
       <!-- Банкротство Card -->
       <article
-        class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-lg hover:shadow-xl transition-all duration-500 p-8 hover:scale-[1.02] hover:-translate-y-2'
+        class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-lg hover:shadow-xl transition-all duration-500 p-8 hover:scale-[1.02] hover:-translate-y-2 flex flex-col h-full'
         role='region'
         aria-labelledby='bankruptcy-title'
       >
@@ -120,12 +120,12 @@ const solutionData = {
 
         <!-- Популярный выбор badge -->
         <span
-          class='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg'
+          class='absolute top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg z-20'
         >
           Популярный выбор
         </span>
 
-        <div class='relative z-10 pt-4'>
+        <div class='relative z-10 pt-4 flex flex-col flex-grow'>
           <!-- Icon -->
           <div
             class:list={`w-16 h-16 rounded-xl bg-gradient-to-br ${solutionData.bankruptcy.gradient} p-4 mb-6 group-hover:scale-110 transition-all duration-500`}
@@ -146,15 +146,17 @@ const solutionData = {
           </div>
 
           <!-- Header -->
-          <h3 id='bankruptcy-title' class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
-            {solutionData.bankruptcy.title}
-          </h3>
-          <p class='text-slate-600 mb-6 text-lg leading-relaxed'>
-            {solutionData.bankruptcy.subtitle}
-          </p>
+          <div class='mb-6'>
+            <h3 id='bankruptcy-title' class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
+              {solutionData.bankruptcy.title}
+            </h3>
+            <p class='text-slate-600 text-lg leading-relaxed min-h-[3.5rem] flex items-center'>
+              {solutionData.bankruptcy.subtitle}
+            </p>
+          </div>
 
           <!-- Pricing -->
-          <div class='bg-blue-50 rounded-lg p-4 mb-6'>
+          <div class='bg-blue-50 rounded-lg p-4 mb-6 h-20 flex flex-col justify-center'>
             <div class='text-3xl font-bold text-blue-600 mb-1'>
               {solutionData.bankruptcy.price}
             </div>
@@ -166,7 +168,7 @@ const solutionData = {
           </div>
 
           <!-- Stats -->
-          <div class='flex justify-between text-center mb-6'>
+          <div class='flex justify-between text-center mb-6 h-16 items-center'>
             <div>
               <div class='text-2xl font-bold text-green-600'>
                 {solutionData.bankruptcy.successRate}
@@ -207,21 +209,28 @@ const solutionData = {
             }
           </div>
 
-          <!-- Suitable for -->
-          <div class='bg-blue-50 rounded-lg p-4 mb-6'>
-            <p class='text-sm text-blue-800'>
-              <span class='font-bold'>Подходит:</span>
-              {solutionData.bankruptcy.suitable}
-            </p>
+          <!-- Content Area (flexible) -->
+          <div class='flex-grow'>
+            <!-- Suitable for -->
+            <div class='bg-blue-50 rounded-lg p-4 mb-6'>
+              <p class='text-sm text-blue-800'>
+                <span class='font-bold'>Подходит:</span>
+                {solutionData.bankruptcy.suitable}
+              </p>
+            </div>
           </div>
 
-          <!-- CTA Button -->
-          <button
-            class='w-full btn-primary group-hover:bg-blue-700 transition-colors duration-300'
-            data-modal='consultation'
-          >
-            Консультация по банкротству
-          </button>
+          <!-- CTA Button Area (fixed at bottom) -->
+          <div class='mt-auto space-y-3'>
+            <button
+              class='w-full btn-primary group-hover:bg-blue-700 transition-colors duration-300'
+              data-modal='consultation'
+            >
+              Консультация по банкротству
+            </button>
+            <!-- Placeholder для выравнивания с реструктуризацией -->
+            <div class='h-8'></div>
+          </div>
         </div>
 
         <!-- Hover background -->
@@ -233,7 +242,7 @@ const solutionData = {
 
       <!-- Реструктуризация Card -->
       <article
-        class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-lg hover:shadow-xl transition-all duration-500 p-8 hover:scale-[1.02] hover:-translate-y-2'
+        class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-lg hover:shadow-xl transition-all duration-500 p-8 hover:scale-[1.02] hover:-translate-y-2 flex flex-col h-full'
         role='region'
         aria-labelledby='restructuring-title'
       >
@@ -242,7 +251,14 @@ const solutionData = {
         >
         </div>
 
-        <div class='relative z-10'>
+        <!-- Invisible placeholder badge for alignment -->
+        <div
+          class='invisible absolute top-3 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg'
+        >
+          Placeholder
+        </div>
+
+        <div class='relative z-10 pt-4 flex flex-col flex-grow'>
           <!-- Icon -->
           <div
             class:list={`w-16 h-16 rounded-xl bg-gradient-to-br ${solutionData.restructuring.gradient} p-4 mb-6 group-hover:scale-110 transition-all duration-500`}
@@ -263,15 +279,17 @@ const solutionData = {
           </div>
 
           <!-- Header -->
-          <h3 id='restructuring-title' class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
-            {solutionData.restructuring.title}
-          </h3>
-          <p class='text-slate-600 mb-6 text-lg leading-relaxed'>
-            {solutionData.restructuring.subtitle}
-          </p>
+          <div class='mb-6'>
+            <h3 id='restructuring-title' class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
+              {solutionData.restructuring.title}
+            </h3>
+            <p class='text-slate-600 text-lg leading-relaxed min-h-[3.5rem] flex items-center'>
+              {solutionData.restructuring.subtitle}
+            </p>
+          </div>
 
           <!-- Pricing -->
-          <div class='bg-emerald-50 rounded-lg p-4 mb-6'>
+          <div class='bg-emerald-50 rounded-lg p-4 mb-6 h-20 flex flex-col justify-center'>
             <div class='text-3xl font-bold text-emerald-600 mb-1'>
               {solutionData.restructuring.price}
             </div>
@@ -283,7 +301,7 @@ const solutionData = {
           </div>
 
           <!-- Stats -->
-          <div class='flex justify-between text-center mb-6'>
+          <div class='flex justify-between text-center mb-6 h-16 items-center'>
             <div>
               <div class='text-2xl font-bold text-green-600'>
                 {solutionData.restructuring.successRate}
@@ -324,16 +342,19 @@ const solutionData = {
             }
           </div>
 
-          <!-- Suitable for -->
-          <div class='bg-emerald-50 rounded-lg p-4 mb-6'>
-            <p class='text-sm text-emerald-800'>
-              <span class='font-bold'>Подходит:</span>
-              {solutionData.restructuring.suitable}
-            </p>
+          <!-- Content Area (flexible) -->
+          <div class='flex-grow'>
+            <!-- Suitable for -->
+            <div class='bg-emerald-50 rounded-lg p-4 mb-6'>
+              <p class='text-sm text-emerald-800'>
+                <span class='font-bold'>Подходит:</span>
+                {solutionData.restructuring.suitable}
+              </p>
+            </div>
           </div>
 
-          <!-- CTA Button -->
-          <div class='space-y-3'>
+          <!-- CTA Button Area (fixed at bottom) -->
+          <div class='mt-auto space-y-3'>
             <button
               class='w-full btn-secondary group-hover:bg-emerald-700 transition-colors duration-300'
               data-modal='consultation'
@@ -486,10 +507,12 @@ const solutionData = {
       </div>
     </div>
   </div>
-
-  <!-- Разделитель для плавного перехода к следующей секции -->
-  <SectionDivider type='wave' position='bottom' height='60px' color='white' opacity={0.9} />
 </section>
+
+<!-- Разделитель для плавного перехода к следующей секции -->
+<div class='relative'>
+  <SectionDivider type='wave' position='bottom' height='60px' color='white' opacity={0.9} />
+</div>
 
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='solution-choice' />

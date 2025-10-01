@@ -75,9 +75,10 @@ export const SITE_CONSTANTS = {
       display: '15+ лет опыта',
     },
     cases: {
-      count: 100,
-      display: '100% успешных дел (по данным ЕФРСБ)',
+      count: 1000,
+      display: '1000+ успешных дел (по данным ЕФРСБ)',
       successRate: '100%',
+      countDisplay: '1000+',
     },
     photo: '/images/team/mashulia.webp',
     sro: {

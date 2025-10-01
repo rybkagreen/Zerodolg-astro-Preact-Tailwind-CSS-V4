@@ -59,7 +59,7 @@ const problemsData = [
 
   <!-- Watercolor background pattern for Problems section only -->
   <div
-    class='absolute inset-0 opacity-30 mix-blend-multiply'
+    class='absolute inset-0 opacity-25'
     style='background-image: url("/patterns/problems-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
   >
   </div>
@@ -174,11 +174,12 @@ const problemsData = [
       }
     </div>
   </div>
-
-  <!-- Разделитель для плавного перехода к следующей секции -->
-  <SectionDivider type='wave' position='bottom' height='60px' color='white' opacity={0.9} />
 </section>
 
+<!-- Разделитель для плавного перехода к следующей секции -->
+<div class='relative'>
+  <SectionDivider type='wave' position='bottom' height='60px' color='white' opacity={0.9} />
+</div>
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='problems' />
 

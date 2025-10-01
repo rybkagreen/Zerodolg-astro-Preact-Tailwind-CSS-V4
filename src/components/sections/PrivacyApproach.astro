@@ -48,9 +48,16 @@ const approachData = {
   <!-- Background layers -->
   <div class='absolute inset-0 bg-gradient-to-br from-slate-50/60 via-white/80 to-blue-50/40'></div>
 
+  <!-- Privacy watercolor background pattern -->
+  <div
+    class='absolute inset-0 opacity-25'
+    style="background-image: url('/patterns/privacy-pattern-v1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+  >
+  </div>
+
   <!-- Subtle pattern overlay -->
   <div
-    class='absolute inset-0 opacity-20'
+    class='absolute inset-0 opacity-10'
     style="background-image: url('/patterns/hero-dots.svg'); background-size: 80px 80px;"
   >
   </div>
@@ -129,7 +136,7 @@ const approachData = {
       <!-- Features Column -->
       <div class='grid grid-cols-1 gap-6'>
         {
-          approachData.features.map((feature, index) => (
+          approachData.features.map((feature, _index) => (
             <div class='group relative overflow-hidden bg-white/60 backdrop-blur-sm border border-white/50 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:bg-white/80 hover:scale-105 transition-all duration-500'>
               <div class='flex items-start gap-4'>
                 <div class='flex-shrink-0'>
@@ -209,10 +216,12 @@ const approachData = {
       </div>
     </div>
   </div>
-
-  <!-- Разделитель для плавного перехода к следующей секции -->
-  <SectionDivider type='wave' position='bottom' height='50px' color='white' opacity={0.85} />
 </section>
+
+<!-- Разделитель для плавного перехода к следующей секции -->
+<div class='relative'>
+  <SectionDivider type='wave' position='bottom' height='50px' color='white' opacity={0.85} />
+</div>
 
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='privacy-approach' />
