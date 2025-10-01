@@ -1,0 +1,321 @@
+---
+// Landing page: Банкротство с сохранением имущества
+import Layout from '@app/layouts/Layout.astro';
+import Header from '@widgets/header/Header.astro';
+import Footer from '@widgets/footer/Footer.astro';
+import Breadcrumb from '@shared/ui/Breadcrumb/Breadcrumb.astro';
+import CallbackModal from '@features/modals/ui/CallbackModal.astro';
+import SimpleModalInit from '../islands/utils/SimpleModalInit.tsx';
+import OnlineSticker from '@shared/ui/OnlineSticker.astro';
+import BitrixCallback from '@shared/ui/BitrixCallback.astro';
+import ClientInteractions from '../islands/utils/client-interactions.tsx';
+import BaseForm from '../components/forms/BaseForm.astro';
+import { SITE_CONSTANTS } from '../shared/config/constants';
+
+// SEO данные
+const pageTitle = 'Банкротство с сохранением имущества в Москве 2024 | ZeroDolg';
+const pageDescription =
+  'Как пройти банкротство и сохранить квартиру, автомобиль и ценности ⚡ Законные способы защиты имущества ⚡ 98% успешных дел ⚡ Консультация бесплатно';
+const pageKeywords =
+  'банкротство с сохранением имущества, как сохранить квартиру при банкротстве, сохранение имущества, единственное жилье, защита имущества, банкротство физических лиц';
+const canonical = 'https://zerodolg.ru/bankrotstvo-s-sokhraneniyem-imushchestva';
+
+const stats = SITE_CONSTANTS.stats;
+const manager = SITE_CONSTANTS.manager;
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+>
+  <Header />
+
+  <!-- Breadcrumb Navigation -->
+  <div class='container mx-auto px-4'>
+    <Breadcrumb
+      items={[
+        {
+          name: 'Банкротство с сохранением имущества',
+          url: canonical,
+        },
+      ]}
+    />
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section
+      class='relative bg-gradient-to-br from-blue-900 via-slate-800 to-blue-800 text-white py-16'
+    >
+      <div class='container mx-auto px-4'>
+        <div class='max-w-4xl mx-auto text-center'>
+          <h1 class='text-4xl md:text-5xl font-bold mb-6 leading-tight'>
+            Банкротство с сохранением имущества — это возможно!
+          </h1>
+          <p class='text-xl md:text-2xl text-blue-100 mb-8'>
+            Спишите долги и защитите квартиру, автомобиль и ценности законными способами
+          </p>
+          <div class='flex flex-wrap gap-4 justify-center'>
+            <a
+              href='#consultation-form'
+              class='bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-8 rounded-lg transition-colors'
+            >
+              Получить консультацию
+            </a>
+            <a
+              href='tel:+79055773387'
+              class='bg-white hover:bg-gray-100 text-blue-900 font-bold py-4 px-8 rounded-lg transition-colors'
+            >
+              📞 Позвонить сейчас
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Что защищено законом -->
+    <section class='py-16 bg-white'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-12'>
+          Что можно сохранить при банкротстве по закону
+        </h2>
+
+        <div class='grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto'>
+          <!-- Единственное жилье -->
+          <div
+            class='bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-xl border border-emerald-200'
+          >
+            <div class='text-4xl mb-4'>🏠</div>
+            <h3 class='text-xl font-bold mb-3 text-emerald-900'>Единственное жилье</h3>
+            <p class='text-gray-700'>
+              Квартира или дом, если это единственное пригодное для проживания жилье вашей семьи
+            </p>
+            <div class='mt-4 text-sm text-emerald-700 font-semibold'>✓ Защищено по закону</div>
+          </div>
+
+          <!-- Личные вещи -->
+          <div
+            class='bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200'
+          >
+            <div class='text-4xl mb-4'>👕</div>
+            <h3 class='text-xl font-bold mb-3 text-blue-900'>Личные вещи</h3>
+            <p class='text-gray-700'>
+              Одежда, обувь, предметы обихода (кроме роскоши и драгоценностей)
+            </p>
+            <div class='mt-4 text-sm text-blue-700 font-semibold'>✓ Защищено по закону</div>
+          </div>
+
+          <!-- Бытовая техника -->
+          <div
+            class='bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200'
+          >
+            <div class='text-4xl mb-4'>📱</div>
+            <h3 class='text-xl font-bold mb-3 text-purple-900'>Бытовая техника</h3>
+            <p class='text-gray-700'>
+              Холодильник, стиральная машина, телевизор и другая необходимая техника
+            </p>
+            <div class='mt-4 text-sm text-purple-700 font-semibold'>✓ Защищено по закону</div>
+          </div>
+
+          <!-- Прожиточный минимум -->
+          <div
+            class='bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-xl border border-amber-200'
+          >
+            <div class='text-4xl mb-4'>💰</div>
+            <h3 class='text-xl font-bold mb-3 text-amber-900'>Прожиточный минимум</h3>
+            <p class='text-gray-700'>
+              Деньги и доходы в размере прожиточного минимума на вас и иждивенцев
+            </p>
+            <div class='mt-4 text-sm text-amber-700 font-semibold'>✓ Защищено по закону</div>
+          </div>
+
+          <!-- Инструменты для работы -->
+          <div
+            class='bg-gradient-to-br from-teal-50 to-cyan-50 p-6 rounded-xl border border-teal-200'
+          >
+            <div class='text-4xl mb-4'>🔧</div>
+            <h3 class='text-xl font-bold mb-3 text-teal-900'>Инструменты для работы</h3>
+            <p class='text-gray-700'>
+              Профессиональные инструменты стоимостью до 100 МРОТ (около 1.9 млн ₽)
+            </p>
+            <div class='mt-4 text-sm text-teal-700 font-semibold'>✓ Защищено по закону</div>
+          </div>
+
+          <!-- Продукты питания -->
+          <div
+            class='bg-gradient-to-br from-red-50 to-rose-50 p-6 rounded-xl border border-red-200'
+          >
+            <div class='text-4xl mb-4'>🍎</div>
+            <h3 class='text-xl font-bold mb-3 text-red-900'>Продукты питания</h3>
+            <p class='text-gray-700'>Все продукты питания, семена для посадки на садовом участке</p>
+            <div class='mt-4 text-sm text-red-700 font-semibold'>✓ Защищено по закону</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Как защитить имущество -->
+    <section class='py-16 bg-gradient-to-br from-slate-50 to-blue-50'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-12'>
+          Законные способы защиты имущества
+        </h2>
+
+        <div class='max-w-4xl mx-auto space-y-6'>
+          <!-- Метод 1 -->
+          <div class='bg-white p-6 rounded-xl shadow-md'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                1
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-blue-900'>Единственное жилье</h3>
+                <p class='text-gray-700 mb-3'>
+                  Убедитесь, что квартира зарегистрирована как единственное жилье всех членов семьи.
+                  Даже ипотечная квартира защищена, если это единственное жилье.
+                </p>
+                <div class='text-sm text-blue-600 font-semibold'>
+                  ⚖️ Статья 446 ГПК РФ гарантирует защиту
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Метод 2 -->
+          <div class='bg-white p-6 rounded-xl shadow-md'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                2
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-emerald-900'>Исключение роскоши из описи</h3>
+                <p class='text-gray-700 mb-3'>
+                  Оспаривайте включение в конкурсную массу предметов не первой необходимости.
+                  Телевизор, ноутбук, смартфон — это необходимые бытовые вещи, а не роскошь.
+                </p>
+                <div class='text-sm text-emerald-600 font-semibold'>
+                  📋 Поможем составить обоснование
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Метод 3 -->
+          <div class='bg-white p-6 rounded-xl shadow-md'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                3
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-purple-900'>Автомобиль для работы</h3>
+                <p class='text-gray-700 mb-3'>
+                  Если автомобиль необходим для профессиональной деятельности (такси, курьер,
+                  торговля), его можно исключить из конкурсной массы.
+                </p>
+                <div class='text-sm text-purple-600 font-semibold'>
+                  🚗 Подготовим доказательства необходимости
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Метод 4 -->
+          <div class='bg-white p-6 rounded-xl shadow-md'>
+            <div class='flex items-start gap-4'>
+              <div
+                class='flex-shrink-0 w-12 h-12 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-xl'
+              >
+                4
+              </div>
+              <div>
+                <h3 class='text-xl font-bold mb-2 text-amber-900'>Семейное имущество</h3>
+                <p class='text-gray-700 mb-3'>
+                  Имущество супруга, приобретенное до брака или по наследству, не входит в
+                  конкурсную массу. Правильно оформляем раздел совместной собственности.
+                </p>
+                <div class='text-sm text-amber-600 font-semibold'>👨‍👩‍👧 Защитим имущество семьи</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Форма консультации -->
+    <section id='consultation-form' class='py-16 bg-white'>
+      <div class='container mx-auto px-4'>
+        <div class='max-w-2xl mx-auto'>
+          <div
+            class='bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-200'
+          >
+            <h2 class='text-3xl font-bold text-center mb-6'>
+              Получите бесплатную консультацию по защите имущества
+            </h2>
+            <p class='text-center text-gray-700 mb-8'>
+              Юристы с опытом {manager.experience.years}+ лет помогут сохранить ваше имущество
+            </p>
+
+            <BaseForm
+              formId='property-protection-consultation'
+              formType='consultation'
+              submitText='Получить консультацию'
+              showDebtField={true}
+              variant='stacked'
+            />
+
+            <div class='mt-6 text-center text-sm text-gray-600'>
+              Или позвоните прямо сейчас: <a
+                href='tel:+79055773387'
+                class='text-blue-600 font-semibold hover:underline'>+7 (905) 577-33-87</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Статистика -->
+    <section class='py-16 bg-gradient-to-br from-blue-900 to-indigo-900 text-white'>
+      <div class='container mx-auto px-4'>
+        <div class='max-w-4xl mx-auto'>
+          <h2 class='text-3xl font-bold text-center mb-12'>Наши результаты</h2>
+          <div class='grid md:grid-cols-3 gap-8 text-center'>
+            <div>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>{stats.clients.display}</div>
+              <div class='text-blue-100'>Довольных клиентов</div>
+            </div>
+            <div>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>{stats.successRate.display}</div>
+              <div class='text-blue-100'>Успешных дел</div>
+            </div>
+            <div>
+              <div class='text-5xl font-bold text-amber-400 mb-2'>100%</div>
+              <div class='text-blue-100'>Сохранили единственное жилье</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Auxiliary Components -->
+  <OnlineSticker />
+  <BitrixCallback />
+
+  <!-- Modals -->
+  <CallbackModal modalId='callback' />
+  <SimpleModalInit client:idle />
+
+  <!-- Client Interactions Handler -->
+  <ClientInteractions client:idle />
+</Layout>

@@ -1,0 +1,70 @@
+---
+/**
+ * ReviewSchema component - Schema.org Review markup
+ * Добавляет структурированные данные отзывов для улучшения SEO
+ */
+
+export interface Review {
+  author: string;
+  rating: number;
+  reviewBody: string;
+  datePublished: string;
+}
+
+export interface Props {
+  reviews: Review[];
+  itemName?: string;
+  aggregateRating?: {
+    ratingValue: string;
+    reviewCount: string;
+  };
+}
+
+const {
+  reviews,
+  itemName = 'ZeroDolg - Банкротство физических лиц',
+  aggregateRating = {
+    ratingValue: '4.9',
+    reviewCount: '127',
+  },
+} = Astro.props;
+
+// Генерация Schema.org для каждого отзыва
+const reviewSchemas = reviews.map((review) => ({
+  '@type': 'Review',
+  author: {
+    '@type': 'Person',
+    name: review.author,
+  },
+  reviewRating: {
+    '@type': 'Rating',
+    ratingValue: review.rating.toString(),
+    bestRating: '5',
+    worstRating: '1',
+  },
+  reviewBody: review.reviewBody,
+  datePublished: review.datePublished,
+  itemReviewed: {
+    '@type': 'LegalService',
+    name: itemName,
+  },
+}));
+
+// Общая схема с агрегированным рейтингом
+const reviewsContainerSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: itemName,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: aggregateRating.ratingValue,
+    reviewCount: aggregateRating.reviewCount,
+    bestRating: '5',
+    worstRating: '1',
+  },
+  review: reviewSchemas,
+};
+---
+
+<!-- Schema.org Reviews для поисковых систем -->
+<script type='application/ld+json' set:html={JSON.stringify(reviewsContainerSchema)} />
