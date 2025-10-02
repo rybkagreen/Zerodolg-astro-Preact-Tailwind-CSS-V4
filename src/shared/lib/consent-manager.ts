@@ -17,7 +17,6 @@ export interface ConsentState {
  */
 export class ConsentManager {
   private static readonly CONSENT_KEY = 'user_consent_v2';
-  private static readonly CONSENT_VERSION = 2;
   private static instance: ConsentManager;
   private consentState: ConsentState | null = null;
 
