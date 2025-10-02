@@ -1,0 +1,78 @@
+version: '3.9'
+
+services:
+  # Основное приложение
+  zerodolg-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zerodolg-staging
+    restart: unless-stopped
+    ports:
+      - '3000:80'
+    environment:
+      # Environment variables для staging
+      - NODE_ENV=production
+      - PUBLIC_SITE_URL=http://localhost:3000
+      - PUBLIC_GA_ID=${PUBLIC_GA_ID:-G-XXXXXXXXXX}
+      - PUBLIC_YM_ID=${PUBLIC_YM_ID:-XXXXXXXXX}
+      - BITRIX24_WEBHOOK_URL=${BITRIX24_WEBHOOK_URL:-}
+      - PUBLIC_SITE_PHONE=+7 (905) 577-33-87
+      - PUBLIC_SITE_EMAIL=info@zerodolg.ru
+    volumes:
+      # Логи для анализа
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - zerodolg-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - 'com.zerodolg.environment=staging'
+      - 'com.zerodolg.project=zerodolg-astro'
+
+  # Lighthouse CI для тестирования производительности
+  lighthouse:
+    image: patrickhulce/lhci-server:latest
+    container_name: zerodolg-lighthouse
+    restart: unless-stopped
+    ports:
+      - '9001:9001'
+    volumes:
+      - lighthouse-data:/data
+    networks:
+      - zerodolg-network
+    environment:
+      - LHCI_STORAGE_SQLITE_DB_PATH=/data/lhci.db
+    labels:
+      - 'com.zerodolg.service=lighthouse'
+
+  # Дополнительный сервис для мониторинга (опционально)
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   container_name: zerodolg-monitoring
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:ro
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   networks:
+  #     - zerodolg-network
+  #   privileged: true
+  #   devices:
+  #     - /dev/kmsg
+
+networks:
+  zerodolg-network:
+    driver: bridge
+    name: zerodolg-staging-network
+
+volumes:
+  lighthouse-data:
+    name: zerodolg-lighthouse-data

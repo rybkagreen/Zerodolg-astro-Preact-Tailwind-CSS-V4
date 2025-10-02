@@ -39,7 +39,12 @@
     "mcp:demo": "node tools/demo-mcp-puppeteer.js",
     "tools:compare-sites": "node tools/compare-sites.js",
     "tools:semgrep": "node tools/semgrep-scan.js",
-    "tools:trufflehog": "node tools/trufflehog-scan.js"
+    "tools:trufflehog": "node tools/trufflehog-scan.js",
+    "staging:up": "docker compose up -d --build",
+    "staging:down": "docker compose down",
+    "staging:logs": "docker compose logs -f zerodolg-web",
+    "staging:restart": "docker compose restart zerodolg-web",
+    "staging:clean": "docker compose down -v --rmi all"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.1",
