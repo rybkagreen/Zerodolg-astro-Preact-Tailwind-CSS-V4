@@ -234,7 +234,7 @@ const mobileMenuItems = [
       <div class='hidden md:block' id='navMenu'>
         <ul class='flex space-x-8 xl:space-x-12'>
           <!-- Services Dropdown -->
-          <li class='relative group'>
+          <li class='static group'>
             <button
               class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
@@ -252,8 +252,8 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important;'
+              class='fixed w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
+              style='z-index: 9999 !important; top: 4rem;'
               data-dropdown-menu='services'
             >
               <div class='py-2'>
@@ -278,7 +278,7 @@ const mobileMenuItems = [
           </li>
 
           <!-- About Dropdown -->
-          <li class='relative group'>
+          <li class='static group'>
             <button
               class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
@@ -296,8 +296,8 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important;'
+              class='fixed w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
+              style='z-index: 9999 !important; top: 4rem;'
               data-dropdown-menu='about'
             >
               <div class='py-2'>
@@ -319,7 +319,7 @@ const mobileMenuItems = [
           </li>
 
           <!-- Info Dropdown -->
-          <li class='relative group'>
+          <li class='static group'>
             <button
               class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
@@ -337,8 +337,8 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important;'
+              class='fixed w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
+              style='z-index: 9999 !important; top: 4rem;'
               data-dropdown-menu='info'
             >
               <div class='py-2'>
