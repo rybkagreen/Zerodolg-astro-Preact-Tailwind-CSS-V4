@@ -97,6 +97,8 @@ const {
     <!-- DNS prefetch for external domains -->
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
     <link rel='dns-prefetch' href='//fonts.gstatic.com' />
+    <link rel='dns-prefetch' href='//www.googletagmanager.com' />
+    <link rel='dns-prefetch' href='//mc.yandex.ru' />
 
     <!-- Preload critical CSS - handled through import mechanism -->
 
@@ -108,6 +110,74 @@ const {
     <link rel='manifest' href='/manifest.json' />
 
     <meta name='generator' content={Astro.generator} />
+
+    <!-- Yandex.Metrika counter -->
+    <!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: Yandex Metrika standard code -->
+    <script is:inline>
+      /* eslint-disable */
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        ((k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a));
+      })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+      ym(103604926, 'init', {
+        defer: true,
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+        ecommerce: 'dataLayer',
+        triggerEvent: true,
+      });
+      /* eslint-enable */
+    </script>
+    <noscript
+      ><div>
+        <img
+          src='https://mc.yandex.ru/watch/103604926'
+          style='position:absolute; left:-9999px;'
+          alt=''
+        />
+      </div></noscript
+    >
+    <!-- /Yandex.Metrika counter -->
+
+    <!-- Google Analytics -->
+    <!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: Google Analytics standard code -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
+      gtag('js', new Date());
+      gtag('config', 'G-BDDN306E94', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure',
+      });
+    </script>
+    <script async src='https://www.googletagmanager.com/gtag/js?id=G-BDDN306E94' is:inline></script>
+    <!-- /Google Analytics -->
   </head>
   <body>
     <slot />
@@ -117,20 +187,5 @@ const {
 
     <!-- Service Worker Removal Script - temporary -->
     <script is:inline defer src='/js/service-worker-register.js'></script>
-
-    <!-- Initialize analytics after DOM is ready -->
-    <script type='module'>
-      import { initAnalytics } from '/src/features/analytics/analytics';
-      import { measurePageLoad } from '/src/shared/lib/performance';
-
-      document.addEventListener('DOMContentLoaded', () => {
-        if (typeof initAnalytics === 'function') {
-          initAnalytics();
-        }
-        if (typeof measurePageLoad === 'function') {
-          measurePageLoad();
-        }
-      });
-    </script>
   </body>
 </html>
