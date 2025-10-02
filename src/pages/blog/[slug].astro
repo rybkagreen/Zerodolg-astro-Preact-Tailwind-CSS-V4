@@ -45,7 +45,7 @@ function _calculateReadingTime(content: string): number {
 }
 
 const manager = SITE_CONSTANTS.manager;
-const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
+const canonical = `https://zerodolg.ru/blog/${post.slug}.html`;
 ---
 
 <Layout
@@ -307,7 +307,7 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
                         </div>
                       )}
                       <h3 class='text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2'>
-                        <a href={`/blog/${relatedPost.slug}`} class='hover:underline'>
+                        <a href={`/blog/${relatedPost.slug}.html`} class='hover:underline'>
                           {relatedPost.data.title}
                         </a>
                       </h3>
@@ -317,7 +317,7 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
                         </p>
                       )}
                       <a
-                        href={`/blog/${relatedPost.slug}`}
+                        href={`/blog/${relatedPost.slug}.html`}
                         class='text-blue-600 font-medium hover:text-blue-700 flex items-center gap-1 text-sm'
                       >
                         Читать далее
