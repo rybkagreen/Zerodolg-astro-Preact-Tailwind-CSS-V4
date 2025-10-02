@@ -110,7 +110,7 @@ const ProblemsInteractive = (): null => {
         cardElement.addEventListener('keydown', handleKeyDown);
 
         // Store cleanup functions
-        (cardElement as any)._cleanup = () => {
+        (cardElement as HTMLElement & { _cleanup?: () => void })._cleanup = () => {
           cardElement.removeEventListener('mousemove', handleMouseMove);
           cardElement.removeEventListener('mouseleave', handleMouseLeave);
           cardElement.removeEventListener('click', handleClick);
@@ -129,7 +129,7 @@ const ProblemsInteractive = (): null => {
       // Clean up card interactions
       const cards = section.querySelectorAll('.problems-card');
       cards.forEach((card) => {
-        const cleanup = (card as any)._cleanup;
+        const cleanup = (card as HTMLElement & { _cleanup?: () => void })._cleanup;
         if (cleanup) cleanup();
       });
     };

@@ -1,0 +1,294 @@
+
+> zerodolg-astro@0.0.1 lint
+> npx eslint .
+
+
+D:\develop\zerodolg.ru\zerodolg-astro\astro.config.optimized.mjs
+  12:7  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\fix-dependencies.js
+  16:1  warning  Unexpected console statement  no-console
+  20:3  warning  Unexpected console statement  no-console
+  30:3  warning  Unexpected console statement  no-console
+  52:3  warning  Unexpected console statement  no-console
+  55:5  warning  Unexpected console statement  no-console
+  57:5  warning  Unexpected console statement  no-console
+  63:3  warning  Unexpected console statement  no-console
+  66:5  warning  Unexpected console statement  no-console
+  68:5  warning  Unexpected console statement  no-console
+  74:3  warning  Unexpected console statement  no-console
+  78:1  warning  Unexpected console statement  no-console
+  81:3  warning  Unexpected console statement  no-console
+  83:3  warning  Unexpected console statement  no-console
+  86:1  warning  Unexpected console statement  no-console
+  87:1  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\app\layouts\Layout.astro
+   74:7  warning  Unused CSS selector `header`              astro/no-unused-css-selector
+   78:7  warning  Unused CSS selector `.hero-section`       astro/no-unused-css-selector
+   86:9  warning  Unused CSS selector `.hero-section`       astro/no-unused-css-selector
+   91:7  warning  Unused CSS selector `.container-custom`   astro/no-unused-css-selector
+   99:9  warning  Unused CSS selector `.container-custom`   astro/no-unused-css-selector
+  105:9  warning  Unused CSS selector `.container-custom`   astro/no-unused-css-selector
+  110:7  warning  Unused CSS selector `.hero-title`         astro/no-unused-css-selector
+  118:9  warning  Unused CSS selector `.hero-title`         astro/no-unused-css-selector
+  123:9  warning  Unused CSS selector `.hero-title`         astro/no-unused-css-selector
+  128:9  warning  Unused CSS selector `.hero-title`         astro/no-unused-css-selector
+  132:7  warning  Unused CSS selector `.btn-primary`        astro/no-unused-css-selector
+  151:7  warning  Unused CSS selector `.btn-primary:hover`  astro/no-unused-css-selector
+  157:7  warning  Unused CSS selector `.btn-primary:focus`  astro/no-unused-css-selector
+  161:7  warning  Unused CSS selector `.sr-only`            astro/no-unused-css-selector
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\features\analytics\analytics.ts
+   26:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   38:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   40:5   warning  Unexpected console statement              no-console
+   53:8   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   63:26  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  128:26  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\forms\FormEnhancedFinal.optimized.tsx
+   69:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   70:5   warning  Unexpected console statement              no-console
+   72:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   73:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  259:11  warning  Unexpected console statement              no-console
+  485:9   warning  Unexpected console statement              no-console
+  530:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  672:66  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  676:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  677:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  681:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  682:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  686:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  687:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  692:5   warning  Unexpected console statement              no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\forms\FormEnhancedFinal.tsx
+   63:7   warning  Unexpected console statement              no-console
+   66:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   67:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  242:11  warning  Unexpected console statement              no-console
+  252:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  253:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  547:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  692:66  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  696:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  697:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  701:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  702:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  706:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  707:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  712:5   warning  Unexpected console statement              no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\forms\form-logic.tsx
+  142:7  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\interactive\TeamInteractiveEnhanced.tsx
+   60:60  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  103:54  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  537:68  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\layout\headerEnhanced.optimized.tsx
+  28:64  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  34:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\layout\headerEnhanced.tsx
+  28:64  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  34:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\sections\ProblemsInteractive.tsx
+  113:25  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  132:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:7   warning  Unexpected console statement              no-console
+  203:7   warning  Unexpected console statement              no-console
+  205:7   warning  Unexpected console statement              no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\sections\ReviewsEnhanced.tsx
+  46:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:7   warning  Unexpected console statement              no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\shared\interactive\lead-magnets.tsx
+  427:9  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\shared\interactive\special-offers.tsx
+   78:9   warning  Unexpected console statement  no-console
+   81:11  warning  Unexpected console statement  no-console
+   86:11  warning  Unexpected console statement  no-console
+   95:9   warning  Unexpected console statement  no-console
+  101:11  warning  Unexpected console statement  no-console
+  103:13  warning  Unexpected console statement  no-console
+  111:11  warning  Unexpected console statement  no-console
+  116:9   warning  Unexpected console statement  no-console
+  127:5   warning  Unexpected console statement  no-console
+  130:7   warning  Unexpected console statement  no-console
+  135:11  warning  Unexpected console statement  no-console
+  138:9   warning  Unexpected console statement  no-console
+  159:11  warning  Unexpected console statement  no-console
+  175:9   warning  Unexpected console statement  no-console
+  178:7   warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\shared\interactive\statsEnhanced.tsx
+  110:9  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\utils\SimpleModalInit.tsx
+   12:7   warning  Unexpected console statement  no-console
+   17:11  warning  Unexpected console statement  no-console
+   21:15  warning  Unexpected console statement  no-console
+   49:17  warning  Unexpected console statement  no-console
+   54:15  warning  Unexpected console statement  no-console
+   74:15  warning  Unexpected console statement  no-console
+  103:15  warning  Unexpected console statement  no-console
+  113:13  warning  Unexpected console statement  no-console
+  122:13  warning  Unexpected console statement  no-console
+  134:15  warning  Unexpected console statement  no-console
+  156:15  warning  Unexpected console statement  no-console
+  171:9   warning  Unexpected console statement  no-console
+  184:9   warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\islands\utils\client-interactions.tsx
+  142:40  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  173:40  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  207:40  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\pages\blog\[slug].astro
+  41:10  warning  'calculateReadingTime' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\pages\blog\index.astro
+  29:10  warning  'getReadingTime' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\pages\restrukturizaciya-dolgov.astro
+   17:8   warning  'HeroForm' is defined but never used. Allowed unused vars must match /^_/u        @typescript-eslint/no-unused-vars
+   33:7   warning  'stats' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+   36:7   warning  'promo' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  152:5   warning  `set:html` can lead to XSS attack                                                 astro/no-set-html-directive
+  946:54  warning  'index' is defined but never used. Allowed unused args must match /^_/u           @typescript-eslint/no-unused-vars
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\pages\test-modal.astro
+  72:9  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\analytics\tracking-config.ts
+    9:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  104:26  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  105:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  132:5   warning  Unexpected console statement              no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\hooks\useLocalStorage.ts
+  18:7  warning  Unexpected console statement  no-console
+  29:7  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\hooks\usePerformanceMonitor.ts
+  28:15  warning  Unexpected console statement  no-console
+  38:9   warning  Unexpected console statement  no-console
+  50:9   warning  Unexpected console statement  no-console
+  59:5   warning  Unexpected console statement  no-console
+  75:13  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\hooks\useThrottle.ts
+  9:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  9:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\analytics.ts
+  20:5  warning  Unexpected console statement  no-console
+  39:5  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\bitrix-callback-widget.ts
+   41:7   warning  Unexpected console statement              no-console
+   52:7   warning  Unexpected console statement              no-console
+  292:7   warning  Unexpected console statement              no-console
+  314:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\bitrix-callback.ts
+   38:7   warning  Unexpected console statement  no-console
+  233:7   warning  Unexpected console statement  no-console
+  237:35  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  248:22  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  255:9   warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  262:23  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  290:9   warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  294:7   warning  Unexpected console statement  no-console
+  296:7   warning  Unexpected console statement  no-console
+  302:7   warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\hash-utils.ts
+  20:7  warning  Unexpected console statement  no-console
+  34:5  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\logger.ts
+  110:5  warning  Unexpected console statement  no-console
+  196:7  warning  Unexpected console statement  no-console
+  202:7  warning  Unexpected console statement  no-console
+  208:7  warning  Unexpected console statement  no-console
+  214:7  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\performance.ts
+  22:13  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\puppeteer-helper.js
+  65:7  warning  Unexpected console statement  no-console
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\lib\puppeteer-helper.ts
+   8:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  12:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  13:13  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  32:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  57:7   warning  Unexpected console statement              no-console
+  75:48  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\seo\OrganizationSchema.astro
+  187:36  warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+  191:40  warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+  198:40  warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+  207:7   warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+  232:7   warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+  265:3   warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\seo\ReviewSchema.astro
+  70:36  warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\ui\Breadcrumb\Breadcrumb.astro
+  39:36  warning  `set:html` can lead to XSS attack  astro/no-set-html-directive
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\ui\Cta.astro
+  156:3   warning  Unused CSS selector `.form-on-gradient input`                        astro/no-unused-css-selector
+  156:27  warning  Unused CSS selector `.form-on-gradient textarea`                     astro/no-unused-css-selector
+  157:30  warning  Unused CSS selector `.form-on-gradient select`                       astro/no-unused-css-selector
+  166:3   warning  Unused CSS selector `.form-on-gradient input::placeholder`           astro/no-unused-css-selector
+  166:40  warning  Unused CSS selector `.form-on-gradient textarea::placeholder`        astro/no-unused-css-selector
+  171:3   warning  Unused CSS selector `.form-on-gradient input:focus`                  astro/no-unused-css-selector
+  171:33  warning  Unused CSS selector `.form-on-gradient textarea:focus`               astro/no-unused-css-selector
+  172:36  warning  Unused CSS selector `.form-on-gradient select:focus`                 astro/no-unused-css-selector
+  179:3   warning  Unused CSS selector `.form-on-gradient label`                        astro/no-unused-css-selector
+  185:3   warning  Unused CSS selector `.form-on-gradient button[type='submit']`        astro/no-unused-css-selector
+  194:3   warning  Unused CSS selector `.form-on-gradient button[type='submit']:hover`  astro/no-unused-css-selector
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\ui\SectionDivider.astro
+  18:3  warning  'bgColor' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+D:\develop\zerodolg.ru\zerodolg-astro\src\shared\utils\modal-debug.ts
+   6:5   warning  Unexpected console statement  no-console
+  11:7   warning  Unexpected console statement  no-console
+  15:9   warning  Unexpected console statement  no-console
+  20:7   warning  Unexpected console statement  no-console
+  23:9   warning  Unexpected console statement  no-console
+  34:7   warning  Unexpected console statement  no-console
+  37:9   warning  Unexpected console statement  no-console
+  47:7   warning  Unexpected console statement  no-console
+  50:7   warning  Unexpected console statement  no-console
+  56:7   warning  Unexpected console statement  no-console
+  59:5   warning  Unexpected console statement  no-console
+  66:5   warning  Unexpected console statement  no-console
+  72:9   warning  Unexpected console statement  no-console
+  73:9   warning  Unexpected console statement  no-console
+  77:7   warning  Unexpected console statement  no-console
+  80:9   warning  Unexpected console statement  no-console
+  85:11  warning  Unexpected console statement  no-console
+  86:11  warning  Unexpected console statement  no-console
+  89:9   warning  Unexpected console statement  no-console
+  92:9   warning  Unexpected console statement  no-console
+  93:9   warning  Unexpected console statement  no-console
+  96:7   warning  Unexpected console statement  no-console
+  97:7   warning  Unexpected console statement  no-console
+
+✖ 209 problems (0 errors, 209 warnings)
+

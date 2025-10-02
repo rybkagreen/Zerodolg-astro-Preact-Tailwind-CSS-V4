@@ -8,7 +8,7 @@ interface AnalyticsConfig {
 }
 
 interface EventParameters {
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined;
 }
 
 declare global {
@@ -28,6 +28,13 @@ declare global {
       closeAll: () => void;
       debug: () => { totalModals: number; activeModal: string | null; dynamicModals: number };
     };
+    Sentry?: {
+      captureException: (error: Error) => void;
+    };
+    analytics?: {
+      track: (eventName: string, eventData: Record<string, string | number | boolean>) => void;
+    };
+    lastScrollY?: number;
   }
 }
 

@@ -57,7 +57,9 @@ interface Props {
 export default function TeamInteractiveEnhanced({ members = [], stats }: Props): VNode {
   const [activeMemberId, setActiveMemberId] = useState<string | null>(members[0]?.id || null);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<any | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<TeamMember['documents'][number] | null>(
+    null
+  );
   const [isDocumentsOpen, setIsDocumentsOpen] = useState(false);
   const [observerRef, isIntersecting] = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
@@ -100,7 +102,7 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
     [members]
   );
 
-  const handleDocumentClick = useCallback((document: any) => {
+  const handleDocumentClick = useCallback((document: TeamMember['documents'][number]) => {
     setSelectedDocument(document);
   }, []);
 
@@ -534,7 +536,7 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
                           class={`overflow-hidden transition-all duration-500 ease-in-out ${isDocumentsOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}
                         >
                           <div class='grid grid-cols-2 md:grid-cols-4 gap-3 pt-2'>
-                            {activeMember.documents.map((document: any, index: number) => (
+                            {activeMember.documents.map((document, index: number) => (
                               <div
                                 key={index}
                                 class='group relative overflow-hidden p-3 rounded-lg border border-white/50 bg-white/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:bg-white/60 transition-all duration-300 cursor-pointer hover:scale-105'

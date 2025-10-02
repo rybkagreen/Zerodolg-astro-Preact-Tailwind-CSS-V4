@@ -43,7 +43,10 @@ const ReviewsEnhanced = ({
 
     // Track analytics
     try {
-      const win = window as any;
+      const win = window as Window & {
+        gtag?: (command: string, ...args: unknown[]) => void;
+        ym?: (id: number, command: string, ...args: unknown[]) => void;
+      };
       if (win.gtag) {
         win.gtag('event', 'reviews_load_more', {
           event_category: 'engagement',

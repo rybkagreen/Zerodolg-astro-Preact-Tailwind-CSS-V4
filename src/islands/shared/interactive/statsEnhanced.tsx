@@ -106,8 +106,9 @@ const StatsEnhanced = ({
 
     const handleMouseEnter = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.closest('.stats__item-enhanced')) {
-        target.closest('.stats__item-enhanced')!.classList.add('hovered');
+      const statsItem = target.closest('.stats__item-enhanced');
+      if (statsItem) {
+        statsItem.classList.add('hovered');
       }
     };
 

@@ -5,12 +5,12 @@
 import { puppeteerConfig } from '../../../config.puppeteer.js';
 
 interface PuppeteerHelperOptions {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-// Define Puppeteer types as any to avoid build errors
-type Browser = any;
-type Page = any;
+// Define Puppeteer types as unknown to avoid build errors
+type Browser = unknown;
+type Page = unknown;
 
 // Helper function to safely import Puppeteer
 async function importPuppeteer() {
@@ -29,7 +29,7 @@ async function importPuppeteer() {
 }
 
 class PuppeteerHelper {
-  private options: any;
+  private options: PuppeteerHelperOptions;
   private browser: Browser | null;
   private page: Page | null;
 
@@ -72,7 +72,7 @@ class PuppeteerHelper {
   }
 
   // Take a screenshot and save it
-  async takeScreenshot(path: string, options?: any) {
+  async takeScreenshot(path: string, options?: Record<string, unknown>) {
     if (!this.page) {
       throw new Error('Puppeteer page not initialized. Call init() first.');
     }

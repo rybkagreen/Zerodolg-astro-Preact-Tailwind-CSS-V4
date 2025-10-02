@@ -14,7 +14,7 @@ import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import SpecialOffers from '@shared/ui/SpecialOffers.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
 import ScrollAnimations from '../islands/utils/scroll-animations.tsx';
-import HeroForm from '../components/forms/HeroForm.astro';
+import _HeroForm from '../components/forms/HeroForm.astro';
 import BaseForm from '../components/forms/BaseForm.astro';
 import { SITE_CONSTANTS, getPromoInfo } from '../shared/config/constants';
 import OrganizationSchema from '../shared/seo/OrganizationSchema.astro';
@@ -30,10 +30,10 @@ const pageKeywords =
 const canonical = 'https://zerodolg.ru/restrukturizaciya-dolgov';
 
 // Получаем актуальные данные из констант
-const stats = SITE_CONSTANTS.stats;
+const _stats = SITE_CONSTANTS.stats;
 const manager = SITE_CONSTANTS.manager;
 const contacts = SITE_CONSTANTS.contacts;
-const promo = getPromoInfo();
+const _promo = getPromoInfo();
 
 // Данные по реструктуризации (актуальные на октябрь 2024)
 const restructuringData = {
@@ -147,6 +147,7 @@ const restructuringData = {
   canonical={canonical}
 >
   <!-- Structured Data для реструктуризации -->
+  <!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data -->
   <script
     type='application/ld+json'
     set:html={JSON.stringify({
@@ -943,7 +944,7 @@ const restructuringData = {
 
             <div class='space-y-8'>
               {
-                restructuringData.process.map((step, index) => (
+                restructuringData.process.map((step, _index) => (
                   <div class='relative flex items-start gap-6'>
                     {/* Step number circle */}
                     <div class='flex-shrink-0 w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-10'>

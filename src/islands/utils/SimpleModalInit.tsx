@@ -9,16 +9,25 @@ export default function SimpleModalInit() {
   useEffect(() => {
     // Ждем полную загрузку
     const initializeModals = (): (() => void) | void => {
-      console.log('[SimpleModalInit] 🚀 Инициализация модального менеджера...');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.log('[SimpleModalInit] 🚀 Инициализация модального менеджера...');
+      }
 
       try {
         // Простая реализация модального менеджера, если основной не работает
         if (!window.modalManager) {
-          console.log('[SimpleModalInit] 🔧 Создаем простой модальный менеджер...');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.log('[SimpleModalInit] 🔧 Создаем простой модальный менеджер...');
+          }
 
           window.modalManager = {
             open: (modalId: string) => {
-              console.log('[SimpleModalInit] 🔓 Открываем модаль:', modalId);
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.log('[SimpleModalInit] 🔓 Открываем модаль:', modalId);
+              }
 
               // Закрываем все открытые модали сначала
               const openModals = document.querySelectorAll('[data-modal-open="true"]');
@@ -46,12 +55,18 @@ export default function SimpleModalInit() {
                   setTimeout(() => focusable.focus(), 100);
                 }
               } else {
-                console.warn('[SimpleModalInit] ⚠️ Модаль не найдена:', modalId);
+                if (import.meta.env.DEV) {
+                  // eslint-disable-next-line no-console
+                  console.warn('[SimpleModalInit] ⚠️ Модаль не найдена:', modalId);
+                }
               }
             },
 
             close: (modalId?: string) => {
-              console.log('[SimpleModalInit] 🔒 Закрываем модаль:', modalId || 'текущую');
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.log('[SimpleModalInit] 🔒 Закрываем модаль:', modalId || 'текущую');
+              }
               const modal = modalId
                 ? document.getElementById(modalId)
                 : (document.querySelector('[data-modal-open="true"]') as HTMLElement);
@@ -71,7 +86,10 @@ export default function SimpleModalInit() {
             },
 
             closeAll: () => {
-              console.log('[SimpleModalInit] 🔒 Закрываем все модали');
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.log('[SimpleModalInit] 🔒 Закрываем все модали');
+              }
               const openModals = document.querySelectorAll('[data-modal-open="true"]');
               openModals.forEach((modal) => {
                 (modal as HTMLElement).style.display = 'none';
@@ -100,7 +118,10 @@ export default function SimpleModalInit() {
             e.preventDefault();
             const modalId = modalTrigger.getAttribute('data-modal');
             if (modalId && window.modalManager) {
-              console.log('[SimpleModalInit] 🎯 Клик по триггеру модали:', modalId);
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.log('[SimpleModalInit] 🎯 Клик по триггеру модали:', modalId);
+              }
               window.modalManager.open(modalId);
             }
             return;
@@ -110,7 +131,10 @@ export default function SimpleModalInit() {
           const closeButton = target.closest('[data-modal-close]');
           if (closeButton) {
             e.preventDefault();
-            console.log('[SimpleModalInit] ❌ Клик по кнопке закрытия');
+            if (import.meta.env.DEV) {
+              // eslint-disable-next-line no-console
+              console.log('[SimpleModalInit] ❌ Клик по кнопке закрытия');
+            }
             if (window.modalManager) {
               window.modalManager.close();
             }
@@ -119,7 +143,10 @@ export default function SimpleModalInit() {
 
           // Закрытие по клику вне модали
           if (target.classList.contains('modal') || target.hasAttribute('data-modal-backdrop')) {
-            console.log('[SimpleModalInit] 🌐 Клик по фону модали');
+            if (import.meta.env.DEV) {
+              // eslint-disable-next-line no-console
+              console.log('[SimpleModalInit] 🌐 Клик по фону модали');
+            }
             if (window.modalManager) {
               window.modalManager.close();
             }
@@ -131,7 +158,10 @@ export default function SimpleModalInit() {
           if (e.key === 'Escape') {
             const openModal = document.querySelector('[data-modal-open="true"]');
             if (openModal && window.modalManager) {
-              console.log('[SimpleModalInit] ⌨️ Нажата клавиша Escape');
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.log('[SimpleModalInit] ⌨️ Нажата клавиша Escape');
+              }
               window.modalManager.close();
             }
           }
@@ -153,9 +183,12 @@ export default function SimpleModalInit() {
               // Нет открытых модалей, принудительно сбрасываем overflow
               document.body.style.overflow = '';
               document.documentElement.style.overflow = '';
-              console.log(
-                '[SimpleModalInit] 🔧 Принудительный сброс overflow (защита от зависания)'
-              );
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.log(
+                  '[SimpleModalInit] 🔧 Принудительный сброс overflow (защита от зависания)'
+                );
+              }
             }
           }, 10000);
         };
@@ -168,7 +201,10 @@ export default function SimpleModalInit() {
           }
         });
 
-        console.log('[SimpleModalInit] ✅ Инициализация завершена успешно');
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.log('[SimpleModalInit] ✅ Инициализация завершена успешно');
+        }
 
         // Автоматическая отладка через 2 секунды после инициализации
         setTimeout(() => {
@@ -181,7 +217,10 @@ export default function SimpleModalInit() {
           document.removeEventListener('keydown', handleKeydown);
         };
       } catch (error) {
-        console.error('[SimpleModalInit] ❌ Ошибка при инициализации:', error);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.error('[SimpleModalInit] ❌ Ошибка при инициализации:', error);
+        }
       }
     };
 

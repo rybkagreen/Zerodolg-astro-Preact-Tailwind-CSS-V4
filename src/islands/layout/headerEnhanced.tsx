@@ -25,13 +25,14 @@ const HeaderEnhanced = (): null => {
       header.classList.remove('header-scrolled');
     }
 
-    if (scrollTop > scrollThreshold && scrollTop > ((window as any).lastScrollY || 0)) {
+    const lastScrollY = (window as Window & { lastScrollY?: number }).lastScrollY || 0;
+    if (scrollTop > scrollThreshold && scrollTop > lastScrollY) {
       header.classList.add('header-hidden');
     } else {
       header.classList.remove('header-hidden');
     }
 
-    (window as any).lastScrollY = scrollTop;
+    (window as Window & { lastScrollY?: number }).lastScrollY = scrollTop;
   }, 100);
 
   // Setup dropdowns

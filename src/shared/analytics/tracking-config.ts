@@ -6,7 +6,7 @@ export interface TrackingEvent {
   category: string;
   label?: string;
   value?: number;
-  custom_parameters?: Record<string, any>;
+  custom_parameters?: Record<string, string | number | boolean>;
 }
 
 // Конфигурация Google Analytics 4
@@ -101,8 +101,8 @@ export const YANDEX_METRIKA_CONFIG = {
 
 // Декларации глобальных переменных для аналитики
 declare global {
-  function gtag(...args: any[]): void;
-  function ym(...args: any[]): void;
+  function gtag(...args: unknown[]): void;
+  function ym(...args: unknown[]): void;
 }
 
 // Функции отслеживания

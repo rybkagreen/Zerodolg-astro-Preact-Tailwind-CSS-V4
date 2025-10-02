@@ -6,7 +6,10 @@ import { useCallback, useRef } from 'preact/hooks';
  * @param delay - минимальная задержка между вызовами в миллисекундах
  * @returns троттленная функция
  */
-export function useThrottle<T extends (...args: any[]) => any>(callback: T, delay: number): T {
+export function useThrottle<T extends (...args: never[]) => unknown>(
+  callback: T,
+  delay: number
+): T {
   const isThrottled = useRef(false);
   const lastArgs = useRef<Parameters<T> | null>(null);
 

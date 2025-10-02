@@ -153,6 +153,8 @@ const cta = {
 
 <!-- Styles for form on gradient background -->
 <style>
+  /* eslint-disable astro/no-unused-css-selector */
+  /* Applied to CTAForm component dynamically via className prop */
   .form-on-gradient input,
   .form-on-gradient textarea,
   .form-on-gradient select {
@@ -197,4 +199,5 @@ const cta = {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
+  /* eslint-enable astro/no-unused-css-selector */
 </style>

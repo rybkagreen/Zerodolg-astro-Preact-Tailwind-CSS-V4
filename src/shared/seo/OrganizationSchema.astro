@@ -183,11 +183,12 @@ const faqSchema = {
 };
 ---
 
-<!-- Основная схема организации -->
+<!-- Основная схема организации --><!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data -->
 <script type='application/ld+json' set:html={JSON.stringify(organizationSchema)} />
 
 <!-- Схема для страницы реструктуризации -->{
   restructuringPageSchema && (
+    /* eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data */
     <script type='application/ld+json' set:html={JSON.stringify(restructuringPageSchema)} />
   )
 }
@@ -195,6 +196,7 @@ const faqSchema = {
 <!-- FAQ схема для релевантных страниц -->
 {
   (pageType === 'homepage' || pageType === 'service') && (
+    /* eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data */
     <script type='application/ld+json' set:html={JSON.stringify(faqSchema)} />
   )
 }
@@ -260,6 +262,7 @@ const faqSchema = {
 }
 
 <!-- Local Business схема -->
+<!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data -->
 <script
   type='application/ld+json'
   set:html={JSON.stringify({

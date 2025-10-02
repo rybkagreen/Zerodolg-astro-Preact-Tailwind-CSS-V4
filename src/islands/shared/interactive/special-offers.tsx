@@ -75,15 +75,24 @@ const SpecialOfferBanner = (): VNode | null => {
   useEffect(() => {
     const checkBannerStatus = () => {
       try {
-        console.log('[SpecialOfferBanner] Initializing banner check...');
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.log('[SpecialOfferBanner] Initializing banner check...');
+        }
 
         if (typeof window === 'undefined') {
-          console.log('[SpecialOfferBanner] Window undefined, skipping...');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.log('[SpecialOfferBanner] Window undefined, skipping...');
+          }
           return;
         }
 
         if (typeof sessionStorage === 'undefined') {
-          console.warn('[SpecialOfferBanner] SessionStorage unavailable, showing banner anyway');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.warn('[SpecialOfferBanner] SessionStorage unavailable, showing banner anyway');
+          }
           setIsVisible(true);
           setIsInitialized(true);
           return;
@@ -92,15 +101,24 @@ const SpecialOfferBanner = (): VNode | null => {
         const wasClosed = sessionStorage.getItem('offerBannerClosed');
         const showDelay = 5000; // Показываем через 5 секунд
 
-        console.log('[SpecialOfferBanner] Banner status:', {
-          wasClosed: !!wasClosed,
-          showDelay,
-        });
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.log('[SpecialOfferBanner] Banner status:', {
+            wasClosed: !!wasClosed,
+            showDelay,
+          });
+        }
 
         if (!wasClosed) {
-          console.log('[SpecialOfferBanner] Banner not closed, setting timer...');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.log('[SpecialOfferBanner] Banner not closed, setting timer...');
+          }
           const timerId = setTimeout(() => {
-            console.log('[SpecialOfferBanner] Showing banner after delay');
+            if (import.meta.env.DEV) {
+              // eslint-disable-next-line no-console
+              console.log('[SpecialOfferBanner] Showing banner after delay');
+            }
             setIsVisible(true);
             setIsInitialized(true);
           }, showDelay);
@@ -108,12 +126,18 @@ const SpecialOfferBanner = (): VNode | null => {
           // Очищаем таймер при размонтировании
           return () => clearTimeout(timerId);
         } else {
-          console.log('[SpecialOfferBanner] Banner was closed, not showing');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.log('[SpecialOfferBanner] Banner was closed, not showing');
+          }
           setIsInitialized(true);
           return undefined; // Explicitly return undefined when banner was closed
         }
       } catch (error) {
-        console.error('[SpecialOfferBanner] Error checking banner status:', error);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.error('[SpecialOfferBanner] Error checking banner status:', error);
+        }
         setIsInitialized(true);
         return undefined;
       }
@@ -124,18 +148,30 @@ const SpecialOfferBanner = (): VNode | null => {
   }, []);
 
   const handleClose = () => {
-    console.log('[SpecialOfferBanner] Closing banner...');
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log('[SpecialOfferBanner] Closing banner...');
+    }
     setIsExiting(true);
     setTimeout(() => {
-      console.log('[SpecialOfferBanner] Banner hidden');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.log('[SpecialOfferBanner] Banner hidden');
+      }
       setIsVisible(false);
       try {
         if (typeof sessionStorage !== 'undefined') {
           sessionStorage.setItem('offerBannerClosed', 'true');
-          console.log('[SpecialOfferBanner] Banner close status saved to sessionStorage');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.log('[SpecialOfferBanner] Banner close status saved to sessionStorage');
+          }
         }
       } catch (error) {
-        console.error('[SpecialOfferBanner] Error saving to sessionStorage:', error);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.error('[SpecialOfferBanner] Error saving to sessionStorage:', error);
+        }
       }
     }, 500);
   };
@@ -156,7 +192,10 @@ const SpecialOfferBanner = (): VNode | null => {
         if (heroForm) {
           heroForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-          console.warn('[SpecialOfferBanner] No form found to scroll to');
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.warn('[SpecialOfferBanner] No form found to scroll to');
+          }
         }
       }
 
@@ -172,10 +211,16 @@ const SpecialOfferBanner = (): VNode | null => {
           });
         }
       } catch (analyticsError) {
-        console.warn('[SpecialOfferBanner] Analytics error:', analyticsError);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn('[SpecialOfferBanner] Analytics error:', analyticsError);
+        }
       }
     } catch (error) {
-      console.error('[SpecialOfferBanner] Error in handleCtaClick:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('[SpecialOfferBanner] Error in handleCtaClick:', error);
+      }
     }
   };
 

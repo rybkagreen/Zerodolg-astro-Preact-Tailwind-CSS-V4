@@ -234,7 +234,12 @@ export class BitrixCallback {
       return;
     }
 
-    const formData = new FormData(this.form!);
+    if (!this.form) {
+      console.error('BitrixCallback: Form element not found');
+      return;
+    }
+
+    const formData = new FormData(this.form);
     const data: FormData = {
       name: formData.get('name') as string,
       phone: formData.get('phone') as string,
@@ -245,21 +250,24 @@ export class BitrixCallback {
 
     // Validate
     if (!data.name || data.name.trim().length < 2) {
-      this.showError(document.getElementById('callback-name')!, 'Введите ваше имя');
+      const nameInput = document.getElementById('callback-name');
+      if (nameInput) {
+        this.showError(nameInput, 'Введите ваше имя');
+      }
       return;
     }
 
     const cleanedPhone = data.phone.replace(/\D/g, '');
     if (cleanedPhone.length < 11) {
-      this.showError(
-        document.getElementById('callback-phone')!,
-        'Введите корректный номер телефона'
-      );
+      const phoneInput = document.getElementById('callback-phone');
+      if (phoneInput) {
+        this.showError(phoneInput, 'Введите корректный номер телефона');
+      }
       return;
     }
 
     // Show loading state
-    const submitBtn = this.form!.querySelector('.bitrix-callback__submit') as HTMLButtonElement;
+    const submitBtn = this.form.querySelector('.bitrix-callback__submit') as HTMLButtonElement;
     const submitText = submitBtn?.querySelector('.bitrix-callback__submit-text');
     const submitLoader = submitBtn?.querySelector('.bitrix-callback__submit-loader');
 
@@ -287,7 +295,9 @@ export class BitrixCallback {
       // Reset and close after delay
       setTimeout(() => {
         this.closePopup();
-        this.form!.reset();
+        if (this.form) {
+          this.form.reset();
+        }
         this.hideSuccess();
       }, 3000);
     } catch (error) {
@@ -296,14 +306,16 @@ export class BitrixCallback {
       console.error(`Произошла ошибка. Пожалуйста, позвоните нам: ${this.sitePhone}`);
 
       // Show error in UI instead of alert
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'bitrix-callback__error bitrix-callback__error--visible';
-      errorDiv.textContent = 'Произошла ошибка отправки. Попробуйте еще раз или позвоните нам.';
-      this.form!.appendChild(errorDiv);
+      if (this.form) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bitrix-callback__error bitrix-callback__error--visible';
+        errorDiv.textContent = 'Произошла ошибка отправки. Попробуйте еще раз или позвоните нам.';
+        this.form.appendChild(errorDiv);
 
-      setTimeout(() => {
-        errorDiv.remove();
-      }, 5000);
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 5000);
+      }
     } finally {
       if (submitBtn) submitBtn.disabled = false;
       if (submitText && submitText instanceof HTMLElement) submitText.style.display = 'block';

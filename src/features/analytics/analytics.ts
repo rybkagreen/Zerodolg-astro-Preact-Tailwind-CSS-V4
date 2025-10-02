@@ -23,7 +23,7 @@ interface YandexMetrikaParams {
 }
 
 interface EventParameters {
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined;
 }
 
 // Configuration - these should be set in environment variables
@@ -35,7 +35,7 @@ const CONFIG: AnalyticsConfig = {
 };
 
 // Debug logging function
-function debugLog(message: string, data?: any): void {
+function debugLog(message: string, data?: unknown): void {
   if (CONFIG.DEBUG) {
     console.log(`[Analytics] ${message}`, data || '');
   }
@@ -49,8 +49,14 @@ function initYandexMetrika(): void {
   }
 
   // Load Yandex Metrika script
+  type YandexMetrikaFunction = {
+    (...args: unknown[]): void;
+    a?: unknown[];
+    l?: number;
+  };
+
   (function (
-    m: any,
+    m: Window & { [key: string]: YandexMetrikaFunction },
     e: Document,
     t: string,
     r: string,
@@ -60,7 +66,7 @@ function initYandexMetrika(): void {
   ) {
     m[i] =
       m[i] ||
-      function (...args: any[]) {
+      function (...args: unknown[]) {
         (m[i].a = m[i].a || []).push(args);
       };
     m[i].l = 1 * new Date().getTime();
@@ -125,7 +131,7 @@ function initGoogleAnalytics(): void {
 
   // Initialize
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args: any[]): void {
+  function gtag(...args: unknown[]): void {
     window.dataLayer.push(args);
   }
   window.gtag = gtag;

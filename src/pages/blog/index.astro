@@ -26,7 +26,7 @@ const validPosts = blogPosts.filter(
 const allTags = [...new Set(validPosts.flatMap((post) => post.data.tags || []))];
 
 // Format reading time
-function getReadingTime(content: string): string {
+function _getReadingTime(content: string): string {
   const wordsPerMinute = 200;
   const words = content.split(/\s+/).length;
   const minutes = Math.ceil(words / wordsPerMinute);

@@ -139,7 +139,10 @@ function setupScrollToActions() {
         }
       };
 
-      button.addEventListener('click', (button as ExtendedElement)._scrollHandler!);
+      const handler = (button as ExtendedElement)._scrollHandler;
+      if (handler) {
+        button.addEventListener('click', handler);
+      }
     }
   });
 
@@ -170,7 +173,10 @@ function setupScrollToActions() {
         }
       };
 
-      button.addEventListener('click', (button as ExtendedElement)._scrollHandler!);
+      const handler = (button as ExtendedElement)._scrollHandler;
+      if (handler) {
+        button.addEventListener('click', handler);
+      }
     }
   });
 }
@@ -204,7 +210,10 @@ function setupAnchorNavigation() {
         }
       };
 
-      anchor.addEventListener('click', (anchor as ExtendedElement)._anchorHandler!);
+      const handler = (anchor as ExtendedElement)._anchorHandler;
+      if (handler) {
+        anchor.addEventListener('click', handler);
+      }
     }
   });
 

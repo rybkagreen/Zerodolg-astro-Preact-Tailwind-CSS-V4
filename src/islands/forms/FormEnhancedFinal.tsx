@@ -63,8 +63,8 @@ function FormErrorBoundary({ children, className = '' }: { children: VNode; clas
       console.error('Form error:', event.error);
 
       // Send error to monitoring service
-      if (typeof window !== 'undefined' && (window as any).Sentry) {
-        (window as any).Sentry.captureException(event.error);
+      if (typeof window !== 'undefined' && window.Sentry) {
+        window.Sentry.captureException(event.error);
       }
     };
 
@@ -249,8 +249,8 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
   useEffect(() => {
     if (isVisible && enableAnalytics) {
       // Track form view if analytics are available
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_view', {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'form_view', {
           form_id: config.formId,
           form_type: config.formType,
         });
@@ -544,7 +544,10 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
 
   return (
     <FormErrorBoundary>
-      <div ref={observerRef as any} class={`form-enhanced ${className}`}>
+      <div
+        ref={observerRef as unknown as preact.Ref<HTMLDivElement>}
+        class={`form-enhanced ${className}`}
+      >
         <form
           ref={formRef}
           onSubmit={handleSubmit}
@@ -689,22 +692,22 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
 export default FormEnhancedFinal;
 
 // Analytics tracking helper
-function trackEvent(eventName: string, eventData: Record<string, any>) {
+function trackEvent(eventName: string, eventData: Record<string, string | number | boolean>) {
   if (typeof window === 'undefined') return;
 
   // Google Analytics 4
-  if ((window as any).gtag) {
-    (window as any).gtag('event', eventName, eventData);
+  if (window.gtag) {
+    window.gtag('event', eventName, eventData);
   }
 
   // Yandex Metrika
-  if ((window as any).ym) {
-    (window as any).ym(94567890, 'reachGoal', eventName, eventData);
+  if (window.ym) {
+    window.ym(94567890, 'reachGoal', eventName, eventData);
   }
 
   // Custom analytics
-  if ((window as any).analytics) {
-    (window as any).analytics.track(eventName, eventData);
+  if (window.analytics) {
+    window.analytics.track(eventName, eventData);
   }
 
   // Console log for debugging

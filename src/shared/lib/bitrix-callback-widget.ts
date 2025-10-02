@@ -311,7 +311,7 @@ export class BitrixCallbackWidget {
     }
   }
 
-  private async sendToBitrix24(data: FormData): Promise<any> {
+  private async sendToBitrix24(data: FormData): Promise<unknown> {
     if (!this.webhookUrl) {
       throw new Error('No webhook URL provided');
     }
