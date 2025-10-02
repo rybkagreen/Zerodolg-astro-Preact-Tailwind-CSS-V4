@@ -37,7 +37,10 @@ const CONFIG: AnalyticsConfig = {
 // Debug logging function
 function debugLog(message: string, data?: unknown): void {
   if (CONFIG.DEBUG) {
-    console.log(`[Analytics] ${message}`, data || '');
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log(`[Analytics] ${message}`, data || '');
+    }
   }
 }
 
@@ -126,12 +129,30 @@ function initYandexMetrika(): void {
   debugLog('Yandex Metrika initialized');
 }
 
-// Initialize Google Analytics
+// Initialize Google Analytics with Consent Mode v2
 function initGoogleAnalytics(): void {
   if (!CONFIG.GOOGLE_ANALYTICS_ID) {
     debugLog('Google Analytics ID not configured');
     return;
   }
+
+  // Initialize dataLayer and gtag
+  window.dataLayer = window.dataLayer || [];
+  function gtag(...args: unknown[]): void {
+    window.dataLayer.push(args);
+  }
+  window.gtag = gtag;
+
+  // ✅ СНАЧАЛА устанавливаем Consent Mode v2 (по умолчанию denied)
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500, // Ждем 500ms для Cookie Banner
+  });
+
+  debugLog('Consent Mode v2 initialized (default: denied)');
 
   // Load gtag.js
   const script = document.createElement('script');
@@ -139,12 +160,7 @@ function initGoogleAnalytics(): void {
   script.src = `https://www.googletagmanager.com/gtag/js?id=${CONFIG.GOOGLE_ANALYTICS_ID}`;
   document.head.appendChild(script);
 
-  // Initialize
-  window.dataLayer = window.dataLayer || [];
-  function gtag(...args: unknown[]): void {
-    window.dataLayer.push(args);
-  }
-  window.gtag = gtag;
+  // Configure GA4
   gtag('js', new Date());
   gtag('config', CONFIG.GOOGLE_ANALYTICS_ID, {
     send_page_view: true,
@@ -152,7 +168,7 @@ function initGoogleAnalytics(): void {
     cookie_flags: 'SameSite=None;Secure',
   });
 
-  debugLog('Google Analytics initialized');
+  debugLog('Google Analytics initialized with Consent Mode v2');
 }
 
 // Track scroll depth
@@ -306,6 +322,22 @@ function trackCTAClicks(): void {
 
 // Main initialization function
 function initAnalytics(): void {
+  // ✅ Восстанавливаем сохраненное согласие пользователя
+  if (typeof window !== 'undefined') {
+    // Динамический импорт для избежания проблем с SSR
+    import('../../shared/lib/consent-manager')
+      .then(({ ConsentManager }) => {
+        ConsentManager.restoreSavedConsent();
+        debugLog('Consent restored from localStorage');
+      })
+      .catch((error) => {
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.error('Failed to import consent-manager:', error);
+        }
+      });
+  }
+
   // Initialize analytics services
   initYandexMetrika();
   initGoogleAnalytics();
