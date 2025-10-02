@@ -4,10 +4,11 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/dev/validate-env.js && astro build",
-    "build:prod": "npm run prebuild:prod && node scripts/dev/validate-env.js && astro build --config astro.config.prod.mjs",
+    "build": "node scripts/dev/validate-env.js && astro build && npm run postbuild",
+    "build:prod": "npm run prebuild:prod && node scripts/dev/validate-env.js && astro build --config astro.config.prod.mjs && npm run postbuild",
     "build:production": "node scripts/build/build-production.js",
     "prebuild:prod": "npm run clean && npm run type-check",
+    "postbuild": "node scripts/build/post-build-fix-urls.js",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "npx eslint .",
