@@ -3,6 +3,7 @@
 
 import type { UserData, HashedUserData } from './hash-utils';
 import { hashUserData, isWebCryptoSupported, isSecureContext } from './hash-utils';
+import { consentManager } from './consent-manager';
 
 export interface ConversionData {
   transaction_id: string;
@@ -234,6 +235,31 @@ export class AnalyticsManager {
    */
   async trackConversion(data: ConversionData): Promise<void> {
     const { transaction_id, value, currency = 'RUB', form_type, lead_id, user_data } = data;
+
+    // ✅ ПРОВЕРЯЕМ СОГЛАСИЕ ПЕРЕД ОТПРАВКОЙ ПЕРСОНАЛЬНЫХ ДАННЫХ
+    if (!consentManager.hasAnalyticsConsent()) {
+      this.log('Conversion tracking: no user consent for Enhanced Conversions');
+      // Отправляем базовое событие без персональных данных
+      this.sendToGA4(
+        'purchase',
+        {
+          transaction_id,
+          value,
+          currency,
+          items: JSON.stringify([
+            {
+              item_id: form_type,
+              item_name: this.getServiceName(form_type),
+              item_category: 'legal_services',
+              price: value,
+              quantity: 1,
+            },
+          ]),
+        },
+        undefined // Не передаем user_data без согласия
+      );
+      return;
+    }
 
     // Проверка на дубликат по transaction_id
     const conversionId = `conversion_${transaction_id}`;
