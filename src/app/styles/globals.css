@@ -38,6 +38,9 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Enable bounce scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }
 
 body {
@@ -50,6 +53,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
+  /* Enable bounce scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  overscroll-behavior-y: auto;
 }
 
 /* ==========================================================================

@@ -227,7 +227,14 @@ const mobileMenuItems = [
     <div class='flex items-center justify-between h-16'>
       <!-- Logo Section -->
       <div class='flex-shrink-0 flex items-center'>
-        <img src='/icons/logo.svg' alt='ZeroDolg' width='180' height='50' loading='lazy' />
+        <img
+          src='/icons/logo.svg'
+          alt='ZeroDolg'
+          width='180'
+          height='50'
+          loading='lazy'
+          class='w-32 sm:w-40 md:w-44 lg:w-[180px] h-auto'
+        />
       </div>
 
       <!-- Main Navigation with Dropdown Menus -->
@@ -383,7 +390,9 @@ const mobileMenuItems = [
               stroke-miterlimit='10'></path>
           </svg>
           <div class='ml-3'>
-            <span class='block text-sm font-semibold leading-tight'>{company.phone}</span>
+            <span class='block text-sm font-semibold leading-tight whitespace-nowrap'
+              >{company.phone}</span
+            >
             <span class='block text-xs text-gray-500 group-hover:text-blue-500 transition-colors'
               >Позвонить</span
             >
@@ -487,7 +496,7 @@ const mobileMenuItems = [
         <div class='border-t p-4 space-y-3'>
           <a
             href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
-            class='flex items-center justify-center space-x-2 py-3 text-lg font-semibold text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all duration-200'
+            class='flex items-center justify-center space-x-2 py-3 text-base sm:text-lg font-semibold text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all duration-200'
             title='Позвонить'
             aria-label={`Телефон: ${company.phone}`}
           >
@@ -498,7 +507,7 @@ const mobileMenuItems = [
                 stroke-width='1.5'
                 stroke-miterlimit='10'></path>
             </svg>
-            <span>{company.phone}</span>
+            <span class='whitespace-nowrap text-sm sm:text-base'>{company.phone}</span>
           </a>
           <div class='flex items-center justify-center space-x-2 text-sm text-gray-500'>
             <svg width='16' height='16' viewBox='0 0 20 20' fill='none' class='flex-shrink-0'>
