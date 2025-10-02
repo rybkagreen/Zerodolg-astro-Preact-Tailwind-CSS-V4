@@ -2,6 +2,7 @@
 import '../styles/globals.css'; // Импорт Tailwind CSS
 import '../../styles/sections.css'; // Импорт единых стилей секций
 import { SEO } from '@shared/ui/SEO';
+import CookieBanner from '@shared/ui/CookieBanner';
 
 export interface Props {
   title: string;
@@ -71,107 +72,7 @@ const {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
-      /* eslint-disable astro/no-unused-css-selector */
-      /* Used by multiple page components - applied dynamically */
-      header {
-        position: relative;
-        z-index: 50;
-      }
-      .hero-section {
-        position: relative;
-        overflow: hidden;
-        padding-top: 5rem;
-        padding-bottom: 5rem;
-        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%);
-      }
-      @media (min-width: 1024px) {
-        .hero-section {
-          padding-top: 7rem;
-          padding-bottom: 7rem;
-        }
-      }
-      .container-custom {
-        max-width: 80rem;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-      @media (min-width: 640px) {
-        .container-custom {
-          padding-left: 1.5rem;
-          padding-right: 1.5rem;
-        }
-      }
-      @media (min-width: 1024px) {
-        .container-custom {
-          padding-left: 2rem;
-          padding-right: 2rem;
-        }
-      }
-      .hero-title {
-        font-size: 2.25rem;
-        font-weight: 900;
-        line-height: 1.1;
-        color: #fff;
-        margin-bottom: 1.5rem;
-      }
-      @media (min-width: 640px) {
-        .hero-title {
-          font-size: 3rem;
-        }
-      }
-      @media (min-width: 1024px) {
-        .hero-title {
-          font-size: 3.75rem;
-        }
-      }
-      @media (min-width: 1280px) {
-        .hero-title {
-          font-size: 4.5rem;
-        }
-      }
-      .btn-primary {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.75rem;
-        padding: 1.5rem 2rem;
-        border-radius: 0.5rem;
-        font-weight: 700;
-        font-size: 1.125rem;
-        color: #fff;
-        background: linear-gradient(to right, #2563eb, #1d4ed8);
-        box-shadow:
-          0 10px 15px -3px rgba(0, 0, 0, 0.1),
-          0 4px 6px -4px rgba(0, 0, 0, 0.1);
-        text-decoration: none;
-        transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
-        overflow: hidden;
-      }
-      .btn-primary:hover {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow:
-          0 20px 25px -5px rgba(0, 0, 0, 0.1),
-          0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      }
-      .btn-primary:focus {
-        outline: 0;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
-      }
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-      /* eslint-enable astro/no-unused-css-selector */
+      /* Global utility classes are defined in critical.css and imported via build process */
     </style>
 
     <!-- Main CSS will be imported through Astro's build process -->
@@ -210,6 +111,9 @@ const {
   </head>
   <body>
     <slot />
+
+    <!-- Cookie Consent Banner -->
+    <CookieBanner client:load />
 
     <!-- Service Worker Removal Script - temporary -->
     <script is:inline defer src='/js/service-worker-register.js'></script>
