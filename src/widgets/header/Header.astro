@@ -222,7 +222,7 @@ const mobileMenuItems = [
 ---
 
 <!-- Advanced Interactive Navigation -->
-<header class='bg-white shadow-md sticky top-0 z-fixed' id='main-header'>
+<header class='bg-white shadow-md sticky top-0' style='z-index: 10001;' id='main-header'>
   <nav class='container-custom' role='navigation' aria-label='Главная навигация'>
     <div class='flex items-center justify-between h-16'>
       <!-- Logo Section -->
@@ -234,7 +234,7 @@ const mobileMenuItems = [
       <div class='hidden md:block' id='navMenu'>
         <ul class='flex space-x-8 xl:space-x-12'>
           <!-- Services Dropdown -->
-          <li class='static group'>
+          <li class='relative group'>
             <button
               class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
@@ -252,8 +252,8 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='fixed w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important; top: 4rem;'
+              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
+              style='z-index: 9999 !important;'
               data-dropdown-menu='services'
             >
               <div class='py-2'>
@@ -278,7 +278,7 @@ const mobileMenuItems = [
           </li>
 
           <!-- About Dropdown -->
-          <li class='static group'>
+          <li class='relative group'>
             <button
               class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
@@ -296,8 +296,8 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='fixed w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important; top: 4rem;'
+              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
+              style='z-index: 9999 !important;'
               data-dropdown-menu='about'
             >
               <div class='py-2'>
@@ -319,7 +319,7 @@ const mobileMenuItems = [
           </li>
 
           <!-- Info Dropdown -->
-          <li class='static group'>
+          <li class='relative group'>
             <button
               class='btn-ghost !py-2 text-sm flex items-center'
               aria-expanded='false'
@@ -337,8 +337,8 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='fixed w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important; top: 4rem;'
+              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
+              style='z-index: 9999 !important;'
               data-dropdown-menu='info'
             >
               <div class='py-2'>
