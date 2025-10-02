@@ -56,7 +56,7 @@ function initYandexMetrika(): void {
   };
 
   (function (
-    m: Window & { [key: string]: YandexMetrikaFunction },
+    m: Window & { [key: string]: YandexMetrikaFunction | undefined },
     e: Document,
     t: string,
     r: string,
@@ -64,12 +64,16 @@ function initYandexMetrika(): void {
     k?: HTMLScriptElement,
     a?: HTMLScriptElement
   ) {
-    m[i] =
-      m[i] ||
-      function (...args: unknown[]) {
-        (m[i].a = m[i].a || []).push(args);
-      };
-    m[i].l = 1 * new Date().getTime();
+    const ymFunc: YandexMetrikaFunction = function (...args: unknown[]) {
+      const fn = m[i] as YandexMetrikaFunction | undefined;
+      if (!fn) return;
+      (fn.a = fn.a || []).push(args);
+    };
+    m[i] = m[i] || ymFunc;
+    const currentFn = m[i];
+    if (currentFn) {
+      currentFn.l = 1 * new Date().getTime();
+    }
     for (let j = 0; j < document.scripts.length; j++) {
       if (document.scripts[j]?.src === r) {
         return;
@@ -80,7 +84,13 @@ function initYandexMetrika(): void {
     k.async = true;
     k.src = r;
     a.parentNode?.insertBefore(k, a);
-  })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+  })(
+    window as unknown as Window & { [key: string]: YandexMetrikaFunction | undefined },
+    document,
+    'script',
+    'https://mc.yandex.ru/metrika/tag.js',
+    'ym'
+  );
 
   // Initialize with configuration
   if (typeof window.ym !== 'undefined' && CONFIG.YANDEX_METRIKA_ID) {

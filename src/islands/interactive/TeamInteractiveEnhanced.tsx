@@ -55,11 +55,11 @@ interface Props {
 }
 
 export default function TeamInteractiveEnhanced({ members = [], stats }: Props): VNode {
+  type DocumentType = NonNullable<TeamMember['documents']>[number];
+
   const [activeMemberId, setActiveMemberId] = useState<string | null>(members[0]?.id || null);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<TeamMember['documents'][number] | null>(
-    null
-  );
+  const [selectedDocument, setSelectedDocument] = useState<DocumentType | null>(null);
   const [isDocumentsOpen, setIsDocumentsOpen] = useState(false);
   const [observerRef, isIntersecting] = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
@@ -102,7 +102,7 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
     [members]
   );
 
-  const handleDocumentClick = useCallback((document: TeamMember['documents'][number]) => {
+  const handleDocumentClick = useCallback((document: DocumentType) => {
     setSelectedDocument(document);
   }, []);
 

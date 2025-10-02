@@ -377,7 +377,8 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
         if (enableAnalytics) {
           trackEvent('form_validation_error', {
             form_id: config.formId,
-            errors: Object.keys(errors),
+            error_count: Object.keys(errors).length,
+            error_fields: Object.keys(errors).join(','),
           });
         }
         return;

@@ -8,9 +8,10 @@ interface PuppeteerHelperOptions {
   [key: string]: unknown;
 }
 
-// Define Puppeteer types as unknown to avoid build errors
-type Browser = unknown;
-type Page = unknown;
+// Define Puppeteer types as any to avoid build errors
+type Browser = any;
+type Page = any;
+type ElementHandle = any;
 
 // Helper function to safely import Puppeteer
 async function importPuppeteer() {
@@ -85,7 +86,10 @@ class PuppeteerHelper {
   }
 
   // Wait for an element to appear
-  async waitForElement(selector: string, timeout: number = puppeteerConfig.timeoutSettings.action) {
+  async waitForElement(
+    selector: string,
+    timeout: number = puppeteerConfig.timeoutSettings.action
+  ): Promise<ElementHandle> {
     if (!this.page) {
       throw new Error('Puppeteer page not initialized. Call init() first.');
     }
