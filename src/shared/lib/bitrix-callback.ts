@@ -35,7 +35,10 @@ export class BitrixCallback {
   constructor(bitrixWebhookUrl: string | undefined, sitePhone: string | undefined) {
     // If no webhook URL, don't initialize
     if (!bitrixWebhookUrl) {
-      console.warn('BitrixCallback: No webhook URL provided, widget will not function');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('BitrixCallback: No webhook URL provided, widget will not function');
+      }
       return;
     }
 
@@ -230,12 +233,18 @@ export class BitrixCallback {
 
     // If no webhook URL, don't submit
     if (!this.webhookUrl) {
-      console.error('BitrixCallback: No webhook URL provided, cannot submit form');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('BitrixCallback: No webhook URL provided, cannot submit form');
+      }
       return;
     }
 
     if (!this.form) {
-      console.error('BitrixCallback: Form element not found');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('BitrixCallback: Form element not found');
+      }
       return;
     }
 
@@ -301,9 +310,15 @@ export class BitrixCallback {
         this.hideSuccess();
       }, 3000);
     } catch (error) {
-      console.error('Error submitting callback form:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Error submitting callback form:', error);
+      }
       // Show user-friendly error message instead of alert
-      console.error(`Произошла ошибка. Пожалуйста, позвоните нам: ${this.sitePhone}`);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error(`Произошла ошибка. Пожалуйста, позвоните нам: ${this.sitePhone}`);
+      }
 
       // Show error in UI instead of alert
       if (this.form) {

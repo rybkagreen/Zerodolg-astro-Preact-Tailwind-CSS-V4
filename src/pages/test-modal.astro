@@ -69,11 +69,14 @@ import ModalManager from '../features/modals/model/modal-manager.tsx';
           callbackModalId.textContent = modal ? 'Found' : 'Not found';
         }
 
-        console.log('Debug info:', {
-          modalManager: !!window.modalManager,
-          modals: document.querySelectorAll('.modal'),
-          callbackModal: document.getElementById('callback'),
-        });
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.log('Debug info:', {
+            modalManager: !!window.modalManager,
+            modals: document.querySelectorAll('.modal'),
+            callbackModal: document.getElementById('callback'),
+          });
+        }
       }, 1000);
     });
   </script>

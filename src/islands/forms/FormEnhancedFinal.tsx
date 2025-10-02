@@ -60,7 +60,10 @@ function FormErrorBoundary({ children, className = '' }: { children: VNode; clas
     const handleError = (event: ErrorEvent) => {
       setHasError(true);
       setError(new Error(event.message));
-      console.error('Form error:', event.error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Form error:', event.error);
+      }
 
       // Send error to monitoring service
       if (typeof window !== 'undefined' && window.Sentry) {
@@ -239,7 +242,10 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
           const parsed = JSON.parse(savedDraft);
           setFormData(parsed);
         } catch (e) {
-          console.error('Failed to load form draft:', e);
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.error('Failed to load form draft:', e);
+          }
         }
       }
     }
@@ -713,6 +719,9 @@ function trackEvent(eventName: string, eventData: Record<string, string | number
 
   // Console log for debugging
   if (typeof process !== 'undefined' && process.env && process.env['NODE_ENV'] === 'development') {
-    console.log('📊 Analytics Event:', eventName, eventData);
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log('📊 Analytics Event:', eventName, eventData);
+    }
   }
 }

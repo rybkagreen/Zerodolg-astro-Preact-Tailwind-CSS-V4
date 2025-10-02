@@ -58,7 +58,10 @@ const ReviewsEnhanced = ({
         win.ym(88005553535, 'reachGoal', 'reviews_load_more');
       }
     } catch (error) {
-      console.warn('[ReviewsEnhanced] Analytics tracking failed:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('[ReviewsEnhanced] Analytics tracking failed:', error);
+      }
     }
   };
 

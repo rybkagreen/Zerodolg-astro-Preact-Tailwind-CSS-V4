@@ -40,11 +40,14 @@
     "tools:compare-sites": "node tools/compare-sites.js",
     "tools:semgrep": "node tools/semgrep-scan.js",
     "tools:trufflehog": "node tools/trufflehog-scan.js",
-    "staging:up": "docker compose up -d --build",
-    "staging:down": "docker compose down",
-    "staging:logs": "docker compose logs -f zerodolg-web",
-    "staging:restart": "docker compose restart zerodolg-web",
-    "staging:clean": "docker compose down -v --rmi all"
+    "staging:up": "powershell -ExecutionPolicy Bypass -File scripts/staging/start-staging.ps1",
+    "staging:down": "powershell -ExecutionPolicy Bypass -File scripts/staging/stop-staging.ps1",
+    "staging:logs": "powershell -ExecutionPolicy Bypass -Command \"$env:PATH='D:\\Program Files\\Docker\\resources\\bin;'+$env:PATH; docker compose logs -f zerodolg-web\"",
+    "staging:restart": "powershell -ExecutionPolicy Bypass -Command \"$env:PATH='D:\\Program Files\\Docker\\resources\\bin;'+$env:PATH; docker compose restart zerodolg-web\"",
+    "staging:clean": "powershell -ExecutionPolicy Bypass -File scripts/staging/clean-staging.ps1",
+    "staging:test": "node scripts/test/staging-automated-test.js",
+    "staging:test:puppeteer": "node scripts/test/staging-puppeteer-test.js",
+    "staging:test:full": "powershell -ExecutionPolicy Bypass -File scripts/test/run-staging-tests.ps1 -StartServer -StopAfter -Verbose"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.1",
@@ -80,6 +83,7 @@
     "happy-dom": "^18.0.1",
     "husky": "^9.1.7",
     "jsdom": "^27.0.0",
+    "lightningcss": "^1.30.2",
     "lint-staged": "^16.2.0",
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",

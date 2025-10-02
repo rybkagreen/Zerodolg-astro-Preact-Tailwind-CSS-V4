@@ -17,7 +17,10 @@ export function trackEvent(action: string, category: string, label?: string, val
 
   // Development logging
   if (import.meta.env.DEV) {
-    console.log('Analytics Event:', { action, category, label, value });
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log('Analytics Event:', { action, category, label, value });
+    }
   }
 }
 
@@ -36,6 +39,9 @@ export function trackPageView(pagePath: string): void {
 
   // Development logging
   if (import.meta.env.DEV) {
-    console.log('Page View:', pagePath);
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log('Page View:', pagePath);
+    }
   }
 }

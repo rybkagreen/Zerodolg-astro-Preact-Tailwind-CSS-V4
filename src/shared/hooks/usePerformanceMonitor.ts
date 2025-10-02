@@ -25,7 +25,10 @@ export function usePerformanceMonitor(componentName: string): void {
         if (entries && entries.length > 0) {
           entries.forEach((entry) => {
             if (entry.entryType === 'longtask') {
-              console.warn(`Long task detected in ${componentName}:`, entry);
+              if (import.meta.env.DEV) {
+                // eslint-disable-next-line no-console
+                console.warn(`Long task detected in ${componentName}:`, entry);
+              }
             }
           });
         }
@@ -35,7 +38,10 @@ export function usePerformanceMonitor(componentName: string): void {
         observer.current.observe({ entryTypes: ['longtask'] });
       } catch (error) {
         // Игнорируем ошибки наблюдателя
-        console.warn('PerformanceObserver error:', error);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn('PerformanceObserver error:', error);
+        }
       }
     }
 
@@ -47,7 +53,10 @@ export function usePerformanceMonitor(componentName: string): void {
       // Логируем время жизни компонента только в dev режиме
       if (startTime.current !== null && isDev) {
         const lifetime = performance.now() - startTime.current;
-        console.log(`${componentName} lifetime: ${lifetime}ms`);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.log(`${componentName} lifetime: ${lifetime}ms`);
+        }
       }
     };
   }, [componentName, isDev]);
@@ -56,7 +65,10 @@ export function usePerformanceMonitor(componentName: string): void {
     if (!isDev) return;
 
     // Логируем количество рендеров только в dev режиме
-    console.log(`${componentName} renders: ${renderCount.current}`);
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log(`${componentName} renders: ${renderCount.current}`);
+    }
 
     // Мониторим производительность рендеринга только в dev режиме
     const measureName = `${componentName}-render`;
@@ -72,7 +84,10 @@ export function usePerformanceMonitor(componentName: string): void {
           const measure = measures[0];
           if (measure && measure.duration > 16.67) {
             // > 1 фрейма при 60 FPS
-            console.warn(`${componentName} render took ${measure.duration.toFixed(2)}ms`);
+            if (import.meta.env.DEV) {
+              // eslint-disable-next-line no-console
+              console.warn(`${componentName} render took ${measure.duration.toFixed(2)}ms`);
+            }
           }
         }
       };

@@ -4,7 +4,7 @@ describe('Form Component', () => {
   // Form validation tests
   it('should validate required fields correctly', () => {
     const validateRequired = (value: string) => {
-      return value && value.trim().length > 0;
+      return !!(value && value.trim().length > 0);
     };
 
     expect(validateRequired('')).toBe(false);

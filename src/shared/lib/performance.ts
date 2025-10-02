@@ -19,7 +19,10 @@ export function measurePageLoad(): void {
 
           // Log to console in development
           if (import.meta.env.DEV) {
-            console.log('Page Performance Metrics:', metrics);
+            if (import.meta.env.DEV) {
+              // eslint-disable-next-line no-console
+              console.log('Page Performance Metrics:', metrics);
+            }
           }
 
           // Send to analytics in production

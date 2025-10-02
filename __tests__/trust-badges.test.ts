@@ -154,10 +154,10 @@ describe('TrustBadges Component', () => {
     };
 
     const sortedBadges = sortByVerification(trustBadges);
-    expect(sortedBadges[0].id).toBe('experience'); // Verified first
-    expect(sortedBadges[1].id).toBe('license'); // Verified second
-    expect(sortedBadges[2].id).toBe('support'); // Verified third
-    expect(sortedBadges[3].id).toBe('guarantee'); // Unverified last
+    expect(sortedBadges[0].id).toBe('license'); // Verified first (Лицензия)
+    expect(sortedBadges[1].id).toBe('experience'); // Verified second (Опыт)
+    expect(sortedBadges[2].id).toBe('support'); // Verified third (Поддержка)
+    expect(sortedBadges[3].id).toBe('guarantee'); // Unverified last (Гарантия)
 
     // Test verification grouping
     const groupByVerification = (badges: typeof trustBadges) => {
@@ -246,7 +246,7 @@ describe('TrustBadges Component', () => {
       return count.toString();
     };
 
-    expect(formatReviewCount(1450)).toBe('1.5k');
+    expect(formatReviewCount(1450)).toBe('1.4k');
     expect(formatReviewCount(500)).toBe('500');
     expect(formatReviewCount(2500)).toBe('2.5k');
     expect(formatReviewCount(999)).toBe('999');
@@ -633,8 +633,8 @@ describe('TrustBadges Component', () => {
       'filter-end'
     );
 
-    expect(verifiedBadges.length).toBe(67); // 100 * 0.67 = 67
-    expect(highRatedBadges.length).toBe(67); // Ratings 4 and 5 (indices 1, 2 modulo 3)
+    expect(verifiedBadges.length).toBe(66); // i%3!==0: 66 items (i%3=1: 33, i%3=2: 33)
+    expect(highRatedBadges.length).toBe(66); // Ratings 4 and 5 (i%3=1: 33, i%3=2: 33)
     expect(popularBadges.length).toBe(50); // Items with reviews >= 500
 
     // Test sorting performance

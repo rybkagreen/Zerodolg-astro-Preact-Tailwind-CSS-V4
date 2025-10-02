@@ -139,7 +139,10 @@ export default function Form({ formId, formType, onSuccess, onError }: FormProps
         throw new Error(result.error || 'Ошибка отправки формы');
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Form submission error:', error);
+      }
 
       // Show error message
       const errorMessage =

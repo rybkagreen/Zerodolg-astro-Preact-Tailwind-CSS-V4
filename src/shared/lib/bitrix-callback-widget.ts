@@ -38,7 +38,10 @@ export class BitrixCallbackWidget {
     // Find elements by the structure in the Astro component
     const container = document.querySelector('[aria-label="Виджет обратного звонка"]');
     if (!container) {
-      console.warn('Bitrix callback widget container not found');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('Bitrix callback widget container not found');
+      }
       return;
     }
 
@@ -49,7 +52,10 @@ export class BitrixCallbackWidget {
     this.successState = container.querySelector('.success-state') as HTMLElement;
 
     if (!this.button || !this.popup || !this.form) {
-      console.warn('Bitrix callback widget elements not found');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('Bitrix callback widget elements not found');
+      }
       return;
     }
 
@@ -289,7 +295,10 @@ export class BitrixCallbackWidget {
         this.form?.reset();
       }, 3000);
     } catch (error) {
-      console.error('Error submitting callback form:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Error submitting callback form:', error);
+      }
 
       // Show error message
       const errorDiv = document.createElement('div');

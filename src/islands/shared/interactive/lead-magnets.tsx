@@ -424,7 +424,10 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
         // Track event
         trackAnalytics('form_submitted', { form_type: modalType });
       } catch (error) {
-        console.error('Form submission error:', error);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.error('Form submission error:', error);
+        }
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }

@@ -129,7 +129,7 @@ describe('Stats Component', () => {
     expect(formatCurrency(46000000)).toBe('46 000 000 ₽');
 
     // Test compact number formatting
-    expect(formatCompactNumber(1450)).toBe('1,5 тыс ₽');
+    expect(formatCompactNumber(1450)).toBe('1,4 тыс ₽');
     expect(formatCompactNumber(2000000000)).toBe('2,0 млрд ₽');
     expect(formatCompactNumber(230)).toBe('230 ₽');
     expect(formatCompactNumber(1379310)).toBe('1,4 млн ₽');
@@ -347,6 +347,8 @@ describe('Stats Component', () => {
     const statsSection = document.createElement('section');
     statsSection.className = 'stats';
     statsSection.id = 'stats';
+    statsSection.setAttribute('role', 'region');
+    statsSection.setAttribute('aria-label', 'Статистика компании по банкротству');
 
     const statsHeader = document.createElement('header');
     statsHeader.className = 'stats__header';

@@ -89,7 +89,7 @@ describe('Utility Functions', () => {
   it('should truncate text correctly', () => {
     const truncateText = (text: string, maxLength: number) => {
       if (text.length <= maxLength) return text;
-      return `${text.substr(0, maxLength)}...`;
+      return `${text.substr(0, maxLength).trimEnd()}...`;
     };
 
     expect(truncateText('Short text', 20)).toBe('Short text');

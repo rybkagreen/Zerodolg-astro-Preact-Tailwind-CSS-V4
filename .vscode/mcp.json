@@ -2,7 +2,7 @@
   "mcpServers": {
     "astro-mcp": {
       "command": "npx",
-      "args": ["astro", "mcp"],
+      "args": ["--no-install", "astro", "mcp"],
       "env": {}
     },
     "puppeteer-browser": {

@@ -17,7 +17,10 @@ export async function hashSHA256(data: string): Promise<string> {
 
     // Проверяем поддержку Web Crypto API
     if (typeof crypto === 'undefined' || !crypto.subtle) {
-      console.warn('Web Crypto API not supported, using fallback');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('Web Crypto API not supported, using fallback');
+      }
       return fallbackHash(normalized);
     }
 
@@ -31,7 +34,10 @@ export async function hashSHA256(data: string): Promise<string> {
 
     return hashHex;
   } catch (error) {
-    console.error('Hashing error:', error);
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.error('Hashing error:', error);
+    }
     return '';
   }
 }

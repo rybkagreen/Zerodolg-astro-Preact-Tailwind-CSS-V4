@@ -131,10 +131,10 @@ describe('Responsive Component Tests', () => {
   it('should calculate responsive grid columns correctly', () => {
     const gridCalculator = {
       getColumnCount(containerWidth: number, itemMinWidth: number, gap: number = 20) {
-        // Calculate available width for items
-        const availableWidth = containerWidth - gap;
-        // Calculate how many items can fit
-        return Math.max(1, Math.floor(availableWidth / (itemMinWidth + gap)));
+        // Calculate how many items can fit with gaps between them
+        // Formula: containerWidth = columns * itemMinWidth + (columns - 1) * gap
+        // Solving for columns: columns = (containerWidth + gap) / (itemMinWidth + gap)
+        return Math.max(1, Math.floor((containerWidth + gap) / (itemMinWidth + gap)));
       },
       getColumnWidth(containerWidth: number, columns: number, gap: number = 20) {
         // Calculate width minus gaps
@@ -157,9 +157,12 @@ describe('Responsive Component Tests', () => {
     expect(gridCalculator.getColumnCount(600, 200, 10)).toBe(2);
 
     // Test column width calculation
-    expect(gridCalculator.getColumnWidth(1200, 3, 20)).toBeCloseTo(380, 0);
-    expect(gridCalculator.getColumnWidth(800, 2, 15)).toBeCloseTo(387.5, 1);
-    expect(gridCalculator.getColumnWidth(600, 1, 10)).toBe(590);
+    // 1200px container, 3 columns, 20px gap: (1200 - 2*20) / 3 = 1160 / 3 ≈ 386.67
+    expect(gridCalculator.getColumnWidth(1200, 3, 20)).toBeCloseTo(386.67, 1);
+    // 800px container, 2 columns, 15px gap: (800 - 1*15) / 2 = 785 / 2 = 392.5
+    expect(gridCalculator.getColumnWidth(800, 2, 15)).toBeCloseTo(392.5, 1);
+    // 600px container, 1 column, 10px gap: (600 - 0*10) / 1 = 600
+    expect(gridCalculator.getColumnWidth(600, 1, 10)).toBe(600);
 
     // Test responsive columns
     expect(gridCalculator.getResponsiveColumns(320)).toBe(1); // Mobile

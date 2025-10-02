@@ -451,11 +451,11 @@ Sitemap: https://zerodolg.ru/sitemap-index.xml
 
 **Prepared by**: AI Assistant  
 **Date**: 2025-10-02  
-**Reviewed by**: ********\_********  
-**Date**: ********\_********
+**Reviewed by**: **\*\*\*\***\_**\*\*\*\***  
+**Date**: **\*\*\*\***\_**\*\*\*\***
 
 **Approved for deployment**: ☐ Yes ☐ No  
-**Deployment Date/Time**: ********\_********
+**Deployment Date/Time**: **\*\*\*\***\_**\*\*\*\***
 
 ---
 

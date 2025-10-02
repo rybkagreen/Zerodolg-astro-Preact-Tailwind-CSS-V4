@@ -174,7 +174,10 @@ const ProblemsInteractive = (): null => {
         win.ym(88005553535, 'reachGoal', 'problems_viewed');
       }
     } catch (error) {
-      console.warn('[ProblemsInteractive] Analytics tracking failed:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('[ProblemsInteractive] Analytics tracking failed:', error);
+      }
     }
   };
 
@@ -200,9 +203,15 @@ const ProblemsInteractive = (): null => {
         });
       }
 
-      console.log('[ProblemsInteractive] Card clicked:', { problemType, cardIndex });
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.log('[ProblemsInteractive] Card clicked:', { problemType, cardIndex });
+      }
     } catch (error) {
-      console.warn('[ProblemsInteractive] Analytics tracking failed:', error);
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn('[ProblemsInteractive] Analytics tracking failed:', error);
+      }
     }
   };
 

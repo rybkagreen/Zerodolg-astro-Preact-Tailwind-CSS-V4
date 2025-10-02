@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staging Test Report - 2025-10-02T08:28:42.830Z</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        margin-top: 0;
+      }
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .summary-card {
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .summary-card h3 {
+        margin: 0;
+        font-size: 2em;
+      }
+      .summary-card p {
+        margin: 5px 0 0;
+        color: #666;
+      }
+      .pass {
+        background: #d4edda;
+        color: #155724;
+      }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .warn {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .test-list {
+        margin: 20px 0;
+      }
+      .test-item {
+        padding: 10px;
+        margin: 5px 0;
+        border-left: 4px solid #ccc;
+        background: #f9f9f9;
+      }
+      .test-item.pass {
+        border-color: #28a745;
+      }
+      .test-item.fail {
+        border-color: #dc3545;
+      }
+      .test-item.warn {
+        border-color: #ffc107;
+      }
+      .screenshots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .screenshot {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      .screenshot img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+      }
+      .metric {
+        padding: 15px;
+        background: #f0f0f0;
+        border-radius: 4px;
+      }
+      .metric h4 {
+        margin: 0 0 5px;
+        color: #333;
+      }
+      .metric p {
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #0066cc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🧪 Staging Server Test Report</h1>
+      <p><strong>URL:</strong> http://localhost:3000</p>
+      <p><strong>Date:</strong> 02.10.2025, 11:28:42</p>
+
+      <h2>Summary</h2>
+      <div class="summary">
+        <div class="summary-card">
+          <h3>29</h3>
+          <p>Total Tests</p>
+        </div>
+        <div class="summary-card pass">
+          <h3>24</h3>
+          <p>Passed</p>
+        </div>
+        <div class="summary-card fail">
+          <h3>1</h3>
+          <p>Failed</p>
+        </div>
+        <div class="summary-card warn">
+          <h3>4</h3>
+          <p>Warnings</p>
+        </div>
+      </div>
+
+      <h2>Performance Metrics</h2>
+      <div class="metrics">
+        <div class="metric">
+          <h4>Page Load Time</h4>
+          <p>1374.00</p>
+        </div>
+
+        <div class="metric">
+          <h4>Cumulative Layout Shift</h4>
+          <p>0.25</p>
+        </div>
+
+        <div class="metric">
+          <h4>Dom Content Loaded</h4>
+          <p>0.50</p>
+        </div>
+
+        <div class="metric">
+          <h4>Load Complete</h4>
+          <p>0.20</p>
+        </div>
+
+        <div class="metric">
+          <h4>Dom Interactive</h4>
+          <p>117.50</p>
+        </div>
+
+        <div class="metric">
+          <h4>First Paint</h4>
+          <p>172.00</p>
+        </div>
+
+        <div class="metric">
+          <h4>First Contentful Paint</h4>
+          <p>172.00</p>
+        </div>
+      </div>
+
+      <h2>Test Results</h2>
+      <div class="test-list">
+        <div class="test-item pass">
+          <strong>Page loaded successfully</strong>
+          <br /><small>1374ms</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Screenshot captured</strong>
+          <br /><small>initial_page_load_1759393707580.png</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Page title exists</strong>
+          <br /><small>💰 Банкротство физических лиц в Москве - Списание </small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Page has content</strong>
+          <br /><small>17853 characters</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Russian content present</strong>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Interactive buttons found</strong>
+          <br /><small>69 buttons</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Forms present</strong>
+          <br /><small>12 forms</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Navigation links found</strong>
+          <br /><small>56 links</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Phone links present</strong>
+          <br /><small>6 phone links</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Email links present</strong>
+          <br /><small>2 email links</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Desktop viewport screenshot</strong>
+          <br /><small>1920x1080</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Laptop viewport screenshot</strong>
+          <br /><small>1366x768</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Tablet viewport screenshot</strong>
+          <br /><small>768x1024</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Mobile viewport screenshot</strong>
+          <br /><small>375x667</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Images present on page</strong>
+          <br /><small>25 images</small>
+        </div>
+
+        <div class="test-item warn">
+          <strong>Some images failed to load</strong>
+          <br /><small>10 broken images</small>
+        </div>
+
+        <div class="test-item warn">
+          <strong>Cumulative Layout Shift</strong>
+          <br /><small>CLS: 0.2494 (needs improvement)</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>No JavaScript errors</strong>
+        </div>
+
+        <div class="test-item pass">
+          <strong>No console warnings</strong>
+        </div>
+
+        <div class="test-item fail">
+          <strong>Console errors found</strong>
+          <br /><small>3 errors</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>DOM Content Loaded</strong>
+          <br /><small>1ms</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>First Contentful Paint</strong>
+          <br /><small>172ms</small>
+        </div>
+
+        <div class="test-item warn">
+          <strong>First Input Delay</strong>
+          <br /><small>Not measured (no user interaction)</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>All images have alt text</strong>
+        </div>
+
+        <div class="test-item warn">
+          <strong>Form inputs without labels</strong>
+          <br /><small>6 inputs</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Single H1 heading</strong>
+        </div>
+
+        <div class="test-item pass">
+          <strong>H2 headings present</strong>
+          <br /><small>22 H2s</small>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Main landmark present</strong>
+        </div>
+
+        <div class="test-item pass">
+          <strong>Navigation landmark present</strong>
+        </div>
+      </div>
+
+      <h2>Screenshots</h2>
+      <div class="screenshots">
+        <div class="screenshot">
+          <h4>initial_page_load</h4>
+          <img src="initial_page_load_1759393707580.png" alt="initial_page_load" loading="lazy" />
+        </div>
+
+        <div class="screenshot">
+          <h4>desktop_1920x1080</h4>
+          <img src="desktop_1920x1080_1759393709307.png" alt="desktop_1920x1080" loading="lazy" />
+        </div>
+
+        <div class="screenshot">
+          <h4>desktop_1366x768</h4>
+          <img src="desktop_1366x768_1759393711199.png" alt="desktop_1366x768" loading="lazy" />
+        </div>
+
+        <div class="screenshot">
+          <h4>tablet_768x1024</h4>
+          <img src="tablet_768x1024_1759393712821.png" alt="tablet_768x1024" loading="lazy" />
+        </div>
+
+        <div class="screenshot">
+          <h4>mobile_375x667</h4>
+          <img src="mobile_375x667_1759393714239.png" alt="mobile_375x667" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

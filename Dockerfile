@@ -12,8 +12,8 @@ WORKDIR /app
 # Копирование package files
 COPY package*.json ./
 
-# Установка зависимостей
-RUN npm ci --only=production --ignore-scripts && \
+# Установка зависимостей (все для сборки)
+RUN npm ci --ignore-scripts && \
     npm cache clean --force
 
 # Копирование исходного кода
@@ -23,8 +23,8 @@ COPY . .
 # В production используйте environment variables
 COPY .env.example .env
 
-# Build проекта
-RUN npm run build
+# Build проекта (без валидации env для staging)
+RUN npx astro build
 
 # Stage 2: Production
 FROM nginx:alpine AS runner

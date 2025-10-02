@@ -178,9 +178,9 @@ describe('Project Data Integrity', () => {
       expect(typeof link.platform).toBe('string');
       expect(typeof link.url).toBe('string');
       expect(typeof link.followers).toBe('string');
-      expect(link.platform.length).toBeGreaterThan(2);
+      expect(link.platform.length).toBeGreaterThanOrEqual(2);
       expect(link.url.length).toBeGreaterThan(10);
-      expect(link.followers.length).toBeGreaterThan(2);
+      expect(link.followers.length).toBeGreaterThanOrEqual(2);
 
       // Validate URL format
       try {

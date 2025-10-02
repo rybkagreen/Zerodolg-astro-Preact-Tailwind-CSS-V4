@@ -129,7 +129,10 @@ export const trackEvent = (event: TrackingEvent): void => {
 
   // Console log для разработки
   if (process.env['NODE_ENV'] === 'development') {
-    console.log('Analytics Event:', event);
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log('Analytics Event:', event);
+    }
   }
 };
 
