@@ -2,16 +2,49 @@
 // OnlineSticker component with improved functionality
 ---
 
-<!-- Online Visitors Sticker -->
+<!-- Online Visitors Sticker with Glassmorphism -->
 <div class='online-sticker' aria-live='polite' aria-atomic='true'>
-  <div class='online-sticker__pulse'></div>
-  <svg class='online-sticker__icon' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-    <circle cx='8' cy='8' r='7' stroke='currentColor' stroke-width='1.5' opacity='0.7'></circle>
-    <circle cx='8' cy='8' r='2' fill='currentColor'></circle>
-  </svg>
-  <span class='online-sticker__text'>Сейчас на сайте:</span>
-  <span class='online-sticker__count'>5</span>
-  <span class='online-sticker__suffix'>человек</span>
+  <!-- Animated gradient background -->
+  <div class='online-sticker__gradient'></div>
+
+  <!-- Content -->
+  <div class='online-sticker__content'>
+    <!-- Pulse indicator -->
+    <div class='online-sticker__pulse-container'>
+      <div class='online-sticker__pulse'></div>
+      <div class='online-sticker__pulse-ring'></div>
+    </div>
+
+    <!-- Icon -->
+    <svg class='online-sticker__icon' width='18' height='18' viewBox='0 0 24 24' fill='none'>
+      <path
+        d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'></path>
+      <circle
+        cx='9'
+        cy='7'
+        r='4'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'></circle>
+      <path
+        d='M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'></path>
+    </svg>
+
+    <!-- Count with label -->
+    <div class='online-sticker__info'>
+      <span class='online-sticker__count'>5</span>
+      <span class='online-sticker__label'>онлайн</span>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -89,30 +122,12 @@
       }, this.hideDuration + this.showDuration);
     }
 
-    // Check if user is scrolling near bottom
-    handleScroll() {
-      const scrollPosition = window.scrollY + window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Hide if user is near footer
-      if (documentHeight - scrollPosition < 200) {
-        this.hide();
-      }
-    }
+    // Removed scroll handling - sticker should be visible everywhere
   }
 
   // Initialize when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
-    const sticker = new OnlineSticker();
-
-    // Optional: Hide when scrolling near footer
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        sticker.handleScroll();
-      }, 100);
-    });
+    new OnlineSticker();
   });
 
   // Analytics tracking (optional)

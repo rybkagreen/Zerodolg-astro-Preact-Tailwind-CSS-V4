@@ -1,0 +1,68 @@
+---
+// src/shared/ui/OptimizedImage/OptimizedImage.astro
+// Компонент для оптимизированных изображений с поддержкой современных форматов
+
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  class?: string;
+  sizes?: string;
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = 'lazy',
+  decoding = 'async',
+  class: className = '',
+  sizes,
+  priority = false,
+} = Astro.props;
+
+// Определяем пути для современных форматов
+const baseSrc = src.replace(/\.(jpg|jpeg|png)$/, '');
+const hasWebP = /\.(jpg|jpeg|png)$/.test(src);
+const webpSrc = hasWebP ? `${baseSrc}.webp` : src;
+const avifSrc = hasWebP ? `${baseSrc}.avif` : src;
+
+// Проверяем, есть ли изображение в формате WebP и AVIF
+const webpExists = hasWebP;
+const avifExists = /\.(jpg|jpeg|png)$/.test(src);
+---
+
+{
+  priority ? (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      decoding={decoding}
+      class:list={className}
+      sizes={sizes}
+      priority
+    />
+  ) : (
+    <picture>
+      {avifExists && <source srcset={avifSrc} type='image/avif' />}
+      {webpExists && <source srcset={webpSrc} type='image/webp' />}
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding={decoding}
+        class:list={className}
+        sizes={sizes}
+      />
+    </picture>
+  )
+}

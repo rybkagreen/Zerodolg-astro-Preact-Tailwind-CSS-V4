@@ -67,31 +67,31 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 
-/* Online Sticker Styles */
+/* Online Sticker Styles - Glassmorphism Design */
 .online-sticker {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  background: rgba(16, 185, 129, 0.85);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 10px 14px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+  padding: 0;
+  width: auto;
+  min-width: 140px;
+  max-width: 200px;
+  height: 48px;
   box-shadow:
-    0 8px 25px rgba(16, 185, 129, 0.25),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+    0 8px 32px 0 rgba(59, 130, 246, 0.25),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 1px rgba(59, 130, 246, 0.1);
   z-index: 1000;
   opacity: 0;
   transform: translateY(20px) translateX(-20px);
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
+  overflow: hidden;
 }
 
 .online-sticker--visible {
@@ -100,48 +100,127 @@
   pointer-events: auto;
 }
 
+/* Animated gradient background */
+.online-sticker__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.3) 0%,
+    rgba(147, 51, 234, 0.3) 50%,
+    rgba(59, 130, 246, 0.3) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+  opacity: 0.5;
+}
+
+/* Content container */
+.online-sticker__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  height: 100%;
+}
+
+/* Pulse indicator container */
+.online-sticker__pulse-container {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* Pulse dot */
 .online-sticker__pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 8px;
   height: 8px;
-  background: #ffffff;
+  background: #10b981;
   border-radius: 50%;
-  animation: pulse 2s infinite;
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
-  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
-/* Mobile pulse size adjustment */
-@media (max-width: 768px) {
-  .online-sticker__pulse {
-    width: 6px;
-    height: 6px;
+/* Pulse ring animation */
+.online-sticker__pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border: 2px solid #10b981;
+  border-radius: 50%;
+  animation: pulse-ring-expand 2s ease-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
   }
 }
 
+@keyframes pulse-ring-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Icon styles */
 .online-sticker__icon {
-  width: 16px;
-  height: 16px;
-  opacity: 0.95;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  color: #3b82f6;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
-/* Mobile icon size adjustment */
-@media (max-width: 768px) {
-  .online-sticker__icon {
-    width: 14px;
-    height: 14px;
-  }
+/* Info container */
+.online-sticker__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
 }
 
+/* Count styling */
 .online-sticker__count {
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 800;
+  font-size: 16px;
+  color: #1e293b;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
   transition: transform 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styling */
+.online-sticker__label {
+  font-weight: 600;
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .online-sticker__count--updating {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 @keyframes pulse {
@@ -153,6 +232,19 @@
   50% {
     opacity: 0.5;
     transform: scale(1.2);
+  }
+}
+
+/* Gradient shift animation for online sticker */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -393,13 +485,46 @@
 /* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
   .online-sticker {
-    bottom: 90px; /* Account for mobile keyboard and position above callback button */
+    bottom: 90px;
     left: 12px;
-    right: auto; /* Remove right auto positioning */
+    right: auto;
     width: auto;
-    max-width: 180px; /* Smaller on mobile */
-    font-size: 12px;
+    min-width: 110px;
+    max-width: 160px;
+    height: 40px;
+  }
+
+  .online-sticker__content {
+    gap: 8px;
     padding: 8px 12px;
+  }
+
+  .online-sticker__pulse-container {
+    width: 10px;
+    height: 10px;
+  }
+
+  .online-sticker__pulse {
+    width: 6px;
+    height: 6px;
+  }
+
+  .online-sticker__pulse-ring {
+    width: 6px;
+    height: 6px;
+  }
+
+  .online-sticker__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .online-sticker__count {
+    font-size: 14px;
+  }
+
+  .online-sticker__label {
+    font-size: 9px;
   }
 
   .special-offer-banner {

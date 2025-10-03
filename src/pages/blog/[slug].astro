@@ -10,6 +10,7 @@ import OnlineSticker from '@shared/ui/OnlineSticker.astro';
 import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import ClientInteractions from '../../islands/utils/client-interactions.tsx';
 import { SITE_CONSTANTS } from '../../shared/config/constants';
+import OptimizedImage from '@shared/ui/OptimizedImage';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -51,6 +52,7 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
 <Layout
   title={title}
   description={description}
+  keywords={post.data.tags?.join(', ')}
   canonical={canonical}
   type='article'
   preloadAuthorImage={true}
@@ -188,10 +190,12 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
                   <div
                     class='w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-blue-500'
                   >
-                    <img
+                    <OptimizedImage
                       src='/images/team/mashulia.webp'
                       alt={manager.name}
-                      class='w-full h-full object-cover'
+                      width={128}
+                      height={128}
+                      class='w-full h-full object-contain'
                       style='object-position: center 25%'
                     />
                   </div>

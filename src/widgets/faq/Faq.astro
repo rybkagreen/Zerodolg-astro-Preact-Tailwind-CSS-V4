@@ -1,6 +1,8 @@
 ---
 // Faq.astro
 import { SITE_CONSTANTS } from '../../shared/config/constants';
+import { getFAQSchemaData } from '../../shared/data/faq-data';
+import { faqSchema } from '../../shared/lib/structured-data';
 
 interface FaqQuestion {
   question: string;
@@ -17,6 +19,9 @@ export interface Props {
   data?: FaqGroup[];
   [key: string]: unknown;
 }
+
+// Get FAQ data for structured schema
+const faqSchemaData = getFAQSchemaData();
 
 // Interactive logic is handled by FaqAccordion component in main layout
 ---
@@ -589,6 +594,9 @@ export interface Props {
       </div>
     </div>
   </div>
+
+  <!-- FAQ Structured Data -->
+  <script type='application/ld+json' set:text={JSON.stringify(faqSchema(faqSchemaData), null, 2)} />
 </section>
 
 <!-- FAQ interactivity is handled by FaqAccordion component in main layout -->

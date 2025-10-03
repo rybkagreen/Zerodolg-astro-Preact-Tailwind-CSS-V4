@@ -2,6 +2,8 @@
 // Hero.astro - Hero section with Tailwind CSS v3 styling
 import HeroForm from '../../components/forms/HeroForm.astro';
 import { SITE_CONSTANTS, getPromoInfo } from '../../shared/config/constants';
+import OptimizedImage from '@/shared/ui/OptimizedImage';
+import { generateTeamMemberImageSchema } from '@shared/lib/extended-structured-data';
 
 export interface Props {
   title?: string;
@@ -260,10 +262,12 @@ const promo = getPromoInfo();
               <div
                 class='w-32 h-32 rounded-full overflow-hidden border-4 border-blue-300 shadow-2xl shadow-blue-400/30'
               >
-                <img
+                <OptimizedImage
                   src='/images/team/mashulia.webp'
                   alt='Масхулиа Леван Зурабович - Арбитражный управляющий'
-                  class='w-full h-full object-cover'
+                  width={128}
+                  height={128}
+                  class='w-full h-full object-contain'
                   style='object-position: center 25%'
                 />
               </div>
@@ -333,6 +337,23 @@ const promo = getPromoInfo();
       </div>
     </div>
   </div>
+
+  <!-- Structured data for team member image -->
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify(
+      generateTeamMemberImageSchema({
+        name: manager.name,
+        position: manager.fullPosition,
+        photo: manager.photo,
+        role: 'Руководитель компании',
+        description: 'Эксперт в области банкротства физических лиц с 15-летним опытом работы',
+        website: 'https://zerodolg.ru',
+      }),
+      null,
+      2
+    )}
+  />
 </section>
 
 <style>

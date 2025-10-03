@@ -5,24 +5,37 @@ const sitePhone = import.meta.env.PUBLIC_SITE_PHONE || '+7 (905) 577-33-87';
 ---
 
 <!-- Bitrix24 Callback Widget -->
-<div class='fixed bottom-4 right-4 z-50' aria-label='Виджет обратного звонка'>
-  <!-- Main Button -->
+<div
+  class='fixed bottom-0 right-4 z-50'
+  style='overflow: visible; padding-bottom: 1rem;'
+  aria-label='Виджет обратного звонка'
+>
+  <!-- Main Button with Glassmorphism -->
   <button
-    class='relative flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 hover:from-blue-600 hover:via-blue-700 hover:to-purple-700 text-white rounded-full shadow-2xl transition-all duration-300 focus:ring-4 focus:ring-blue-400/50 hover:scale-110 active:scale-95'
+    class='relative flex items-center justify-center w-16 h-16 text-white rounded-full shadow-2xl transition-all duration-300 focus:ring-4 focus:ring-blue-400/50 hover:scale-110 active:scale-95'
     aria-label='Заказать обратный звонок'
     type='button'
-    style='box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4), 0 0 0 0 rgba(59, 130, 246, 0.5); animation: pulse-ring 2s infinite;'
+    style='background: rgba(59, 130, 246, 0.25); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1); animation: pulse-ring 2s infinite; overflow: visible;'
   >
+    <!-- Outer glow effect -->
     <div
-      class='absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 opacity-50 animate-ping'
+      class='absolute -inset-4 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 opacity-25 animate-ping'
+      style='filter: blur(10px); z-index: -1;'
     >
     </div>
+    <!-- Gradient background for icon -->
+    <div
+      class='absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 opacity-80'
+    >
+    </div>
+
     <svg
-      class='relative z-10 w-7 h-7 drop-shadow-lg'
+      class='relative z-10 w-7 h-7'
       width='28'
       height='28'
       viewBox='0 0 24 24'
       fill='none'
+      style='filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));'
     >
       <path
         d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z'
@@ -34,14 +47,14 @@ const sitePhone = import.meta.env.PUBLIC_SITE_PHONE || '+7 (905) 577-33-87';
     <span class='sr-only'>Обратный звонок</span>
   </button>
 
-  <!-- Popup Form -->
+  <!-- Popup Form with Glassmorphism -->
   <div
-    class='fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 invisible transition-all duration-300 z-40'
+    class='fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 z-40'
     aria-hidden='true'
   >
     <div
-      class='absolute bottom-24 right-4 bg-white rounded-2xl shadow-2xl p-8 w-96 max-w-[calc(100vw-2rem)] transform translate-y-4 transition-transform duration-300'
-      style='box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(59, 130, 246, 0.1);'
+      class='absolute bottom-24 right-4 rounded-3xl shadow-2xl p-8 w-96 max-w-[calc(100vw-2rem)] transform translate-y-4 transition-transform duration-300'
+      style='background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);'
     >
       <div class='flex items-center justify-between mb-6'>
         <h3

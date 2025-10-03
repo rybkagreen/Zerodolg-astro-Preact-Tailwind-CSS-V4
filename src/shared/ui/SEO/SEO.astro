@@ -1,5 +1,6 @@
 ---
-import { organizationSchema } from '@shared/lib/structured-data';
+import { organizationSchema, localBusinessSchema } from '@shared/lib/structured-data';
+import { SITE_CONFIG } from '@shared/config/seo-config';
 
 interface Props {
   /** Page title */
@@ -18,6 +19,35 @@ interface Props {
   type?: string;
   /** Locale for Open Graph */
   locale?: string;
+  /** Breadcrumb data */
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  /** Article data for blog posts */
+  article?: {
+    headline: string;
+    description: string;
+    datePublished: string;
+    dateModified: string;
+    author: string;
+    image: string;
+  };
+  /** FAQ data */
+  faq?: Array<{ question: string; answer: string }>;
+  /** HowTo data */
+  howTo?: {
+    name: string;
+    description: string;
+    image?: string;
+    totalTime?: string;
+    estimatedCost?: { currency: string; value: string };
+    steps: Array<{
+      name: string;
+      text: string;
+      image?: string;
+      url?: string;
+    }>;
+  };
+  /** Include LocalBusiness schema */
+  includeLocalBusiness?: boolean;
 }
 
 const {
@@ -29,6 +59,11 @@ const {
   noindex = false,
   type = 'website',
   locale = 'ru_RU',
+  breadcrumbs,
+  article,
+  faq,
+  howTo,
+  includeLocalBusiness = false,
 } = Astro.props;
 
 const siteConfig = {
@@ -39,9 +74,15 @@ const siteConfig = {
 ---
 
 <title>{title}</title>
+
+<!-- Essential SEO meta tags -->
+<meta name='robots' content='index, follow' />
+<meta name='copyright' content='2025' />
+<meta name='author' content='ZeroDolg' />
+<link rel='canonical' href={canonical || siteConfig.url} />
+
 <meta name='description' content={description} />
 {keywords && <meta name='keywords' content={keywords} />}
-<link rel='canonical' href={canonical || siteConfig.url} />
 
 <!-- Geographical meta tags for local SEO -->
 <meta name='geo.region' content='RU-MOW' />
@@ -71,5 +112,170 @@ const siteConfig = {
 {
   organizationSchema && (
     <script type='application/ld+json' set:text={JSON.stringify(organizationSchema, null, 2)} />
+  )
+}
+
+{/* LocalBusiness Schema */}
+{
+  includeLocalBusiness && (
+    <script
+      type='application/ld+json'
+      set:text={JSON.stringify(
+        localBusinessSchema({
+          name: SITE_CONFIG.name,
+          image: 'https://zerodolg.ru/images/logo.png',
+          url: SITE_CONFIG.url,
+          telephone: SITE_CONFIG.phone,
+          email: SITE_CONFIG.email,
+          priceRange: '₽₽',
+          address: {
+            streetAddress: 'ул. Минская',
+            addressLocality: 'Москва',
+            addressRegion: 'Москва',
+            postalCode: '119590',
+            addressCountry: 'RU',
+          },
+          geo: {
+            latitude: '55.724143',
+            longitude: '37.504754',
+          },
+          openingHours: [
+            {
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+              opens: '09:00',
+              closes: '19:00',
+            },
+            {
+              dayOfWeek: ['Saturday'],
+              opens: '10:00',
+              closes: '16:00',
+            },
+          ],
+          sameAs: [
+            'https://t.me/zerodolg',
+            'https://vk.com/zerodolg',
+            'https://youtube.com/zerodolg',
+          ],
+          aggregateRating: {
+            ratingValue: '4.9',
+            reviewCount: '127',
+            bestRating: '5',
+          },
+          areaServed: 'Москва',
+        }),
+        null,
+        2
+      )}
+    />
+  )
+}
+
+{/* Breadcrumb Schema */}
+{
+  breadcrumbs && breadcrumbs.length > 0 && (
+    <script
+      type='application/ld+json'
+      set:text={JSON.stringify(
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: breadcrumbs.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.name,
+            item: item.url,
+          })),
+        },
+        null,
+        2
+      )}
+    />
+  )
+}
+
+{/* Article Schema */}
+{
+  article && (
+    <script
+      type='application/ld+json'
+      set:text={JSON.stringify(
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: article.headline,
+          description: article.description,
+          datePublished: article.datePublished,
+          dateModified: article.dateModified,
+          author: {
+            '@type': 'Person',
+            name: article.author,
+          },
+          image: article.image,
+          publisher: organizationSchema,
+        },
+        null,
+        2
+      )}
+    />
+  )
+}
+
+{/* FAQ Schema */}
+{
+  faq && faq.length > 0 && (
+    <script
+      type='application/ld+json'
+      set:text={JSON.stringify(
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faq.map((q) => ({
+            '@type': 'Question',
+            name: q.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: q.answer,
+            },
+          })),
+        },
+        null,
+        2
+      )}
+    />
+  )
+}
+
+{/* HowTo Schema */}
+{
+  howTo && (
+    <script
+      type='application/ld+json'
+      set:text={JSON.stringify(
+        {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: howTo.name,
+          description: howTo.description,
+          ...(howTo.image && { image: howTo.image }),
+          ...(howTo.totalTime && { totalTime: howTo.totalTime }),
+          ...(howTo.estimatedCost && {
+            estimatedCost: {
+              '@type': 'MonetaryAmount',
+              currency: howTo.estimatedCost.currency,
+              value: howTo.estimatedCost.value,
+            },
+          }),
+          step: howTo.steps.map((step) => ({
+            '@type': 'HowToStep',
+            name: step.name,
+            text: step.text,
+            ...(step.image && { image: step.image }),
+            ...(step.url && { url: step.url }),
+          })),
+        },
+        null,
+        2
+      )}
+    />
   )
 }

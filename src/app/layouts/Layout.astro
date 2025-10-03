@@ -77,28 +77,49 @@ const {
 
     <!-- Main CSS will be imported through Astro's build process -->
 
-    <!-- Preconnect to important third-party origins -->
+    <!-- Preconnect to important third-party origins for faster DNS lookup -->
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
 
-    <!-- Load fonts from Google Fonts -->
+    <!-- Load fonts from Google Fonts with optimized display strategy -->
+    <link
+      rel='preload'
+      as='style'
+      href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
+    />
     <link
       rel='stylesheet'
       href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
+      media='print'
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel='stylesheet'
+        href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
+      />
+    </noscript>
 
     <!-- Preload critical resources -->
     {preloadAuthorImage && <link rel='preload' href='/images/team/mashulia.webp' as='image' />}
+    <link rel='preload' href='/images/logo.png' as='image' />
+    <link rel='preload' href='/images/og-image.jpg' as='image' />
 
     <!-- Prefetch likely next pages -->
     <link rel='prefetch' href='/#reviews' />
     <link rel='prefetch' href='/#faq' />
+    <link rel='prefetch' href='/restrukturizaciya-dolgov' />
+    <link rel='prefetch' href='/bankrotstvo-s-sokhraneniyem-imushchestva' />
 
     <!-- DNS prefetch for external domains -->
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
     <link rel='dns-prefetch' href='//fonts.gstatic.com' />
     <link rel='dns-prefetch' href='//www.googletagmanager.com' />
     <link rel='dns-prefetch' href='//mc.yandex.ru' />
+
+    <!-- Resource hints for better performance -->
+    <link rel='preconnect' href='https://mc.yandex.ru' />
+    <link rel='preconnect' href='https://www.googletagmanager.com' />
 
     <!-- Preload critical CSS - handled through import mechanism -->
 

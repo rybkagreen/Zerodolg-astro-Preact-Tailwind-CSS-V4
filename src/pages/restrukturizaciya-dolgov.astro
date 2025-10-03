@@ -146,6 +146,19 @@ const restructuringData = {
   description={pageDescription}
   keywords={pageKeywords}
   canonical={canonical}
+  type='website'
+  includeLocalBusiness={true}
+  howTo={{
+    name: 'Как пройти реструктуризацию долгов',
+    description:
+      'Пошаговая инструкция прохождения реструктуризации долгов через арбитражный суд с сохранением имущества',
+    totalTime: 'P4Y',
+    estimatedCost: { currency: 'RUB', value: '89000' },
+    steps: restructuringData.process.map((step) => ({
+      name: step.title,
+      text: step.description,
+    })),
+  }}
 >
   <!-- Structured Data для реструктуризации -->
   <!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data -->

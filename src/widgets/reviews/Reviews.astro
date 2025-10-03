@@ -2,6 +2,7 @@
 // Import new components and data
 import ReviewsEnhanced from '../../islands/sections/ReviewsEnhanced.tsx';
 import { reviews, reviewsStats } from '../../shared/data/reviews-data';
+import { reviewSchema } from '../../shared/lib/structured-data';
 
 export interface Props {
   className?: string;
@@ -162,6 +163,26 @@ const ratingDistribution = calculateDistribution();
     <!-- Interactive Reviews Component -->
     <ReviewsEnhanced client:visible reviews={reviews} initialVisible={3} loadMoreCount={3} />
   </div>
+
+  <!-- Review Structured Data -->
+  {
+    reviews.slice(0, 5).map((review) => (
+      <script
+        type='application/ld+json'
+        set:text={JSON.stringify(
+          reviewSchema({
+            author: review.name,
+            datePublished: review.date,
+            rating: review.rating,
+            reviewBody: review.text,
+            serviceName: 'ZeroDolg - Банкротство физических лиц',
+          }),
+          null,
+          2
+        )}
+      />
+    ))
+  }
 </section>
 
 <!-- CSS Animations for Reviews Section -->
