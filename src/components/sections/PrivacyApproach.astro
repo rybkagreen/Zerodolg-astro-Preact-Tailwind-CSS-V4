@@ -1,6 +1,5 @@
 ---
 import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
-import SectionDivider from '../../shared/ui/SectionDivider.astro';
 
 // Данные секции о конфиденциальности и подходе
 const approachData = {
@@ -48,9 +47,9 @@ const approachData = {
   <!-- Background layers -->
   <div class='absolute inset-0 bg-gradient-to-br from-slate-50/60 via-white/80 to-blue-50/40'></div>
 
-  <!-- Privacy watercolor background pattern -->
+  <!-- Privacy watercolor background pattern с blur эффектом -->
   <div
-    class='absolute inset-0 opacity-25'
+    class='absolute inset-0 opacity-20 blur-sm'
     style="background-image: url('/patterns/privacy-pattern-v1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
   >
   </div>
@@ -217,11 +216,6 @@ const approachData = {
     </div>
   </div>
 </section>
-
-<!-- Разделитель для плавного перехода к следующей секции -->
-<div class='relative'>
-  <SectionDivider type='wave' position='bottom' height='50px' color='white' opacity={0.85} />
-</div>
 
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='privacy-approach' />

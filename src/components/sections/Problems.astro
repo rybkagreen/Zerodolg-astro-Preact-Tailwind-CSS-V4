@@ -3,7 +3,6 @@
 
 import ProblemsInteractive from '../../islands/sections/ProblemsInteractive.tsx';
 import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
-import SectionDivider from '../../shared/ui/SectionDivider.astro';
 
 export interface Props {
   className?: string;
@@ -50,9 +49,10 @@ const problemsData = [
 
 <!-- Problems Section with Modern Design and Extended Background Pattern -->
 <section
-  class:list={`relative py-20 md:py-28 lg:py-36 overflow-hidden ${className}`}
+  class:list={`relative py-20 md:py-28 lg:py-36 pb-32 md:pb-40 lg:pb-48 ${className}`}
   id='problems'
   aria-labelledby='problems-title'
+  style='isolation: isolate; z-index: 10; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
 >
   <!-- Background for Problems section only -->
   <div class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'></div>
@@ -175,11 +175,6 @@ const problemsData = [
     </div>
   </div>
 </section>
-
-<!-- Разделитель для плавного перехода к следующей секции -->
-<div class='relative'>
-  <SectionDivider type='wave' position='bottom' height='60px' color='white' opacity={0.9} />
-</div>
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='problems' />
 

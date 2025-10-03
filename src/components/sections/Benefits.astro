@@ -1,6 +1,5 @@
 ---
 import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
-import SectionDivider from '../../shared/ui/SectionDivider.astro';
 
 // Benefits data - advantages of working with the company
 const benefits = [
@@ -53,20 +52,23 @@ const benefits = [
   <div class='absolute inset-0 bg-white z-0'></div>
 
   <!-- Background with financial relief pattern -->
-  <div class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30 z-10'>
+  <div
+    class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30 z-10'
+    style='mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);'
+  >
   </div>
 
   <!-- Pastel paint strokes background pattern -->
   <div
     class='absolute inset-0 opacity-25 z-20'
-    style='background-image: url("/patterns/benefits-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+    style='background-image: url("/patterns/benefits-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
   >
   </div>
 
   <!-- Subtle dot pattern overlay -->
   <div
     class='absolute inset-0 opacity-5 z-30'
-    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
+    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
   >
   </div>
 
@@ -299,11 +301,6 @@ const benefits = [
     </div>
   </div>
 </section>
-
-<!-- Разделитель для плавного перехода к следующей секции -->
-<div class='relative'>
-  <SectionDivider type='curve' position='bottom' height='50px' color='white' opacity={0.8} />
-</div>
 
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='benefits' />

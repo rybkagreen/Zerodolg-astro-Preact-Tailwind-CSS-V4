@@ -39,11 +39,16 @@ import FaqAccordion from '../islands/utils/faq-accordion.tsx';
     <!-- Correct order: Hero, Problems, Stats, Calculator, Benefits, Timeline, Reviews, Team, Lead Magnets, FAQ, CTA -->
     <Hero />
 
-    <div data-aos='fade-up' data-aos-duration='800'>
+    <div data-aos='fade-up' data-aos-duration='800' style='position: relative; z-index: 10;'>
       <Problems />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='200'>
+    <div
+      data-aos='fade-up'
+      data-aos-duration='800'
+      data-aos-delay='200'
+      style='position: relative; z-index: 1;'
+    >
       <SolutionChoice />
     </div>
 

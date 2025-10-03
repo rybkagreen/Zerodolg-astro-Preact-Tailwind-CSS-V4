@@ -223,17 +223,21 @@ const mobileMenuItems = [
 
 <!-- Advanced Interactive Navigation -->
 <header class='bg-white shadow-md sticky top-0' style='z-index: 10001;' id='main-header'>
-  <nav class='container-custom' role='navigation' aria-label='Главная навигация'>
-    <div class='flex items-center justify-between h-16'>
+  <nav
+    class='w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8'
+    role='navigation'
+    aria-label='Главная навигация'
+  >
+    <div class='flex items-center justify-between h-16 gap-2 sm:gap-4'>
       <!-- Logo Section -->
-      <div class='flex-shrink-0 flex items-center'>
+      <div class='flex-shrink-0 flex items-center min-w-0'>
         <img
           src='/icons/logo.svg'
           alt='ZeroDolg'
           width='180'
           height='50'
           loading='lazy'
-          class='w-32 sm:w-40 md:w-44 lg:w-[180px] h-auto'
+          class='w-24 sm:w-32 md:w-40 lg:w-44 xl:w-[180px] h-auto'
         />
       </div>
 
@@ -369,11 +373,11 @@ const mobileMenuItems = [
       </div>
 
       <!-- Right Side Actions -->
-      <div class='flex items-center space-x-6'>
+      <div class='flex items-center gap-2 sm:gap-4 lg:gap-6 flex-shrink-0'>
         <!-- Phone Link for Desktop - Enhanced -->
         <a
           href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}
-          class='hidden md:flex items-center px-4 py-2.5 text-gray-700 hover:text-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 rounded-xl transition-all duration-300 group border border-transparent hover:border-blue-200 hover:shadow-lg'
+          class='hidden md:flex items-center px-3 lg:px-4 py-2 lg:py-2.5 text-gray-700 hover:text-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 rounded-xl transition-all duration-300 group border border-transparent hover:border-blue-200 hover:shadow-lg flex-shrink-0'
           aria-label='Позвонить'
         >
           <svg
@@ -389,11 +393,12 @@ const mobileMenuItems = [
               stroke-width='1.8'
               stroke-miterlimit='10'></path>
           </svg>
-          <div class='ml-3'>
-            <span class='block text-sm font-semibold leading-tight whitespace-nowrap'
+          <div class='ml-2 lg:ml-3 min-w-0'>
+            <span class='block text-xs lg:text-sm font-semibold leading-tight whitespace-nowrap'
               >{company.phone}</span
             >
-            <span class='block text-xs text-gray-500 group-hover:text-blue-500 transition-colors'
+            <span
+              class='hidden lg:block text-xs text-gray-500 group-hover:text-blue-500 transition-colors'
               >Позвонить</span
             >
           </div>
@@ -401,7 +406,7 @@ const mobileMenuItems = [
 
         <!-- Mobile Menu Toggle -->
         <button
-          class='md:hidden inline-flex btn-ghost !p-2.5 rounded-xl'
+          class='md:hidden inline-flex btn-ghost !p-2 rounded-xl flex-shrink-0'
           aria-label='Меню'
           aria-expanded='false'
           data-mobile-toggle

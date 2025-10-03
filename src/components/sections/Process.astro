@@ -1,7 +1,6 @@
 ---
 import ProcessInteractive from '../../islands/sections/ProcessInteractive.tsx';
 import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
-import SectionDivider from '../../shared/ui/SectionDivider.astro';
 
 export interface Props {
   className?: string;
@@ -111,20 +110,24 @@ const processData = {
   id='process'
   aria-labelledby='process-title'
 >
-  <!-- Background layers (стиль секции Problems) -->
-  <div class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'></div>
+  <!-- Background layers -->
+  <div
+    class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'
+    style='mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
+  >
+  </div>
 
   <!-- Background pattern -->
   <div
     class='absolute inset-0 opacity-25'
-    style='background-image: url("/patterns/process-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+    style='background-image: url("/patterns/process-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
   >
   </div>
 
   <!-- Dot pattern overlay -->
   <div
     class='absolute inset-0 opacity-10'
-    style='background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px;'
+    style='background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
   >
   </div>
 
@@ -146,11 +149,6 @@ const processData = {
     <ProcessInteractive client:load processData={processData} />
   </div>
 </section>
-
-<!-- Разделитель для плавного перехода к следующей секции -->
-<div class='relative'>
-  <SectionDivider type='slash' position='bottom' height='45px' color='white' opacity={0.75} />
-</div>
 
 <!-- Семантические данные для SEO -->
 <SectionSemantics sectionId='process' />

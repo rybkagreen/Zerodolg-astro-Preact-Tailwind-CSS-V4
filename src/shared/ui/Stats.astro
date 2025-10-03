@@ -2,7 +2,6 @@
 import StatsComponent from '../../islands/shared/interactive/statsEnhanced.tsx';
 import { SITE_CONSTANTS, getActualStats } from '../config/constants';
 import SectionSemantics from './SectionSemantics.astro';
-import SectionDivider from './SectionDivider.astro';
 
 export interface Props {
   className?: string;
@@ -86,18 +85,21 @@ const company = {
   <!-- Digital artwork background pattern with financial relief scale -->
   <div
     class='absolute inset-0 z-10 bg-cover bg-center bg-no-repeat opacity-25'
-    style='background-image: url("/patterns/stats-pattern.png");'
+    style='background-image: url("/patterns/stats-pattern.png"); mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
   >
   </div>
 
   <!-- Soft gradient overlay to harmonize with neighboring sections -->
-  <div class='absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white/60 to-blue-50/30 z-20'>
+  <div
+    class='absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white/60 to-blue-50/30 z-20'
+    style='mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
+  >
   </div>
 
   <!-- Subtle dot pattern overlay -->
   <div
     class='absolute inset-0 opacity-5 z-30'
-    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
+    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
   >
   </div>
   <div class='container-custom relative z-40'>
@@ -328,9 +330,6 @@ const company = {
       </div>
     </div>
   </div>
-
-  <!-- Разделитель для плавного перехода к следующей секции -->
-  <SectionDivider type='fade' position='bottom' height='40px' color='white' opacity={0.6} />
 </section>
 
 <!-- Семантические данные для SEO -->
