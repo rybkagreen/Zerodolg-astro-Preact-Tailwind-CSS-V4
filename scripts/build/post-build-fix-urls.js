@@ -98,16 +98,68 @@ function processBlogPosts() {
 }
 
 /**
+ * Process landing pages to create clean URLs
+ */
+function processLandingPages() {
+  console.log('🔧 Processing landing pages...');
+
+  const landingPages = [
+    {
+      source: 'bankrotstvo-s-sokhraneniyem-imushchestva.html',
+      target: 'bankrotstvo-s-sokhraneniyem-imushchestva',
+    },
+    {
+      source: 'restrukturizaciya-dolgov.html',
+      target: 'restrukturizaciya-dolgov',
+    },
+  ];
+
+  let processedCount = 0;
+
+  for (const page of landingPages) {
+    const sourcePath = path.join(distPath, page.source);
+
+    if (!fs.existsSync(sourcePath)) {
+      console.log(`   ℹ️  ${page.source} not found - skipping`);
+      continue;
+    }
+
+    const targetDir = path.join(distPath, page.target);
+    const targetFile = path.join(targetDir, 'index.html');
+
+    try {
+      // Create directory for the landing page
+      if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
+      }
+
+      // Copy the HTML file as index.html
+      fs.copyFileSync(sourcePath, targetFile);
+      processedCount++;
+      console.log(`   ✅ Created /${page.target}/index.html`);
+    } catch (error) {
+      console.error(`   ❌ Failed to process ${page.source}:`, error.message);
+    }
+  }
+
+  console.log(`   📝 Processed ${processedCount}/${landingPages.length} landing pages\n`);
+  return processedCount;
+}
+
+/**
  * Main execution
  */
 function main() {
   let success = true;
 
+  // Process landing pages first
+  processLandingPages();
+
   // Check if blog directory exists
   const blogDir = path.join(distPath, 'blog');
   if (!fs.existsSync(blogDir)) {
     console.log('ℹ️  Blog directory not found - skipping blog URL fixes');
-    console.log('✅ Post-build completed (no fixes needed)');
+    console.log('✅ Post-build completed');
     return;
   }
 
