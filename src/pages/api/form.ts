@@ -8,15 +8,25 @@ const BITRIX24_WEBHOOK_URL =
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Получаем данные формы
-    const data = await request.formData();
+    // Получаем данные формы (поддержка JSON и FormData)
+    const contentType = request.headers.get('content-type') || '';
+    let data: Record<string, unknown>;
+
+    if (contentType.includes('application/json')) {
+      // Если данные приходят как JSON
+      data = await request.json();
+    } else {
+      // Если данные приходят как FormData
+      const formData = await request.formData();
+      data = Object.fromEntries(formData.entries());
+    }
 
     // Извлекаем поля
-    const name = data.get('name')?.toString() || '';
-    const phone = data.get('phone')?.toString() || '';
-    const email = data.get('email')?.toString() || '';
-    const message = data.get('message')?.toString() || '';
-    const formType = data.get('formType')?.toString() || 'callback';
+    const name = (data['name'] as string) || '';
+    const phone = (data['phone'] as string) || '';
+    const email = (data['email'] as string) || '';
+    const message = (data['message'] as string) || '';
+    const formType = (data['formType'] as string) || 'callback';
 
     // Валидация
     if (!name || !phone) {
