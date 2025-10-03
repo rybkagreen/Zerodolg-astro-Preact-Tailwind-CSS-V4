@@ -23,16 +23,21 @@ export interface Props {
 
 <!-- FAQ Section - Modern Accordion Style -->
 <section
-  class='faq-section section-padding relative overflow-hidden'
+  class='faq-section section-padding relative overflow-hidden -mt-24 md:-mt-32 lg:-mt-40'
   id='faq'
   data-section='faq'
   data-aos='fade-up'
+  style='isolation: isolate; z-index: -1; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);'
 >
   <!-- Background with watercolor pattern -->
-  <div class='absolute inset-0 bg-white z-0'></div>
+  <div
+    class='absolute inset-0 bg-white z-0'
+    style='mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+  >
+  </div>
   <div
     class='absolute inset-0 z-5 opacity-15'
-    style='background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+    style='background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
   >
   </div>
 

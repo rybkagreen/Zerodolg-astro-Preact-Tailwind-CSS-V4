@@ -166,15 +166,6 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
 
   return (
     <>
-      {/* SVG Definitions for wave clip-path */}
-      <svg width='0' height='0' aria-hidden='true' style={{ position: 'absolute' }}>
-        <defs>
-          <clipPath id='waveClipTeam' clipPathUnits='objectBoundingBox'>
-            <path d='M0,0 L0,0.92 Q0.25,0.96 0.5,0.92 T1,0.92 L1,0 Z' />
-          </clipPath>
-        </defs>
-      </svg>
-
       <section
         ref={observerRef}
         class='team-section relative py-20 md:py-28 lg:py-36 pb-32 md:pb-40 lg:pb-48'
@@ -183,7 +174,8 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
           ...containerStyle,
           isolation: 'isolate',
           zIndex: 10,
-          clipPath: 'url(#waveClipTeam)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
         }}
         aria-labelledby='team-title'
       >
