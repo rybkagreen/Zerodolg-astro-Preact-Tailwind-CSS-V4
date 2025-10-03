@@ -105,6 +105,31 @@ const company = {
   <div class='container-custom relative z-40'>
     <!-- Section Header -->
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
+      <div
+        class='inline-flex items-center gap-2 rounded-full bg-emerald-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200/50 mb-8'
+        role='text'
+        aria-label='Наши успешные кейсы и результаты'
+      >
+        <svg
+          class='h-4 w-4 text-emerald-600'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke='currentColor'
+          aria-hidden='true'
+        >
+          <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-width='2'
+            d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+        </svg>
+        <span itemscope itemtype='https://schema.org/AggregateRating'>
+          <meta itemprop='ratingValue' content='4.9' />
+          <meta itemprop='reviewCount' content='{actualStats.clients.count}' />
+          <meta itemprop='bestRating' content='5' />
+          Доверие клиентов
+        </span>
+      </div>
       <h2
         id='stats-title'
         class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
