@@ -168,9 +168,15 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
     <>
       <section
         ref={observerRef}
-        class='team-section relative py-20 md:py-28 lg:py-36 overflow-hidden'
+        class='team-section relative py-20 md:py-28 lg:py-36 pb-32 md:pb-40 lg:pb-48 overflow-hidden'
         id='team'
-        style={containerStyle}
+        style={{
+          ...containerStyle,
+          isolation: 'isolate',
+          zIndex: 10,
+          maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+        }}
         aria-labelledby='team-title'
       >
         {/* Background layers matching Benefits section style */}

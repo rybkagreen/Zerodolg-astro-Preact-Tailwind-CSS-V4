@@ -40,24 +40,29 @@ const approachData = {
 ---
 
 <section
-  class='privacy-approach-section section-padding relative overflow-hidden'
+  class='privacy-approach-section section-padding relative overflow-hidden -mt-24 md:-mt-32 lg:-mt-40'
   id='privacy-approach'
   aria-labelledby='privacy-approach-title'
+  style='isolation: isolate; z-index: -1; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);'
 >
   <!-- Background layers -->
-  <div class='absolute inset-0 bg-gradient-to-br from-slate-50/60 via-white/80 to-blue-50/40'></div>
+  <div
+    class='absolute inset-0 bg-gradient-to-br from-slate-50/60 via-white/80 to-blue-50/40'
+    style='mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+  >
+  </div>
 
   <!-- Privacy watercolor background pattern с blur эффектом -->
   <div
     class='absolute inset-0 opacity-20 blur-sm'
-    style="background-image: url('/patterns/privacy-pattern-v1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+    style="background-image: url('/patterns/privacy-pattern-v1.png'); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);"
   >
   </div>
 
   <!-- Subtle pattern overlay -->
   <div
     class='absolute inset-0 opacity-10'
-    style="background-image: url('/patterns/hero-dots.svg'); background-size: 80px 80px;"
+    style="background-image: url('/patterns/hero-dots.svg'); background-size: 80px 80px; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);"
   >
   </div>
 
