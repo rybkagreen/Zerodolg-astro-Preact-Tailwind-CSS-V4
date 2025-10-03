@@ -58,30 +58,43 @@ const BankruptcyTabSwitcher = ({ className = '' }: BankruptcyTabSwitcherProps) =
   };
 
   return (
-    <div className={`flex gap-2 mb-6 bg-slate-100 p-1 rounded-lg ${className}`}>
+    <div
+      className={`inline-flex items-center gap-1 mb-6 bg-gradient-to-br from-slate-50 to-slate-100 p-1 rounded-xl shadow-inner border border-slate-200/60 ${className}`}
+    >
       <button
-        className={`flex-1 px-4 py-2 text-sm font-semibold rounded-md transition-all duration-300 ${
+        className={`relative px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ease-out ${
           activeTab === 'standard'
-            ? 'bg-white text-blue-600 shadow-sm'
-            : 'text-slate-600 hover:text-slate-900'
+            ? 'bg-white text-blue-600 shadow-md shadow-blue-100/50 scale-[1.02]'
+            : 'text-slate-600 hover:text-slate-900 hover:bg-white/40 active:scale-95'
         }`}
         onClick={() => handleTabSwitch('standard')}
         aria-pressed={activeTab === 'standard'}
         type='button'
       >
-        Стандартное
+        <span className='relative z-10'>Стандартное</span>
+        {activeTab === 'standard' && (
+          <div className='absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent rounded-lg opacity-50' />
+        )}
       </button>
       <button
-        className={`flex-1 px-4 py-2 text-sm font-semibold rounded-md transition-all duration-300 ${
+        className={`relative px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ease-out ${
           activeTab === 'preservation'
-            ? 'bg-white text-blue-600 shadow-sm'
-            : 'text-slate-600 hover:text-slate-900'
+            ? 'bg-white text-blue-600 shadow-md shadow-blue-100/50 scale-[1.02]'
+            : 'text-slate-600 hover:text-slate-900 hover:bg-white/40 active:scale-95'
         }`}
         onClick={() => handleTabSwitch('preservation')}
         aria-pressed={activeTab === 'preservation'}
         type='button'
       >
-        С сохранением 🏠
+        <span className='relative z-10 flex items-center gap-1.5'>
+          С сохранением
+          <span className='text-base' role='img' aria-label='дом'>
+            🏠
+          </span>
+        </span>
+        {activeTab === 'preservation' && (
+          <div className='absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent rounded-lg opacity-50' />
+        )}
       </button>
     </div>
   );

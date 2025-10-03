@@ -154,7 +154,9 @@ const solutionData = {
 
         <div class='relative z-10 pt-4 flex flex-col flex-grow'>
           <!-- Tabs Switcher -->
-          <BankruptcyTabSwitcher client:load />
+          <div class='flex justify-center mb-2'>
+            <BankruptcyTabSwitcher client:load />
+          </div>
           <!-- Icon -->
           <div
             class:list={`w-16 h-16 rounded-xl bg-gradient-to-br ${solutionData.bankruptcy.gradient} p-4 mb-6 group-hover:scale-110 transition-all duration-500`}

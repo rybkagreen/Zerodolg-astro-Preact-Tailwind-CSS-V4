@@ -12,6 +12,7 @@ interface Props {
   class?: string;
   sizes?: string;
   priority?: boolean;
+  style?: string;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
   class: className = '',
   sizes,
   priority = false,
+  style = '',
 } = Astro.props;
 
 // Определяем пути для современных форматов
@@ -35,6 +37,9 @@ const avifSrc = hasWebP ? `${baseSrc}.avif` : src;
 // Проверяем, есть ли изображение в формате WebP и AVIF
 const webpExists = hasWebP;
 const avifExists = /\.(jpg|jpeg|png)$/.test(src);
+
+// Calculate aspect ratio for proper sizing
+const aspectRatio = `${width}/${height}`;
 ---
 
 {
@@ -47,7 +52,8 @@ const avifExists = /\.(jpg|jpeg|png)$/.test(src);
       decoding={decoding}
       class:list={className}
       sizes={sizes}
-      priority
+      style={`aspect-ratio: ${aspectRatio}; ${style}`}
+      fetchpriority='high'
     />
   ) : (
     <picture>
@@ -62,6 +68,7 @@ const avifExists = /\.(jpg|jpeg|png)$/.test(src);
         decoding={decoding}
         class:list={className}
         sizes={sizes}
+        style={`aspect-ratio: ${aspectRatio}; ${style}`}
       />
     </picture>
   )

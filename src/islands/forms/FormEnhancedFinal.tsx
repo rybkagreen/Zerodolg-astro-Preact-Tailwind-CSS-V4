@@ -420,7 +420,17 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
           body: JSON.stringify(submissionData),
         });
 
-        const result = await response.json();
+        // Safely parse JSON response only if the response is valid
+        let result;
+        const contentType = response.headers.get('content-type');
+
+        if (contentType && contentType.includes('application/json')) {
+          result = await response.json();
+        } else {
+          // If response is not JSON (e.g., HTML error page), handle appropriately
+          const text = await response.text();
+          throw new Error(`Server returned non-JSON response: ${text.substring(0, 200)}...`);
+        }
 
         if (!response.ok || !result.success) {
           throw new Error(result.error || `Server error: ${response.status}`);
