@@ -498,7 +498,7 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
 
       // Yandex Metrica
       if (typeof window !== 'undefined' && win.ym) {
-        win.ym(88005553535, 'reachGoal', eventName, data);
+        win.ym(103604926, 'reachGoal', eventName, data);
       }
     }
 

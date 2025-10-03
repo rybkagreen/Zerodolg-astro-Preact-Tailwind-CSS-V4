@@ -171,7 +171,7 @@ const ProblemsInteractive = (): null => {
       }
 
       if (win.ym) {
-        win.ym(88005553535, 'reachGoal', 'problems_viewed');
+        win.ym(103604926, 'reachGoal', 'problems_viewed');
       }
     } catch (error) {
       if (import.meta.env.DEV) {
@@ -197,7 +197,7 @@ const ProblemsInteractive = (): null => {
       }
 
       if (win.ym) {
-        win.ym(88005553535, 'reachGoal', 'problem_card_clicked', {
+        win.ym(103604926, 'reachGoal', 'problem_card_clicked', {
           problem_type: problemType,
           card_index: cardIndex,
         });

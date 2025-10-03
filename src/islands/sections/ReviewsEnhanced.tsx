@@ -55,7 +55,7 @@ const ReviewsEnhanced = ({
         });
       }
       if (win.ym) {
-        win.ym(88005553535, 'reachGoal', 'reviews_load_more');
+        win.ym(103604926, 'reachGoal', 'reviews_load_more');
       }
     } catch (error) {
       if (import.meta.env.DEV) {
