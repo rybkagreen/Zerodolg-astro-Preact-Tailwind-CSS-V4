@@ -55,23 +55,24 @@ const problemsData = [
   style='isolation: isolate; z-index: 10; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
 >
   <!-- Background for Problems section only -->
-  <div class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'></div>
+  <div class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40 -z-10'>
+  </div>
 
   <!-- Watercolor background pattern for Problems section only -->
   <div
-    class='absolute inset-0 opacity-25'
+    class='absolute inset-0 opacity-25 -z-10'
     style='background-image: url("/patterns/problems-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
   >
   </div>
 
   <!-- Dot pattern overlay for Problems section only -->
   <div
-    class='absolute inset-0 opacity-10'
+    class='absolute inset-0 opacity-10 -z-10'
     style='background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px;'
   >
   </div>
 
-  <div class='relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
+  <div class='relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
     <!-- Section Header -->
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
       <h2
