@@ -40,7 +40,7 @@ const navItems = {
     isRestructuringPage
       ? {
           href: '/',
-          icon: '🏠',
+          icon: '💰',
           title: 'Банкротство физических лиц',
           desc: 'Полное списание долгов',
         }
@@ -50,6 +50,13 @@ const navItems = {
           title: 'Реструктуризация долгов',
           desc: 'Сохраните имущество, снизьте платежи',
         },
+    {
+      href: '/bankrotstvo-s-sokhraneniyem-imushchestva.html',
+      icon: '🏡',
+      title: 'Банкротство с сохранением',
+      desc: 'Спишите долги и защитите имущество',
+      highlight: false,
+    },
     {
       href: isBlogPage
         ? '/#problems'
@@ -150,7 +157,7 @@ const mobileMenuItems = [
   isRestructuringPage
     ? {
         href: '/',
-        title: '🏠 Банкротство',
+        title: '💰 Банкротство',
         className: 'text-emerald-600 hover:bg-emerald-50 font-medium',
       }
     : {
@@ -158,6 +165,11 @@ const mobileMenuItems = [
         title: '🏠 Реструктуризация',
         className: 'text-emerald-600 hover:bg-emerald-50 font-medium',
       },
+  {
+    href: '/bankrotstvo-s-sokhraneniyem-imushchestva.html',
+    title: '🏡 Банкротство с сохранением',
+    className: 'text-blue-600 hover:bg-blue-50 font-medium',
+  },
   {
     href: isBlogPage
       ? '/#problems'
