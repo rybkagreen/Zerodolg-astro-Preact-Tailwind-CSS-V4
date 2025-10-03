@@ -97,35 +97,39 @@ const ctaData = {
 
 <!-- Lead Magnets Section -->
 <section
-  class='lead-magnets-section section-padding relative overflow-hidden -mt-24 md:-mt-32 lg:-mt-40'
+  class='lead-magnets-section section-padding relative overflow-hidden -mt-24 md:-mt-32 lg:-mt-40 pb-32 md:pb-40 lg:pb-48'
   aria-labelledby='lead-magnets-title'
-  style='isolation: isolate; z-index: -1; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);'
+  style='isolation: isolate; z-index: 1;'
 >
   <!-- Reset background to white to override any previous section's background -->
-  <div class='absolute inset-0 bg-white z-0'></div>
+  <div
+    class='absolute inset-0 bg-white'
+    style='z-index: -13; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);'
+  >
+  </div>
 
   <!-- Background with financial relief pattern -->
   <div
-    class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30 z-10'
-    style='mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+    class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30'
+    style='z-index: -12; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
   >
   </div>
 
   <!-- Pastel paint strokes background pattern -->
   <div
-    class='absolute inset-0 opacity-25 z-20'
-    style='background-image: url("/patterns/watercolor_learning_materials.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
+    class='absolute inset-0 opacity-25'
+    style='z-index: -11; background-image: url("/patterns/watercolor_learning_materials.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%);'
   >
   </div>
 
   <!-- Subtle dot pattern overlay -->
   <div
-    class='absolute inset-0 opacity-5 z-30'
-    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
+    class='absolute inset-0 opacity-5'
+    style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%);'
   >
   </div>
 
-  <div class='container-custom relative z-40'>
+  <div class='container-custom relative z-10'>
     <!-- Section Header -->
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
       <div

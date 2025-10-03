@@ -2,6 +2,7 @@
 // SolutionChoice.astro - Секция выбора между банкротством и реструктуризацией
 // Актуализированная версия на октябрь 2024
 import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
+import BankruptcyTabSwitcher from '../../islands/sections/BankruptcyTabSwitcher.tsx';
 
 export interface Props {
   className?: string;
@@ -32,6 +33,28 @@ const solutionData = {
     gradient: 'from-blue-500 to-purple-600',
     bgGradient: 'from-blue-50 to-purple-50',
     hoverColor: 'hover:text-blue-600',
+  },
+  propertyPreservation: {
+    title: 'Банкротство с сохранением',
+    subtitle: 'Защитите имущество законными способами',
+    price: 'от 150 000 ₽',
+    monthlyPayment: 'от 25 000 ₽/мес',
+    duration: '6-9 месяцев',
+    successRate: '98%',
+    advantages: [
+      'Единственное жилье защищено законом',
+      'Сохранение бытовой техники и личных вещей',
+      'Прожиточный минимум остается у вас',
+      'Инструменты для работы защищены',
+    ],
+    considerations: [
+      'Требуется обоснование необходимости имущества',
+      'Процедура на 2-3 месяца дольше обычного банкротства',
+    ],
+    suitable: 'При наличии единственного жилья и желании сохранить ценности',
+    gradient: 'from-indigo-500 to-blue-600',
+    bgGradient: 'from-indigo-50 to-blue-50',
+    hoverColor: 'hover:text-indigo-600',
   },
   restructuring: {
     title: 'Реструктуризация',
@@ -110,8 +133,8 @@ const solutionData = {
     </header>
 
     <!-- Comparison Cards -->
-    <div class='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16'>
-      <!-- Банкротство Card -->
+    <div class='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-16'>
+      <!-- Банкротство Card with Tabs -->
       <article
         class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-white/50 shadow-lg hover:shadow-xl transition-all duration-500 p-8 hover:scale-[1.02] hover:-translate-y-2 flex flex-col h-full'
         role='region'
@@ -130,6 +153,8 @@ const solutionData = {
         </span>
 
         <div class='relative z-10 pt-4 flex flex-col flex-grow'>
+          <!-- Tabs Switcher -->
+          <BankruptcyTabSwitcher client:load />
           <!-- Icon -->
           <div
             class:list={`w-16 h-16 rounded-xl bg-gradient-to-br ${solutionData.bankruptcy.gradient} p-4 mb-6 group-hover:scale-110 transition-all duration-500`}
@@ -149,91 +174,187 @@ const solutionData = {
             </svg>
           </div>
 
-          <!-- Header -->
-          <div class='mb-6'>
-            <h3 id='bankruptcy-title' class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
-              {solutionData.bankruptcy.title}
-            </h3>
-            <p class='text-slate-600 text-lg leading-relaxed min-h-[3.5rem] flex items-center'>
-              {solutionData.bankruptcy.subtitle}
-            </p>
-          </div>
-
-          <!-- Pricing -->
-          <div class='bg-blue-50 rounded-lg p-4 mb-6 h-20 flex flex-col justify-center'>
-            <div class='text-3xl font-bold text-blue-600 mb-1'>
-              {solutionData.bankruptcy.price}
-            </div>
-            <div class='text-sm text-blue-700'>
-              Рассрочка {solutionData.bankruptcy.monthlyPayment} • {
-                solutionData.bankruptcy.duration
-              }
-            </div>
-          </div>
-
-          <!-- Stats -->
-          <div class='flex justify-between text-center mb-6 h-16 items-center'>
-            <div>
-              <div class='text-2xl font-bold text-green-600'>
-                {solutionData.bankruptcy.successRate}
-              </div>
-              <div class='text-xs text-slate-600'>Успешность</div>
-            </div>
-            <div>
-              <div class='text-2xl font-bold text-blue-600'>4-6</div>
-              <div class='text-xs text-slate-600'>Месяцев</div>
-            </div>
-            <div>
-              <div class='text-2xl font-bold text-purple-600'>100%</div>
-              <div class='text-xs text-slate-600'>Списание</div>
-            </div>
-          </div>
-
-          <!-- Advantages -->
-          <div class='space-y-3 mb-6'>
-            {
-              solutionData.bankruptcy.advantages.map((advantage) => (
-                <div class='flex items-start'>
-                  <span class='text-green-500 mr-3 mt-0.5 text-lg'>✓</span>
-                  <span class='text-slate-700 text-sm'>{advantage}</span>
-                </div>
-              ))
-            }
-          </div>
-
-          <!-- Considerations -->
-          <div class='space-y-3 mb-6'>
-            {
-              solutionData.bankruptcy.considerations.map((consideration) => (
-                <div class='flex items-start'>
-                  <span class='text-amber-500 mr-3 mt-0.5 text-lg'>⚠</span>
-                  <span class='text-slate-700 text-sm'>{consideration}</span>
-                </div>
-              ))
-            }
-          </div>
-
-          <!-- Content Area (flexible) -->
-          <div class='flex-grow'>
-            <!-- Suitable for -->
-            <div class='bg-blue-50 rounded-lg p-4 mb-6'>
-              <p class='text-sm text-blue-800'>
-                <span class='font-bold'>Подходит:</span>
-                {solutionData.bankruptcy.suitable}
+          <!-- Standard Bankruptcy Content -->
+          <div class='bankruptcy-content' data-content='standard'>
+            <!-- Header -->
+            <div class='mb-6'>
+              <h3 id='bankruptcy-title' class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
+                {solutionData.bankruptcy.title}
+              </h3>
+              <p class='text-slate-600 text-lg leading-relaxed min-h-[3.5rem] flex items-center'>
+                {solutionData.bankruptcy.subtitle}
               </p>
             </div>
+
+            <!-- Pricing -->
+            <div class='bg-blue-50 rounded-lg p-4 mb-6 h-20 flex flex-col justify-center'>
+              <div class='text-3xl font-bold text-blue-600 mb-1'>
+                {solutionData.bankruptcy.price}
+              </div>
+              <div class='text-sm text-blue-700'>
+                Рассрочка {solutionData.bankruptcy.monthlyPayment} • {
+                  solutionData.bankruptcy.duration
+                }
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class='flex justify-between text-center mb-6 h-16 items-center'>
+              <div>
+                <div class='text-2xl font-bold text-green-600'>
+                  {solutionData.bankruptcy.successRate}
+                </div>
+                <div class='text-xs text-slate-600'>Успешность</div>
+              </div>
+              <div>
+                <div class='text-2xl font-bold text-blue-600'>4-6</div>
+                <div class='text-xs text-slate-600'>Месяцев</div>
+              </div>
+              <div>
+                <div class='text-2xl font-bold text-purple-600'>100%</div>
+                <div class='text-xs text-slate-600'>Списание</div>
+              </div>
+            </div>
+
+            <!-- Advantages -->
+            <div class='space-y-3 mb-6'>
+              {
+                solutionData.bankruptcy.advantages.map((advantage) => (
+                  <div class='flex items-start'>
+                    <span class='text-green-500 mr-3 mt-0.5 text-lg'>✓</span>
+                    <span class='text-slate-700 text-sm'>{advantage}</span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- Considerations -->
+            <div class='space-y-3 mb-6'>
+              {
+                solutionData.bankruptcy.considerations.map((consideration) => (
+                  <div class='flex items-start'>
+                    <span class='text-amber-500 mr-3 mt-0.5 text-lg'>⚠</span>
+                    <span class='text-slate-700 text-sm'>{consideration}</span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- Content Area (flexible) -->
+            <div class='flex-grow'>
+              <!-- Suitable for -->
+              <div class='bg-blue-50 rounded-lg p-4 mb-6'>
+                <p class='text-sm text-blue-800'>
+                  <span class='font-bold'>Подходит:</span>
+                  {solutionData.bankruptcy.suitable}
+                </p>
+              </div>
+            </div>
+
+            <!-- CTA Button Area (fixed at bottom) -->
+            <div class='mt-auto space-y-3'>
+              <button
+                class='w-full btn-primary group-hover:bg-blue-700 transition-colors duration-300'
+                data-modal='consultation'
+              >
+                Консультация по банкротству
+              </button>
+              <div class='h-8'></div>
+            </div>
           </div>
 
-          <!-- CTA Button Area (fixed at bottom) -->
-          <div class='mt-auto space-y-3'>
-            <button
-              class='w-full btn-primary group-hover:bg-blue-700 transition-colors duration-300'
-              data-modal='consultation'
-            >
-              Консультация по банкротству
-            </button>
-            <!-- Placeholder для выравнивания с реструктуризацией -->
-            <div class='h-8'></div>
+          <!-- Preservation Bankruptcy Content -->
+          <div class='bankruptcy-content hidden' data-content='preservation'>
+            <!-- Header -->
+            <div class='mb-6'>
+              <h3 class='text-2xl lg:text-3xl font-bold text-slate-900 mb-2'>
+                {solutionData.propertyPreservation.title}
+              </h3>
+              <p class='text-slate-600 text-lg leading-relaxed min-h-[3.5rem] flex items-center'>
+                {solutionData.propertyPreservation.subtitle}
+              </p>
+            </div>
+
+            <!-- Pricing -->
+            <div class='bg-indigo-50 rounded-lg p-4 mb-6 h-20 flex flex-col justify-center'>
+              <div class='text-3xl font-bold text-indigo-600 mb-1'>
+                {solutionData.propertyPreservation.price}
+              </div>
+              <div class='text-sm text-indigo-700'>
+                Рассрочка {solutionData.propertyPreservation.monthlyPayment} • {
+                  solutionData.propertyPreservation.duration
+                }
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class='flex justify-between text-center mb-6 h-16 items-center'>
+              <div>
+                <div class='text-2xl font-bold text-green-600'>
+                  {solutionData.propertyPreservation.successRate}
+                </div>
+                <div class='text-xs text-slate-600'>Успешность</div>
+              </div>
+              <div>
+                <div class='text-2xl font-bold text-indigo-600'>6-9</div>
+                <div class='text-xs text-slate-600'>Месяцев</div>
+              </div>
+              <div>
+                <div class='text-2xl font-bold text-blue-600'>🏠</div>
+                <div class='text-xs text-slate-600'>Сохранение</div>
+              </div>
+            </div>
+
+            <!-- Advantages -->
+            <div class='space-y-3 mb-6'>
+              {
+                solutionData.propertyPreservation.advantages.map((advantage) => (
+                  <div class='flex items-start'>
+                    <span class='text-green-500 mr-3 mt-0.5 text-lg'>✓</span>
+                    <span class='text-slate-700 text-sm'>{advantage}</span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- Considerations -->
+            <div class='space-y-3 mb-6'>
+              {
+                solutionData.propertyPreservation.considerations.map((consideration) => (
+                  <div class='flex items-start'>
+                    <span class='text-amber-500 mr-3 mt-0.5 text-lg'>⚠</span>
+                    <span class='text-slate-700 text-sm'>{consideration}</span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- Content Area (flexible) -->
+            <div class='flex-grow'>
+              <!-- Suitable for -->
+              <div class='bg-indigo-50 rounded-lg p-4 mb-6'>
+                <p class='text-sm text-indigo-800'>
+                  <span class='font-bold'>Подходит:</span>
+                  {solutionData.propertyPreservation.suitable}
+                </p>
+              </div>
+            </div>
+
+            <!-- CTA Button Area (fixed at bottom) -->
+            <div class='mt-auto space-y-3'>
+              <button
+                class='w-full btn-primary group-hover:bg-indigo-700 transition-colors duration-300'
+                data-modal='consultation'
+              >
+                Консультация по сохранению
+              </button>
+              <a
+                href='/bankrotstvo-s-sokhraneniyem-imushchestva/'
+                class='w-full block text-center py-2 px-4 text-indigo-600 hover:text-indigo-700 text-sm font-medium transition-colors'
+              >
+                Подробнее о сохранении →
+              </a>
+            </div>
           </div>
         </div>
 
@@ -366,7 +487,7 @@ const solutionData = {
               Консультация по реструктуризации
             </button>
             <a
-              href='/restrukturizaciya-dolgov.html'
+              href='/restrukturizaciya-dolgov/'
               class='w-full block text-center py-2 px-4 text-emerald-600 hover:text-emerald-700 text-sm font-medium transition-colors'
             >
               Подробнее о реструктуризации →

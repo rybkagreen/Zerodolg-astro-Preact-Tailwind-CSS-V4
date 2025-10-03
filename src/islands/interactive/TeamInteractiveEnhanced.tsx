@@ -174,24 +174,25 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
           ...containerStyle,
           isolation: 'isolate',
           zIndex: 10,
-          maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
         }}
         aria-labelledby='team-title'
       >
         {/* Background layers matching Benefits section style */}
-        <div class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'></div>
+        <div
+          class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'
+          style='z-index: -12; mask-image: linear-gradient(to bottom, black 0%, black 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);'
+        ></div>
 
         {/* Team watercolor pattern background */}
         <div
-          class='absolute inset-0 opacity-25 mix-blend-multiply'
-          style='background-image: url("/patterns/watercolor_team_professionals_00001_.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+          class='absolute inset-0 opacity-25'
+          style='z-index: -11; background-image: url("/patterns/watercolor_team_professionals_00001_.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
         ></div>
 
         {/* Subtle dot pattern overlay */}
         <div
           class='absolute inset-0 opacity-5'
-          style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
+          style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
         ></div>
 
         <div class='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>

@@ -1,6 +1,6 @@
 // sitemap.xml.ts - Динамическая карта сайта с автогенерацией из блога
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const SITE_URL = 'https://zerodolg.ru';
 
@@ -11,37 +11,37 @@ export const GET: APIRoute = async () => {
   // Статические страницы с приоритетами
   const staticPages = [
     {
-      url: '',
+      url: '/',
       changefreq: 'weekly',
       priority: '1.0',
       lastmod: new Date().toISOString().split('T')[0],
     },
     {
-      url: '/blog',
+      url: '/blog/',
       changefreq: 'daily',
       priority: '0.9',
       lastmod: new Date().toISOString().split('T')[0],
     },
     {
-      url: '/restrukturizaciya-dolgov',
+      url: '/restrukturizaciya-dolgov/',
       changefreq: 'monthly',
       priority: '0.9',
       lastmod: new Date().toISOString().split('T')[0],
     },
     {
-      url: '/bankrotstvo-s-sokhraneniyem-imushchestva',
+      url: '/bankrotstvo-s-sokhraneniyem-imushchestva/',
       changefreq: 'monthly',
       priority: '0.8',
       lastmod: new Date().toISOString().split('T')[0],
     },
     {
-      url: '/privacy',
+      url: '/privacy/',
       changefreq: 'yearly',
       priority: '0.3',
       lastmod: new Date().toISOString().split('T')[0],
     },
     {
-      url: '/terms',
+      url: '/terms/',
       changefreq: 'yearly',
       priority: '0.3',
       lastmod: new Date().toISOString().split('T')[0],
@@ -50,9 +50,9 @@ export const GET: APIRoute = async () => {
 
   // Динамические страницы (статьи блога)
   const blogPages = posts
-    .filter((post) => !post.data.draft) // Исключаем черновики
-    .map((post) => ({
-      url: `/blog/${post.slug}.html`,
+    .filter((post: CollectionEntry<'blog'>) => !post.data.draft) // Исключаем черновики
+    .map((post: CollectionEntry<'blog'>) => ({
+      url: `/blog/${post.slug}/`,
       changefreq: 'monthly',
       priority: post.data.featured ? '0.8' : '0.7', // Популярные статьи имеют больший приоритет
       lastmod: (post.data.updatedDate || post.data.pubDate).toISOString().split('T')[0],

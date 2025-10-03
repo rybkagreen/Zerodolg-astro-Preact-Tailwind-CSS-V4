@@ -100,7 +100,7 @@ const relatedPosts = allPosts
 
                 {/* Заголовок */}
                 <h3 class='text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 flex-1'>
-                  <a href={`/blog/${post.slug}.html`} class='hover:underline'>
+                  <a href={`/blog/${post.slug}/`} class='hover:underline'>
                     {post.data.title}
                   </a>
                 </h3>
@@ -145,7 +145,7 @@ const relatedPosts = allPosts
                     )}
                   </div>
                   <a
-                    href={`/blog/${post.slug}.html`}
+                    href={`/blog/${post.slug}/`}
                     class='text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1'
                   >
                     Читать

@@ -75,15 +75,9 @@
 
 /* Benefits Section */
 .benefits-section {
-  @apply relative bg-gradient-to-br from-gray-100 to-gray-200;
-
-  &::before {
-    content: '';
-    @apply absolute top-10 left-10 w-32 h-32 opacity-10;
-    background-image: url('/icons/solution/01-shield-check.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+  @apply relative;
+  /* ::before removed - using watercolor pattern instead */
+  /* Background gradient removed - using inline styles for better control */
 }
 
 /* Team Section */

@@ -42,7 +42,7 @@ export const getCurrentMonthGenitive = (): string => {
     'ноября',
     'декабря',
   ];
-  return months[new Date().getMonth()];
+  return months[new Date().getMonth()] || 'января';
 };
 
 /**

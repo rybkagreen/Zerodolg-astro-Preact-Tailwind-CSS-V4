@@ -1,0 +1,562 @@
+---
+// PropertyPreservationComparison.astro - Секция сравнения для страницы банкротства с сохранением имущества
+// Сравнение: Банкротство с сохранением vs Обычное банкротство
+
+import SectionSemantics from '../../shared/ui/SectionSemantics.astro';
+
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+// Данные для сравнения
+const comparisonData = {
+  withProperty: {
+    title: 'С сохранением имущества',
+    subtitle: 'Защитите ценности законными способами',
+    price: 'от 150 000 ₽',
+    monthly: 'от 25 000 ₽/мес',
+    duration: '6-9 месяцев',
+    success: '98%',
+    badge: 'Рекомендуем',
+    badgeColor: 'bg-blue-500',
+    advantages: [
+      { text: 'Единственное жилье защищено законом', icon: 'home', highlight: true },
+      { text: 'Сохранение бытовой техники и личных вещей', icon: 'items', highlight: true },
+      { text: 'Прожиточный минимум остается у вас', icon: 'money', highlight: true },
+      { text: '100% списание долгов', icon: 'delete', highlight: false },
+      { text: 'Остановка звонков коллекторов', icon: 'shield', highlight: false },
+      { text: 'Инструменты для работы защищены', icon: 'tools', highlight: false },
+    ],
+    suitable: [
+      { text: 'Есть единственное жилье', icon: 'check' },
+      { text: 'Хотите сохранить ценности', icon: 'heart' },
+    ],
+    gradient: 'from-blue-500 to-indigo-600',
+    bgGradient: 'from-blue-50 to-indigo-50',
+  },
+  standard: {
+    title: 'Обычное банкротство',
+    subtitle: 'Быстрое списание с реализацией имущества',
+    price: '150 000 ₽',
+    monthly: '25 000 ₽/мес',
+    duration: '4-6 месяцев',
+    success: '98%',
+    badge: 'Быстрее',
+    badgeColor: 'bg-slate-500',
+    advantages: [
+      { text: '100% списание всех долгов', icon: 'delete', highlight: true },
+      { text: 'Быстрое решение (4-6 месяцев)', icon: 'clock', highlight: true },
+      { text: 'Не требуется постоянный доход', icon: 'free', highlight: false },
+      { text: 'Защита от коллекторов', icon: 'shield', highlight: false },
+    ],
+    disadvantages: [
+      { text: 'Продажа дополнительного имущества', icon: 'loss' },
+      { text: 'Возможная потеря автомобиля', icon: 'car' },
+      { text: 'Реализация ценностей и техники', icon: 'items' },
+    ],
+    gradient: 'from-slate-500 to-gray-600',
+    bgGradient: 'from-slate-50 to-gray-50',
+  },
+};
+
+// Таблица сравнения
+const comparisonTable = [
+  {
+    criteria: 'Единственное жилье',
+    withProperty: { value: '✅ Защищено законом', positive: true },
+    standard: { value: '✅ Защищено законом', positive: true },
+  },
+  {
+    criteria: 'Дополнительная недвижимость',
+    withProperty: { value: '⚠️ Защищена законными способами', positive: true },
+    standard: { value: '❌ Будет продана', positive: false },
+  },
+  {
+    criteria: 'Автомобиль',
+    withProperty: { value: '✅ Можно сохранить (для работы)', positive: true },
+    standard: { value: '❌ Будет продан', positive: false },
+  },
+  {
+    criteria: 'Бытовая техника',
+    withProperty: { value: '✅ Полностью сохраняется', positive: true },
+    standard: { value: '❌ Может быть изъята', positive: false },
+  },
+  {
+    criteria: 'Списание долгов',
+    withProperty: { value: '✅ 100% списание', positive: true },
+    standard: { value: '✅ 100% списание', positive: true },
+  },
+  {
+    criteria: 'Срок процедуры',
+    withProperty: { value: '⏱️ 6-9 месяцев', positive: false },
+    standard: { value: '⚡ 4-6 месяцев', positive: true },
+  },
+];
+---
+
+<section
+  class:list={`property-comparison-section relative py-20 md:py-28 lg:py-36 overflow-hidden ${className}`}
+  id='property-comparison'
+  aria-labelledby='property-comparison-title'
+>
+  <!-- Background -->
+  <div class='absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/40'></div>
+
+  <!-- Subtle pattern overlay -->
+  <div
+    class='absolute inset-0 opacity-10'
+    style="background-image: url('/patterns/comparison-pattern.svg'); background-size: 150px 150px;"
+  >
+  </div>
+
+  <div class='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <!-- Section Header -->
+    <header class='text-center mb-16 md:mb-20'>
+      <div
+        class='inline-flex items-center gap-2 rounded-full bg-blue-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50 mb-8'
+      >
+        <svg class='h-4 w-4 text-blue-600' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+          <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-width='2'
+            d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
+          ></path>
+        </svg>
+        Сравните варианты
+      </div>
+      <h2
+        id='property-comparison-title'
+        class='text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'
+      >
+        С сохранением имущества или без?
+      </h2>
+      <p class='text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium'>
+        Выберите оптимальный вариант банкротства под вашу ситуацию
+      </p>
+    </header>
+
+    <!-- Comparison Cards -->
+    <div class='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16'>
+      <!-- С сохранением имущества Card (Приоритетная) -->
+      <article
+        class='group relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-md border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-all duration-500 p-8 hover:scale-[1.02] order-1'
+        role='region'
+        aria-labelledby='with-property-detailed-title'
+      >
+        <!-- Priority Badge -->
+        <div
+          class='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white text-sm font-bold px-6 py-2 rounded-full shadow-lg'
+        >
+          💎 {comparisonData.withProperty.badge}
+        </div>
+
+        <div class='pt-4'>
+          <!-- Header -->
+          <div class='text-center mb-6'>
+            <div
+              class='w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 p-5 mx-auto mb-4'
+            >
+              <svg
+                class='w-full h-full text-white'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+                ></path>
+              </svg>
+            </div>
+            <h3 id='with-property-detailed-title' class='text-3xl font-bold text-slate-900 mb-2'>
+              {comparisonData.withProperty.title}
+            </h3>
+            <p class='text-lg text-slate-600 mb-4'>
+              {comparisonData.withProperty.subtitle}
+            </p>
+          </div>
+
+          <!-- Pricing -->
+          <div class='bg-blue-50 rounded-xl p-6 mb-6 text-center'>
+            <div class='text-4xl font-bold text-blue-600 mb-2'>
+              {comparisonData.withProperty.price}
+            </div>
+            <div class='text-blue-700 font-medium mb-1'>
+              Рассрочка {comparisonData.withProperty.monthly}
+            </div>
+            <div class='text-sm text-blue-600'>
+              Срок: {comparisonData.withProperty.duration} • Успешность: {
+                comparisonData.withProperty.success
+              }
+            </div>
+          </div>
+
+          <!-- Advantages -->
+          <div class='space-y-3 mb-6'>
+            <h4 class='text-lg font-bold text-slate-900 mb-3'>✅ Преимущества:</h4>
+            {
+              comparisonData.withProperty.advantages.map((advantage) => (
+                <div
+                  class:list={[
+                    `flex items-start `,
+                    { 'bg-blue-50 p-2 rounded-lg': advantage.highlight },
+                  ]}
+                >
+                  <span class='text-blue-500 mr-3 mt-0.5 text-lg'>✓</span>
+                  <span
+                    class:list={[
+                      `text-slate-700 text-sm `,
+                      { 'font-semibold': advantage.highlight },
+                    ]}
+                  >
+                    {advantage.text}
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Suitable for -->
+          <div class='mb-6'>
+            <h4 class='text-lg font-bold text-slate-900 mb-3'>📋 Подходит если:</h4>
+            <div class='space-y-2'>
+              {
+                comparisonData.withProperty.suitable.map((req) => (
+                  <div class='flex items-start'>
+                    <span class='text-green-500 mr-3 mt-0.5 text-lg'>•</span>
+                    <span class='text-slate-700 text-sm'>{req.text}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a
+            href='#consultation-form'
+            class='block w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-colors duration-300 shadow-lg text-center'
+          >
+            Выбрать с сохранением
+          </a>
+        </div>
+
+        <!-- Background gradient -->
+        <div
+          class='absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 rounded-2xl'
+        >
+        </div>
+      </article>
+
+      <!-- Обычное банкротство Card (Альтернатива) -->
+      <article
+        class='group relative overflow-hidden rounded-2xl bg-white/60 backdrop-blur-md border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 p-8 order-2'
+        role='region'
+        aria-labelledby='standard-detailed-title'
+      >
+        <!-- Alternative Badge -->
+        <div
+          class='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-slate-500 text-white text-sm font-bold px-6 py-2 rounded-full shadow-lg'
+        >
+          ⚡ {comparisonData.standard.badge}
+        </div>
+
+        <div class='pt-4'>
+          <!-- Header -->
+          <div class='text-center mb-6'>
+            <div
+              class='w-20 h-20 rounded-full bg-gradient-to-br from-slate-500 to-gray-600 p-5 mx-auto mb-4'
+            >
+              <svg
+                class='w-full h-full text-white'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1'
+                ></path>
+              </svg>
+            </div>
+            <h3 id='standard-detailed-title' class='text-3xl font-bold text-slate-900 mb-2'>
+              {comparisonData.standard.title}
+            </h3>
+            <p class='text-lg text-slate-600 mb-4'>
+              {comparisonData.standard.subtitle}
+            </p>
+          </div>
+
+          <!-- Pricing -->
+          <div class='bg-slate-50 rounded-xl p-6 mb-6 text-center'>
+            <div class='text-4xl font-bold text-slate-600 mb-2'>
+              {comparisonData.standard.price}
+            </div>
+            <div class='text-slate-700 font-medium mb-1'>
+              Рассрочка {comparisonData.standard.monthly}
+            </div>
+            <div class='text-sm text-slate-600'>
+              Срок: {comparisonData.standard.duration} • Успешность: {
+                comparisonData.standard.success
+              }
+            </div>
+          </div>
+
+          <!-- Advantages -->
+          <div class='space-y-3 mb-6'>
+            <h4 class='text-lg font-bold text-slate-900 mb-3'>✅ Плюсы:</h4>
+            {
+              comparisonData.standard.advantages.map((advantage) => (
+                <div
+                  class:list={[
+                    `flex items-start `,
+                    { 'bg-slate-50 p-2 rounded-lg': advantage.highlight },
+                  ]}
+                >
+                  <span class='text-green-500 mr-3 mt-0.5 text-lg'>✓</span>
+                  <span
+                    class:list={[
+                      `text-slate-700 text-sm `,
+                      { 'font-semibold': advantage.highlight },
+                    ]}
+                  >
+                    {advantage.text}
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Disadvantages -->
+          <div class='mb-6'>
+            <h4 class='text-lg font-bold text-slate-900 mb-3'>⚠️ Минусы:</h4>
+            <div class='space-y-2'>
+              {
+                comparisonData.standard.disadvantages.map((disadvantage) => (
+                  <div class='flex items-start'>
+                    <span class='text-red-500 mr-3 mt-0.5 text-lg'>×</span>
+                    <span class='text-slate-700 text-sm'>{disadvantage.text}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Alternative CTA -->
+          <a
+            href='/'
+            class='block w-full bg-slate-600 hover:bg-slate-700 text-white font-bold py-4 px-6 rounded-xl transition-colors duration-300 shadow-lg text-center'
+          >
+            Узнать об обычном банкротстве
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Detailed Comparison Table -->
+    <div
+      class='bg-white/80 backdrop-blur-md rounded-2xl border border-blue-200 shadow-xl p-8 mb-16'
+    >
+      <h3 class='text-2xl md:text-3xl font-bold text-slate-900 mb-8 text-center'>
+        Детальное сравнение
+      </h3>
+
+      <div class='overflow-x-auto'>
+        <table class='w-full'>
+          <thead>
+            <tr class='border-b border-blue-200'>
+              <th class='text-left py-4 px-4 text-lg font-bold text-slate-900'>Критерий</th>
+              <th class='text-center py-4 px-4 text-lg font-bold text-blue-700'>С сохранением</th>
+              <th class='text-center py-4 px-4 text-lg font-bold text-slate-600'>Обычное</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              comparisonTable.map((row, index) => (
+                <tr
+                  class:list={[
+                    `border-b border-gray-100 hover:bg-blue-50/50 transition-colors`,
+                    { 'bg-blue-50/30': index % 2 === 0, 'bg-white': index % 2 !== 0 },
+                  ]}
+                >
+                  <td class='py-4 px-4 font-semibold text-slate-900'>{row.criteria}</td>
+                  <td
+                    class:list={[
+                      `py-4 px-4 text-center `,
+                      {
+                        'text-blue-700 bg-blue-50 font-semibold': row.withProperty.positive,
+                        'text-slate-600': !row.withProperty.positive,
+                      },
+                    ]}
+                  >
+                    {row.withProperty.value}
+                  </td>
+                  <td
+                    class:list={[
+                      `py-4 px-4 text-center `,
+                      {
+                        'text-green-600 font-semibold': row.standard.positive,
+                        'text-red-600': !row.standard.positive,
+                      },
+                    ]}
+                  >
+                    {row.standard.value}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Decision Helper CTA -->
+    <div
+      class='text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 md:p-12 border border-blue-200'
+    >
+      <div class='max-w-3xl mx-auto'>
+        <h3 class='text-3xl md:text-4xl font-bold text-slate-900 mb-4'>
+          Не знаете, какой вариант выбрать?
+        </h3>
+        <p class='text-xl text-slate-600 mb-8 leading-relaxed'>
+          Получите персональную консультацию от эксперта — бесплатно и без обязательств
+        </p>
+
+        <div class='flex flex-col sm:flex-row gap-4 justify-center'>
+          <a
+            href='#consultation-form'
+            class='btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700'
+          >
+            <svg class='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
+              ></path>
+            </svg>
+            Получить консультацию
+          </a>
+          <a
+            href='tel:+79055773387'
+            class='btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg'
+          >
+            <svg class='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
+              ></path>
+            </svg>
+            +7 (905) 577-33-87
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Semantic data for SEO -->
+<SectionSemantics sectionId='property-comparison' />
+
+<style>
+  /* Animation styles */
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .property-comparison-section article:nth-child(1) {
+    animation: slideInFromLeft 0.8s ease-out forwards;
+  }
+
+  .property-comparison-section article:nth-child(2) {
+    animation: slideInFromRight 0.8s ease-out forwards 0.2s;
+    opacity: 0;
+  }
+
+  /* Enhanced table styles */
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  th,
+  td {
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .property-comparison-section article {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  /* Mobile table responsiveness */
+  @media (max-width: 768px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    td {
+      border: none;
+      position: relative;
+      padding-left: 50%;
+      text-align: left !important;
+    }
+
+    td:before {
+      content: attr(data-label) ': ';
+      position: absolute;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+  }
+</style>

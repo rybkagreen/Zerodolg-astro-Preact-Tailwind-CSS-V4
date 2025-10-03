@@ -11,6 +11,8 @@ import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
 import BaseForm from '../components/forms/BaseForm.astro';
 import { SITE_CONSTANTS } from '../shared/config/constants';
+import PropertyPreservationProblems from '../components/sections/PropertyPreservationProblems.astro';
+import PropertyPreservationComparison from '../components/sections/PropertyPreservationComparison.astro';
 
 // SEO данные
 const pageTitle = 'Банкротство с сохранением имущества в Москве 2025 | ZeroDolg';
@@ -22,6 +24,70 @@ const canonical = 'https://zerodolg.ru/bankrotstvo-s-sokhraneniyem-imushchestva'
 
 const stats = SITE_CONSTANTS.stats;
 const manager = SITE_CONSTANTS.manager;
+
+// Данные процесса банкротства с сохранением имущества
+const processData = [
+  {
+    step: 1,
+    title: 'Бесплатная консультация',
+    description: 'Анализируем вашу ситуацию и разрабатываем стратегию защиты имущества',
+    duration: '1 день',
+  },
+  {
+    step: 2,
+    title: 'Подготовка документов',
+    description: 'Собираем справки, выписки и готовим заявление с учетом защиты имущества',
+    duration: '7-14 дней',
+  },
+  {
+    step: 3,
+    title: 'Подача в арбитражный суд',
+    description: 'Подаем заявление в суд с обоснованием защиты вашего имущества',
+    duration: '1 день',
+  },
+  {
+    step: 4,
+    title: 'Признание банкротом',
+    description: 'Суд выносит решение о признании банкротом и назначает управляющего',
+    duration: '1-2 месяца',
+  },
+  {
+    step: 5,
+    title: 'Защита имущества',
+    description: 'Юридически обосновываем необходимость сохранения имущества',
+    duration: '2-4 месяца',
+  },
+  {
+    step: 6,
+    title: 'Освобождение от долгов',
+    description: 'Суд списывает все долги, имущество остается у вас',
+    duration: '1 месяц',
+  },
+];
+
+// Требования для защиты имущества
+const requirements = [
+  {
+    title: 'Единственное жилье',
+    description: 'Квартира или дом должны быть единственным пригодным для проживания жильем',
+    icon: 'home',
+  },
+  {
+    title: 'Необходимость автомобиля',
+    description: 'Докажем, что автомобиль необходим для профессиональной деятельности',
+    icon: 'car',
+  },
+  {
+    title: 'Бытовые предметы',
+    description: 'Техника и личные вещи защищены как предметы первой необходимости',
+    icon: 'items',
+  },
+  {
+    title: 'Профессиональные инструменты',
+    description: 'Инструменты для работы стоимостью до 100 МРОТ защищены законом',
+    icon: 'tools',
+  },
+];
 ---
 
 <Layout
@@ -245,6 +311,142 @@ const manager = SITE_CONSTANTS.manager;
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problems Section -->
+    <PropertyPreservationProblems className='bg-white' />
+
+    <!-- Comparison Section -->
+    <PropertyPreservationComparison className='' />
+
+    <!-- Requirements Section -->
+    <section class='py-16 bg-white'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>
+          Условия для защиты имущества
+        </h2>
+        <p class='text-center text-gray-600 mb-12 max-w-3xl mx-auto text-lg'>
+          Проверьте, можно ли защитить ваше имущество при банкротстве
+        </p>
+
+        <div class='max-w-5xl mx-auto grid md:grid-cols-2 gap-6'>
+          {
+            requirements.map((req) => (
+              <div class='bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow'>
+                <div class='flex items-start gap-4'>
+                  <div class='flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl'>
+                    {req.icon === 'home' && '🏠'}
+                    {req.icon === 'car' && '🚗'}
+                    {req.icon === 'items' && '📱'}
+                    {req.icon === 'tools' && '🔧'}
+                  </div>
+                  <div>
+                    <h3 class='text-lg font-bold mb-2 text-blue-900'>{req.title}</h3>
+                    <p class='text-gray-700'>{req.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class='mt-12 max-w-4xl mx-auto'>
+          <div
+            class='bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-2xl shadow-xl text-center'
+          >
+            <h3 class='text-2xl font-bold mb-4'>Не уверены, можно ли защитить ваше имущество?</h3>
+            <p class='text-blue-50 mb-6 text-lg'>
+              Проведем бесплатный анализ вашей ситуации и расскажем о возможностях защиты
+            </p>
+            <a
+              href='#consultation-form'
+              class='bg-white text-blue-600 hover:bg-blue-50 font-bold py-3 px-8 rounded-lg transition-colors inline-flex items-center gap-2'
+            >
+              <span>Получить бесплатную консультацию</span>
+              <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  d='M9 5l7 7-7 7'></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class='py-16 bg-gradient-to-br from-slate-50 to-blue-50'>
+      <div class='container mx-auto px-4'>
+        <h2 class='text-3xl md:text-4xl font-bold text-center mb-4'>Как проходит процедура</h2>
+        <p class='text-center text-gray-600 mb-12 max-w-3xl mx-auto text-lg'>
+          Пошаговый процесс банкротства с сохранением имущества
+        </p>
+
+        <div class='max-w-4xl mx-auto'>
+          <div class='relative'>
+            <!-- Вертикальная линия -->
+            <div
+              class='absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-600 via-indigo-500 to-purple-600 hidden md:block'
+            >
+            </div>
+
+            <div class='space-y-8'>
+              {
+                processData.map((step, _index) => (
+                  <div class='relative flex items-start gap-6'>
+                    {/* Step number circle */}
+                    <div class='flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-10'>
+                      {step.step}
+                    </div>
+
+                    {/* Content */}
+                    <div class='flex-1 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow'>
+                      <div class='flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3'>
+                        <h3 class='text-xl font-bold text-gray-900'>{step.title}</h3>
+                        <span class='inline-flex items-center gap-1 text-sm text-blue-600 font-semibold bg-blue-50 px-3 py-1 rounded-full'>
+                          <svg
+                            class='w-4 h-4'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path
+                              stroke-linecap='round'
+                              stroke-linejoin='round'
+                              stroke-width='2'
+                              d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+                            />
+                          </svg>
+                          {step.duration}
+                        </span>
+                      </div>
+                      <p class='text-gray-700'>{step.description}</p>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class='mt-12 text-center'>
+          <a
+            href='#consultation-form'
+            class='inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition-colors shadow-lg'
+          >
+            <span>Начать процедуру банкротства</span>
+            <svg class='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M13 7l5 5m0 0l-5 5m5-5H6'></path>
+            </svg>
+          </a>
         </div>
       </div>
     </section>

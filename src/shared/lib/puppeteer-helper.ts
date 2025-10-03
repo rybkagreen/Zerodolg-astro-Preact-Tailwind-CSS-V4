@@ -3,14 +3,18 @@
 
 // Import the actual config
 import { puppeteerConfig } from '../../../config.puppeteer.js';
+import { logger } from './logger.js';
 
 interface PuppeteerHelperOptions {
   [key: string]: unknown;
 }
 
 // Define Puppeteer types as any to avoid build errors
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Browser = any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Page = any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ElementHandle = any;
 
 // Helper function to safely import Puppeteer
@@ -55,7 +59,7 @@ class PuppeteerHelper {
         await this.page.setUserAgent(puppeteerConfig.userAgent);
       }
     } catch (error) {
-      console.error('Failed to initialize Puppeteer:', error);
+      logger.error('Failed to initialize Puppeteer', {}, error as Error);
       throw error;
     }
   }

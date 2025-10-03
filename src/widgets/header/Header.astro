@@ -30,7 +30,7 @@ const navItems = {
       href: isBlogPage
         ? '/#solution-choice'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#solution-choice'
+          ? '/restrukturizaciya-dolgov/#solution-choice'
           : '/#solution-choice',
       icon: '🎆',
       title: 'Выбор решения',
@@ -45,13 +45,13 @@ const navItems = {
           desc: 'Полное списание долгов',
         }
       : {
-          href: '/restrukturizaciya-dolgov.html',
+          href: '/restrukturizaciya-dolgov/',
           icon: '🏠',
           title: 'Реструктуризация долгов',
           desc: 'Сохраните имущество, снизьте платежи',
         },
     {
-      href: '/bankrotstvo-s-sokhraneniyem-imushchestva.html',
+      href: '/bankrotstvo-s-sokhraneniyem-imushchestva/',
       icon: '🏡',
       title: 'Банкротство с сохранением',
       desc: 'Спишите долги и защитите имущество',
@@ -61,7 +61,7 @@ const navItems = {
       href: isBlogPage
         ? '/#problems'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#problems'
+          ? '/restrukturizaciya-dolgov/#problems'
           : '/#problems',
       icon: '⚡',
       title: 'Решаемые проблемы',
@@ -71,7 +71,7 @@ const navItems = {
       href: isBlogPage
         ? '/#calculator'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#calculator'
+          ? '/restrukturizaciya-dolgov/#calculator'
           : '/#calculator',
       icon: '💰',
       title: 'Калькулятор стоимости',
@@ -84,7 +84,7 @@ const navItems = {
       href: isBlogPage
         ? '/#benefits'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#benefits'
+          ? '/restrukturizaciya-dolgov/#benefits'
           : '/#benefits',
       icon: '🏆',
       title: 'Наши преимущества',
@@ -94,7 +94,7 @@ const navItems = {
       href: isBlogPage
         ? '/#team'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#team'
+          ? '/restrukturizaciya-dolgov/#team'
           : '/#team',
       icon: '👥',
       title: 'Команда',
@@ -104,7 +104,7 @@ const navItems = {
       href: isBlogPage
         ? '/#reviews'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#reviews'
+          ? '/restrukturizaciya-dolgov/#reviews'
           : '/#reviews',
       icon: '⭐',
       title: 'Отзывы клиентов',
@@ -113,11 +113,7 @@ const navItems = {
   ],
   info: [
     {
-      href: isBlogPage
-        ? '/#faq'
-        : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#faq'
-          : '/#faq',
+      href: isBlogPage ? '/#faq' : isRestructuringPage ? '/restrukturizaciya-dolgov/#faq' : '/#faq',
       icon: '❓',
       title: 'Частые вопросы',
       desc: 'Ответы на популярные вопросы',
@@ -127,19 +123,19 @@ const navItems = {
       href: isBlogPage
         ? '/#contact'
         : isRestructuringPage
-          ? '/restrukturizaciya-dolgov.html#contact'
+          ? '/restrukturizaciya-dolgov/#contact'
           : '/#contact',
       icon: '📍',
       title: 'Контакты',
       desc: 'Как с нами связаться',
     },
     {
-      href: '/privacy',
+      href: '/privacy/',
       icon: '🔒',
       title: 'Конфиденциальность',
       desc: 'Политика обработки данных',
     },
-    { href: '/terms', icon: '📋', title: 'Соглашение', desc: 'Условия использования сайта' },
+    { href: '/terms/', icon: '📋', title: 'Соглашение', desc: 'Условия использования сайта' },
   ],
 };
 
@@ -148,7 +144,7 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#solution-choice'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#solution-choice'
+        ? '/restrukturizaciya-dolgov/#solution-choice'
         : '/#solution-choice',
     title: '🎆 Выбор решения',
     className: 'text-purple-600 hover:bg-purple-50 font-medium',
@@ -161,12 +157,12 @@ const mobileMenuItems = [
         className: 'text-emerald-600 hover:bg-emerald-50 font-medium',
       }
     : {
-        href: '/restrukturizaciya-dolgov.html',
+        href: '/restrukturizaciya-dolgov/',
         title: '🏠 Реструктуризация',
         className: 'text-emerald-600 hover:bg-emerald-50 font-medium',
       },
   {
-    href: '/bankrotstvo-s-sokhraneniyem-imushchestva.html',
+    href: '/bankrotstvo-s-sokhraneniyem-imushchestva/',
     title: '🏡 Банкротство с сохранением',
     className: 'text-blue-600 hover:bg-blue-50 font-medium',
   },
@@ -174,7 +170,7 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#problems'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#problems'
+        ? '/restrukturizaciya-dolgov/#problems'
         : '/#problems',
     title: 'Проблемы',
   },
@@ -182,7 +178,7 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#process'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#process'
+        ? '/restrukturizaciya-dolgov/#process'
         : '/#process',
     title: 'Процесс',
   },
@@ -190,7 +186,7 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#calculator'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#calculator'
+        ? '/restrukturizaciya-dolgov/#calculator'
         : '/#calculator',
     title: 'Калькулятор',
   },
@@ -198,7 +194,7 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#benefits'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#benefits'
+        ? '/restrukturizaciya-dolgov/#benefits'
         : '/#benefits',
     title: 'Преимущества',
   },
@@ -206,7 +202,7 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#reviews'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#reviews'
+        ? '/restrukturizaciya-dolgov/#reviews'
         : '/#reviews',
     title: 'Отзывы',
   },
@@ -214,22 +210,18 @@ const mobileMenuItems = [
     href: isBlogPage
       ? '/#team'
       : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#team'
+        ? '/restrukturizaciya-dolgov/#team'
         : '/#team',
     title: 'Команда',
   },
   {
-    href: isBlogPage
-      ? '/#faq'
-      : isRestructuringPage
-        ? '/restrukturizaciya-dolgov.html#faq'
-        : '/#faq',
+    href: isBlogPage ? '/#faq' : isRestructuringPage ? '/restrukturizaciya-dolgov/#faq' : '/#faq',
     title: 'FAQ',
   },
   { href: '/blog/', title: '📚 Блог', className: 'text-blue-600 hover:bg-blue-50 font-medium' },
   { href: '/#contacts', title: 'Контакты' },
-  { href: '/privacy', title: 'Конфиденциальность' },
-  { href: '/terms', title: 'Соглашение' },
+  { href: '/privacy/', title: 'Конфиденциальность' },
+  { href: '/terms/', title: 'Соглашение' },
 ];
 ---
 

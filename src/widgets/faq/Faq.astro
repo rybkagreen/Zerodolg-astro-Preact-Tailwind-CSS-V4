@@ -27,21 +27,22 @@ export interface Props {
   id='faq'
   data-section='faq'
   data-aos='fade-up'
-  style='isolation: isolate; z-index: 10; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+  style='isolation: isolate; z-index: 1;'
 >
   <!-- Background with watercolor pattern -->
+  <div class='absolute inset-0 bg-white' style='z-index: -12;'></div>
   <div
-    class='absolute inset-0 bg-white z-0'
-    style='mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+    class='absolute inset-0'
+    style='z-index: -11; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
   >
-  </div>
-  <div
-    class='absolute inset-0 z-5 opacity-15'
-    style='background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
-  >
+    <div
+      class='absolute inset-0 opacity-15'
+      style='background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
+    >
+    </div>
   </div>
 
-  <div class='container mx-auto px-4 sm:px-6 lg:px-8 relative z-20'>
+  <div class='container mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
     <!-- Section Header -->
     <header class='text-center mb-12 md:mb-16 lg:mb-20'>
       <div

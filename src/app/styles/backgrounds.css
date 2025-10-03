@@ -88,19 +88,7 @@
   position: relative;
 }
 
-.benefits-bg::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 150px;
-  height: 150px;
-  background: url('/icons/solution/01-shield-check.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.06;
-  pointer-events: none;
-}
+/* ::before element removed - using watercolor pattern instead */
 
 /* Timeline Section */
 .timeline-bg {
@@ -259,7 +247,6 @@
 
   .problems-bg::before,
   .calculator-bg::after,
-  .benefits-bg::before,
   .team-bg::after {
     opacity: 0.03;
   }

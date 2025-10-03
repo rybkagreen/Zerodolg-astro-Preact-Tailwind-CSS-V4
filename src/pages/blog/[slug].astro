@@ -45,7 +45,7 @@ function _calculateReadingTime(content: string): number {
 }
 
 const manager = SITE_CONSTANTS.manager;
-const canonical = `https://zerodolg.ru/blog/${post.slug}.html`;
+const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
 ---
 
 <Layout
@@ -252,13 +252,13 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}.html`;
                     ← Вернуться к блогу
                   </a>
                   <a
-                    href='/bankrotstvo-s-sokhraneniyem-imushchestva'
+                    href='/bankrotstvo-s-sokhraneniyem-imushchestva/'
                     class='block text-gray-600 hover:text-blue-600'
                   >
                     Банкротство с сохранением
                   </a>
                   <a
-                    href='/restrukturizaciya-dolgov'
+                    href='/restrukturizaciya-dolgov/'
                     class='block text-gray-600 hover:text-blue-600'
                   >
                     Реструктуризация долгов
@@ -307,7 +307,7 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}.html`;
                         </div>
                       )}
                       <h3 class='text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors line-clamp-2'>
-                        <a href={`/blog/${relatedPost.slug}.html`} class='hover:underline'>
+                        <a href={`/blog/${relatedPost.slug}/`} class='hover:underline'>
                           {relatedPost.data.title}
                         </a>
                       </h3>
@@ -317,7 +317,7 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}.html`;
                         </p>
                       )}
                       <a
-                        href={`/blog/${relatedPost.slug}.html`}
+                        href={`/blog/${relatedPost.slug}/`}
                         class='text-blue-600 font-medium hover:text-blue-700 flex items-center gap-1 text-sm'
                       >
                         Читать далее
