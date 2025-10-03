@@ -15,9 +15,6 @@ export default [
       '*.min.js',
       'public/**',
       'coverage/**',
-      '__tests__/**',
-      'vitest.config.ts',
-      'vitest.setup.ts',
       '.git/**',
       '.github/**',
       'eslint.config.js',
@@ -29,17 +26,13 @@ export default [
       'tailwind.config.js',
       'postcss.config.cjs',
       '**/*.d.ts',
-      'simple-test.cjs',
-      'test-js-functionality.cjs',
       'fix-dependencies.js',
       'tools/**',
       'scripts/**',
-      'tsconfig.test.json',
       // Debug and utility files
       '**/modal-debug.ts',
       '**/*.optimized.*',
       '**/puppeteer-helper.js',
-      '**/test-modal.astro',
     ],
   },
 
@@ -65,16 +58,7 @@ export default [
   // Skip TypeScript parsing for JavaScript files
   {
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
-    ignores: [
-      'scripts/**',
-      'tools/**',
-      'public/**',
-      '__tests__/**',
-      '**/*.test.*',
-      '**/*.spec.*',
-      'simple-test.cjs',
-      'test-js-functionality.cjs',
-    ],
+    ignores: ['scripts/**', 'tools/**', 'public/**'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

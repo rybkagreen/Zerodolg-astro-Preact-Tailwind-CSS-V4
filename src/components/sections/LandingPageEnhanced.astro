@@ -80,11 +80,8 @@ const {
 
     <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
       {
-        features.map((feature, index) => (
-          <div
-            key={index}
-            class='bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-500 hover:scale-105 hover:shadow-xl'
-          >
+        features.map((feature) => (
+          <div class='bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-500 hover:scale-105 hover:shadow-xl'>
             {feature.icon && (
               <div class='w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-6'>
                 <span class='text-blue-600 text-2xl'>{feature.icon}</span>
@@ -108,8 +105,8 @@ const {
 
     <div class='grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto'>
       {
-        testimonials.map((testimonial, index) => (
-          <div key={index} class='bg-white p-8 rounded-2xl shadow-lg border border-gray-100'>
+        testimonials.map((testimonial) => (
+          <div class='bg-white p-8 rounded-2xl shadow-lg border border-gray-100'>
             <div class='flex items-center mb-6'>
               {testimonial.avatar ? (
                 <img

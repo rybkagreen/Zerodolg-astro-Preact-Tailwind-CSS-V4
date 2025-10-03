@@ -9,6 +9,8 @@ import SimpleModalInit from '../../islands/utils/SimpleModalInit.tsx';
 import OnlineSticker from '@shared/ui/OnlineSticker.astro';
 import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import ClientInteractions from '../../islands/utils/client-interactions.tsx';
+import { SEO_CONFIG } from '@shared/config/seo-config';
+import { getCurrentMonthYear } from '@shared/utils/date-helpers';
 
 const blogPosts = await getCollection('blog');
 
@@ -33,14 +35,20 @@ function _getReadingTime(content: string): string {
   return `${minutes} мин`;
 }
 
-// SEO данные
-const pageTitle = 'Блог о банкротстве физических лиц 2025 | Статьи и советы экспертов ZeroDolg';
-const pageDescription =
-  'Актуальные статьи о банкротстве физических лиц, реструктуризации долгов и защите от кредиторов ⚡ Экспертные советы ⚡ Пошаговые инструкции ⚡ Реальный опыт';
-const canonical = 'https://zerodolg.ru/blog/';
+// SEO данные из централизованного конфига
+const { title: pageTitle, description: pageDescription, keywords, canonical } = SEO_CONFIG.blog;
+
+// Текущий месяц и год для отображения
+const currentMonthYear = getCurrentMonthYear();
 ---
 
-<Layout title={pageTitle} description={pageDescription} canonical={canonical} type='blog'>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={keywords}
+  canonical={canonical}
+  type='blog'
+>
   <Header currentPage='blog' />
 
   <!-- Breadcrumb Navigation -->
@@ -95,7 +103,7 @@ const canonical = 'https://zerodolg.ru/blog/';
                   d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z'
                   clip-rule='evenodd'></path>
               </svg>
-              <span class='text-sm'>Обновлено в октябре 2025</span>
+              <span class='text-sm'>Обновлено в {currentMonthYear}</span>
             </div>
           </div>
         </div>

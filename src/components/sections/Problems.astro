@@ -79,12 +79,11 @@ const problemsData = [
     <!-- Section Header -->
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
       <div
-        class='inline-flex items-center gap-2 rounded-full bg-red-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-red-700 ring-1 ring-red-200/50 mb-8'
-        role='text'
+        class='inline-flex items-center gap-2 rounded-full bg-emerald-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200/50 mb-8'
         aria-label='Проблемы с долгами, которые мы решаем'
       >
         <svg
-          class='h-4 w-4 text-red-600'
+          class='h-4 w-4 text-emerald-600'
           fill='none'
           viewBox='0 0 24 24'
           stroke='currentColor'
@@ -94,8 +93,7 @@ const problemsData = [
             stroke-linecap='round'
             stroke-linejoin='round'
             stroke-width='2'
-            d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
-          ></path>
+            d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
         </svg>
         <span itemscope itemtype='https://schema.org/Thing'>
           <meta itemprop='name' content='Экспертная помощь по долгам' />
@@ -134,8 +132,8 @@ const problemsData = [
                   hover:bg-white/85 hover:shadow-xl hover:shadow-slate-900/15 
                   hover:border-slate-200/60 problems-card problems-card-${index + 1} 
                   focus:outline-none focus:ring-4 focus:ring-blue-500/50 focus:ring-offset-2 
-                  focus:scale-[1.02] focus:-translate-y-2 min-h-[160px] md:min-h-[170px] lg:min-h-[180px] 
-                  flex flex-col justify-between aspect-[4/3]`}
+                  focus:scale-[1.02] focus:-translate-y-2 min-h-[200px] md:min-h-[220px] lg:min-h-[240px] 
+                  flex flex-col justify-between`}
             role='listitem'
             tabindex='0'
             aria-labelledby={`problem-title-${index + 1}`}
@@ -161,8 +159,8 @@ const problemsData = [
             {/* Icon Container */}
             <div class='flex-shrink-0 mb-2'>
               <div
-                class:list={`relative w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mx-auto rounded-lg md:rounded-xl 
-                         bg-gradient-to-br ${problem.gradient} p-2 md:p-2.5 shadow-lg 
+                class:list={`relative w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 mx-auto rounded-lg md:rounded-xl 
+                         bg-gradient-to-br ${problem.gradient} p-2.5 md:p-3 shadow-lg 
                          group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}
               >
                 {/* Inner glow effect */}

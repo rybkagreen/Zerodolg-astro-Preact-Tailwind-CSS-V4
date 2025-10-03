@@ -97,11 +97,6 @@
     "tailwind.config.js",
     "postcss.config.cjs",
     "*.min.js",
-    "**/*.min.js",
-    "simple-test.cjs",
-    "test-js-functionality.cjs",
-    "__tests__/**/*",
-    "vitest.config.ts",
-    "vitest.setup.ts"
+    "**/*.min.js"
   ]
 }

@@ -20,14 +20,15 @@ import { SITE_CONSTANTS, getPromoInfo } from '../shared/config/constants';
 import OrganizationSchema from '../shared/seo/OrganizationSchema.astro';
 import RestructuringProblems from '../components/sections/RestructuringProblems.astro';
 import RestructuringComparison from '../components/sections/RestructuringComparison.astro';
+import { SEO_CONFIG } from '@shared/config/seo-config';
 
-// SEO данные для страницы реструктуризации
-const pageTitle = 'Реструктуризация долгов физических лиц в Москве - от 89000₽ | ZeroDolg';
-const pageDescription =
-  'Реструктуризация долгов через арбитражный суд ⚡ Сохраните имущество ⚡ Льготные условия платежей ⚡ Опыт 15 лет ⚡ Рассрочка от 3700₽/мес';
-const pageKeywords =
-  'реструктуризация долгов, реструктуризация долгов физических лиц, сохранение имущества, реструктуризация через суд, льготные условия платежей, арбитражный суд, Москва';
-const canonical = 'https://zerodolg.ru/restrukturizaciya-dolgov';
+// SEO данные из централизованного конфига
+const {
+  title: pageTitle,
+  description: pageDescription,
+  keywords: pageKeywords,
+  canonical,
+} = SEO_CONFIG.restructuring;
 
 // Получаем актуальные данные из констант
 const _stats = SITE_CONSTANTS.stats;

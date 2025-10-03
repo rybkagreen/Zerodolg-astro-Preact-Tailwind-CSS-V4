@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 
-// Пример коллекции для блога (можно расширить по необходимости)
+// Коллекция блога с расширенными SEO-полями
 const blog = defineCollection({
   type: 'content',
   schema: z.object({
@@ -9,7 +9,23 @@ const blog = defineCollection({
     pubDate: z.coerce.date().optional(),
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
+    author: z.string().default('ZeroDolg'),
+
+    // Категории (основная тематика)
+    category: z
+      .enum(['банкротство', 'реструктуризация', 'долги', 'законодательство', 'инструкции', 'кейсы'])
+      .optional()
+      .default('банкротство'),
+
+    // Теги (дополнительные темы)
     tags: z.array(z.string()).optional().default([]),
+
+    // SEO и отображение
+    featured: z.boolean().default(false), // Популярная статья
+    readingTime: z.number().optional(),
+
+    // Статус
+    draft: z.boolean().default(false),
   }),
 });
 

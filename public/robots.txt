@@ -1,12 +1,33 @@
 # robots.txt for ZeroDolg.ru
+# Оптимизированная версия для SEO
 
 User-agent: *
 Allow: /
 
-Disallow: /admin/
 Disallow: /api/
+Disallow: /admin/
 Disallow: /_astro/
+Disallow: /test-*
 
+# Специальные правила для Яндекса
+User-agent: Yandex
+Allow: /
+Disallow: /privacy
+Disallow: /terms
+
+# Специальные правила для Google
+User-agent: Googlebot
+Allow: /
+
+# Ограничение для SEO-ботов
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Карта сайта
 Sitemap: https://zerodolg.ru/sitemap.xml
 
-Host: zerodolg.ru
+# Домен сайта
+Host: https://zerodolg.ru

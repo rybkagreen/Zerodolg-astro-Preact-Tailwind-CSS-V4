@@ -26,12 +26,13 @@ import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import SpecialOffers from '@shared/ui/SpecialOffers.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
 import FaqAccordion from '../islands/utils/faq-accordion.tsx';
+import { SEO_CONFIG } from '@shared/config/seo-config';
+
+// Получаем SEO-данные для главной страницы
+const { title, description, keywords, canonical } = SEO_CONFIG.home;
 ---
 
-<Layout
-  title='💰 Банкротство физических лиц в Москве - Списание долгов от 50 000₽ за 4 месяца | ZeroDolg'
-  canonical='https://zerodolg.ru/'
->
+<Layout title={title} description={description} keywords={keywords} canonical={canonical}>
   <OrganizationSchema services='both' pageType='homepage' slot='head' />
   <Header />
 

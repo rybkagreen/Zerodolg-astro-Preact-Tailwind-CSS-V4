@@ -45,6 +45,7 @@ if (showNameField) {
     placeholder: 'Введите ваше имя',
     required: true,
     validation: { message: 'Пожалуйста, введите ваше имя' },
+    autocomplete: 'name',
   });
 }
 
@@ -56,6 +57,7 @@ if (showPhoneField) {
     placeholder: '+7 (___) ___-__-__',
     required: true,
     validation: { message: 'Пожалуйста, введите ваш телефон' },
+    autocomplete: 'tel',
   });
 }
 
@@ -67,6 +69,7 @@ if (showEmailField) {
     placeholder: 'example@mail.com',
     required: !showPhoneField, // Required if phone is not shown
     validation: { message: 'Пожалуйста, введите корректный email' },
+    autocomplete: 'email',
   });
 }
 
@@ -78,6 +81,7 @@ if (showDebtField) {
     placeholder: 'Например: 500 000 руб',
     required: false,
     validation: { message: 'Пожалуйста, введите корректную сумму' },
+    autocomplete: 'off',
   });
 }
 

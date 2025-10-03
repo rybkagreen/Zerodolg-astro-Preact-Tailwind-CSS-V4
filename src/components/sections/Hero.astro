@@ -8,10 +8,7 @@ export interface Props {
   subtitle?: string;
 }
 
-const {
-  title = 'От долгов — к свободе всего один шаг!',
-  _subtitle = 'Арбитражный управляющий Масхулиа Л.З. с командой опытных юристов проведут вашу процедуру банкротства.',
-} = Astro.props;
+const { title = 'От долгов — к свободе всего один шаг!' } = Astro.props;
 
 // Получаем актуальные данные из констант
 const stats = SITE_CONSTANTS.stats;

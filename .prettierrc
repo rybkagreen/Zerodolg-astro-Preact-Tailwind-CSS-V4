@@ -36,6 +36,13 @@
         "proseWrap": "always",
         "printWidth": 80
       }
+    },
+    {
+      "files": ["**/SEO_*.md", "**/*REPORT*.md", "**/*README*.md"],
+      "options": {
+        "proseWrap": "preserve",
+        "embeddedLanguageFormatting": "off"
+      }
     }
   ]
 }

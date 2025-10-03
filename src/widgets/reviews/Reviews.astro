@@ -50,7 +50,6 @@ const ratingDistribution = calculateDistribution();
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
       <div
         class='inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/30 mb-8'
-        role='text'
         aria-label='Реальные отзывы клиентов'
         style='animation: fadeInUp 0.6s ease-out;'
       >
@@ -139,7 +138,7 @@ const ratingDistribution = calculateDistribution();
               .map(([rating, count]) => {
                 const percentage = (count / reviewsStats.total) * 100;
                 return (
-                  <div class='flex items-center gap-3 mb-3 last:mb-0' key={rating}>
+                  <div class='flex items-center gap-3 mb-3 last:mb-0'>
                     <span class='w-8 text-right text-white/80 font-medium drop-shadow-sm'>
                       {rating}★
                     </span>

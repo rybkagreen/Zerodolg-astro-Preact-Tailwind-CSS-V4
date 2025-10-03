@@ -1,0 +1,108 @@
+---
+/**
+ * LegalServiceSchema - Schema.org разметка для юридических услуг
+ * Улучшает отображение в поисковой выдаче Google и Яндекс
+ */
+import { SITE_CONFIG } from '@shared/config/seo-config';
+import { getCurrentYear } from '@shared/utils/date-helpers';
+
+interface Props {
+  service?: 'bankruptcy' | 'restructuring' | 'both';
+  pageType?: 'homepage' | 'service';
+}
+
+const { service = 'both' } = Astro.props;
+
+const bankruptcyService = {
+  '@type': 'LegalService',
+  name: 'Банкротство физических лиц',
+  description: `Профессиональное сопровождение банкротства физических лиц в Москве. Списание долгов под ключ от 50000₽ за 4 месяца. Опыт ${getCurrentYear() - 2009} лет.`,
+  serviceType: 'Bankruptcy Law',
+  areaServed: {
+    '@type': 'City',
+    name: 'Москва',
+    '@id': 'https://www.wikidata.org/wiki/Q649',
+  },
+  provider: {
+    '@type': 'Organization',
+    name: SITE_CONFIG.name,
+    url: SITE_CONFIG.url,
+    telephone: SITE_CONFIG.phone,
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '50000',
+    priceCurrency: 'RUB',
+    description: 'Банкротство физических лиц под ключ',
+    availability: 'https://schema.org/InStock',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Услуги банкротства',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Консультация по банкротству',
+          description: 'Бесплатная первичная консультация',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Полное сопровождение банкротства',
+          description: 'Сопровождение от подачи заявления до списания долгов',
+        },
+      },
+    ],
+  },
+};
+
+const restructuringService = {
+  '@type': 'LegalService',
+  name: 'Реструктуризация долгов физических лиц',
+  description:
+    'Реструктуризация долгов через арбитражный суд с сохранением имущества. От 89000₽ под ключ.',
+  serviceType: 'Debt Restructuring Law',
+  areaServed: {
+    '@type': 'City',
+    name: 'Москва',
+  },
+  provider: {
+    '@type': 'Organization',
+    name: SITE_CONFIG.name,
+    url: SITE_CONFIG.url,
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '89000',
+    priceCurrency: 'RUB',
+    description: 'Реструктуризация долгов под ключ',
+  },
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let schema: Record<string, any>;
+
+if (service === 'bankruptcy') {
+  schema = {
+    '@context': 'https://schema.org',
+    ...bankruptcyService,
+  };
+} else if (service === 'restructuring') {
+  schema = {
+    '@context': 'https://schema.org',
+    ...restructuringService,
+  };
+} else {
+  schema = {
+    '@context': 'https://schema.org',
+    '@graph': [bankruptcyService, restructuringService],
+  };
+}
+---
+
+<!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: JSON.stringify for structured data -->
+<script type='application/ld+json' set:html={JSON.stringify(schema, null, 2)} />
