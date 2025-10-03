@@ -72,16 +72,21 @@
   position: fixed;
   bottom: 20px;
   left: 20px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: rgba(16, 185, 129, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 50px;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow:
+    0 8px 25px rgba(16, 185, 129, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   z-index: 1000;
   opacity: 0;
   transform: translateY(20px) translateX(-20px);
@@ -101,18 +106,38 @@
   background: #ffffff;
   border-radius: 50%;
   animation: pulse 2s infinite;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+/* Mobile pulse size adjustment */
+@media (max-width: 768px) {
+  .online-sticker__pulse {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 .online-sticker__icon {
   width: 16px;
   height: 16px;
-  opacity: 0.9;
+  opacity: 0.95;
+  flex-shrink: 0;
+}
+
+/* Mobile icon size adjustment */
+@media (max-width: 768px) {
+  .online-sticker__icon {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .online-sticker__count {
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
   transition: transform 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .online-sticker__count--updating {
@@ -128,6 +153,25 @@
   50% {
     opacity: 0.5;
     transform: scale(1.2);
+  }
+}
+
+/* Bitrix Callback Widget Animations */
+@keyframes pulse-ring {
+  0% {
+    box-shadow:
+      0 10px 40px rgba(59, 130, 246, 0.4),
+      0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 12px 45px rgba(59, 130, 246, 0.5),
+      0 0 0 8px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow:
+      0 10px 40px rgba(59, 130, 246, 0.4),
+      0 0 0 0 rgba(59, 130, 246, 0);
   }
 }
 
@@ -349,13 +393,13 @@
 /* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
   .online-sticker {
-    bottom: 100px; /* Account for mobile keyboard */
-    left: 10px;
-    right: 10px;
-    width: calc(100% - 20px);
-    max-width: 280px;
-    font-size: 13px;
-    padding: 10px 14px;
+    bottom: 90px; /* Account for mobile keyboard and position above callback button */
+    left: 12px;
+    right: auto; /* Remove right auto positioning */
+    width: auto;
+    max-width: 180px; /* Smaller on mobile */
+    font-size: 12px;
+    padding: 8px 12px;
   }
 
   .special-offer-banner {
