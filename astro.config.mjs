@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 import preact from '@astrojs/preact';
 import mcp from 'astro-mcp';
 import sitemap from '@astrojs/sitemap';
@@ -8,8 +9,11 @@ import robotsTxt from 'astro-robots-txt';
 export default defineConfig({
   site: 'https://zerodolg.ru',
 
-  // Современная настройка выходных файлов
-  output: 'static',
+  // Hybrid mode: server output + prerender for static pages
+  output: 'server',
+  adapter: node({
+    mode: 'standalone',
+  }),
 
   // Оптимизация сборки
   build: {

@@ -338,8 +338,8 @@
 
 /* Ensure all animated elements have proper z-index context */
 [data-aos],
-.animate-*,
-.hover-* {
+[class*='animate-'],
+[class*='hover-'] {
   z-index: 1;
   position: relative;
 }

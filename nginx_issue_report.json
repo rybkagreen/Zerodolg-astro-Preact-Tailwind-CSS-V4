@@ -1,0 +1,46 @@
+{
+  "issue": {
+    "title": "Nginx 405 Method Not Allowed Error for POST Requests to /api/form Endpoint",
+    "description": "Nginx is returning a 405 'Method Not Allowed' error for POST requests to the /api/form endpoint, even though the location block is configured to proxy requests to a Node.js server running on port 4321.",
+    "symptoms": [
+      "GET requests to /api/form work correctly and return a JSON response from the Node.js server",
+      "POST requests to /api/form return a 405 'Method Not Allowed' error from nginx",
+      "The issue persists even after restarting nginx and verifying the configuration",
+      "Node.js server is confirmed to be running and accepting connections on port 4321"
+    ],
+    "current_configuration": {
+      "nginx_location_block": "location /api/form { proxy_pass http://127.0.0.1:4321; ... }",
+      "nodejs_server_status": "Active and running",
+      "port_4321_accessibility": "Accessible via direct curl requests"
+    }
+  },
+  "task": {
+    "objective": "Fix the nginx configuration to properly handle POST requests to the /api/form endpoint",
+    "steps_taken": [
+      "Verified Node.js server is running correctly on port 4321",
+      "Confirmed GET requests work properly through the proxy",
+      "Checked nginx configuration syntax - no errors found",
+      "Restarted nginx service to ensure configuration is loaded",
+      "Modified location block pattern to use regex",
+      "Added explicit method allowances to the location block"
+    ],
+    "remaining_actions": [
+      "Further investigate why nginx is returning 405 errors for POST requests",
+      "Check for any hidden nginx modules or configurations that might be blocking POST requests",
+      "Consider alternative approaches like using a different port or endpoint path",
+      "Review nginx error logs for more detailed information about the 405 error"
+    ]
+  },
+  "environment": {
+    "server_os": "Ubuntu",
+    "nginx_version": "1.18.0",
+    "nodejs_version": "22.19.0",
+    "ssl_certificates": "GlobalSign GCC R6 AlphaSSL CA 2025"
+  },
+  "additional_info": {
+    "warnings": [
+      "SSL stapling warnings about OCSP responder not found",
+      "Conflicting server name warnings for zerodolg.ru and www.zerodolg.ru"
+    ]
+  }
+}

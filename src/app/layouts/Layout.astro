@@ -199,6 +199,40 @@ const {
     </script>
     <script async src='https://www.googletagmanager.com/gtag/js?id=G-BDDN306E94' is:inline></script>
     <!-- /Google Analytics -->
+
+    <!-- Bitrix24 Tracking Script -->
+    <!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: Bitrix24 standard tracking code -->
+    <script is:inline>
+      /* eslint-disable-next-line @typescript-eslint/no-unused-expressions */
+      !(function (w, d, s, h, id) {
+        w.Bitrix24FormObject = w.Bitrix24FormObject || [];
+        w.Bitrix24FormObject.push(id);
+        const js = d.createElement(s);
+        js.async = 1;
+        js.src = 'https://cdn.bitrix24.ru/b24/crm/sitebutton/js/code.js';
+        js.onload = function () {
+          if (typeof B24FormUtils !== 'undefined') {
+            B24FormUtils.init();
+          }
+        };
+        const sc = d.getElementsByTagName(s)[0];
+        sc.parentNode.insertBefore(js, sc);
+      })(window, document, 'script', '', 'b24-web-form-1');
+    </script>
+    <!-- /Bitrix24 Tracking Script -->
+
+    <!-- Bitrix24 Call Tracking Script -->
+    <!-- eslint-disable-next-line astro/no-set-html-directive -- Safe: Bitrix24 call tracking code -->
+    <script is:inline>
+      (function (w, d, u) {
+        const s = d.createElement('script');
+        s.async = true;
+        s.src = u + '?' + ((Date.now() / 60000) | 0);
+        const h = d.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s, h);
+      })(window, document, 'https://cdn-ru.bitrix24.ru/b34776794/crm/tag/call.tracker.js');
+    </script>
+    <!-- /Bitrix24 Call Tracking Script -->
   </head>
   <body>
     <slot />

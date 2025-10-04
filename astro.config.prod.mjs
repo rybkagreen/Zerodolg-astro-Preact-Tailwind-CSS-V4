@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
@@ -8,6 +9,9 @@ import robotsTxt from 'astro-robots-txt';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://zerodolg.ru',
+  adapter: node({
+    mode: 'standalone',
+  }),
   integrations: [
     preact(),
     // Sitemap generation for better SEO
@@ -37,7 +41,7 @@ export default defineConfig({
       sitemap: true,
     }),
   ],
-  output: 'static', // Static site generation mode
+  output: 'server', // Server mode with prerender for static pages
   build: {
     inlineStylesheets: 'auto',
     format: 'file',
@@ -66,8 +70,8 @@ export default defineConfig({
           comments: false,
         },
       },
-      // Enable CSS optimization
-      cssMinify: 'lightningcss',
+      // Use default CSS minification
+      cssMinify: true,
       // Asset compression settings
       assetsInlineLimit: 4096,
       rollupOptions: {

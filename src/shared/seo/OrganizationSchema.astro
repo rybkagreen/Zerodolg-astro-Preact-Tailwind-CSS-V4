@@ -12,7 +12,7 @@ const { services = 'both', pageType = 'homepage' } = Astro.props;
 // Базовая информация о компании
 const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LegalService',
+  '@type': 'Organization',
   name: 'ZeroDolg - Банкротство и реструктуризация долгов',
   description:
     'Профессиональные услуги по банкротству физических лиц и реструктуризации долгов в Москве. 15 лет опыта, 98% успешных дел.',
@@ -107,7 +107,7 @@ organizationSchema.employee = {
   image: 'https://zerodolg.ru/images/team/mashulia.webp',
   hasCredential: {
     '@type': 'EducationalOccupationalCredential',
-    credentialCategory: 'Арбитражный управляющий',
+    name: 'Арбитражный управляющий',
     recognizedBy: {
       '@type': 'Organization',
       name: 'Ассоциация арбитражных управляющих саморегулируемая организация "Центральное агентство арбитражных управляющих"',
