@@ -16,6 +16,68 @@
 - Tailwind CSS (экспериментальная версия v4) для стилизации
 - CSS с пользовательскими свойствами
 
+## Окружение разработки
+
+### WSL2 Ubuntu (Рекомендуется)
+
+Проект оптимизирован для разработки в WSL2 Ubuntu для лучшей производительности
+и совместимости с инструментами разработки.
+
+**Расположение проекта:**
+
+- WSL2 путь: `~/develop/zerodolg.ru/zerodolg-astro`
+- Windows путь: `\\wsl$\Ubuntu\root\develop\zerodolg.ru\zerodolg-astro`
+
+**Требования:**
+
+- Node.js 20+ (рекомендуется)
+- npm 10+
+- Git с настроенными SSH ключами для GitHub
+
+**Работа с проектом:**
+
+```bash
+# Вход в WSL2
+wsl
+
+# Переход в директорию проекта
+cd ~/develop/zerodolg.ru/zerodolg-astro
+
+# Установка зависимостей
+npm install
+
+# Запуск dev сервера
+npm run dev
+
+# Сборка проекта
+npm run build
+```
+
+**Работа из Windows PowerShell:**
+
+```powershell
+# Запуск команд в WSL2 без входа
+wsl bash -c "cd ~/develop/zerodolg.ru/zerodolg-astro && npm run dev"
+
+# Проверка статуса
+wsl bash -c "cd ~/develop/zerodolg.ru/zerodolg-astro && git status"
+```
+
+**Преимущества WSL2:**
+
+- Значительно быстрее работа с npm и файловой системой
+- Нативная совместимость с Linux-инструментами
+- Меньше проблем с путями и правами доступа
+- Лучшая производительность Docker (если используется)
+
+### Windows (Альтернатива)
+
+Проект также может работать в Windows, но с меньшей производительностью:
+
+- Расположение: `D:\develop\zerodolg.ru\zerodolg-astro`
+- Все команды выполняются через PowerShell
+- Могут возникать проблемы с длинными путями и правами доступа
+
 ## Архитектура
 
 - Islands Architecture: интерактивные компоненты только там, где они необходимы
@@ -108,3 +170,62 @@ zerodolg-astro/
 - Использование Model Context Protocol (MCP) через astro-mcp
 - Автоматическое копирование CSS файлов из server в client директории после
   сборки
+
+## Git и SSH в WSL2
+
+**Настройка SSH для GitHub:**
+
+SSH ключи должны быть скопированы из Windows в WSL2:
+
+```bash
+# Создание директории .ssh
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+
+# Копирование ключей из Windows
+cp /mnt/c/Users/alex_/.ssh/ssh-key-* ~/.ssh/
+
+# Настройка прав доступа
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
+
+# Добавление GitHub в known_hosts
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+```
+
+**Работа с Git:**
+
+```bash
+# Проверка статуса
+git status
+
+# Коммит изменений (требуется соблюдение формата)
+git commit -m "type(scope): description"
+
+# Форматы типов: feat, fix, docs, style, refactor, test, chore, perf, ci, build
+# Пример: chore(docs): update documentation for WSL2
+
+# Push в удалённый репозиторий
+git push origin <branch-name>
+```
+
+## Миграция проекта в WSL2
+
+Если проект изначально был в Windows и нужно мигрировать:
+
+1. Убедитесь, что все изменения закоммичены и отправлены в удалённый репозиторий
+2. Настройте SSH ключи в WSL2 (см. выше)
+3. Клонируйте проект в WSL2:
+   ```bash
+   mkdir -p ~/develop/zerodolg.ru
+   cd ~/develop/zerodolg.ru
+   git clone -b <branch-name> git@github.com:rybkagreen/Zerodolg-astro-Preact-Tailwind-CSS-V4.git zerodolg-astro
+   ```
+4. Установите зависимости:
+   ```bash
+   cd zerodolg-astro
+   npm install
+   ```
+5. Проверьте работоспособность:
+   ```bash
+   npm run dev
+   ```
