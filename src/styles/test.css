@@ -1,0 +1,9 @@
+/* Test CSS file to check if CSS processing works */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.test-class {
+  @apply text-red-500 font-bold;
+}

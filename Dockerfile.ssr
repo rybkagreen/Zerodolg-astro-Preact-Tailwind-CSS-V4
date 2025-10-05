@@ -44,7 +44,6 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/ecosystem.config.cjs ./
-COPY --from=builder /app/.env ./
 
 # Установка всех зависимостей (включая devDependencies для SSR)
 RUN npm ci --ignore-scripts && \
@@ -52,10 +51,10 @@ RUN npm ci --ignore-scripts && \
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:4321 || exit 1
+    CMD curl -f http://localhost:4322/health || exit 1
 
-# Expose порт - keep 4321 as it's defined in the application code
-EXPOSE 4321
+# Expose порт
+EXPOSE 4322
 
 # Запуск приложения
-CMD ["sh", "-c", "HOST=0.0.0.0 PORT=4321 node dist/server/entry.mjs"]
+CMD ["node", "dist/server/entry.mjs"]

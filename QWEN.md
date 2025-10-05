@@ -1,196 +1,110 @@
-# 🚀 Qwen Code Integration Guide
+# Qwen Code Extension Context
 
-## Установка и настройка
+Этот файл содержит контекстуальную информацию для расширений Qwen Code,
+используемых в проекте Astro.
 
-### Установка Qwen Code
+## Проект
 
-1. Установите расширение Qwen Code для VS Code из Marketplace
-2. Авторизуйтесь с помощью своего Alibaba Cloud аккаунта
-3. Настройте проект для работы с Qwen Code
+Это проект веб-сайта на Astro версии 5.13.7 для компании, предоставляющей
+юридические услуги по банкротству.
 
-### Конфигурация .qwenrc.json
+## Технологии
 
-Создайте файл `.qwenrc.json` в корне проекта с настройками:
+- Astro 5.13.7
+- Preact 10.27.1 для интерактивных компонентов
+- TypeScript 5.9.2
+- Tailwind CSS (экспериментальная версия v4) для стилизации
+- CSS с пользовательскими свойствами
 
-```json
-{
-  "model": "qwen3-coder-plus",
-  "temperature": 0.2,
-  "max_tokens": 8192,
-  "context_window": 32768,
-  "project_context": {
-    "name": "ZeroDolg Astro",
-    "type": "corporate-website",
-    "tech_stack": ["Astro", "Preact", "TypeScript", "Tailwind CSS v4"],
-    "domain": "legal-bankruptcy",
-    "architecture": "feature-sliced-design",
-    "ai_tools": ["qwen-code", "model-context-protocol"]
-  },
-  "custom_prompts": {
-    "astro_component": "Создай компонент Astro с использованием Preact для интерактивных элементов",
-    "tailwind_v4": "Используй синтаксис Tailwind CSS v4 с новым CSS-конфигурационным подходом",
-    "ts_strict": "Генерируй TypeScript код с strict mode и полной типизацией"
-  }
-}
-```
+## Архитектура
 
-### Настройка контекста проекта
+- Islands Architecture: интерактивные компоненты только там, где они необходимы
+- Статическая генерация: предварительно отрендеренный HTML для повышения
+  производительности
+- Прогрессивное улучшение: работает без JavaScript
+- Компонентный подход: модульные и повторно используемые компоненты
+- Feature-Sliced Design: организация кода по бизнес-функциям и слоям
 
-1. Добавьте файл `QWEN.md` в корень проекта с описанием архитектуры
-2. Обновите `README.md` с инструкциями по работе с Qwen Code
-3. Добавьте `.qwen/` директорию для хранения промптов и настроек
-
-## Рабочие промпты
-
-### Генерация компонентов (Astro + Preact + TypeScript)
+## Структура проекта
 
 ```
-Создай компонент Astro с использованием Preact для интерактивных элементов.
-Компонент должен соответствовать Feature-Sliced Design архитектуре.
-Используй строгую типизацию TypeScript.
+zerodolg-astro/
+├── .github/             # GitHub-specific files
+│   └── workflows/       # GitHub Actions workflows
+│       └── ci.yml       # CI/CD pipeline
+├── .husky/              # Git hooks configuration
+├── .qwen/               # Qwen AI assistant configuration
+├── .vscode/             # VS Code configuration
+├── docs/                # Documentation files
+│   ├── analysis/        # Analysis reports
+│   ├── blog/            # Blog content
+│   ├── migrations/      # Migration guides
+│   ├── optimization/    # Optimization guides and checklists
+│   ├── setup/           # Setup and configuration docs
+│   └── architecture.md  # Architecture documentation
+│   └── style-guide.md   # Style guide documentation
+├── public/              # Static assets
+├── screenshots/         # Screenshots and comparison reports
+├── scripts/             # Organized development scripts
+│   ├── build/           # Build-related scripts
+│   ├── deploy/          # Deployment scripts
+│   ├── dev/             # Development utilities
+│   ├── maintenance/     # Maintenance and optimization
+│   └── test/            # Testing scripts
+├── src/                 # Source code
+│   ├── app/             # Application-specific files
+│   │   └── styles/      # Tailwind CSS styles
+│   ├── components/      # Reusable UI components
+│   │   ├── ui/          # Base UI components (Button, Card, etc.)
+│   │   ├── forms/       # Form components
+│   │   ├── layout/      # Layout components (Header, Footer, etc.)
+│   │   └── sections/    # Page sections (Hero, Benefits, etc.)
+│   ├── entities/        # Business entities
+│   ├── features/        # Business-feature specific logic
+│   │   ├── analytics/   # Analytics feature
+│   │   ├── calculator/  # Calculator feature
+│   │   ├── forms/       # Form handling feature
+│   │   └── modals/      # Modal dialogs feature
+│   ├── islands/         # Interactive Preact components only
+│   │   ├── forms/       # Interactive form components
+│   │   ├── interactive/ # Interactive components (TeamInteractive, etc.)
+│   │   ├── layout/      # Interactive layout components
+│   │   ├── shared/      # Shared interactive components
+│   │   └── utils/       # Interactive utilities
+│   ├── layouts/         # Page layouts
+│   ├── middleware.ts    # Security and caching middleware
+│   ├── pages/           # Page routes
+│   ├── shared/          # Shared utilities and APIs
+│   └── widgets/         # Complex UI components
+├── tools/               # Standalone utility tools
+├── CONTRIBUTING.md      # Contribution guidelines
+└── Configuration Files  # Root-level config files
 ```
 
-### Code review шаблоны
+## Деплой и архитектура
 
-```
-Проверь код на:
-- Соответствие TypeScript best practices
-- Эффективность использования Tailwind CSS v4
-- Соответствие архитектуре Feature-Sliced Design
-- Производительность и доступность
-- Безопасность (CSP, XSS protection)
-```
+- Гибридная архитектура: поддержка как статических страниц, так и SSR
+- API endpoints полностью функциональны в SSR режиме
+- POST запросы обрабатываются Node.js сервером
+- Формы работают корректно через `/api/form` endpoint
+- Используется PM2 для управления Node.js процессами в продакшене
+- Интеграция с Bitrix24 через webhook для обработки заявок
 
-### Рефакторинг сценарии
+## Docker и staging
 
-```
-Рефакторь следующий код с учетом:
-- Современных практик TypeScript 5.9+
-- Оптимизации производительности в Astro
-- Совместимости с Tailwind CSS v4
-- Доступности (WCAG 2.2/3.0)
-```
+- Настроена конфигурация Docker и docker-compose для staging окружения
+- Используется многоступенчатая сборка для оптимизации размера образа
+- Стейджинг запускается командой `npm run staging:up`
+- Используется nginx как reverse proxy в Docker контейнере
+- Есть скрипты для запуска, остановки и очистки staging окружения
 
-### Автоматическое тестирование
+## Зависимости и инструменты
 
-```
-Создай тесты для компонента с использованием Vitest и Puppeteer.
-Покрой все ветвления логики и пограничные случаи.
-```
-
-## Интеграция с проектом
-
-### Специфичные для Astro промпты
-
-```
-Создай страницу Astro с использованием layout и правильной загрузки данных.
-Оптимизируй для SEO и производительности.
-```
-
-### Tailwind CSS v4 код-генерация
-
-```
-Используй новый синтаксис Tailwind CSS v4 с CSS-конфигурацией.
-Компонент должен быть адаптивным и соответствовать mobile-first подходу.
-```
-
-### TypeScript типизация помощника
-
-```
-Создай строго типизированный интерфейс с использованием TypeScript 5.9+
-Следуй принципам type safety и избегай any типов.
-```
-
-## Современные практики 2025
-
-### Безопасность
-
-- Используй Semgrep для SAST анализа
-- Реализуй CSP заголовки с nonce подходом
-- Применяй Subresource Integrity (SRI) для внешних ресурсов
-
-### Производительность
-
-- Цели Core Web Vitals 2025:
-  - LCP < 1.0s
-  - FID < 100ms
-  - CLS < 0.1
-- Оптимизация bundle size
-- Image optimization с использованием WebP/AVIF
-
-### Доступность
-
-- Соответствие WCAG 2.2/3.0
-- Использование ARIA аттрибутов
-- Keyboard navigation
-- Screen reader support
-
-### Экологичность
-
-- Оптимизация энергопотребления
-- Уменьшение размера бандла
-- Эффективное кеширование
-
-## Работа с AI агентами
-
-### Qwen Code как основной ассистент
-
-- Приоритет при генерации кода
-- Code review и архитектурные рекомендации
-- Автоматизация рутинных задач
-
-### Интеграция с MCP (Model Context Protocol)
-
-- Используй `astro-mcp` для расширенной AI интеграции
-- Команды: `mcp:info`, `mcp:puppeteer`, `mcp:server`
-
-## Troubleshooting
-
-### Распространенные проблемы
-
-- **Проблема**: Qwen Code не понимает контекст проекта **Решение**: Обновите
-  `.qwenrc.json` и добавьте больше контекста в промпты
-
-- **Проблема**: Сгенерированный код не соответствует архитектуре **Решение**:
-  Уточните промпт, добавив требования Feature-Sliced Design
-
-- **Проблема**: Ошибки типизации в сгенерированном коде **Решение**: Убедитесь,
-  что в промпте указано использование TypeScript strict mode
-
-### Best Practices
-
-- Всегда указывайте целевую архитектуру в промптах
-- Используйте шаблоны промптов для консистентности
-- Проверяйте сгенерированный код на соответствие стандартам безопасности
-- Обновляйте контекст проекта при изменении архитектуры
-
-## Примеры использования
-
-### Генерация компонента
-
-```
-Создай компонент формы обратной связи с валидацией,
-используя архитектуру Feature-Sliced Design и TypeScript strict mode.
-Компонент должен быть доступен и оптимизирован для производительности.
-```
-
-### Рефакторинг существующего кода
-
-```
-Рефакторь файл src/features/calculator/Calculator.tsx с учетом:
-- Современных практик TypeScript 5.9+
-- Оптимизации производительности
-- Доступности WCAG 2.2
-- Интеграции с Tailwind CSS v4
-```
-
-### Code review
-
-```
-Проверь файл src/pages/index.astro на:
-- Соответствие Astro best practices
-- SEO оптимизацию
-- Производительность и доступность
-- Использование правильных TypeScript типов
-- Безопасность (CSP, XSS protection)
-```
+- Управление зависимостями через npm
+- Проверка устаревших зависимостей
+- Обновление зависимостей с учетом совместимости
+- Поддержка экспериментальной версии Tailwind CSS v4
+- Интеграция с Bitrix24 через API
+- Использование Model Context Protocol (MCP) через astro-mcp
+- Автоматическое копирование CSS файлов из server в client директории после
+  сборки

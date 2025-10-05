@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 import preact from '@astrojs/preact';
-import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 
 // Production-specific configuration with enhanced optimizations
@@ -14,21 +13,7 @@ export default defineConfig({
   }),
   integrations: [
     preact(),
-    // Sitemap generation for better SEO
-    sitemap({
-      filter: (page) => !page.includes('admin'),
-      customPages: [
-        'https://zerodolg.ru/',
-        'https://zerodolg.ru/#reviews',
-        'https://zerodolg.ru/#faq',
-      ],
-      i18n: {
-        defaultLocale: 'ru',
-        locales: {
-          ru: 'ru',
-        },
-      },
-    }),
+    // Используем динамический sitemap.xml.ts вместо интеграции для SSR режима
     // Robots.txt generation
     robotsTxt({
       policy: [
@@ -38,7 +23,7 @@ export default defineConfig({
           disallow: ['/admin', '/private/'],
         },
       ],
-      sitemap: true,
+      sitemap: 'https://zerodolg.ru/sitemap.xml',
     }),
   ],
   output: 'server', // Server mode with prerender for static pages

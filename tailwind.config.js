@@ -143,6 +143,10 @@ module.exports = {
         'bounce-gentle': 'bounceGentle 1s ease-in-out infinite',
         'pulse-gentle': 'pulseGentle 2s ease-in-out infinite',
         'gradient-shift': 'gradientShift 3s ease infinite',
+        'gradient-rotate': 'gradientRotate 20s ease infinite',
+        'gradient-rotate-smooth': 'gradientRotateSmooth 25s ease infinite',
+        'mesh-float': 'meshFloat 30s ease-in-out infinite',
+        shimmer: 'shimmer 3s ease-in-out infinite',
         float: 'float 6s ease-in-out infinite',
         typing: 'typing 3.5s steps(40, end)',
         blink: 'blink 1s infinite',
@@ -194,6 +198,52 @@ module.exports = {
           '0%, 50%': { borderColor: 'transparent' },
           '51%, 100%': { borderColor: 'currentColor' },
         },
+        gradientRotateSmooth: {
+          '0%': { backgroundPosition: '0% 0%' },
+          '25%': { backgroundPosition: '100% 0%' },
+          '50%': { backgroundPosition: '100% 100%' },
+          '75%': { backgroundPosition: '0% 100%' },
+          '100%': { backgroundPosition: '0% 0%' },
+        },
+        gradientRotate: {
+          '0%': {
+            backgroundPosition: '0% 50%',
+            filter: 'hue-rotate(0deg)',
+          },
+          '25%': {
+            backgroundPosition: '50% 100%',
+          },
+          '50%': {
+            backgroundPosition: '100% 50%',
+            filter: 'hue-rotate(10deg)',
+          },
+          '75%': {
+            backgroundPosition: '50% 0%',
+          },
+          '100%': {
+            backgroundPosition: '0% 50%',
+            filter: 'hue-rotate(0deg)',
+          },
+        },
+        'mesh-float': {
+          '0%, 100%': {
+            transform: 'translate(0, 0) rotate(0deg)',
+          },
+          '33%': {
+            transform: 'translate(-30px, 30px) rotate(120deg)',
+          },
+          '66%': {
+            transform: 'translate(20px, -20px) rotate(240deg)',
+          },
+        },
+        shimmer: {
+          '0%, 100%': {
+            opacity: '1',
+          },
+          '50%': {
+            opacity: '0.7',
+          },
+        },
       },
 
       // Enhanced background utilities
@@ -206,6 +256,7 @@ module.exports = {
 
       // Z-index scale
       zIndex: {
+        10: '10',
         60: '60',
         70: '70',
         80: '80',

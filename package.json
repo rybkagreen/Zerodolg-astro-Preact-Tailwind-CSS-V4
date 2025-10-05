@@ -8,7 +8,7 @@
     "build:prod": "npm run prebuild:prod && node scripts/dev/validate-env.js && astro build --config astro.config.prod.mjs && npm run postbuild",
     "build:production": "node scripts/build/build-production.js",
     "prebuild:prod": "npm run clean && npm run type-check",
-    "postbuild": "node scripts/build/post-build-fix-urls.js",
+    "postbuild": "node scripts/build/post-build-copy-css.js && node scripts/build/post-build-fix-urls.js",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "npx eslint .",
@@ -36,9 +36,11 @@
     "tools:trufflehog": "node tools/trufflehog-scan.js",
     "staging:up": "powershell -ExecutionPolicy Bypass -File scripts/staging/start-staging.ps1",
     "staging:down": "powershell -ExecutionPolicy Bypass -File scripts/staging/stop-staging.ps1",
-    "staging:logs": "powershell -ExecutionPolicy Bypass -Command \"$env:PATH='D:\\Program Files\\Docker\\resources\\bin;'+$env:PATH; docker compose logs -f zerodolg-web\"",
-    "staging:restart": "powershell -ExecutionPolicy Bypass -Command \"$env:PATH='D:\\Program Files\\Docker\\resources\\bin;'+$env:PATH; docker compose restart zerodolg-web\"",
-    "staging:clean": "powershell -ExecutionPolicy Bypass -File scripts/staging/clean-staging.ps1"
+    "staging:logs": "powershell -ExecutionPolicy Bypass -File scripts/staging/get-logs.ps1",
+    "staging:restart": "powershell -ExecutionPolicy Bypass -File scripts/staging/restart-staging.ps1",
+    "staging:clean": "powershell -ExecutionPolicy Bypass -File scripts/staging/clean-staging.ps1",
+    "staging:test": "powershell -ExecutionPolicy Bypass -File scripts/staging/test-frontend.ps1",
+    "staging:test:verbose": "powershell -ExecutionPolicy Bypass -File scripts/staging/test-frontend.ps1 -Verbose"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.1",
@@ -79,6 +81,9 @@
     "puppeteer": "^24.23.0",
     "rimraf": "^6.0.1",
     "sharp": "^0.34.4",
+    "stylelint": "^16.25.0",
+    "stylelint-config-recommended": "^17.0.0",
+    "stylelint-config-standard": "^39.0.0",
     "tailwindcss": "^3.4.17",
     "terser": "^5.44.0",
     "tsx": "^4.20.6",

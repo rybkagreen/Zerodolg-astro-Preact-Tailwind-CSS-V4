@@ -2,12 +2,28 @@ import type { APIRoute } from 'astro';
 import { SERVICE_VALUES } from '@shared/lib/analytics-manager';
 
 // Конфигурация Bitrix24 из переменных окружения
-const BITRIX24_WEBHOOK_URL =
-  import.meta.env['BITRIX24_WEBHOOK_URL'] ||
-  'https://zerodolg.bitrix24.ru/rest/1/sn1lo90na6t13v1d/';
+const BITRIX24_WEBHOOK_URL = import.meta.env['BITRIX24_WEBHOOK_URL'];
+
+if (!BITRIX24_WEBHOOK_URL) {
+  console.error('BITRIX24_WEBHOOK_URL is not configured!');
+}
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // Проверяем наличие webhook URL
+    if (!BITRIX24_WEBHOOK_URL) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Сервис временно недоступен. Пожалуйста, позвоните нам.',
+        }),
+        {
+          status: 503,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
     // Получаем данные формы (поддержка JSON и FormData)
     const contentType = request.headers.get('content-type') || '';
     let data: Record<string, unknown>;

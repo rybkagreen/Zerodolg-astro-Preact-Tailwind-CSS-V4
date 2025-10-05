@@ -23,8 +23,8 @@ const {
 >
   <!-- Animated Gradient Background - Similar to original -->
   <div
-    class='absolute inset-0 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900'
-    style='background-size: 400% 400%; animation: gradient-rotate 20s ease infinite;'
+    class='absolute inset-0 animate-gradient-rotate'
+    style='background: linear-gradient(to right, #0f172a, #1e3a8a, #312e81) !important; background-size: 400% 400% !important;'
   >
   </div>
 
@@ -102,86 +102,3 @@ const {
     </div>
   </div>
 </section>
-
-<!-- CSS Animations for Hero-style calculator -->
-<style>
-  /* Rotating gradient animation similar to original */
-  @keyframes gradient-rotate {
-    0% {
-      background-position: 0% 50%;
-      filter: hue-rotate(0deg);
-    }
-    25% {
-      background-position: 50% 100%;
-    }
-    50% {
-      background-position: 100% 50%;
-      filter: hue-rotate(10deg);
-    }
-    75% {
-      background-position: 50% 0%;
-    }
-    100% {
-      background-position: 0% 50%;
-      filter: hue-rotate(0deg);
-    }
-  }
-
-  /* Floating mesh animation */
-  @keyframes mesh-float {
-    0%,
-    100% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    33% {
-      transform: translate(-30px, 30px) rotate(120deg);
-    }
-    66% {
-      transform: translate(20px, -20px) rotate(240deg);
-    }
-  }
-
-  /* Fade in up animation for content */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Slide in up animation for form */
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(60px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  /* Shimmer animation for accent line */
-  @keyframes shimmer {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-
-  /* Reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-</style>

@@ -4,6 +4,10 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 const SITE_URL = 'https://zerodolg.ru';
 
+// Для SSR режима: генерируем динамически при каждом запросе
+// Это гарантирует актуальность sitemap с учетом новых статей блога
+export const prerender = false;
+
 export const GET: APIRoute = async () => {
   // Получаем все статьи блога динамически
   const posts = await getCollection('blog');

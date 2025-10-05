@@ -273,6 +273,44 @@ curl -X POST https://zerodolg.ru/api/form \
 
 ---
 
+## 🎨 Важно: Проблема с CSS в SSR режиме
+
+### Описание проблемы
+
+В SSR режиме Astro генерирует CSS файлы в `dist/server/assets/`, но HTML
+ссылается на них как `/assets/*.css`, предполагая, что они в
+`dist/client/assets/`.
+
+**Решение:** Автоматически добавлен post-build скрипт
+`scripts/build/post-build-copy-css.js`, который копирует CSS файлы из
+`dist/server/assets/` в `dist/client/assets/` после каждой сборки.
+
+### Проверка после сборки
+
+```powershell
+# Проверить наличие CSS файлов
+Get-ChildItem dist/client/assets/*.css
+```
+
+**Ожидаемый результат:**
+
+```
+Name                                                  Size
+----                                                  ----
+bankrotstvo-s-sokhraneniyem-imushchestva.CnkFIhhp.css 26 450 bytes
+index.BP7G9qpC.css                                    12 922 bytes
+```
+
+Если CSS файлы отсутствуют, запустите вручную:
+
+```powershell
+node scripts/build/post-build-copy-css.js
+```
+
+**Подробности:** См. `SSR_CSS_FIX.md`
+
+---
+
 ## 🐛 Troubleshooting
 
 ### Проблема: PM2 процесс не запускается

@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 import preact from '@astrojs/preact';
 import mcp from 'astro-mcp';
-import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
@@ -37,13 +36,7 @@ export default defineConfig({
       devtools: process.env.NODE_ENV === 'development',
     }),
     mcp(),
-    sitemap({
-      changefreq: 'weekly',
-      priority: 0.7,
-      lastmod: new Date(),
-      // Исключаем служебные страницы из sitemap
-      filter: (page) => !page.includes('/admin') && !page.includes('/api'),
-    }),
+    // Используем динамический sitemap.xml.ts вместо интеграции для SSR режима
     robotsTxt({
       policy: [
         {
@@ -52,7 +45,7 @@ export default defineConfig({
           disallow: ['/admin', '/api', '/_astro/'],
         },
       ],
-      sitemap: 'https://zerodolg.ru/sitemap-index.xml',
+      sitemap: 'https://zerodolg.ru/sitemap.xml',
     }),
   ],
 

@@ -41,10 +41,16 @@ ssh zerodolg-server @"
     # Создаем бэкап текущих файлов
     if [ -d dist ]; then
         echo '📦 Creating backup...'
-        tar -czf backup-\$(date +%Y%m%d-%H%M%S).tar.gz dist/ .env 2>/dev/null || true
+        tar -czf backup-\$(date +%Y%m%d-%H%M%S).tar.gz dist/ public_html/ .env 2>/dev/null || true
     fi
     
     tar -xzf /tmp/$archiveName
+    
+    # Копируем статические файлы из dist/client в public_html
+    echo '📁 Copying static files to public_html...'
+    mkdir -p public_html
+    cp -r dist/client/* public_html/
+    echo '✅ Static files copied'
     
     echo '📦 Installing dependencies...'
     npm ci --production

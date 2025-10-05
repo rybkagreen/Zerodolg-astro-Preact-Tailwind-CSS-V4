@@ -1,0 +1,28 @@
+/* Stats Component Utility Classes */
+
+/* Stats background pattern */
+.stats-pattern-bg {
+  background-image: url('/patterns/stats-pattern.png') !important;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%) !important;
+}
+
+/* Stats gradient overlay */
+.stats-gradient-overlay {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%) !important;
+}
+
+/* Stats dot pattern overlay */
+.stats-dot-pattern-bg {
+  background-image: url('/patterns/hero-dots.svg') !important;
+  background-size: 80px 80px !important;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%) !important;
+}
+
+/* Stats card styling */
+.stats-card {
+  background: transparent !important;
+  backdrop-filter: blur(8px) !important;
+}

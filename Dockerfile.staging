@@ -1,4 +1,4 @@
-# Multi-stage build для SSR приложения
+# Multi-stage build для SSR приложения с правильной настройкой nginx
 
 # Stage 1: Build
 FROM node:20-alpine AS builder
@@ -26,36 +26,33 @@ COPY .env.example .env
 # Build проекта (без валидации env для staging)
 RUN npx astro build
 
-# Stage 2: SSR Server
-FROM node:20-alpine AS runner
+# Stage 2: Runtime с nginx
+FROM nginx:alpine AS runner
 
 # Метаданные образа
 LABEL maintainer="info@zerodolg.ru"
-LABEL description="ZeroDolg Astro - SSR Build"
+LABEL description="ZeroDolg Astro - SSR Build with Nginx"
 LABEL version="0.0.1"
 
 # Установка дополнительных пакетов для тестирования
-RUN apk add --no-cache curl
-
-# Установка рабочей директории
-WORKDIR /app
+RUN apk add --no-cache curl nodejs npm
 
 # Копирование built файлов из builder stage
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/ecosystem.config.cjs ./
-COPY --from=builder /app/.env ./
 
-# Установка всех зависимостей (включая devDependencies для SSR)
-RUN npm ci --ignore-scripts && \
-    npm cache clean --force
+# Копирование nginx конфигурации
+COPY nginx-ssr-staging.conf /etc/nginx/nginx.conf
+
+# Создание директории для логов
+RUN mkdir -p /var/log/nginx && \
+    chown -R nginx:nginx /var/log/nginx
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:4321 || exit 1
+    CMD curl -f http://localhost:4321/ || exit 1
 
-# Expose порт - keep 4321 as it's defined in the application code
+# Expose порт
 EXPOSE 4321
 
-# Запуск приложения
-CMD ["sh", "-c", "HOST=0.0.0.0 PORT=4321 node dist/server/entry.mjs"]
+# Запуск nginx и SSR сервера
+CMD ["nginx", "-g", "daemon off;"]

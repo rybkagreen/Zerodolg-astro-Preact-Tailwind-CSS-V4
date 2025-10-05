@@ -2,6 +2,7 @@
 import StatsComponent from '../../islands/shared/interactive/statsEnhanced.tsx';
 import { SITE_CONSTANTS, getActualStats } from '../config/constants';
 import SectionSemantics from './SectionSemantics.astro';
+import '../../styles/stats-utilities.css';
 
 export interface Props {
   className?: string;
@@ -83,25 +84,17 @@ const company = {
   <div class='absolute inset-0 bg-white z-0'></div>
 
   <!-- Digital artwork background pattern with financial relief scale -->
-  <div
-    class='absolute inset-0 z-10 bg-cover bg-center bg-no-repeat opacity-25'
-    style='background-image: url("/patterns/stats-pattern.png"); mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
-  >
+  <div class='absolute inset-0 z-10 bg-cover bg-center bg-no-repeat opacity-25 stats-pattern-bg'>
   </div>
 
   <!-- Soft gradient overlay to harmonize with neighboring sections -->
   <div
-    class='absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white/60 to-blue-50/30 z-20'
-    style='mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
+    class='absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white/60 to-blue-50/30 z-20 stats-gradient-overlay'
   >
   </div>
 
   <!-- Subtle dot pattern overlay -->
-  <div
-    class='absolute inset-0 opacity-5 z-30'
-    style='background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
-  >
-  </div>
+  <div class='absolute inset-0 opacity-5 z-30 stats-dot-pattern-bg'></div>
   <div class='container-custom relative z-40'>
     <!-- Section Header -->
     <header class='text-center mb-16 md:mb-20 lg:mb-24'>
@@ -148,12 +141,7 @@ const company = {
     >
       {
         stats.map((stat) => (
-          <div
-            class='glass-card p-5'
-            role='listitem'
-            data-stat={stat.id}
-            style='background: transparent !important; backdrop-filter: blur(8px);'
-          >
+          <div class='glass-card p-5 stats-card' role='listitem' data-stat={stat.id}>
             <div
               class='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-700 ring-1 ring-slate-200'
               aria-hidden='true'

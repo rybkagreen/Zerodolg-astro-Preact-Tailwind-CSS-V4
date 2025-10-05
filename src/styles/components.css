@@ -10,12 +10,6 @@
 /* Hero Section */
 .hero-section {
   @apply relative overflow-hidden;
-  background: linear-gradient(
-    135deg,
-    theme('colors.blue.900') 0%,
-    theme('colors.blue.800') 50%,
-    theme('colors.blue.700') 100%
-  );
 
   &::before {
     content: '';
@@ -58,19 +52,6 @@
   );
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
-}
-
-/* Calculator Section */
-.calculator-section {
-  @apply relative bg-gradient-to-b from-white to-gray-50;
-
-  &::after {
-    content: '';
-    @apply absolute top-1/4 right-8 w-48 h-48 opacity-10;
-    background-image: url('/icons/solution/04-chain-broken.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
 }
 
 /* Benefits Section */

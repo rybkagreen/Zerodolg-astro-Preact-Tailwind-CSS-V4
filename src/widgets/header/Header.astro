@@ -1,5 +1,6 @@
 ---
 import HeaderComponent from '../../islands/layout/headerEnhanced.tsx';
+import '../../styles/header-utilities.css';
 
 export interface Props {
   currentPage?: string;
@@ -226,7 +227,7 @@ const mobileMenuItems = [
 ---
 
 <!-- Advanced Interactive Navigation -->
-<header class='bg-white shadow-md sticky top-0' style='z-index: 10001;' id='main-header'>
+<header class='bg-white shadow-md sticky top-0 header-sticky' id='main-header'>
   <nav
     class='w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8'
     role='navigation'
@@ -267,8 +268,7 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important;'
+              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block dropdown-menu'
               data-dropdown-menu='services'
             >
               <div class='py-2'>
@@ -311,8 +311,7 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important;'
+              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block dropdown-menu'
               data-dropdown-menu='about'
             >
               <div class='py-2'>
@@ -352,8 +351,7 @@ const mobileMenuItems = [
               </svg>
             </button>
             <div
-              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block'
-              style='z-index: 9999 !important;'
+              class='absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 hidden group-hover:block dropdown-menu'
               data-dropdown-menu='info'
             >
               <div class='py-2'>
@@ -434,8 +432,7 @@ const mobileMenuItems = [
 
   <!-- Mobile Menu -->
   <div
-    class='lg:hidden fixed inset-0 overflow-y-auto hidden'
-    style='z-index: 9999 !important;'
+    class='lg:hidden fixed inset-0 overflow-y-auto hidden mobile-menu-overlay'
     id='mobile-menu'
     data-mobile-menu
     role='dialog'
