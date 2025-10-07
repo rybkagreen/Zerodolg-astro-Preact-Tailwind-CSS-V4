@@ -1,0 +1,12 @@
+17:59:38 [@astrojs/node] Server listening on 
+  local: http://localhost:4321 	
+  network: http://172.18.0.2:4321
+
+10:55:30 [@astrojs/node] Server listening on 
+  local: http://localhost:4321 	
+  network: http://172.18.0.2:4321
+
+12:13:43 [@astrojs/node] Server listening on 
+  local: http://localhost:4321 	
+  network: http://172.18.0.3:4321
+

@@ -36,6 +36,17 @@ export default defineConfig({
     enabled: false,
   },
   vite: {
+    resolve: {
+      alias: {
+        '@': '/src',
+        '@app': '/src/app',
+        '@entities': '/src/entities',
+        '@features': '/src/features',
+        '@widgets': '/src/widgets',
+        '@shared': '/src/shared',
+        '@pages': '/src/pages',
+      },
+    },
     build: {
       // Enable CSS and JS minification
       minify: 'terser',

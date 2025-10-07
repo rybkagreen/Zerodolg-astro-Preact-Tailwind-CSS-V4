@@ -2,54 +2,52 @@
 
 ## Overall Goal
 
-Create and maintain a properly configured Qwen Code environment for the
-zerodolg-astro project, a bankruptcy legal services website built with Astro
-v5.13.5, fixing configuration issues and ensuring all extensions work correctly.
+Update critical project documentation (QWEN.md files) with accurate information
+reflecting the actual dependencies and configurations from package.json in the
+Astro-based legal services website project.
 
 ## Key Knowledge
 
-- **Project**: ZeroDolg Astro Website (bankruptcy legal services company)
-- **Technology Stack**: Astro v5.13.5, Preact v10.27.1, TypeScript v5.9.2, CSS
-  with custom properties
-- **Architecture**: Islands Architecture for interactive components, static
-  generation, progressive enhancement
-- **Language**: Russian for content and UI, English for code and comments
-- **File Naming**: PascalCase for components, kebab-case for pages, BEM
-  methodology for CSS classes
-- **Key Prohibitions**: No inline styles, no !important in CSS, only CSS classes
-  for styling
-- **Directory Structure**: Organized scripts by function (build, deploy, test,
-  maintenance), tools in separate directory, documentation centralized in docs/,
-  ITCSS architecture for styles, components in /src/components/, content
-  collections in /src/content/
-- **Extensions**: All extensions need proper qwen-extension.json and command
-  files with required 'prompt' fields
+- **Project Type**: Astro-based website for legal bankruptcy services
+- **Astro Version**: 5.14.1
+- **Preact Version**: 10.27.2
+- **TypeScript Version**: 5.9.3
+- **Tailwind CSS Version**: 3.4.17
+- **@modelcontextprotocol/sdk Version**: 1.19.1
+- **Node.js Version**: v24.9.0 (installed)
+- **Project Architecture**: Islands Architecture with SSR support
+- **Directory Structure**: WSL2 optimized development environment
+- **Key Dependencies**: astro, preact, typescript, tailwindcss,
+  @modelcontextprotocol/sdk, zod
+- **Document Files**: Main QWEN.md and four extension QWEN.md files in
+  `.qwen/extensions/` directory
 
 ## Recent Actions
 
-- [DONE] Removed unexpected files (CHEATSHEET.md and README.md) from extensions
-  directory
-- [DONE] Created a new, properly formatted QWEN.md configuration file without
-  import error messages
-- [DONE] Verified that extension directories already had proper
-  qwen-extension.json files
-- [DONE] Updated all command TOML files across 4 extensions (astro-dev,
-  deps-manager, git-helper, perf-check) with required 'prompt' field
-- [DONE] Fixed validation errors for all command files that were missing the
-  'prompt' field
+- [COMPLETED] Identified and analyzed all QWEN.md files in the project
+- [COMPLETED] Extracted accurate dependency information from package.json
+- [COMPLETED] Verified actual installed versions of key dependencies using
+  `npm list` commands
+- [COMPLETED] Updated all five QWEN.md files (main + 4 extensions) with accurate
+  dependency information
+- [COMPLETED] Corrected Node.js version requirement from "20+ (recommended)" to
+  "v24.9.0 (installed)"
+- [COMPLETED] Updated technology stack information across all documentation
+  files
+- [COMPLETED] Updated project structure in documentation to reflect actual files
 
 ## Current Plan
 
-- [DONE] Fix extension command validation errors
-- [DONE] Clean up configuration files
-- [DONE] Ensure all Qwen Code extensions work properly
-- [DONE] Update configuration files with latest project structure
-
-The Qwen Code environment is now properly configured for the zerodolg-astro
-project with all extensions functioning correctly and no validation errors.
+- [DONE] Analyze package.json and verify actual dependency versions
+- [DONE] Update main QWEN.md file with accurate technology stack and Node.js
+  version
+- [DONE] Update all extension QWEN.md files (astro-dev, deps-manager,
+  git-helper, perf-check)
+- [DONE] Verify consistency across all documentation files
+- [DONE] Complete all documentation updates with accurate information
 
 ---
 
 ## Summary Metadata
 
-**Update time**: 2025-09-24T07:01:49.083Z
+**Update time**: 2025-10-06T17:51:32.140Z

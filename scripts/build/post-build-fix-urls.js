@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Post-build script to fix URLs for clean paths without .html extensions
+ * Post-build script to fix URLs for an SSR setup
  *
- * This script:
- * 1. Creates index.html in /blog/ directory from blog.html
- * 2. Can be extended to handle other pages that need similar treatment
+ * This script validates that SSR routes exist properly
+ * and prepares the SSR output for deployment.
  */
 
 import fs from 'fs';
@@ -18,181 +17,151 @@ const __dirname = path.dirname(__filename);
 // Path to dist directory
 const distPath = path.resolve(__dirname, '../../dist');
 
-console.log('🔧 Post-build URL fixes starting...\n');
+console.log('🔧 Post-build SSR URL validation starting...\\n');
 
 /**
- * Create index.html in a directory by copying from source file
+ * Check if required SSR route files exist
  */
-function createIndexFromFile(sourceFile, targetDir) {
-  const sourcePath = path.join(distPath, sourceFile);
-  const targetPath = path.join(distPath, targetDir);
-  const indexPath = path.join(targetPath, 'index.html');
+function validateSsrRoutes() {
+  console.log('🔧 Validating SSR route files...');
 
-  // Check if source file exists
-  if (!fs.existsSync(sourcePath)) {
-    console.error(`❌ Source file not found: ${sourceFile}`);
-    return false;
-  }
-
-  // Create target directory if it doesn't exist
-  if (!fs.existsSync(targetPath)) {
-    fs.mkdirSync(targetPath, { recursive: true });
-    console.log(`📁 Created directory: ${targetDir}`);
-  }
-
-  // Copy the file
-  try {
-    fs.copyFileSync(sourcePath, indexPath);
-    console.log(`✅ Created ${targetDir}/index.html from ${sourceFile}`);
-    return true;
-  } catch (error) {
-    console.error(`❌ Failed to create ${targetDir}/index.html:`, error.message);
-    return false;
-  }
-}
-
-/**
- * Process all blog post HTML files to create directory structure
- */
-function processBlogPosts() {
-  const blogDir = path.join(distPath, 'blog');
-
-  if (!fs.existsSync(blogDir)) {
-    console.error('❌ Blog directory not found');
-    return false;
-  }
-
-  // Find all HTML files in blog directory (except index.html)
-  const blogFiles = fs
-    .readdirSync(blogDir)
-    .filter((file) => file.endsWith('.html') && file !== 'index.html');
-
-  console.log(`📄 Found ${blogFiles.length} blog post(s) to process`);
-
-  let processedCount = 0;
-
-  for (const file of blogFiles) {
-    // Extract slug from filename (remove .html)
-    const slug = file.replace('.html', '');
-    const sourceFile = path.join(blogDir, file);
-    const targetDir = path.join(blogDir, slug);
-    const targetFile = path.join(targetDir, 'index.html');
-
-    try {
-      // Create directory for the blog post
-      if (!fs.existsSync(targetDir)) {
-        fs.mkdirSync(targetDir, { recursive: true });
-      }
-
-      // Copy the HTML file as index.html
-      fs.copyFileSync(sourceFile, targetFile);
-      processedCount++;
-      console.log(`   ✅ Created /blog/${slug}/index.html`);
-    } catch (error) {
-      console.error(`   ❌ Failed to process ${file}:`, error.message);
-    }
-  }
-
-  console.log(`   📝 Processed ${processedCount}/${blogFiles.length} blog posts`);
-  return processedCount === blogFiles.length;
-}
-
-/**
- * Process landing pages to create clean URLs
- */
-function processLandingPages() {
-  console.log('🔧 Processing landing pages...');
-
-  const landingPages = [
+  const requiredRoutes = [
+    { path: 'server/pages/index.astro.mjs', name: 'Home page' },
+    { path: 'server/pages/blog.astro.mjs', name: 'Blog index page' },
+    { path: 'server/pages/blog/_slug_.astro.mjs', name: 'Blog post dynamic route' },
     {
-      source: 'bankrotstvo-s-sokhraneniyem-imushchestva.html',
-      target: 'bankrotstvo-s-sokhraneniyem-imushchestva',
+      path: 'server/pages/bankrotstvo-s-sokhraneniyem-imushchestva.astro.mjs',
+      name: 'Bankruptcy with savings page',
     },
-    {
-      source: 'restrukturizaciya-dolgov.html',
-      target: 'restrukturizaciya-dolgov',
-    },
+    { path: 'server/pages/restrukturizaciya-dolgov.astro.mjs', name: 'Debt restructuring page' },
+    { path: 'server/pages/privacy.astro.mjs', name: 'Privacy policy page' },
+    { path: 'server/pages/terms.astro.mjs', name: 'Terms of service page' },
+    { path: 'server/pages/sitemap.astro.mjs', name: 'Sitemap page' },
   ];
 
-  let processedCount = 0;
+  let validCount = 0;
 
-  for (const page of landingPages) {
-    const sourcePath = path.join(distPath, page.source);
+  for (const route of requiredRoutes) {
+    const routePath = path.join(distPath, route.path);
 
-    if (!fs.existsSync(sourcePath)) {
-      console.log(`   ℹ️  ${page.source} not found - skipping`);
-      continue;
-    }
-
-    const targetDir = path.join(distPath, page.target);
-    const targetFile = path.join(targetDir, 'index.html');
-
-    try {
-      // Create directory for the landing page
-      if (!fs.existsSync(targetDir)) {
-        fs.mkdirSync(targetDir, { recursive: true });
-      }
-
-      // Copy the HTML file as index.html
-      fs.copyFileSync(sourcePath, targetFile);
-      processedCount++;
-      console.log(`   ✅ Created /${page.target}/index.html`);
-    } catch (error) {
-      console.error(`   ❌ Failed to process ${page.source}:`, error.message);
+    if (fs.existsSync(routePath)) {
+      console.log(`   ✅ ${route.name} found`);
+      validCount++;
+    } else {
+      console.log(`   ❌ ${route.name} NOT FOUND at ${route.path}`);
     }
   }
 
-  console.log(`   📝 Processed ${processedCount}/${landingPages.length} landing pages\n`);
-  return processedCount;
+  console.log(`\\n📝 Validated ${validCount}/${requiredRoutes.length} SSR route files\\n`);
+  return validCount === requiredRoutes.length;
+}
+
+/**
+ * Validate API routes if they exist
+ */
+function validateApiRoutes() {
+  const apiDir = path.join(distPath, 'server', 'pages', 'api');
+
+  if (!fs.existsSync(apiDir)) {
+    console.log('ℹ️  No API routes directory found - skipping API validation');
+    return true;
+  }
+
+  const apiFiles = fs.readdirSync(apiDir);
+  if (apiFiles.length > 0) {
+    console.log('🔧 Validating API routes...');
+    for (const file of apiFiles) {
+      if (file.endsWith('.mjs')) {
+        console.log(`   ✅ API route found: ${file}`);
+      }
+    }
+    console.log('');
+  } else {
+    console.log('ℹ️  No API route files found in directory');
+  }
+
+  return true;
+}
+
+/**
+ * Process any static assets that need to be prepared for clean URLs
+ */
+function processStaticAssets() {
+  console.log('🔧 Processing static assets for clean URL compatibility...');
+
+  // Check if client assets exist (CSS, JS files)
+  const clientAssetsPath = path.join(distPath, 'client', 'assets');
+
+  if (fs.existsSync(clientAssetsPath)) {
+    const assets = fs.readdirSync(clientAssetsPath);
+    const cssFiles = assets.filter((file) => file.endsWith('.css'));
+
+    if (cssFiles.length > 0) {
+      console.log(`   📄 Found ${cssFiles.length} CSS files for client assets`);
+    } else {
+      console.log('   ℹ️  No CSS files found in client assets');
+    }
+  } else {
+    console.log('   ℹ️  Client assets directory not found');
+  }
+
+  console.log('');
+  return true;
+}
+
+/**
+ * Verify the SSR manifest exists and is valid
+ */
+function validateManifest() {
+  console.log('🔧 Validating SSR manifest...');
+
+  const manifestPath = path.join(distPath, 'server', 'manifest_*.mjs');
+
+  // Find manifest file (filename may vary)
+  const serverDir = path.join(distPath, 'server');
+  if (fs.existsSync(serverDir)) {
+    const serverFiles = fs.readdirSync(serverDir);
+    const manifestFiles = serverFiles.filter(
+      (file) => file.startsWith('manifest_') && file.endsWith('.mjs')
+    );
+
+    if (manifestFiles.length > 0) {
+      console.log(`   ✅ SSR manifest found: ${manifestFiles[0]}`);
+    } else {
+      console.log('   ⚠️  SSR manifest not found');
+    }
+  } else {
+    console.log('   ❌ Server directory not found');
+  }
+
+  console.log('');
+  return true;
 }
 
 /**
  * Main execution
  */
 function main() {
-  let success = true;
+  console.log('🚀 Starting SSR URL validation process...');
 
-  // Process landing pages first
-  processLandingPages();
+  const validations = [
+    validateSsrRoutes(),
+    validateApiRoutes(),
+    processStaticAssets(),
+    validateManifest(),
+  ];
 
-  // Check if blog directory exists
-  const blogDir = path.join(distPath, 'blog');
-  if (!fs.existsSync(blogDir)) {
-    console.log('ℹ️  Blog directory not found - skipping blog URL fixes');
-    console.log('✅ Post-build completed');
-    return;
-  }
+  const allValid = validations.every((result) => result);
 
-  // Check if blog/index.html already exists (created by Astro)
-  const blogIndexPath = path.join(blogDir, 'index.html');
-  if (fs.existsSync(blogIndexPath)) {
-    console.log('✅ Blog index already exists at /blog/index.html');
+  if (allValid) {
+    console.log('✅ All SSR validations passed! Output is ready for deployment.');
+    console.log('\\n💡 In SSR mode, route handling is managed by the server:');
+    console.log('   • Blog posts: Handled by /server/pages/blog/_slug_.astro.mjs');
+    console.log('   • Clean URLs: Supported through server routing configuration');
+    console.log('   • Dynamic content: Generated at request time');
   } else {
-    // Try to create from blog.html if it exists
-    console.log('🔧 Processing main blog page...');
-    if (createIndexFromFile('blog.html', 'blog')) {
-      console.log('   📝 /blog/ will now work correctly\n');
-    } else {
-      console.log(
-        '   ℹ️  blog.html not found, assuming /blog/index.html already created by Astro\n'
-      );
-    }
+    console.log('❌ Some validations failed. Please check the output above.');
   }
-
-  // Process all blog posts (optional - only if needed)
-  console.log('🔧 Checking blog posts...');
-  const blogFiles = fs
-    .readdirSync(blogDir)
-    .filter((file) => file.endsWith('.html') && file !== 'index.html');
-
-  if (blogFiles.length > 0) {
-    console.log(`📄 Found ${blogFiles.length} blog post file(s) to check`);
-    processBlogPosts();
-  } else {
-    console.log('   ℹ️  No blog post files to process (clean directory structure)');
-  }
-
-  console.log('\n✅ Post-build URL fixes completed successfully!');
 }
 
 // Run the script

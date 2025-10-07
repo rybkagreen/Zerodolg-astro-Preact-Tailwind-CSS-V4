@@ -168,7 +168,7 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
     <>
       <section
         ref={observerRef}
-        class='team-section relative py-20 md:py-28 lg:py-36 pb-32 md:pb-40 lg:pb-48'
+        class='team-section section-padding relative overflow-hidden pb-32 md:pb-40 lg:pb-48'
         id='team'
         style={{
           ...containerStyle,
@@ -177,22 +177,31 @@ export default function TeamInteractiveEnhanced({ members = [], stats }: Props):
         }}
         aria-labelledby='team-title'
       >
-        {/* Background layers matching Benefits section style */}
+        {/* Background layers - NO MASK (always visible) */}
         <div
           class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'
-          style='z-index: -12; mask-image: linear-gradient(to bottom, black 0%, black 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);'
+          style={{ zIndex: -12, pointerEvents: 'none' as const }}
         ></div>
 
-        {/* Team watercolor pattern background */}
+        {/* Team watercolor pattern background - fade-out at bottom (ONLY THIS HAS MASK) */}
         <div
           class='absolute inset-0 opacity-25'
-          style='z-index: -11; background-image: url("/patterns/watercolor_team_professionals_00001_.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+          style={{
+            zIndex: -11,
+            backgroundImage: 'url("/patterns/watercolor_team_professionals_00001_.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            pointerEvents: 'none' as const,
+            maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+          }}
         ></div>
 
-        {/* Subtle dot pattern overlay */}
+        {/* Subtle dot pattern overlay - NO MASK (always visible) */}
         <div
           class='absolute inset-0 opacity-5'
-          style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+          style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 80px 80px;'
         ></div>
 
         <div class='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>

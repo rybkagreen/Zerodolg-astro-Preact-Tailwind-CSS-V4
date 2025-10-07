@@ -1,0 +1,33 @@
+/* Standardized CSS variables for mask gradients */
+:root {
+  --mask-fade-out: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+  --mask-fade-in: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+  --mask-double: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+
+  --z-content: 10;
+  --z-pattern: -11;
+  --z-background: -12;
+}
+
+/* Ensure content elements have pointer events enabled */
+.section-content * {
+  pointer-events: auto !important;
+}
+
+.background-layer {
+  pointer-events: none !important;
+}
+
+/* Reset inheritance for interactive elements */
+button,
+a,
+input,
+textarea,
+select,
+[role='button'],
+[data-modal],
+[onclick],
+.card,
+.btn {
+  pointer-events: auto !important;
+}

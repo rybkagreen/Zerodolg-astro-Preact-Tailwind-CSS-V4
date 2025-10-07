@@ -1,0 +1,215 @@
+/* Background Animations
+ * Animated background effects for enhanced visual experience
+ */
+
+/* Floating background elements */
+.bg-float {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-float::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+  animation: floatBackground 20s infinite ease-in-out;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+@keyframes floatBackground {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-20px, 20px) rotate(3deg);
+  }
+  50% {
+    transform: translate(10px, -10px) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-10px, 15px) rotate(2deg);
+  }
+}
+
+/* Gradient shift background */
+.bg-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Animated mesh background */
+.bg-mesh-animated {
+  background:
+    radial-gradient(circle at 40% 20%, theme('colors.purple.400') 0px, transparent 50px),
+    radial-gradient(circle at 80% 0%, theme('colors.blue.400') 0px, transparent 50px),
+    radial-gradient(circle at 0% 50%, theme('colors.blue.300') 0px, transparent 50px);
+  animation: meshFloat 25s ease-in-out infinite alternate;
+}
+
+@keyframes meshFloat {
+  0% {
+    background-position:
+      0% 0%,
+      0% 0%,
+      0% 0%;
+  }
+  100% {
+    background-position:
+      100% 100%,
+      100% 100%,
+      100% 100%;
+  }
+}
+
+/* Pulsing background */
+.bg-pulse {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Wave background effect */
+.bg-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-wave::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 25 0, 50 10 T 100 10' stroke='%233b82f6' fill='none' stroke-width='0.5' opacity='0.2'/%3E%3C/svg%3E");
+  background-size: 200px 100%;
+  animation: wave 10s linear infinite;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+/* Breathing background effect */
+.bg-breath {
+  animation: breath 8s ease-in-out infinite;
+}
+
+@keyframes breath {
+  0%,
+  100% {
+    background-size: 110% 110%;
+  }
+  50% {
+    background-size: 100% 100%;
+  }
+}
+
+/* Rotating background elements */
+.bg-rotate {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-rotate::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.2), transparent 360deg);
+  animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Flickering effect for more dynamic backgrounds */
+.bg-flicker {
+  animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.5;
+  }
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  .bg-float,
+  .bg-gradient-shift,
+  .bg-mesh-animated,
+  .bg-pulse,
+  .bg-wave,
+  .bg-breath,
+  .bg-rotate,
+  .bg-flicker {
+    animation: none;
+  }
+
+  .bg-float::before {
+    animation: none;
+  }
+
+  .bg-wave::before {
+    animation: none;
+  }
+
+  .bg-rotate::before {
+    animation: none;
+  }
+}

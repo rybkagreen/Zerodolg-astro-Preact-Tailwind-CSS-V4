@@ -49,29 +49,29 @@ const problemsData = [
 
 <!-- Problems Section with Modern Design and Extended Background Pattern -->
 <section
-  class:list={`relative py-20 md:py-28 lg:py-36 pb-32 md:pb-40 lg:pb-48 ${className}`}
+  class:list={`relative py-20 md:py-28 lg:py-36 ${className}`}
   id='problems'
   aria-labelledby='problems-title'
-  style='isolation: isolate; z-index: 10;'
+  style='isolation: isolate; z-index: var(--tw-z-index-section-front, 10);'
 >
-  <!-- Background for Problems section only with mask applied -->
+  <!-- Background for Problems section - NO MASK (always visible) -->
   <div
     class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'
-    style='z-index: -10; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+    style='z-index: -12; pointer-events: none;'
   >
   </div>
 
-  <!-- Watercolor background pattern for Problems section only with mask applied -->
+  <!-- Watercolor background pattern - fade-out at bottom (ONLY THIS HAS MASK) -->
   <div
     class='absolute inset-0 opacity-25'
-    style='z-index: -10; background-image: url("/patterns/problems-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+    style='z-index: -11; background-image: url("/patterns/problems-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
   >
   </div>
 
-  <!-- Dot pattern overlay for Problems section only with mask applied -->
+  <!-- Dot pattern overlay -->
   <div
     class='absolute inset-0 opacity-10'
-    style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+    style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px; pointer-events: none;'
   >
   </div>
 

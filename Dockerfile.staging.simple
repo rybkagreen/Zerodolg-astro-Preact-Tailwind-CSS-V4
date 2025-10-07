@@ -1,0 +1,61 @@
+# Simple staging build that mirrors production more closely
+# Multi-stage build for SSR application
+
+# Stage 1: Build
+FROM node:20-alpine AS builder
+
+# Install system dependencies
+RUN apk add --no-cache libc6-compat
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies (all for build)
+RUN npm ci --ignore-scripts && \
+    npm cache clean --force
+
+# Copy source code
+COPY . .
+
+# Copy .env.example file for staging (if needed)
+# In production, use environment variables
+COPY .env.example .env
+
+# Build project with production configuration
+RUN npm run clean && npx astro build --config astro.config.prod.mjs && npm run postbuild
+
+# Stage 2: SSR Server
+FROM node:20-alpine AS runner
+
+# Image metadata
+LABEL maintainer="info@zerodolg.ru"
+LABEL description="ZeroDolg Astro - Staging SSR Build (Production-Optimized)"
+LABEL version="0.0.1"
+
+# Install additional packages for testing
+RUN apk add --no-cache curl
+
+# Set working directory
+WORKDIR /app
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/ecosystem.config.cjs ./
+
+# Install all dependencies (including devDependencies for SSR)
+RUN npm ci --ignore-scripts && \
+    npm cache clean --force
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:4321 || exit 1
+
+# Expose port
+EXPOSE 4321
+
+# Run application
+CMD ["sh", "-c", "HOST=0.0.0.0 PORT=4321 node dist/server/entry.mjs"]

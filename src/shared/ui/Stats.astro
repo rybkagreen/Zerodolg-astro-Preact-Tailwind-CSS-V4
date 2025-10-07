@@ -2,7 +2,6 @@
 import StatsComponent from '../../islands/shared/interactive/statsEnhanced.tsx';
 import { SITE_CONSTANTS, getActualStats } from '../config/constants';
 import SectionSemantics from './SectionSemantics.astro';
-import '../../styles/stats-utilities.css';
 
 export interface Props {
   className?: string;
@@ -79,17 +78,19 @@ const company = {
   aria-labelledby='stats-title'
   itemscope
   itemtype='https://schema.org/LegalService'
+  style='isolation: isolate; z-index: 1;'
 >
-  <!-- Reset background to white to override any previous section's background -->
-  <div class='absolute inset-0 bg-white z-0'></div>
-
-  <!-- Digital artwork background pattern with financial relief scale -->
-  <div class='absolute inset-0 z-10 bg-cover bg-center bg-no-repeat opacity-25 stats-pattern-bg'>
+  <!-- Gradient background - NO MASK (always visible) -->
+  <div
+    class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30'
+    style='z-index: -12;'
+  >
   </div>
 
-  <!-- Soft gradient overlay to harmonize with neighboring sections -->
+  <!-- Pastel paint strokes background pattern - fade-in at top and fade-out at bottom (ONLY THIS HAS DOUBLE MASK) -->
   <div
-    class='absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white/60 to-blue-50/30 z-20 stats-gradient-overlay'
+    class='absolute inset-0 opacity-25'
+    style='z-index: -11; background-image: url("/patterns/stats-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
   >
   </div>
 

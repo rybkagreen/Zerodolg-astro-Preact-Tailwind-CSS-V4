@@ -23,7 +23,7 @@ import CallbackModal from '@features/modals/ui/CallbackModal.astro';
 import LeadMagnetsModals from '@features/modals/ui/LeadMagnetsModals.astro';
 import SimpleModalInit from '../islands/utils/SimpleModalInit.tsx';
 import SocialLinks from '../islands/shared/interactive/social-links.tsx';
-import ScrollAnimations from '../islands/utils/scroll-animations.tsx';
+
 import OnlineSticker from '@shared/ui/OnlineSticker.astro';
 import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import SpecialOffers from '@shared/ui/SpecialOffers.astro';
@@ -82,61 +82,54 @@ const { title, description, keywords, canonical } = SEO_CONFIG.home;
     <!-- Correct order: Hero, Problems, Stats, Calculator, Benefits, Timeline, Reviews, Team, Lead Magnets, FAQ, CTA -->
     <Hero />
 
-    <div data-aos='fade-up' data-aos-duration='800' style='position: relative; z-index: 10;'>
+    <!-- Use fade-up for sections without conflicting animations -->
+    <div style='z-index: 10; position: relative;'>
       <Problems />
     </div>
 
-    <div
-      data-aos='fade-up'
-      data-aos-duration='800'
-      data-aos-delay='200'
-      style='position: relative; z-index: 1;'
-    >
+    <div style='z-index: 1; position: relative;'>
       <SolutionChoice />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800'>
+    <div style='z-index: 1; position: relative;'>
       <Stats />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
+    <div style='z-index: 10; position: relative;'>
       <Calculator />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800'>
+    <!-- Use fade (no transform) for sections with native card animations -->
+    <div style='z-index: 10; position: relative;'>
       <Benefits />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800'>
+    <div style='z-index: 1; position: relative;'>
       <Process />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
+    <div style='z-index: 10; position: relative;'>
       <Reviews />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' style='position: relative; z-index: 10;'>
+    <div style='z-index: 10; position: relative;'>
       <TeamInteractive />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' style='position: relative; z-index: 10;'>
+    <div style='z-index: 1; position: relative;'>
       <PrivacyApproach />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' style='position: relative; z-index: 1;'>
+    <!-- FAQ has native animations, use simple fade -->
+    <div style='z-index: 1; position: relative;'>
       <Faq />
     </div>
 
-    <div
-      data-aos='fade-up'
-      data-aos-duration='800'
-      data-aos-delay='100'
-      style='position: relative; z-index: 1;'
-    >
+    <div style='z-index: 1; position: relative;'>
       <LeadMagnets />
     </div>
 
-    <div data-aos='fade-up' data-aos-duration='800' data-aos-delay='100'>
+    <div style='z-index: 10; position: relative;'>
       <Cta />
     </div>
   </main>
@@ -163,9 +156,6 @@ const { title, description, keywords, canonical } = SEO_CONFIG.home;
 
   <!-- Special Offers Components -->
   <SpecialOffers />
-
-  <!-- Scroll Animations Handler -->
-  <ScrollAnimations client:idle once={true} offset={100} duration={800} />
 
   <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
   <ClientInteractions client:idle />

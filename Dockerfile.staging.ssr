@@ -1,0 +1,77 @@
+# Production-like staging build using Docker and PM2
+# Multi-stage build for SSR application with PM2
+
+# Stage 1: Build
+FROM node:20-alpine AS builder
+
+# Install system dependencies
+RUN apk add --no-cache libc6-compat
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies (all for build)
+RUN npm ci --ignore-scripts && \
+    npm cache clean --force
+
+# Copy source code
+COPY . .
+
+# Copy .env.example file for staging
+COPY .env.example .env
+
+# Build project with production configuration
+RUN npm run clean && npx astro build --config astro.config.prod.mjs && npm run postbuild
+
+# Stage 2: PM2-based SSR Server
+FROM node:20-alpine AS runner
+
+# Image metadata
+LABEL maintainer="info@zerodolg.ru"
+LABEL description="ZeroDolg Astro - Staging SSR Build (Production-Optimized with PM2)"
+LABEL version="0.0.1"
+
+# Install additional packages for testing
+RUN apk add --no-cache curl python3 make g++
+
+# Set working directory
+WORKDIR /app
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/ecosystem.config.cjs ./
+
+# Install ALL dependencies (including devDependencies for SSR)
+RUN npm ci --ignore-scripts && \
+    npm cache clean --force
+
+# Install PM2 globally
+RUN npm install -g pm2
+
+# Create logs directory
+RUN mkdir -p /app/logs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:4321 || exit 1
+
+# Expose port
+EXPOSE 4321
+
+# Copy staging-specific ecosystem config
+COPY ecosystem.config.staging.cjs ./
+COPY start-staging.sh ./
+
+# Make startup script executable
+RUN chmod +x start-staging.sh
+
+# Set environment and run the application via startup script
+ENV HOST=0.0.0.0
+ENV PORT=4321
+
+# Run application using the startup script
+CMD ["./start-staging.sh"]

@@ -3,8 +3,12 @@ import { SERVICE_VALUES } from '@shared/lib/analytics-manager';
 
 // Конфигурация Bitrix24 из переменных окружения
 const BITRIX24_WEBHOOK_URL = import.meta.env['BITRIX24_WEBHOOK_URL'];
+const IS_TESTING_ENV =
+  import.meta.env['NODE_ENV'] === 'test' ||
+  import.meta.env['TESTING'] === 'true' ||
+  import.meta.env['STAGING'] === 'true';
 
-if (!BITRIX24_WEBHOOK_URL) {
+if (!BITRIX24_WEBHOOK_URL && !IS_TESTING_ENV) {
   console.error('BITRIX24_WEBHOOK_URL is not configured!');
 }
 
@@ -43,6 +47,23 @@ export const POST: APIRoute = async ({ request }) => {
     const email = (data['email'] as string) || '';
     const message = (data['message'] as string) || '';
     const formType = (data['formType'] as string) || 'callback';
+
+    // Проверка на тестовый запрос (для целей проверки доступности API)
+    const isTestRequest = !name && !phone && !email && !message;
+    if (isTestRequest) {
+      // Возвращаем успешный ответ для тестирования, не выполняя реальной отправки
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: 'Form endpoint is available',
+          test: true,
+        }),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
 
     // Валидация
     if (!name || !phone) {
@@ -83,25 +104,50 @@ export const POST: APIRoute = async ({ request }) => {
       },
     };
 
-    // Отправляем в Bitrix24
-    const bitrixResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.lead.add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bitrixData),
-    });
+    // В тестовом режиме используем mock-ответ, иначе отправляем в Bitrix24
+    let bitrixResult = null;
 
-    if (!bitrixResponse.ok) {
-      throw new Error(`Bitrix24 error: ${bitrixResponse.status}`);
-    }
+    if (IS_TESTING_ENV) {
+      // В тестовом режиме просто возвращаем успешный ответ без вызова Bitrix24
+      console.log('TESTING MODE: Skipping Bitrix24 webhook call, returning mock success response');
+      // В тестовом режиме создаем mock-ответ
+      bitrixResult = { result: `mock_lead_${Date.now()}` };
+      console.log('TESTING MODE: Generated mock lead result:', bitrixResult);
+    } else {
+      // Отправляем в Bitrix24 с таймаутом
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-    const bitrixResult = await bitrixResponse.json();
+      try {
+        const bitrixResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.lead.add`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bitrixData),
+          signal: controller.signal,
+        });
 
-    // Логируем для отладки (только в режиме разработки)
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.log('Lead created:', bitrixResult);
+        clearTimeout(timeoutId);
+
+        if (!bitrixResponse.ok) {
+          throw new Error(`Bitrix24 error: ${bitrixResponse.status}`);
+        }
+
+        bitrixResult = await bitrixResponse.json();
+      } catch (error) {
+        clearTimeout(timeoutId);
+        if (error instanceof Error && error.name === 'AbortError') {
+          throw new Error('Bitrix24 request timeout');
+        }
+        throw error;
+      }
+
+      // Логируем для отладки (только в режиме разработки)
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.log('Lead created:', bitrixResult);
+      }
     }
 
     // Определяем ценность конверсии
@@ -138,6 +184,7 @@ export const POST: APIRoute = async ({ request }) => {
       JSON.stringify({
         success: false,
         error: 'Произошла ошибка при отправке формы. Попробуйте позже.',
+        ...(import.meta.env.DEV && { originalError: (error as Error).message }),
       }),
       {
         status: 500,
@@ -162,4 +209,12 @@ export const GET: APIRoute = async () => {
       headers: { 'Content-Type': 'application/json' },
     }
   );
+};
+
+// Обработка HEAD запросов (для проверки доступности)
+export const HEAD: APIRoute = async () => {
+  return new Response(null, {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
 };

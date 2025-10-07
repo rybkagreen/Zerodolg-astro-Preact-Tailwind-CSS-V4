@@ -256,7 +256,24 @@ module.exports = {
 
       // Z-index scale
       zIndex: {
+        // Background elements
+        '-12': '-12',
+        '-11': '-11',
+        '-10': '-10',
+        // Default and low-level elements
+        auto: 'auto',
+        0: '0',
+        1: '1',
         10: '10',
+        // Mid-level elements
+        20: '20',
+        30: '30',
+        40: '40',
+        50: '50',
+        // Section elements
+        'section-back': '1',
+        'section-front': '10',
+        // UI elements
         60: '60',
         70: '70',
         80: '80',

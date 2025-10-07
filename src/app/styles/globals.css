@@ -1,0 +1,31 @@
+/* Main CSS Entry Point
+ * Imports all styles and processes them through Tailwind
+ * Using CSS layers for proper specificity management
+ */
+
+/* Define layer order - higher layers override lower ones */
+@layer base, components, utilities;
+
+/* Import all other styles */
+@import './critical.css';
+@import './components/components.css';
+@import './modules/button.module.css';
+@import './modules/card.module.css';
+@import './animations/backgrounds.css';
+@import './utils/tree-shake.css';
+@import './mask-gradients.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+}

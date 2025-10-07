@@ -16,8 +16,8 @@ export default defineConfig({
 
   // Оптимизация сборки
   build: {
-    // Встроенная минификация активна по умолчанию
-    inlineStylesheets: 'auto',
+    // Отключаем встроенные стили для более надежной загрузки CSS
+    inlineStylesheets: 'never',
     // Улучшенная оптимизация для лучшего кэширования
     rollupOptions: {
       output: {

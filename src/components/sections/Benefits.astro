@@ -48,17 +48,17 @@ const benefits = [
   id='benefits'
   aria-labelledby='benefits-title'
 >
-  <!-- Background with financial relief pattern -->
+  <!-- Background - NO MASK (always visible) -->
   <div
     class='absolute inset-0 bg-gradient-to-br from-blue-50/40 via-white/60 to-indigo-50/30'
-    style='z-index: -12; mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);'
+    style='z-index: -12; pointer-events: none;'
   >
   </div>
 
-  <!-- Pastel paint strokes background pattern (акварельный паттерн) -->
+  <!-- Pastel paint strokes background pattern - fade-out at bottom (ONLY THIS HAS MASK) -->
   <div
     class='absolute inset-0 opacity-25'
-    style='z-index: -11; background-image: url("/patterns/benefits-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);'
+    style='z-index: -11; background-image: url("/patterns/benefits-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
   >
   </div>
 

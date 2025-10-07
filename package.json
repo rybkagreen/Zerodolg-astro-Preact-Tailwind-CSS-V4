@@ -40,7 +40,15 @@
     "staging:restart": "powershell -ExecutionPolicy Bypass -File scripts/staging/restart-staging.ps1",
     "staging:clean": "powershell -ExecutionPolicy Bypass -File scripts/staging/clean-staging.ps1",
     "staging:test": "powershell -ExecutionPolicy Bypass -File scripts/staging/test-frontend.ps1",
-    "staging:test:verbose": "powershell -ExecutionPolicy Bypass -File scripts/staging/test-frontend.ps1 -Verbose"
+    "staging:test:verbose": "powershell -ExecutionPolicy Bypass -File scripts/staging/test-frontend.ps1 -Verbose",
+    "staging:simple:up": "docker compose -f docker-compose.staging.simple.yml up -d --build",
+    "staging:simple:down": "docker compose -f docker-compose.staging.simple.yml down",
+    "staging:simple:logs": "docker compose -f docker-compose.staging.simple.yml logs -f",
+    "staging:simple:restart": "npm run staging:simple:down && npm run staging:simple:up",
+    "staging:ssr:up": "docker compose -f docker-compose.staging.ssr.yml up -d --build",
+    "staging:ssr:down": "docker compose -f docker-compose.staging.ssr.yml down",
+    "staging:ssr:logs": "docker compose -f docker-compose.staging.ssr.yml logs -f",
+    "staging:ssr:restart": "npm run staging:ssr:down && npm run staging:ssr:up"
   },
   "dependencies": {
     "@astrojs/preact": "^4.1.1",

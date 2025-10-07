@@ -1,0 +1,356 @@
+/* Tree-shake Utilities
+ * Advanced CSS utilities designed to be removed when unused
+ * These utilities help with bundle size optimization
+ */
+
+/* Utility classes that will be purged if unused */
+.utl-margin-zero {
+  margin: 0 !important;
+}
+.utl-margin-auto {
+  margin: auto !important;
+}
+.utl-margin-top-0 {
+  margin-top: 0 !important;
+}
+.utl-margin-right-0 {
+  margin-right: 0 !important;
+}
+.utl-margin-bottom-0 {
+  margin-bottom: 0 !important;
+}
+.utl-margin-left-0 {
+  margin-left: 0 !important;
+}
+
+.utl-padding-zero {
+  padding: 0 !important;
+}
+.utl-padding-top-0 {
+  padding-top: 0 !important;
+}
+.utl-padding-right-0 {
+  padding-right: 0 !important;
+}
+.utl-padding-bottom-0 {
+  padding-bottom: 0 !important;
+}
+.utl-padding-left-0 {
+  padding-left: 0 !important;
+}
+
+.utl-flex {
+  display: flex !important;
+}
+.utl-inline-flex {
+  display: inline-flex !important;
+}
+.utl-grid {
+  display: grid !important;
+}
+.utl-inline-grid {
+  display: inline-grid !important;
+}
+.utl-block {
+  display: block !important;
+}
+.utl-hidden {
+  display: none !important;
+}
+
+.utl-text-left {
+  text-align: left !important;
+}
+.utl-text-center {
+  text-align: center !important;
+}
+.utl-text-right {
+  text-align: right !important;
+}
+.utl-text-justify {
+  text-align: justify !important;
+}
+
+.utl-font-bold {
+  font-weight: bold !important;
+}
+.utl-font-normal {
+  font-weight: normal !important;
+}
+
+.utl-w-full {
+  width: 100% !important;
+}
+.utl-w-screen {
+  width: 100vw !important;
+}
+.utl-w-auto {
+  width: auto !important;
+}
+
+.utl-h-full {
+  height: 100% !important;
+}
+.utl-h-screen {
+  height: 100vh !important;
+}
+.utl-h-auto {
+  height: auto !important;
+}
+
+.utl-absolute {
+  position: absolute !important;
+}
+.utl-relative {
+  position: relative !important;
+}
+.utl-fixed {
+  position: fixed !important;
+}
+.utl-sticky {
+  position: sticky !important;
+}
+
+.utl-z-10 {
+  z-index: 10 !important;
+}
+.utl-z-20 {
+  z-index: 20 !important;
+}
+.utl-z-30 {
+  z-index: 30 !important;
+}
+.utl-z-40 {
+  z-index: 40 !important;
+}
+.utl-z-50 {
+  z-index: 50 !important;
+}
+
+.utl-rounded {
+  border-radius: 0.25rem !important;
+}
+.utl-rounded-full {
+  border-radius: 9999px !important;
+}
+.utl-border {
+  border-width: 1px !important;
+}
+
+.utl-shadow {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1) !important;
+}
+.utl-shadow-md {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1) !important;
+}
+.utl-shadow-lg {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.utl-opacity-0 {
+  opacity: 0 !important;
+}
+.utl-opacity-50 {
+  opacity: 0.5 !important;
+}
+.utl-opacity-100 {
+  opacity: 1 !important;
+}
+
+.utl-transform {
+  transform: none !important;
+}
+.utl-scale-100 {
+  transform: scale(1) !important;
+}
+.utl-scale-105 {
+  transform: scale(1.05) !important;
+}
+
+/* Advanced utilities for complex layouts */
+.utl-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .utl-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .utl-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.utl-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.utl-grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.utl-grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.utl-grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.utl-grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.utl-grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.utl-grid-cols-8 {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.utl-grid-cols-9 {
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.utl-grid-cols-10 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.utl-grid-cols-11 {
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.utl-grid-cols-12 {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+/* Responsive utilities */
+.utl-hidden-sm {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .utl-hidden-sm {
+    display: block;
+  }
+}
+
+.utl-hidden-md {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .utl-hidden-md {
+    display: block;
+  }
+}
+
+.utl-hidden-lg {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .utl-hidden-lg {
+    display: block;
+  }
+}
+
+/* Accessibility utilities */
+.utl-focusable {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.utl-focusable:focus {
+  outline: 2px solid theme('colors.blue.500');
+  outline-offset: 2px;
+}
+
+.utl-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.utl-not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Animation utilities */
+.utl-animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.utl-animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+.utl-animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  .utl-animate-pulse,
+  .utl-animate-bounce,
+  .utl-animate-spin {
+    animation: none;
+  }
+}

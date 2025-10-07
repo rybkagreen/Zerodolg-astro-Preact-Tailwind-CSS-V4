@@ -12,6 +12,8 @@ import ClientInteractions from '../../islands/utils/client-interactions.tsx';
 import { SITE_CONSTANTS } from '../../shared/config/constants';
 import OptimizedImage from '@shared/ui/OptimizedImage';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
   return blogPosts.map((post) => ({

@@ -3,7 +3,6 @@
 import { SITE_CONSTANTS } from '../../shared/config/constants';
 import { getFAQSchemaData } from '../../shared/data/faq-data';
 import { faqSchema } from '../../shared/lib/structured-data';
-import '../../styles/faq-utilities.css';
 
 interface FaqQuestion {
   question: string;
@@ -28,24 +27,19 @@ const faqSchemaData = getFAQSchemaData();
 ---
 
 <!-- FAQ Section - Modern Accordion Style -->
-<section
-  class='faq-section section-padding relative overflow-hidden -mt-24 md:-mt-32 lg:-mt-40 pb-32 md:pb-40 lg:pb-48'
-  id='faq'
-  data-section='faq'
-  data-aos='fade-up'
-  style='isolation: isolate; z-index: 1;'
->
-  <!-- Background with watercolor pattern -->
-  <div class='absolute inset-0 bg-white' style='z-index: -12;'></div>
+<section class='faq-section section-padding relative overflow-hidden' id='faq' data-section='faq'>
+  <!-- Background gradient - NO MASK (always visible) -->
   <div
-    class='absolute inset-0'
-    style='z-index: -11; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+    class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/40'
+    style='z-index: -12; pointer-events: none;'
   >
-    <div
-      class='absolute inset-0 opacity-15'
-      style='background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat;'
-    >
-    </div>
+  </div>
+
+  <!-- Background with watercolor pattern - fade-out at bottom (ONLY THIS HAS MASK) -->
+  <div
+    class='absolute inset-0 opacity-15'
+    style='z-index: -11; background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+  >
   </div>
 
   <div class='container mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>

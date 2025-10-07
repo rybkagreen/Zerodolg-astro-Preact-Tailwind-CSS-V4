@@ -23,8 +23,8 @@ COPY . .
 # В production используйте environment variables
 COPY .env.example .env
 
-# Build проекта (без валидации env для staging)
-RUN npx astro build
+# Build проекта с production конфигурацией (без валидации env для staging)
+RUN npm run clean && npx astro build --config astro.config.prod.mjs && npm run postbuild
 
 # Stage 2: Runtime с nginx
 FROM nginx:alpine AS runner
@@ -39,6 +39,12 @@ RUN apk add --no-cache curl nodejs npm
 
 # Копирование built файлов из builder stage
 COPY --from=builder /app/dist ./dist
+
+# Убедимся, что CSS файлы доступны и в server директории тоже
+RUN if [ -d "./dist/client/assets" ]; then \
+      mkdir -p ./dist/server/assets && \
+      cp ./dist/client/assets/*.css ./dist/server/assets/ 2>/dev/null || true; \
+    fi
 
 # Копирование nginx конфигурации
 COPY nginx-ssr-staging.conf /etc/nginx/nginx.conf

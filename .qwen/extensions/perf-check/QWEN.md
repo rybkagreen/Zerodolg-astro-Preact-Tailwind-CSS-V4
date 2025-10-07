@@ -10,11 +10,75 @@
 
 ## Технологии
 
-- Astro 5.13.7
-- Preact 10.27.1 для интерактивных компонентов
-- TypeScript 5.9.2
-- Tailwind CSS (экспериментальная версия v4) для стилизации
+- Astro 5.14.1
+- Preact 10.27.2 для интерактивных компонентов
+- TypeScript 5.9.3
+- Tailwind CSS 3.4.17 для стилизации
 - CSS с пользовательскими свойствами
+- @modelcontextprotocol/sdk 1.19.1 и astro-mcp 0.4.2 для Model Context Protocol
+- zod 4.1.11 для валидации схем
+
+## Окружение разработки
+
+### WSL2 Ubuntu (Рекомендуется)
+
+Проект оптимизирован для разработки в WSL2 Ubuntu для лучшей производительности
+и совместимости с инструментами разработки.
+
+**Расположение проекта:**
+
+- WSL2 путь: `~/develop/zerodolg.ru/zerodolg-astro`
+- Windows путь: `\\wsl$\Ubuntu\root\develop\zerodolg.ru\zerodolg-astro`
+
+**Требования:**
+
+- Node.js >=18.17.1 (установленная версия v24.9.0)
+- npm 10+
+- Git с настроенными SSH ключами для GitHub
+
+**Работа с проектом:**
+
+```bash
+# Вход в WSL2
+wsl
+
+# Переход в директорию проекта
+cd ~/develop/zerodolg.ru/zerodolg-astro
+
+# Установка зависимостей
+npm install
+
+# Запуск dev сервера
+npm run dev
+
+# Сборка проекта
+npm run build
+```
+
+**Работа из Windows PowerShell:**
+
+```powershell
+# Запуск команд в WSL2 без входа
+wsl bash -c "cd ~/develop/zerodolg.ru/zerodolg-astro && npm run dev"
+
+# Проверка статуса
+wsl bash -c "cd ~/develop/zerodolg.ru/zerodolg-astro && git status"
+```
+
+**Преимущества WSL2:**
+
+- Значительно быстрее работа с npm и файловой системой
+- Нативная совместимость с Linux-инструментами
+- Меньше проблем с путями и правами доступа
+- Лучшая производительность Docker (если используется)
+
+### Windows (Альтернатива)
+
+Проект также может работать в Windows, но с меньшей производительностью:
+
+- Расположение: `D:\develop\zerodolg.ru\zerodolg-astro`
+- Все команды выполняются через PowerShell
+- Могут возникать проблемы с длинными путями и правами доступа
 
 ## Архитектура
 

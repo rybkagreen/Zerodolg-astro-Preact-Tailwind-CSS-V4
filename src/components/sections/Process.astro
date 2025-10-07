@@ -109,25 +109,26 @@ const processData = {
   class:list={`relative py-20 md:py-28 lg:py-36 overflow-hidden ${className}`}
   id='process'
   aria-labelledby='process-title'
+  style='isolation: isolate; z-index: var(--tw-z-index-section-back, 1);'
 >
-  <!-- Background layers -->
+  <!-- Background layers - NO MASK (always visible) -->
   <div
     class='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/40'
-    style='z-index: -10; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
+    style='z-index: -12; pointer-events: none;'
   >
   </div>
 
-  <!-- Background pattern -->
+  <!-- Background pattern - fade-in at top (ONLY THIS HAS MASK) -->
   <div
     class='absolute inset-0 opacity-25'
-    style='z-index: -10; background-image: url("/patterns/process-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
+    style='z-index: -11; background-image: url("/patterns/process-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);'
   >
   </div>
 
-  <!-- Dot pattern overlay -->
+  <!-- Dot pattern overlay - NO MASK (always visible) -->
   <div
     class='absolute inset-0 opacity-10'
-    style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px; mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);'
+    style='z-index: -10; background-image: url("/patterns/hero-dots.svg"); background-size: 100px 100px;'
   >
   </div>
 

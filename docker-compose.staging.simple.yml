@@ -1,0 +1,62 @@
+# Simplified docker-compose for staging that mirrors production
+services:
+  # Main application - SSR server
+  zerodolg-staging:
+    build:
+      context: .
+      dockerfile: Dockerfile.staging.simple
+    container_name: zerodolg-staging-simple
+    restart: unless-stopped
+    ports:
+      - '3000:4321'
+    environment:
+      # Environment variables for staging
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=4321
+      - PUBLIC_SITE_URL=http://localhost:3000
+      - PUBLIC_GA_ID=${PUBLIC_GA_ID:-G-XXXXXXXXXX}
+      - PUBLIC_YM_ID=${PUBLIC_YM_ID:-XXXXXXXXX}
+      - BITRIX24_WEBHOOK_URL=${BITRIX24_WEBHOOK_URL:-}
+      - PUBLIC_SITE_PHONE=+7 (905) 577-33-87
+      - PUBLIC_SITE_EMAIL=info@zerodolg.ru
+    volumes:
+      # Logs for analysis
+      - ./logs:/app/logs
+    networks:
+      - zerodolg-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4321/']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - 'com.zerodolg.environment=staging'
+      - 'com.zerodolg.project=zerodolg-astro'
+      - 'com.zerodolg.service=web'
+
+  # Lighthouse CI for testing performance
+  lighthouse:
+    image: patrickhulce/lhci-server:latest
+    container_name: zerodolg-lighthouse
+    restart: unless-stopped
+    ports:
+      - '9001:9001'
+    volumes:
+      - lighthouse-data:/data
+    networks:
+      - zerodolg-network
+    environment:
+      - LHCI_STORAGE_SQLITE_DB_PATH=/data/lhci.db
+    labels:
+      - 'com.zerodolg.service=lighthouse'
+
+networks:
+  zerodolg-network:
+    driver: bridge
+    name: zerodolg-staging-simple-network
+
+volumes:
+  lighthouse-data:
+    name: zerodolg-lighthouse-data

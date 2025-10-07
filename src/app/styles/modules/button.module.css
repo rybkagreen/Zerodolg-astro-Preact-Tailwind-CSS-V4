@@ -1,0 +1,83 @@
+/* Button Component Styles - CSS Module
+ * Isolated styles for button components with various variants
+ */
+
+.button {
+  /* Base button styles */
+  @apply relative inline-flex items-center justify-center gap-2;
+  @apply rounded-lg font-semibold;
+  @apply transition-all duration-300 ease-out;
+  @apply focus:outline-none focus:ring-4;
+  @apply overflow-hidden;
+}
+
+.primary {
+  /* Primary button */
+  @apply px-6 py-3 text-white;
+  @apply bg-gradient-to-r from-blue-600 to-blue-700;
+  @apply shadow-lg hover:shadow-xl;
+  @apply hover:scale-105 hover:-translate-y-0.5;
+  @apply focus:ring-blue-500/25;
+  @apply active:scale-95;
+}
+
+.secondary {
+  /* Secondary button */
+  @apply px-6 py-3 text-blue-600 bg-blue-50 border border-blue-200;
+  @apply hover:bg-blue-100 hover:border-blue-300;
+  @apply hover:scale-105 hover:-translate-y-0.5;
+  @apply focus:ring-blue-500/25;
+  @apply active:scale-95;
+}
+
+.ghost {
+  /* Ghost button */
+  @apply px-6 py-3 text-gray-700 bg-transparent border border-gray-300;
+  @apply hover:bg-gray-50 hover:border-gray-400;
+  @apply hover:scale-105;
+  @apply focus:ring-gray-500/25;
+}
+
+.small {
+  /* Small button size */
+  @apply px-3 py-2 text-sm;
+}
+
+.large {
+  /* Large button size */
+  @apply px-8 py-4 text-lg;
+}
+
+.loading {
+  /* Loading state */
+  @apply opacity-70 cursor-not-allowed;
+  pointer-events: none;
+}
+
+.disabled {
+  /* Disabled state */
+  @apply opacity-50 cursor-not-allowed;
+  pointer-events: none;
+}
+
+/* Loading animation */
+.loading::after {
+  content: '';
+  @apply absolute top-1/2 left-1/2 w-4 h-4;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+/* Active button styles */
+.button:active:not(.disabled):not(.loading) {
+  @apply scale-95;
+}
+
+/* Focus styles */
+.button:focus-visible {
+  @apply outline-2 outline-offset-2;
+  outline-color: theme('colors.blue.500');
+}

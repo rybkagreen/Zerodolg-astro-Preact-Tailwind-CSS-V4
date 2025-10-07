@@ -1,0 +1,118 @@
+/* Card Component Styles - CSS Module
+ * Isolated styles for card components with various variants
+ */
+
+.card {
+  /* Base card styles */
+  @apply relative bg-white rounded-xl border border-gray-200;
+  @apply transition-all duration-300 ease-out;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+}
+
+.enhanced {
+  /* Enhanced card with shadows and hover effects */
+  @apply hover:border-gray-300 hover:-translate-y-1;
+}
+
+.enhanced:hover {
+  box-shadow:
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.enhanced::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-1;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.enhanced:hover::before {
+  transform: scaleX(1);
+}
+
+.enhanced::after {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+  @apply opacity-0 -translate-x-full;
+  transition: all 0.6s ease-out;
+}
+
+.enhanced:hover::after {
+  @apply opacity-100 translate-x-full;
+}
+
+.glass {
+  /* Glass effect card */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  @apply rounded-xl;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.interactive {
+  /* Interactive card with more pronounced hover effects */
+  @apply hover:border-gray-300 hover:-translate-y-2 cursor-pointer;
+  transition: all 0.3s ease;
+}
+
+.interactive:hover {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+/* Feature card specific styles */
+.featureCard {
+  @apply p-6;
+}
+
+.featureCard .featureIcon {
+  @apply w-12 h-12 rounded-lg bg-blue-50 text-blue-500 mb-4;
+  @apply flex items-center justify-center text-2xl;
+  @apply transition-all duration-300 ease-out;
+}
+
+.featureCard:hover .featureIcon {
+  @apply bg-blue-500 text-white scale-110 rotate-12;
+}
+
+.featureCard .featureTitle {
+  @apply text-lg font-semibold text-gray-900 mb-2;
+  transition: color 0.3s ease-out;
+}
+
+.featureCard:hover .featureTitle {
+  @apply text-blue-600;
+}
+
+.featureCard .featureDescription {
+  @apply text-gray-600 leading-relaxed;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .card {
+    @apply bg-neutral-800 border-neutral-700;
+  }
+
+  .enhanced {
+    @apply hover:border-neutral-600;
+  }
+
+  .featureTitle {
+    @apply text-neutral-100;
+  }
+
+  .featureDescription {
+    @apply text-neutral-400;
+  }
+}

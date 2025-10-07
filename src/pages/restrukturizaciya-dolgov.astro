@@ -13,7 +13,7 @@ import OnlineSticker from '@shared/ui/OnlineSticker.astro';
 import BitrixCallback from '@shared/ui/BitrixCallback.astro';
 import SpecialOffers from '@shared/ui/SpecialOffers.astro';
 import ClientInteractions from '../islands/utils/client-interactions.tsx';
-import ScrollAnimations from '../islands/utils/scroll-animations.tsx';
+
 import _HeroForm from '../components/forms/HeroForm.astro';
 import BaseForm from '../components/forms/BaseForm.astro';
 import { SITE_CONSTANTS, getPromoInfo } from '../shared/config/constants';
@@ -1182,9 +1182,6 @@ const restructuringData = {
 
   <!-- Special Offers Components -->
   <SpecialOffers />
-
-  <!-- Scroll Animations Handler -->
-  <ScrollAnimations client:idle once={true} offset={100} duration={800} />
 
   <!-- Client Interactions Handler -->
   <ClientInteractions client:idle />

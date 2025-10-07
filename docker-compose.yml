@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   # SSR Server (Node.js)
   zerodolg-ssr-server:

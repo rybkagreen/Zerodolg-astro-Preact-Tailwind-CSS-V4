@@ -28,6 +28,7 @@ Core Knowledge Areas:
 
 - Astro framework (v5.13.5) with Preact for interactive components
 - TypeScript (v5.9.2) for type safety
+- Tailwind CSS (v3.4+) with custom configuration
 - ITCSS CSS architecture with BEM methodology
 - Islands architecture and progressive enhancement principles
 - Mobile-first responsive design

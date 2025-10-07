@@ -1,0 +1,105 @@
+/**
+ * Section Badges Fix
+ * Ensures proper badge positioning and spacing
+ */
+
+/* Ensure section headers have proper spacing from top */
+section header {
+  position: relative;
+  z-index: 10;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Badge positioning fix for animated sections */
+section header {
+  /* Ensure badges don't get cut off or overlap */
+  min-height: 60px;
+  padding-top: 0.5rem;
+}
+
+/* Badge elements - ensure they're above backgrounds */
+.inline-flex.items-center.gap-2.rounded-full {
+  position: relative;
+  z-index: 20;
+  /* Ensure proper rendering */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Add slight margin-top to prevent sticking */
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+/* Section spacing fix - ensure proper gaps between sections */
+section + section {
+  margin-top: 0;
+}
+
+/* Fix for badge overlap with previous section content */
+section {
+  position: relative;
+  /* Create stacking context */
+  isolation: isolate;
+}
+
+/* Ensure section content doesn't bleed into next section */
+section::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Mobile-specific fixes */
+@media screen and (max-width: 768px) {
+  section header {
+    padding-top: 1rem;
+    min-height: 50px;
+  }
+
+  .inline-flex.items-center.gap-2.rounded-full {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Specific fix for text-center headers with badges */
+header.text-center {
+  /* Ensure centered headers have consistent spacing */
+  padding-top: 0;
+  padding-bottom: 1rem;
+}
+
+/* Fix for badges in headers with mb-* classes */
+header.mb-16,
+header.mb-20,
+header.mb-24 {
+  /* Headers already have margin-bottom, ensure badge spacing is correct */
+  position: relative;
+}
+
+header.mb-16 .inline-flex.rounded-full,
+header.mb-20 .inline-flex.rounded-full,
+header.mb-24 .inline-flex.rounded-full {
+  /* Badges should have consistent bottom margin */
+  margin-bottom: 2rem;
+}
+
+/* Z-index layering for sections */
+section {
+  /* Each section creates its own stacking context */
+  z-index: 1;
+}
+
+section header {
+  /* Header is above section background */
+  z-index: 10;
+}
+
+section header .inline-flex.rounded-full {
+  /* Badge is above header */
+  z-index: 20;
+}
