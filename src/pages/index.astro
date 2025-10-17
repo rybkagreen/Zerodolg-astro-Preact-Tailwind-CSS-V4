@@ -78,6 +78,9 @@ const { title, description, keywords, canonical } = SEO_CONFIG.home;
   <OrganizationSchema services='both' pageType='homepage' slot='head' />
   <Header />
 
+  <!-- Special Offers Banner between Header and Hero -->
+  <SpecialOffers />
+
   <main>
     <!-- Correct order: Hero, Problems, Stats, Calculator, Benefits, Timeline, Reviews, Team, Lead Magnets, FAQ, CTA -->
     <Hero />
@@ -153,9 +156,6 @@ const { title, description, keywords, canonical } = SEO_CONFIG.home;
 
   <!-- Simple Modal Manager for handling all modals -->
   <SimpleModalInit client:idle />
-
-  <!-- Special Offers Components -->
-  <SpecialOffers />
 
   <!-- Client Interactions Handler for buttons, links, and dynamic elements -->
   <ClientInteractions client:idle />

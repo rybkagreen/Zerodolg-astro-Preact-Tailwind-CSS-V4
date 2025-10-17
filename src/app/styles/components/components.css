@@ -388,388 +388,18 @@ section + section {
 }
 
 /* ==========================================================================
-   Special Offers Component (Modern Red Theme)
+   Modern Special Offer Banner (Glassmorphism Design)
+   ========================================================================== */
+
+/* ==========================================================================
+   Professional 2025 Special Offer Banner
+   Профессиональный дизайн для юридических услуг (банкротство)
    ========================================================================== */
 
 .special-offers-container {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  z-index: 9997;
-  width: 320px;
-}
-
-.special-offer-banner {
-  position: fixed;
-  bottom: 80px;
-  right: -350px;
-  width: 320px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow:
-    0 8px 32px rgba(187, 28, 28, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 4px 6px rgba(187, 28, 28, 0.05);
-  overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  transform: translateX(0);
-  opacity: 0;
+  /* Container позволяет баннеру самостоятельно управлять своим позиционированием */
+  position: relative;
   pointer-events: none;
-  /* Neumorphic inner shadow effect */
-  background: linear-gradient(135deg, rgba(254, 242, 242, 0.7) 0%, rgba(254, 202, 202, 0.7) 100%);
-}
-
-.special-offer-banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 16px;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.special-offer-banner.visible {
-  right: 20px;
-  opacity: 1;
-  pointer-events: auto;
-  transform: scale(1);
-}
-
-.special-offer-banner.slide-out {
-  right: -350px;
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.95);
-}
-
-.offer-container {
-  padding: 20px;
-  position: relative;
-  background: linear-gradient(135deg, rgba(255, 245, 245, 0.8) 0%, rgba(254, 226, 226, 0.8) 100%);
-  border-radius: 14px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.offer-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 16px;
-  color: #b91c1c;
-  z-index: 2;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 2px 4px rgba(187, 28, 28, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.offer-close:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: scale(1.1) rotate(90deg);
-  box-shadow:
-    0 4px 8px rgba(187, 28, 28, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.offer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.offer-header-row {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: center;
-}
-
-.offer-badge-compact {
-  display: inline-block;
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(187, 28, 28, 0.15) 100%);
-  color: #b91c1c;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0 auto 4px;
-  border: 1px solid rgba(220, 38, 38, 0.2);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(4px);
-}
-
-.offer-title-compact {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: #b91c1c;
-  line-height: 1.4;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-  letter-spacing: -0.2px;
-}
-
-.offer-price-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding: 8px 0;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
-  border: 1px solid rgba(220, 38, 38, 0.15);
-  backdrop-filter: blur(6px);
-}
-
-.old-price-compact {
-  font-size: 0.75rem;
-  color: #9ca3af;
-  text-decoration: line-through;
-  position: relative;
-}
-
-.old-price-compact::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #ef4444, transparent);
-  transform: translateY(-50%);
-}
-
-.price-arrow {
-  font-weight: 800;
-  color: #dc2626;
-  font-size: 1rem;
-  background: linear-gradient(45deg, #dc2626, #b91c1c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding: 0 4px;
-}
-
-.new-price-compact {
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: #b91c1c;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-  position: relative;
-  padding: 0 4px;
-}
-
-.discount-compact {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(187, 28, 28, 0.2) 100%);
-  border: 1px solid rgba(220, 38, 38, 0.3);
-  color: #b91c1c;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(4px);
-}
-
-.countdown-compact {
-  text-align: center;
-  padding: 8px 0;
-}
-
-.countdown-timer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.countdown-label {
-  font-size: 0.75rem;
-  color: #b91c1c;
-  font-weight: 600;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-}
-
-.countdown-blocks {
-  display: flex;
-  gap: 8px;
-}
-
-.countdown-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 245, 245, 0.7) 100%);
-  border: 1px solid rgba(220, 38, 38, 0.2);
-  border-radius: 12px;
-  padding: 6px 8px;
-  min-width: 40px;
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.8),
-    0 1px 2px rgba(187, 28, 28, 0.1);
-  transition: all 0.2s ease;
-}
-
-.countdown-block:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.9),
-    0 4px 8px rgba(187, 28, 28, 0.15);
-  border-color: rgba(220, 38, 38, 0.3);
-}
-
-.countdown-number {
-  font-weight: 800;
-  font-size: 1rem;
-  color: #b91c1c;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
-}
-
-.countdown-unit {
-  font-size: 0.6rem;
-  color: #dc2626;
-  text-transform: uppercase;
-  margin-top: 2px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
-}
-
-.cta-button-compact {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.95) 0%, rgba(187, 28, 28, 0.95) 100%);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 4px 6px rgba(220, 38, 38, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-  letter-spacing: -0.2px;
-}
-
-.cta-button-compact::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s;
-}
-
-.cta-button-compact:hover::before {
-  left: 100%;
-}
-
-.cta-button-compact:hover {
-  background: linear-gradient(135deg, rgba(187, 28, 28, 0.95) 0%, rgba(153, 27, 27, 0.95) 100%);
-  transform: translateY(-2px);
-  box-shadow:
-    0 8px 16px rgba(220, 38, 38, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.cta-button-compact:active {
-  transform: translateY(0);
-  box-shadow:
-    0 2px 4px rgba(220, 38, 38, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-@media (max-width: 768px) {
-  .special-offers-container {
-    bottom: 100px;
-    right: 16px;
-    width: calc(100% - 32px);
-  }
-
-  .special-offer-banner {
-    width: calc(100% - 32px);
-    left: 16px;
-    right: auto;
-  }
-
-  .special-offer-banner.visible {
-    right: auto;
-    left: 16px;
-  }
-
-  .special-offer-banner.slide-out {
-    right: auto;
-    left: -100%;
-  }
-
-  .offer-container {
-    padding: 16px;
-  }
-
-  .offer-title-compact {
-    font-size: 0.9rem;
-  }
-
-  .new-price-compact {
-    font-size: 1.1rem;
-  }
-
-  .countdown-block {
-    min-width: 36px;
-    padding: 4px 6px;
-  }
-
-  .countdown-number {
-    font-size: 0.9rem;
-  }
-
-  .cta-button-compact {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-  }
 }
 
 /* Secondary Button */
@@ -994,5 +624,1043 @@ section + section {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Professional 2025 Special Offer Banner - про-версия
+   Профессиональный дизайн для юридических услуг (банкротство)
+   ========================================================================== */
+
+/* Базовый контейнер баннера */
+.special-offer-banner.pro2025 {
+  position: fixed;
+  bottom: 80px;
+  right: -420px;
+  width: 380px;
+  max-width: 92vw;
+  z-index: 9999;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  pointer-events: none;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.special-offer-banner.pro2025.visible {
+  right: 20px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.special-offer-banner.pro2025.slide-out {
+  right: -420px;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.92);
+}
+
+/* Основной контейнер - неоморфизм с профессиональным подходом */
+.offer-container.pro2025 {
+  position: relative;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 24px;
+  padding: 26px 22px 24px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  overflow: visible;
+}
+
+/* Профессиональная кнопка закрытия */
+.offer-close.pro2025 {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(100, 116, 139, 0.08);
+}
+
+.offer-close.pro2025:hover {
+  background: #fff;
+  color: #dc2626;
+  transform: scale(1.08) rotate(90deg);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.offer-close.pro2025:active {
+  transform: scale(0.95) rotate(90deg);
+}
+
+/* Профессиональный бейдж */
+.offer-badge.pro2025 {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow:
+    0 6px 20px rgba(220, 38, 38, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  animation: badge-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+.offer-badge.pro2025 .badge-icon {
+  color: #fef3c7;
+}
+
+/* Контент */
+.offer-content.pro2025 {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 6px;
+}
+
+/* Заголовок */
+.offer-header.pro2025 {
+  text-align: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  margin-bottom: 4px;
+}
+
+.offer-title.pro2025 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+}
+
+.offer-subtitle.pro2025 {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Блок преимуществ */
+.offer-benefits.pro2025 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.6), rgba(243, 244, 246, 0.6));
+  border-radius: 12px;
+  border: 1px solid rgba(191, 219, 254, 0.4);
+}
+
+.offer-benefits.pro2025 .benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.offer-benefits.pro2025 .benefit-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+/* Блок цен */
+.offer-price-block.pro2025 {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 16px;
+  padding: 14px;
+  border: 2px solid #f59e0b;
+  box-shadow:
+    0 8px 24px rgba(245, 158, 11, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.offer-price-block.pro2025 .price-comparison {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.offer-price-block.pro2025 .price-old,
+.offer-price-block.pro2025 .price-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.offer-price-block.pro2025 .price-label {
+  font-size: 0.7rem;
+  color: #78350f;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.offer-price-block.pro2025 .price-old .price-value {
+  font-size: 1rem;
+  color: #92400e;
+  text-decoration: line-through;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.offer-price-block.pro2025 .price-new .price-value {
+  font-size: 1.6rem;
+  color: #991b1b;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.offer-price-block.pro2025 .price-arrow-svg {
+  color: #b91c1c;
+}
+
+.savings-badge.pro2025 {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow:
+    0 4px 12px rgba(220, 38, 38, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.savings-badge.pro2025 strong {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* Таймер */
+.countdown-wrapper.pro2025 {
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.countdown-wrapper.pro2025 .countdown-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.countdown-wrapper.pro2025 .countdown-icon {
+  color: #dc2626;
+}
+
+/* CTA Кнопка - профессиональный дизайн */
+.cta-button.pro2025 {
+  position: relative;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 10px 25px rgba(220, 38, 38, 0.35),
+    0 4px 10px rgba(220, 38, 38, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cta-button.pro2025 .cta-text-main {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.cta-button.pro2025 .cta-text-sub {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Shimmer эффект */
+.cta-button.pro2025 .cta-shine {
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-25deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -60%;
+  }
+  20% {
+    left: 120%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+.cta-button.pro2025:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 15px 35px rgba(220, 38, 38, 0.45),
+    0 5px 15px rgba(220, 38, 38, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cta-button.pro2025:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow:
+    0 5px 15px rgba(220, 38, 38, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cta-button.pro2025:focus {
+  outline: 3px solid rgba(220, 38, 38, 0.3);
+  outline-offset: 2px;
+}
+
+/* Footer */
+.offer-footer.pro2025 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: #64748b;
+  padding-top: 8px;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.offer-footer.pro2025 .footer-icon {
+  color: #10b981;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .special-offer-banner.pro2025 {
+    bottom: 20px;
+    right: -100%;
+    width: calc(100% - 32px);
+  }
+
+  .special-offer-banner.pro2025.visible {
+    right: 16px;
+  }
+
+  .special-offer-banner.pro2025.slide-out {
+    right: -100%;
+  }
+
+  .offer-container.pro2025 {
+    padding: 22px 18px 20px;
+    border-radius: 20px;
+  }
+
+  .offer-title.pro2025 {
+    font-size: 1.15rem;
+  }
+
+  .offer-price-block.pro2025 .price-new .price-value {
+    font-size: 1.4rem;
+  }
+
+  .cta-button.pro2025 {
+    padding: 14px 18px;
+  }
+
+  .cta-button.pro2025 .cta-text-main {
+    font-size: 1rem;
+  }
+}
+
+/* Анимация для плавности */
+@media (prefers-reduced-motion: reduce) {
+  .special-offer-banner.pro2025,
+  .cta-button.pro2025,
+  .offer-close.pro2025 {
+    transition: none;
+    animation: none;
+  }
+
+  .cta-button.pro2025 .cta-shine {
+    animation: none;
+  }
+
+  .offer-badge.pro2025 {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Professional 2025 Banner - Компактный профессиональный дизайн
+   ========================================================================== */
+
+/* Базовый баннер */
+.special-offer-banner.pro2025 {
+  position: fixed;
+  bottom: 80px;
+  right: -400px;
+  width: 360px;
+  max-width: 90vw;
+  z-index: 9999;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.special-offer-banner.pro2025.visible {
+  right: 20px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.special-offer-banner.pro2025.slide-out {
+  right: -400px;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Контейнер */
+.offer-container.pro2025 {
+  position: relative;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 20px;
+  padding: 20px 18px;
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+/* Кнопка закрытия */
+.offer-close.pro2025 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(100, 116, 139, 0.1);
+}
+
+.offer-close.pro2025:hover {
+  background: #fff;
+  color: #dc2626;
+  transform: scale(1.1) rotate(90deg);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* Бейдж */
+.offer-badge.pro2025 {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  padding: 5px 14px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.offer-badge.pro2025 .badge-icon {
+  width: 10px;
+  height: 10px;
+  color: #fef3c7;
+}
+
+/* Контент */
+.offer-content.pro2025 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+/* Заголовок */
+.offer-header.pro2025 {
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.offer-title.pro2025 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+  margin: 0 0 4px 0;
+}
+
+.offer-subtitle.pro2025 {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Преимущества */
+.offer-benefits.pro2025 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  background: rgba(239, 246, 255, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(191, 219, 254, 0.3);
+}
+
+.offer-benefits.pro2025 .benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.offer-benefits.pro2025 .benefit-icon {
+  flex-shrink: 0;
+  color: #10b981;
+}
+
+/* Блок цен */
+.offer-price-block.pro2025 {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #fbbf24;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+}
+
+.offer-price-block.pro2025 .price-comparison {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.offer-price-block.pro2025 .price-old,
+.offer-price-block.pro2025 .price-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.offer-price-block.pro2025 .price-label {
+  font-size: 0.65rem;
+  color: #78350f;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.offer-price-block.pro2025 .price-old .price-value {
+  font-size: 0.95rem;
+  color: #92400e;
+  text-decoration: line-through;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.offer-price-block.pro2025 .price-new .price-value {
+  font-size: 1.4rem;
+  color: #991b1b;
+  font-weight: 800;
+}
+
+.offer-price-block.pro2025 .price-arrow-svg {
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
+.savings-badge.pro2025 {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.25);
+}
+
+.savings-badge.pro2025 strong {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* Таймер */
+.countdown-wrapper.pro2025 {
+  background: rgba(248, 250, 252, 0.7);
+  border-radius: 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(203, 213, 225, 0.4);
+}
+
+.countdown-wrapper.pro2025 .countdown-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+  font-size: 0.7rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.countdown-wrapper.pro2025 .countdown-icon {
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
+/* CTA Кнопка */
+.cta-button.pro2025 {
+  position: relative;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 8px 20px rgba(220, 38, 38, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cta-button.pro2025 .cta-text-main {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.cta-button.pro2025 .cta-text-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cta-button.pro2025 .cta-shine {
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-25deg);
+  animation: shine-anim 3s infinite;
+}
+
+@keyframes shine-anim {
+  0% {
+    left: -60%;
+  }
+  20% {
+    left: 120%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+.cta-button.pro2025:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 12px 30px rgba(220, 38, 38, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cta-button.pro2025:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Footer */
+.offer-footer.pro2025 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  color: #64748b;
+  padding-top: 6px;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.offer-footer.pro2025 .footer-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+  .special-offer-banner.pro2025 {
+    bottom: 20px;
+    right: -100%;
+    width: calc(100% - 32px);
+  }
+
+  .special-offer-banner.pro2025.visible {
+    right: 16px;
+  }
+
+  .offer-container.pro2025 {
+    padding: 18px 16px;
+  }
+
+  .offer-title.pro2025 {
+    font-size: 1rem;
+  }
+
+  .offer-price-block.pro2025 .price-new .price-value {
+    font-size: 1.3rem;
+  }
+
+  .cta-button.pro2025 {
+    padding: 12px 16px;
+  }
+}
+
+/* ==========================================================================
+   Countdown Timer Styles для pro2025
+   ========================================================================== */
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.countdown-blocks {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.countdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 10px;
+  padding: 8px 10px;
+  min-width: 48px;
+  box-shadow:
+    0 2px 8px rgba(220, 38, 38, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+}
+
+.countdown-block:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 12px rgba(220, 38, 38, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.countdown-number {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #dc2626;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.countdown-unit {
+  font-size: 0.65rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: lowercase;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+.countdown-expired {
+  color: #dc2626;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px;
+}
+
+/* ==========================================================================
+   Glassmorphism Update для .pro2025 баннера
+   Адаптивность для светлого и темного фона
+   ========================================================================== */
+
+/* Обновленный контейнер с glassmorphism */
+.offer-container.pro2025 {
+  position: relative;
+  /* Glassmorphism фон */
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 20px 18px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* Дополнительный слой для лучшей читаемости */
+  isolation: isolate;
+}
+
+/* Псевдо-элемент для дополнительного эффекта глубины */
+.offer-container.pro2025::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* Улучшенная читаемость текста на glassmorphism фоне */
+.offer-title.pro2025 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  margin: 0 0 4px 0;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(255, 255, 255, 0.4);
+  letter-spacing: -0.01em;
+}
+
+.offer-subtitle.pro2025 {
+  font-size: 0.8rem;
+  color: #475569;
+  margin: 0;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Улучшенный блок цен с контрастом */
+.offer-price-block.pro2025 {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.95));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  box-shadow:
+    0 4px 12px rgba(251, 191, 36, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.offer-price-block.pro2025 .price-label {
+  font-size: 0.65rem;
+  color: #78350f;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.offer-price-block.pro2025 .price-old .price-value {
+  font-size: 0.95rem;
+  color: #92400e;
+  text-decoration: line-through;
+  font-weight: 600;
+  opacity: 0.8;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.offer-price-block.pro2025 .price-new .price-value {
+  font-size: 1.4rem;
+  color: #991b1b;
+  font-weight: 800;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(255, 255, 255, 0.3);
+  letter-spacing: -0.02em;
+}
+
+/* Улучшенный countdown wrapper с glassmorphism */
+.countdown-wrapper.pro2025 {
+  background: rgba(248, 250, 252, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(203, 213, 225, 0.5);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.countdown-wrapper.pro2025 .countdown-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+  font-size: 0.7rem;
+  color: #334155;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Улучшенная CTA кнопка с контрастом */
+.cta-button.pro2025 {
+  position: relative;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 8px 20px rgba(220, 38, 38, 0.35),
+    0 2px 8px rgba(220, 38, 38, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cta-button.pro2025 .cta-text-main {
+  font-size: 1rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button.pro2025 .cta-text-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer с улучшенной читаемостью */
+.offer-footer.pro2025 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  color: #475569;
+  padding-top: 6px;
+  border-top: 1px solid rgba(226, 232, 240, 0.6);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Адаптация для темного фона (если сайт имеет темные секции) */
+@media (prefers-color-scheme: dark) {
+  .offer-container.pro2025 {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .countdown-wrapper.pro2025 {
+    background: rgba(248, 250, 252, 0.9);
   }
 }

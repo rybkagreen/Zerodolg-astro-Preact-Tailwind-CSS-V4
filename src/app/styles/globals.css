@@ -9,6 +9,7 @@
 /* Import all other styles */
 @import './critical.css';
 @import './components/components.css';
+@import './components/special-offers-embedded.css';
 @import './modules/button.module.css';
 @import './modules/card.module.css';
 @import './animations/backgrounds.css';

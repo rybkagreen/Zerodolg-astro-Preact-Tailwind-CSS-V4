@@ -9,7 +9,7 @@ module.exports = {
     './public/**/*.html',
   ],
 
-  darkMode: 'class', // Modern class-based dark mode
+  darkMode: 'media', // Media query-based dark mode for prefers-color-scheme support
 
   theme: {
     // Complete theme system with design tokens
@@ -283,6 +283,7 @@ module.exports = {
 
       // Extended screens
       screens: {
+        xs: '480px', // Extra small devices (mobile)
         '3xl': '1920px',
         '4xl': '2560px',
       },
