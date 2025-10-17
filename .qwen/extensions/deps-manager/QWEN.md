@@ -15,7 +15,8 @@
 - TypeScript 5.9.3
 - Tailwind CSS 3.4.17 для стилизации
 - CSS с пользовательскими свойствами
-- @modelcontextprotocol/sdk 1.19.1 и astro-mcp 0.4.2 для Model Context Protocol
+- `@modelcontextprotocol/sdk` 1.19.1 и astro-mcp 0.4.2 для Model Context
+  Protocol
 - zod 4.1.11 для валидации схем
 
 ## Окружение разработки
@@ -173,6 +174,6 @@ zerodolg-astro/
 - Управление зависимостями через npm
 - Проверка устаревших зависимостей
 - Обновление зависимостей с учетом совместимости
-- Поддержка экспериментальной версии Tailwind CSS v4 через @tailwindcss/postcss
+- Поддержка Tailwind CSS v3 с кастомной цветовой палитрой на основе OKLCH
 - Интеграция с Bitrix24 через API
 - Использование Model Context Protocol (MCP) через astro-mcp

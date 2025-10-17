@@ -15,7 +15,8 @@
 - TypeScript 5.9.3
 - Tailwind CSS 3.4.17 для стилизации
 - CSS с пользовательскими свойствами
-- @modelcontextprotocol/sdk 1.19.1 и astro-mcp 0.4.2 для Model Context Protocol
+- `@modelcontextprotocol/sdk` 1.19.1 и astro-mcp 0.4.2 для Model Context
+  Protocol
 - zod 4.1.11 для валидации схем
 
 ## Окружение разработки
