@@ -1,0 +1,65 @@
+/* Special Offers Banner - Clean styles without glassmorphism */
+
+/* Базовые стили для контейнера баннера */
+#special-offer-banner {
+  position: relative;
+  width: 100%;
+  will-change: max-height, opacity;
+}
+
+/* Glass classes removed - using solid backgrounds instead */
+
+/* Animations for smooth appearance/disappearance */
+@keyframes banner-slide-in {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    max-height: 24rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes banner-slide-out {
+  from {
+    max-height: 24rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Accessibility */
+@media (prefers-contrast: high) {
+  #special-offer-banner {
+    --tw-border-opacity: 1;
+  }
+  
+  #special-offer-banner h2,
+  #special-offer-banner .font-bold {
+    font-weight: 900;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  #special-offer-banner,
+  #special-offer-banner * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Performance optimization */
+#special-offer-banner {
+  contain: layout style paint;
+  content-visibility: auto;
+}
