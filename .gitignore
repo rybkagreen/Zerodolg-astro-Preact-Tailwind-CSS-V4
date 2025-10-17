@@ -27,3 +27,127 @@ docs/*.tmp
 docs/*.temp
 docs/*~
 docs/Thumbs.db
+# Logs
+logs/*.log
+
+# Temporary files
+*.tar.gz
+temp_*
+
+# Backup files
+*.backup
+
+# Environment files
+.env
+
+# SSH keys
+*.key
+
+# Build artifacts
+dist/
+
+# Temporary directories
+tmp/
+
+# Go test binaries
+test_*.go
+
+# Qwen cache
+.qwen/cache/
+
+# MCP logs
+.mcp/logs/
+
+# PM2 logs
+.pm2/
+
+# Node modules
+node_modules/
+
+# Astro build cache
+.cache/
+
+# TypeScript build output
+.out/
+
+# Test output
+coverage/
+
+# IDE files
+.vscode/settings.json
+
+# Local configuration
+settings.json
+
+# Archive files
+*.zip
+*.rar
+
+# Temp directories
+/temp/
+
+
+# Qwen files
+.qwen/agents/
+.qwen/commands/
+.qwen/tools/
+
+# Documentation files
+*.md
+
+# Config files
+*.json
+
+# Shell scripts
+*.sh
+
+# CSS files
+special-offers*.css
+
+# Certificate files
+*.crt
+
+# Model files
+Modelfile*
+
+# Test files
+test_*.py
+
+# Archive files
+*.gz
+
+# Temporary files
+CHANGES_*.txt
+FINAL_*.txt
+*_SUMMARY.txt
+
+# Build files
+optimize_*.sh
+setup_*.sh
+
+# Config files
+qdrant_config.json
+
+# Tools
+tools/tools
+
+
+# Log files
+*.log
+logs/
+
+# Quick start files
+*_QUICK_START.txt
+
+# Temporary files
+.env.example
+
+# Qwen files
+.qwen/
+
+# Style guide
+docs/style-guide.md
+
+# Tools directory
+tools/mcp-puppeteer-server.js
+
