@@ -1,0 +1,11 @@
+12:58:05 [ERROR] TypeError: Cannot read properties of undefined (reading 'render')
+    at file:///app/dist/server/pages/blog/_slug_.astro.mjs:41:34
+    at [slug] (file:///app/dist/server/chunks/astro/server.8P6V5Na_.js:419:12)
+    at callComponentAsTemplateResultOrResponse (file:///app/dist/server/chunks/astro/server.8P6V5Na_.js:1961:31)
+    at renderToAsyncIterable (file:///app/dist/server/chunks/astro/server.8P6V5Na_.js:2003:32)
+    at renderPage (file:///app/dist/server/chunks/astro/server.8P6V5Na_.js:2715:30)
+    at lastNext (file:///app/dist/server/chunks/index.BIWq9TYn.js:1934:31)
+    at async onRequest$1 (file:///app/dist/server/_astro-internal_middleware.mjs:10:20)
+    at async callMiddleware (file:///app/dist/server/chunks/index.BIWq9TYn.js:1342:10)
+    at async RenderContext.render (file:///app/dist/server/chunks/index.BIWq9TYn.js:1968:22)
+    at async NodeApp.render (file:///app/dist/server/chunks/_@astrojs-ssr-adapter.CbH6cPci.js:875:18)

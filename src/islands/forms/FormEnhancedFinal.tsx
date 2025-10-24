@@ -6,6 +6,7 @@ import { useIntersectionObserver } from '../../shared/hooks/useIntersectionObser
 import { usePerformanceMonitor } from '../../shared/hooks/usePerformanceMonitor';
 import { type FormField, type FormConfig } from '../../shared/types/form';
 import { analytics } from '../../shared/lib/analytics-manager';
+import { executeRecaptcha } from '../../shared/lib/recaptcha-client';
 
 // Form validation schemas using Zod
 const createFieldSchema = (field: FormField) => {
@@ -394,11 +395,23 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
       setSubmitStatus('idle');
 
       try {
+        // Execute reCaptcha v3 before submitting
+        let recaptchaToken = '';
+        try {
+          const siteKey = import.meta.env['PUBLIC_RECAPTCHA_SITE_KEY'];
+          if (siteKey) {
+            recaptchaToken = await executeRecaptcha(siteKey, `form_${config.formType}`);
+          }
+        } catch (_recaptchaError) {
+          // Continue submission even if reCaptcha fails (don't block legitimate users)
+        }
+
         // Prepare submission data
         const submissionData = {
           ...formData,
           formType: config.formType,
           formId: config.formId,
+          recaptchaToken, // Add reCaptcha token to submission data
           timestamp: new Date().toISOString(),
           metadata: {
             attempts: submitAttempts.current,
@@ -507,7 +520,13 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
         const errorObj = error instanceof Error ? error : new Error('Unknown error');
 
         setSubmitStatus('error');
-        setSubmitMessage(errorObj.message || 'Произошла ошибка при отправке формы');
+        
+        // Show more descriptive error message for suspected bot activity
+        if (errorObj.message.includes('подозрительная активность') || errorObj.message.includes('suspicious')) {
+          setSubmitMessage('Обнаружена подозрительная активность. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.');
+        } else {
+          setSubmitMessage(errorObj.message || 'Произошла ошибка при отправке формы');
+        }
 
         // Track error
         if (enableAnalytics) {

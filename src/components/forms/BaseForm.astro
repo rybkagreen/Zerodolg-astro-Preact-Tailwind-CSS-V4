@@ -1,5 +1,5 @@
 ---
-import Form from '../../islands/forms/FormEnhancedFinal.tsx';
+import Form from '../../islands/forms/FormEnhancedFinal.optimized.tsx';
 import type { FormConfig, FormField } from '../../shared/types/form';
 
 export interface Props {
@@ -21,7 +21,7 @@ export interface Props {
 const {
   formId,
   formType,
-  submitText = 'Получить консультацию',
+  submitText = 'Готов к консультации? Нажми здесь!',
   showDebtField = false,
   showNameField = true,
   showPhoneField = true,
@@ -103,7 +103,7 @@ const baseClasses = `max-w-md mx-auto ${className}`;
 
   <Form
     config={config}
-    client:load
+    client:idle
     transition:persist
     enableAnalytics={true}
     enableAutoSave={false}

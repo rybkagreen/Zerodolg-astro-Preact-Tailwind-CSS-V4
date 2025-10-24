@@ -138,7 +138,7 @@ export default function LeadMagnets({}: { data?: Record<string, unknown> }): VNo
                   <textarea id="lead-consultation-situation" name="situation" class="form-textarea" rows="3" placeholder="Опишите вашу ситуацию..." autocomplete="off"></textarea>
                 </div>
                 <button type="submit" class="btn btn--primary btn--block">
-                  Получить консультацию
+                  Готов к консультации? Нажми здесь!
                 </button>
               </form>
             </div>

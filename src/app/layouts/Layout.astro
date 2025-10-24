@@ -99,7 +99,7 @@ const {
 
     <!-- Preload critical resources -->
     {preloadAuthorImage && <link rel='preload' href='/images/team/mashulia.webp' as='image' />}
-    <link rel='preload' href='/images/logo.png' as='image' />
+    <link rel='preload' href='/images/logo.svg' as='image' />
     <link rel='preload' href='/images/og-image.jpg' as='image' />
 
     <!-- Prefetch likely next pages -->
@@ -235,7 +235,7 @@ const {
     <slot />
 
     <!-- Cookie Consent Banner -->
-    <CookieBanner client:load />
+    <CookieBanner client:idle />
 
     <!-- Service Worker Removal Script - temporary -->
     <script is:inline defer src='/js/service-worker-register.js'></script>

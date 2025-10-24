@@ -79,6 +79,8 @@ const requiredEnvVars = [
   'PUBLIC_SITE_URL',
   'PUBLIC_SITE_PHONE',
   'PUBLIC_SITE_EMAIL',
+  'RECAPTCHA_SECRET',
+  'PUBLIC_RECAPTCHA_SITE_KEY',  // Используем правильное имя переменной
 ];
 
 // Optional environment variables with validation
@@ -93,6 +95,7 @@ const optionalEnvVars = {
     validator: (val) => val === 'production' || val === 'development',
     description: 'Node environment',
   },
+  // reCaptcha variables are now required, but we'll add any additional validation here if needed
 };
 
 console.log('🚀 Starting production environment validation...\n');
@@ -125,6 +128,18 @@ requiredEnvVars.forEach((envVar) => {
       case 'PUBLIC_SITE_EMAIL':
         if (!validateEmail(process.env[envVar])) {
           validationErrors.push(`Invalid email format: ${process.env[envVar]}`);
+        }
+        break;
+      case 'RECAPTCHA_SECRET':
+        // Check that the secret key is not obviously invalid
+        if (process.env[envVar].length < 10) {
+          validationErrors.push(`RECAPTCHA_SECRET appears to be invalid: ${process.env[envVar]}`);
+        }
+        break;
+      case 'PUBLIC_RECAPTCHA_SITE_KEY':
+        // Check that the site key is not obviously invalid
+        if (process.env[envVar].length < 10) {
+          validationErrors.push(`PUBLIC_RECAPTCHA_SITE_KEY appears to be invalid: ${process.env[envVar]}`);
         }
         break;
     }

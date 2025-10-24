@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
     "clean": "npx rimraf dist .astro",
-    "prepare": "husky",
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production' && process.env.CI !== 'true') { try { require('child_process').execSync('husky', { stdio: 'inherit' }); } catch (e) { console.log('husky not available in this environment, skipping...'); } }\"",
     "env:validate": "node scripts/dev/validate-env.js",
     "env:setup": "node scripts/dev/setup-env.js",
     "deploy:checklist": "node scripts/deploy/deployment-checklist-complete.js",

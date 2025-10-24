@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'zerodolg-backend',
-      script: './dist/server/entry.mjs',
+      script: './server/entry.mjs',
       cwd: '/var/www/zerodolg.ru',
       instances: 1, // Start with 1 instance, can scale later
       exec_mode: 'fork', // Using fork mode for better stability

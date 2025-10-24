@@ -146,7 +146,8 @@ export const SITE_CONSTANTS = {
     law: {
       number: '№127-ФЗ',
       name: 'О несостоятельности (банкротстве)',
-      fullName: 'Федеральный закон №127-ФЗ «О несостоятельности»',
+      fullName:
+        'Работаем по ФЗ-№127 "О нестостоятельности"',
     },
     fedresurs: {
       url: 'https://old.bankrot.fedresurs.ru/ArbitrManagerCard.aspx?ID=0fe01101-9000-45a5-9a14-31d86002b6ba',

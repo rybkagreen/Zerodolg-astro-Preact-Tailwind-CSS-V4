@@ -1,0 +1,132 @@
+---
+layout: ../../app/layouts/Layout.astro
+title: Тестирование reCaptcha
+---
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Тестирование reCaptcha v3</h1>
+  
+  <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4">Описание теста</h2>
+    <p class="mb-4">
+      Эта страница используется для тестирования интеграции reCaptcha v3 с формами сайта.
+      После отправки формы будет выполнена проверка reCaptcha, и результат отобразится ниже.
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold mb-4">Тестовая форма обратного звонка</h2>
+      
+      <form id="test-form" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Введите ваше имя"
+          />
+        </div>
+        
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="+7 (___) ___-__-__"
+          />
+        </div>
+        
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Сообщение</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Введите ваше сообщение"
+          ></textarea>
+        </div>
+        
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Отправить тестовую форму
+        </button>
+      </form>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold mb-4">Результаты теста</h2>
+      <div id="test-results" class="min-h-[200px]">
+        <p class="text-gray-500">Отправьте форму, чтобы увидеть результаты теста.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('test-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Add form type for our API
+    data.formType = 'test';
+    data.formId = 'recaptcha-test';
+    
+    const resultsDiv = document.getElementById('test-results');
+    resultsDiv.innerHTML = '<p class="text-blue-600">Отправка формы и проверка reCaptcha...</p>';
+    
+    try {
+      const response = await fetch('/api/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        resultsDiv.innerHTML = `
+          <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+            <h3 class="font-semibold text-green-800 mb-2">✅ Тест пройден успешно!</h3>
+            <p class="text-green-700">${result.message}</p>
+            <div class="mt-3 text-sm text-green-600">
+              <p><strong>ID лида:</strong> ${result.leadId}</p>
+              <p><strong>Тип формы:</strong> ${result.analytics?.form_type || 'test'}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        resultsDiv.innerHTML = `
+          <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+            <h3 class="font-semibold text-red-800 mb-2">❌ Тест не пройден</h3>
+            <p class="text-red-700">${result.error}</p>
+            <div class="mt-3 text-sm text-red-600">
+              <p><strong>Статус ответа:</strong> ${response.status}</p>
+            </div>
+          </div>
+        `;
+      }
+    } catch (error) {
+      resultsDiv.innerHTML = `
+        <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+          <h3 class="font-semibold text-red-800 mb-2">❌ Ошибка при отправке формы</h3>
+          <p class="text-red-700">${error.message}</p>
+        </div>
+      `;
+    }
+  });
+</script>

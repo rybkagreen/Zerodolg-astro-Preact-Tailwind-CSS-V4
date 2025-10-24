@@ -107,6 +107,7 @@ class Logger {
     const style = styles[entry.level as keyof typeof styles] || '';
     const levelName = levelNames[entry.level as keyof typeof levelNames] || 'UNKNOWN';
 
+    // eslint-disable-next-line no-console
     console.log(
       `%c[${this.config.appName}] %c${levelName}%c ${entry.message}`,
       'color: #888; font-weight: bold',
@@ -193,24 +194,28 @@ export const logger = new Logger();
 export const devLog = {
   debug: (message: string, ...args: unknown[]) => {
     if (process.env['NODE_ENV'] === 'development') {
+      // eslint-disable-next-line no-console
       console.debug(`🔍 ${message}`, ...args);
     }
   },
 
   info: (message: string, ...args: unknown[]) => {
     if (process.env['NODE_ENV'] === 'development') {
+      // eslint-disable-next-line no-console
       console.info(`ℹ️ ${message}`, ...args);
     }
   },
 
   warn: (message: string, ...args: unknown[]) => {
     if (process.env['NODE_ENV'] === 'development') {
+      // eslint-disable-next-line no-console
       console.warn(`⚠️ ${message}`, ...args);
     }
   },
 
   error: (message: string, ...args: unknown[]) => {
     if (process.env['NODE_ENV'] === 'development') {
+      // eslint-disable-next-line no-console
       console.error(`❌ ${message}`, ...args);
     }
   },

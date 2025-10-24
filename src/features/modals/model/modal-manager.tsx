@@ -305,8 +305,15 @@ class UnifiedModalManager {
       modalElement.setAttribute('aria-hidden', 'true');
       modalElement.style.display = 'none';
 
-      // Set content
-      modalElement.innerHTML = content;
+      // Set content with sanitization to prevent XSS
+      // Using textContent for safety, but if HTML is needed, sanitize it
+      if (content.includes('<')) {
+        // If content contains HTML, we need to sanitize it
+        // For now, escape it to prevent XSS
+        modalElement.textContent = content.replace(/</g, '<').replace(/>/g, '>');
+      } else {
+        modalElement.textContent = content;
+      }
 
       // Add to document
       document.body.appendChild(modalElement);

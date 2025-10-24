@@ -171,7 +171,7 @@ const processData = {
     </header>
 
     <!-- Интерактивный компонент процесса -->
-    <ProcessInteractive client:load processData={processData} />
+    <ProcessInteractive client:visible={{rootMargin: '100px'}} processData={processData} />
   </div>
 </section>
 

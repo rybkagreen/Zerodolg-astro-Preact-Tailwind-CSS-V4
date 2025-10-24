@@ -67,10 +67,9 @@ class FormErrorBoundary extends Component<
   }
 
   override componentDidCatch(error: Error, errorInfo: any) {
-    console.error('Form error:', error, errorInfo);
     // Send error to monitoring service
     if (typeof window !== 'undefined' && (window as any).Sentry) {
-      (window as any).Sentry.captureException(error);
+      (window as any).Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo.componentStack } } });
     }
   }
 
@@ -256,7 +255,7 @@ export default function FormEnhancedFinal({
           const parsed = JSON.parse(savedDraft);
           setFormData(parsed);
         } catch (e) {
-          console.error('Failed to load form draft:', e);
+          // Failed to load form draft
         }
       }
     }
@@ -481,8 +480,6 @@ export default function FormEnhancedFinal({
         if (onError) {
           onError(errorObj);
         }
-
-        console.error('Form submission error:', errorObj);
       } finally {
         setIsSubmitting(false);
       }
@@ -687,8 +684,5 @@ function trackEvent(eventName: string, eventData: Record<string, any>) {
     (window as any).analytics.track(eventName, eventData);
   }
 
-  // Console log for debugging
-  if (typeof process !== 'undefined' && process.env && process.env['NODE_ENV'] === 'development') {
-    console.log('📊 Analytics Event:', eventName, eventData);
-  }
+  // Console log for debugging removed for production
 }

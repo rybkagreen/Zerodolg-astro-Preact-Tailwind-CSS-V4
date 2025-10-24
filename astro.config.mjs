@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 import preact from '@astrojs/preact';
-import mcp from 'astro-mcp';
+// import mcp from 'astro-mcp'; // Temporarily disabled due to JSON parsing error
 import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
@@ -35,7 +35,7 @@ export default defineConfig({
       // Включаем React DevTools для разработки
       devtools: process.env.NODE_ENV === 'development',
     }),
-    mcp(),
+    // mcp(), // Temporarily disabled
     // Используем динамический sitemap.xml.ts вместо интеграции для SSR режима
     robotsTxt({
       policy: [

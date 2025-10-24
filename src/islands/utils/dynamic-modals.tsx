@@ -66,7 +66,7 @@ export default function DynamicModals(): VNode {
             ></textarea>
           </div>
           <button type='submit' class='btn btn--primary btn--block'>
-            Получить консультацию
+            Нажми для получения консультации
           </button>
         </form>
       ),

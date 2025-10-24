@@ -34,7 +34,7 @@ export const organizationSchema: OrganizationSchema = {
   '@type': 'Organization',
   name: 'ZeroDolg',
   url: 'https://zerodolg.ru',
-  logo: 'https://zerodolg.ru/images/logo.png',
+  logo: 'https://zerodolg.ru/images/logo.svg',
   sameAs: ['https://t.me/zerodolg', 'https://vk.com/zerodolg', 'https://youtube.com/zerodolg'],
   contactPoint: {
     '@type': 'ContactPoint',

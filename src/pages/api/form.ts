@@ -1,15 +1,70 @@
 import type { APIRoute } from 'astro';
 import { SERVICE_VALUES } from '@shared/lib/analytics-manager';
+import { logger } from '@shared/lib/logger';
 
-// Конфигурация Bitrix24 из переменных окружения
-const BITRIX24_WEBHOOK_URL = import.meta.env['BITRIX24_WEBHOOK_URL'];
+// Конфигурация Bitrix24 и reCaptcha из переменных окружения
+const { 
+  BITRIX24_WEBHOOK_URL, 
+  NODE_ENV, 
+  TESTING, 
+  STAGING,
+  RECAPTCHA_SECRET,
+  PUBLIC_RECAPTCHA_SITE_KEY
+} = import.meta.env;
+
 const IS_TESTING_ENV =
-  import.meta.env['NODE_ENV'] === 'test' ||
-  import.meta.env['TESTING'] === 'true' ||
-  import.meta.env['STAGING'] === 'true';
+  NODE_ENV === 'test' ||
+  TESTING === 'true' ||
+  STAGING === 'true';
 
 if (!BITRIX24_WEBHOOK_URL && !IS_TESTING_ENV) {
-  console.error('BITRIX24_WEBHOOK_URL is not configured!');
+  logger.error('BITRIX24_WEBHOOK_URL is not configured!');
+}
+
+// Verify reCaptcha token
+async function verifyRecaptcha(token: string, remoteip?: string): Promise<boolean> {
+  // Skip verification in test environments
+  if (IS_TESTING_ENV || !RECAPTCHA_SECRET || !PUBLIC_RECAPTCHA_SITE_KEY) {
+    return true;
+  }
+
+  // Skip if no token provided
+  if (!token) {
+    logger.warn('reCaptcha verification skipped: no token provided');
+    return false;
+  }
+
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        secret: RECAPTCHA_SECRET,
+        response: token,
+        remoteip: remoteip || '',
+      }),
+    });
+
+    const data = await response.json();
+    
+    // Log verification result for monitoring
+    logger.info('reCaptcha verification result', {
+      success: data.success,
+      score: data.score,
+      action: data.action,
+      challenge_ts: data.challenge_ts,
+      hostname: data.hostname,
+    });
+
+    // Return true if verification successful and score is acceptable
+    // Score range is 0.0 to 1.0, where 1.0 is very likely human
+    return data.success && (data.score === undefined || data.score >= 0.5);
+  } catch (error) {
+    logger.error('reCaptcha verification failed', { error });
+    return false;
+  }
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -47,6 +102,8 @@ export const POST: APIRoute = async ({ request }) => {
     const email = (data['email'] as string) || '';
     const message = (data['message'] as string) || '';
     const formType = (data['formType'] as string) || 'callback';
+    const recaptchaToken = (data['recaptchaToken'] as string) || '';
+    const remoteip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '';
 
     // Проверка на тестовый запрос (для целей проверки доступности API)
     const isTestRequest = !name && !phone && !email && !message;
@@ -79,6 +136,30 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // Verify reCaptcha token (except in test environments)
+    if (!IS_TESTING_ENV && PUBLIC_RECAPTCHA_SITE_KEY && RECAPTCHA_SECRET) {
+      const isHuman = await verifyRecaptcha(recaptchaToken, remoteip);
+      if (!isHuman) {
+        logger.warn('reCaptcha verification failed', { 
+          formType, 
+          name, 
+          phone, 
+          ip: remoteip 
+        });
+        
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: 'Обнаружена подозрительная активность. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.',
+          }),
+          {
+            status: 422, // Unprocessable Entity
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
+    }
+
     // Определяем заголовок в зависимости от типа формы
     const titles: Record<string, string> = {
       callback: 'Заявка на обратный звонок',
@@ -109,10 +190,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (IS_TESTING_ENV) {
       // В тестовом режиме просто возвращаем успешный ответ без вызова Bitrix24
-      console.log('TESTING MODE: Skipping Bitrix24 webhook call, returning mock success response');
+      logger.info('TESTING MODE: Skipping Bitrix24 webhook call, returning mock success response');
       // В тестовом режиме создаем mock-ответ
       bitrixResult = { result: `mock_lead_${Date.now()}` };
-      console.log('TESTING MODE: Generated mock lead result:', bitrixResult);
+      logger.info('TESTING MODE: Generated mock lead result:', { result: bitrixResult });
     } else {
       // Отправляем в Bitrix24 с таймаутом
       const controller = new AbortController();
@@ -145,8 +226,7 @@ export const POST: APIRoute = async ({ request }) => {
 
       // Логируем для отладки (только в режиме разработки)
       if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.log('Lead created:', bitrixResult);
+        logger.info('Lead created:', { result: bitrixResult });
       }
     }
 
@@ -176,8 +256,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     // Логируем ошибку (только в режиме разработки)
     if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.error('Form submission error:', error);
+      logger.error('Form submission error:', { error: error instanceof Error ? error.message : error });
     }
 
     return new Response(

@@ -18,15 +18,31 @@ interface ImageSchemaOptions {
   };
 }
 
+// Define the structure for ImageObject schema
+interface ImageSchemaObject {
+  '@context': string;
+  '@type': string;
+  name: string;
+  description: string;
+  url: string;
+  contentUrl: string;
+  keywords?: string;
+  about?: {
+    '@type': string;
+    name: string;
+    description: string;
+  };
+}
+
 /**
  * Генерирует Schema.org для изображения
  * @param options Параметры для генерации Image Schema
  * @returns Структурированные данные для изображения
  */
-export function generateImageSchema(options: ImageSchemaOptions) {
+export function generateImageSchema(options: ImageSchemaOptions): ImageSchemaObject {
   const { url, name, description, keywords, about } = options;
 
-  const imageSchema: any = {
+  const imageSchema: ImageSchemaObject = {
     '@context': 'https://schema.org',
     '@type': 'ImageObject',
     name,

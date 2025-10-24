@@ -12,19 +12,21 @@ import ClientInteractions from '../../islands/utils/client-interactions.tsx';
 import { SITE_CONSTANTS } from '../../shared/config/constants';
 import OptimizedImage from '@shared/ui/OptimizedImage';
 
-export const prerender = true;
+export const prerender = false;
 
-export async function getStaticPaths() {
-  const blogPosts = await getCollection('blog');
-  return blogPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+// In SSR mode, we need to fetch the blog post during request time
+const blogPosts = await getCollection('blog');
+const slug = Astro.params.slug;
+const post = blogPosts.find((p) => p.slug === slug);
+
+// Handle the case where the post doesn't exist
+if (!post) {
+  // In Astro, return a Response with 404 status
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found',
+  });
 }
-
-const { post } = Astro.props;
-const { Content } = await post.render();
-const { title, description, pubDate, updatedDate, tags } = post.data;
 
 // Get all blog posts for related articles
 const allPosts = await getCollection('blog');
@@ -35,10 +37,13 @@ const relatedPosts = validPosts
   .filter((p) => {
     if (p.slug === post.slug) return false;
     const postTags = p.data.tags || [];
-    const currentTags = tags || [];
+    const currentTags = post.data.tags || [];
     return postTags.some((tag) => currentTags.includes(tag));
   })
   .slice(0, 3);
+
+const { Content } = await post.render();
+const { title, description, pubDate, updatedDate, tags } = post.data;
 
 // Calculate reading time
 function _calculateReadingTime(content: string): number {
@@ -427,7 +432,7 @@ const canonical = `https://zerodolg.ru/blog/${post.slug}/`;
           name: 'ZeroDolg',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://zerodolg.ru/logo.png',
+            url: 'https://zerodolg.ru/images/logo.svg',
           },
         },
         mainEntityOfPage: {

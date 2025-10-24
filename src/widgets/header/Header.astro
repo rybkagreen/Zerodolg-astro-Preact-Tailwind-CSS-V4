@@ -238,10 +238,10 @@ const mobileMenuItems = [
         <img
           src='/icons/logo.svg'
           alt='ZeroDolg'
-          width='180'
-          height='50'
+          width='280'
+          height='75'
           loading='lazy'
-          class='w-24 sm:w-32 md:w-40 lg:w-44 xl:w-[180px] h-auto'
+          class='w-36 sm:w-44 md:w-52 lg:w-60 xl:w-64 2xl:w-72 h-auto'
         />
       </div>
 
@@ -456,7 +456,14 @@ const mobileMenuItems = [
             title={`${company.name} - Главная`}
             aria-label='Перейти на главную страницу'
           >
-            <img src='/icons/logo.svg' alt={company.name} width='180' height='50' loading='lazy' />
+            <img
+              src='/icons/logo.svg'
+              alt={company.name}
+              width='240'
+              height='65'
+              loading='lazy'
+              class='w-32 h-auto'
+            />
           </a>
           <button
             class='btn-ghost !p-2'
@@ -584,4 +591,4 @@ const mobileMenuItems = [
 </header>
 
 <!-- Header interactivity is handled by Header Preact component -->
-<HeaderComponent client:load />
+<HeaderComponent client:idle />
