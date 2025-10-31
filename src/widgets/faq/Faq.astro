@@ -3,6 +3,7 @@
 import { SITE_CONSTANTS } from '../../shared/config/constants';
 import { getFAQSchemaData } from '../../shared/data/faq-data';
 import { faqSchema } from '../../shared/lib/structured-data';
+import { getSectionSemantics } from '../../shared/lib/section-semantics';
 
 interface FaqQuestion {
   question: string;
@@ -23,15 +24,23 @@ export interface Props {
 // Get FAQ data for structured schema
 const faqSchemaData = getFAQSchemaData();
 
+// Get semantic data for the FAQ section
+const faqSemantics = getSectionSemantics('faq');
+
 // Interactive logic is handled by FaqAccordion component in main layout
 ---
 
 <!-- FAQ Section - Modern Accordion Style -->
-<section class='faq-section section-padding relative overflow-hidden' id='faq' data-section='faq'>
-  <!-- Background with watercolor pattern - fade-out at bottom (ONLY THIS HAS MASK) -->
+<section
+  class='faq-section section-padding relative overflow-hidden pb-32 md:pb-40 lg:pb-48'
+  id='faq'
+  data-section='faq'
+  style='isolation: isolate; z-index: 1; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);'
+>
+  <!-- Background with watercolor pattern - NO GRAY BACKGROUND -->
   <div
     class='absolute inset-0 opacity-15'
-    style='z-index: -11; background-image: url("/patterns/leadmagnets-pattern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);'
+    style='z-index: -11; background-image: url("/patterns/watercolor_learning_materials.png"); background-size: cover; background-position: center; background-repeat: no-repeat; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%);'
   >
   </div>
 
@@ -69,25 +78,29 @@ const faqSchemaData = getFAQSchemaData();
       <div
         class='faq__item group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-md shadow-slate-900/10 mb-4 sm:mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-gray-50 hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300 faq-item-wrapper'
         data-faq-item
+        style='display: block; width: 100%;'
       >
         <button
-          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300 faq-question-button'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-1'
           data-faq-trigger
+          style='display: flex !important; width: 100% !important; justify-content: space-between !important; align-items: center !important; box-sizing: border-box !important; position: relative !important;'
         >
           <span
-            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug faq-question-text'
+            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug'
+            style='flex: 1; text-align: left;'
           >
             Какие долги можно списать через банкротство?
           </span>
           <svg
-            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180 faq-question-icon'
+            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180'
             width='24'
             height='24'
             viewBox='0 0 24 24'
             fill='none'
             aria-hidden='true'
+            style='flex-shrink: 0; margin-left: 12px;'
           >
             <path
               d='M6 9l6 6 6-6'
@@ -147,20 +160,24 @@ const faqSchemaData = getFAQSchemaData();
       <div
         class='faq__item group relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-md shadow-slate-900/10 mb-4 sm:mb-6 transition-all duration-500 ease-out transform hover:scale-[1.02] hover:-translate-y-2 hover:bg-gray-50 hover:shadow-xl hover:shadow-slate-900/15 hover:border-gray-300 faq-item-wrapper'
         data-faq-item
+        style='display: block; width: 100%;'
       >
         <button
-          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300 faq-question-button'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-2'
           data-faq-trigger
+          style='display: flex !important; width: 100% !important; justify-content: space-between !important; align-items: center !important; box-sizing: border-box !important; position: relative !important;'
         >
           <span
-            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug faq-question-text'
+            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug'
+            style='flex: 1; text-align: left;'
           >
             Сколько времени занимает процедура банкротства?
           </span>
           <svg
-            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180 faq-question-icon'
+            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180'
+            style='flex-shrink: 0; margin-left: 12px;'
             width='24'
             height='24'
             viewBox='0 0 24 24'
@@ -215,23 +232,26 @@ const faqSchemaData = getFAQSchemaData();
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300 faq-question-button'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-3'
           data-faq-trigger
+          style='display: flex; width: 100%; justify-content: space-between; align-items: center;'
         >
           <span
-            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug faq-question-text'
+            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug'
+            style='flex: 1; text-align: left;'
           >
             Какое имущество можно сохранить при банкротстве?
           </span>
           <svg
-            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180 faq-question-icon'
+            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180'
             width='24'
             height='24'
             viewBox='0 0 24 24'
             fill='none'
             aria-hidden='true'
+            style='flex-shrink: 0; margin-left: 12px;'
           >
             <path
               d='M6 9l6 6 6-6'
@@ -286,7 +306,7 @@ const faqSchemaData = getFAQSchemaData();
                 class='faq__cta-button px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700'
                 data-modal='consultation'
               >
-                Нажми для получения консультации
+                Получить консультацию
               </button>
             </div>
           </div>
@@ -299,23 +319,26 @@ const faqSchemaData = getFAQSchemaData();
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300 faq-question-button'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-4'
           data-faq-trigger
+          style='display: flex; width: 100%; justify-content: space-between; align-items: center;'
         >
           <span
-            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug faq-question-text'
+            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug'
+            style='flex: 1; text-align: left;'
           >
             Какие последствия банкротства для должника?
           </span>
           <svg
-            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180 faq-question-icon'
+            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180'
             width='24'
             height='24'
             viewBox='0 0 24 24'
             fill='none'
             aria-hidden='true'
+            style='flex-shrink: 0; margin-left: 12px;'
           >
             <path
               d='M6 9l6 6 6-6'
@@ -366,23 +389,26 @@ const faqSchemaData = getFAQSchemaData();
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300 faq-question-button'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-5'
           data-faq-trigger
+          style='display: flex; width: 100%; justify-content: space-between; align-items: center;'
         >
           <span
-            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug faq-question-text'
+            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug'
+            style='flex: 1; text-align: left;'
           >
             Сколько стоит процедура банкротства?
           </span>
           <svg
-            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180 faq-question-icon'
+            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180'
             width='24'
             height='24'
             viewBox='0 0 24 24'
             fill='none'
             aria-hidden='true'
+            style='flex-shrink: 0; margin-left: 12px;'
           >
             <path
               d='M6 9l6 6 6-6'
@@ -465,23 +491,26 @@ const faqSchemaData = getFAQSchemaData();
         data-faq-item
       >
         <button
-          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300 faq-question-button'
+          class='faq__question w-full flex justify-between items-start sm:items-center p-6 md:p-8 text-left bg-transparent hover:bg-gray-50/60 transition-all duration-300'
           aria-expanded='false'
           aria-controls='faq-answer-6'
           data-faq-trigger
+          style='display: flex; width: 100%; justify-content: space-between; align-items: center;'
         >
           <span
-            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug faq-question-text'
+            class='faq__question-text text-base sm:text-lg md:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 leading-snug'
+            style='flex: 1; text-align: left;'
           >
             Можно ли пройти банкротство без юриста?
           </span>
           <svg
-            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180 faq-question-icon'
+            class='faq__icon flex-shrink-0 w-6 h-6 text-blue-600 transition-all duration-300 group-hover:text-blue-700 group-hover:rotate-180'
             width='24'
             height='24'
             viewBox='0 0 24 24'
             fill='none'
             aria-hidden='true'
+            style='flex-shrink: 0; margin-left: 12px;'
           >
             <path
               d='M6 9l6 6 6-6'
@@ -557,7 +586,7 @@ const faqSchemaData = getFAQSchemaData();
               stroke-linecap='round'
               stroke-linejoin='round'></path>
           </svg>
-          <span>+7 (495) 790-60-03</span>
+          <span>+7 (905) 577-33-87</span>
         </a>
       </div>
     </div>
@@ -570,7 +599,7 @@ const faqSchemaData = getFAQSchemaData();
 <!-- FAQ interactivity is handled by FaqAccordion component in main layout -->
 
 <style>
-  /* ПРИНУДИТЕЛЬНАЯ ВЕРТИКАЛЬНАЯ СТРУКТУРА FAQ - КРИТИЧЕСКИ ВАЖНО */
+  /* ПРИНУДИТЕЛЬНАЯ ВЕРТИКАЛЬНАЯ СРУКТУРА FAQ - КРИТИЧЕСКИ ВАЖНО */
 
   /* Заставляем родительский контейнер быть блочным */
   #faq .faq__accordion {
