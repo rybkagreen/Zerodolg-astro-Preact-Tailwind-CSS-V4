@@ -15,7 +15,7 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'ZeroDolg - Банкротство и реструктуризация долгов',
   description:
-    'Профессиональные услуги по банкротству физических лиц и реструктуризации долгов в Москве. 15 лет опыта, 98% успешных дел.',
+    'Профессиональные услуги по банкротству физических лиц и реструктуризации долгов в Москве. 15 лет опыта, 99% успешных дел.',
   url: 'https://zerodolg.ru',
   logo: 'https://zerodolg.ru/icons/logo.svg',
   image: 'https://zerodolg.ru/images/team/mashulia.webp',
@@ -183,8 +183,7 @@ const faqSchema = {
 };
 ---
 
-<!-- Основная схема организации -->
-<!-- eslint-disable-next-line astro/no-set-html-directive -->
+<!-- Основная схема организации --><!-- eslint-disable-next-line astro/no-set-html-directive -->
 <script type='application/ld+json' set:html={JSON.stringify(organizationSchema)} />
 
 <!-- Схема для страницы реструктуризации -->{
@@ -195,68 +194,71 @@ const faqSchema = {
 }
 
 <!-- FAQ схема для релевантных страниц -->
-{pageType === 'homepage' || pageType === 'service' ? (
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify(faqSchema)}
-  />
-) : null}
+{
+  pageType === 'homepage' || pageType === 'service' ? (
+    <script type='application/ld+json' set:html={JSON.stringify(faqSchema)} />
+  ) : null
+}
 
 <!-- WebSite схема для главной страницы -->
-{pageType === 'homepage' ? (
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'ZeroDolg',
-      url: 'https://zerodolg.ru',
-      description: 'Банкротство физических лиц и реструктуризация долгов в Москве',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: 'https://zerodolg.ru/search?q={search_term_string}',
-        'query-input': 'required name=search_term_string',
-      },
-      sameAs: [
-        'https://yandex.ru/profile/7922237253',
-        'https://www.google.com/maps/place/zerodolg',
-      ],
-    })}
-  />
-) : null}
+{
+  pageType === 'homepage' ? (
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'ZeroDolg',
+        url: 'https://zerodolg.ru',
+        description: 'Банкротство физических лиц и реструктуризация долгов в Москве',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://zerodolg.ru/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+        sameAs: [
+          'https://yandex.ru/profile/7922237253',
+          'https://www.google.com/maps/place/zerodolg',
+        ],
+      })}
+    />
+  ) : null
+}
 
 <!-- Article схема для blog-статей -->
-{pageType === 'blog' ? (
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': Astro.url.href,
-      },
-      headline: 'Реструктуризация долгов vs банкротство: что выбрать должнику в 2024 году',
-      description:
-        'Подробное сравнение реструктуризации и банкротства физических лиц. Плюсы и минусы каждой процедуры, критерии выбора, расчеты и примеры.',
-      image: 'https://zerodolg.ru/images/blog/restructuring-vs-bankruptcy.webp',
-      author: {
-        '@type': 'Organization',
-        name: 'ZeroDolg',
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'ZeroDolg',
-        logo: {
-          '@type': 'ImageObject',
-          url: 'https://zerodolg.ru/icons/logo.svg',
+{
+  pageType === 'blog' ? (
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': Astro.url.href,
         },
-      },
-      datePublished: '2024-10-01',
-      dateModified: '2025-10-01',
-    })}
-  />
-) : null}
+        headline: 'Реструктуризация долгов vs банкротство: что выбрать должнику в 2024 году',
+        description:
+          'Подробное сравнение реструктуризации и банкротства физических лиц. Плюсы и минусы каждой процедуры, критерии выбора, расчеты и примеры.',
+        image: 'https://zerodolg.ru/images/blog/restructuring-vs-bankruptcy.webp',
+        author: {
+          '@type': 'Organization',
+          name: 'ZeroDolg',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'ZeroDolg',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://zerodolg.ru/icons/logo.svg',
+          },
+        },
+        datePublished: '2024-10-01',
+        dateModified: '2025-10-01',
+      })}
+    />
+  ) : null
+}
 
 <!-- Local Business схема -->
 <!-- eslint-disable-next-line astro/no-set-html-directive -->

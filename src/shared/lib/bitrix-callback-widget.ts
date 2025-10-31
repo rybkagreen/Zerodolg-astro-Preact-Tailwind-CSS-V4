@@ -28,7 +28,7 @@ export class BitrixCallbackWidget {
 
   constructor(bitrixWebhookUrl: string | undefined, sitePhone: string | undefined) {
     this.webhookUrl = bitrixWebhookUrl;
-    this.sitePhone = sitePhone || '+7 (905) 577-33-87';
+    this.sitePhone = sitePhone || '+7 (495) 790-60-03';
 
     // Initialize after DOM is ready
     this.init();

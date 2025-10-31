@@ -320,12 +320,12 @@ export const calculateTeamStats = (members: TeamMember[]): TeamStats => {
   const avgSuccessRate =
     successRates.length > 0
       ? Math.round(successRates.reduce((sum, rate) => sum + rate, 0) / successRates.length)
-      : 95;
+      : 99;
 
   return {
     totalExperience: totalExperience > 0 ? `${totalExperience}+` : '27+',
     totalCases: totalCases > 0 ? `${totalCases}+` : '1950+',
-    totalSaved: '1.2 млрд ₽',
+    totalSaved: '3.5 млрд ₽',
     successRate: `${avgSuccessRate}%`,
   };
 };

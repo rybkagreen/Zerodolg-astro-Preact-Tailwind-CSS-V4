@@ -20,7 +20,7 @@ const promo = getPromoInfo();
 ---
 
 <!-- Hero Section with Animated Dark Blue Gradient Background -->
-<section class='relative min-h-screen overflow-hidden'>
+<section class='relative min-h-[75vh] md:min-h-[80vh] lg:min-h-[85vh] overflow-hidden'>
   <!-- Dark Blue to Blue Cyclic Rotating Animated Gradient Background -->
   <div
     class='absolute inset-0 animate-gradient-rotate'
@@ -42,25 +42,22 @@ const promo = getPromoInfo();
   </div>
 
   <!-- Content Container -->
-  <div class='relative z-10 container mx-auto px-4 py-12 lg:py-20'>
+  <div class='relative z-10 container-custom mx-auto px-4 py-12 lg:py-20'>
     <!-- Trust Badge - Centered across Hero section -->
     <div class='flex justify-center mb-8'>
       <div
-        class='inline-flex items-center gap-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 px-4 py-2 text-center'
+        class='inline-flex items-center gap-2 rounded-full bg-blue-100/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-200/50'
       >
-        <svg
-          class='w-3.5 h-3.5 text-amber-500 dark:text-amber-400 flex-shrink-0'
-          fill='currentColor'
-          viewBox='0 0 20 20'
-        >
+        <svg class='h-4 w-4 text-blue-600' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path
-            d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            stroke-width='2'
+            d='M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z'
           ></path>
         </svg>
-        <span
-          class='text-gray-900 dark:text-gray-100 text-xs font-medium tracking-wide leading-snug'
-        >
-          Работаем по ФЗ-№127<br />"О нестостоятельности"
+        <span class='text-blue-700'>
+          Работаем по ФЗ-№127<br />"О несостоятельности"
         </span>
       </div>
     </div>
@@ -98,7 +95,7 @@ const promo = getPromoInfo();
             >.
           </p>
           <p class='text-emerald-400 font-medium'>
-            Офис в 3 минутах от метро Минская — ваше спокойствие начинается
+            Офис в 3 минутах от метро ВДНХ — ваше спокойствие начинается
             <a
               href='https://yandex.ru/profile/7922237253?lang=ru&no-distribution=1&view-state=mini&source=wizbiz_new_map_single'
               target='_blank'
