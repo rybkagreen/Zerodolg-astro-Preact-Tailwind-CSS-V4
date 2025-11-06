@@ -1,6 +1,8 @@
 // Analytics integration script for ZeroDolg Astro project
 // Based on the original project's analytics implementation
 
+import { initWebvisorWithConsent } from './webvisor-handler';
+
 // Types
 interface AnalyticsConfig {
   YANDEX_METRIKA_ID: string | undefined;
@@ -34,10 +36,13 @@ const CONFIG: AnalyticsConfig = {
   DEBUG: import.meta.env['DEBUG'] === 'true' || false,
 };
 
+// SSR Protection: Check if running in browser context
+const isBrowser = typeof window !== 'undefined';
+
 // Debug logging function
 function debugLog(message: string, data?: unknown): void {
   if (CONFIG.DEBUG) {
-    if (import.meta.env.DEV) {
+    if (import.meta.env.DEV && isBrowser) {
       // eslint-disable-next-line no-console
       console.log(`[Analytics] ${message}`, data || '');
     }
@@ -46,8 +51,30 @@ function debugLog(message: string, data?: unknown): void {
 
 // Initialize Yandex Metrika
 function initYandexMetrika(): void {
-  if (!CONFIG.YANDEX_METRIKA_ID) {
-    debugLog('Yandex Metrika ID not configured');
+  if (!isBrowser || !CONFIG.YANDEX_METRIKA_ID) {
+    if (!CONFIG.YANDEX_METRIKA_ID) {
+      debugLog('Yandex Metrika ID not configured');
+    }
+    return;
+  }
+
+  // Согласие пользователя уже проверено в initAnalytics() (строка 456-468)
+  // Здесь просто загружаем скрипт Метрики
+  loadYandexMetrikaScript();
+}
+
+// Загрузка скрипта Yandex Metrika
+function loadYandexMetrikaScript(): void {
+  if (!isBrowser || !CONFIG.YANDEX_METRIKA_ID) {
+    if (!CONFIG.YANDEX_METRIKA_ID) {
+      debugLog('Yandex Metrika ID not configured');
+    }
+    return;
+  }
+
+  // Check if script is already loaded
+  if (document.querySelector('script[src*="mc.yandex.ru/metrika/tag.js"]')) {
+    debugLog('Yandex Metrika script already loaded');
     return;
   }
 
@@ -95,44 +122,70 @@ function initYandexMetrika(): void {
     'ym'
   );
 
-  // Initialize with configuration
-  if (typeof window.ym !== 'undefined' && CONFIG.YANDEX_METRIKA_ID) {
-    const params: YandexMetrikaParams = {
-      page_url: window.location.href,
-      page_ref: document.referrer,
-      init_utc_timestamp: new Date().toISOString(),
-      page_load_utc: new Date().getTime(),
-      timezone_offset: new Date().getTimezoneOffset(),
-      timezone_name: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      user_agent: navigator.userAgent,
-      screen_resolution: `${screen.width}x${screen.height}`,
-      viewport_size: `${window.innerWidth}x${window.innerHeight}`,
-      page_title: document.title,
-    };
+  // Initialize with configuration after script is loaded
+  const initMetrika = () => {
+    if (typeof window.ym !== 'undefined' && CONFIG.YANDEX_METRIKA_ID) {
+      const params: YandexMetrikaParams = {
+        page_url: window.location.href,
+        page_ref: document.referrer,
+        init_utc_timestamp: new Date().toISOString(),
+        page_load_utc: new Date().getTime(),
+        timezone_offset: new Date().getTimezoneOffset(),
+        timezone_name: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        user_agent: navigator.userAgent,
+        screen_resolution: `${screen.width}x${screen.height}`,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+        page_title: document.title,
+      };
 
-    // Convert string ID to number for ym function
-    const ymId = parseInt(CONFIG.YANDEX_METRIKA_ID, 10);
-    if (!isNaN(ymId)) {
-      window.ym?.(ymId, 'init', {
-        defer: true,
-        clickmap: true,
-        trackLinks: true,
-        accurateTrackBounce: true,
-        webvisor: true,
-        ecommerce: 'dataLayer',
-        triggerEvent: true,
-        params,
-      });
+      // Convert string ID to number for ym function
+      const ymId = parseInt(CONFIG.YANDEX_METRIKA_ID, 10);
+      if (!isNaN(ymId)) {
+        window.ym?.(ymId, 'init', {
+          defer: false, // ✅ ИСПРАВЛЕНО: разрешаем автоматические хиты
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true,
+          ecommerce: 'dataLayer',
+          triggerEvent: true,
+          params,
+        });
+
+        debugLog('Yandex Metrika initialized');
+        console.info('📊 Яндекс.Метрика инициализирована с ID:', ymId);
+
+        // ✅ ДОБАВЛЕНО: Явная отправка первого хита (просмотра страницы)
+        window.ym?.(ymId, 'hit', window.location.href, {
+          title: document.title,
+          referer: document.referrer,
+        });
+
+        debugLog('Initial pageview sent to Yandex Metrika');
+      }
     }
-  }
+  };
 
-  debugLog('Yandex Metrika initialized');
+  // Wait for script to load before initializing
+  if (typeof window.ym !== 'undefined') {
+    initMetrika();
+  } else {
+    // Wait for script to load
+    const checkYm = setInterval(() => {
+      if (typeof window.ym !== 'undefined') {
+        clearInterval(checkYm);
+        initMetrika();
+      }
+    }, 100);
+  }
 }
 
 // Initialize Google Analytics with Consent Mode v2
 function initGoogleAnalytics(): void {
-  if (!CONFIG.GOOGLE_ANALYTICS_ID) {
-    debugLog('Google Analytics ID not configured');
+  if (!isBrowser || !CONFIG.GOOGLE_ANALYTICS_ID) {
+    if (!CONFIG.GOOGLE_ANALYTICS_ID) {
+      debugLog('Google Analytics ID not configured');
+    }
     return;
   }
 
@@ -169,10 +222,13 @@ function initGoogleAnalytics(): void {
   });
 
   debugLog('Google Analytics initialized with Consent Mode v2');
+  console.info('📊 Google Analytics инициализирован с ID:', CONFIG.GOOGLE_ANALYTICS_ID);
 }
 
 // Track scroll depth
 function trackScrollDepth(): void {
+  if (!isBrowser) return;
+
   let maxScroll = 0;
   const scrollDepths = [25, 50, 75, 100];
   const trackedDepths: number[] = [];
@@ -217,6 +273,8 @@ function trackScrollDepth(): void {
 
 // Track phone clicks
 function trackPhoneClicks(): void {
+  if (!isBrowser) return;
+
   document.addEventListener(
     'click',
     (e: MouseEvent) => {
@@ -251,6 +309,8 @@ function trackPhoneClicks(): void {
 
 // Track form submissions
 function trackFormSubmissions(): void {
+  if (!isBrowser) return;
+
   document.addEventListener('submit', (e: SubmitEvent) => {
     const form = e.target as HTMLFormElement | null;
     if (form && form.tagName === 'FORM') {
@@ -283,6 +343,8 @@ function trackFormSubmissions(): void {
 
 // Track CTA clicks
 function trackCTAClicks(): void {
+  if (!isBrowser) return;
+
   document.addEventListener(
     'click',
     (e: MouseEvent) => {
@@ -322,6 +384,8 @@ function trackCTAClicks(): void {
 
 // Main initialization function
 function initAnalytics(): void {
+  if (!isBrowser) return;
+
   // ✅ Восстанавливаем сохраненное согласие пользователя
   if (typeof window !== 'undefined') {
     // Динамический импорт для избежания проблем с SSR
@@ -341,6 +405,9 @@ function initAnalytics(): void {
   // Initialize analytics services
   initYandexMetrika();
   initGoogleAnalytics();
+
+  // Initialize Webvisor (only with consent)
+  initWebvisorWithConsent();
 
   // Set up event tracking
   trackScrollDepth();
@@ -392,14 +459,34 @@ function initAnalytics(): void {
   };
 
   debugLog('Analytics initialized');
+  console.info('📊 Система аналитики полностью инициализирована');
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initAnalytics);
-} else {
-  // DOM is already ready
-  initAnalytics();
+// Initialize analytics when consent is granted
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  // Check for existing consent immediately
+  import('../../shared/lib/consent-manager')
+    .then(({ consentManager }) => {
+      if (consentManager.hasAnalyticsConsent()) {
+        // Consent already given, initialize immediately
+        initAnalytics();
+      } else {
+        // Wait for consent to be granted
+        window.addEventListener('consent-changed', (event: Event) => {
+          // Type assertion for CustomEvent
+          const customEvent = event as CustomEvent;
+          if (customEvent.detail?.status === 'granted') {
+            initAnalytics();
+          }
+        });
+      }
+    })
+    .catch((error) => {
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to import consent-manager:', error);
+      }
+    });
 }
 
 export { initAnalytics };
