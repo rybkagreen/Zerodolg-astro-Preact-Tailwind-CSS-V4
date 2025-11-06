@@ -27,6 +27,43 @@ export default function CookieBanner({
       setTimeout(() => {
         setIsVisible(true);
       }, 1000);
+
+      // Добавляем обработчик прокрутки для автоматического согласия
+      const handleScroll = () => {
+        // Если пользователь прокрутил более 100px, считаем это подтверждением согласия
+        if (window.scrollY > 100) {
+          consentManager.acceptAll();
+          setIsVisible(false);
+
+          // Отправляем событие в аналитику
+          if (typeof window.gtag !== 'undefined') {
+            window.gtag('event', 'consent_granted', {
+              event_category: 'consent',
+              event_label: 'cookie_banner_auto',
+            });
+          }
+
+          // Загружаем аналитику после получения согласия
+          loadAnalyticsAfterConsent();
+
+          // Удаляем обработчик, чтобы не срабатывал повторно
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+
+      // Добавляем обработчик прокрутки, если баннер видим
+      window.addEventListener('scroll', handleScroll);
+
+      // Очищаем обработчик при размонтировании компонента
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    } else {
+      // Уже есть согласие, не показываем баннер
+      setIsVisible(false);
+
+      // Return empty cleanup function to satisfy TypeScript
+      return () => {};
     }
   }, []);
 
@@ -41,6 +78,9 @@ export default function CookieBanner({
         event_label: 'cookie_banner',
       });
     }
+
+    // Загружаем аналитику после получения согласия
+    loadAnalyticsAfterConsent();
   };
 
   const handleDecline = () => {
@@ -54,6 +94,20 @@ export default function CookieBanner({
         event_label: 'cookie_banner',
       });
     }
+  };
+
+  // Функция для загрузки аналитики после получения согласия
+  const loadAnalyticsAfterConsent = () => {
+    // Загружаем скрипт аналитики
+    import('../../features/analytics/analytics')
+      .then((analyticsModule) => {
+        if (analyticsModule && typeof analyticsModule.initAnalytics === 'function') {
+          analyticsModule.initAnalytics();
+        }
+      })
+      .catch((error) => {
+        console.error('Failed to load analytics after consent:', error);
+      });
   };
 
   const toggleExpanded = () => {
@@ -94,7 +148,8 @@ export default function CookieBanner({
                   <h3 className='text-base sm:text-lg font-semibold mb-2'>Мы используем cookies</h3>
                   <p className='text-sm sm:text-base text-gray-300 leading-relaxed'>
                     Этот сайт использует cookies и собирает анонимные данные для улучшения вашего
-                    опыта использования и аналитики посещаемости.
+                    опыта использования и аналитики посещаемости. Продолжая использовать сайт, вы
+                    даете согласие на использование файлов cookie.
                     {!isExpanded && (
                       <button
                         onClick={toggleExpanded}
@@ -123,6 +178,11 @@ export default function CookieBanner({
                           быть использованы для идентификации
                         </li>
                       </ul>
+                      <p className='mt-2'>
+                        <strong className='text-white'>Автоматическое согласие:</strong> Продолжая
+                        использовать сайт (прокручивая страницу), вы автоматически соглашаетесь на
+                        использование файлов cookie.
+                      </p>
                       <p className='mt-2'>
                         Подробнее в{' '}
                         <a

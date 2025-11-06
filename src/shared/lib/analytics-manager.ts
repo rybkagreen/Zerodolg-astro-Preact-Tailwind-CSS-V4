@@ -166,6 +166,12 @@ export class AnalyticsManager {
       return;
     }
 
+    // ✅ ПРОВЕРЯЕМ СОГЛАСИЕ НА АНАЛИТИКУ ПЕРЕД ОТПРАВКОЙ ДАННЫХ
+    if (!consentManager.hasAnalyticsConsent()) {
+      this.log('Yandex Metrika: No consent for analytics, skipping event:', goalName);
+      return;
+    }
+
     try {
       const ymId = parseInt(this.YM_ID, 10);
       if (!isNaN(ymId)) {
@@ -176,6 +182,57 @@ export class AnalyticsManager {
       if (import.meta.env.DEV) {
         // eslint-disable-next-line no-console
         console.error('Yandex Metrika tracking error:', error);
+      }
+    }
+  }
+
+  /**
+   * Инициализация Webvisor (только с согласием пользователя)
+   */
+  enableWebvisor(): void {
+    if (!consentManager.hasAnalyticsConsent()) {
+      this.log('Webvisor not enabled - no user consent');
+      return;
+    }
+
+    if (typeof window.ym === 'undefined' || !this.YM_ID) {
+      this.log('Yandex Metrika not available for Webvisor');
+      return;
+    }
+
+    try {
+      const ymId = parseInt(this.YM_ID, 10);
+      if (!isNaN(ymId)) {
+        // Включаем Webvisor только если пользователь дал согласие
+        window.ym(ymId, 'params', { webvisor: true });
+        this.log('Webvisor enabled');
+      }
+    } catch (error) {
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Webvisor initialization error:', error);
+      }
+    }
+  }
+
+  /**
+   * Отключение Webvisor
+   */
+  disableWebvisor(): void {
+    if (typeof window.ym === 'undefined' || !this.YM_ID) {
+      return;
+    }
+
+    try {
+      const ymId = parseInt(this.YM_ID, 10);
+      if (!isNaN(ymId)) {
+        window.ym(ymId, 'params', { webvisor: false });
+        this.log('Webvisor disabled');
+      }
+    } catch (error) {
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('Webvisor disabling error:', error);
       }
     }
   }
