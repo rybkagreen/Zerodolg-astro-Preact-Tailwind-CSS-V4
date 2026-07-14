@@ -98,11 +98,15 @@ Locked decisions — в `PROJECT_KNOWLEDGE.md`. Здесь — контекст 
   `master` (BL-003) — локальный real CI обязателен независимо от статуса Actions. 14.07.2026.
 - **D4** — Редизайн главной = «премиум/спокойствие» (тил-акцент, off-white, сокращение секций,
   удаление фейков); источник — дизайн-бриф. 14.07.2026.
-- **D5** — Исполнитель Claude Code (default) vs Qwen — подтвердить. 14.07.2026.
+- **D5** — Исполнитель = **Claude Code (единственный)**. Подтверждено владельцем 14.07.2026 (доп.
+  DoD-пункт к PROMPT_02): `.qwen/`, `QWEN.md`, `AGENT.md`, `WARP.md` и связанный dead-код
+  (`scripts/package.json` — Qwen model-coordination stub) удалены из репозитория, все
+  Qwen/Warp-упоминания и «если исполнитель Qwen» оговорки вычищены из `CLAUDE.md`, `ARCHITECTURE.md`,
+  `README.md`, `docs/*.md`. Ранее было открытым вопросом (Claude Code default vs Qwen) — закрыто.
 - **D6** — Housekeeping-промт (PROMPT_02) выполнен исполнителем Claude Code 14.07.2026; методология
   адаптирована под реально проверенный стек репозитория, ряд утверждений методички (наличие Vitest/
-  `npm run test`, `.qwen/` как «память, не коммитить») скорректированы по факту репозитория — см.
-  пометки «(проверено)» в `ARCHITECTURE.md`/`CLAUDE_CODE_INSTRUCTIONS.md`.
+  `npm run test`) скорректированы по факту репозитория — см. пометки «(проверено)» в
+  `ARCHITECTURE.md`/`CLAUDE_CODE_INSTRUCTIONS.md`.
 
 ## Conventions
 

@@ -38,9 +38,12 @@ docs/_planner/
 tmp/
 
 # agent memory / local state (project-shared Claude Code config lives in .claude/settings.json,
-# which stays tracked; only personal/local overrides and other assistants' local state are ignored)
+# which stays tracked; only personal/local overrides and other assistants' local state are ignored).
+# Claude Code is the sole executor for this project (see CLAUDE.md) - .qwen/ is ignored so it can
+# never accidentally get re-tracked if that tooling is ever run here again.
 .claude/settings.local.json
 .agent/
+.qwen/
 
 # test coverage output (no test runner is configured yet, but reserve the path)
 coverage/

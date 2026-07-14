@@ -174,8 +174,8 @@ zerodolg-astro/
 - ✅ Стек/FSD/интеграции — зафиксированы (прод), версии сверены с `package.json` 14.07.2026.
 - ✅ Housekeeping-репозитория (документация, `.gitignore`, env-доки, Claude Code конфиг) —
   этот проход.
-- ⚠️ **Исполнитель:** Claude Code vs Qwen — подтвердить владельцем (D5, см.
-  `docs/PROJECT_KNOWLEDGE.md`).
+- ✅ **Исполнитель:** Claude Code (единственный) — подтверждено владельцем 14.07.2026 (D5, см.
+  `docs/PROJECT_KNOWLEDGE.md`); Qwen/Warp/generic multi-agent тулинг удалён из репозитория.
 - ⏳ Деплой-механизм; биллинг Actions; доступы к прод-серверу; согласование редизайна заказчиком.
 - ⏳ CI workflow (`main`/`develop` vs `master`, `npm run test` шаг) — backlog, узкий промт.
 - ⏳ `reCAPTCHA`/`PUBLIC_GTM_ID`/`YANDEX_VERIFICATION`/`YANDEX_SEARCH_API_KEY` — подтвердить,

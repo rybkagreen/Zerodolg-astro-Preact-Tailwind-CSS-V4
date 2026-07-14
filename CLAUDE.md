@@ -8,9 +8,9 @@ code in this repository.
 ZeroDolg is a corporate website (zerodolg.ru) for a Russian legal company
 specializing in personal bankruptcy services. It's an Astro v5 static site
 with Preact islands for interactivity, organized loosely around
-Feature-Sliced Design (FSD). Qwen Code is the team's primary AI coding
-assistant; Claude is used for architecture review, security analysis, and
-second opinions (see "AI Integration" below).
+Feature-Sliced Design (FSD). Claude Code is the sole executor for this
+project (git, builds, deploys) — a prior multi-tool setup (Qwen Code, Warp,
+a generic multi-agent config) was removed; see "Legacy docs" below.
 
 ## Commands
 
@@ -37,7 +37,7 @@ thing this repo has to a test suite (see below).
 
 ### There is no automated test suite
 
-Despite what `README.md`, `AGENT.md`, and `.github/workflows/ci.yml` claim,
+Despite what `README.md` and `.github/workflows/ci.yml` claim,
 **`package.json` defines no `test` script, and Vitest/Testing Library are not
 dependencies.** The CI workflow's `npm run test` step will fail as configured.
 Puppeteer is installed only for the manual MCP tooling
@@ -134,7 +134,7 @@ and `tools/demo-mcp-puppeteer.js`, run via `npm run mcp:server` /
 
 ## Styling: Tailwind CSS is v3, not v4
 
-Despite `README.md`, `AGENT.md`, and other docs describing "Tailwind CSS v4",
+Despite `README.md` and other docs describing "Tailwind CSS v4",
 **`package.json` pins `tailwindcss: ^3.4.17`**, and both `tailwind.config.js`
 and `postcss.config.cjs` are explicitly headed "Tailwind CSS v3" — this is a
 classic `tailwind.config.js` + PostCSS setup (`postcss-import`,
@@ -190,28 +190,14 @@ standalone to debug that before chasing build errors.
 
 The repo root has 50+ historical `*_REPORT.md`, `*_SUMMARY.md`,
 `*_COMPLETE*.md` files (SEO audits, fix reports, migration logs, staging
-guides) plus `AGENT.md`, `QWEN.md`, `WARP.md`, `docs/architecture.md`. These
-are point-in-time work logs, not living specs — several (Tailwind version,
-path aliases, test commands, FSD folder diagram) are now inaccurate, as
-detailed above. Prefer verifying against actual config/source over trusting
-these documents' current-state claims.
-
-## AI Integration Guidelines
-
-This is a project convention (see `AGENT.md`, `README.md`), not a technical
-constraint:
-
-- **Qwen Code** is the primary assistant for day-to-day code generation,
-  refactors, and tests, configured via `.qwenrc.json` /
-  `.qwen/config.json`.
-- **Claude** is positioned as the secondary assistant for architectural
-  decisions, security analysis, performance strategy, and reviewing
-  Qwen-generated output.
-
-When asked to review or build on Qwen-generated code, apply extra scrutiny to
-security (XSS, CSP allowlist changes in `src/middleware.ts`), TypeScript
-strict-mode compliance, and accessibility — these are called out repeatedly
-across the project's own docs as areas needing a second pass.
+guides) — these are archived in `docs.archive/` (see "Legacy docs" below),
+not deleted, but they were point-in-time work logs, not living specs, and
+several of their claims (Tailwind version, path aliases, test commands, FSD
+folder diagram) were already inaccurate before archiving. Prefer verifying
+against actual config/source over trusting historical documents'
+current-state claims — that includes this repo's own methodology docs
+(`docs/PROJECT_KNOWLEDGE.md`, `docs/IMPLEMENTATION_PLAN.md`, etc.), which
+have needed similar corrections in the past (see their "проверено" notes).
 
 ## Legacy docs
 
@@ -222,6 +208,12 @@ current. Actual current documentation is: this file, `ARCHITECTURE.md`,
 `CONTRIBUTING.md` (repo root), and `docs/` (`PROJECT_KNOWLEDGE.md`,
 `CLAUDE_CODE_INSTRUCTIONS.md`, `IMPLEMENTATION_PLAN.md`,
 `DOCUMENTS_REGISTRY.md`).
+
+`AGENT.md`, `QWEN.md`, `WARP.md`, and `.qwen/` (Qwen Code config, a Warp
+Agent Mode rules file, and a generic multi-agent setup) were **deleted
+outright**, not archived — Claude Code is now the sole executor for this
+project, so there was nothing in them worth keeping as reference. See
+`docs/IMPLEMENTATION_PLAN.md`'s decision log (D5) for context.
 
 ## Working conventions
 
