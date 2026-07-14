@@ -1,152 +1,106 @@
-# Внесение вклада в проект ZeroDolg Astro
+# CONTRIBUTING — ZeroDolg
 
-Благодарим вас за интерес к внесению вклада в проект ZeroDolg Astro! Ниже
-приведены рекомендации по участию в развитии проекта.
+Development conventions, followed by humans and agents alike. Full
+architecture/rules — `ARCHITECTURE.md` and `CLAUDE.md` (repo root).
+> Project is **in production** (zerodolg.ru). Repository is **public** (MIT).
 
-## Содержание
+## Getting started
 
-- [Среда разработки](#среда-разработки)
-- [Руководство по стилю](#руководство-по-стилю)
-- [Процесс внесения изменений](#процесс-внесения-изменений)
-- [Структура проекта](#структура-проекта)
-- [Тестирование](#тестирование)
-- [Соглашения по именованию коммитов](#соглашения-по-именованию-коммитов)
+- **Node.js** >=18.17.1 (latest LTS recommended), **npm** >=9, **Git** >=2.34.
+- `npm install`, then `npm run dev` (→ http://localhost:4321).
 
-## Среда разработки
+## Git flow
 
-Для начала работы с проектом убедитесь, что у вас установлены следующие
-зависимости:
+- Branches: `feature/[desc]`, `fix/[desc]`, `chore/[desc]`. Default/production
+  branch is `master`.
+- Feature branches land on `master` via **Pull Request**. Preserve history.
+- Never on a pushed branch: `--no-verify`, force-push, rebase, squash.
+- Never committed to `master`: `.env*` (except `.env.example`), `tmp/`,
+  `docs.archive/`, `docs/_planner/`, agent memory. Public repo → no secrets in
+  history, ever.
 
-- **Node.js**: >=18.17.1 (рекомендуется последняя LTS версия)
-- **npm**: >=9.0.0
-- **Git**: >=2.34.0
+## Commit messages
 
-1. Сделайте форк репозитория
-2. Клонируйте репозиторий:
+- **Conventional Commits**, enforced locally by the Husky `commit-msg` hook
+  (`.husky/commit-msg`), not a JS commitlint package. Regex:
+  `^(feat|fix|docs|style|refactor|test|chore|perf|ci|build)(\(.+\))?: .{1,50}`.
+- English, imperative mood. Add Russian context in the body where it helps.
+- Atomic, meaningful commits. PROTECTED files (see `CLAUDE.md` → "Working
+  conventions") get their own commit.
 
-   ```bash
-   git clone https://github.com/ваш-username/zerodolg-astro.git
-   cd zerodolg-astro
-   ```
+Examples: `feat(forms): add debounce to phone input`,
+`fix(analytics): guard against missing PUBLIC_YM_ID`.
 
-3. Установите зависимости:
+## Code style
 
-   ```bash
-   npm install
-   ```
+- **TypeScript 5.9** strict mode (`npm run type-check` — keep it at 0
+  errors). **ESLint 9** flat config (`eslint.config.js`): `npm run lint` /
+  `lint:fix`. **Prettier**: `npm run format` (see `.prettierrc` for the
+  markdown-wrap exceptions).
+- Styles — **Tailwind CSS 3.4** (classic `tailwind.config.js` + PostCSS, not
+  v4's CSS-first config, despite what some older docs say) + design tokens.
+  Tailwind is the foundation here, not something to migrate away from.
+- **FSD:** put new code in the right layer — see `CLAUDE.md` → "Actual `src/`
+  structure" and "TypeScript / Vite path aliases" for the verified layer map
+  and import aliases (that file is the source of truth for the project tree,
+  not the diagram further down in this document). Features don't know about
+  each other; `shared` is independent. Interactive code lives in islands
+  (`src/islands/`).
+- Don't hardcode — copy/data goes in Markdown/content collections, params/
+  URLs/keys in config or env. Secrets are env-only.
+- SOLID, separation of concerns. No patches on top of patches.
 
-4. Запустите проект в режиме разработки:
-
-   ```bash
-   npm run dev
-   ```
-
-## Руководство по стилю
-
-- Следуйте [руководству по стилю](docs/style-guide.md), описанному в проекте
-- Используйте TypeScript с максимально строгими настройками
-- Используйте форматирование кода с помощью Prettier
-- Проверяйте код с помощью ESLint
-
-## Процесс внесения изменений
-
-1. Создайте новую ветку для вашей функции или исправления:
-
-   ```bash
-   git checkout -b feature/ваша-функция
-   # или
-   git checkout -b fix/ваш-баг
-   ```
-
-2. Внесите изменения и убедитесь, что они соответствуют
-   [руководству по стилю](docs/style-guide.md)
-
-3. Напишите тесты, если это применимо
-
-4. Запустите проверки:
-
-   ```bash
-   npm run lint
-   npm run type-check
-   npm run test
-   ```
-
-5. Зафиксируйте изменения с понятным сообщением:
-
-   ```bash
-   git add .
-   git commit -m "feat(component): добавить новую функцию"
-   ```
-
-6. Отправьте изменения в ваш форк:
-
-   ```bash
-   git push origin feature/ваша-функция
-   ```
-
-7. Создайте Pull Request через интерфейс GitHub
-
-## Структура проекта
+## Project structure (top level)
 
 ```
 zerodolg-astro/
-├── docs/                    # Документация проекта
-├── public/                  # Статические ресурсы
-├── scripts/                 # Скрипты для сборки, деплоя и тестирования
-├── src/                     # Исходный код
-│   ├── components/          # Повторно используемые компоненты
-│   ├── entities/            # Бизнес-сущности
-│   ├── features/            # Бизнес-функции
-│   ├── islands/             # Интерактивные Preact компоненты
-│   ├── pages/               # Страницы маршрутов
-│   ├── shared/              # Общие утилиты
-│   ├── widgets/             # Комплексные UI компоненты
-│   └── middleware.ts        # Middleware для кэширования и безопасности
-├── tools/                   # Автономные инструменты
-└── package.json             # Зависимости и скрипты
+├── docs/                    # current documentation (this + ARCHITECTURE.md/CLAUDE.md)
+├── public/                  # static assets served as-is
+├── scripts/                 # build / deploy / dev / maintenance scripts
+├── src/                     # source — see CLAUDE.md for the verified FSD layer breakdown
+├── tools/                   # standalone tooling (MCP/Puppeteer demo, SAST wrappers)
+└── package.json
 ```
 
-Для более подробного ознакомления с архитектурой обратитесь к
-[документации архитектуры](docs/architecture.md).
+## Testing
 
-## Тестирование
+- **There is currently no automated test runner in this repository** —
+  `package.json` has no `test` script and no Vitest/Testing Library
+  dependency, regardless of what `README.md`/`AGENT.md`/CI config claim. The
+  closest thing to a test suite today is `npm run type-check && npm run lint
+  && npm run build`. If you add a real test runner, set it up from scratch
+  (dependency, config, script) — see `CLAUDE.md` for details.
+- Husky's pre-commit hook runs its checks on every commit; before a
+  merge/deploy, run the full local gate: `npm run type-check && npm run lint
+  && npm run build`.
 
-Когда вы вносите изменения, особенно в существующий код, убедитесь, что все
-тесты проходят:
+## Security
 
-```bash
-npm run test
-```
+- **CSP + security headers** (`src/middleware.ts`), SRI for external
+  resources — don't weaken these. SAST: `npm run tools:semgrep`.
+- Secret leakage: `npm run tools:trufflehog` — **this repo script gives an
+  unreliable/false result when the underlying TruffleHog CLI isn't available
+  via `npx`** (tracked as backlog item BL-001 in
+  `docs/IMPLEMENTATION_PLAN.md`; don't trust a clean run from it without
+  cross-checking with a real TruffleHog invocation, e.g. the official Docker
+  image — this repository is public).
+- If you find a security vulnerability, don't open a public Issue — contact
+  the repository owner directly.
+- Accessibility (WCAG 2.2) — don't regress it; forms/tabs/accordions need
+  correct ARIA.
 
-Если вы добавляете новую функцию, добавьте соответствующие тесты. Если вы
-исправляете баг, добавьте тест, который воспроизводит этот баг.
+## Documents
 
-## Соглашения по именованию коммитов
+- A meaningful change to a tracked doc → bump its version in
+  `docs/DOCUMENTS_REGISTRY.md` plus the date.
+- Long intermediate/working notes → `tmp/` (gitignored), clean up before
+  wrapping a task.
 
-Проект использует [Conventional Commits](https://www.conventionalcommits.org/)
-для автоматизации выпуска версий и генерации changelog:
+## What not to do
 
-- `feat`: Новая функция
-- `fix`: Исправление бага
-- `docs`: Изменения в документации
-- `style`: Изменения, не затрагивающие логику (форматирование, стили и т.п.)
-- `refactor`: Изменения, не исправляющие баг и не добавляющие функцию
-- `test`: Добавление или изменение тестов
-- `chore`: Другие изменения (сборка, вспомогательные скрипты и т.п.)
-
-Примеры:
-
-- `feat(auth): добавить аутентификацию пользователей`
-- `fix(forms): исправить валидацию email полей`
-- `docs(readme): обновить инструкции по установке`
-- `refactor(components): переписать компонент кнопки на TypeScript`
-
-## Безопасность
-
-Если вы обнаружите уязвимость в безопасности, пожалуйста, не создавайте Issue.
-Вместо этого свяжитесь с нами напрямую по адресу [email-адрес безопасности].
-
-## Вопросы?
-
-Если у вас есть вопросы, пожалуйста, создайте Issue с меткой "question" или
-присоединитесь к обсуждению в соответствующем разделе.
+- Break FSD boundaries. Touch load-bearing test infrastructure once one
+  exists.
+- Hardcode text/prices/URLs/keys.
+- Add fake urgency triggers or keyword-stuffed copy to pages.
+- Move off Tailwind. Force a deploy without `npm run deploy:checklist`. Put
+  secrets in the public repository.
