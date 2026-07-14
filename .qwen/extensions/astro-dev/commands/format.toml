@@ -1,9 +1,0 @@
-name = "Форматировать код"
-description = "Форматирование всего кода проекта с помощью Prettier"
-
-prompt = "Форматирование кода проекта"
-
-[command]
-type = "shell"
-run = "npm run format"
-directory = "."

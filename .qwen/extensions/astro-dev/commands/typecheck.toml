@@ -1,9 +1,0 @@
-name = "Проверить типы TypeScript"
-description = "Проверка типов в проекте TypeScript"
-
-prompt = "Проверка типов TypeScript"
-
-[command]
-type = "shell"
-run = "npm run type-check"
-directory = "."
