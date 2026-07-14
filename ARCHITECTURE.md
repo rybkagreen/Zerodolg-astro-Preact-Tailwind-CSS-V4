@@ -109,12 +109,21 @@
 ## 7. Безопасность (SAST)
 
 - **CSP + security-заголовки** — `src/middleware.ts` (не только meta-теги CSP, если такие есть).
-- **Semgrep** (`npm run tools:semgrep`) — SAST.
+- **Semgrep** (`npm run tools:semgrep`) — SAST. **Репо-скрипт (`tools/semgrep-scan.js`) не
+  запускается** — `npx semgrep` резолвится в чужой npm-пакет-сквоттер (`semgrep@0.0.1`, без
+  исполняемого файла), не в реальный semgrep (BL-002, тот же класс бага, что у TruffleHog ниже).
+  Реальный скан (Python venv + PyPI `semgrep`, 14.07.2026, 280 community-правил/399 файлов) нашёл
+  4 находки уровня ERROR (Dockerfile без non-root `USER`, `shell:true`/`execSync` с переменной
+  строкой в `scripts/deploy/deploy-complete.js` и `scripts/dev/setup-optimization.js`) + 53
+  WARNING + 26 INFO — детали и приоритет в `docs/IMPLEMENTATION_PLAN.md` (BL-008/BL-009); не
+  исправлено в этом housekeeping-промте, требует отдельного security-прохода.
 - **TruffleHog** (`npm run tools:trufflehog`) — проверка утечки секретов; **репо-скрипт
   `tools/trufflehog-scan.js` даёт ложноположительный/недостоверный результат, когда сам
-  инструмент недоступен через `npx`** — известный баг (backlog), не доверять его выводу без
-  перепроверки реальным TruffleHog (например, официальный Docker-образ). Критично: репо
-  публичный.
+  инструмент недоступен через `npx`** — известный баг (BL-001), не доверять его выводу без
+  перепроверки реальным TruffleHog. Реальный скан (Docker `trufflesecurity/trufflehog:latest`,
+  все ветки/126 коммитов, 14.07.2026) — **0 verified/unverified находок**, репозиторий чист на
+  момент проверки. Критично: репо публичный, перепроверять реальным сканом периодически, не
+  полагаться на репо-скрипт до фикса BL-001.
 - Доступность: WCAG 2.2, ARIA, keyboard-навигация — не автоматизировано, проверять вручную.
 
 ## 8. Правила наименования
