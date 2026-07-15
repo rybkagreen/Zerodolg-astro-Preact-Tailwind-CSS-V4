@@ -41,6 +41,7 @@
     "staging:clean": "powershell -ExecutionPolicy Bypass -File scripts/staging/clean-staging.ps1"
   },
   "dependencies": {
+    "@astrojs/node": "^9.4.4",
     "@astrojs/preact": "^4.1.1",
     "@astrojs/sitemap": "^3.6.0",
     "@modelcontextprotocol/sdk": "^1.18.1",
@@ -101,6 +102,6 @@
     ]
   },
   "engines": {
-    "node": ">=18.17.1"
+    "node": ">=20.20.2"
   }
 }

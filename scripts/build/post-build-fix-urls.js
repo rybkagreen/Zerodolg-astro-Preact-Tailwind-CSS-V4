@@ -15,8 +15,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Path to dist directory
-const distPath = path.resolve(__dirname, '../../dist');
+// Path to dist directory — with the node adapter installed, Astro splits
+// static output into dist/client/ (and SSR entry into dist/server/); fall
+// back to a flat dist/ for any config that stays fully static.
+const distRoot = path.resolve(__dirname, '../../dist');
+const distClientPath = path.join(distRoot, 'client');
+const distPath = fs.existsSync(distClientPath) ? distClientPath : distRoot;
 
 console.log('🔧 Post-build URL fixes starting...\n');
 

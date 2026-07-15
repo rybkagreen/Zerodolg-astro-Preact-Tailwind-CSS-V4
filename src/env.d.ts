@@ -4,6 +4,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_GA_ID: string;
   readonly BITRIX24_WEBHOOK_URL: string;
   readonly DEBUG: string;
+  readonly PUBLIC_RECAPTCHA_SITE_KEY: string;
   // Add other environment variables as needed
 }
 

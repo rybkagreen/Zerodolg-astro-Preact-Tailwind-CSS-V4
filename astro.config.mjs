@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 import preact from '@astrojs/preact';
 import mcp from 'astro-mcp';
 import sitemap from '@astrojs/sitemap';
@@ -10,6 +11,7 @@ export default defineConfig({
 
   // Современная настройка выходных файлов
   output: 'static',
+  adapter: node({ mode: 'standalone' }),
 
   // Оптимизация сборки
   build: {
@@ -79,10 +81,6 @@ export default defineConfig({
             vendor: ['preact', 'preact/hooks'],
             ui: ['@astrojs/preact'],
           },
-          // Улучшенное именование файлов для кэширования
-          chunkFileNames: 'chunks/[name].[hash].js',
-          entryFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
         },
       },
       // Включаем дополнительные оптимизации для production

@@ -16,6 +16,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# stale lint-tool dumps (not produced by any npm script in this repo)
+eslint-report.json
+
 # macOS-specific files
 .DS_Store
 

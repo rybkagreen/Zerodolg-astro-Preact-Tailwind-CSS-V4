@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 import preact from '@astrojs/preact';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
@@ -38,6 +39,7 @@ export default defineConfig({
     }),
   ],
   output: 'static', // Static site generation mode
+  adapter: node({ mode: 'standalone' }),
   build: {
     inlineStylesheets: 'auto',
     format: 'file',
@@ -47,6 +49,17 @@ export default defineConfig({
     enabled: false,
   },
   vite: {
+    resolve: {
+      alias: {
+        '@': '/src',
+        '@app': '/src/app',
+        '@entities': '/src/entities',
+        '@features': '/src/features',
+        '@widgets': '/src/widgets',
+        '@shared': '/src/shared',
+        '@pages': '/src/pages',
+      },
+    },
     build: {
       // Enable CSS and JS minification
       minify: 'terser',
@@ -76,9 +89,6 @@ export default defineConfig({
             vendor: ['preact', 'preact/hooks'],
             ui: ['@astrojs/preact'],
           },
-          // Better chunk naming for improved caching
-          chunkFileNames: 'chunks/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
         },
       },
       // Report compressed chunk sizes
