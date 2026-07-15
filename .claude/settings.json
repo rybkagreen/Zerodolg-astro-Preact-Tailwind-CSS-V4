@@ -25,7 +25,20 @@
       "Bash(git branch *)",
       "Bash(git show *)"
     ],
-    "deny": [],
+    "deny": [
+      "Read(./.env)",
+      "Edit(./.env)",
+      "Read(./docs.archive/**)",
+      "Edit(./docs.archive/**)",
+      "Read(./node_modules/**)",
+      "Edit(./node_modules/**)",
+      "Read(./dist/**)",
+      "Edit(./dist/**)",
+      "Read(./.astro/**)",
+      "Edit(./.astro/**)",
+      "Read(./coverage/**)",
+      "Edit(./coverage/**)"
+    ],
     "ask": []
   },
   "hooks": {
