@@ -47,6 +47,10 @@ export async function verifyRecaptcha(token: string, remoteip?: string): Promise
 
     const data = (await response.json()) as RecaptchaVerifyResponse;
 
+    // WARN, not INFO, solely to clear prod's logger floor — this fires on
+    // every attempt, success or fail, so it's routine telemetry riding on a
+    // floor workaround, not a true anomaly signal. See the matching note at
+    // src/pages/api/form.ts's 'Lead created' log.
     logger.warn('reCAPTCHA verification result', {
       success: data.success,
       score: data.score,
