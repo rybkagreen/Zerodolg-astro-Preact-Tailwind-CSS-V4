@@ -6,6 +6,7 @@ import { useIntersectionObserver } from '../../shared/hooks/useIntersectionObser
 import { usePerformanceMonitor } from '../../shared/hooks/usePerformanceMonitor';
 import { type FormField, type FormConfig } from '../../shared/types/form';
 import { analytics } from '../../shared/lib/analytics-manager';
+import { getRecaptchaToken } from '@features/forms/lib/recaptcha-client';
 
 // Form validation schemas using Zod
 const createFieldSchema = (field: FormField) => {
@@ -394,11 +395,14 @@ const FormEnhancedFinal: FunctionComponent<EnhancedFormProps> = ({
       setSubmitStatus('idle');
 
       try {
+        const recaptchaToken = await getRecaptchaToken(config.formType);
+
         // Prepare submission data
         const submissionData = {
           ...formData,
           formType: config.formType,
           formId: config.formId,
+          recaptchaToken,
           timestamp: new Date().toISOString(),
           metadata: {
             attempts: submitAttempts.current,
