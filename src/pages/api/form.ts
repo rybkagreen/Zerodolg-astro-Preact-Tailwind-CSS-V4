@@ -6,10 +6,17 @@ import { checkRecaptchaConfigConsistency, verifyRecaptcha } from '@features/form
 
 export const prerender = false;
 
-// Runs once, at module load (Node caches the module after first import) —
-// this is a startup-time deploy-config check, not a per-request one. See
-// checkRecaptchaConfigConsistency's doc comment (src/features/forms/lib/recaptcha.ts)
-// for what it catches.
+// Runs once, at module load (Node caches the module after first import).
+// NOTE: under Astro's Node adapter, route modules like this one are loaded
+// lazily on the first matching request, not eagerly at process boot — so
+// this actually fires on the first POST/GET/HEAD to /api/form, not at
+// server startup. (Confirmed empirically: with a mismatched build, the
+// "RECAPTCHA CONFIG MISMATCH" log is absent right after `node
+// dist/server/entry.mjs` starts and stays absent through a `/` or `/health`
+// request, appearing only once /api/form is hit for the first time.) A
+// deploy smoke-test that hits /api/form will still catch it — see
+// infra/README.md. See checkRecaptchaConfigConsistency's doc comment
+// (src/features/forms/lib/recaptcha.ts) for what it catches.
 checkRecaptchaConfigConsistency();
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
@@ -150,7 +157,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       bitrixResult = await bitrixResponse.json();
     }
 
-    logger.info('Lead created', { leadId: bitrixResult.result, formType });
+    logger.warn('Lead created', { leadId: bitrixResult.result, formType });
 
     // Определяем ценность конверсии
     const leadValue = SERVICE_VALUES[formType] || SERVICE_VALUES['general'];
