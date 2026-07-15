@@ -150,11 +150,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       bitrixResult = await bitrixResponse.json();
     }
 
-    // Логируем для отладки (только в режиме разработки)
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.log('Lead created:', bitrixResult);
-    }
+    logger.info('Lead created', { leadId: bitrixResult.result, formType });
 
     // Определяем ценность конверсии
     const leadValue = SERVICE_VALUES[formType] || SERVICE_VALUES['general'];
@@ -180,11 +176,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       }
     );
   } catch (error) {
-    // Логируем ошибку (только в режиме разработки)
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.error('Form submission error:', error);
-    }
+    logger.error(
+      'Form submission error',
+      undefined,
+      error instanceof Error ? error : new Error(String(error))
+    );
 
     return new Response(
       JSON.stringify({
