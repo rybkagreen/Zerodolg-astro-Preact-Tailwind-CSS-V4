@@ -36,9 +36,16 @@ deployed to a server that has `RECAPTCHA_SECRET` set, every single form
 submission will fail reCAPTCHA verification (`422`) and be silently
 dropped** — there is no fallback storage (BL-056, not yet built). The app
 guards against shipping this unnoticed: `checkRecaptchaConfigConsistency()`
-(`src/features/forms/lib/recaptcha.ts`) runs once at server startup and
-logs a loud `RECAPTCHA CONFIG MISMATCH` error if the two disagree — check
-the server's startup logs after any deploy that touches these two vars.
+(`src/features/forms/lib/recaptcha.ts`) runs once when `src/pages/api/form.ts`
+is loaded and logs a loud `RECAPTCHA CONFIG MISMATCH` error if the two
+disagree. That module is loaded lazily by Astro's Node adapter on the first
+matching request, not eagerly at process boot — so check the logs after the
+first request to `/api/form`, not the server's startup logs (a deploy
+smoke-test that hits `/api/form` will trigger it). This guard only detects
+an **empty** build-time site key; if the build ever bakes in a non-empty
+placeholder/dummy value for `PUBLIC_RECAPTCHA_SITE_KEY` while
+`RECAPTCHA_SECRET` is set at runtime, the guard stays silent even though the
+client's real reCAPTCHA calls will still fail.
 
 Rule of thumb: whatever `.env` is present when `npm run build`/
 `build:prod` runs must have the _same_ `PUBLIC_RECAPTCHA_SITE_KEY`/
