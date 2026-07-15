@@ -47,7 +47,7 @@ export async function verifyRecaptcha(token: string, remoteip?: string): Promise
 
     const data = (await response.json()) as RecaptchaVerifyResponse;
 
-    logger.info('reCAPTCHA verification result', {
+    logger.warn('reCAPTCHA verification result', {
       success: data.success,
       score: data.score,
       action: data.action,
@@ -83,8 +83,12 @@ const BUILD_TIME_SITE_KEY = import.meta.env['PUBLIC_RECAPTCHA_SITE_KEY'];
  * without PUBLIC_RECAPTCHA_SITE_KEY, browsers can never obtain a token —
  * verifyRecaptcha then fails closed on every submission (422), silently
  * dropping every lead until the site is rebuilt with the key set. Call
- * once at server startup (module load), not per-request — this is a
- * deploy-config problem, not a request-time one.
+ * once at module load, not per-request — this is a deploy-config problem,
+ * not a request-time one. Note: under Astro's Node adapter, the module that
+ * calls this (src/pages/api/form.ts) is loaded lazily on the first matching
+ * request, not eagerly at process boot, so in practice this runs on the
+ * first request to /api/form rather than at server startup — see the call
+ * site's comment and infra/README.md for the operational implication.
  */
 export function checkRecaptchaConfigConsistency(): void {
   const secretConfiguredAtRuntime = Boolean(process.env['RECAPTCHA_SECRET']);
