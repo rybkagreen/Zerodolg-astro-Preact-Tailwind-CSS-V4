@@ -549,7 +549,7 @@ Replace:
 // Конфигурация Bitrix24 из переменных окружения
 const BITRIX24_WEBHOOK_URL =
   import.meta.env['BITRIX24_WEBHOOK_URL'] ||
-  'https://zerodolg.bitrix24.ru/rest/1/sn1lo90na6t13v1d/';
+  'https://zerodolg.bitrix24.ru/rest/1/***REDACTED***/';
 ```
 
 with:
@@ -1217,8 +1217,8 @@ research).
 # Production infrastructure (reference copies)
 
 These are versioned copies of the configs actually running on `zerodolg.ru`
-(`root@5.42.105.182`), captured 2026-07-15 — see `tmp/RECON_PROD_2026-07-14.md`
-(local, gitignored) for the full recon.
+(`root@‹PROD_IP — см. tmp/RECON_PROD_2026-07-14.md›`), captured 2026-07-15 — see
+`tmp/RECON_PROD_2026-07-14.md` (local, gitignored) for the full recon.
 
 **These files are not wired into any build or deploy tooling.** There is
 currently no deploy pipeline (BL-063) — copying code to the server is still a
