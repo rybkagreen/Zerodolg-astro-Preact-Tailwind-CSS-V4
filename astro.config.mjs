@@ -81,10 +81,6 @@ export default defineConfig({
             vendor: ['preact', 'preact/hooks'],
             ui: ['@astrojs/preact'],
           },
-          // Улучшенное именование файлов для кэширования
-          chunkFileNames: 'chunks/[name].[hash].js',
-          entryFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
         },
       },
       // Включаем дополнительные оптимизации для production

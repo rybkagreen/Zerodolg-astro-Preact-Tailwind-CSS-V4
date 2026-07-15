@@ -89,9 +89,6 @@ export default defineConfig({
             vendor: ['preact', 'preact/hooks'],
             ui: ['@astrojs/preact'],
           },
-          // Better chunk naming for improved caching
-          chunkFileNames: 'chunks/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
         },
       },
       // Report compressed chunk sizes
