@@ -1,12 +1,32 @@
 import type { APIRoute } from 'astro';
 import { SERVICE_VALUES } from '@shared/lib/analytics-manager';
+import { logger } from '@shared/lib/logger';
+import { isTestingEnv } from '@shared/config/testing-mode';
+import { checkRecaptchaConfigConsistency } from '@features/forms/lib/recaptcha';
 
-// Конфигурация Bitrix24 из переменных окружения
-const BITRIX24_WEBHOOK_URL =
-  import.meta.env['BITRIX24_WEBHOOK_URL'] ||
-  'https://zerodolg.bitrix24.ru/rest/1/sn1lo90na6t13v1d/';
+export const prerender = false;
+
+// Runs once, at module load (Node caches the module after first import) —
+// this is a startup-time deploy-config check, not a per-request one. See
+// checkRecaptchaConfigConsistency's doc comment (src/features/forms/lib/recaptcha.ts)
+// for what it catches.
+checkRecaptchaConfigConsistency();
 
 export const POST: APIRoute = async ({ request }) => {
+  const webhookUrl = process.env['BITRIX24_WEBHOOK_URL'];
+  const testingEnv = isTestingEnv();
+
+  if (!webhookUrl && !testingEnv) {
+    logger.error('BITRIX24_WEBHOOK_URL is not configured');
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: 'Сервис временно недоступен. Пожалуйста, позвоните нам.',
+      }),
+      { status: 503, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   try {
     // Получаем данные формы (поддержка JSON и FormData)
     const contentType = request.headers.get('content-type') || '';
@@ -27,6 +47,14 @@ export const POST: APIRoute = async ({ request }) => {
     const email = (data['email'] as string) || '';
     const message = (data['message'] as string) || '';
     const formType = (data['formType'] as string) || 'callback';
+
+    // Health-probe: all fields empty means monitoring, not a real submission
+    if (!name && !phone && !email && !message) {
+      return new Response(
+        JSON.stringify({ success: true, message: 'Form endpoint is available', test: true }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Валидация
     if (!name || !phone) {
@@ -68,7 +96,7 @@ export const POST: APIRoute = async ({ request }) => {
     };
 
     // Отправляем в Bitrix24
-    const bitrixResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.lead.add`, {
+    const bitrixResponse = await fetch(`${webhookUrl}crm.lead.add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
