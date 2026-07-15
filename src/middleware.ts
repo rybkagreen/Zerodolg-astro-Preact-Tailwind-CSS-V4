@@ -11,7 +11,7 @@ export async function onRequest(
   const isDev = import.meta.env.DEV || context.url.hostname === 'localhost';
 
   // Set cache control headers for static assets
-  if (context.request.url.includes('/assets/')) {
+  if (context.request.url.includes('/_astro/')) {
     response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
   } else if (response.headers.get('content-type')?.includes('text/html')) {
     // Short cache for HTML pages
