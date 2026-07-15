@@ -6,29 +6,36 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
 [![Astro](https://img.shields.io/badge/Astro-5.13.7-orange.svg)](https://astro.build/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-06B6D4.svg)](https://tailwindcss.com/)
-[![Build Status](https://img.shields.io/badge/Build-Passing-green.svg)](#)
 [![Production](https://img.shields.io/badge/Status-Live_on_Production-success.svg)](https://zerodolg.ru)
-[![Code Quality](https://img.shields.io/badge/Code_Quality-A+-brightgreen.svg)](#качество-кода)
 
-## 🎉 Статус проекта: **ЗАВЕРШЕН И РАЗМЕЩЕН НА ПРОДАКШНЕ**
+## Статус проекта
 
-✨ **Проект полностью готов и работает в production на
-[zerodolg.ru](https://zerodolg.ru)**
+Сайт **работает в production** на [zerodolg.ru](https://zerodolg.ru) с октября 2025.
 
-**Дата запуска**: Октябрь 2025  
-**Статус**: 🚀 Live in Production  
-**Готовность**: 100%
+> ⚠️ **Прочитайте, прежде чем что-либо собирать или выкатывать.** Прод
+> **заморожен на 08.11.2025** и собран **не из этого репозитория** — там более
+> новая SSR-сборка, исходники которой утеряны. Репозиторий **отстаёт** от прода,
+> а не опережает его. **Пайплайна деплоя не существует.** Подробно —
+> `docs/PROJECT_KNOWLEDGE.md` → «История расхождения» и `ARCHITECTURE.md §10`.
+
+Прежняя редакция этого файла заявляла «ЗАВЕРШЕН», «Готовность: 100%» и «Готов к
+деплою без доработок». Это было неверно и опасно: выкатывание текущего дерева
+как есть **отняло бы у живого сайта функциональность**. Бейджи «Build: Passing»
+и «Code Quality: A+» были захардкожены картинками и ничего не измеряли — удалены.
 
 ## ✨ Особенности проекта
 
-🎯 **Production-Ready** - Полностью готов к продакшену с нулевыми TypeScript
-ошибками  
-⚡ **Высокая производительность** - Статическая генерация + Islands
-Architecture  
-🔒 **Безопасность** - Современные практики безопасности (Semgrep, TruffleHog)  
-📱 **Mobile-First** - Отзывчивый дизайн для всех устройств  
-🚀 **SEO оптимизирован** - Структурированные данные, robots.txt, sitemap.xml  
-🎨 **Современный стек** - Astro 5 + Preact + TypeScript + Tailwind CSS 3.4  
+🎯 **Строгий TypeScript** - `tsc --noEmit` проходит без ошибок (проверено
+16.07.2026)  
+⚡ **Astro + Islands** - большинство страниц пререндерится; форма и `/health`
+рендерятся на сервере через адаптер `@astrojs/node` — это **не** плоская
+статика  
+🔒 **Безопасность** - Semgrep и TruffleHog. ⚠️ Репо-обёртки над обоими
+ненадёжны (BL-001/BL-002) — гонять реальные инструменты  
+📱 **Mobile-First** - 621 responsive-префикс в 39 из 85 файлов (исключение —
+`privacy`/`terms`)  
+🚀 **SEO** - Структурированные данные, robots.txt, sitemap  
+🎨 **Стек** - Astro 5 + Preact + TypeScript + Tailwind CSS 3.4  
 🤖 **MCP-Enhanced** - Интеграция с Model Context Protocol (MCP)
 
 ## 🚀 Быстрый старт
@@ -54,7 +61,8 @@ npm run preview
 
 ```
 zerodolg-astro/
-├── 🔧 .github/workflows/       # CI/CD автоматизация
+├── 🔧 .github/workflows/       # пусто — Actions неприменимы (не работают в РФ)
+├── 🏗️ infra/                   # копии боевых конфигов (nginx / PM2 / cron)
 ├── 🪝 .husky/                  # Git hooks (pre-commit, commit-msg)
 ├── 🛠️ .vscode/                 # VS Code конфигурация
 │
@@ -72,8 +80,7 @@ zerodolg-astro/
 │   ├── 🏗️ build/               # Сборка проекта
 │   ├── 🚀 deploy/              # Деплой и развертывание
 │   ├── 🛠️ dev/                 # Инструменты разработки
-│   ├── 🔧 maintenance/         # Обслуживание и оптимизация
-│   └── 🧪 test/                # Тестирование
+│   └── 🔧 maintenance/         # Обслуживание и оптимизация
 │
 ├── 💻 src/                     # Исходный код (Feature-Sliced Design архитектура)
 │   │
@@ -82,20 +89,19 @@ zerodolg-astro/
 │   │   ├── providers/          # React провайдеры и контекст
 │   │   └── styles/             # Глобальные стили приложения
 │   │
-│   ├── 🧩 components/          # UI компоненты (временные, мигрируют в shared/ui)
-│   │   ├── forms/              # Формы
-│   │   ├── layout/             # Layout компоненты
+│   ├── 🧩 components/          # Статические Astro-компоненты (НЕ «временные»: миграции в shared/ui нет)
+│   │   ├── forms/              # Формы (живой лид-путь — PROTECTED)
+│   │   ├── blog/               # Компоненты блога
 │   │   └── sections/           # Секции страниц
 │   │
 │   ├── 🎯 core/                # Основная бизнес-логика
 │   │   ├── constants/          # Константы приложения
 │   │   └── team-members.ts     # Данные команды
 │   │
-│   ├── 🗄️ entities/             # Entities слой (FSD) - бизнес-сущности
-│   │   ├── blog/content/       # Блог статьи (Markdown)
-│   │   ├── review/content/     # Отзывы клиентов
-│   │   ├── team/content/       # Данные команды
-│   │   └── config.ts           # Конфигурация сущностей
+│   ├── 🗄️ entities/             # ⚠️ МЁРТВЫЙ СЛОЙ — 0 импортов, 3 файла. Живой контент — в src/content/
+│   │   ├── review/content/     # дубль src/content/reviews (побайтово идентичен)
+│   │   ├── team/content/       # дубль src/content/team
+│   │   └── config.ts           # УСТАРЕВШАЯ схема (нет author/category/featured/readingTime/draft)
 │   │
 │   ├── ⚡ features/             # Features слой (FSD) - бизнес-функции
 │   │   ├── analytics/          # Аналитика (Google, Yandex)
@@ -117,7 +123,7 @@ zerodolg-astro/
 │   ├── 🤝 shared/              # Shared слой (FSD) - переиспользуемые ресурсы
 │   │   ├── api/                # API клиенты и интеграции
 │   │   ├── config/             # Конфигурация приложения
-│   │   ├── hooks/              # Custom React hooks (12 hooks)
+│   │   ├── hooks/              # Custom Preact hooks (12 шт.; jsxImportSource: preact)
 │   │   │   ├── useAsyncEffect.ts      # Асинхронные эффекты
 │   │   │   ├── useClickOutside.ts     # Обработка кликов вне
 │   │   │   ├── useDebounce.ts         # Дебаунс хук
@@ -188,28 +194,27 @@ zerodolg-astro/
 
 ### 🎯 Основные технологии
 
-| Технология                                        | Версия    | Назначение                        |
-| ------------------------------------------------- | --------- | --------------------------------- |
-| **[Astro](https://astro.build/)**                 | `5.13.7`  | 🌟 Статический генератор сайтов   |
-| **[Preact](https://preactjs.com/)**               | `10.27.1` | ⚡ Легковесная альтернатива React |
-| **[TypeScript](https://www.typescriptlang.org/)** | `5.9.2`   | 🔒 Строгая типизация JavaScript   |
-| **[Tailwind CSS](https://tailwindcss.com/)**      | `3.4.17`  | 🎨 Утилитарный CSS-фреймворк      |
+| Технология                                                                       | Версия    | Назначение                                            |
+| -------------------------------------------------------------------------------- | --------- | ----------------------------------------------------- |
+| **[Astro](https://astro.build/)**                                                | `5.13.7`  | 🌟 Генератор + SSR через адаптер                      |
+| **[@astrojs/node](https://docs.astro.build/en/guides/integrations-guide/node/)** | `^9.4.4`  | 🖥️ SSR-адаптер (`standalone`) — прод крутится под PM2 |
+| **[Preact](https://preactjs.com/)**                                              | `10.27.1` | ⚡ Легковесная альтернатива React                     |
+| **[TypeScript](https://www.typescriptlang.org/)**                                | `5.9.2`   | 🔒 Строгая типизация JavaScript                       |
+| **[Tailwind CSS](https://tailwindcss.com/)**                                     | `3.4.17`  | 🎨 Утилитарный CSS-фреймворк                          |
 
 ### 🧪 Инструменты разработки
 
-| Инструмент                                     | Версия    | Описание                         |
-| ---------------------------------------------- | --------- | -------------------------------- |
-| **[Vitest](https://vitest.dev/)**              | `3.2.4`   | 🧪 Современное unit-тестирование |
-| **[Puppeteer](https://pptr.dev/)**             | `24.23.0` | 🤖 E2E тестирование              |
-| **[ESLint](https://eslint.org/)**              | `9.36.0`  | 🔍 Линтинг кода                  |
-| **[Prettier](https://prettier.io/)**           | `3.6.2`   | 💅 Форматирование кода           |
-| **[Husky](https://github.com/typicode/husky)** | `9.1.7`   | 🪝 Git hooks                     |
+| Инструмент                                     | Версия    | Описание                                                               |
+| ---------------------------------------------- | --------- | ---------------------------------------------------------------------- |
+| **[Puppeteer](https://pptr.dev/)**             | `24.23.0` | 🤖 **только** MCP-тулинг (`mcp:server`/`mcp:demo`) — **не** E2E-раннер |
+| **[ESLint](https://eslint.org/)**              | `9.36.0`  | 🔍 Линтинг кода                                                        |
+| **[Prettier](https://prettier.io/)**           | `3.6.2`   | 💅 Форматирование кода                                                 |
+| **[Husky](https://github.com/typicode/husky)** | `9.1.7`   | 🪝 Git hooks                                                           |
 
 ### 🤖 AI и автоматизация
 
-- **Claude Code** - Executor (git, сборка, деплой)
+- **Claude Code** - Executor (git, сборка)
 - **Model Context Protocol (MCP)** - Расширенная AI интеграция
-- **GitHub Actions** - CI/CD автоматизация
 
 ## 🏆 Качество кода
 
@@ -218,9 +223,11 @@ zerodolg-astro/
 - **0 TypeScript ошибок** - Полная типобезопасность
 - **Современный ESLint** - Flat config с плагинами для Astro и TypeScript
 - **Prettier форматирование** - Единообразный стиль кода
-- **Git hooks (Husky)** - Автоматическая проверка перед коммитом
+- **Git hooks (Husky)** - Проверка перед коммитом. ⚠️ Обходятся через `HUSKY=0`
+  без следа — см. BL-071
 - **Строгий TypeScript** - `strict: true` со всеми проверками
-- **Production-ready** - Готов к деплою без доработок
+- **Автотестов нет** - в `package.json` нет скрипта `test`, Vitest не в
+  зависимостях. Ближайший эквивалент — `type-check` + `lint` + `build`
 
 ### 🔍 Команды проверки качества
 
@@ -277,7 +284,7 @@ npx trufflehog .
 Samый важный слой содержит:
 
 - **`config/`** - Конфигурация приложения и переменные окружения
-- **`hooks/`** - 12 custom React hooks для типовых задач
+- **`hooks/`** - 12 custom **Preact** hooks (не React — `jsxImportSource: 'preact'`)
 - **`lib/`** - Утилиты и хелперы (аналитика, валидация, логи)
 - **`types/`** - Централизованные TypeScript типы
 - **`ui/`** - Переиспользуемые UI компоненты
@@ -295,8 +302,10 @@ Samый важный слой содержит:
 
 - **Feature-Sliced Design** - Организация кода по бизнес-функциям и слоям
 - **Islands Architecture** - Интерактивные компоненты только там, где они нужны
-- **Статическая генерация** - Предварительный рендеринг HTML для максимальной
-  производительности
+- **Пререндер + SSR** - Большинство страниц рендерится заранее, но сборка идёт
+  через адаптер `@astrojs/node` и выдаёт `dist/server/entry.mjs`; `/api/form` и
+  `/health` рендерятся на сервере (`prerender = false`). Плоскими файлами сайт
+  не разложить — нужен живой Node-процесс
 - **Progressive Enhancement** - The site works without JavaScript
 - **Visual Fidelity** - UI/UX should match the original production site
   (https://zerodolg.ru/) using only Tailwind CSS and built-in Astro/Preact
@@ -325,31 +334,37 @@ Samый важный слой содержит:
 
 #### 🔧 Пример использования
 
+> ⚠️ Пример ниже исправлен 16.07.2026. Прежняя версия **не компилировалась**:
+> она передавала ref первым аргументом в `useClickOutside` и меняла местами
+> аргументы `useFocusTrap`. Сигнатуры сверены с `src/shared/hooks/`.
+
 ```tsx
 // Пример с модальным окном
 import { useClickOutside, useFocusTrap, useScrollLock } from '@/shared/hooks';
 
 function Modal({ isOpen, onClose, children }) {
-  const modalRef = useRef(null);
+  // Возвращает ref-колбэк — его вешают на элемент, а не передают внутрь
+  const { ref: outsideRef } = useClickOutside<HTMLDivElement>(onClose);
 
-  // Автоматическое закрытие по клику вне
-  useClickOutside(modalRef, onClose);
-
-  // Ловушка фокуса для доступности
-  useFocusTrap(modalRef, isOpen);
+  // Первый аргумент — активность, а не ref; хук сам возвращает ref
+  const trapRef = useFocusTrap<HTMLDivElement>(isOpen);
 
   // Блокировка скролла фона
   useScrollLock(isOpen);
 
   return isOpen ? (
-    <div className='modal-backdrop'>
-      <div ref={modalRef} className='modal'>
+    <div className='modal-backdrop' ref={outsideRef}>
+      <div ref={trapRef} className='modal'>
         {children}
       </div>
     </div>
   ) : null;
 }
 ```
+
+⚠️ Баррель `@/shared/hooks` экспортирует все 12 хуков, но **ни один файл в
+репозитории его не импортирует** — все потребители ходят по прямым путям
+(например `src/shared/ui/AccessibleModal.tsx`).
 
 ### Стили
 
@@ -363,8 +378,10 @@ function Modal({ isOpen, onClose, children }) {
 
 - **Semgrep** - Static Analysis Security Testing
 - **TruffleHog** - Проверка утечки секретов
-- **CSP Headers** - Content Security Policy с nonce подходом
-- **SRI** - Subresource Integrity для внешних ресурсов
+- **CSP Headers** - Content Security Policy. ⚠️ **Nonce-подхода нет** — оба CSP
+  держат `'unsafe-inline'` в `script-src`. И их **два**: `src/middleware.ts` и
+  боевой в `infra/nginx/zerodolg.ru.conf`; браузеры видят nginx'овый. Разбор —
+  `ARCHITECTURE.md §7`, сведение — BL-069
 - **Security Headers** - X-Frame-Options, X-Content-Type-Options и др.
 
 ### ⚡ Производительность
@@ -395,20 +412,21 @@ function Modal({ isOpen, onClose, children }) {
 
 ### 🚀 Production Deployment
 
-**Проект размещен на продакшн сервере и работает в режиме реального времени!**
+Сайт работает на продакшн-сервере.
 
 - **🌐 Live URL**: [https://zerodolg.ru](https://zerodolg.ru)
 - **📅 Дата запуска**: Октябрь 2025
-- **✨ Статус**: Полностью функционален и оптимизирован
-- **🎯 Готовность**: 100%
+- **🧊 Последнее обновление прода**: **08.11.2025** — с тех пор заморожен
+- **🖥️ Рантайм**: Astro SSR (`@astrojs/node`) под PM2 + nginx, Node v20.20.2
+- **🚚 Деплой**: **отсутствует** (BL-063) — выкатить изменения сейчас нельзя
+- **📥 Лиды**: ⚠️ **не доезжают в CRM** — вебхук Bitrix24 отдаёт 401, и при
+  сбое заявка нигде не сохраняется (BL-053…BL-056)
 
 ### ✅ Реализованные возможности
 
-Проект полностью завершен и работает в продакшене:
-
 #### 📄 Основной функционал
 
-- ✅ Все страницы реализованы и протестированы
+- ✅ Все страницы реализованы. ⚠️ Автотестами **не покрыты** — раннера нет
 - ✅ Все интерактивные компоненты работают корректно
 - ✅ Формы проходят валидацию и отправляют данные
 - ✅ Система модальных окон функционирует правильно
@@ -456,13 +474,18 @@ function Modal({ isOpen, onClose, children }) {
 
 ### 🧪 Тестирование
 
-| Команда                 | Описание                | Режим         |
-| ----------------------- | ----------------------- | ------------- |
-| `npm run test`          | 🧪 Unit тесты           | Одноразовый   |
-| `npm run test:watch`    | 👁️ Тесты в watch режиме | Непрерывный   |
-| `npm run test:coverage` | 📊 Покрытие тестами     | Отчет         |
-| `npm run test:ui`       | 🎨 UI для тестов        | Интерактивный |
-| `npm run test:e2e`      | 🤖 E2E тестирование     | Puppeteer     |
+**Тест-раннера в проекте нет.** Ни одного из скриптов `test`, `test:watch`,
+`test:coverage`, `test:ui`, `test:e2e` в `package.json` не существует — раньше
+эта таблица перечисляла все пять как рабочие. Vitest не входит в зависимости;
+Puppeteer стоит только ради MCP-тулинга.
+
+Ближайший эквивалент тест-сьюта — гейт:
+
+```bash
+npm run type-check && npm run lint && npm run build && npm run build:prod
+```
+
+Заведение раннера с нуля оценено в `docs/IMPLEMENTATION_PLAN.md` (BL-032).
 
 ### 🚀 Деплой и обслуживание
 
@@ -502,7 +525,7 @@ function Modal({ isOpen, onClose, children }) {
 ```env
 # 🚀 Основные настройки
 PUBLIC_SITE_URL=https://zerodolg.ru
-PUBLIC_SITE_PHONE=+7 (905) 577-33-87
+PUBLIC_SITE_PHONE=+7 (XXX) XXX-XX-XX
 PUBLIC_SITE_EMAIL=info@zerodolg.ru
 
 # 📊 Аналитика
