@@ -1,9 +1,0 @@
-name = "Запустить линтер"
-description = "Проверка кода с помощью ESLint"
-
-prompt = "Запуск линтера проекта"
-
-[command]
-type = "shell"
-run = "npm run lint"
-directory = "."

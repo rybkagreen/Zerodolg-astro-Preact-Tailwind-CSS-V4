@@ -29,10 +29,9 @@ Architecture
 📱 **Mobile-First** - Отзывчивый дизайн для всех устройств  
 🚀 **SEO оптимизирован** - Структурированные данные, robots.txt, sitemap.xml  
 🎨 **Современный стек** - Astro 5 + Preact + TypeScript + Tailwind CSS 3.4  
-🧪 **Высокое покрытие тестами** - Vitest + Puppeteer для E2E тестирования  
-🤖 **AI-Enhanced** - Интеграция с Qwen Code и Model Context Protocol (MCP)
+🤖 **MCP-Enhanced** - Интеграция с Model Context Protocol (MCP)
 
-## 🚀 Быстрый старт с Qwen Code
+## 🚀 Быстрый старт
 
 ```bash
 # 📦 Установка зависимостей
@@ -47,11 +46,6 @@ npm run build
 
 # 👀 Предварительный просмотр собранного сайта
 npm run preview
-
-# 🤖 Настройка Qwen Code
-# 1. Установите расширение Qwen Code для VS Code
-# 2. Сконфигурируйте проект с .qwenrc.json
-# 3. Начните использовать AI-ассистента для генерации кода
 ```
 
 ## 🏗️ Архитектура проекта
@@ -62,9 +56,7 @@ npm run preview
 zerodolg-astro/
 ├── 🔧 .github/workflows/       # CI/CD автоматизация
 ├── 🪝 .husky/                  # Git hooks (pre-commit, commit-msg)
-├── 🤖 .qwen/                   # AI assistant конфигурация
 ├── 🛠️ .vscode/                 # VS Code конфигурация
-├── 🤖 agents/                  # AI агенты конфигурация
 │
 ├── 📖 docs/                    # Документация проекта
 │   ├── 📊 analysis/            # Анализ и отчеты
@@ -175,10 +167,8 @@ zerodolg-astro/
 
 ### 📖 Основные документы
 
-- 🤖 [**QWEN.md**](QWEN.md) - Руководство по Qwen Code (основной AI-ассистент)
-- 🤖 [**AGENT.md**](AGENT.md) - Конфигурация AI агентов
-- 🖥️ [**WARP.md**](WARP.md) - Конфигурация Warp Terminal
-- 🏗️ [**Архитектура**](docs/architecture.md) - Feature-Sliced Design архитектура
+- 🤖 [**CLAUDE.md**](CLAUDE.md) - Инструкции для Claude Code (executor)
+- 🏗️ [**ARCHITECTURE.md**](ARCHITECTURE.md) - Feature-Sliced Design архитектура
 - 🔄 [**CHANGELOG.md**](CHANGELOG.md) - История изменений проекта
 
 ### 📁 Специализированная документация
@@ -217,9 +207,8 @@ zerodolg-astro/
 
 ### 🤖 AI и автоматизация
 
-- **Qwen Code** - Основной AI код-ассистент
+- **Claude Code** - Executor (git, сборка, деплой)
 - **Model Context Protocol (MCP)** - Расширенная AI интеграция
-- **AI Агенты** - Многоуровневая система для анализа кода
 - **GitHub Actions** - CI/CD автоматизация
 
 ## 🏆 Качество кода
@@ -442,7 +431,6 @@ function Modal({ isOpen, onClose, children }) {
 
 - ✅ Стабильная Tailwind CSS v3.4 с оптимизированной конфигурацией
 - ✅ Интеграция с Model Context Protocol (MCP) для расширенных возможностей AI
-- ✅ AI-ассистент Qwen Code интегрирован в разработку
 - ✅ WCAG 2.2 доступность реализована
 
 ## 📦 Команды
@@ -527,9 +515,6 @@ PUBLIC_ASTRO_TOOLBAR=false
 # 🐈 Интеграция с Bitrix24
 BITRIX24_WEBHOOK_URL=https://your-domain.bitrix24.ru/rest/1/webhook_key/
 
-# 🤖 Qwen Code интеграция (опционально)
-QWEN_API_KEY=your-qwen-api-key
-
 # 🌍 Окружение
 NODE_ENV=development # development | production
 ```
@@ -550,16 +535,14 @@ NODE_ENV=development # development | production
 2. ** <<=BRANCH==> ** - Создайте ветку:
    `git checkout -b feature/amazing-feature`
 3. ** <<=DEVELOP==> ** - Используйте `npm run dev` для разработки
-4. ** <<=TEST==> ** - Убедитесь, что `npm run test` проходит
-5. ** <<=QUALITY==> ** - Проверьте `npm run lint` и `npm run type-check`
-6. ** <<=AI REVIEW==> ** - Используйте Qwen Code для проверки кода
-7. ** <<=COMMIT==> ** - Используйте
+4. ** <<=QUALITY==> ** - Проверьте `npm run lint` и `npm run type-check`
+5. ** <<=COMMIT==> ** - Используйте
    [Conventional Commits](https://conventionalcommits.org/):
    ```bash
    git commit -m "feat(component): add amazing feature"
    ```
-8. ** <<=PUSH==> ** - Отправьте ветку: `git push origin feature/amazing-feature`
-9. ** <<=PR==> ** - Откройте Pull Request с описанием изменений
+6. ** <<=PUSH==> ** - Отправьте ветку: `git push origin feature/amazing-feature`
+7. ** <<=PR==> ** - Откройте Pull Request с описанием изменений
 
 Подробное руководство по внесению вклада см. в файле
 [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -575,13 +558,6 @@ NODE_ENV=development # development | production
 - `refactor(scope): description` - рефакторинг
 - `test(scope): description` - добавление тестов
 - `chore(scope): description` - служебные задачи
-
-### 🤖 Работа с Qwen Code
-
-1. Используйте Qwen Code как основного AI-ассистента
-2. Обновляйте `.qwenrc.json` при изменении контекста проекта
-3. Используйте шаблоны промптов для согласованности кода
-4. Проверяйте сгенерированный код на безопасность и доступность
 
 ## 📞 Контакты и поддержка
 
@@ -619,6 +595,5 @@ NODE_ENV=development # development | production
 [![Astro](https://img.shields.io/badge/Powered_by-Astro-orange?logo=astro&logoColor=white)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/Built_with-TypeScript-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Styled_with-Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Qwen Code](https://img.shields.io/badge/Powered_by-Qwen_Code-FF6B00?logo=alibaba-cloud&logoColor=white)](https://qwen.ai/)
 
 </div>

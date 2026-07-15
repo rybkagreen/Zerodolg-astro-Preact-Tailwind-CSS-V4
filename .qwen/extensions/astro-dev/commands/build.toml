@@ -1,9 +1,0 @@
-name = "Собрать проект для продакшена"
-description = "Сборка проекта Astro для продакшена с валидацией окружения"
-
-prompt = "Сборка проекта для продакшена"
-
-[command]
-type = "shell"
-run = "npm run build"
-directory = "."

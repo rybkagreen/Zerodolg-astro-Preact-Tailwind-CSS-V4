@@ -5,334 +5,233 @@ code in this repository.
 
 ## Project Overview
 
-ZeroDolg Astro Website is a corporate website for a legal company specializing
-in bankruptcy services for individuals. The project uses Astro v5.13.7 as a
-static site generator with Preact for interactive components, organized
-according to Feature-Sliced Design principles. The project now emphasizes Qwen
-Code as the primary AI assistant in the development workflow.
+ZeroDolg is a corporate website (zerodolg.ru) for a Russian legal company
+specializing in personal bankruptcy services. It's an Astro v5 static site with
+Preact islands for interactivity, organized loosely around Feature-Sliced Design
+(FSD). Claude Code is the sole executor for this project (git, builds, deploys)
+— a prior multi-tool setup (Qwen Code, Warp, a generic multi-agent config) was
+removed; see "Legacy docs" below.
 
-## Development Commands
+## Commands
 
-### Core Development
+### Development
 
-- `npm run dev` - Start local development server (port 4321)
-- `npm run build` - Build project for production with validation
-- `npm run build:prod` - Build with production optimizations
-- `npm run build:production` - Full production build script
-- `npm run preview` - Preview built site locally
+- `npm run dev` — start dev server on port 4321
+- `npm run build` — validate env vars, `astro build`, then fix output URLs
+  (postbuild)
+- `npm run build:prod` — clean + type-check, then build with
+  `astro.config.prod.mjs`
+- `npm run build:production` — full production build via
+  `scripts/build/build-production.js`
+- `npm run preview` — preview the built `dist/`
+- `npm run clean` — remove `dist/` and `.astro/`
 
 ### Code Quality
 
-- `npm run lint` - Check code with ESLint
-- `npm run lint:fix` - Automatically fix code issues
-- `npm run type-check` - Check TypeScript types
-- `npm run format` - Format code with Prettier
-- `npm run format:check` - Check code formatting
+- `npm run lint` / `npm run lint:fix` — ESLint (flat config, `eslint.config.js`)
+- `npm run type-check` — `tsc --noEmit`
+- `npm run format` / `npm run format:check` — Prettier (incl. `.astro` files)
 
-### Testing
+Run `type-check`, `lint`, and `build` to verify a change — that's the closest
+thing this repo has to a test suite (see below).
 
-- `npm run test` - Run tests with Vitest
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run test:ui` - Run tests with UI interface
-- `npm run test:e2e` - Run end-to-end tests with Puppeteer
+### There is no automated test suite
 
-### Maintenance
+Despite what `README.md` and `.github/workflows/ci.yml` claim, **`package.json`
+defines no `test` script, and Vitest/Testing Library are not dependencies.** The
+CI workflow's `npm run test` step will fail as configured. Puppeteer is
+installed only for the manual MCP tooling (`npm run mcp:server`,
+`npm run mcp:demo`, `tools/mcp-puppeteer-server.js`), not for an e2e test
+runner. If you add tests, you'll need to set up the runner from scratch (add the
+dependency, write the config, add the script) — don't assume one exists.
 
-- `npm run clean` - Clean compiled files
-- `npm run maintenance:audit` - Audit project dependencies
-- `npm run maintenance:lighthouse` - Run Lighthouse audit
-- `npm run maintenance:optimize-images` - Optimize images
+### Environment / Deploy / Maintenance
 
-### Deployment
+- `npm run env:validate` / `npm run env:setup` — env var validation/setup
+  (`scripts/dev/`)
+- `npm run deploy`, `deploy:checklist`, `deploy:verify`, `deploy:backup`,
+  `deploy:rollback` — deployment scripts (`scripts/deploy/`)
+- `npm run maintenance:audit`, `maintenance:optimize-images`,
+  `maintenance:lighthouse` — (`scripts/maintenance/`)
+- `npm run staging:up/down/restart/logs/clean` — Docker Compose staging via
+  PowerShell scripts; **Windows-only**, not runnable from this WSL/Linux shell
+- `npm run tools:semgrep`, `tools:trufflehog` — SAST / secret scanning
+  (`tools/`)
 
-- `npm run deploy` - Deploy the application
-- `npm run deploy:verify` - Verify deployment
-- `npm run deploy:rollback` - Rollback deployment
+## Architecture
 
-## Architecture Overview
+### Actual `src/` structure (verified against the tree, not the FSD diagrams
 
-### Feature-Sliced Design Structure
+in `README.md`/`docs/architecture.md`, which are aspirational and drifted)
 
 ```
 src/
-├── components/          # Reusable UI components (ui/, forms/, sections/, layout/)
-├── islands/            # Interactive Preact components only
-├── features/           # Business features (analytics/, calculator/, forms/, modals/)
-├── widgets/            # Complex UI components
-├── pages/              # Page routes
-├── layouts/            # Page layouts
-├── shared/             # Shared utilities and APIs
-├── core/               # Core application logic
-└── styles/             # Tailwind CSS v4 styles
+├── app/                 # Shell: Layout.astro + global styles (main.css, tailwind.css, globals.css, animations.css, backgrounds.css)
+├── components/          # Static Astro components: forms/, blog/, sections/
+├── content/             # Astro content collections (schema in content/config.ts): blog/ (md), reviews/ (json), team/ (json)
+├── core/                # Small: constants/ and team-members.ts only — not a general "core logic" layer
+├── entities/            # Domain entities: team/, review/, own config.ts (content-collection-adjacent, overlaps with content/)
+├── features/            # Business features: analytics/, calculator/, forms/, modals/
+├── islands/             # Interactive Preact components ONLY: forms/, layout/, interactive/, shared/, sections/, utils/, features/calculator/
+├── pages/               # Astro routes, incl. pages/api/ and pages/blog/
+├── shared/              # ui/ (Button, Card, SEO, Breadcrumb, OptimizedImage), lib/, utils/, hooks/, config/, data/, seo/, analytics/, types/
+├── styles/              # design-tokens.ts + CSS (theme.css, critical.css, components.css, sections.css, interactive-components.css) — separate from src/app/*.css
+├── types/               # global.d.ts
+├── widgets/             # header/, footer/, faq/, reviews/
+└── middleware.ts        # security headers + caching (see below)
 ```
 
-### Key Architectural Principles
+Notable gaps vs. what other docs claim: there is no top-level `src/layouts/`
+(layouts live in `src/app/layouts/`), and `core/` is not a general
+application-logic layer. `src/content/` and `src/entities/` overlap in purpose
+(content collections vs. entity models) — check both before adding new content
+types.
 
-- **Feature-Sliced Design**: Code organized by business features and layers
-- **Islands Architecture**: Interactive components are isolated and loaded only
-  when needed
-- **Static Generation**: HTML pre-rendered for maximum performance
-- **Progressive Enhancement**: Site works without JavaScript
-- **Mobile First**: Design starting with mobile devices
-- **Type Safety**: Strict TypeScript checking throughout
+### TypeScript / Vite path aliases
 
-### TypeScript Path Aliases
+Verified against `tsconfig.json` and the `vite.resolve.alias` block in
+`astro.config.mjs` (these two must be kept in sync manually):
 
 - `@/*` → `src/*`
-- `@core/*` → `src/core/*`
+- `@app/*` → `src/app/*`
+- `@entities/*` → `src/entities/*`
 - `@features/*` → `src/features/*`
-- `@shared/*` → `src/shared/*`
 - `@widgets/*` → `src/widgets/*`
-- `@styles/*` → `src/styles/*`
-- `@types/*` → `src/core/types/*`
-- `@utils/*` → `src/shared/utils/*`
+- `@shared/*` → `src/shared/*` (tsconfig also declares narrower `@shared/ui/*`,
+  `@shared/lib/*`, `@shared/config/*`, `@shared/types/*`, `@shared/hooks/*`,
+  `@shared/api/*` — `@shared/api` has no matching directory yet)
+- `@pages/*` → `src/pages/*`
 
-## Technology Stack
+There is **no** `@core/*`, `@styles/*`, `@types/*`, or `@utils/*` alias — those
+appear in older docs but aren't wired up anywhere. Use `@/core/...`,
+`@/styles/...`, `@/types/...`, `@shared/utils/...` instead.
 
-### Core Technologies
+### Key architectural principles
 
-- **Astro v5.13.7** - Static Site Generator
-- **Preact v10.27.1** - Lightweight React alternative for interactive components
-- **TypeScript v5.9.2** - Type safety with strict mode
-- **Tailwind CSS v4** - Utility-first CSS framework
-- **Vitest v3.2.4** - Testing framework
-- **Puppeteer v24.22.3** - End-to-end testing
+- **Islands Architecture**: only `src/islands/**` contains hydrated Preact
+  components; everything under `components/`, `widgets/`, `pages/` is static
+  Astro output unless it explicitly imports an island.
+- **Static generation**: `output: 'static'` in `astro.config.mjs`; no SSR.
+- **Progressive enhancement / mobile-first / WCAG 2.2** are stated goals —
+  verify manually, there's no automated a11y or visual-regression check.
 
-### Styling Architecture
+### Security headers & caching
 
-- **Tailwind CSS v4** - Modern utility-first framework with new CSS-based
-  configuration
-- **Mobile First** - Design approach starting with mobile devices
-- **Component-based** - Reusable UI components with consistent styling
+`src/middleware.ts` sets Content-Security-Policy, X-Frame-Options,
+X-Content-Type-Options, Referrer-Policy, Permissions-Policy, and Cache-Control
+on every response. The CSP has a dev-only branch that adds `unsafe-eval` when
+`import.meta.env.DEV` — check this file (not just the CSP meta tags, if any)
+when adding a new third-party script domain (analytics, maps, etc.), since the
+allowlist is hardcoded here.
+
+### MCP integration
+
+`astro-mcp` is registered as an Astro integration in `astro.config.mjs`.
+Standalone MCP/Puppeteer tooling lives in `tools/mcp-puppeteer-server.js` and
+`tools/demo-mcp-puppeteer.js`, run via `npm run mcp:server` /
+`npm run mcp:demo`.
+
+## Styling: Tailwind CSS is v3, not v4
+
+Despite `README.md` and other docs describing "Tailwind CSS v4",
+**`package.json` pins `tailwindcss: ^3.4.17`**, and both `tailwind.config.js`
+and `postcss.config.cjs` are explicitly headed "Tailwind CSS v3" — this is a
+classic `tailwind.config.js` + PostCSS setup (`postcss-import`,
+`postcss-nesting`, `postcss-preset-env`, `autoprefixer`, `cssnano` in prod), not
+v4's CSS-first `@theme`/Vite-plugin config. Write v3 config/utility syntax here,
+not v4 syntax. The design-token color system uses OKLCH.
 
 ## Code Conventions
 
-### TypeScript Configuration
-
-- Strict mode enabled with comprehensive type checking
-- ES2022 target with modern module resolution
-- JSX configured for Preact with `jsxImportSource: 'preact'`
-
-### ESLint Rules
-
-- TypeScript-specific rules with 2025 best practices
-- Astro file support with accessibility rules
-- Relaxed rules for scripts, tools, and test files
-- No inline styles or `!important` in CSS
-- Security-focused rules (no unsafe eval, proper CSP)
-
-### Component Patterns
-
-- **Astro Components**: Static HTML with minimal JavaScript
-- **Preact Islands**: Interactive components only where needed
-- **Feature-Sliced Design**: Organized by business functionality
-- **Semantic HTML**: Proper HTML5 elements and ARIA labels
-- **Accessibility First**: WCAG 2.2 compliance from the start
-
-## Key Integrations
-
-### SEO & Analytics
-
-- `@astrojs/sitemap` for sitemap generation
-- `astro-robots-txt` for robots.txt configuration
-- Google Analytics and Yandex Metrika integration
-
-### Model Context Protocol (MCP)
-
-- `astro-mcp` integration for enhanced AI capabilities
-- MCP-specific commands: `mcp:info`, `mcp:puppeteer`, `mcp:server`
-
-### Security Headers
-
-- Content Security Policy (CSP) via middleware
-- X-Frame-Options, X-Content-Type-Options headers
-- Referrer-Policy and Permissions-Policy headers
-
-### Environment Variables
-
-Project requires environment variables for full functionality:
-
-```env
-# Site Configuration
-PUBLIC_SITE_URL=https://zerodolg.ru
-PUBLIC_SITE_PHONE=+7 (905) 577-33-87
-PUBLIC_SITE_EMAIL=info@zerodolg.ru
-
-# Analytics
-PUBLIC_GA_ID=G-XXXXXXXXXX
-PUBLIC_YM_ID=XXXXXXXX
-
-# Bitrix24 Integration
-BITRIX24_WEBHOOK_URL=https://your-domain.bitrix24.ru/rest/1/webhook_key/
-
-# Qwen Code (optional)
-QWEN_API_KEY=your-qwen-api-key
-
-# Development
-NODE_ENV=development # development | production
-```
-
-## Development Workflow
-
-### Before Making Changes
-
-1. Check existing implementations and patterns
-2. Review similar components for consistency
-3. Verify design requirements and responsive behavior
-4. Check TypeScript path aliases usage
-5. Consider security implications of changes
-6. Think about accessibility of new features
-
-### During Development
-
-1. Follow existing Feature-Sliced Design patterns
-2. Write semantic HTML first, then add styling
-3. Implement interactivity last (Progressive Enhancement)
-4. Test incrementally across different viewports
-5. Keep accessibility in mind (ARIA, keyboard navigation)
-6. Prioritize security (CSP, input validation, XSS prevention)
-
-### After Changes
-
-1. Run `npm run build` to verify compilation
-2. Test all interactive components
-3. Verify accessibility and responsive design
-4. Run `npm run test` to ensure no regressions
-5. Check that security headers are still properly configured
-6. Validate that new code follows TypeScript strict mode
-
-## Testing Strategy
-
-### Unit & Integration Tests
-
-- Vitest with happy-dom environment
-- Component testing with Testing Library
-- Coverage reporting with v8 provider
-- Test files in `__tests__/` directory
-
-### End-to-End Tests
-
-- Puppeteer for browser automation
-- Comprehensive test coverage
-- UI testing capabilities
-
-## 2025 Modern Practices
-
-### Security (SAST)
-
-- **Semgrep** - Static Analysis Security Testing
-- **TruffleHog** - Secrets scanning
-- **Content Security Policy** - Prevention of XSS attacks
-- **Subresource Integrity** - Verification of external resources
-
-### Performance
-
-- **Core Web Vitals 2025**:
-  - LCP < 1.0s
-  - FID < 75ms
-  - CLS < 0.05
-- **Image optimization** - WebP/AVIF formats with proper loading
-- **Bundle optimization** - Tree-shaking and code splitting
-
-### Accessibility
-
-- **WCAG 2.2/3.0 compliance** - From the start of development
-- **ARIA attributes** - Proper use for dynamic content
-- **Keyboard navigation** - Full functionality without mouse
-- **Screen reader support** - Testing with assistive technologies
-
-### Sustainability
-
-- **Energy-efficient code** - Minimized resource usage
-- **Optimized assets** - Reduced data transmission
-- **Efficient caching** - Reduced server requests
-
-## AI Integration Guidelines
-
-### Working with Qwen Code (Primary AI Assistant)
-
-1. **Prompts for Qwen Code**:
-   - Specify "use TypeScript strict mode" in prompts
-   - Request "Tailwind CSS v4 syntax" for styling
-   - Ask for "accessible components with proper ARIA labels"
-   - Request "secure code with XSS prevention"
-
-2. **Review Process**:
-   - Always review AI-generated code for security issues
-   - Verify TypeScript strict mode compliance
-   - Check for accessibility best practices
-   - Ensure performance considerations are met
-
-### Claude AI Role (Secondary Assistant)
-
-1. **Specialized Tasks for Claude**:
-   - Complex architectural decisions
-   - Detailed security analysis
-   - Performance optimization strategies
-   - Code review and improvement suggestions
-
-2. **Collaboration with Qwen Code**:
-   - Use Claude for reviewing Qwen Code outputs
-   - Get second opinion on complex problems
-   - Analyze security implications of generated code
-
-## Production Considerations
-
-### Build Optimization
-
-- Tree-shaking for CSS and JavaScript
-- Image optimization with Sharp
-- Static generation for maximum performance
-- CDN-ready asset structure
-
-### Performance
-
-- Mobile-first responsive design
-- Lazy loading for interactive components
-- Optimized bundle sizes
-- Core Web Vitals 2025 optimization
-
-## Special Notes
-
-### Git Hooks
-
-- Husky configured for pre-commit hooks
-- Lint-staged for automatic code formatting
-- Pre-commit validation ensures code quality
-
-### File Organization
-
-- Scripts organized in `scripts/` directory by purpose
-- Tools in `tools/` directory for standalone utilities
-- Documentation in `docs/` with comprehensive guides
-
-### Browser Support
-
-- Modern browsers (Chrome 90+, Firefox 88+, Safari 14+)
-- Progressive enhancement ensures basic functionality
-- No legacy browser support required
-
-## Use Cases for Claude AI
-
-### Architecture & Design
-
-1. Analyzing complex refactoring scenarios
-2. Suggesting architectural improvements
-3. Proposing solutions to technical debt
-4. Reviewing security implementations
-
-### Code Quality & Security
-
-1. Deep security analysis of authentication flows
-2. Performance optimization recommendations
-3. Advanced TypeScript type design
-4. Accessibility compliance verification
-
-### Best Practices for Claude AI Integration
-
-1. Provide full context of the problem
-2. Include relevant code snippets
-3. Request specific types of solutions
-4. Ask for alternative approaches when needed
-5. Always verify Claude's suggestions for security implications
+### TypeScript
+
+- Strict mode plus extra checks: `noUncheckedIndexedAccess`,
+  `exactOptionalPropertyTypes`, `noPropertyAccessFromIndexSignature`,
+  `noUnusedLocals`/`noUnusedParameters`. Expect `tsc --noEmit` to be strict
+  about unused/optional/index-access code.
+- JSX is Preact (`jsxImportSource: 'preact'`).
+
+### ESLint / console usage
+
+- Flat config (`eslint.config.js`). `no-console` is `warn` in `src/**` and `off`
+  in scripts/config/tooling files.
+- A specific, small allowlist of files are expected to use `console` (loggers,
+  analytics, error boundaries) — see `.eslintrc-console-exceptions.md` for the
+  current list. New `console` calls in app code should generally go through
+  `src/shared/lib/logger.ts` instead, or carry an explained `eslint-disable`
+  comment matching that file's convention.
+
+### Commits
+
+Enforced by a Husky `commit-msg` hook (`.husky/commit-msg`), not a JS commitlint
+package — it regex-matches `type(scope): description` with `type` ∈
+`feat|fix|docs|style|refactor|test|chore|perf|ci|build`. Commits not matching
+this are rejected locally.
+
+### Formatting
+
+Prettier (`.prettierrc`): single quotes, semicolons, 100 print width,
+`prettier-plugin-astro`. `*.md` files default to `proseWrap: always` at 80 cols,
+**except** files matching `SEO_*.md`, `*REPORT*.md`, `*README*.md`, which
+preserve prose wrap as-is.
+
+## Environment Variables
+
+See `.env.example` for the current full list (Bitrix24 webhook, GA/Yandex
+Metrika IDs, site URL/phone/email, CMS placeholders, reCAPTCHA, maps).
+`npm run build` runs `scripts/dev/validate-env.js` first and will fail the build
+if required vars are missing/malformed — run `npm run env:validate` standalone
+to debug that before chasing build errors.
+
+## Documentation drift warning
+
+The repo root has 50+ historical `*_REPORT.md`, `*_SUMMARY.md`, `*_COMPLETE*.md`
+files (SEO audits, fix reports, migration logs, staging guides) — these are
+archived in `docs.archive/` (see "Legacy docs" below), not deleted, but they
+were point-in-time work logs, not living specs, and several of their claims
+(Tailwind version, path aliases, test commands, FSD folder diagram) were already
+inaccurate before archiving. Prefer verifying against actual config/source over
+trusting historical documents' current-state claims — that includes this repo's
+own methodology docs (`docs/PROJECT_KNOWLEDGE.md`,
+`docs/IMPLEMENTATION_PLAN.md`, etc.), which have needed similar corrections in
+the past (see their "проверено" notes).
+
+## Legacy docs
+
+Historical documentation (old `docs/` tree, superseded reports/guides) lives in
+`docs.archive/` — it is **gitignored and not tracked** in this repository, kept
+only as a local reference copy. It is not maintained; don't treat it as current.
+Actual current documentation is: this file, `ARCHITECTURE.md`, `CONTRIBUTING.md`
+(repo root), and `docs/` (`PROJECT_KNOWLEDGE.md`, `CLAUDE_CODE_INSTRUCTIONS.md`,
+`IMPLEMENTATION_PLAN.md`, `DOCUMENTS_REGISTRY.md`).
+
+`AGENT.md`, `QWEN.md`, `WARP.md`, and `.qwen/` (Qwen Code config, a Warp Agent
+Mode rules file, and a generic multi-agent setup) were **deleted outright**, not
+archived — Claude Code is now the sole executor for this project, so there was
+nothing in them worth keeping as reference. See `docs/IMPLEMENTATION_PLAN.md`'s
+decision log (D5) for context.
+
+## Working conventions
+
+Adapted from the owner's cross-project executor methodology (see
+`docs/CLAUDE_CODE_INSTRUCTIONS.md`, `docs/PROJECT_KNOWLEDGE.md` for the full
+version). The parts that materially change day-to-day behavior in this repo:
+
+- **4 hard constraints:** do it right the first time (no do-overs); keep FSD
+  boundaries and SOLID/SoC clean, no patches on patches; never hardcode
+  text/prices/keys — content/config/env only, and this repo is **public** so
+  secrets are env-only, never committed; prefer doing the visibly-better thing
+  over quick-and-dirty, and log deferred work instead of skipping it silently.
+- **Git:** `master` is production and default. Feature work goes through a PR.
+  Never `--no-verify`, force-push, rebase, or squash on a pushed branch —
+  history is preserved. `.env*` (except `.env.example`), `tmp/`,
+  `docs.archive/`, `docs/_planner/`, and agent memory never reach `master`.
+- **PROTECTED paths** — changes here need their own commit, a diff called out
+  explicitly in the change summary, and (once a real test runner exists)
+  coverage: `src/middleware.ts` (CSP/security headers), `src/features/forms/`
+  and any `bitrix-*` lib code (live lead forms + Bitrix24 webhook),
+  `src/features/analytics/` (GA4/Yandex Metrika).
+- **Reporting convention:** end-of-task summaries state what changed, which
+  files, and pass/fail for `type-check`/`lint`/`build` (there is no `test`
+  script — see above); call out surprises (spec assumptions that turned out
+  false) explicitly rather than silently working around them.

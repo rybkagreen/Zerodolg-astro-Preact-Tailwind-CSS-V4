@@ -1,9 +1,0 @@
-name = "Запустить сервер разработки Astro"
-description = "Запуск сервера разработки Astro с горячей перезагрузкой"
-
-prompt = "Запуск сервера разработки Astro"
-
-[command]
-type = "shell"
-run = "npm run dev"
-directory = "."

@@ -1,9 +1,0 @@
-name = "Аудит производительности Lighthouse"
-description = "Запуск аудита производительности с помощью Lighthouse"
-
-prompt = "Аудит производительности Lighthouse"
-
-[command]
-type = "shell"
-run = "npm run maintenance:lighthouse"
-directory = "."

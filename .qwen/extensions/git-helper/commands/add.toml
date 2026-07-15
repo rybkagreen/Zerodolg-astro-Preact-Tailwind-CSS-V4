@@ -1,9 +1,0 @@
-name = "Добавить изменения в Git"
-description = "Добавить все изменения в индекс Git"
-
-prompt = "Добавить изменения в Git"
-
-[command]
-type = "shell"
-run = "git add ."
-directory = "."
