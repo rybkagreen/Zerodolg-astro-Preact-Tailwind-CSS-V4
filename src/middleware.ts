@@ -24,12 +24,12 @@ export async function onRequest(
   // Set security headers
   // В dev режиме добавляем unsafe-eval для zod и других библиотек разработки
   const scriptSrc = isDev
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; "
-    : "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; ";
+    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru https://www.google.com https://www.gstatic.com; "
+    : "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru https://www.google.com https://www.gstatic.com; ";
 
   response.headers.set(
     'Content-Security-Policy',
-    `default-src 'self'; ${scriptSrc}style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' ws://localhost:* wss://localhost:* https://www.google-analytics.com https://region1.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru wss://mc.yandex.ru https://zerodolg.bitrix24.ru; frame-src 'self' https://www.google.com https://www.googletagmanager.com https://yandex.ru https://*.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;`
+    `default-src 'self'; ${scriptSrc}style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' ws://localhost:* wss://localhost:* https://www.google-analytics.com https://region1.google-analytics.com https://mc.yandex.ru https://yandex.ru https://*.yandex.ru wss://mc.yandex.ru https://zerodolg.bitrix24.ru https://www.google.com; frame-src 'self' https://www.google.com https://www.googletagmanager.com https://yandex.ru https://*.yandex.ru; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;`
   );
 
   response.headers.set('X-Frame-Options', 'DENY');
