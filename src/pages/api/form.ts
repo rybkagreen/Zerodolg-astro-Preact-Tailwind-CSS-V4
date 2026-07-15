@@ -157,6 +157,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       bitrixResult = await bitrixResponse.json();
     }
 
+    // WARN, not INFO, solely because prod's logger floor is WARN — this is a
+    // routine success event, not an anomaly. Riding on the floor is a known
+    // workaround, not a root-cause fix; revisit with a dedicated always-emit
+    // level (e.g. logger.audit()) if this ever needs to coexist with real
+    // WARN/ERROR-based alerting.
     logger.warn('Lead created', { leadId: bitrixResult.result, formType });
 
     // Определяем ценность конверсии
