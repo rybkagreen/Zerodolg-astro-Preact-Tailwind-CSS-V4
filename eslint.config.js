@@ -15,6 +15,12 @@ export default [
       '*.min.js',
       'public/**',
       'coverage/**',
+      // Gitignored scratch/reference trees, not project source. ESLint's flat
+      // config does not read .gitignore, so these need listing explicitly:
+      // tmp/ holds recon reports plus tmp/prod-snapshot/ (compiled production
+      // bundles), and docs.archive/ is the untracked legacy documentation copy.
+      'tmp/**',
+      'docs.archive/**',
       '.git/**',
       '.github/**',
       'eslint.config.js',
