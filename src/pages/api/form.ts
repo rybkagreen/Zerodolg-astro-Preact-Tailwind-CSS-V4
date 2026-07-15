@@ -211,3 +211,5 @@ export const GET: APIRoute = async () => {
     }
   );
 };
+
+export const HEAD: APIRoute = () => new Response(null, { status: 200 });
