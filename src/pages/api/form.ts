@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { SERVICE_VALUES } from '@shared/lib/analytics-manager';
 import { logger } from '@shared/lib/logger';
 import { isTestingEnv } from '@shared/config/testing-mode';
-import { checkRecaptchaConfigConsistency } from '@features/forms/lib/recaptcha';
+import { checkRecaptchaConfigConsistency, verifyRecaptcha } from '@features/forms/lib/recaptcha';
 
 export const prerender = false;
 
@@ -12,7 +12,7 @@ export const prerender = false;
 // for what it catches.
 checkRecaptchaConfigConsistency();
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   const webhookUrl = process.env['BITRIX24_WEBHOOK_URL'];
   const testingEnv = isTestingEnv();
 
@@ -47,6 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
     const email = (data['email'] as string) || '';
     const message = (data['message'] as string) || '';
     const formType = (data['formType'] as string) || 'callback';
+    const recaptchaToken = (data['recaptchaToken'] as string) || '';
 
     // Health-probe: all fields empty means monitoring, not a real submission
     if (!name && !phone && !email && !message) {
@@ -70,6 +71,24 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    const recaptchaConfigured = Boolean(
+      process.env['PUBLIC_RECAPTCHA_SITE_KEY'] && process.env['RECAPTCHA_SECRET']
+    );
+
+    if (!testingEnv && recaptchaConfigured) {
+      const passed = await verifyRecaptcha(recaptchaToken, clientAddress);
+      if (!passed) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error:
+              'Обнаружена подозрительная активность. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.',
+          }),
+          { status: 422, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
     // Определяем заголовок в зависимости от типа формы
     const titles: Record<string, string> = {
       callback: 'Заявка на обратный звонок',
@@ -80,35 +99,56 @@ export const POST: APIRoute = async ({ request }) => {
 
     const title = titles[formType] || 'Заявка с сайта';
 
-    // Формируем данные для Bitrix24
-    const bitrixData = {
-      fields: {
-        TITLE: `${title} - ${name}`,
-        NAME: name,
-        PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
-        EMAIL: email ? [{ VALUE: email, VALUE_TYPE: 'WORK' }] : undefined,
-        COMMENTS: message || `Форма: ${formType}`,
-        SOURCE_ID: 'WEB',
-        OPENED: 'Y',
-        ASSIGNED_BY_ID: 1,
-        UF_CRM_1234567890: formType, // Кастомное поле для типа формы
-      },
-    };
+    // Bitrix returns a numeric lead ID; the mock path below uses a string.
+    // Typed narrowly (not `unknown`) so the existing `.toString()` call in
+    // the success-response block further down the file keeps compiling.
+    let bitrixResult: { result?: string | number };
 
-    // Отправляем в Bitrix24
-    const bitrixResponse = await fetch(`${webhookUrl}crm.lead.add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bitrixData),
-    });
+    if (testingEnv) {
+      bitrixResult = { result: `mock_lead_${Date.now()}` };
+      logger.warn('TESTING MODE: skipping Bitrix24 webhook call', { formType });
+    } else {
+      // Формируем данные для Bitrix24
+      const bitrixData = {
+        fields: {
+          TITLE: `${title} - ${name}`,
+          NAME: name,
+          PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
+          EMAIL: email ? [{ VALUE: email, VALUE_TYPE: 'WORK' }] : undefined,
+          COMMENTS: message || `Форма: ${formType}`,
+          SOURCE_ID: 'WEB',
+          OPENED: 'Y',
+          ASSIGNED_BY_ID: 1,
+          UF_CRM_1234567890: formType, // Кастомное поле для типа формы
+        },
+      };
 
-    if (!bitrixResponse.ok) {
-      throw new Error(`Bitrix24 error: ${bitrixResponse.status}`);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10_000);
+      let bitrixResponse: Response;
+
+      try {
+        bitrixResponse = await fetch(`${webhookUrl}crm.lead.add`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bitrixData),
+          signal: controller.signal,
+        });
+      } catch (fetchError) {
+        if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+          throw new Error('Bitrix24 request timeout');
+        }
+        throw fetchError;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
+      if (!bitrixResponse.ok) {
+        throw new Error(`Bitrix24 error: ${bitrixResponse.status}`);
+      }
+
+      bitrixResult = await bitrixResponse.json();
     }
-
-    const bitrixResult = await bitrixResponse.json();
 
     // Логируем для отладки (только в режиме разработки)
     if (import.meta.env.DEV) {
