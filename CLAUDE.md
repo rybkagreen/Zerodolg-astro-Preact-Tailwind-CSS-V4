@@ -6,11 +6,27 @@ code in this repository.
 ## Project Overview
 
 ZeroDolg is a corporate website (zerodolg.ru) for a Russian legal company
-specializing in personal bankruptcy services. It's an Astro v5 static site with
-Preact islands for interactivity, organized loosely around Feature-Sliced Design
-(FSD). Claude Code is the sole executor for this project (git, builds, deploys)
-— a prior multi-tool setup (Qwen Code, Warp, a generic multi-agent config) was
-removed; see "Legacy docs" below.
+specializing in personal bankruptcy services. It's an **Astro v5 site rendered
+through the `@astrojs/node` adapter** (most pages prerendered, the form/health
+routes on-demand) with Preact islands for interactivity, organized loosely
+around Feature-Sliced Design (FSD). Claude Code is the sole executor for this
+project (git, builds, deploys) — a prior multi-tool setup (Qwen Code, Warp, a
+generic multi-agent config) was removed; see "Legacy docs" below.
+
+**Before you plan anything, know these three facts** (established 16.07.2026 by
+reconnaissance of the live server; full detail in `docs/PROJECT_KNOWLEDGE.md`):
+
+1. **Production is frozen at 08.11.2025 and was not built from this
+   repository.** It runs a newer SSR build whose source no longer exists — the
+   dev tree was lost with the owner's laptop. The repo is _behind_ production,
+   not ahead of it. Work in this repo has therefore been about absorbing what
+   prod already does, not shipping new things over it.
+2. **There is no deploy pipeline.** None. The chain that used to publish the
+   site lived on that same lost laptop; only its local half survives in
+   `scripts/deploy/`. You cannot ship anything today (BL-063).
+3. **Leads are not reaching the CRM.** The Bitrix24 webhook returns 401, and a
+   failed submission is not stored anywhere — no queue, no file, no retry. Every
+   enquiry is currently lost. Treat anything on the lead path accordingly.
 
 ## Commands
 
@@ -37,13 +53,30 @@ thing this repo has to a test suite (see below).
 
 ### There is no automated test suite
 
-Despite what `README.md` and `.github/workflows/ci.yml` claim, **`package.json`
-defines no `test` script, and Vitest/Testing Library are not dependencies.** The
-CI workflow's `npm run test` step will fail as configured. Puppeteer is
-installed only for the manual MCP tooling (`npm run mcp:server`,
-`npm run mcp:demo`, `tools/mcp-puppeteer-server.js`), not for an e2e test
-runner. If you add tests, you'll need to set up the runner from scratch (add the
-dependency, write the config, add the script) — don't assume one exists.
+Despite what `README.md` claims, **`package.json` defines no `test` script and
+Vitest is not a dependency** (README's «Vitest 3.2.4» row is fabricated — README
+lists five `npm run test*` scripts, none of which exist). Puppeteer is installed
+only for the manual MCP tooling (`npm run mcp:server`, `npm run mcp:demo`,
+`tools/mcp-puppeteer-server.js`), not for an e2e test runner. If you add tests,
+you'll need to set up the runner from scratch (add the dependency, write the
+config, add the script) — don't assume one exists. Cost estimate and the traps
+are in `docs/IMPLEMENTATION_PLAN.md` (BL-032).
+
+### There is no CI, and that is deliberate
+
+**GitHub Actions are unusable on this project — they don't work in Russia**
+(billing/access). The real CI has always been the **local gate**, invoked by the
+deploy script. `.github/workflows/ci.yml` was deleted on 16.07.2026: it was a
+dead artifact that triggered on `main`/`develop` while the default branch is
+`master`, ran a `npm run test` script that doesn't exist, and pinned actions to
+mutable tags. Do not re-add a workflow, and don't treat a green GitHub check as
+meaningful — there are none. The gate is:
+
+```
+npm run type-check && npm run lint && npm run build && npm run build:prod
+```
+
+(`npm run test` is **not** part of it — see above.)
 
 ### Environment / Deploy / Maintenance
 
@@ -111,18 +144,48 @@ appear in older docs but aren't wired up anywhere. Use `@/core/...`,
 - **Islands Architecture**: only `src/islands/**` contains hydrated Preact
   components; everything under `components/`, `widgets/`, `pages/` is static
   Astro output unless it explicitly imports an island.
-- **Static generation**: `output: 'static'` in `astro.config.mjs`; no SSR.
+- **Not a static site — SSR with a Node adapter.** `astro.config.mjs` (and
+  `astro.config.prod.mjs`) set `output: 'static'` **plus**
+  `adapter: node({ mode: 'standalone' })`, and individual routes opt out of
+  prerendering with `export const prerender = false` — currently
+  `src/pages/api/form.ts:7` and `src/pages/health.ts:3`. So most pages are
+  prerendered, but **the build emits `dist/server/entry.mjs` and needs a running
+  Node process**; it is not deployable as flat files. Production runs exactly
+  this under PM2. An older claim that this repo is `output: 'static'` with "no
+  SSR" was wrong — don't restore it, and don't drop `@astrojs/node` from
+  `package.json`/`package-lock.json` (doing so silently turns the build static
+  again, and it only surfaces at deploy).
 - **Progressive enhancement / mobile-first / WCAG 2.2** are stated goals —
   verify manually, there's no automated a11y or visual-regression check.
+  Mobile-first is real, not aspirational: 621 responsive prefixes across 39 of
+  85 `.astro`/`.tsx` files (`privacy`/`terms` are the exception, with none).
 
-### Security headers & caching
+### Security headers & caching — read this before touching CSP
 
 `src/middleware.ts` sets Content-Security-Policy, X-Frame-Options,
-X-Content-Type-Options, Referrer-Policy, Permissions-Policy, and Cache-Control
-on every response. The CSP has a dev-only branch that adds `unsafe-eval` when
-`import.meta.env.DEV` — check this file (not just the CSP meta tags, if any)
-when adding a new third-party script domain (analytics, maps, etc.), since the
-allowlist is hardcoded here.
+X-Content-Type-Options, Referrer-Policy, Permissions-Policy and Cache-Control,
+with a dev-only branch adding `unsafe-eval` under `import.meta.env.DEV`.
+
+**But it does not set them "on every response", and in production it governs no
+HTML at all.** This is counter-intuitive and was documented wrongly before:
+
+- Under `output: 'static'`, middleware runs for prerendered routes **at build
+  time**. Only the HTML body is written to disk, so the `Response` headers it
+  produced are discarded and no browser ever sees them.
+- Only two routes are on-demand (`prerender = false`): `src/pages/api/form.ts`
+  and `src/pages/health.ts`. Neither returns HTML, and CSP is inert on a JSON
+  endpoint. So **the middleware's CSP currently protects nothing in prod**.
+- The CSP that actually reaches browsers is nginx's, in
+  `infra/nginx/zerodolg.ru.conf` (a versioned copy of the live config). It is a
+  **different, materially weaker policy** — most notably it ships
+  `'unsafe-eval'` unconditionally in production, which the middleware
+  deliberately gates behind dev-only. Details and the full comparison are in
+  `ARCHITECTURE.md §7`.
+
+**Practical rule:** adding a third-party script domain means editing **both**
+allowlists — `src/middleware.ts` _and_ `infra/nginx/zerodolg.ru.conf` — and the
+nginx one is the one that takes effect on the live site. Reconciling the two is
+BL-069; don't quietly paper over it in a feature commit.
 
 ### MCP integration
 
@@ -133,13 +196,29 @@ Standalone MCP/Puppeteer tooling lives in `tools/mcp-puppeteer-server.js` and
 
 ## Styling: Tailwind CSS is v3, not v4
 
-Despite `README.md` and other docs describing "Tailwind CSS v4",
 **`package.json` pins `tailwindcss: ^3.4.17`**, and both `tailwind.config.js`
 and `postcss.config.cjs` are explicitly headed "Tailwind CSS v3" — this is a
 classic `tailwind.config.js` + PostCSS setup (`postcss-import`,
 `postcss-nesting`, `postcss-preset-env`, `autoprefixer`, `cssnano` in prod), not
 v4's CSS-first `@theme`/Vite-plugin config. Write v3 config/utility syntax here,
-not v4 syntax. The design-token color system uses OKLCH.
+not v4 syntax.
+
+Only the **repository name** says "V4" (`Zerodolg-astro-Preact-Tailwind-CSS-V4`)
+— that's a naming fossil, not a version claim. An earlier version of this file
+said README described "Tailwind CSS v4"; that was itself wrong — README
+correctly states 3.4.17 throughout. Verified 16.07.2026.
+
+### The token system is broken, not just "OKLCH"
+
+`src/styles/theme.css` defines 36 OKLCH `--color-*` variables and is **imported
+by nothing** — `globals.css` doesn't list it. Consumers without a fallback
+silently lose the property; consumers with one render the fallback. Marketing
+coverage by design tokens is ~3.6% (≈67 token uses against ≈1795 default
+Tailwind palette occurrences), and 26 references point at Tailwind tokens that
+don't exist, so those classes never generate. Treat "just change the token" as
+false: see BL-019/BL-020/BL-021 and the P3.0 stage in
+`docs/IMPLEMENTATION_PLAN.md`. (Counts are ±10% — a recount gave 559/1935; they
+are estimates, not measurements.)
 
 ## Code Conventions
 
@@ -228,9 +307,36 @@ version). The parts that materially change day-to-day behavior in this repo:
   `docs.archive/`, `docs/_planner/`, and agent memory never reach `master`.
 - **PROTECTED paths** — changes here need their own commit, a diff called out
   explicitly in the change summary, and (once a real test runner exists)
-  coverage: `src/middleware.ts` (CSP/security headers), `src/features/forms/`
-  and any `bitrix-*` lib code (live lead forms + Bitrix24 webhook),
-  `src/features/analytics/` (GA4/Yandex Metrika).
+  coverage. **Rebuilt 16.07.2026 against the actual import graph (BL-024)** —
+  the previous list guarded a dead file and left the live lead path unguarded,
+  so any earlier estimate of "work inside the protected perimeter" was drawn on
+  a wrong map.
+
+  **Live lead path** (a bug here loses a real client's enquiry — a lead is worth
+  tens of thousands of roubles to this firm, and there is currently _no_
+  fallback store, so a failure means the data is simply gone):
+  - `src/pages/api/form.ts` — the SSR endpoint every form posts to
+  - `src/features/forms/lib/recaptcha.ts`, `.../recaptcha-client.ts` — server
+    verification + client token capture
+  - `src/islands/forms/FormEnhancedFinal.tsx` — the base all 14 form instances
+    render through
+  - `src/components/forms/**` — the form components themselves
+  - `src/shared/ui/BitrixCallback.astro` — currently leaks the webhook into
+    client HTML via `define:vars` (BL-054); do not touch casually
+  - any `bitrix-*` lib code
+
+  **Security / headers:**
+  - `src/middleware.ts` — CSP and security headers
+  - `infra/nginx/zerodolg.ru.conf` — the CSP that actually reaches browsers
+
+  **Live analytics:**
+  - `src/shared/lib/analytics-manager.ts` — the real GA4/Metrika manager
+  - `src/app/layouts/Layout.astro` — inline counter snippets (~`:158`, `:195`)
+
+  **Deliberately NOT protected:** `src/features/analytics/` (409 lines, **zero
+  importers** — verified dead; it was the only analytics path the old list
+  named). Don't re-add it to this list; delete it instead (BL-022/BL-024).
+
 - **Reporting convention:** end-of-task summaries state what changed, which
   files, and pass/fail for `type-check`/`lint`/`build` (there is no `test`
   script — see above); call out surprises (spec assumptions that turned out
