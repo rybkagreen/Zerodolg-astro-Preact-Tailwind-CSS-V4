@@ -22,7 +22,6 @@ export default [
       'jest.setup.ts',
       'astro.config.mjs',
       'astro.config.prod.mjs',
-      'astro.config.optimized.mjs',
       'tailwind.config.js',
       'postcss.config.cjs',
       '**/*.d.ts',
